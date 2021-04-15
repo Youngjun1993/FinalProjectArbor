@@ -1,4 +1,4 @@
-package com.test.final;
+package com.test.finalproj;
 
 import java.text.DateFormat;
 import java.util.Date;
