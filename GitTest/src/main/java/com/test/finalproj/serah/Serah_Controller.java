@@ -4,6 +4,7 @@ public class Serah_Controller {
 
 	public Serah_Controller() {
 		String test;
+		String test2;
 	}
 
 }
