@@ -6,8 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css" />
+<script src="<%=request.getContextPath() %>/lib/jquery-3.4.1.js"></script>
 </head>
 <body>
 <div class="w1400_container">
+	<h1>먹었냐?</h1>
 	<img src="<%=request.getContextPath() %>/img/logo.png"/>
 </div>

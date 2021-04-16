@@ -27,6 +27,6 @@ body{
 }
 .clearfix:after{
 	content:"";
-	display: block;
+	display: none;
 	clear:both;
 }
