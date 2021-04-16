@@ -5,6 +5,7 @@
 <head>
 	<title>QNA</title>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/qna.css" type="text/css"/>
 </head>
 <body>
 	<div id="header">
@@ -42,11 +43,11 @@
                 <li>2021-03-31</li>
                 
             </ul>
-            <input type="submit" name="qnaGo" id="qnaGo" value="문의하기"/>
+            <a href="#" id="qnaGo">문의하기</a>
         </div>
     </div>
     <div id="footer">
-    	ddddd
+        
     </div>
 </body>
 </html>
