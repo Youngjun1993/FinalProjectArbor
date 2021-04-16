@@ -1,0 +1,31 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+/*reset*/
+body, h1, h2, h3, h4, ul, ol, dl, dt, li, dd, p{margin: 0;padding: 0;}
+li{list-style: none;}
+img{border: none;}
+a{text-decoration: none;}
+body{
+	font-family: 'Malgun Gothic', '맑은 고딕', dotum, '돋움';
+	background: #fff;
+}
+
+/*class*/
+.w1400_container{
+	width:1400px;
+	margin:0 auto;
+}
+.font_ng{
+	font-family: 'Nanum Gothic', sans-serif;
+}
+.wordcut{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.clearfix:after{
+	content:"";
+	display: none;
+	clear:both;
+}
