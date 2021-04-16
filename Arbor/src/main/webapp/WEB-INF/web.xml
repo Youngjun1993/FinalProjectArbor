@@ -54,8 +54,8 @@
 	<jsp-config>
        	<jsp-property-group>
        		<url-pattern>*.jsp</url-pattern>
-       		<include-prelude>/inc/top.jspf</include-prelude>
-       		<include-coda>/inc/bottom.jspf</include-coda>
+       		<include-prelude>/WEB-INF/inc/top.jspf</include-prelude>
+       		<include-coda>/WEB-INF/inc/bottom.jspf</include-coda>
        	</jsp-property-group>
     </jsp-config>
 

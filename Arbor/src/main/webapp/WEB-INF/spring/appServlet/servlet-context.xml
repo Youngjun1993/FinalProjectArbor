@@ -30,6 +30,7 @@
 		<beans:property name="username" value="c##kangsan2"></beans:property>
 		<beans:property name="password" value="c##kangsan2"></beans:property>
 	</beans:bean>
+	
 	<!-- Mybatis 객체생성 -->
 	<beans:bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource"></beans:property>
