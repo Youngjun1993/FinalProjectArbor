@@ -47,7 +47,7 @@
         </div>
     </div>
     <div id="footer">
-        
+        에러잡자
     </div>
 </body>
 </html>
