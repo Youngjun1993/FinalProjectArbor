@@ -35,7 +35,7 @@ nav ul li:hover .sub_menu{
 }
 nav ul li .sub_menu .col{width:12%; height:350px;paddin-left:20px; letter-spacing:1px;}
 nav ul li .sub_menu .col>ul{width:12%;padding-top:20px;paddin-left:20px;}
-nav ul li .sub_menu .col>ul>li:first-child{font-size:20px; font-weight:lighter;}
+nav ul li .sub_menu .col>ul>li:first-child{color:rgb(90,120,114);font-size:20px; font-weight:lighter;}
 
 nav ul li .sub_menu .col ul li{line-height:50px; font-size:16px; font-weight:bold;}
 nav ul li .sub_menu .col ul li a{position:relative; padding-bottom:5px;}
