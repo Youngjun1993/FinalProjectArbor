@@ -1,1 +1,3 @@
-CKEDITOR.replace("description");
+function editorStart() {
+	CKEDITOR.replace("description");
+}

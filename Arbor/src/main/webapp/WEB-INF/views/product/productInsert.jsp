@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/product.css" type="text/css"/>
-<script src="<%=request.getContextPath()%>/javaScript/product.js"></script>
 <div class="w1400_container font_ng">
 	<div id="sidefrm">사이드메뉴</div>
 	<div id="centerfrm">
@@ -44,7 +43,7 @@
 				<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 				<h3>상세설명</h3><br/>
 				<textarea name="description" id="description"></textarea>
-				<script></script>
+				<script>CKEDITOR.replace("description");</script>
 			</div>
 			<br/>
 		</div>
