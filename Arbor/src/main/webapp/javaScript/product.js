@@ -1,3 +1,3 @@
-function editorStart() {
+$(document).ready(function(){
 	CKEDITOR.replace("description");
-}
+});
