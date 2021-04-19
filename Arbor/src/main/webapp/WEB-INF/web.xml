@@ -53,7 +53,12 @@
 	
 	<jsp-config>
        	<jsp-property-group>
-       		<url-pattern>*.jsp</url-pattern>
+       		<url-pattern>/WEB-INF/views/home.jsp</url-pattern>
+       		<include-prelude>/WEB-INF/inc/top.jspf</include-prelude>
+       		<include-coda>/WEB-INF/inc/bottom.jspf</include-coda>
+       	</jsp-property-group>
+       	<jsp-property-group>
+       		<url-pattern>/WEB-INF/views/client/*</url-pattern>
        		<include-prelude>/WEB-INF/inc/top.jspf</include-prelude>
        		<include-coda>/WEB-INF/inc/bottom.jspf</include-coda>
        	</jsp-property-group>
