@@ -2,7 +2,7 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-                                          
+
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -53,10 +53,16 @@
 	
 	<jsp-config>
        	<jsp-property-group>
-       		<url-pattern>*.jsp</url-pattern>
+       		<url-pattern>/WEB-INF/views/home.jsp</url-pattern>
+       		<include-prelude>/WEB-INF/inc/top.jspf</include-prelude>
+       		<include-coda>/WEB-INF/inc/bottom.jspf</include-coda>
+       	</jsp-property-group>
+       	<jsp-property-group>
+       		<url-pattern>/WEB-INF/views/client/*</url-pattern>
        		<include-prelude>/WEB-INF/inc/top.jspf</include-prelude>
        		<include-coda>/WEB-INF/inc/bottom.jspf</include-coda>
        	</jsp-property-group>
     </jsp-config>
 
 </web-app>
+>>>>>>> refs/heads/main

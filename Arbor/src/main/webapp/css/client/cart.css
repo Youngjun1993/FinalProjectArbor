@@ -44,16 +44,9 @@
 #wrap>ul li{
     float: left;
     width: 350px;
-    padding: 50px 0;
     text-align: center;
     border-top: 1px solid #ddd;
 }
-#wrap>ul li:nth-child(-n+4){
-    height: 40px;
-    line-height: 40px;
-    padding: 0;
-}
-#wrap>ul>.clearfix{
-    width: 80px;
-    padding: 50px 135px;
+#wrap>ul li:nth-child(4n+3){
+    padding: 19px 0px;
 }
