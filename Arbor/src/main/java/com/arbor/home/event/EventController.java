@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class EventController {
-	@RequestMapping("/eventPage")
+	@RequestMapping("/event")
 	public String eventPage() {
-		return "event/eventPage";
+		return "event/event";
 	}
 
 }
