@@ -27,7 +27,7 @@
 <body>
 <header class="w1400_container">
 	<div id="topline">Funiture is not bulit in a day</div>
-	<a href="/"><img src="<%=request.getContextPath() %>/img/logo3.png" id="logo"/></a>
+	<a href="/"><img src="<%=request.getContextPath() %>/img/logogo.png" id="logo"/></a>
 	<nav>
 		<ul>
 			<li><a href="">FUNITURE</a>
