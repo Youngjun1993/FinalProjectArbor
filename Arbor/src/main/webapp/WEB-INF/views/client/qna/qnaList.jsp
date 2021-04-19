@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<div id="header">
-        <ul>
-            <li></li>
-            <li>header</li>
-        </ul>
-    </div>
     <div id="y_qnaWrap" class="w1400_container clearfix">
         <div id="y_leftMenu">
             <ul>
@@ -38,7 +32,4 @@
             </ul>
             <a href="#" id="y_qnaGo">문의하기</a>
         </div>
-    </div>
-    <div id="footer">
-        에러잡자
     </div>
