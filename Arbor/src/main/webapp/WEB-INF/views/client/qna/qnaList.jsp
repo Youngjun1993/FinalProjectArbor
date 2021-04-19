@@ -22,13 +22,13 @@
                 <li>주문번호</li>
                 <li>처리상태</li>
                 <li>등록일</li>
-                
-                <li>상품문의</li>
-                <li><a href="#" class="wordcut">박ㅇㅇ님의 문의글 입니다.</a></li>
-                <li>20202020-202020</li>
-                <li><span class="y_anserWait">답변대기</span></li>
-                <li>2021-03-31</li>
-                
+                <c:forEach var="data" items="${list }">
+	                <li>${data.qnacate }</li>
+	                <li><a href="#" class="wordcut">${data.qnasubject }</a></li>
+	                <li>${data.orderno }</li>
+	                <li><span class="y_anserWait">답변대기</span></li>
+	                <li>${data.qnadate }</li>
+                </c:forEach>
             </ul>
             <a href="#" id="y_qnaGo">문의하기</a>
         </div>

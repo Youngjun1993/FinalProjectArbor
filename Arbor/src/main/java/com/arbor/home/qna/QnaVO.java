@@ -7,8 +7,30 @@ public class QnaVO {
 	private String qnasubject;
 	private String qnacontent;
 	private int orderno;
+	private int qnaorgno;
+	private int qnastep;
+	private int qnaprint;
 	private String answercontent;
 	private String qnadate;
+	
+	public int getQnaorgno() {
+		return qnaorgno;
+	}
+	public void setQnaorgno(int qnaorgno) {
+		this.qnaorgno = qnaorgno;
+	}
+	public int getQnastep() {
+		return qnastep;
+	}
+	public void setQnastep(int qnastep) {
+		this.qnastep = qnastep;
+	}
+	public int getQnaprint() {
+		return qnaprint;
+	}
+	public void setQnaprint(int qnaprint) {
+		this.qnaprint = qnaprint;
+	}
 	public int getQnano() {
 		return qnano;
 	}
