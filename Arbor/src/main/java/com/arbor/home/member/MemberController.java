@@ -13,12 +13,16 @@ public class MemberController {
 	
 	@RequestMapping("/memberSearch")
 	public String membersearch() {
-		return "member/memberSearch";
+		return "admin/member/memberSearch";
 	}
 	
 	@RequestMapping("/memberSlide")
 	public String memberslide() {
-		return "member/memberSlide";
+		return "admin/member/memberSlide";
+	}
+	@RequestMapping("/member")
+	public String member() {
+		return "admin/member/member_tab";
 	}
 	
 }
