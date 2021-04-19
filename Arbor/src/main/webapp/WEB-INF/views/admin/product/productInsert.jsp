@@ -6,10 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/product.css" type="text/css"/>
-<script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/product.css" type="text/css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/javaScript/product.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/product.js"></script>
+<script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
 <script>
 	
 </script>
