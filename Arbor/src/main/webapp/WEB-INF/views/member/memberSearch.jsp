@@ -13,7 +13,7 @@
 	<img src="<%=request.getContextPath() %>/img/subLogo.jpg">
 		<div id="tree_menu">
 			<ul class="tree_menu depth_1">
-				<li>
+				<li class="depth_1box">
 					<a href="#none"><em></em>회원관리</a>
 					<ul class="depth_2">
 						<li><a href="#none">회원검색</a></li>
@@ -21,6 +21,7 @@
 						<li><a href="#none">회원탈퇴 및 회원삭제</a></li>
 					</ul>
 				</li>
+				
 				<li>
 					<a href="#none"><em></em>상품관리</a>
 					<ul class="depth_2">

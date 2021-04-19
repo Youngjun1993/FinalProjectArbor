@@ -16,6 +16,9 @@ public class MemberController {
 		return "member/memberSearch";
 	}
 	
-	
+	@RequestMapping("/memberSlide")
+	public String memberslide() {
+		return "member/memberSlide";
+	}
 	
 }
