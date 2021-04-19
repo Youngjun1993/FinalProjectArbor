@@ -16,7 +16,7 @@
         </div>
         <div id="y_write_rightcon" class="y_rightcon">
             <p class="y_title_fs25">1:1문의(Q&#38;A) 작성하기</p>
-            <form method="post" action="/client/qna/qnaList">
+            <form method="post" action="qnaWriteOk">
                 <div>
                 	<p>제목 <span class="colorRed">*</span>
                     <p>
