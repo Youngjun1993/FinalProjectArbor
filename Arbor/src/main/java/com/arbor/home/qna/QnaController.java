@@ -20,4 +20,9 @@ public class QnaController {
 		mav.setViewName("client/qna/qnaList");
 		return mav;
 	}
+	
+	@RequestMapping("/qnaWrite")
+	public String qnaWrite() {
+		return "client/qna/qnaWrite";
+	}
 }

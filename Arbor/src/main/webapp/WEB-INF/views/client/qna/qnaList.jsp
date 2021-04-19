@@ -14,7 +14,7 @@
                 <li><a href="#">회원탈퇴</a></li>
             </ul>
         </div>
-        <div id="y_rightcon">
+        <div id="y_list_rightcon" class="y_rightcon">
             <p class="y_title_fs25">1:1문의(Q&#38;A)</p>
             <ul class="clearfix">
                 <li>문의유형</li>
@@ -30,6 +30,6 @@
 	                <li>${data.qnadate }</li>
                 </c:forEach>
             </ul>
-            <a href="#" id="y_qnaGo">문의하기</a>
+            <a href="qnaWrite" id="y_qnaGo">문의하기</a>
         </div>
     </div>
