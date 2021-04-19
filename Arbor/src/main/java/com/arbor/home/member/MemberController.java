@@ -1,9 +1,12 @@
 package com.arbor.home.member;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Controller
 public class MemberController {
@@ -11,18 +14,21 @@ public class MemberController {
 	@Autowired
 	SqlSession sqlSession;
 	
-	@RequestMapping("/memberSearch")
-	public String membersearch() {
-		return "admin/member/memberSearch";
+	@RequestMapping("/loginForm")
+	public String loginForm() {
+		return "admin/member/login";
 	}
 	
-	@RequestMapping("/memberSlide")
-	public String memberslide() {
-		return "admin/member/memberSlide";
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "home";
 	}
-	@RequestMapping("/member")
+	
+	
+	@RequestMapping("/memberSearch")
 	public String member() {
-		return "admin/member/member_tab";
+		return "admin/member/memberAdminSearch";
 	}
 	
 }
