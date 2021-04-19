@@ -2,56 +2,56 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-	<title>arbor > event</title>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/event.css" type="text/css"/>
+<title>arbor > event</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/event.css" type="text/css"/>
 <script>
 	$(function(){
-		$(".tab_label").click(function(){
+		$(".j_tab_label").click(function(){
 			var title = $(this).text();
 			console.log(title);
-			$(".eventTitle").text(title);
-		});
+			$(".j_eventMenu").text(title);
+		});		
 	});
 
 </script>
 </head>
 <body>
 <div class="w1400_container">
-	<div class="eventTitle">
-		<span>이벤트 타이틀</span>
+	<div class="j_eventMenu">
+		<span>TIME SALE</span>
 	</div>
-	<div class="tab-wrap">
-		<input type="radio" name="tabs" id="tab1">
-		<label for="tab1" class="tab_label">TIME SALE</label>
+	<div class="j_tab-wrap">
+		<input type="radio" name="tabs" class="j_tabs" id="j_tab1">
+		<label for="j_tab1" class="j_tab_label">TIME SALE</label>
 
-		<input type="radio" name="tabs" id="tab2">
-		<label for="tab2" class="tab_label">진행중인 이벤트</label>
+		<input type="radio" name="tabs" class="j_tabs" id="j_tab2" checked>
+		<label for="j_tab2" class="j_tab_label">진행중인 이벤트</label>
 
-		<input type="radio" name="tabs" id="tab3" checked>
-		<label for="tab3" class="tab_label">지난 이벤트</label>
+		<input type="radio" name="tabs" class="j_tabs" id="j_tab3">
+		<label for="j_tab3" class="j_tab_label">지난 이벤트</label>
 		
 		<!-- 타임세일 -->
-		<div class="tab-content" id="tab1_content">타임세일
+		<div class="j_tab-content" id="j_tab1_content">타임세일
 		
 		</div>
 		
 		<!-- 진행중인 이벤트 -->
-		<div class="tab-content" id="tab2_content">
-			<div class="clearfix search">
+		<div class="j_tab-content" id="j_tab2_content">
+			<div class="clearfix j_search">
 				<form method="post" action="">
-					<select id="searchKey">
+					<select id="j_searchKey">
 						<option value="subject">제목</option>
 						<option value="content">내용</option>
 					</select>
-					<input type="text" name="searchWord" id="searchWord" placeholder="검색어 입력"/>
+					<input type="text" name="searchWord" id="j_searchWord" placeholder="검색어 입력"/>
 					<input type="submit" value="검색"/>
 				</form>
 			</div>
 			<div>
-				<ul class="clearfix eventList">
+				<ul class="clearfix" id="j_eventList">
 					<li>
-						<a href="">
+						<a href="eventView">
 							<img src="<%=request.getContextPath() %>/img/eventTest.PNG"><br/>
 							<strong>2021 봄제품 사은품 증정</strong>
 						</a>
@@ -111,29 +111,33 @@
 		</div>
 		
 		<!-- 지난 이벤트 -->
-		<div class="tab-content" id="tab3_content">
+		<div class="j_tab-content" id="j_tab3_content">
 			<ul class="clearfix">
 				<li>번호</li>
+				<li></li>
 				<li>이벤트 항목</li>
 				<li>이벤트 기간</li>
 				
 				<li>3</li>
-				<li>지난 이벤트3</li>
+				<li></li>
+				<li class="j_subejct">지난 이벤트3</li>
 				<li>2021/01/01~2021/01/31</li>
 				<li>2</li>
-				<li>지난 이벤트2</li>
+				<li></li>
+				<li class="j_subejct">지난 이벤트2</li>
 				<li>2021/01/01~2021/01/31</li>
 				<li>1</li>
-				<li>지난 이벤트1</li>
+				<li></li>
+				<li class="j_subejct">지난 이벤트1</li>
 				<li>2021/01/01~2021/01/31</li>
 			</ul>
-			<div class="clearfix search">
+			<div class="clearfix j_search">
 				<form method="post" action="">
-					<select id="searchKey">
+					<select id="j_searchKey">
 						<option value="subejct">제목</option>
 						<option value="content">내용</option>
 					</select>
-					<input type="text" name="searchWord" id="searchWord" placeholder="검색어 입력"/>
+					<input type="text" name="searchWord" id="j_searchWord" placeholder="검색어 입력"/>
 					<input type="submit" value="검색"/>
 				</form>			
 			</div>
