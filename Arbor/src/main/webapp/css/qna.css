@@ -64,10 +64,10 @@
     text-align: center;
     border-bottom: 2px solid #ccc;
 }
-#rightcon>ul{
+#rightcon>ul:first-of-type{
     margin-bottom: 30px;
 }
-#rightcon>ul>li{
+#rightcon>ul:first-of-type>li{
     float: left;
     text-align: center;
     height: 40px;
@@ -75,9 +75,10 @@
     width: 15%;
     border-bottom: 1px solid #eee;
 }
-#rightcon>ul>li:nth-child(5n+2){
+#rightcon>ul:first-of-type>li:nth-child(5n+2){
     width: 40%;
 }
+/*문의하기 버튼*/
 #qnaGo{
     width: 300px;
     height: 40px;
@@ -87,6 +88,22 @@
     color: #fff;
     font-weight: bold;
     margin: auto;
+    display: block;
+    text-align: center;
+    margin-bottom: 30px;
+}
+/*페이징*/
+#paging{
+    width: 150px;
+    margin:0 auto;
+}
+#paging li{
+    float: left;
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+}
+#paging li a{
     display: block;
     text-align: center;
 }
