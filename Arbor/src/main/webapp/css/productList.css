@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+/* id css*/
+
+/* center */
+#center {
+	text-align: center;
+	margin-top: 40px;
+}
+
+#listTitle {
+	margin: 30px 0;
+}
+
+#center>img {
+	width: 350px; height: 250px;
+	margin:10px 20px;
+}
+
+/* header */
+#header {
+	width: 100%; height: 30px;
+	margin-top: 130px;
+}
+#leftTitle{
+	width: 25%; float:left;
+}
+
+#leftTitle>li {
+	float:left; text-align: left;
+}
+#leftTitle>li:nth-of-type(2n) {
+	width: 5%;
+}
+
+#rightTitle {
+	width: 25%; float:right;
+}
+
+#rightTitle>li {
+	float:left; width: 20%;
+	text-align: center;
+}
+
+#rightTitle>li:first-child {
+	text-align: right;
+}
+
+#rightTitle>li:nth-of-type(2n) {
+	width: 6%;
+}
+
+/* list */
+#list {
+	margin-top: 60px;
+}
+#list li {
+	width: 25%; height: 500px;
+	float:left; text-align:center;
+}
+#list>ul>li>a {
+	display:block;
+	width: 100%; text-align: center;
+	height: 250px;
+}
+
+#list>ul>li>a>img {
+	width: 300px; height: 250px; position:relative;
+}
+
+/* class css */
+.color {
+	width: 50%; height: 20px;
+	margin-left: 30px; 
+}
+.color>div {
+	float:left; width:10px; height:10px; background-color: red;
+	margin: 5px;
+}
+.color>div:nth-of-type(2) {
+	background-color: maroon;
+}
+.color>div:nth-of-type(3) {
+	background-color: navy;
+}
+
+.listdetail1 {
+	font-size: 1.1em; font-weight: bold;
+	margin:5px 0;
+}
+.listdetail2 {
+	color:red; text-decoration:line-through;
+}
+.listdetail3 {
+	font-size: 1.2em;
+}
+
+/* tag css */
+
