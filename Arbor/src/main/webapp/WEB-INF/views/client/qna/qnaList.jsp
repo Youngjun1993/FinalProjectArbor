@@ -8,14 +8,14 @@
                 <li><a href="#">구매내역</a></li>
                 <li><a href="#">회원정보수정</a></li>
                 <li><a href="#">리뷰관리</a></li>
-                <li><a href="#">1:1문의</a></li>
+                <li><a href="qnaList">1:1문의</a></li>
                 <li><a href="#">쿠폰내역</a></li>
                 <li><a href="#">적립금내역</a></li>
                 <li><a href="#">회원탈퇴</a></li>
             </ul>
         </div>
         <div id="y_list_rightcon" class="y_rightcon">
-            <p class="y_title_fs25">1:1문의(Q&#38;A)</p>
+            <p class="y_title_fs25">1:1문의(Q&#38;A) 목록</p>
             <ul class="clearfix">
                 <li>문의유형</li>
                 <li>제목</li>
@@ -24,7 +24,7 @@
                 <li>등록일</li>
                 <c:forEach var="data" items="${list }">
 	                <li>${data.qnacate }</li>
-	                <li><a href="#" class="wordcut">${data.qnasubject }</a></li>
+	                <li><a href="qnaView?qnano=${data.qnano }" class="wordcut">${data.qnasubject }</a></li>
 	                <li>${data.orderno }</li>
 	                <li><span class="y_anserWait">답변대기</span></li>
 	                <li>${data.qnadate }</li>
