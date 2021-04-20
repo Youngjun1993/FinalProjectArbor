@@ -29,6 +29,8 @@ public class QnaController {
 	public String qnaWrite() {
 		return "client/qna/qnaWrite";
 	}
+	
+	//세션 아이디 가져오기 수정해야됨 2021-04-20
 	@RequestMapping(value="/qnaWriteOk", method=RequestMethod.POST)
 	public ModelAndView qnaWriteOk(QnaVO vo) {
 		vo.setUserid("zerojunee");
@@ -52,5 +54,42 @@ public class QnaController {
 		model.addAttribute("vo",vo);
 		
 		return "client/qna/qnaView";
+	}
+	@RequestMapping("/qnaEdit")
+	public ModelAndView qnaEdit(int qnano) {
+		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vo", dao.qnaSelect(qnano));
+		mav.setViewName("client/qna/qnaEdit");
+		
+		return mav;
+	}
+	//세션 아이디값 가져오기 수정해야됨 2021-04-20
+	@RequestMapping("/qnaEditOk")
+	public ModelAndView qnaEditOk(QnaVO vo) {
+		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
+		int cnt = dao.qnaUpdate(vo);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("qnano", vo.getQnano());
+		if(cnt>0) {
+			mav.setViewName("redirect:qnaView");
+		}else {
+			mav.setViewName("redirect:qnaEdit");
+		}
+		return mav;
+	}
+	@RequestMapping("/qnaDel")
+	public ModelAndView qnaDel(int no) {
+		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
+		
+		ModelAndView mav = new ModelAndView();
+		if(dao.qnaDelete(no)>0) {
+			mav.setViewName("redirect:qnaList");
+		}else {
+			mav.setViewName("redirect:qnaView");
+		}
+		return mav;
 	}
 }
