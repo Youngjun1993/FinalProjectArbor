@@ -25,7 +25,6 @@ public class MemberController {
 		return "home";
 	}
 	
-	
 	@RequestMapping("/memberSearch")
 	public String member() {
 		return "admin/member/memberAdminSearch";

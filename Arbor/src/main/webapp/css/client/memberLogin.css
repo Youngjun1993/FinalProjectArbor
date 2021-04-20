@@ -1,7 +1,139 @@
 @charset "UTF-8";
 
 .h_login{
-	width:1400px;
+	width:800px;
 	text-align:center;
-	
+	height:60px;
+	line-height:60px;
+	vertical-align:center;
+	margin:0;
+	padding:20px 0 0;
 }
+
+.h_loginContainer {
+  position: relative;
+  overflow: hidden;
+  width: 800px;
+  height: 550px;
+  margin: 100px auto 0;
+  background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
+}
+	.h_half {
+  float: left;
+  width: 300px;
+  height: 400px;
+  padding: 0;
+  margin: 35px 45px;
+}
+	.h_half.img {
+  float:right;
+}
+	.h_half.img img {
+  width: 300px;
+  height: 400px;
+}
+  .h_loginContainer .h_content form {
+  position: relative;
+  height: 400px;
+}
+  .h_loginContainer .h_content label {
+  font-size: 12px;
+  color: #263238;
+  user-select: none;
+}
+  .h_loginContainer .h_content label:not([for='remember']) {
+  display: none;
+}
+  .h_loginContainer .h_content input.h_input {
+  font-size: 14px;
+  display: block;
+  width: 300px;
+  height: 18px;
+  margin-bottom: 12px;
+  padding: 16px 14px;
+  border: 1px solid #d9d9d9;
+  background: transparent;
+  border-radius: 2px;
+}
+  .h_loginContainer .h_content input.h_input:focus {
+  border-color: #999999;
+}
+  .h_loginContainer .h_content input.h_submit {
+  font-size: 12px;
+  line-height: 42px;
+  display: block;
+  width: 330px;
+  height: 42px;
+  cursor: pointer;
+  vertical-align: middle;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #263238;
+  border: 1px solid #263238;
+  background: transparent;
+  border-radius: 2px;
+  text-align:center;
+}
+  .h_loginContainer .h_content input.h_submit:hover {
+  background-color: #263238;
+  color: #ffffff;
+  transition: all 0.5s;
+}
+  .h_loginContainer .h_content input:focus {
+  outline: none;
+}
+  .h_loginContainer .h_content .h_checkbox {
+  margin-top: 4px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  width: 0;
+  height: 0;
+  margin: 17px -1px;
+  padding: 0;
+  border: 0;
+}
+  .h_loginContainer .h_content .h_checkbox + label {
+  vertical-align: middle;
+  display: inline-block;
+  width: 50%;
+}
+  .h_loginContainer .h_content .h_checkbox + label:before {
+  content: "\A";
+  color: #999999;
+  font-family: Verdana;
+  font-weight: bold;
+  font-size: 8px;
+  line-height: 10px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  border-radius: 2px;
+  background: transparent;
+  border: 1px solid #d9d9d9;
+  width: 11px;
+  height: 11px;
+  margin: -2px 8px 0 0;
+}
+  .h_loginContainer .h_content .h_checkbox:checked + label:before {
+  content: "✓";
+}
+  .h_loginContainer .h_content .h_submit_wrap {
+  position: absolute;
+  bottom: 0;
+  width: 330px;
+}
+  .h_loginContainer .h_content .h_submit_wrap a {
+  font-size: 12px;
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #999999;
+}
+  .h_loginContainer .h_content .h_submit_wrap a:hover {
+  text-decoration: underline;
+}
+
+
