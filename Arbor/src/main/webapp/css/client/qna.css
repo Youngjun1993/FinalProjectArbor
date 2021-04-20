@@ -172,10 +172,10 @@
     width: 1000px;
     margin: 0 auto 40px auto;
 }
-#y_qanView_rightcon>ul li{
+#y_qanView_rightcon>ul>li{
     float: right;
 }
-#y_qanView_rightcon>ul li:last-child{
+#y_qanView_rightcon>ul>li:last-child{
     margin-right: 20px;
 }
 #y_qanView_rightcon>ul>li a{

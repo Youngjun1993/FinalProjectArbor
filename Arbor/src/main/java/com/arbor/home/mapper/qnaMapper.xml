@@ -13,4 +13,10 @@
 	<select id="qnaSelect" resultType="com.arbor.home.qna.QnaVO">
 		select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where qnano=#{param1}
 	</select>
+	<update id="qnaUpdate" parameterType="com.arbor.home.qna.QnaVO">
+		update qna set qnacate=#{qnacate}, qnasubject=#{qnasubject}, qnacontent=#{qnacontent} where qnano=#{qnano}
+	</update>
+	<delete id="qnaDelete">
+		delete from qna where qnano=#{param1}
+	</delete>
 </mapper>
