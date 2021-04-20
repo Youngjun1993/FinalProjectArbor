@@ -1,0 +1,52 @@
+@charset "UTF-8";
+/*class*/
+.y_title_fs25{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+.y_plusMinus{
+    display: block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background: #ddd;
+    float: left;
+}
+.y_countNum{
+    float: left;
+    width: 40px;
+}
+/*임시헤더*/
+#header>ul li:first-child{
+    width: 100%;
+    height: 40px;
+    background: green;
+}
+#header>ul li:last-child{
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    border-bottom: 1px solid #000;
+}
+/*임시풋터*/
+#footer{
+    width: 100%;
+    height: 300px;
+    background: rgb(248, 244, 236);
+}
+/*장바구니 스타일*/
+#y_cartWrap h1{
+    height: 80px;
+    line-height: 80px;
+}
+#y_cartWrap>ul li{
+    float: left;
+    width: 350px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+#y_cartWrap>ul li:nth-child(4n+3){
+    padding: 19px 0px;
+}
