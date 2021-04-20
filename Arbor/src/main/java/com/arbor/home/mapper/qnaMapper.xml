@@ -5,6 +5,12 @@
   <!--  -->
 <mapper namespace="com.arbor.home.qna.QnaDAOimp">
 	<select id="allList" resultType="com.arbor.home.qna.QnaVO">
-		select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'MM-DD HH:MI') as qnadate from qna
+		select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna
+	</select>
+	<insert id="qnaInsert" parameterType="com.arbor.home.qna.QnaVO">
+		insert into qna(qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno) values(qnasq.nextval, #{userid}, #{qnacate}, #{qnasubject}, #{qnacontent}, 12341234, qnasq.currval)
+	</insert>
+	<select id="qnaSelect" resultType="com.arbor.home.qna.QnaVO">
+		select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where qnano=#{param1}
 	</select>
 </mapper>
