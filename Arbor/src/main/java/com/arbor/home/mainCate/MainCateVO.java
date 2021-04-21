@@ -1,6 +1,7 @@
 package com.arbor.home.mainCate;
 
 public class MainCateVO {
+	
 	private int mainno;
 	private String mainname;
 	
@@ -16,4 +17,5 @@ public class MainCateVO {
 	public void setMainname(String mainname) {
 		this.mainname = mainname;
 	}
+
 }

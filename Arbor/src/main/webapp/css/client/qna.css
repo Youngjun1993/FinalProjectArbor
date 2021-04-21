@@ -1,10 +1,10 @@
 @charset "UTF-8";
 /*class*/
-.title_fs25{
+.y_title_fs25{
     font-size: 25px;
     font-weight: bold;
 }
-.anserWait{
+.y_anserWait{
     background: rgb(52,152,219);
     width: 100px;
     height: 30px;
@@ -14,7 +14,7 @@
     margin: 5px auto;
     border-radius: 5px;
 }
-.anserComp{
+.y_anserComp{
     background: rgb(94, 94, 94);
     width: 100px;
     height: 30px;
@@ -23,6 +23,10 @@
     color: #fff;
     margin: 5px auto;
     border-radius: 5px;
+}
+.y_rightcon{
+    width: 1250px;
+    float: right;
 }
 /*임시헤더*/
 #header>ul li:first-child{
@@ -43,31 +47,27 @@
     height: 300px;
     background: rgb(248, 244, 236);
 }
-/*마이페이지 메뉴바*/
-#leftMenu{
+/*마이페이지 공통 메뉴바*/
+#y_leftMenu{
     width: 150px;
     float: left;
 }
-#leftMenu>ul>li{
+#y_leftMenu>ul>li{
     height: 50px;
     line-height: 50px;
 }
 
-/*1:1문의 메인페이지 스타일*/
-#rightcon{
-    width: 1250px;
-    float: right;
-}
-#rightcon>p{
+/* qnaList 스타일*/
+#y_list_rightcon>p{
     height: 80px;
     line-height: 80px;
     text-align: center;
     border-bottom: 2px solid #ccc;
 }
-#rightcon>ul{
+#y_list_rightcon>ul{
     margin-bottom: 30px;
 }
-#rightcon>ul>li{
+#y_list_rightcon>ul>li{
     float: left;
     text-align: center;
     height: 40px;
@@ -75,10 +75,10 @@
     width: 15%;
     border-bottom: 1px solid #eee;
 }
-#rightcon>ul>li:nth-child(5n+2){
+#y_list_rightcon>ul>li:nth-child(5n+2){
     width: 40%;
 }
-#qnaGo{
+#y_qnaGo{
     width: 300px;
     height: 40px;
     line-height: 40px;
@@ -91,3 +91,116 @@
     text-align: center;
 }
 
+/* qnaWrite class*/
+.marginR80_vcTop{
+    margin: 0 80px;
+    vertical-align: top;
+}
+.colorRed{
+	color:red;
+}
+/* qnaWrite(문의글작성 페이지) 스타일 */
+#y_write_rightcon>p{
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+}
+#y_write_rightcon>form div p:first-of-type{
+	margin-top:20px;
+}
+#y_write_rightcon>form div p:nth-child(2){
+    margin:10px 0 40px 0;
+}
+#y_write_rightcon>form div p:nth-child(3){
+    margin-bottom:10px;
+}
+#y_write_rightcon>form div p {
+    font-size: 16px;
+}
+#qnacate{
+    margin-right: 20px;
+    width: 100px;
+    height: 35px;
+    font-size: 15px;
+}
+#qnasubject{
+	width: 700px;
+    height: 30px;
+    font-size: 15px;
+		
+}
+#qnacontent{
+    width: 900px;
+    height: 500px;
+    resize: none;
+    color: #333;
+}
+#y_insertBtn{
+    width: 100px;
+    height: 40px;
+    float: right;
+    margin-top: 20px;
+    margin-bottom:50px;
+    cursor: pointer;
+    font-size: 14px;
+}
+/* qnaView class*/
+/* qnaView 페이지 스타일 */
+#y_qanView_rightcon>p{
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+}
+#y_qanView_rightcon>div{
+    width: 1000px;
+    margin: 0 auto;
+}
+#y_qanView_rightcon>div>h2{
+    text-align: center;
+    height: 100px;
+    line-height: 100px;
+}
+#y_qanView_rightcon>div>div{
+    height: 300px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+#y_qanView_rightcon>ul{
+    width: 1000px;
+    margin: 0 auto 40px auto;
+}
+#y_qanView_rightcon>ul>li{
+    float: right;
+}
+#y_qanView_rightcon>ul>li:last-child{
+    margin-right: 20px;
+}
+#y_qanView_rightcon>ul>li a{
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    background: #ddd;
+    border: 1px solid #333;
+    text-align: center;
+    
+}
+#y_qanView_rightcon>div:nth-of-type(2) p{
+    float: left;
+    height: 196px;
+    padding-top: 20px;
+    border: 2px solid #eee;
+}
+#y_qanView_rightcon>div:nth-of-type(2) p:first-child{
+    width: 200px;
+    line-height: 180px;
+    text-align: center;
+    background: #eee;
+}
+#y_qanView_rightcon>div:nth-of-type(2) p:last-child{
+    width: 772px;
+    padding-left: 20px;
+}
