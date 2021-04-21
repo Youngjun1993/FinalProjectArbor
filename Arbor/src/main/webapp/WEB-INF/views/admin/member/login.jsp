@@ -24,9 +24,9 @@
 	<div class="h_login"><img src="<%=request.getContextPath() %>/img/logo.png"/></div>
 	<div class="h_half">
 		<div class="h_content">
-				<form action="#" method="post">
-					<input type="text" name="userid" id="userid" class="h_input" required="required" placeholder="아이디를 입력하세요">
-					<input type="password" name="userpwd" id="userpwd" class="h_input" required="required" placeholder="비밀번호를 입력하세요">
+				<form action="loginOk" method="post">
+					<input type="text" name="userid" id="userid" class="h_input" required="required" placeholder="아이디를 입력하세요" value="zerojunee">
+					<input type="password" name="userpwd" id="userpwd" class="h_input" required="required" placeholder="비밀번호를 입력하세요" value="bitcamp1!">
 					<input type="checkbox" id="remember" class="h_checkbox">
 					<label for="remember">Remember me</label>
 					<div class="h_submit_wrap">
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 	<div class="h_half img">
-	<img src="<%=request.getContextPath() %>/img/login_main.png"/>
+	<img src="<%=request.getContextPath()%>/img/login_main.png"/>
 	</div>
 </div>
 </div>
