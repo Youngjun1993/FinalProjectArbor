@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+	.h_jointop{
+	width:800px;
+	text-align:center;
+	height:60px;
+	line-height:60px;
+	vertical-align:center;
+	margin:0;
+	padding:20px 0 0;
+}
+
+	.h_formcontainer {
+	width:800px;
+	padding: 0;
+	margin: 30px auto;
+	text-align:center;
+	background-color:pink;
+	position: relative;
+	overflow: hidden;
+	background-color: #ffffff;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
+}
+
+	.h_formbox {
+	margin:50px auto;
+	width:800px;
+	text-align:center;
+	}
+	
+	.h_formtable{
+		width:800px;
+	}
+	
+	.h_formtable tr{
+		border:2px solid gray;
+	}
+	
+	.h_formtable td:nth-child(2n+1){
+		text-align:left;
+		padding:0 0 0 25px;
+		width:150px;
+		height: 40px;
+		font-size:15px;
+		
+	}
+	
+	.h_formtable td:nth-child(2n){
+		text-align:left;
+		height: 40px;
+		
+	}
+	
+	 .h_select {
+	    padding: 7px 40px 7px 12px;
+	    border: 1px solid #E8EAED;
+	    border-radius: 2px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+	    cursor: pointer;
+	    font-size: 16px;
+   
+     }
+      
+	.h_ipt{
+		padding: 7px 40px 7px 12px;
+		border: 2px solid #E8EAED;
+		border-radius: 2px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+		margin:10px 0;
+	}
+	
+	.h_check_btn {
+	font-size: 12px;
+	line-height: 32px;
+	width: 100px;
+	height: 32px;
+	cursor: pointer;
+	vertical-align: middle;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: #263238;
+	border: 1px solid #263238;
+	background: transparent;
+	border-radius: 2px;
+	text-align:center;
+		
+	}
+	.h_check_btn:hover {
+	background-color: #263238;
+	color: #ffffff;
+	transition: all 0.5s;
+	}
+	
+	.h_check_btn.join {
+	margin-top:20px;
+	width: 400px;
+	height: 42px;
+	line-height: 42px;
+		
+	}
+	.h_terms .h_privacy{
+		background-color:pink
+		width:350px;
+		height:300px;
+		border:2px solid gray;
+	}
