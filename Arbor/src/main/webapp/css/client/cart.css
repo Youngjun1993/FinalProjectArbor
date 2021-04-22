@@ -1,11 +1,11 @@
 @charset "UTF-8";
 /*class*/
-.title_fs25{
+.y_title_fs25{
     font-size: 25px;
     font-weight: bold;
     text-align: center;
 }
-.plusMinus{
+.y_plusMinus{
     display: block;
     width: 20px;
     height: 20px;
@@ -13,7 +13,7 @@
     background: #ddd;
     float: left;
 }
-.countNum{
+.y_countNum{
     float: left;
     width: 40px;
 }
@@ -37,16 +37,16 @@
     background: rgb(248, 244, 236);
 }
 /*장바구니 스타일*/
-#wrap h1{
+#y_cartWrap h1{
     height: 80px;
     line-height: 80px;
 }
-#wrap>ul li{
+#y_cartWrap>ul li{
     float: left;
     width: 350px;
     text-align: center;
     border-top: 1px solid #ddd;
 }
-#wrap>ul li:nth-child(4n+3){
+#y_cartWrap>ul li:nth-child(4n+3){
     padding: 19px 0px;
 }
