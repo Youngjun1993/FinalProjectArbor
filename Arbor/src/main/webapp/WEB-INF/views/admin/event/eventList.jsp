@@ -15,21 +15,24 @@
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm" id="j_listFrm">
 		<h1>이벤트 목록</h1>
+		<div>
 		<ul class="clearfix" id="eventList">
 			<li>NO</li>
+			<li></li>
 			<li>이벤트 타이틀</li>
 			<li>이벤트 기간</li>
 			<li>등록일</li>
 			
 			<c:forEach var="vo" items="${list }">
 				<li>${vo.eventNo }</li>
-				<li class="wordcut">${vo.eventSubject }</li>
+				<li></li>
+				<li class="wordcut"><a href="eventContent?no=${vo.eventNo }">${vo.eventSubject }</a></li>
 				<li>${vo.eventStart } ~ ${vo.eventEnd }</li>
-				<li>등록일</li>
+				<li>*등록일 수정 필요*</li>
 			</c:forEach>
 		</ul>
+		</div>
 	</div>
-
 </div>
 </body>
 </html>

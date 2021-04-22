@@ -12,4 +12,7 @@
   	<insert id="eventInsert" parameterType="com.arbor.home.event.EventVO">
   		insert into event(eventNo, eventSubject, eventContent, eventStart, eventEnd, eventImg1, eventImg2) values(eventsq.nextval, #{eventSubject}, #{eventContent}, #{eventStart}, #{eventEnd}, #{eventImg1}, #{eventImg2})
   	</insert>
+  	<select id="eventSelect" resultType="com.arbor.home.event.EventVO">
+  		select eventNo, eventSubject, eventContent, eventImg1, eventImg2, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd from event where eventNo=#{param1}
+  	</select>
   </mapper>

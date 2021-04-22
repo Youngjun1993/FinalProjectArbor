@@ -17,7 +17,7 @@
 <script>
 	$(function(){
 		CKEDITOR.replace("eventContent");
-		
+
 		//datepicker 옵션 설정
 		$.datepicker.setDefaults({
 			dateFormat: "yy-mm-dd",
@@ -33,23 +33,24 @@
 	        buttonImageOnly: true
 		});
 		$("#eventStart").datepicker();
-		$("#eventEnd").datepicker();
+		$("#eventEnd").datepicker();		
 	});
 </script>
 </head>
 <body>
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
-	<div class="j_centerFrm" id="j_insertFrm">
-		<h1>이벤트 등록</h1>
-		<form method="post" action="eventInsertOk" enctype="multipart/form-data">
+	<div class="j_centerFrm" id="j_listFrm">
+		<h1>이벤트 내용</h1>
+		<form method="post" action="eventEdit" enctype="multipart/form-data">
+			<input type="hidden" name="eventNo" value="${vo.eventNo }"/>
 			<div>
 				<span class="j_category">제목</span>
-					<input type="text" name="eventSubject" id="eventSubject"/>
+					<input type="text" name="eventSubject" id="eventSubject" value="${vo.eventSubject }"/>
 				<br/>
 				<span class="j_category">이벤트 기간</span> 
-					<input type="text" name="eventStart" id="eventStart" placeholder="시작일"/> ~ 
-					<input type="text" name="eventEnd" id="eventEnd" placeholder="종료일"/>
+					<input type="text" name="eventStart" id="eventStart" value="${vo.eventStart }"/> ~ 
+					<input type="text" name="eventEnd" id="eventEnd" value="${vo.eventEnd }"/>
 				<br/>
 				<span class="j_category">타이틀 이미지</span>
 					<input type="file" name="img1"/>
@@ -57,8 +58,8 @@
 				<span class="j_category">이벤트 이미지</span>
 					<input type="file" name="img2"/>
 				<br/><br/>
-				<textarea name="eventContent" id="eventContent"></textarea>
-				<p id="j_eventInsertBtn"><input type="submit" value="등록"> <input type="button" value="취소"></p>
+				<textarea name="eventContent" id="eventContent">${vo.eventContent }</textarea>
+				<p id="j_eventInsertBtn"><input type="submit" value="수정"> <input type="button" value="취소"></p>
 			</div>
 		</form>
 	</div>

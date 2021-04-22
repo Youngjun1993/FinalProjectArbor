@@ -114,6 +114,14 @@ public class EventController {
 		}
 		return mav;
 	}
+	@RequestMapping("/eventContent")
+	public ModelAndView eventContentView(int no) {
+		EventDAOImp dao = sqlSession.getMapper(EventDAOImp.class);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vo", dao.eventSelect(no));
+		mav.setViewName("admin/event/eventContent");
+		return mav;
+	}
 	
 	
 	
