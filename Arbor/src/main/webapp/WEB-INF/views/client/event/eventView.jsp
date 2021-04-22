@@ -14,7 +14,7 @@
 </script>
 </head>
 <body>
-<div class="w1400_container">
+<div class="w1400_container font_ng">
 	<div class="j_eventMenu">
 		<span>진행중인 이벤트</span>
 	</div>

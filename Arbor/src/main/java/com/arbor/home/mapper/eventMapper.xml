@@ -3,5 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.arbor.home.event.EventDAOImp">
-  	
+  	<select id="eventList" resultType="com.arbor.home.event.EventVO">
+  		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, eventImg1 from event where to_date(eventEnd, 'YY-MM-DD')>sysdate order by eventNo desc
+  	</select>
+  	<select id="closeEvent" resultType="com.arbor.home.event.EventVO">
+  		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd from event where sysdate>to_date(eventEnd, 'YY-MM-DD') order by eventNo desc
+  	</select>
+  	<insert id="eventInsert" parameterType="com.arbor.home.event.EventVO">
+  		insert into event(eventNo, eventSubject, eventContent, eventStart, eventEnd, eventImg1, eventImg2) values(eventsq.nextval, #{eventSubject}, #{eventContent}, #{eventStart}, #{eventEnd}, #{eventImg1}, #{eventImg2})
+  	</insert>
   </mapper>

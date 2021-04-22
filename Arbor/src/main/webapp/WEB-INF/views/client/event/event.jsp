@@ -13,11 +13,10 @@
 			$(".j_eventMenu").text(title);
 		});		
 	});
-
 </script>
 </head>
 <body>
-<div class="w1400_container">
+<div class="w1400_container font_ng">
 	<div class="j_eventMenu">
 		<span>TIME SALE</span>
 	</div>
@@ -50,62 +49,15 @@
 			</div>
 			<div>
 				<ul class="clearfix" id="j_eventList">
+					<c:forEach var="vo" items="${list }">
 					<li>
 						<a href="eventView">
-							<img src="<%=request.getContextPath() %>/img/eventTest.PNG"><br/>
-							<strong>2021 봄제품 사은품 증정</strong>
+							<img src="<%=request.getContextPath() %>/upload/${vo.eventImg1}"><br/>
+							<strong>${vo.eventSubject }</strong>
 						</a>
-						<p>2021/04/01 ~ 2021/05/01</p>
+						<p>${vo.eventStart } ~ ${vo.eventEnd }</p>
 					</li>
-					<li>
-						<a href="">
-							<img src="<%=request.getContextPath() %>/img/eventTest.PNG"><br/>
-							<strong>2020 F/W제품 특별 할인 이벤트</strong>
-						</a>
-						<p>2021/04/01 ~ 2021/05/01</p>
-					</li>
-					<li>
-						<a href="">
-							<img src="<%=request.getContextPath() %>/img/eventTest.PNG"><br/>
-							<strong>총액 50만원 이상 무료 배송</strong>
-						</a>
-						<p>2021/04/01 ~ 2021/05/01</p>
-					</li>
-					<li>
-						<a href="">
-							<img src="<%=request.getContextPath() %>/img/eventTest.PNG"><br/>
-							<strong>sns 후기 이벤트@@</strong>
-						</a>
-						<p>2021/04/01 ~ 2021/05/01</p>
-					</li>
-					<li>
-						<a href="">
-							<img src="<%=request.getContextPath() %>/img/eventTest.PNG"><br/>
-							<strong>2021 봄제품 사은품 증정</strong>
-						</a>
-						<p>2021/04/01 ~ 2021/05/01</p>
-					</li>
-					<li>
-						<a href="">
-							<img src="<%=request.getContextPath() %>/img/eventTest.PNG"><br/>
-							<strong>2020 F/W제품 특별 할인 이벤트</strong>
-						</a>
-						<p>2021/04/01 ~ 2021/05/01</p>
-					</li>
-					<li>
-						<a href="">
-							<img src="<%=request.getContextPath() %>/img/eventTest.PNG"><br/>
-							<strong>총액 50만원 이상 무료 배송</strong>
-						</a>
-						<p>2021/04/01 ~ 2021/05/01</p>
-					</li>
-					<li>
-						<a href="">
-							<img src="<%=request.getContextPath() %>/img/eventTest.PNG"><br/>
-							<strong>sns 후기 이벤트@@</strong>
-						</a>
-						<p>2021/04/01 ~ 2021/05/01</p>
-					</li>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
@@ -118,18 +70,12 @@
 				<li>이벤트 항목</li>
 				<li>이벤트 기간</li>
 				
-				<li>3</li>
-				<li></li>
-				<li class="j_subejct">지난 이벤트3</li>
-				<li>2021/01/01~2021/01/31</li>
-				<li>2</li>
-				<li></li>
-				<li class="j_subejct">지난 이벤트2</li>
-				<li>2021/01/01~2021/01/31</li>
-				<li>1</li>
-				<li></li>
-				<li class="j_subejct">지난 이벤트1</li>
-				<li>2021/01/01~2021/01/31</li>
+				<c:forEach var="vo" items="${endList }">
+					<li>${vo.eventNo }</li>
+					<li></li>
+					<li class="j_subejct">${vo.eventSubject }</li>
+					<li>${vo.eventStart } ~ ${vo.eventEnd }</li>
+				</c:forEach>
 			</ul>
 			<div class="clearfix j_search">
 				<form method="post" action="">

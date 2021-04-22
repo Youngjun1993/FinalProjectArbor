@@ -1,0 +1,48 @@
+@charset "UTF-8";
+/* class */
+.j_category{
+	width:100px;
+	font-weight:bold;
+	display:inline-block;
+}
+.j_sideMemu{
+	width:150px;
+	float:left;
+}
+.j_centerFrm{
+	width:1250px;
+	float:right;
+}
+
+input[type=submit], input[type=button] {
+	cursor:pointer;
+}
+/*--------------
+	이벤트 목록
+---------------*/
+#eventList>li{
+	float:left;
+	width:10%;
+	height:40px;
+	line-height:40px;
+	border-bottom:1px solid #ddd;
+}
+#eventList>li:nth-child(4n+2){width:60%;}
+#eventList>li:nth-child(4n+3){width:20%;}
+/*--------------
+	이벤트 등록
+---------------*/
+#j_insertFrm>h1{
+	padding-bottom:15px;
+	border-bottom:2px solid gray;
+}
+#j_insertFrm div{
+	padding-top:20px;
+	line-height:35px;
+}
+#eventSubject{
+	width:375px;
+}
+#j_eventInsertBtn{
+	text-align:right;
+}

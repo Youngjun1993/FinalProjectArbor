@@ -6,6 +6,8 @@ public class EventVO {
 	private String eventContent;
 	private String eventStart;
 	private String eventEnd;
+	private String eventImg1;
+	private String eventImg2;
 	
 	
 	public int getEventNo() {
@@ -37,6 +39,18 @@ public class EventVO {
 	}
 	public void setEventEnd(String eventEnd) {
 		this.eventEnd = eventEnd;
+	}
+	public String getEventImg1() {
+		return eventImg1;
+	}
+	public void setEventImg1(String eventImg1) {
+		this.eventImg1 = eventImg1;
+	}
+	public String getEventImg2() {
+		return eventImg2;
+	}
+	public void setEventImg2(String eventImg2) {
+		this.eventImg2 = eventImg2;
 	}
 	
 }
