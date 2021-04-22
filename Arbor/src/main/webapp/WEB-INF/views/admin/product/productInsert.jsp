@@ -8,7 +8,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/productInsert.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/product.js"></script>
 <script>
 
@@ -54,6 +57,7 @@
 				<div>
 					<h3>이미지</h3><br/>
 					<input type="file" name="img1" id="img1" /><br/>
+					<input type="file" name="img2" id="img2" /><br/>
 					<p>* 이미지 크기는 10MB, 1200PX이하로 등록</p>
 					<div id="imgPrint">이미지 표시할 곳</div>
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
