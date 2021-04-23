@@ -83,10 +83,10 @@
 }
 /* 이전글, 다음글 부분 */
 #j_contentList{
-	padding:10px; line-height:28px;
+	padding:10px; line-height:25px;
 }
-#j_eventListBtn{
-	margin:15px 0; float:right; font-size:13px;
+#j_eventListBtn{	/*적용안됨!!!!!!!!!!!!!!!!!!*/
+	margin:15px 0; float:right;
 }
 
 /*------------------

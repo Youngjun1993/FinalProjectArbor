@@ -12,6 +12,20 @@ public class EventVO {
 	public int getEventNo() {
 		return eventNo;
 	}
+
+	private int eventNo;
+	private String eventSubject;
+	private String eventContent;
+	private String eventStart;
+	private String eventEnd;
+	private String eventImg1;
+	private String eventImg2;
+	
+	
+	public int getEventNo() {
+		return eventNo;
+	}
+
 	public void setEventNo(int eventNo) {
 		this.eventNo = eventNo;
 	}
@@ -38,6 +52,18 @@ public class EventVO {
 	}
 	public void setEventEnd(String eventEnd) {
 		this.eventEnd = eventEnd;
+	}
+	public String getEventImg1() {
+		return eventImg1;
+	}
+	public void setEventImg1(String eventImg1) {
+		this.eventImg1 = eventImg1;
+	}
+	public String getEventImg2() {
+		return eventImg2;
+	}
+	public void setEventImg2(String eventImg2) {
+		this.eventImg2 = eventImg2;
 	}
 	
 }
