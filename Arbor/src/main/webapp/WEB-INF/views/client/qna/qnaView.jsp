@@ -29,15 +29,23 @@
                     ${vo.qnacontent }
                 </div>
             </div>
-            <ul class="clearfix">
-                <li><a href="javascript:qnaDel(${vo.qnano })">삭제</a></li>
-                <li><a href="qnaEdit?qnano=${vo.qnano }">수정</a></li>
-            </ul>
-            <div class="clearfix">
-                <p>답변</p>
-                <p>
-                    ${vo.answercontent }
-                </p>
-            </div>
+            <c:if test="${vo.answercontent == null || vo.answercontent == '' }">
+	            <ul class="clearfix">
+	                <li><a href="qnaList">목록</a></li>
+	                <li><a href="javascript:qnaDel(${vo.qnano })">삭제</a></li>
+	                <li><a href="qnaEdit?qnano=${vo.qnano }">수정</a></li>
+	            </ul>
+            </c:if>
+            <c:if test="${vo.answercontent!=null }">
+	            <div class="clearfix">
+	                <p>답변</p>
+	                <p>
+	                    답변 등록일시 : ${vo.ansdate }<br/><br/>${vo.answercontent }
+	                </p>
+	            </div>
+	            <div>
+            		<a href="qnaList" id="y_qnaListBtn">목록</a>
+            	</div>
+            </c:if>            
         </div>
     </div>

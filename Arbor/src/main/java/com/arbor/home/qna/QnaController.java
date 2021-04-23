@@ -15,13 +15,24 @@ public class QnaController {
 	@Autowired
 	SqlSession sqlSession;
 	
+	//아이디 로그인시 sql문 수정해야함 !!(리스트 아이디에 해당되는것만 뿌려주기)
 	@RequestMapping("/qnaList")
-	public ModelAndView qnaList() {
+	public ModelAndView qnaList(HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
 		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
+		QnaPageSearchVO pageVo = new QnaPageSearchVO();
+		
+		pageVo.setTotalRecord(dao.totalRecord(pageVo));
+		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", dao.allList());
+		mav.addObject("list", dao.allList(pageVo));
+		mav.addObject("pageVO", pageVo);
 		mav.setViewName("client/qna/qnaList");
+		
 		return mav;
 	}
 	
@@ -48,10 +59,12 @@ public class QnaController {
 		return mav;
 	}
 	@RequestMapping("/qnaView")
-	public String qnaView(int qnano, Model model) {
+	public String qnaView(int qnano, HttpServletRequest req) {
 		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
 		QnaVO vo = dao.qnaSelect(qnano);
-		model.addAttribute("vo",vo);
+		
+		req.setAttribute("vo",vo);
+		
 		
 		return "client/qna/qnaView";
 	}
@@ -92,4 +105,82 @@ public class QnaController {
 		}
 		return mav;
 	}
+	
+	//////////////////// ADMIN //////////////////////////
+	//검색추가
+	@RequestMapping("/qnaAdList")
+	public ModelAndView qnaSearchList(HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		QnaPageSearchVO pageVo = new QnaPageSearchVO();
+		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		pageVo.setQnaSearchKey(req.getParameter("qnaSearchKey"));
+		pageVo.setQnaSearchWord(req.getParameter("qnaSearchWord"));
+		
+		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
+		pageVo.setTotalRecord(dao.totalRecord(pageVo));
+		
+		QnaVO vo = dao.qnaAdAnsCount();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("countAns", vo.getCountans());
+		mav.addObject("list", dao.onePageRecordSelect(pageVo));
+		mav.addObject("pageVO", pageVo);
+		mav.setViewName("admin/qna/qnaAdList");
+		
+		return mav;
+	}
+	@RequestMapping("/qnaAdView")
+	public String qnaAdView(int qnano, HttpServletRequest req) {
+		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
+		QnaPageSearchVO pageVo = new QnaPageSearchVO();
+		QnaVO vo = dao.qnaSelect(qnano);
+		
+		pageVo.setPageNum(Integer.parseInt(req.getParameter("pageNum")));
+		pageVo.setQnaSearchKey(req.getParameter("qnaSearchKey"));
+		pageVo.setQnaSearchWord(req.getParameter("qnaSearchWord"));
+		
+		req.setAttribute("vo",vo);
+		req.setAttribute("pageVO", pageVo);
+		
+		String editAddr = "qnano="+vo.getQnano()+"&pageNum="+pageVo.getPageNum();
+		if(pageVo.getQnaSearchWord() != null && pageVo.getQnaSearchWord().equals("")) {
+			editAddr += "&qnaSearchKey="+pageVo.getQnaSearchKey()+"&qnaSearchWord="+pageVo.getQnaSearchWord();
+		}
+		req.setAttribute("editAddr", editAddr);
+		
+		return "admin/qna/qnaAdView";
+	}
+	@RequestMapping("/qnaAdUpdate")
+	public ModelAndView qnaAdUpdate(int qnano, String answercontent, HttpServletRequest req) {
+		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
+		
+		int cnt = dao.qnaAdUpdate(qnano, answercontent);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("qnano", qnano);
+		
+		if(cnt>0) {
+			mav.setViewName("redirect:qnaAdList");
+		}else {
+			mav.setViewName("redirect:qnaAdView");
+		}
+		return mav;
+	}
+	@RequestMapping("/qnaAdDel")
+	public ModelAndView qnaAdDel(int no) {
+		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
+		
+		ModelAndView mav = new ModelAndView();
+		if(dao.qnaDelete(no)>0) {
+			mav.setViewName("redirect:qnaAdList");
+		}else {
+			mav.setViewName("redirect:qnaAdView");
+		}
+		return mav;
+	}
+	
 }

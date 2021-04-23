@@ -4,14 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <!--  -->
 <mapper namespace="com.arbor.home.qna.QnaDAOimp">
-	<select id="allList" resultType="com.arbor.home.qna.QnaVO">
-		select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna
+	<select id="allList" resultType="com.arbor.home.qna.QnaVO" parameterType="com.arbor.home.qna.QnaPageSearchVO">
+		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
 	</select>
 	<insert id="qnaInsert" parameterType="com.arbor.home.qna.QnaVO">
 		insert into qna(qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno) values(qnasq.nextval, #{userid}, #{qnacate}, #{qnasubject}, #{qnacontent}, 12341234, qnasq.currval)
 	</insert>
 	<select id="qnaSelect" resultType="com.arbor.home.qna.QnaVO">
-		select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where qnano=#{param1}
+		select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate, to_char(ansdate, 'YYYY-MM-DD HH:MI') as ansdate from qna where qnano=#{param1}
 	</select>
 	<update id="qnaUpdate" parameterType="com.arbor.home.qna.QnaVO">
 		update qna set qnacate=#{qnacate}, qnasubject=#{qnasubject}, qnacontent=#{qnacontent} where qnano=#{qnano}
@@ -19,4 +19,20 @@
 	<delete id="qnaDelete">
 		delete from qna where qnano=#{param1}
 	</delete>
+	
+	<!-- Admin -->
+	<select id="qnaAdAnsCount" resultType="com.arbor.home.qna.QnaVO">
+		select count(qnano) as countans from qna where answercontent is null
+	</select>
+	<update id="qnaAdUpdate">
+		update qna set answercontent=#{param2}, ansdate=sysdate where qnano=#{param1}
+	</update>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.qna.QnaPageSearchVO">
+		select count(qnano) as totalRecord from qna <if test="qnaSearchWord != null"> where ${qnaSearchKey} like '%${qnaSearchWord}%'</if>
+	</select>
+	<select id="onePageRecordSelect" resultType="com.arbor.home.qna.QnaVO" parameterType="com.arbor.home.qna.QnaPageSearchVO">
+		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate, to_char(ansdate, 'YYYY-MM-DD HH:MI') as ansdate from qna 
+		<if test="qnaSearchWord!=null">where ${qnaSearchKey} like '%${qnaSearchWord}%' order by qnano desc) <![CDATA[where rownum <= ]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc</if>
+		<if test="qnaSearchWord==null">order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc</if>	
+	</select>
 </mapper>

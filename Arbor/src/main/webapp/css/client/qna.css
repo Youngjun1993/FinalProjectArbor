@@ -58,16 +58,16 @@
 }
 
 /* qnaList 스타일*/
-#y_list_rightcon>p{
-    height: 80px;
-    line-height: 80px;
+#y_list_rightcon>p, #y_adminQnaList_rightcon>p{
+    height: 100px;
+    line-height: 100px;
     text-align: center;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 1px solid #eee;
 }
-#y_list_rightcon>ul{
+#y_list_rightcon>ul:first-of-type, #y_adminQnaList_rightcon>ul:first-of-type{
     margin-bottom: 30px;
 }
-#y_list_rightcon>ul>li{
+#y_list_rightcon>ul:first-of-type>li, #y_adminQnaList_rightcon>ul:first-of-type>li{
     float: left;
     text-align: center;
     height: 40px;
@@ -75,7 +75,7 @@
     width: 15%;
     border-bottom: 1px solid #eee;
 }
-#y_list_rightcon>ul>li:nth-child(5n+2){
+#y_list_rightcon>ul:first-of-type>li:nth-child(5n+2), #y_adminQnaList_rightcon>ul:first-of-type>li:nth-child(5n+2){
     width: 40%;
 }
 #y_qnaGo{
@@ -86,7 +86,7 @@
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
-    margin: auto;
+    margin: 0 auto 30px auto;
     display: block;
     text-align: center;
 }
@@ -101,10 +101,10 @@
 }
 /* qnaWrite(문의글작성 페이지) 스타일 */
 #y_write_rightcon>p{
-    height: 80px;
-    line-height: 80px;
+    height: 100px;
+    line-height: 100px;
     text-align: center;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 1px solid #eee;
 }
 #y_write_rightcon>form div p:first-of-type{
 	margin-top:20px;
@@ -147,11 +147,14 @@
 }
 /* qnaView class*/
 /* qnaView 페이지 스타일 */
+#y_qanView_rightcon{
+    margin-bottom: 30px;
+}
 #y_qanView_rightcon>p{
-    height: 80px;
-    line-height: 80px;
+    height: 100px;
+    line-height: 100px;
     text-align: center;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 1px solid #eee;
 }
 #y_qanView_rightcon>div{
     width: 1000px;
@@ -159,8 +162,8 @@
 }
 #y_qanView_rightcon>div>h2{
     text-align: center;
-    height: 100px;
-    line-height: 100px;
+    height: 80px;
+    line-height: 80px;
 }
 #y_qanView_rightcon>div>div{
     height: 300px;
@@ -175,7 +178,7 @@
 #y_qanView_rightcon>ul>li{
     float: right;
 }
-#y_qanView_rightcon>ul>li:last-child{
+#y_qanView_rightcon>ul>li:last-child, #y_qanView_rightcon>ul>li:nth-child(2){
     margin-right: 20px;
 }
 #y_qanView_rightcon>ul>li a{
@@ -190,17 +193,102 @@
 }
 #y_qanView_rightcon>div:nth-of-type(2) p{
     float: left;
-    height: 196px;
+    height: 300px;
     padding-top: 20px;
-    border: 2px solid #eee;
+    
 }
 #y_qanView_rightcon>div:nth-of-type(2) p:first-child{
-    width: 200px;
-    line-height: 180px;
+    width: 150px;
+    line-height: 340px;
     text-align: center;
     background: #eee;
+    font-weight: bold;
+    font-size: 16px;
+    height: 340px;
 }
 #y_qanView_rightcon>div:nth-of-type(2) p:last-child{
-    width: 772px;
+    width: 810px;
     padding-left: 20px;
+    border-right: 20px solid #eee;
+    border-top: 20px solid #eee;
+    border-bottom: 20px solid #eee;
+}
+#y_qnaListBtn{
+	display: block;
+	width: 100px;
+    height: 30px;
+    line-height: 30px;
+    background: #ddd;
+    border: 1px solid #333;
+    text-align: center;
+    float: right;
+    margin:10px 0 30px 0;
+}
+/*///////////////////////////////////////*/
+/* ADMIN List */
+#leftcon{
+    width: 150px;
+    float: left;
+}
+#y_adminQnaList_rightcon>div{
+    height: 80px;
+    line-height: 80px;
+    border-bottom: 1px solid #ddd;
+}
+#y_adminQnaList_rightcon>div>form{
+    float: left;
+}
+#qnaSearchKey{
+    height: 30px;
+    width: 100px;
+    margin-right: 5px;
+    margin-left: 30px;
+}
+#qnaSearchWord{
+    height: 25px;
+    width: 300px;
+    margin-right: 5px;
+}
+#qnaSearchBtn{
+    margin-top: 10px;
+    height: 33px;
+    width: 100px;
+    font-weight: bold;
+}
+#y_adminQnaList_rightcon>div>p{
+    float: right;
+    background: #ddd;
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 25px;
+    margin-right: 30px;
+    font-weight: bold;
+}
+#qnaPaging>li{
+    width: 30px;
+    float: left;
+    text-align: center;
+}
+/* Admin View */
+#answercontent{
+    width: 825px;
+    padding-left: 20px;
+    float: left;
+    height: 335px;
+    padding-top: 20px;
+    resize: none;
+}
+#qnaAnserBtn{
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    background: #ddd;
+    border: 1px solid #333;
+    text-align: center;
+    float: right;
+    margin: 20px;
+    cursor: pointer;
 }
