@@ -1,10 +1,18 @@
 package com.arbor.home.event;
 
 public class EventVO {
-	//
-	public EventVO() {
-		// TODO Auto-generated constructor stub
+		
+	private int eventNo;
+	private String eventSubject;
+	private String eventContent;
+	private String eventStart;
+	private String eventEnd;
+	
+	
+	public int getEventNo() {
+		return eventNo;
 	}
+
 	private int eventNo;
 	private String eventSubject;
 	private String eventContent;
@@ -17,6 +25,7 @@ public class EventVO {
 	public int getEventNo() {
 		return eventNo;
 	}
+
 	public void setEventNo(int eventNo) {
 		this.eventNo = eventNo;
 	}

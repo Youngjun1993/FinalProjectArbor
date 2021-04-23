@@ -69,7 +69,7 @@
 				<li></li>
 				<li>이벤트 항목</li>
 				<li>이벤트 기간</li>
-				
+
 				<c:forEach var="vo" items="${endList }">
 					<li>${vo.eventNo }</li>
 					<li></li>

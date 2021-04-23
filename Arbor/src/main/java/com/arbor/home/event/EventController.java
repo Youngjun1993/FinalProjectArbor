@@ -1,6 +1,5 @@
 package com.arbor.home.event;
 
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +47,12 @@ public class EventController {
 		return mav;
 		
 	}
-	@RequestMapping("/eventInsert")
+
+  @RequestMapping("/eventInsert")
 	public String eventInsert() {
 		return "admin/event/eventInsert";
 	}
+
 	@RequestMapping(value="/eventInsertOk", method=RequestMethod.POST)
 	public ModelAndView eventInsertOk(EventVO vo, HttpServletRequest req,
 			@RequestParam("img1") MultipartFile eventimg1,

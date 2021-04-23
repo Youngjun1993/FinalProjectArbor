@@ -12,4 +12,5 @@ public interface EventDAOImp {
 	public int eventInsert(EventVO vo);	//이벤트 등록
 	public EventVO eventSelect(int no);
 	
+
 }

@@ -51,6 +51,19 @@
 	font-family: 'Nanum Gothic', sans-serif;
 }
 
+/* optionTbl */
+#optionTbl {
+	margin-bottom: 50px;
+}
+#optionTbl>div:first-child {
+	width: 750px; margin:30px auto;
+	text-align: center;
+}
+#optionTbl>input:nth-of-type(4n+3) {
+	width:50px;
+	vertical-align: middle;
+}
+
 
 /*tag css*/
 h1{
@@ -64,10 +77,10 @@ select {
 
 input {
 	width: 300px; height: 28px;
-	margin:5px 20px 5px 0;
+	margin:5px 15px 5px 0;
 }
 
-input[type=submit], input[type=reset] {
+input[type=submit], input[type=reset], button {
 	cursor:pointer;
 }
 

@@ -6,12 +6,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/product.css" type="text/css"/>
-<script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/productInsert.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/javaScript/product.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/product.js"></script>
 <script>
-	
+
 </script>
 </head>
 <body>
@@ -19,7 +22,7 @@
 		<div id="sidefrm">사이드메뉴</div>
 		<div id="centerfrm">
 			<h1>상품 등록</h1>
-			<form method="post" action="">
+			<form method="post" action="productInsertOk">
 			<div id="insertInfo">
 				<p><span class=pTitle>상품 정보</span>
 					<img src="<%=request.getContextPath() %>/img/downpage.png"/>
@@ -27,13 +30,13 @@
 				</p><br/>
 				<div>
 					<span class="pContent">카테고리</span>
-					<select name="maincate" id="maincate">
+					<select name="mainname" id="maincate">
 						<option value="거실">거실</option>
 						<option value="침실">침실</option>
 						<option value="드레스룸">드레스룸</option>
 						<option value="Etc">Etc</option>
 					</select>
-					<select name="subcate" id="subcate">
+					<select name="subname" id="subcate">
 						<option value="소파">소파</option>
 						<option value="테이블">테이블</option>
 						<option value="수납장">수납장</option>
@@ -54,6 +57,7 @@
 				<div>
 					<h3>이미지</h3><br/>
 					<input type="file" name="img1" id="img1" /><br/>
+					<input type="file" name="img2" id="img2" /><br/>
 					<p>* 이미지 크기는 10MB, 1200PX이하로 등록</p>
 					<div id="imgPrint">이미지 표시할 곳</div>
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -64,12 +68,22 @@
 			</div>
 			<br/><br/>
 			<div id="insertOption">
-				<p><span class=pTitle>옵션선택 입력</span>
+				<p><span class="pTitle">옵션선택 입력</span>
 					<img src="<%=request.getContextPath() %>/img/downpage.png"/>
 					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 				</p><br/>
-				<div>
-					
+				<div id="optionTbl">
+					<div>
+						<b>* 이미지를 참조하여 정확한 값을 입력해주세요 *<br/>
+						색상 옵션명에 대한 값을 입력시에만, 색상값을 선택해주세요.</b>
+						<br/><br/>
+						<img src="<%=request.getContextPath() %>/img/option.png"/>
+					</div>
+					<input type="text" name="optname" placeholder="옵션명을 입력하세요"/>
+					<input type="text" name="optvalue" placeholder="옵션값을 입력하세요"/>
+					<input type='color' name='rgbvalue'/>
+					<input type="text" name="optprice" placeholder="추가 가격(-가능, 0가능)"/>
+					<button type='button' onclick='javascript:optionAdd()'>+</button>
 				</div>
 			</div>
 			<p id="lastP"><input type="submit" value="저장"/><input type="reset" value="다시쓰기" /></p>
