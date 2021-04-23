@@ -26,6 +26,18 @@ public class MemberController {
 		return "admin/member/memberJoin";
 	}
 	
+	@RequestMapping("/pwdchange")
+	public String pwdcChange() {
+		
+		return "admin/member/memberPwdSearch";
+	}
+	
+	@RequestMapping("/idsearch")
+	public String idSearch() {
+		
+		return "admin/member/memberIdSearch";
+	}
+	
 	@RequestMapping(value="/loginOk", method=RequestMethod.POST)
 	public ModelAndView loginCheck(MemberVO vo, HttpSession session) {
 		
@@ -45,7 +57,6 @@ public class MemberController {
 		  
 		return mav;
 	}
-	
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
