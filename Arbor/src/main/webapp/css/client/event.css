@@ -63,7 +63,7 @@
 #j_eventList a:hover{cursor:pointer;}
 #j_eventList strong, .j_eventList p{font-size:12px;}
 #j_eventList a{border-bottom:1px solid #bbb;}
-#j_eventList a:hover{border-bottom:1px solid #333;}
+#j_eventList a:hover {border-bottom:1px solid #333;}
 #j_eventList strong{margin:10px 0;line-height:20px;}
 #j_eventList p{color:#aaa;}
 /* 진행중인 이벤트 view */

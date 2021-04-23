@@ -52,7 +52,7 @@
 					<c:forEach var="vo" items="${list }">
 					<li>
 						<a href="eventView">
-							<img src="<%=request.getContextPath() %>/upload/${vo.eventImg1}"><br/>
+							<img src="./upload/${vo.eventImg1}"><br/>
 							<strong>${vo.eventSubject }</strong>
 						</a>
 						<p>${vo.eventStart } ~ ${vo.eventEnd }</p>
