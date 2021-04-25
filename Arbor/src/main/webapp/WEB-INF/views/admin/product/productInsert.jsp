@@ -22,7 +22,7 @@
 		<div id="sidefrm">사이드메뉴</div>
 		<div id="centerfrm">
 			<h1>상품 등록</h1>
-			<form method="post" action="productInsertOk" enctype="multipart/form-data">
+			<form method="post" action="productInsertOk" enctype="multipart/form-data" autocomplete="off">
 			<div id="insertInfo">
 				<p><span class=pTitle>상품 정보</span>
 					<img src="<%=request.getContextPath() %>/img/downpage.png"/>
@@ -60,7 +60,7 @@
 					<input type="file" name="imgName1" id="img1" /><br/>
 					<input type="file" name="imgName2" id="img2" /><br/>
 					<p>* 이미지 크기는 10MB, 1200PX이하로 등록</p>
-					<div id="imgPrint">이미지 표시할 곳</div>
+					<div id="imgPrint"><img src="<%=request.getContextPath() %>/img/noimg.png"/></div>
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					<h3>상세설명</h3><br/>
 					<textarea name="description" id="description"></textarea>

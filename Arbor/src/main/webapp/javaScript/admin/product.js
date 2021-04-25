@@ -65,6 +65,7 @@ $(function(){
 		});
 	}
 	
+	// mainCate, subCate 셀렉트 박스 변환
 	$("#maincate").change(function() {
 		var url="subCateList";
 		var param = "mainno="+$(this).val();
@@ -82,6 +83,43 @@ $(function(){
 			
 			}
 		});
+	});
+	
+	// 파일 이미지 div에 띄우기
+	$("#img1").on('change', function(){
+         readURL(this);
+    });
+    $("#img2").on('change', function(){
+         readURL(this);
+    });
+	
+    function readURL(input) {
+	      if (input.files && input.files[0]) {
+	         var reader = new FileReader();
+	
+	         reader.onload = function (e) {
+	            $('#imgPrint').children().attr('src', e.target.result);
+	         }
+	
+	         reader.readAsDataURL(input.files[0]);
+	      }
+	};
+	
+	$("#centerfrm>form").on('submit', function(){
+		if($("#pname").val()=='' || $("#pname").val()==null) {
+			alert("상품명은 필수 입력 항목입니다.");
+			return false;
+		} else if($("#stock").val()=='' || $("#stock").val()==null){
+			alert("재고량(입고량)은 필수 입력 항목입니다.");
+			return false;
+		} else if($("#pprice").val()=='' || $("#pprice").val()==null){
+			alert("상품 가격은 필수 입력 항목입니다.");
+			return false;
+		} else if ($("#img1").val()=='' || $("#img1").val()==null){
+			alert("상품 목록에 표시될 파일이므로, 이미지파일 최소 한개는 첨부해주셔야 합니다.");
+			return false;
+		}
+		return true;
 	});
 	
 });

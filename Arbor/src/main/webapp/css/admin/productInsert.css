@@ -39,6 +39,9 @@
 	border:1px solid;
 	top: 70px; left:400px;
 }
+#imgPrint>img {
+	width: 248px; height: 248px;
+}
 
 #lastP {
 	width:450px; margin: 0 auto;

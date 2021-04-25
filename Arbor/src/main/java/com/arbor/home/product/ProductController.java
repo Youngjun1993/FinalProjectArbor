@@ -107,7 +107,6 @@ public class ProductController {
 			
 			// insert파일명 vo에 setting
 			pvo.setImg1(f.getName());
-System.out.println("img1 뭐라고 등록될래?"+pvo.getImg1());
 		}
 		// img2에 업로드
 		int j=1;
@@ -131,13 +130,11 @@ System.out.println("img1 뭐라고 등록될래?"+pvo.getImg1());
 			
 			// insert파일명 vo에 setting
 			pvo.setImg2(f2.getName());
-System.out.println("img2 뭐라고 등록될래?"+pvo.getImg2());
 		}
 		// insert시작
 		try {
 			// insert
 			int pInsert = dao.productInsert(pvo);
-System.out.println("productInsert 성공여부? "+pInsert);
 			if (pInsert>0) {
 				// 등록 성공
 			} else {
@@ -149,11 +146,9 @@ System.out.println("productInsert 성공여부? "+pInsert);
 				del2.delete();
 				mav.setViewName("redirect:productInsert");
 			}
-System.out.println("option등록될거 몇개니?"+optNameArr.length);
 			for(int i=0; i<optNameArr.length; i++) {
 				OptionVO vo = new OptionVO();
 				vo.setPno(dao.pnoSelect(pvo.getSubno(), pvo.getPname()));
-System.out.println("상품번호 받아오나?"+vo.getPno());
 				vo.setOptname(optNameArr[i]);
 				vo.setOptvalue(optValueArr[i]);
 				// rgb코드는 색상 구분일 때만 받아옴
