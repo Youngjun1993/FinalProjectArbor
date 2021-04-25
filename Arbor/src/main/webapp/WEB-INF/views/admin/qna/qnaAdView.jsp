@@ -40,7 +40,8 @@
                 </div>
             </div>
             <ul class="clearfix">
-                <li><a href="qnaAdList?pageNum=${pageVO.pageNum }<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">목록</a></li>
+                <c:if test="${ansBtnCheck eq 'N'}"><li><a href="qnaAdList?pageNum=${pageVO.pageNum }<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">목록</a></li></c:if>
+                <c:if test="${ansBtnCheck eq 'Y'}"><li><a href="qnaNoAnswerList?pageNum=${pageVO.pageNum }<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">목록</a></li></c:if>
                 <li><a href="javascript:qnaAdDel(${vo.qnano })">문의글 삭제</a></li>               
             </ul>
             <div class="clearfix">

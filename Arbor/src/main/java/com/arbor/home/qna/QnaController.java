@@ -5,10 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.arbor.home.PageSearchVO;
 
 @Controller
 public class QnaController {
@@ -20,7 +21,7 @@ public class QnaController {
 	public ModelAndView qnaList(HttpServletRequest req) {
 		String pageNumStr = req.getParameter("pageNum");
 		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
-		QnaPageSearchVO pageVo = new QnaPageSearchVO();
+		PageSearchVO pageVo = new PageSearchVO();
 		
 		pageVo.setTotalRecord(dao.totalRecord(pageVo));
 		
@@ -111,7 +112,7 @@ public class QnaController {
 	@RequestMapping("/qnaAdList")
 	public ModelAndView qnaSearchList(HttpServletRequest req) {
 		String pageNumStr = req.getParameter("pageNum");
-		QnaPageSearchVO pageVo = new QnaPageSearchVO();
+		PageSearchVO pageVo = new PageSearchVO();
 		
 		if(pageNumStr != null) {
 			pageVo.setPageNum(Integer.parseInt(pageNumStr));
@@ -124,8 +125,10 @@ public class QnaController {
 		pageVo.setTotalRecord(dao.totalRecord(pageVo));
 		
 		QnaVO vo = dao.qnaAdAnsCount();
-		
+		vo.setAnsBtnCheck("N");
 		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("ansBtnCheck", vo.getAnsBtnCheck());
 		mav.addObject("countAns", vo.getCountans());
 		mav.addObject("list", dao.onePageRecordSelect(pageVo));
 		mav.addObject("pageVO", pageVo);
@@ -133,26 +136,54 @@ public class QnaController {
 		
 		return mav;
 	}
-	@RequestMapping("/qnaAdView")
-	public String qnaAdView(int qnano, HttpServletRequest req) {
+	//미답변 질문만 보기
+	@RequestMapping("/qnaNoAnswerList")
+	public ModelAndView qnaNoAnswerList(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		String pageNumStr = req.getParameter("pageNum");
+		PageSearchVO pageVo = new PageSearchVO();
+		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
 		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
-		QnaPageSearchVO pageVo = new QnaPageSearchVO();
+		pageVo.setTotalRecord(dao.noAnswerTotal(pageVo));
+		
+		QnaVO vo = dao.qnaAdAnsCount();
+		vo.setAnsBtnCheck("Y");
+		mav.addObject("ansBtnCheck", vo.getAnsBtnCheck());
+		mav.addObject("countAns", vo.getCountans());
+		mav.addObject("list", dao.noAnswerSelect(pageVo));
+		mav.addObject("pageVO", pageVo);
+		mav.setViewName("admin/qna/qnaAdList");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/qnaAdView")
+	public ModelAndView qnaAdView(int qnano, HttpServletRequest req) {
+		QnaDAOimp dao = sqlSession.getMapper(QnaDAOimp.class);
+		PageSearchVO pageVo = new PageSearchVO();
 		QnaVO vo = dao.qnaSelect(qnano);
 		
 		pageVo.setPageNum(Integer.parseInt(req.getParameter("pageNum")));
 		pageVo.setQnaSearchKey(req.getParameter("qnaSearchKey"));
 		pageVo.setQnaSearchWord(req.getParameter("qnaSearchWord"));
 		
-		req.setAttribute("vo",vo);
-		req.setAttribute("pageVO", pageVo);
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("ansBtnCheck", req.getParameter("ansBtnCheck"));
+		mav.addObject("vo",vo);
+		mav.addObject("pageVO", pageVo);
 		
 		String editAddr = "qnano="+vo.getQnano()+"&pageNum="+pageVo.getPageNum();
 		if(pageVo.getQnaSearchWord() != null && pageVo.getQnaSearchWord().equals("")) {
 			editAddr += "&qnaSearchKey="+pageVo.getQnaSearchKey()+"&qnaSearchWord="+pageVo.getQnaSearchWord();
 		}
-		req.setAttribute("editAddr", editAddr);
+		mav.addObject("editAddr", editAddr);
 		
-		return "admin/qna/qnaAdView";
+		mav.setViewName("admin/qna/qnaAdView");
+		return mav;
 	}
 	@RequestMapping("/qnaAdUpdate")
 	public ModelAndView qnaAdUpdate(int qnano, String answercontent, HttpServletRequest req) {

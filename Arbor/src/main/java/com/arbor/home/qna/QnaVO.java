@@ -14,7 +14,14 @@ public class QnaVO {
 	private String qnadate;
 	private String ansdate;
 	private int countans;
+	private String ansBtnCheck="N";
 	
+	public String getAnsBtnCheck() {
+		return ansBtnCheck;
+	}
+	public void setAnsBtnCheck(String ansBtnCheck) {
+		this.ansBtnCheck = ansBtnCheck;
+	}
 	public int getCountans() {
 		return countans;
 	}

@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.arbor.home.PageSearchVO;
+
 public interface QnaDAOimp {
 	//Q&A 리스트
-	public List<QnaVO> allList(QnaPageSearchVO vo);
+	public List<QnaVO> allList(PageSearchVO vo);
 	//Q&A 등록
 	public int qnaInsert(QnaVO vo);
 	//Q&A 뷰
@@ -22,9 +24,13 @@ public interface QnaDAOimp {
 	//미답변 건수
 	public QnaVO qnaAdAnsCount();
 	//총 레코드 수
-	public int totalRecord(QnaPageSearchVO vo);
+	public int totalRecord(PageSearchVO vo);
 	//한 페이지 레코드 선택
-	public List<QnaVO> onePageRecordSelect(QnaPageSearchVO vo);
+	public List<QnaVO> onePageRecordSelect(PageSearchVO vo);
 	//삭제
 	public ModelAndView qnaAdDel(int no);
+	//미답변 리스트
+	public List<QnaVO> noAnswerSelect(PageSearchVO vo);
+	//미답변 총 레코드 수
+	public int noAnswerTotal(PageSearchVO vo);
 }

@@ -1,0 +1,87 @@
+@charset "UTF-8";
+/*공통 class*/
+.ftBold25_blue{
+    font-weight: bold;
+    font-size: 25px;
+    color: blue;
+}
+.statusBtn{
+    display: none;
+}
+/*마이페이지 공통 메뉴바*/
+#y_leftMenu{
+    width: 150px;
+    float: left;
+}
+#y_leftMenu>ul>li{
+    height: 50px;
+    line-height: 50px;
+}
+
+/*myPage 스타일*/
+#y_myPage_rightCon{
+    float: left;   
+}
+#y_myPage_rightCon>div{
+    width: 1250px;
+}
+#y_myPage_rightCon>div:first-of-type>ul{
+    border: 1px solid #ddd;
+    margin: 30px 0 60px 0;
+    padding: 20px;
+}
+#y_myPage_rightCon>div:first-of-type>ul>li:first-child{
+    width: 573px;
+    text-align: left;
+    padding-left: 30px;
+    border: none;
+}
+#y_myPage_rightCon>div:first-of-type>ul>li{
+    float: left;
+    width: 200px;
+    height: 80px;
+    padding: 40px 0 30px 0px;
+    text-align: center;
+    font-size: 18px;
+    border-right: 1px solid #ddd;
+}
+#y_myPage_rightCon>div:first-of-type>ul>li:first-child{
+    font-size: 25px;
+}
+#y_myPage_rightCon>div:first-of-type>ul>li:last-child{
+    border: none;
+}
+#y_myPage_rightCon>div:nth-of-type(2)>ul>li{
+    float: left;
+    width: 200px;
+    text-align: center;
+}
+#y_myPage_rightCon>div:nth-of-type(2)>ul>li:nth-child(4n+2){
+    width: 500px;
+}
+#y_myPage_rightCon>div:nth-of-type(2)>ul>li:nth-child(4n+4){
+    width: 350px;
+}
+#y_myPage_rightCon div ul li span{
+    float: left;
+    display: block;
+}
+#y_myPage_rightCon div ul li:nth-child(2) span:first-child{
+    margin: 0 10px 0 30px;
+}
+#y_myPage_rightCon div ul li span:first-child{
+    margin:0 10px 0 50px;
+}
+#y_myPage_rightCon div:nth-of-type(2) ul{
+    border-top: 1px solid #333;
+}
+#y_myPage_rightCon div:nth-of-type(2) ul li {
+    height: 40px;
+    line-height: 40px;
+    border-top: 1px solid #ddd;
+}
+
+/*페이징*/
+#myPagePaging li{
+    float: left;
+}

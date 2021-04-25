@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/productList.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/productView.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/qna.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/myPage.css" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
 <script>
@@ -39,7 +40,7 @@
 							<li>LIVING</li>
 							<li><a href="productList">소파</a></li>
 							<li><a href="qnaList">TV장식장</a></li>
-							<li><a href="">거실테이블</a></li>
+							<li><a href="purchaseList">거실테이블</a></li>
 							<li><a href="">거실장</a></li>
 						</ul>
 					</div>

@@ -1,6 +1,6 @@
-package com.arbor.home.qna;
+package com.arbor.home;
 
-public class QnaPageSearchVO {
+public class PageSearchVO {
 	private int pageNum=1;
 	private int onePageNum=5;
 	private int startPageNum=1;

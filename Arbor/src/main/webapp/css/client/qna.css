@@ -255,7 +255,8 @@
     width: 100px;
     font-weight: bold;
 }
-#y_adminQnaList_rightcon>div>p{
+#y_adminQnaList_rightcon>div>a{
+	display:block;
     float: right;
     background: #ddd;
     width: 200px;
