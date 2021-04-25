@@ -1,6 +1,6 @@
 package com.arbor.home.optionTbl;
 
-public class OptionTblVO {
+public class OptionVO {
 	private int optno;
 	private int pno;
 	private String optname;

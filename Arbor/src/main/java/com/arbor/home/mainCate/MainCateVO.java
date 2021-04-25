@@ -2,7 +2,7 @@ package com.arbor.home.mainCate;
 
 public class MainCateVO {
 	
-	private int mainno;
+	private int mainno=1;
 	private String mainname;
 	
 	public int getMainno() {

@@ -2,8 +2,8 @@ package com.arbor.home.subCate;
 
 public class SubCateVO {
 
-	private int subno;
-	private int mainno;
+	private int subno=1;
+	private int mainno=1;
 	private String subname;
 	
 	public int getSubno() {

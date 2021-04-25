@@ -14,6 +14,7 @@ $(function(){
 		$(this).prev().show();
 	});
 	
+	<!-- summerNote -->
 	$("#description").summernote({
 		height : 300, // 높이
 		minHeight : 300, // 최소높이
@@ -63,6 +64,25 @@ $(function(){
 			}
 		});
 	}
+	
+	$("#maincate").change(function() {
+		var url="subCateList";
+		var param = "mainno="+$(this).val();
+		$.ajax({
+			url : url,
+			data : param,
+			success : function(result) {
+				var $result = $(result);
+				var tag="";
+				$result.each(function(idx, val){
+					tag += "<option value='"+val.subno+"'>"+val.subname+"</option>";
+				});
+				$("#subcate").html(tag);
+			}, error : function(e) {
+			
+			}
+		});
+	});
 	
 });
 
