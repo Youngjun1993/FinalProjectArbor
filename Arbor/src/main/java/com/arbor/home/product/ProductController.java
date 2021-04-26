@@ -36,16 +36,19 @@ public class ProductController {
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
 	
+	// View - 상품목록
 	@RequestMapping("/productList")
 	public String productList() {
 		return "client/product/productList";
 	}
 	
+	// View - 상품상세페이지
 	@RequestMapping("/productView")
 	public String productView() {
 		return "client/product/productView";
 	}
-
+	
+	// Admin - 상품등록페이지로 넘어감
 	@RequestMapping("/productInsert")
 	public ModelAndView productInsert() {
 		ModelAndView mav = new ModelAndView();
@@ -57,6 +60,7 @@ public class ProductController {
 		return mav;
 	}
 	
+	// Admin - 상품등록
 	@RequestMapping(value="/productInsertOk", method=RequestMethod.POST)
 	@Transactional(rollbackFor= {Exception.class, RuntimeException.class})
 	public ModelAndView productInsertOk(
@@ -177,11 +181,24 @@ public class ProductController {
 		return mav;
 	}
 	
+	// 대분류에 따른 서브카테고리 가져오기
 	@RequestMapping("/subCateList")
 	@ResponseBody
 	public List<SubCateVO> subCateList(int mainno) {
 		ProductDAOImp dao = sqlSession.getMapper(ProductDAOImp.class);
 		return dao.subCateList(mainno);
+	}
+	
+	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
+	@RequestMapping("/productSearch")
+	public ModelAndView productSearch() {
+		ProductDAOImp dao = sqlSession.getMapper(ProductDAOImp.class);
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("subCate", dao.subCateList(1));
+		mav.addObject("mainCate", dao.mainCateList());
+		mav.setViewName("/admin/product/productSearch");
+		return mav;
 	}
 	
 	// SummerNote upload
