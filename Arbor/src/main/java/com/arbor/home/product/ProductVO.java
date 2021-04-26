@@ -15,6 +15,28 @@ public class ProductVO {
 	private int deliveryprice;
 	private String pdate;
 	
+	private String subname;
+	private int mainno;
+	private String mainname;
+	
+	public int getMainno() {
+		return mainno;
+	}
+	public void setMainno(int mainno) {
+		this.mainno = mainno;
+	}
+	public String getSubname() {
+		return subname;
+	}
+	public void setSubname(String subname) {
+		this.subname = subname;
+	}
+	public String getMainname() {
+		return mainname;
+	}
+	public void setMainname(String mainname) {
+		this.mainname = mainname;
+	}
 	public int getPno() {
 		return pno;
 	}

@@ -17,4 +17,8 @@ public interface ProductDAOImp {
 	public int optionInsert(OptionVO vo);
 	// option 등록 위한 pno구해오기
 	public int pnoSelect(int subno, String pname);
+	// 상품목록 불러오기
+	public List<ProductVO> productList();
+	// 수정 위한 pno에 따른 정보 불러오기
+	public ProductVO productSelect(int pno);
 }

@@ -189,6 +189,18 @@ public class ProductController {
 		return dao.subCateList(mainno);
 	}
 	
+	// Admin - 상품 수정
+	@RequestMapping("/productEdit")
+	public ModelAndView productEdit(int pno) {
+		ProductDAOImp dao = sqlSession.getMapper(ProductDAOImp.class);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vo", dao.productSelect(pno));
+		mav.setViewName("/admin/product/productEdit");
+		
+		return mav;
+	}
+	
 	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
 	@RequestMapping("/productSearch")
 	public ModelAndView productSearch() {
@@ -197,6 +209,7 @@ public class ProductController {
 		
 		mav.addObject("subCate", dao.subCateList(1));
 		mav.addObject("mainCate", dao.mainCateList());
+		mav.addObject("productList", dao.productList());
 		mav.setViewName("/admin/product/productSearch");
 		return mav;
 	}
