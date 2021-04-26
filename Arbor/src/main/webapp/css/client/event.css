@@ -9,7 +9,7 @@
 }
 .j_tab-wrap>input[type=radio]{display:none}
 
-.j_tab_label{
+.j_tabLbl{
 	display:inline-block;
 	margin:0 0 -1px;
 	padding:10px 15px;
@@ -17,11 +17,11 @@
 	text-align:center;
 	color:#bbb;
 }
-.j_tab_label:hover{
+.j_tabLbl:hover{
 	cursor:pointer;
 	color:rgb(90,120,114);	
 }
-.j_tabs:checked+.j_tab_label{
+.j_tabs:checked+.j_tabLbl{
 	color:#333;
 	border:1px solid #bbb;
 	border-top:2px solid rgb(90,120,114);
@@ -35,6 +35,8 @@
 .j_search>form{float:right;height:25px;line-height:25px;}
 .j_search select, .j_search input{height:25px;line-height:25px;vertical-align:middle;} /* 높이 통일화 필요 */
 .j_search input[type=text]{padding:0;box-sizing:border-box;}
+
+#j_eventFrm{padding-top:30px;}
 
 /* tab content */
 #j_tab1:checked~#j_tab1_content,
@@ -98,17 +100,10 @@
 	line-height:40px;
 	text-align:left;
 	border-bottom:1px solid #ddd;
+	font-size:12px;
 }
 #j_tab3_content li:nth-child(4n+3){width:58%;}
 #j_tab3_content li:nth-child(4n+4){width:22%;}
 #j_tab3_content li:not(.j_subejct){text-align:center;}
-#j_tab3_content li:nth-child(-n+4){font-weight:bold;color:#333;}
-
-
-
-
-
-
-
-
+#j_tab3_content li:nth-child(-n+4){font-weight:bold;font-size:1em;color:#333;}
 

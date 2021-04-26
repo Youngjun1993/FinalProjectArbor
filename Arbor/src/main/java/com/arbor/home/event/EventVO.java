@@ -1,10 +1,7 @@
 package com.arbor.home.event;
 
 public class EventVO {
-	//
-	public EventVO() {
-		// TODO Auto-generated constructor stub
-	}
+	
 	private int eventNo;
 	private String eventSubject;
 	private String eventContent;
@@ -12,6 +9,26 @@ public class EventVO {
 	private String eventEnd;
 	private String eventImg1;
 	private String eventImg2;
+	private String eventDate;
+	
+	
+	///////////////////////////////////////
+	private String searchKey;
+	private String searchWord;
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
+	public String getSearchWord() {
+		return searchWord;
+	}
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
+	///////////////////////////////////////
+	
 	
 	
 	public int getEventNo() {
@@ -55,6 +72,12 @@ public class EventVO {
 	}
 	public void setEventImg2(String eventImg2) {
 		this.eventImg2 = eventImg2;
+	}
+	public String getEventDate() {
+		return eventDate;
+	}
+	public void setEventDate(String eventDate) {
+		this.eventDate = eventDate;
 	}
 	
 }

@@ -9,6 +9,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
+<script>
+	$("#j_insertBtn").click(function(){
+		location.href="eventInsert";
+	});
+</script>
 </head>
 <body>
 <div class="w1400_container font_ng">
@@ -26,11 +31,12 @@
 			<c:forEach var="vo" items="${list }">
 				<li>${vo.eventNo }</li>
 				<li></li>
-				<li class="wordcut"><a href="eventContent?no=${vo.eventNo }">${vo.eventSubject }</a></li>
+				<li class="wordcut"><a href="eventView?eventNo=${vo.eventNo }">${vo.eventSubject }</a></li>
 				<li>${vo.eventStart } ~ ${vo.eventEnd }</li>
-				<li>*등록일 수정 필요*</li>
+				<li>${vo.eventDate }</li>
 			</c:forEach>
 		</ul>
+		<p class="j_eventSetBtn"><input type="button" id="j_insertBtn" value="게시물 등록"></p>
 		</div>
 	</div>
 </div>
