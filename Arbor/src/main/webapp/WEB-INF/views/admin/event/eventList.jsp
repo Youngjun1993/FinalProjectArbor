@@ -20,6 +20,16 @@
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm" id="j_listFrm">
 		<h1>이벤트 목록</h1>
+		<div class="clearfix j_search">
+			<form method="post" class="searchFrm" action="eventList">
+				<select id="j_searchKey" name="searchKey">
+					<option value="eventSubject">제목</option>
+					<option value="eventContent">내용</option>
+				</select>
+				<input type="text" name="searchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
+				<input type="submit" value="검색"/>
+			</form>
+		</div>
 		<div>
 		<ul class="clearfix" id="eventList">
 			<li>NO</li>
