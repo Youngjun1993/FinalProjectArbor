@@ -1,12 +1,34 @@
 package com.arbor.home.event;
 
 public class EventVO {
-		
+	
 	private int eventNo;
 	private String eventSubject;
 	private String eventContent;
 	private String eventStart;
 	private String eventEnd;
+	private String eventImg1;
+	private String eventImg2;
+	private String eventDate;
+	
+	
+	///////////////////////////////////////
+	private String searchKey;
+	private String searchWord;
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
+	public String getSearchWord() {
+		return searchWord;
+	}
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
+	///////////////////////////////////////
+	
 	
 	
 	public int getEventNo() {
@@ -38,6 +60,24 @@ public class EventVO {
 	}
 	public void setEventEnd(String eventEnd) {
 		this.eventEnd = eventEnd;
+	}
+	public String getEventImg1() {
+		return eventImg1;
+	}
+	public void setEventImg1(String eventImg1) {
+		this.eventImg1 = eventImg1;
+	}
+	public String getEventImg2() {
+		return eventImg2;
+	}
+	public void setEventImg2(String eventImg2) {
+		this.eventImg2 = eventImg2;
+	}
+	public String getEventDate() {
+		return eventDate;
+	}
+	public void setEventDate(String eventDate) {
+		this.eventDate = eventDate;
 	}
 	
 }

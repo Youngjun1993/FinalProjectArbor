@@ -59,7 +59,7 @@ public class ProductController {
 		mav.setViewName("admin/product/productInsert");
 		return mav;
 	}
-	
+
 	// Admin - 상품등록
 	@RequestMapping(value="/productInsertOk", method=RequestMethod.POST)
 	@Transactional(rollbackFor= {Exception.class, RuntimeException.class})
@@ -215,8 +215,6 @@ public class ProductController {
 		String path = req.getSession().getServletContext().getRealPath("/summernote");
 		// 파일명 구하기
 		String orgName = multipartFile.getOriginalFilename();
-		//파일 확장자 (.의 index구해서 substring한다)
-		String extension = orgName.substring(orgName.lastIndexOf("."));
 		
 		// transferTo : 실제 업로드 발생
 		try {

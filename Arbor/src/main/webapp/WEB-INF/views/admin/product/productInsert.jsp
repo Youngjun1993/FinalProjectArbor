@@ -6,15 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css"/>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/productInsert.css" type="text/css"/>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/product.css" type="text/css"/>
+<script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/admin/product.js"></script>
+<script src="/javaScript/product.js"></script>
 <script>
-
+	
 </script>
 </head>
 <body>
@@ -69,22 +66,12 @@
 			</div>
 			<br/><br/>
 			<div id="insertOption">
-				<p><span class="pTitle">옵션선택 입력</span>
+				<p><span class=pTitle>옵션선택 입력</span>
 					<img src="<%=request.getContextPath() %>/img/downpage.png"/>
 					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 				</p><br/>
-				<div id="optionTbl">
-					<div>
-						<b>* 이미지를 참조하여 정확한 값을 입력해주세요 *<br/>
-						색상 옵션명에 대한 값을 입력시에만, 색상값을 선택해주세요.</b>
-						<br/><br/>
-						<img src="<%=request.getContextPath() %>/img/option.png"/>
-					</div>
-					<input type="text" name="optname" placeholder="옵션명을 입력하세요"/>
-					<input type="text" name="optvalue" placeholder="옵션값을 입력하세요"/>
-					<input type='color' name='rgbvalue'/>
-					<input type="text" name="optprice" placeholder="추가 가격(-가능, 0가능)"/>
-					<button type='button' onclick='javascript:optionAdd()'>+</button>
+				<div>
+					
 				</div>
 			</div>
 			<p id="lastP"><input type="submit" value="저장"/><input type="reset" value="다시쓰기" /></p>

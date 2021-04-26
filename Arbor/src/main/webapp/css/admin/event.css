@@ -1,0 +1,63 @@
+@charset "UTF-8";
+/* class */
+.j_category{
+	width:100px;
+	font-weight:bold;
+	display:inline-block;
+}
+.j_sideMemu{
+	width:150px;
+	float:left;
+}
+.j_centerFrm{
+	width:1250px;
+	float:right;
+}
+.j_centerFrm>h1{
+	padding-bottom:15px;
+	border-bottom:2px solid gray;
+}
+
+input[type=submit], input[type=button] {
+	cursor:pointer;
+}
+/*--------------
+	이벤트 목록
+---------------*/
+#eventList>li{
+	float:left;
+	width:10%;
+	height:40px;
+	line-height:40px;
+	border-bottom:1px solid #ddd;
+	font-size:12px;
+}
+#eventList>li:nth-child(-n+5){font-weight:bold;font-size:1em;color:#333;}
+#eventList>li:nth-child(5n+2){width:5%;}
+#eventList>li:nth-child(5n+3){width:55%;}
+#eventList>li:nth-child(5n+4){width:20%;}
+#eventList>li:not(.wordcut){text-align:center;}
+
+/*--------------
+	이벤트 등록
+---------------*/
+.j_centerFrm div{
+	padding-top:20px;
+	line-height:35px;
+}
+#eventSubject{
+	width:375px;
+}
+.j_eventSetBtn{
+	text-align:right;
+}
+/*--------------
+	이벤트 뷰
+---------------*/
+#j_contentImg{text-align:center;}
+/*--------------
+	이벤트 수정
+---------------*/
+#j_eventFile b{
+	cursor:pointer;
+}

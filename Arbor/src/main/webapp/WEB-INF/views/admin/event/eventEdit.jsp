@@ -84,6 +84,14 @@
 				}
 			});
 		}
+		
+		//첨부파일 삭제
+		$("#j_insertFrm b").click(function(){
+			$(this).parent().css("display", "none");
+			$(this).parent().next().attr("name", "delFile");
+			$(this).parent().next().next().attr("type", "file");
+		});
+		
 	});
 </script>
 </head>
@@ -91,22 +99,25 @@
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm" id="j_insertFrm">
-		<h1>이벤트 등록</h1>
-		<form method="post" action="eventInsertOk" enctype="multipart/form-data">
+		<h1>이벤트 수정</h1>
+		<form method="post" action="eventEditOk" enctype="multipart/form-data">
+		<input type="hidden" name="eventNo" value="${vo.eventNo }"/>
 			<div>
 				<span class="j_category">제목</span>
-					<input type="text" name="eventSubject" id="eventSubject"/>
+					<input type="text" name="eventSubject" id="eventSubject" value="${vo.eventSubject }"/>
 				<br/>
-				<span class="j_category">이벤트 기간</span> 
-					<input type="text" name="eventStart" id="eventStart" placeholder="시작일"/> ~ 
-					<input type="text" name="eventEnd" id="eventEnd" placeholder="종료일"/>
+				<span class="j_category">이벤트 기간</span>
+					<input type="text" name="eventStart" id="eventStart" value="${vo.eventStart }"/> ~ 
+					<input type="text" name="eventEnd" id="eventEnd" value="${vo.eventEnd }"/>
 				<br/>
-				<span class="j_category">타이틀 이미지</span>
-					<input type="file" name="img1"/>
+				<span class="j_category" id="j_eventFile">타이틀 이미지</span>
+					<span>${vo.eventImg1 } <b>X</b></span>
+					<input type="hidden" name="" value="${vo.eventImg1 }"/>
+					<input type="hidden" name="img1" value="${vo.eventImg1 }"/>
 				<br/><br/>
-				<textarea name="eventContent" id="eventContent"></textarea>
+				<textarea name="eventContent" id="eventContent">${vo.eventContent }</textarea>
 				<br/>
-				<p class="j_eventSetBtn"><input type="submit" value="등록"> <input type="button" id="j_insertCnlBtn" value="취소"></p>
+				<p class="j_eventSetBtn"><input type="submit" value="수정"> <input type="button" id="j_editCnlBtn" value="취소"></p>
 			</div>
 		</form>
 	</div>
