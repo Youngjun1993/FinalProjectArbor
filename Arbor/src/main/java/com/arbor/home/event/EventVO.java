@@ -12,7 +12,7 @@ public class EventVO {
 	private String eventDate;
 	
 	
-	///////////////////////////////////////
+	/*----------- 검색 -----------*/
 	private String searchKey;
 	private String searchWord;
 	public String getSearchKey() {
@@ -27,8 +27,7 @@ public class EventVO {
 	public void setSearchWord(String searchWord) {
 		this.searchWord = searchWord;
 	}
-	///////////////////////////////////////
-	
+	///////////////////////////////
 	
 	
 	public int getEventNo() {

@@ -4,10 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.arbor.home.event.EventDAOImp">
   	<select id="eventList" resultType="com.arbor.home.event.EventVO">
-  		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, eventImg1, to_char(eventDate, 'yy/mm/dd hh24:mi') eventDate from event where <if test="searchWord!=null">${searchKey} like '%${searchWord}%' and</if> to_date(eventEnd, 'YY-MM-DD')>sysdate order by eventNo desc
+  		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, eventImg1
+  		from event where <if test="searchWord!=null">${searchKey} like '%${searchWord}%' and</if>
+  		to_date(eventEnd, 'YY-MM-DD')>sysdate order by eventNo desc
   	</select>
   	<select id="closeEvent" resultType="com.arbor.home.event.EventVO">
-  		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd from event  where <if test="searchWord!=null">${searchKey} like '%${searchWord}%' and</if> sysdate>to_date(eventEnd, 'YY-MM-DD') order by eventNo desc
+  		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd
+  		from event where <if test="searchWord!=null">${searchKey} like '%${searchWord}%' and</if>
+  		sysdate>to_date(eventEnd, 'YY-MM-DD') order by eventNo desc
+  	</select>
+  	<select id="lagLeadSelect" resultType="com.arbor.home.event.PrevNextVO">
+  		select * from (select eventNo, lag(eventNo, 1, 0) over (order by eventNo desc) prevNo,
+  		lag(eventSubject, 1, '이전글이 없습니다.') over (order by eventNo desc) prevSubject,
+  		lead(eventNo, 1, 0) over (order by eventNo desc) nextNo,
+  		lead(eventSubject, 1, '다음글이 없습니다.') over (order by eventNo desc) nextSubject
+  		from event) where eventNo=#{param1}
+  	</select>
+  	<select id="eventAllSelect" resultType="com.arbor.home.event.EventVO">
+  		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yy/mm/dd hh24:mi') eventDate
+  		from event <if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if> 
   	</select>
   	<insert id="eventInsert" parameterType="com.arbor.home.event.EventVO">
   		insert into event(eventNo, eventSubject, eventContent, eventStart, eventEnd, eventImg1) values(eventsq.nextval, #{eventSubject}, #{eventContent}, #{eventStart}, #{eventEnd}, #{eventImg1})

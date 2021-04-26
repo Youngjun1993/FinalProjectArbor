@@ -23,12 +23,12 @@
 		else if(title=="endEvent"){
 			$("#j_tab3").prop("checked",true);
 		}
-		var chkr = $(".j_tab-wrap [name='tabs']:checked").next().text();
+		let chkr = $(".j_tab-wrap [name='tabs']:checked").next().text();
 		$(".j_eventMenu").text(chkr);
 		
 		
 		$(".searchFrm").submit(function(){
-			if("#j_searchWordNow").val()==""){
+			if(!$(".searchWord").val()){
 				alert("검색어를 입력하세요.");
 				return false;
 			}
@@ -66,7 +66,7 @@
 						<option value="eventSubject">제목</option>
 						<option value="eventContent">내용</option>
 					</select>
-					<input type="text" name="searchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
+					<input type="text" name="searchWord" class="j_searchWord placeholder="검색어 입력"/>
 					<input type="submit" value="검색"/>
 				</form>
 			</div>
@@ -106,7 +106,7 @@
 						<option value="eventSubejct">제목</option>
 						<option value="eventContent">내용</option>
 					</select>
-					<input type="text" name="searchWord" id="j_searchWordEnd" placeholder="검색어 입력"/>
+					<input type="text" name="searchWord" class="j_searchWord" placeholder="검색어 입력"/>
 					<input type="submit" value="검색"/>
 				</form>			
 			</div>

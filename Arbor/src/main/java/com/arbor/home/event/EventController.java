@@ -1,7 +1,9 @@
 package com.arbor.home.event;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,13 +39,21 @@ public class EventController {
 	}
 	@RequestMapping("/eventContent")
 	public ModelAndView eventContent(int eventNo) {
+		
 		ModelAndView mav = new ModelAndView();
 		EventDAOImp dao = sqlSession.getMapper(EventDAOImp.class);
 		mav.addObject("vo", dao.eventSelect(eventNo));
+		mav.addObject("pnList", dao.lagLeadSelect(eventNo));
+
+		Date now = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+		String nowDate = format.format(now);
+		mav.addObject("now", now);
+		System.out.println("nowDate->"+nowDate);
+		
 		mav.setViewName("client/event/eventContent");
 		return mav;
 	}
-	
 	
 	
 	//////////////////////////////////////////////////////////
@@ -54,7 +64,7 @@ public class EventController {
 	public ModelAndView eventList(EventVO vo){
 		EventDAOImp dao = sqlSession.getMapper(EventDAOImp.class);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", dao.eventList(vo));
+		mav.addObject("list", dao.eventAllSelect(vo));
 		mav.setViewName("admin/event/eventList");
 		return mav;
 	}
