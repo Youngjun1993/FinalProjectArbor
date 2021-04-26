@@ -1,0 +1,109 @@
+@charset "UTF-8";
+/* class */
+.j_eventMenu{
+	margin:15px 0;
+	text-align:center;
+	color:rgb(90,120,114);
+ 	font-weight:600;
+	font-size:2em;
+}
+.j_tab-wrap>input[type=radio]{display:none}
+
+.j_tabLbl{
+	display:inline-block;
+	margin:0 0 -1px;
+	padding:10px 15px;
+	font-weight:600;
+	text-align:center;
+	color:#bbb;
+}
+.j_tabLbl:hover{
+	cursor:pointer;
+	color:rgb(90,120,114);	
+}
+.j_tabs:checked+.j_tabLbl{
+	color:#333;
+	border:1px solid #bbb;
+	border-top:2px solid rgb(90,120,114);
+	border-bottom:1px solid #fff;
+}
+.j_tab-content{
+	display:none;
+	border-top:1px solid #bbb;
+}
+.j_search{padding-top:10px;height:30px;}
+.j_search>form{float:right;height:25px;line-height:25px;}
+.j_search select, .j_search input{height:25px;line-height:25px;vertical-align:middle;} /* 높이 통일화 필요 */
+.j_search input[type=text]{padding:0;box-sizing:border-box;}
+
+#j_eventFrm{padding-top:30px;}
+
+/* tab content */
+#j_tab1:checked~#j_tab1_content,
+#j_tab2:checked~#j_tab2_content,
+#j_tab3:checked~#j_tab3_content{
+	display:block;
+}
+/*----------------
+	타임세일 tab
+-----------------*/
+
+
+
+/*---------------------
+	진행중인 이벤트 tab
+----------------------*/
+/* 진행중인 이벤트 리스트 */
+#j_eventList{padding-top:15px;}
+#j_eventList>li{
+	float:left;
+	margin:10px 15px;
+	padding:0 10px;
+	text-align:center;
+}
+#j_eventList img{width:300px;height:250px;}
+#j_eventList a:hover{cursor:pointer;}
+#j_eventList strong, .j_eventList p{font-size:12px;}
+#j_eventList a{border-bottom:1px solid #bbb;}
+#j_eventList a:hover {border-bottom:1px solid #333;}
+#j_eventList strong{margin:10px 0;line-height:20px;}
+#j_eventList p{color:#aaa;}
+/* 진행중인 이벤트 view */
+#j_eventTitle, #j_contentList{
+	border-top:1px solid rgb(229,229,229);
+	border-bottom:1px solid rgb(229,229,229);	
+}
+#j_eventTitle{
+	margin-top:50px;
+	height:40px;
+	background-color:rgb(246,246,246);
+	line-height:40px;
+	text-align:center;
+}
+#j_eventContent{
+	padding:50px; text-align:center;
+}
+/* 이전글, 다음글 부분 */
+#j_contentList{
+	padding:10px; line-height:25px;
+}
+#j_eventListBtn{	/*적용안됨!!!!!!!!!!!!!!!!!!*/
+	margin:15px 0; float:right;
+}
+/*------------------
+	지난 이벤트 tab
+------------------*/
+#j_tab3_content li{
+	float:left;
+	width:10%;
+	height:40px;
+	line-height:40px;
+	text-align:left;
+	border-bottom:1px solid #ddd;
+	font-size:12px;
+}
+#j_tab3_content li:nth-child(4n+3){width:58%;}
+#j_tab3_content li:nth-child(4n+4){width:22%;}
+#j_tab3_content li:not(.j_subejct){text-align:center;}
+#j_tab3_content li:nth-child(-n+4){font-weight:bold;font-size:1em;color:#333;}
+

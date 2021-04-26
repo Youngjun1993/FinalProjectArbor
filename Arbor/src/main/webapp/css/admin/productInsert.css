@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
 /*id css*/
+
+
+/* productInsert */
 #sidefrm {
 	width: 150px;
 	float:left;
@@ -12,7 +15,7 @@
 	float: right;
 }
 
-#insertInfo, #insertImg, #insertOption {
+#insertInfo, #insertImg, #insertOption, #productSearch {
 	background-color: #fff;
 	width: 1100px;
 	margin:0 auto;
@@ -24,7 +27,8 @@
 	position:relative;
 }
 
-#insertInfo>p:first-child, #insertImg>p:first-child, #insertOption>p:first-child {
+#insertInfo>p:first-child, #insertImg>p:first-child, #insertOption>p:first-child,
+#productSearch>p:first-child {
 	height: 50px; line-height: 50px;
 	border-bottom : 2px solid;
 }
@@ -39,6 +43,9 @@
 	border:1px solid;
 	top: 70px; left:400px;
 }
+#imgPrint>img {
+	width: 248px; height: 248px;
+}
 
 #lastP {
 	width:450px; margin: 0 auto;
@@ -46,13 +53,45 @@
 
 #lastP>input {
 	width:200px; height: 50px;
-	border-color: #fff;
+	border-color: #fff; border-radius:15px;
+	border:blue;
 	background-color: rgb(248, 244, 236);
 	font-family: 'Nanum Gothic', sans-serif;
 }
 
+/* optionTbl */
+#optionTbl {
+	margin-bottom: 50px;
+}
+#optionTbl>div:first-child {
+	width: 750px; margin:30px auto;
+	text-align: center;
+}
+#optionTbl>input:nth-of-type(4n+3) {
+	width:50px;
+	vertical-align: middle;
+}
+#optionTbl>button {
+	width: 33px; height: 33px;
+}
+
+
+/* productSearch */
+#searchSubmit {
+	width: 80px; height: 37px;
+	background-color: rgb(93, 121, 115);	
+	border-color: #fff; border-radius: 12px;
+}
+
+#searchWord {
+	height: 25px;
+}
 
 /*tag css*/
+
+
+/* productInsert */
+
 h1{
 	margin:20px 60px 30px;
 }
@@ -64,10 +103,10 @@ select {
 
 input {
 	width: 300px; height: 28px;
-	margin:5px 20px 5px 0;
+	margin:5px 15px 5px 0;
 }
 
-input[type=submit], input[type=reset] {
+input[type=submit], input[type=reset], button {
 	cursor:pointer;
 }
 
@@ -77,7 +116,6 @@ p>img {
 	margin-top: 8px;
 	cursor:pointer; 
 }
-
 /*class css*/
 .pTitle {
 	font-weight: bold; 	font-size:1.3em;

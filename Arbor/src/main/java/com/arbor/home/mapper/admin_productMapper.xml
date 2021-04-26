@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.arbor.home.product.ProductDAOImp">
+ 	<select id="mainCateList" resultType="com.arbor.home.mainCate.MainCateVO">
+ 		select mainno, mainname from maincate
+ 	</select>
+ 	
+ 	<select id="subCateList" resultType="com.arbor.home.subCate.SubCateVO">
+ 		select subno, subname from subcate where mainno=${param1}
+ 	</select>
+ 	
+ 	<insert id="productInsert" parameterType="com.arbor.home.product.ProductVO">
+ 		insert into product(pno, subno, pname, stock, allstock, pprice, saleprice, img1, img2, description)
+ 		values(productsq.nextval, ${subno}, #{pname}, ${stock}, ${allstock}, ${pprice}, ${saleprice},
+ 		#{img1}, #{img2}, #{description})
+ 	</insert>
+ 	
+ 	<insert id="optionInsert" parameterType="com.arbor.home.optionTbl.OptionVO">
+ 		insert into optiontbl(optno, pno, optname, optvalue, optprice, rgbvalue)
+ 		values(optionsq.nextval, ${pno}, #{optname}, #{optvalue}, #{optprice}, #{rgbvalue})
+ 	</insert>
+ 	
+ 	<select id="pnoSelect" resultType="int">
+ 		select pno from product where subno=${param1} and pname=#{param2}
+ 	</select>
+ </mapper>
