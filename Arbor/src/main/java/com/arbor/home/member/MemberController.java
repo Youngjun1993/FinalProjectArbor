@@ -119,8 +119,19 @@ public class MemberController {
 	}
 	
 	//0426아이디체크 매핑
-	@RequestMapping("idcheck")
-	public String idCheck() {
+	@RequestMapping("/idcheck")
+	public String idCheck(HttpServletRequest req) {
+		
+		//DB조회 : id가 있는 지 없는지 결과들고 view로 간다
+		String userid = req.getParameter("userid");
+				
+		MemberDAOImp dao = sqlSession.getMapper(MemberDAOImp.class);
+		boolean result = dao.idCheck(userid);
+				System.out.println(result);
+		//request 객체에 필요한 데이터를 저장 후 뷰페이지로 이동
+		req.setAttribute("userid", userid);
+		req.setAttribute("checkResult", result);
+		
 		
 		return "admin/member/idCheck";
 	}

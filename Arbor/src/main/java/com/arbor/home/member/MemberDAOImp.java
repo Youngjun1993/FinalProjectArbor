@@ -7,4 +7,7 @@ public interface MemberDAOImp {
 	//회원가입
 	public int memberInsert(MemberVO vo);
 	
+	//idCheck
+	public boolean idCheck(String userid);
+	
 }

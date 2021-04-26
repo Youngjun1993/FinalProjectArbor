@@ -11,4 +11,7 @@
 		insert into member(userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, regdate, lastdate)
 		values(#{userid}, #{userpwd}, #{username}, #{zipcode}, #{addr}, #{detailaddr}, #{tel}, #{smsok}, #{email}, #{emailok}, sysdate, sysdate)
 	</insert>
+	<select id="idCheck"  resultType="com.arbor.home.member.MemberVO">
+		select userid from member where userid=#{param1}
+	</select>
 </mapper>

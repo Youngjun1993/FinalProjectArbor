@@ -12,9 +12,9 @@
 <script>
 	$(function() {
 		//아이디 중복검사
-		$('#idcheck').click(function(){
-			if($('#userid').val()!=""){
-				window.open("<%=request.getContextPath()%>/member/WEB-INF/views/member/idcheck?userid="+$('#userid').val(),"idchk","width=500,height=400");
+		$('.h_check_btn').click(function(){
+			if($('.userid').val()!=""){
+				window.open("<%=request.getContextPath()%>/idcheck?userid="+$('.userid').val(),"idchk","width=500,height=400");
 			}else{
 				alert("아이디 입력 후 중복검사 해주세요.")
 			}
@@ -40,7 +40,7 @@
 		</td>
 		<td>
 		<input type="text" name="userid" id="userid" size="20px" class="h_ipt">
-		<input type="button" id="idcheck" value="중복확인" class="h_check_btn">
+		<input type="button" value="중복확인" class="h_check_btn">
 		<!-- 입력검사 확인용 -->				
 		<input type="text" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
 		</td>
@@ -178,4 +178,6 @@
 	</div>
 </div>
 </body>
+
+
 </html>
