@@ -118,4 +118,11 @@ public class MemberController {
 		return "admin/member/memberAdminSearch";
 	}
 	
+	//0426아이디체크 매핑
+	@RequestMapping("idcheck")
+	public String idCheck() {
+		
+		return "admin/member/idCheck";
+	}
+	
 }

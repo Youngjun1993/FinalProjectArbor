@@ -8,6 +8,20 @@
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/memberJoin.css" type="text/css" />
+
+<script>
+	$(function() {
+		//아이디 중복검사
+		$('#idcheck').click(function(){
+			if($('#userid').val()!=""){
+				window.open("<%=request.getContextPath()%>/member/WEB-INF/views/member/idcheck?userid="+$('#userid').val(),"idchk","width=500,height=400");
+			}else{
+				alert("아이디 입력 후 중복검사 해주세요.")
+			}
+		});
+	});
+</script>
+
 </head>
 <body>
 
@@ -27,6 +41,8 @@
 		<td>
 		<input type="text" name="userid" id="userid" size="20px" class="h_ipt">
 		<input type="button" id="idcheck" value="중복확인" class="h_check_btn">
+		<!-- 입력검사 확인용 -->				
+		<input type="text" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
 		</td>
 		</tr>
 		<!-- 비밀번호 -->
