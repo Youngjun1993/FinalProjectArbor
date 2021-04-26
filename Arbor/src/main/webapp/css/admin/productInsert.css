@@ -54,6 +54,7 @@
 #lastP>input {
 	width:200px; height: 50px;
 	border-color: #fff; border-radius:15px;
+	border:blue;
 	background-color: rgb(248, 244, 236);
 	font-family: 'Nanum Gothic', sans-serif;
 }
@@ -69,6 +70,9 @@
 #optionTbl>input:nth-of-type(4n+3) {
 	width:50px;
 	vertical-align: middle;
+}
+#optionTbl>button {
+	width: 33px; height: 33px;
 }
 
 
@@ -111,9 +115,6 @@ p>img {
 	line-height: 50px;
 	margin-top: 8px;
 	cursor:pointer; 
-}
-button[type=button] {
-	width: 70px; height: 30px;
 }
 /*class css*/
 .pTitle {

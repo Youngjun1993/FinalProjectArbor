@@ -127,7 +127,7 @@ $(function(){
 	$.datepicker.setDefaults( $.datepicker.regional[ "ko" ] );
 	$("#startDate").datepicker({
 		showOn: "both",		//both:버튼을 누르거나 input을 클릭하면 달력 표시	
-		buttonImage: "<%=request.getContextPath()%>/img/cal.jpg",
+		buttonImage: "<%=request.getContextPath()%>/img/calendar2.png",
 		buttonImageOnly: true,
 		changeMonth: true, 
 	    changeYear: true,
@@ -144,7 +144,7 @@ $(function(){
 	});
 	$("#endDate").datepicker({
 		showOn: "both",		//both:버튼을 누르거나 input을 클릭하면 달력 표시	
-		buttonImage: "<%=request.getContextPath()%>/img/cal.jpg",
+		buttonImage: "<%=request.getContextPath()%>/img/calendar2.png",
 		buttonImageOnly: true,
 		changeMonth: true, 
 	    changeYear: true,
