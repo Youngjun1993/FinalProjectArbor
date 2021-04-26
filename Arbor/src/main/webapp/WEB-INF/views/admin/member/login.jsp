@@ -11,15 +11,7 @@
 </head>
 <body>
 <div class="w1400_container">
-<!-- <div class="h_login">
-	<div class="h_loginlogo"></div>
-	<h1>로그인 폼</h1>
-	<form method="post" action="loginOk">
-	아이디 <input type = "text" name ="userid"/><br/>
-	비밀번호	<input type = "password" name ="userpwd"/><br/>
-	<input type="submit" value="LOGIN"/>
-	</form>
-</div> -->
+
 <div class="h_loginContainer">
 	<div class="h_login"><img src="<%=request.getContextPath() %>/img/logo.png"/></div>
 	<div class="h_half">

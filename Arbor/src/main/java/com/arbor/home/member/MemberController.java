@@ -55,17 +55,19 @@ public class MemberController {
 	@RequestMapping("/memberjoin")
 	public ModelAndView memberJoin(MemberVO vo, HttpServletRequest req) { 
 		
-		vo.setTel1(req.getParameter("tel1"));
-		vo.setTel2(req.getParameter("tel2"));
-		vo.setTel3(req.getParameter("tel3"));
-		
-		vo.setEmaildomain(req.getParameter("emaildomain"));
-		
-		
 		MemberDAOImp dao = sqlSession.getMapper(MemberDAOImp.class);
 		
-		
+		/*
+		 * vo.setTel1(req.getParameter("tel1")); vo.setTel2(req.getParameter("tel2"));
+		 * vo.setTel3(req.getParameter("tel3"));
+		 * 
+		 * System.out.println(vo.getTel1()+vo.getTel2()+vo.getTel3());
+		 * 
+		 * vo.setEmaildomain(req.getParameter("emaildomain"));
+		 */
 		int cnt = dao.memberInsert(vo);
+		
+		System.out.println("겟텔 =" + vo.getTel()+ "겟이메일 =" +vo.getEmail());
 		
 		ModelAndView mav = new ModelAndView();
 		

@@ -14,18 +14,7 @@
 <div class="w1400_container">
 	<div class="h_formcontainer">
 <div class="h_jointop"><img src="<%=request.getContextPath() %>/img/logo.png"/></div>
-			<!-- 아이디 <input type="text" id="userid" class="" maxlength="20"/>
-			비밀번호 <input type="password" id="userpwd" class=""/>
-			비밀번호 확인 <input type="password" id="pwdconfirm" class=""/>
-			이름 <input type="text" id="username" class=""/>
-			주소 <input type="text" id="useraddr1" class=""/>
-			<input type="text" id="useraddr2" class=""/> 기본주소
-			<input type="text" id="useraddr3" class=""/> 나머지주소
-			연락처 
-			SMS수신동의 
-			이메일
-			인증번호
-			이메일 수신동의 -->
+			
 	<div class ="h_formbox">
 	<form method="post" name="inputForm" action = "memberjoin">
 		<table class="h_formtable">
@@ -113,7 +102,7 @@
 		</td>
 		<td>
 		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt"> @ 
-		<select id="emaildomain" class="h_select">
+		<select name="emaildomain" class="h_select">
 			<option value=""></option>
 			<option value="google.com">google.com</option>
 			<option value="naver.com">naver.com</option>
@@ -146,7 +135,7 @@
 		</table>
 		
 		<ul class="h_2box">
-			<li class="h_terms">ewwwajax로 시도해보기ㄷㄷㄷㄷ<div class="h_title">동의하겠읍니까</div></li>
+			<li class="h_terms">ewwwajax로 시도해보기<div class="h_title">동의하겠읍니까</div></li>
 			<li class="h_privacy"><div class="h_title">동의하겠읍니까</div><div class ="h_termcontent">■ 수집하는 개인정보 항목
 회사는 회원가입, 상담, 서비스 신청 등등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 ο 수집항목 : 이름 , 생년월일 , 성별 , 로그인ID , 비밀번호 , 비밀번호 질문과 답변 , 자택 전화번호 , 자택 주소 , 휴대전화번호 , 이메일 , 직업 , 회사명 , 부서 , 직책 , 회사전화번호 , 취미 , 결혼여부 , 기념일 , 법정대리인정보 , 서비스 이용기록 , 접속 로그 , 접속 IP 정보 , 결제기록

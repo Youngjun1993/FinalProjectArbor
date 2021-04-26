@@ -44,6 +44,9 @@ public class MemberVO {
 		this.detailaddr = detailaddr;
 	}
 	public String getTel() {
+		
+		tel = tel1 + "-" + tel2 + "-" + tel3;
+		
 		return tel;
 	}
 	public void setTel(String tel) {
@@ -55,8 +58,6 @@ public class MemberVO {
 		tel3 = t[2];
 	}
 	public String getTel1() {
-		
-		tel = tel1 + "-" + tel2 + "-" + tel3;
 		
 		return tel1;
 	}
