@@ -1,25 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="w1400_container font_ng">
-	<h1 id="detailTitle">소파</h1>
+	<h1 id="p_detailTitle">소파</h1>
 	<hr />
-	<div id="detail">
+	<div id="p_detail">
 		<!-- 모델명, 이미지 띄울 곳 -->
-		<div id="detailImg">
+		<div id="p_detailImg">
 			<h2>BMA-1150-LC</h2>
 			<img src="<%=request.getContextPath() %>/img/sofa2.jpg"/>
 		</div>
 		<!-- 이미지 옆에 기본정보, 옵션 띄우는 곳
 		div 분리되어있어서 form을 여기부터 걸었음... -->
 		<form>
-		<div id="detailRight">
-			<div id="detailInfo">
+		<div id="p_detailRight">
+			<div id="p_detailInfo">
 				<h3>기본정보</h3>
 				<ul>
 					<li>판매가</li>
-					<li><span class="bigPrice">600,000원 ~</span></li>
+					<li><span class="p_bigPrice">600,000원 ~</span></li>
 					<li>정상가</li>
-					<li><span class="smallPrice">900,000원 ~</span></li>
+					<li><span class="p_smallPrice">900,000원 ~</span></li>
 					<li>배송가능지역</li>
 					<li>전국</li>
 					<li>배송방법</li>
@@ -28,45 +28,45 @@
 					<li>30,000원(추가비용 상세페이지 참고)</li>
 				</ul>
 			</div>
-			<div id="detailOption">
+			<div id="p_detailOption">
 				<h3>상품옵션</h3>
-				<span class="optTitle">색상</span>
-				<select name="optname" class="optname">
+				<span class="p_optTitle">색상</span>
+				<select name="p_optname" class="p_optname">
 					<option value="네이비">네이비</option>
 					<option value="그레이">그레이</option>
 					<option value="아이보리">아이보리</option>
 				</select><br/>
-				<span class="optTitle">스툴포함여부</span>
-				<select name="optname" class="optname">
+				<span class="p_optTitle">스툴포함여부</span>
+				<select name="p_optname" class="p_optname">
 					<option value="포함">포함(+80,000)</option>
 					<option value="포함안함">포함안함</option>
 				</select>
 			</div>
 		</div>
 		<!-- 옵션 선택 시 띄울 공간 -->
-		<div id="detailSelect">
+		<div id="p_detailSelect">
 			<ul>
 				<li>색상 : 네이비</li>
 				<li>
-					<button>+</button>
-					<span class="selectNum">1</span>
 					<button>-</button>
+					<span class="p_selectNum">1</span>
+					<button>+</button>
 				</li>
-				<li class="bigPrice">600,000원</li>
+				<li class="p_bigPrice">600,000원</li>
 				<li><img src="<%=request.getContextPath() %>/img/cancel.png"/></li>
 			</ul>
 			<ul>
 				<li>스툴포함여부 : 포함(+80,000)</li>
 				<li>
-					<button>+</button>
-					<span class="selectNum">1</span>
 					<button>-</button>
+					<span class="p_selectNum">1</span>
+					<button>+</button>
 				</li>
-				<li class="bigPrice">80,000원</li>
+				<li class="p_bigPrice">80,000원</li>
 				<li><img src="<%=request.getContextPath() %>/img/cancel.png"/></li>
 			</ul>
 			<div>
-				총 상품금액 <span id="totalprice">680,000원</span><br/>
+				총 상품금액 <span id="p_totalprice">680,000원</span><br/>
 				<input type="submit" value="찜하기" formaction="/cart" />
 				<input type="submit" value="장바구니" formaction="/cart" />
 				<input type="submit" value="바로구매" formaction="/order" />
@@ -74,7 +74,7 @@
 		</div>
 		</form>
 	</div>
-	<div id="detailMenu">
+	<div id="p_detailMenu">
 		<ul>
 			<li>상품상세</li>
 			<li>상품후기</li>
@@ -82,7 +82,7 @@
 			<li>배송안내</li>
 		</ul>
 	</div>
-	<div id="detailView">
+	<div id="p_detailView">
 		<h2>상품필수정보</h2>
 		<h3>전자상거래 등에서의 상품정보제공 고시에 따라 작성되었습니다.</h3>
 		<ul>
@@ -92,8 +92,6 @@
 			<li>컨텐츠 참조</li>
 			<li>구성품</li>
 			<li>컨텐츠 참조</li>
-			<li>주요 소재</li>
-			<li>인조가죽</li>
 			<li>제조자, 수입품의 경우 수입자를 함께 표기 (병행수입 대체 가능)</li>
 			<li>&nbsp</li>
 			<li>제조국 (구성품 별 제조국이 다른 경우 각 구성품의 제조국)</li>
@@ -108,5 +106,121 @@
 			<li>&nbsp</li>
 		</ul>
 		<img src="<%=request.getContextPath() %>/img/detail3.jpg"/>
+	</div>
+	<div id="p_review">
+		<h1>상품후기</h1>
+		<h3>실제 사용하신 경험담을 글과 사진으로 남겨주시면 해당 상품 구매를 고민하시는 많은 분들께 도움이 됩니다.</h3>
+		<hr/>
+		<div>
+			<div class="p_review_leftDiv">
+				<img src="<%=request.getContextPath() %>/img/sublogo.jpg"/>
+			</div>
+			<div class="p_review_rightDiv">
+				<p>이** (so*********) | 2021-04-21</p>
+				<p>★★★★★</p><br/>
+				<h3>만족만족</h3><br/>
+				<p>후기후기 너모조코 넘모예뿌기 이렇게 옆으로 길게쓰면 덜 비어 보이게 됩 니 다 ~ 어떻습니까 여러분~~~~~~</p>
+			</div>
+		</div>
+		<hr/>
+		<div>
+			<div class="p_review_leftDiv">
+				<img src="<%=request.getContextPath() %>/img/sublogo.jpg"/>
+			</div>
+			<div class="p_review_rightDiv">
+				<p>최** (le****) | 2021-04-20</p>
+				<p>★★★★☆</p><br/>
+				<h3>만족하긴하는데~</h3><br/>
+				<p>후기후기 너모조코 넘모예뿌기<br/>
+				근데 쪼꼼 아쉬워서 별한개빼기<br/>
+				길어지면 어떻게 되지<br/>
+				나랑<br/> 별보러<br/> 가지 않을래~~<br/></p>
+			</div>
+		</div>
+		<hr/>
+	</div>
+	<div id="p_pqna">
+		<h1>상품문의</h1>
+		<h3>해당 상품에 대한 문의만 답변이 가능하며 답변완료까지 1~5일이 소요될 수 있습니다.<br/>
+		주문, 결제, 배송, 반품/교환 문의는 1:1문의를 이용해주세요.</h3>
+		<button type="button">1:1문의 바로가기</button><br/>
+		<hr/>
+		<div>
+			<div class="p_qna_leftDiv">
+				<img src="<%=request.getContextPath() %>/img/question.jpg"/>
+			</div>
+			<div class="p_qna_rightDiv">
+				<ul>
+					<li>
+						답변대기중<img src="<%=request.getContextPath() %>/img/nolock.jpg"/>
+					</li>
+					<li><a class="p_qna_answer" href="#s">스툴 색상 변경 문의</a></li>
+					<li>
+						<div>
+						<p>Q. 스툴을 두개 주문하면, 두 가지 색상을 각각 제가 지정할 수 있나요?</p>
+						<p>답변대기중입니다.</p>
+						</div>
+					</li>
+				</ul>
+				<div class="p_qna_sideDiv">sou******** | 2021-04-21</div>
+			</div>
+		</div>
+		<div>
+			<div class="p_qna_leftDiv">
+				<img src="<%=request.getContextPath() %>/img/done.jpg"/>
+			</div>
+			<div class="p_qna_rightDiv">
+				<ul>
+					<li>
+						답변완료<img src="<%=request.getContextPath() %>/img/lock.jpg"/>
+					</li>
+					<li><a class="p_qna_answer" href="#s">배송 한 달 걸리는게 맞나요?</a></li>
+					<li>
+						<div>
+						<p>Q. 지금 주문하면 한 달 후에 배송 시작이라는데 맞나요?</p>
+						<p>A. 해당상품은 주문량이 많아 예상 배송 시작일은 5월 중순 이후입니다. 변동사항이 발생되는 부분은 별도로 연락드리겠습니다. 감사합니다.</p>
+						</div>
+					</li>
+				</ul>
+				<div class="p_qna_sideDiv">nda*** | 2021-04-20</div>
+			</div>
+		</div>
+		<div>
+			<div class="p_qna_leftDiv">
+				<img src="<%=request.getContextPath() %>/img/done.jpg"/>
+			</div>
+			<div class="p_qna_rightDiv">
+				<ul>
+					<li>
+						답변완료<img src="<%=request.getContextPath() %>/img/lock.jpg"/>
+					</li>
+					<li>비공개처리된 문의글 입니다.</li>
+				</ul>
+				<div class="p_qna_sideDiv">hyu******** | 2021-04-19</div>
+			</div>
+		</div>
+	</div>
+	<div id="p_delivery">
+		<img src="<%=request.getContextPath() %>/img/detail2.jpg"/>
+		<h2>Arbor 반품/교환 안내</h2>
+		<h3>고객센터로 연락주신 후 반품상품을 발송해 주시기 바랍니다.</h3>
+		<ul>
+			<li>판매자 지정 택배사</li>
+			<li>우체국택배</li>
+			<li>반품배송비</li>
+			<li>100,000원 (교환배송비 200,000원), 최초 배송비 무료인 경우 130,000원</li>
+			<li>보내실 곳</li>
+			<li>Footer정해지면 추가등록 예정 (우:12345)</li>
+			<li>반품/교환 요청 가능 기간(사유충족시)</li>
+			<li>단순 변심은 상품 수령 후 7일 이내 (반품배송비는 구매자 부담) / 상품 하자의 경우 수령 후 3개월 이내 (배송비 무료)</li>
+			<li>반품/교환 불가능 사유</li>
+			<li>1. 요청 가능 기간이 지난 경우<br/>
+			2. 구매자의 책임 있는 사유로 상품이 멸실, 훼손된 경우 (상품 내용 확인을 위한 포장 훼손 제외)<br/>
+			3. 구매자 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우<br/>
+			4. 시간의 경과에 의하여 재판매가 곤란한 정도로 상품 등의 가치가 현저히 감소한 경우<br/>
+			5. 고객의 요청사항에 맞춰 제작에 들어가는 맞춤제작 상품의 경우<br/>
+			 (판매자에게 회복불가능한 손해가 예상되고, 그러한 예정으로 청약철회권 행사가 불가능하다는 사실을 서면동의 받은 경우)<br/>
+			6. 복제가 가능한 상품 등의 포장을 훼손한 경우</li>
+		</ul>
 	</div>
 </div>
