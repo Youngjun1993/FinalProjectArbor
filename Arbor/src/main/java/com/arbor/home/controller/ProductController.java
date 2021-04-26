@@ -202,6 +202,11 @@ public class ProductController {
 		return mav;
 	}
 	
+	@RequestMapping("/productDelete")
+	public String productDelete(int pno) {
+		return "";
+	}
+	
 	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
 	@RequestMapping("/productSearch")
 	public ModelAndView productSearch() {
