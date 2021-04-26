@@ -12,7 +12,28 @@ public class QnaVO {
 	private int qnaprint;
 	private String answercontent;
 	private String qnadate;
+	private String ansdate;
+	private int countans;
+	private String ansBtnCheck="N";
 	
+	public String getAnsBtnCheck() {
+		return ansBtnCheck;
+	}
+	public void setAnsBtnCheck(String ansBtnCheck) {
+		this.ansBtnCheck = ansBtnCheck;
+	}
+	public int getCountans() {
+		return countans;
+	}
+	public void setCountans(int countans) {
+		this.countans = countans;
+	}
+	public String getAnsdate() {
+		return ansdate;
+	}
+	public void setAnsdate(String ansdate) {
+		this.ansdate = ansdate;
+	}
 	public int getQnaorgno() {
 		return qnaorgno;
 	}
