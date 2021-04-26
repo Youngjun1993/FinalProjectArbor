@@ -1,0 +1,326 @@
+@charset "UTF-8";
+
+
+/* 틀 공통 */
+	.h_jointop{
+	width:800px;
+	text-align:center;
+	height:60px;
+	line-height:60px;
+	vertical-align:center;
+	margin:0;
+	padding:20px 0 0;
+}
+
+	.h_formcontainer {
+	width:800px;
+	padding: 0;
+	margin: 30px auto;
+	text-align:center;
+	background-color:pink;
+	position: relative;
+	overflow: hidden;
+	background-color: #ffffff;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
+}
+
+	.h_formbox {
+	margin:50px auto;
+	width:800px;
+	text-align:center;
+	}
+	
+	
+/* 회원가입부분 */
+
+	.h_formtable{
+		width:800px;
+	}
+	
+	.h_formtable tr{
+		border:2px solid gray;
+	}
+	
+	.h_formtable td:nth-child(2n+1){
+		text-align:left;
+		padding:0 0 0 25px;
+		width:150px;
+		height: 40px;
+		font-size:15px;
+	}
+	
+	.h_formtable td:nth-child(2n){
+		text-align:left;
+		height: 40px;
+	}
+	
+	 .h_select {
+	    padding: 7px 40px 7px 12px;
+	    border: 1px solid #E8EAED;
+	    border-radius: 2px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+	    cursor: pointer;
+	    font-size: 16px;
+   
+     }
+      
+	.h_ipt{
+		padding: 7px 40px 7px 12px;
+		
+		border: 2px solid #E8EAED;
+		border-radius: 2px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+		margin:10px 0;
+	}
+	
+	.h_check_btn {
+	font-size: 12px;
+	line-height: 32px;
+	width: 150px;
+	height: 32px;
+	cursor: pointer;
+	vertical-align: middle;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: #263238;
+	border: 1px solid #263238;
+	background: transparent;
+	border-radius: 2px;
+	text-align:center;
+		
+	}
+	.h_check_btn:hover {
+	background-color: #263238;
+	color: #ffffff;
+	transition: all 0.5s;
+	}
+	
+	.h_check_btn.join {
+	margin-top:30px;
+	width: 400px;
+	height: 42px;
+	line-height: 42px;
+		
+	}
+	
+	.h_check_btn.search {
+	margin-top:20px;
+		
+	}
+	
+	.h_2box {
+		display: table;
+		font-size: 12;
+		width:800px;
+		height:300px;
+	}
+	
+	.h_terms{
+		display: inline-block;
+		overflow:auto;
+		width:330px;
+		height:300px;
+		margin: 40px 20px;
+		
+		border: 2px solid #E8EAED;
+		border-radius: 2px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+	}
+	.h_privacy{
+		display: inline-block;
+		overflow:auto;
+		width:330px;
+		height:300px;
+		margin: 40px 20px;
+		
+		border: 2px solid #E8EAED;
+		border-radius: 2px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+	}
+	
+	.h_title{
+		width:330px;
+		height:36px;
+	    line-height: 36px;
+	}
+	
+	.h_termcontent{
+		overflow:auto;
+		border-bottom: 2px solid #ccc;
+	}
+	
+	/* 로그인 확인 부분*/
+	
+	
+	.h_check_headline {
+		margin:8px 0;
+	}
+	
+	.h_check_btn_box {
+		height:70px
+	}
+	.h_check_btn.joinok {
+	
+	width: 120px;
+	height: 42px;
+	line-height: 42px;
+		
+	}
+	
+	/* 비밀번호 변경 페이지 탭 */
+	
+	
+	.h_pwdsearchhead {
+	font-size: 1.2em;
+	display: block;
+	margin-top: 30px;
+	text-align: center;
+	text-decoration: none;
+	font-weight:bold;
+	letter-spacing: 2px;
+	}
+	
+	.h_pwdtapbox{
+		width:800px;
+		margin:20px auto;
+	}
+	
+	.h_emailtab{
+		margin:30px auto;
+	}
+	
+	/* pwd테이블영역 */
+	.h_pwdformtable{
+		width:450px;
+		margin: 20px auto;
+	}
+	
+	.h_pwdformtable tr{
+		border-bottom:1px solid gray;
+	}
+	
+	.h_pwdformtable td:nth-child(2n+1){
+		text-align:left;
+		width:30%;
+		height: 40px;
+		font-size:15px;
+	}
+	
+	.h_pwdformtable td:nth-child(2n){
+		text-align:left;
+		width:70%;
+		height: 40px;
+	}
+	.h_pwdformtable td:nth-child(2n):hover{
+		border-bottom:1px solid;
+	}
+	
+	/* pwd 2테이블 */
+	.h_pwd2formtable{
+		width:450px;
+		margin: 20px auto;
+	}
+	
+	.h_pwd2formtable tr{
+		border-bottom:1px solid gray;
+	}
+	
+	.h_pwd2formtable td:nth-child(2n+1){
+		text-align:left;
+		width:30%;
+		height: 40px;
+		font-size:15px;
+	}
+	
+	.h_pwd2formtable td:nth-child(2n){
+		text-align:left;
+		width:70%;
+		height: 40px;
+	}
+	.h_pwd2formtable td:nth-child(2n):hover{
+		border-bottom:1px solid;
+	}
+	
+	
+	.h_pwd2formtable.now{
+		display:none;
+	}
+	
+	.h_pwdchangeipt {
+		display:inline-block;
+		background: transparent;
+		border:none;
+		vertical-align:center;
+		height:100%;
+	}
+	
+	/* 비밀번호 탭부분 */
+	.h_pwdtapbox {
+		width: 450px;
+		margin-bottom: 29px;
+		border-bottom: 1px solid #d9d9d9;
+	}
+	
+	.h_tab {
+		display: inline-block;
+		margin-bottom: -1px;
+		padding: 20px 15px 10px;
+		cursor: pointer;
+		letter-spacing: 0;
+		border-bottom: 1px solid #d9d9d9;
+		user-select: none;
+		transition: all 0.1s ease-in-out;
+		}
+	
+	.h_tab a {
+		font-size: 1.2em;
+		text-decoration: none;
+		text-transform: uppercase;
+		color: #d9d9d9;
+		transition: all 0.1s ease-in-out;
+	}
+	
+	.h_tab a:hover {
+		color: #263238;
+	}
+	
+	.h_tab.active {
+	border-bottom: 1px solid #263238;
+	}
+	
+	.h_tab.active a{
+	color:black;
+	}
+	
+	/*
+	.h_pwdChangeipt {
+		display:inline-block;
+		border:5px solid gray;
+		background: transparent;
+		vertical-align:center;
+		height:100%;
+	}
+	
+		ul, li용
+		
+	
+	.h_pwdsearch li {
+		float:left;
+		line-height:30px;
+		width:100%;
+		vertical-align:center;
+		border-bottom:1px solid #ccc;
+	}
+	
+	.h_pwdlistdiv {
+		float:left;
+		text-align:left;
+		width:100px;
+		vertical-align:center;
+	}
+	*/
+	
