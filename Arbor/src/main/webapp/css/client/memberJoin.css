@@ -152,7 +152,25 @@
 		overflow:auto;
 		border-bottom: 2px solid #ccc;
 	}
-
+	
+	/* 로그인 확인 부분*/
+	
+	
+	.h_check_headline {
+		margin:8px 0;
+	}
+	
+	.h_check_btn_box {
+		height:70px
+	}
+	.h_check_btn.joinok {
+	
+	width: 120px;
+	height: 42px;
+	line-height: 42px;
+		
+	}
+	
 	/* 비밀번호 변경 페이지 탭 */
 	
 	

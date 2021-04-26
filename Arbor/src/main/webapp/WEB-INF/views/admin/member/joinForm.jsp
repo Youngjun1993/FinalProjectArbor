@@ -27,7 +27,7 @@
 			인증번호
 			이메일 수신동의 -->
 	<div class ="h_formbox">
-	<form method="post" name="inputForm" action = "">
+	<form method="post" name="inputForm" action = "memberjoin">
 		<table class="h_formtable">
 		<tr><!-- 공백 --></tr>
 		<!-- 아이디 -->
@@ -87,13 +87,13 @@
 		연락처
 		</td>
 		<td>
-		<select id="tel" name="tel" class="h_select">
-		<option value="010">010</option>
-	  	<option value="011">011</option>
-		<option value="02">02</option>
+		<select id="tel" name="tel1" class="h_select">
+			<option value="010">010</option>
+		  	<option value="011">011</option>
+			<option value="02">02</option>
 		</select>
-		-<input type="text" name="tel1" size="5" class="h_ipt">
 		-<input type="text" name="tel2" size="5" class="h_ipt">
+		-<input type="text" name="tel3" size="5" class="h_ipt">
 		</td>
 		</tr>
 		
@@ -102,8 +102,8 @@
 		<label for="smsok">SMS수신 동의</label>
 		</td>
 	 	<td>
-		<input type="radio" name="smsok" checked>예
-		<input type="radio" name="smsno">아니오
+		<input type="radio" name="smsok" value="Y" checked>예
+		<input type="radio" name="smsok" value="N">아니오
 		</td>
 		</tr>
 		
@@ -112,12 +112,12 @@
 		<label for="email">이메일</label>
 		</td>
 		<td>
-		<input type="text" name="email" id="email" size="10px" class="h_ipt"> @ 
+		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt"> @ 
 		<select id="emaildomain" class="h_select">
-		<option value=""></option>
-		<option value="1">http://www.google.com</option>
-		<option value="2">http://www.naver.com</option>
-		<option value="3">http://www.daum.com</option>
+			<option value=""></option>
+			<option value="google.com">google.com</option>
+			<option value="naver.com">naver.com</option>
+			<option value="daum.com">daum.com</option>
 		</select>
 		
 		</td>
@@ -138,8 +138,8 @@
 		<label for="emailok">이메일 수신동의</label>
 		</td>
 	 	<td>
-		<input type="radio" name="emailok" checked>예
-		<input type="radio" name="emailno">아니오
+		<input type="radio" name="emailok" value="Y" checked>예
+		<input type="radio" name="emailok" value="N">아니오
 		</td>
 		</tr>
 		

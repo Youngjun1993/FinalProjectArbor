@@ -1,5 +1,6 @@
 package com.arbor.home.member;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,15 +16,74 @@ public class MemberController {
 	@Autowired
 	SqlSession sqlSession;
 	
+	//로그인 폼 이동
 	@RequestMapping("/login")
 	public String loginForm() {
 		return "admin/member/login";
 	}
 	
-	@RequestMapping("/join")
+	//로그인확인버튼
+	@RequestMapping(value="/loginOk", method=RequestMethod.POST)
+	public ModelAndView loginCheck(MemberVO vo, HttpSession session) {
+		
+		MemberDAOImp dao = sqlSession.getMapper(MemberDAOImp.class);
+		MemberVO logVO = dao.loginCheck(vo);
+		
+		ModelAndView mav = new ModelAndView();
+		if(logVO==null) {//로그인실패
+			System.out.println("로그인 실패");
+			mav.setViewName("redirect:login");
+		}else {//로그인성공
+			session.setAttribute("logId", logVO.getUserid());
+			session.setAttribute("logName", logVO.getUsername());
+			mav.setViewName("redirect:/");
+			System.out.println("로그아이디 = " + logVO.getUserid());
+			System.out.println("사용자이름 = " + logVO.getUsername());
+		}
+		
+		return mav;
+	}
+
+	//회원가입폼 이동 
+	@RequestMapping("/joinform")
 	public String joinForm() {
 		
-		return "admin/member/memberJoin";
+		return "admin/member/joinForm";
+	}
+	
+	//회원가입
+	@RequestMapping("/memberjoin")
+	public ModelAndView memberJoin(MemberVO vo, HttpServletRequest req) { 
+		
+		vo.setTel1(req.getParameter("tel1"));
+		vo.setTel2(req.getParameter("tel2"));
+		vo.setTel3(req.getParameter("tel3"));
+		
+		vo.setEmaildomain(req.getParameter("emaildomain"));
+		
+		
+		MemberDAOImp dao = sqlSession.getMapper(MemberDAOImp.class);
+		
+		
+		int cnt = dao.memberInsert(vo);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		try {
+		if(cnt>0) {
+			System.out.println("가입완료");
+			mav.setViewName("redirect:joinok");
+		}else {
+			System.out.println("폼입력 에러");
+			mav.setViewName("redirect:joinForm");
+		}
+		}catch(Exception e) {
+			System.out.println("에러");
+			e.printStackTrace();
+		}
+		
+		return mav;
+		
 	}
 	
 	@RequestMapping("/pwdchange")
@@ -38,25 +98,12 @@ public class MemberController {
 		return "admin/member/memberIdSearch";
 	}
 	
-	@RequestMapping(value="/loginOk", method=RequestMethod.POST)
-	public ModelAndView loginCheck(MemberVO vo, HttpSession session) {
+	@RequestMapping("/joinok")
+	public String joinOk() {
 		
-		MemberDAOImp dao = sqlSession.getMapper(MemberDAOImp.class);
-		MemberVO logVO = dao.loginCheck(vo);
-		
-		ModelAndView mav = new ModelAndView();
-		if(logVO==null) {//로그인실패
-			System.out.println("로그인 실패");
-			mav.setViewName("redirect:login");
-		}else {//로그인성공
-			session.setAttribute("logId", logVO.getUserid());
-			session.setAttribute("logName", logVO.getUsername());
-			System.out.println(logVO.getUsername() + "님 로그인 성공");
-			mav.setViewName("redirect:/");
-		}
-		  
-		return mav;
+		return "admin/member/joinOk";
 	}
+	
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
