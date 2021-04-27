@@ -2,6 +2,35 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script>
+	function subPopupList(orderno){
+		console.log(orderno);
+		var url = "orderPopup";
+		var params = "orderno="+orderno;
+		$.ajax({
+			url : url,
+			data : params,
+			success : function(result){
+				var $result = $(result);
+				$result.each(function(idx, vo){
+					//주문번호(orderno) //주문일자(orderdate)
+					//주문자(arr) //주문서 입금현황
+					
+					//수취인(arr)	//연락처(arrtel)
+					//주소(arraddr + arrdetailaddr)
+					//배송메세지(request)
+					
+					//상품정보(pname) //가격(subprice) //수량(quantity) // 처리상태(status)
+					
+					//사용한 적립금(usepoint)	  //세부내역
+					//사용한 쿠폰금액(필드추가)  //쿠폰명(usecoupon)
+					//결제금액(totalprice) 	  //카드사명
+					$("#y_orderPopup_Wrap>div:first-of-type ul li:nth-child(2)").append(vo.pname);
+				});
+			}, error : function(){
+				console.log("팝업 데이터 에러~!!");
+			}
+		});
+	}
 	$(function(){
 		//페이징 li만큼 갯수
 		var liCnt = $("#qnaPaging>li").length;
@@ -14,40 +43,16 @@
 		$(".subPopCloseBtn").click(function(){
 			$("#y_printPopup_Wrap").css({
 				"display":"none"
-			})
+			});
 		});
 		$("#y_popupCloseBtn").click(function(){
 			$("#y_orderPopup_Wrap").css({
 				"display":"none"
-			})
+			});
 		});
 		$(".y_pnameList").click(function(){
 			$("#y_orderPopup_Wrap").css({
 				"display":"block"
-			});
-			var url = "orderPopup";
-			$.ajax({
-				url : url,
-				success : function(result){
-					var $result = $(result);
-					$result.each(idx, vo){
-						//주문번호(orderno) //주문일자(orderdate)
-						//주문자(arr) //주문서 입금현황
-						
-						//수취인	//연락처
-						//주소
-						//배송메세지
-						
-						//상품정보 //가격 //수량 // 처리상태
-						
-						//사용한 적립금	  //세부내역
-						//사용한 쿠폰금액  //쿠폰명
-						//결제금액 	  //카드사명
-						$("li").append(vo.pname);
-					}, error : function(){
-						console.log("팝업 데이터 에러~!!");
-					}
-				}
 			});
 		});
 	});
@@ -95,7 +100,7 @@
                 
                 <c:forEach var="data" items="${list }">
 	                <li>${data.orderdate }</li>
-	                <li class="wordcut"><a class="y_pnameList" id="y_pnameList" href="#">${data.pname }</a></li>
+	                <li class="wordcut"><a class="y_pnameList" id="y_pnameList" href="javascript:subPopupList(${data.orderno })">${data.pname }</a></li>
 	                <li>${data.totalprice }</li>
 	                <li>
 	                    <a href="#" class="statusBtn">배송준비</a> 

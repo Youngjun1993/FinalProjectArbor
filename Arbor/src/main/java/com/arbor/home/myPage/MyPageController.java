@@ -45,10 +45,9 @@ public class MyPageController {
 	//구매내역 상품상페 팝업
 	@RequestMapping("/orderPopup")
 	@ResponseBody
-	public List<SubOrderVO> orderPopup(int orderno) {
-		List<SubOrderVO> list = new ArrayList<SubOrderVO>();
+	public List<OrdsubOrdJoinVO> orderPopup(int orderno) {
 		MyPageDAOImp dao = sqlSession.getMapper(MyPageDAOImp.class);
-		
+		List<OrdsubOrdJoinVO> list = dao.suborderList(orderno);
 		
 		return list;
 	}
