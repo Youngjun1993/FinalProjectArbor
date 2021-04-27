@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script>
+	$(function(){
+		//페이징 li만큼 갯수
+		var liCnt = $("#qnaPaging>li").length;
+		$("#qnaPaging").css({
+			"width" : liCnt*30+"px",
+			"margin" : "0 auto"
+		});
+	});
+</script>
     <div id="y_qnaWrap" class="w1400_container clearfix">
         <div id="y_leftMenu">
             <ul>
@@ -26,10 +36,35 @@
 	                <li>${data.qnacate }</li>
 	                <li><a href="qnaView?qnano=${data.qnano }" class="wordcut">${data.qnasubject }</a></li>
 	                <li>${data.orderno }</li>
-	                <li><span class="y_anserWait">답변대기</span></li>
+	                <li>
+	                	<c:if test="${data.answercontent == null }">
+	                		<span class="y_anserWait">답변대기</span>
+	                	</c:if>
+	                	<c:if test="${data.answercontent != null }">
+	                		<span class="y_anserComp">답변완료</span>
+	                	</c:if>
+	                </li>
 	                <li>${data.qnadate }</li>
                 </c:forEach>
             </ul>
             <a href="qnaWrite" id="y_qnaGo">문의하기</a>
+            <ul id="qnaPaging" class="clearfix">
+            	<c:if test="${pageVO.pageNum>1 }">
+                	<li><a href="qnaList?pageNum=${pageVO.pageNum-1}">이전</a></li>
+                </c:if>
+                <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+                	<c:if test="${p<=pageVO.totalPage }">
+	                	<c:if test="${p==pageVO.pageNum }">
+	                		<li><a href="qnaList?pageNum=${p}">${p }</a></li>
+	                	</c:if>
+	                	<c:if test="${p!=pageVO.pageNum }">
+	                		<li><a href="qnaList?pageNum=${p}">${p }</a></li>
+	                	</c:if>
+                	</c:if>
+                </c:forEach>
+                <c:if test="${pageVO.pageNum<pageVO.totalPage }">
+                	<li><a href="qnaList?pageNum=${pageVO.pageNum+1}">다음</a></li>
+                </c:if>
+            </ul>
         </div>
     </div>

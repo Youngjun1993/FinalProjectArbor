@@ -17,6 +17,10 @@
 	padding-bottom:15px;
 	border-bottom:2px solid gray;
 }
+.j_search{padding-top:10px;height:30px;}
+.j_search>form{float:right;height:25px;line-height:25px;}
+.j_search select, .j_search input{height:25px;line-height:25px;vertical-align:middle;} /* 높이 통일화 필요 */
+.j_search input[type=text]{padding:0;box-sizing:border-box;}
 
 input[type=submit], input[type=button] {
 	cursor:pointer;
