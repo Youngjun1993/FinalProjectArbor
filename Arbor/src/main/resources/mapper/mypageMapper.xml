@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!--  --> 
+<mapper namespace="com.arbor.home.dao.MyPageDAOImp">
+	<select id="purchaseList" resultType="com.arbor.home.vo.OrderTblVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select o.orderno, to_char(o.orderdate, 'YY-MM-DD HH:MI')as orderdate, o.userid, o.arr, o.arrtel, o.arrzipcode, o.arraddr, o.arrdetailaddr, o.request, o.pluspoint, o.usepoint, o.usecoupon, o.deliveryprice, o.totalprice, o.status, s.pname from ordertbl o join (select orderno, listagg(pname,',') within group (order by pname) as pname from suborder group by orderno) s on o.orderno=s.orderno order by rownum desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by rownum asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by rownum desc
+	</select>
+	<select id="suborderList" resultType="com.arbor.home.vo.SubOrderVO">
+		select s.subno, s.orderno, s.pno, s.optno, s.quantity, s.subprice, s.pname from suborder s join ordertbl o on s.orderno = o.orderno where s.orderno=#{param1}
+	</select>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(rownum) as totalRecord from ordertbl
+	</select>
+</mapper>

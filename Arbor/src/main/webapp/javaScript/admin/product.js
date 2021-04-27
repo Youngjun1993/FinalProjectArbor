@@ -126,9 +126,6 @@ $(function(){
 	// Datepicker
 	$.datepicker.setDefaults( $.datepicker.regional[ "ko" ] );
 	$("#startDate").datepicker({
-		showOn: "both",		//both:버튼을 누르거나 input을 클릭하면 달력 표시	
-		buttonImage: "<%=request.getContextPath()%>/img/calendar2.png",
-		buttonImageOnly: true,
 		changeMonth: true, 
 	    changeYear: true,
 	    dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
@@ -142,11 +139,7 @@ $(function(){
 	    	$("#endDate").datepicker("option", "minDate", selectedDate);
 	    }
 	});
-	$("#endDate").datepicker({
-		showOn: "both",		//both:버튼을 누르거나 input을 클릭하면 달력 표시	
-		buttonImage: "<%=request.getContextPath()%>/img/calendar2.png",
-		buttonImageOnly: true,
-		changeMonth: true, 
+	$("#endDate").datepicker({ 
 	    changeYear: true,
 	    dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
 	    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 

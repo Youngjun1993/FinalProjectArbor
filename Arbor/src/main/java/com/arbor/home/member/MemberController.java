@@ -3,6 +3,7 @@ package com.arbor.home.member;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.javassist.compiler.ast.Member;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,7 +54,7 @@ public class MemberController {
 	
 	//회원가입
 	@RequestMapping("/memberjoin")
-	public ModelAndView memberJoin(MemberVO vo, HttpServletRequest req) { 
+	public ModelAndView memberJoin(Member vo, HttpServletRequest req) { 
 		
 		MemberDAOImp dao = sqlSession.getMapper(MemberDAOImp.class);
 		
