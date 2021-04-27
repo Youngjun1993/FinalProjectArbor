@@ -34,7 +34,6 @@
 			}
 		});
 		return true;
-		
 	});
 </script>
 </head>
@@ -53,10 +52,16 @@
 		<input type="radio" name="tabs" class="j_tabs" id="j_tab3">
 		<label for="j_tab3" class="j_tabLbl">지난 이벤트</label>
 		
+		<!-- //////////////////////////////////////////////////////////////////////////// -->
 		<!-- 타임세일 -->
 		<div class="j_tab-content" id="j_tab1_content">타임세일
 		
+		
+		
+		
+		
 		</div>
+		<!-- //////////////////////////////////////////////////////////////////////////// -->
 		
 		<!-- 진행중인 이벤트 -->
 		<div class="j_tab-content" id="j_tab2_content">
