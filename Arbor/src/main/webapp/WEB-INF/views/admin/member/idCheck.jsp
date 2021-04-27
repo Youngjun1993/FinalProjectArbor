@@ -27,11 +27,11 @@
 </script>
 
 <body>
-	<c:if test="${!checkResult}">
+	<c:if test="${checkResult eq 'Y'}">
 		<span style="color:red" id="checkId">${userid}</span>은 사용가능한 아이디 입니다.
 		<input type="button" value="아이디 사용하기" id="setId"/>
 	</c:if>
-	<c:if test="${checkResult}">
+	<c:if test="${checkResult eq 'N'}">
 	<span>${userid}</span>은 사용 불가능한 아이디 입니다.
 	</c:if>
 	

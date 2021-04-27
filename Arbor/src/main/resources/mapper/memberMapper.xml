@@ -11,4 +11,8 @@
 		insert into member(userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, regdate, lastdate)
 		values(#{userid}, #{userpwd}, #{username}, #{zipcode}, #{addr}, #{detailaddr}, #{tel}, #{smsok}, #{email}, #{emailok}, sysdate, sysdate)
 	</insert>
+	<select id="idCheck" resultType="int">
+  		select count(*) from member where userid = #{userid}
+  	</select>
+	
 </mapper>

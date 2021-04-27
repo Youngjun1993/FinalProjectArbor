@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -121,8 +122,24 @@ public class MemberController {
 	}
 	
 	//0426아이디체크 매핑
-	@RequestMapping("idcheck")
-	public String idCheck() {
+	@RequestMapping("/idcheck")
+	public String idCheck(String userid, HttpServletRequest req) {
+
+		//DB조회 : id가 있는 지 없는지 결과들고 view로 간다
+		//String userid = req.getParameter("userid");
+		
+		int result = memberService.idCheck(userid);
+		
+		
+		if(result != 0) {
+			req.setAttribute("checkResult", "N");
+		} else {//성공했을때
+			req.setAttribute("userid", userid);
+			req.setAttribute("checkResult", "Y");
+		}
+		
+		System.out.println(result);
+		//request 객체에 필요한 데이터를 저장 후 뷰페이지로 이동
 		
 		return "admin/member/idCheck";
 	}

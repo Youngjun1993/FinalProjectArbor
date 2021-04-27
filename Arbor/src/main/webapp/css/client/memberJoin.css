@@ -45,13 +45,13 @@
 		text-align:left;
 		padding:0 0 0 25px;
 		width:150px;
-		height: 40px;
-		font-size:15px;
+		height: 15px;
+		font-size:10px;
 	}
 	
 	.h_formtable td:nth-child(2n){
 		text-align:left;
-		height: 40px;
+		height: 15px;
 	}
 	
 	 .h_select {
@@ -154,6 +154,17 @@
 	}
 	
 	/* 로그인 확인 부분*/
+	
+	/* 중복아이디 존재하지 않는경우 */
+	.h_id_chk_1{
+		color : green;
+		display : none;
+	}
+	/* 중복아이디 존재하는 경우 */
+	.h_id_chk_2{
+		color : red;
+		display : none;
+	}
 	
 	
 	.h_check_headline {
@@ -289,11 +300,11 @@
 	}
 	
 	.h_tab.active {
-	border-bottom: 1px solid #263238;
+		border-bottom: 1px solid #263238;
 	}
 	
 	.h_tab.active a{
-	color:black;
+		color:black;
 	}
 	
 	/*
