@@ -226,6 +226,7 @@ public class ProductController {
 		
 		// 저장할 경로 위치 설정 (웹루트로 업로드하면 빌드하고 재배포시 이미지가 사라짐 외부 경로에 잡아준다.)
 		String path = req.getSession().getServletContext().getRealPath("/summernote");
+		System.out.println(path);
 		// 파일명 구하기
 		String orgName = multipartFile.getOriginalFilename();
 		
