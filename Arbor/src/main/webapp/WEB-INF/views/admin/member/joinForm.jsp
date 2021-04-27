@@ -12,13 +12,42 @@
 <script>
 	$(function() {
 		//아이디 중복검사
-		$('.h_check_btn').click(function(){
-			if($('.userid').val()!=""){
-				window.open("<%=request.getContextPath()%>/idcheck?userid="+$('.userid').val(),"idchk","width=500,height=400");
+		$('.h_idchk').click(function(){
+			if($('#userid').val()!=""){
+				window.open("<%=request.getContextPath()%>/idcheck?userid="+$('#userid').val(),"idchk","width=500,height=400");
 			}else{
 				alert("아이디 입력 후 중복검사 해주세요.")
 			}
 		});
+		
+		//중복검사해제
+		var userid;
+		$('#userid').keyup(function(){
+			$('#hiddenCheck').val("N");
+			userid = $('#userid').val();
+		});
+		
+		$('#userid').change(function(){
+			if(userid!=$('#userid')){
+				$('#hiddenCheck').val("N");
+				userid = $('#userid').val();
+			}
+		});
+		
+		//비밀번호 확인
+		$('#pwdCheck').blur(function(){
+			   if($('#userpwd').val() != $('#pwdCheck').val()){
+			    	if($('#pwdCheck').val()!=''){
+				    alert("비밀번호가 일치하지 않습니다.");
+			    	    $('#pwdCheck').val('');
+			          $('#pwdCheck').focus();
+			          $('#h_pwd_ok').hide();
+			       }
+			    }else{
+			    	$('#h_pwd_ok').show();
+			    }
+			})  	   
+		
 	});
 </script>
 
@@ -36,11 +65,11 @@
 		<!-- 아이디 -->
 		<tr>
 		<td>
-		<label for="userid">아이디*</label>
+		<label for="userid">아이디 *</label>
 		</td>
 		<td>
 		<input type="text" name="userid" id="userid" size="20px" class="h_ipt">
-		<input type="button" value="중복확인" class="h_check_btn">
+		<input type="button" value="중복확인" class="h_check_btn h_idchk">
 		<!-- 입력검사 확인용 -->				
 		<input type="text" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
 		</td>
@@ -48,7 +77,7 @@
 		<!-- 비밀번호 -->
 		<tr>
 		<td>
-		<label for="pwd">비밀번호*</label>
+		<label for="pwd">비밀번호 *</label>
 		</td>
 		<td>
 		<input type="password" name="userpwd" id="userpwd" size="20px" class="h_ipt">(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
@@ -57,16 +86,17 @@
 		
 		<tr>
 		<td>
-		<label for="pwdCheck">비밀번호 확인*</label>
+		<label for="pwdCheck">비밀번호 확인 *</label>
 		</td>
 		<td>
-		<input type="password" name="pwdCheck" id="pwdCheck" size="20px" class="h_ipt">
+		<input type="password" name="pwdCheck" id="pwdCheck" size="20px" class="h_ipt" required="required">
+		<span id="h_pwd_ok" style="display:none;"> 비밀번호 일치</span>
 		</td>
 		</tr>
 		
 		<tr>
 		<td>
-		<label for="username">이름*</label>
+		<label for="username">이름 *</label>
 		</td>
 		<td>
 		<input type="text" name="username" id="username" size="20px" class="h_ipt">
@@ -151,7 +181,7 @@
 		</table>
 		
 		<ul class="h_2box">
-			<li class="h_terms">ewwwajax로 시도해보기<div class="h_title">동의하겠읍니까</div></li>
+			<li class="h_terms">약관 위치<div class="h_title">동의하겠읍니까</div></li>
 			<li class="h_privacy"><div class="h_title">동의하겠읍니까</div><div class ="h_termcontent">■ 수집하는 개인정보 항목
 회사는 회원가입, 상담, 서비스 신청 등등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 ο 수집항목 : 이름 , 생년월일 , 성별 , 로그인ID , 비밀번호 , 비밀번호 질문과 답변 , 자택 전화번호 , 자택 주소 , 휴대전화번호 , 이메일 , 직업 , 회사명 , 부서 , 직책 , 회사전화번호 , 취미 , 결혼여부 , 기념일 , 법정대리인정보 , 서비스 이용기록 , 접속 로그 , 접속 IP 정보 , 결제기록
@@ -170,7 +200,7 @@
 
 회사는 개인정보 수집 및 이용목적이 달성된 후에는 예외 없이 해당 정보를 지체 없이 파기합니다.</div></li>
 		</ul>
-		<div>wefwefkmwlefmkwlmefklwemfklwemfkl</div>
+		<div>체크박스 위치</div>
 		<input type="submit" id="memberjoin" value="Join NOW" class="h_check_btn join">
 	</form>
     

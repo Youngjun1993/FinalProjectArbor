@@ -123,17 +123,17 @@ public class MemberController {
 	
 	//0426아이디체크 매핑
 	@RequestMapping("/idcheck")
-	public String idCheck(String userid, HttpServletRequest req) {
+	public String asdfasdf(HttpServletRequest req) {
 
 		//DB조회 : id가 있는 지 없는지 결과들고 view로 간다
-		//String userid = req.getParameter("userid");
+		String userid = req.getParameter("userid");
 		
 		int result = memberService.idCheck(userid);
 		
-		
-		if(result != 0) {
+		if(result != 0) {//있는아이디
+			req.setAttribute("userid", userid);
 			req.setAttribute("checkResult", "N");
-		} else {//성공했을때
+		} else {//없는아이디
 			req.setAttribute("userid", userid);
 			req.setAttribute("checkResult", "Y");
 		}

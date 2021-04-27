@@ -14,5 +14,4 @@
 	<select id="idCheck" resultType="int">
   		select count(*) from member where userid = #{userid}
   	</select>
-	
 </mapper>
