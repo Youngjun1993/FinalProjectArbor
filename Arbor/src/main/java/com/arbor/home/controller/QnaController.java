@@ -152,7 +152,6 @@ public class QnaController {
 		
 		return mav;
 	}
-	
 	@RequestMapping("/qnaAdView")
 	public ModelAndView qnaAdView(int qnano, HttpServletRequest req) {
 		PageSearchVO pageVo = new PageSearchVO();
