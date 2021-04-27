@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.MyPageDAOImp;
 import com.arbor.home.vo.OrderTblVO;
+import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.SubOrderVO;
 
@@ -23,7 +24,7 @@ public class MyPageService implements MyPageServiceImp {
 	}
 
 	@Override
-	public List<SubOrderVO> suborderList(int orderno) {
+	public List<OrdsubOrdJoinVO> suborderList(int orderno) {
 		return mypageDAO.suborderList(orderno);
 	}
 

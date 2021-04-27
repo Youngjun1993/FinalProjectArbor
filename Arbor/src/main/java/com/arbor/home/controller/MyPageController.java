@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arbor.home.dao.MyPageDAOImp;
 import com.arbor.home.service.MyPageServiceImp;
 import com.arbor.home.vo.OrderTblVO;
+import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.SubOrderVO;
 
@@ -48,9 +49,8 @@ public class MyPageController {
 	//구매내역 상품상페 팝업
 	@RequestMapping("/orderPopup")
 	@ResponseBody
-	public List<SubOrderVO> orderPopup(int orderno) {
-		List<SubOrderVO> list = new ArrayList<SubOrderVO>();
-		
+	public List<OrdsubOrdJoinVO> orderPopup(int orderno) {
+		List<OrdsubOrdJoinVO> list = mypageService.suborderList(orderno);
 		
 		return list;
 	}
