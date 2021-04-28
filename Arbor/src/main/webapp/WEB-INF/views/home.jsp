@@ -23,6 +23,7 @@ $(function(){
 	trigger.add('[trigger-right]');
 });
 
+//첫번째 상품 슬라이드
 $(function(){
 	var slides = document.querySelector('.slides'),
 		slide = document.querySelectorAll('.slides li'),
@@ -30,6 +31,53 @@ $(function(){
 		slideCount = slide.length, //슬라이드의 갯수
 		prevBtn = document.querySelector('.prev'),
 		nextBtn = document.querySelector('.next'),
+	
+		slideWidth = 400,
+		slideMargin = 30;
+	
+	slides.style.width = (slideWidth + slideMargin)*slideCount - slideMargin +'px';//슬라이드의 넓이
+	
+	function moveSlide(num){
+		slides.style.left = -num * 430 +'px';
+		currentIdx = num;
+	}
+	
+	//버튼이벤트
+	nextBtn.addEventListener('click',function(){
+		console.log(currentIdx);
+		if(currentIdx < slideCount - 4){
+			moveSlide(currentIdx + 1);
+			if(currentIdx>0){
+				prevBtn.style.display = 'block';
+			}
+			if(currentIdx==slideCount-4){
+				nextBtn.style.display = 'none';
+			}
+		}
+	});
+	prevBtn.addEventListener('click',function(){
+		if(currentIdx >0){
+			moveSlide(currentIdx - 1);
+			if(currentIdx==0){
+				prevBtn.style.display = 'none';
+			}
+			if(currentIdx==slideCount-5){
+				nextBtn.style.display = 'block';
+			}
+		}
+	});
+		
+});
+/////////////
+//두번째 상품 슬라이드
+$(function(){
+	var slides = document.querySelector('.slides2'),
+		slide = document.querySelectorAll('.slides2 li'),
+		currentIdx =0,	//현재인덱스
+		slideCount = slide.length, //슬라이드의 갯수
+		prevBtn = document.querySelector('.prev2'),
+		nextBtn = document.querySelector('.next2'),
+	
 		slideWidth = 400,
 		slideMargin = 30;
 	
@@ -67,167 +115,66 @@ $(function(){
 		
 });
 
+// 탑슬라이드
+
 $(function(){
-	var slides = document.querySelector('#d_topslider'),
-		slide = document.querySelectorAll('#d_topslider div'),
+	var slide = document.querySelectorAll('#d_top div'),
 		slideCount = slide.length, //슬라이드의 갯수
 		nextBtn = document.querySelector('.d_next'),
-		currentIdx =0;	//현재인덱스
+		
+		currentIdx=1;	//현재인덱스
+		
 
 	function moveSlide(num){
-		slides.style.left = -num * 100 +'%';
-		currentIdx = num;
+		$('.slide img').css('opacity', 0).css('z-index',0);
+		$('.slide').eq(num).children().css('opacity', 1).css('z-index',1);
+		currentIdx++;
 	}
 		
-	nextBtn.addEventListener('click',function(){
-		console.log(currentIdx);
-		moveSlide(currentIdx + 1);
-	});
-
+	//setInterval(function(){할일},시간);
+ 	setInterval(function(){
+ 		var nextIdx = (currentIdx + 1);
+ 		if(currentIdx==slideCount){
+ 			currentIdx = 0;
+		}
+		moveSlide(currentIdx);
+	},4000);
+ 
 });
 	
 </script>
 <div class="d_main">
-<div id="d_top">
-	<span class="d_next">▶</span>
-	<div id="d_topslider">
-		<div class="slide" id="slide-1">
-			<img src="<%=request.getContextPath()%>/img/메인이미지1.PNG">
+	<div id="topSlide">
+		<div id="d_top">
+			<div class="slide" id="slide-1">
+				<img src="<%=request.getContextPath()%>/img/메인이미지1.PNG">
+			</div>
+			<div class="slide" id="slide-2">
+				<img src="<%=request.getContextPath()%>/img/메인이미지2.jpg">
+			</div>
+			<div class="slide" id="slide-3">
+				<img src="<%=request.getContextPath()%>/img/메인이미지3.jpg">
+			</div>
+			<div class="slide" id="slide-4">
+				<img src="<%=request.getContextPath()%>/img/메인이미지4.jpg">
+			</div>
+			<div class="slide" id="slide-5">
+				<img src="<%=request.getContextPath()%>/img/메인이미지5.jpg">
+			</div>
+			<div class="slide" id="slide-6">
+				<img src="<%=request.getContextPath()%>/img/메인이미지6.jpg">
+			</div>
 		</div>
-		<div class="slide" id="slide-2">
-			<img src="<%=request.getContextPath()%>/img/메인이미지2.jpg">
-		</div>
-		<div class="slide" id="slide-3">
-			<img src="<%=request.getContextPath()%>/img/메인이미지3.jpg">
-		</div>
-		<div class="slide" id="slide-4">
-			<img src="<%=request.getContextPath()%>/img/메인이미지4.jpg">
-		</div>
-		<div class="slide" id="slide-5">
-			<img src="<%=request.getContextPath()%>/img/메인이미지5.jpg">
-		</div>
-		<div class="slide" id="slide-6">
-			<img src="<%=request.getContextPath()%>/img/메인이미지6.jpg">
+		<div id="topFont">
+			<p>FEELS LIKE INSPIRE</p>
+			<P>Furniture only for you prepared for you</p>
+			<button>Collection</button>
 		</div>
 	</div>
-</div>
 	<!-- 인기상품 -->
-	<div id="d_list" class="clearfix w1400_container" trigger-up>
-		<div>실시간 인기상품</div>
-		<div>
-			<ul>
-				<li><a href="productView"><img
-						src="<%=request.getContextPath()%>/img/sofa1.png" /></a><br />
-					<div class="color" class="clearfix">
-						<div></div>
-						<div></div>
-						<div></div>
-					</div> <br />
-					<p class="listdetail1">소파가 1+1인가봐용</p>
-					<p class="listdetail2">600,000원</p>
-					<p class="listdetail3">480,000원</p></li>
-				<li><a href="productView"><img
-						src="<%=request.getContextPath()%>/img/sofa2.jpg" /></a><br />
-					<div class="color" class="clearfix">
-						<div></div>
-						<div></div>
-						<div></div>
-					</div> <br />
-					<p class="listdetail1">2인용은 너무 작으니까 3인용</p>
-					<p class="listdetail2">500,000원</p>
-					<p class="listdetail3">420,000원</p></li>
-				<li><a href="productView"><img
-						src="<%=request.getContextPath()%>/img/sofa3.jpg" /></a><br />
-					<div class="color" class="clearfix">
-						<div></div>
-						<div></div>
-						<div></div>
-					</div> <br />
-					<p class="listdetail1">푹신하게 생겼네 스툴도있어</p>
-					<p class="listdetail2">900,000원</p>
-					<p class="listdetail3">720,000원</p></li>
-				<li><a href="productView"><img
-						src="<%=request.getContextPath()%>/img/sofa4.png" /></a><br />
-					<div class="color" class="clearfix">
-						<div></div>
-						<div></div>
-						<div></div>
-					</div> <br />
-					<p class="listdetail1">자취생은 집이 좁으니까 2인용소파</p>
-					<p class="listdetail2">350,000원</p>
-					<p class="listdetail3">230,000원</p></li>
-			</ul>
-		</div>
-	</div>
-	<!-- 박스 -->
-	<div id="d_box" class="w1400_container">
-		<div class="d_box_div1" trigger-left>
-			<img src="<%=request.getContextPath()%>/img/boxtest1.jpg">
-		</div>
-		<div class="d_box_div2" trigger-down>
-			<img src="<%=request.getContextPath()%>/img/boxtest2.jpg">
-		</div>
-		<div class="d_box_div3" trigger-down>
-			<img src="<%=request.getContextPath()%>/img/boxtest3.jpg">
-		</div>
-		<div class="d_box_div4" trigger-up>
-			<img src="<%=request.getContextPath()%>/img/boxtest4.jpg">
-		</div>
-		<div class="d_box_div5" trigger-right>
-			<img src="<%=request.getContextPath()%>/img/boxtest1.jpg">
-		</div>
-	</div>
-	<!-- 두번째리스트 -->
-	<!-- 인기상품 -->
-	<div id="d_list" class="clearfix w1400_container" trigger-up>
-		<div>실시간 인기상품</div>
-		<diwasv>
-		<ul>
-			<li><a href="productView"><img
-					src="<%=request.getContextPath()%>/img/sofa1.png" /></a><br />
-				<div class="color" class="clearfix">
-					<div></div>
-					<div></div>
-					<div></div>
-				</div> <br />
-				<p class="listdetail1">소파가 1+1인가봐용</p>
-				<p class="listdetail2">600,000원</p>
-				<p class="listdetail3">480,000원</p></li>
-			<li><a href="productView"><img
-					src="<%=request.getContextPath()%>/img/sofa2.jpg" /></a><br />
-				<div class="color" class="clearfix">
-					<div></div>
-					<div></div>
-					<div></div>
-				</div> <br />
-				<p class="listdetail1">2인용은 너무 작으니까 3인용</p>
-				<p class="listdetail2">500,000원</p>
-				<p class="listdetail3">420,000원</p></li>
-			<li><a href="productView"><img
-					src="<%=request.getContextPath()%>/img/sofa3.jpg" /></a><br />
-				<div class="color" class="clearfix">
-					<div></div>
-					<div></div>
-					<div></div>
-				</div> <br />
-				<p class="listdetail1">푹신하게 생겼네 스툴도있어</p>
-				<p class="listdetail2">900,000원</p>
-				<p class="listdetail3">720,000원</p></li>
-			<li><a href="productView"><img
-					src="<%=request.getContextPath()%>/img/sofa4.png" /></a><br />
-				<div class="color" class="clearfix">
-					<div></div>
-					<div></div>
-					<div></div>
-				</div> <br />
-				<p class="listdetail1">자취생은 집이 좁으니까 2인용소파</p>
-				<p class="listdetail2">350,000원</p>
-				<p class="listdetail3">230,000원</p></li>
-		</ul>
-	</div>
-	<!-- 슬라이드 -->
 	<div class="slideBox" trigger-up>
 		<div class="controlls">
+			<p>Arbor's 인기상품</p>
 			<span class="prev">◀</span>
 			<span class="next">▶</span>
 		</div>
@@ -249,6 +196,51 @@ $(function(){
 		<!--slide_wraper -->
 	</div>
 	<!--slideBox -->
+	<!-- 박스 -->
+	<div id="d_box" class="w1400_container">
+		<div class="d_box_div1" trigger-left>
+			<img src="<%=request.getContextPath()%>/img/boxtest1.jpg">
+		</div>
+		<div class="d_box_div2" trigger-down>
+			<img src="<%=request.getContextPath()%>/img/boxtest2.jpg">
+		</div>
+		<div class="d_box_div3" trigger-down>
+			<img src="<%=request.getContextPath()%>/img/boxtest3.jpg">
+		</div>
+		<div class="d_box_div4" trigger-up>
+			<img src="<%=request.getContextPath()%>/img/boxtest4.jpg">
+		</div>
+		<div class="d_box_div5" trigger-right>
+			<img src="<%=request.getContextPath()%>/img/boxtest1.jpg">
+		</div>
+	</div>
+	<!-- 두번째리스트 -->
+	<!-- 인기상품 -->
+	<div class="slideBox2" trigger-up>
+		<div class="controlls2">
+			<p>BEDROOM 인기상품</p>
+			<span class="prev2">◀</span>
+			<span class="next2">▶</span>
+		</div>
+		<div class="slide_wraper2">
+			<div class="slides2">
+				<ul>
+					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대1.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대2.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대3.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대4.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대5.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대6.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대7.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대8.PNG"></li>
+				</ul>
+			</div>
+			<!-- "slides" -->
+		</div>
+		<!--slide_wraper -->
+	</div>
+	<!--slideBox -->
+	
 	
 	<!-- 동영상  -->
 	<div class="videoBox" trigger-up>
