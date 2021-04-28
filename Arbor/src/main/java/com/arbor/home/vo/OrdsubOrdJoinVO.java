@@ -1,26 +1,44 @@
 package com.arbor.home.vo;
 
+import java.text.DecimalFormat;
+
 public class OrdsubOrdJoinVO {
 	private int orderno;
 	private String orderdate;
 	private String userid;
 	private String arr;
+	private String arraddr;
 	private String arrtel;
 	private String arrzipcode;
 	private String arrdetailaddr;
 	private String request;
 	private int pluspoint;
 	private int usepoint;
-	private String usecoupon;
-	private int deliveryprice;
-	private int totalprice;
+	private String usecoupon = "-";
+	private String deliveryprice;
+	private String totalprice;
 	private String status;
 	private String pname;
 	private int subno;
 	private int pno;
 	private int optno;
 	private int quantity;
-	private int subprice;
+	private String subprice;
+	private String couponprice="0";
+	
+	public String getCouponprice() {
+		return couponprice;
+	}
+	public void setCouponprice(int couponprice) {
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		this.couponprice = formatter.format(couponprice);
+	}
+	public String getArraddr() {
+		return arraddr;
+	}
+	public void setArraddr(String arraddr) {
+		this.arraddr = arraddr;
+	}
 	public int getOrderno() {
 		return orderno;
 	}
@@ -87,17 +105,19 @@ public class OrdsubOrdJoinVO {
 	public void setUsecoupon(String usecoupon) {
 		this.usecoupon = usecoupon;
 	}
-	public int getDeliveryprice() {
+	public String getDeliveryprice() {
 		return deliveryprice;
 	}
 	public void setDeliveryprice(int deliveryprice) {
-		this.deliveryprice = deliveryprice;
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		this.deliveryprice = formatter.format(deliveryprice);
 	}
-	public int getTotalprice() {
+	public String getTotalprice() {
 		return totalprice;
 	}
 	public void setTotalprice(int totalprice) {
-		this.totalprice = totalprice;
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		this.totalprice = formatter.format(totalprice);
 	}
 	public String getStatus() {
 		return status;
@@ -135,11 +155,12 @@ public class OrdsubOrdJoinVO {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public int getSubprice() {
+	public String getSubprice() {
 		return subprice;
 	}
 	public void setSubprice(int subprice) {
-		this.subprice = subprice;
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		this.subprice = formatter.format(subprice);
 	}
 	
 }

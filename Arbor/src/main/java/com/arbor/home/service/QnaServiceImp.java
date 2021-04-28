@@ -17,7 +17,7 @@ public interface QnaServiceImp {
 	//Q&A 수정하기
 	public int qnaUpdate(QnaVO vo);
 	//Q&A 삭제
-	public int qnaDelete(int no);
+	public int qnaDelete(int no, String userid);
 	
 	/////////////Admin///////////////
 	//답변등록
@@ -34,4 +34,6 @@ public interface QnaServiceImp {
 	public List<QnaVO> noAnswerSelect(PageSearchVO vo);
 	//미답변 총 레코드 수
 	public int noAnswerTotal(PageSearchVO vo);
+	//관리자 Q&A 삭제
+	public int qnaAdDelete(int no);
 }

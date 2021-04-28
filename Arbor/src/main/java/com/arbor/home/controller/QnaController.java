@@ -2,6 +2,7 @@ package com.arbor.home.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,22 +19,26 @@ public class QnaController {
 	@Inject
 	QnaServiceImp qnaService;
 	
-	//아이디 로그인시 sql문 수정해야함 !!(리스트 아이디에 해당되는것만 뿌려주기)
 	@RequestMapping("/qnaList")
-	public ModelAndView qnaList(HttpServletRequest req) {
+	public ModelAndView qnaList(HttpServletRequest req, HttpSession session) {
 		String pageNumStr = req.getParameter("pageNum");
 		PageSearchVO pageVo = new PageSearchVO();
-		
-		pageVo.setTotalRecord(qnaService.totalRecord(pageVo));
+		ModelAndView mav = new ModelAndView();
 		
 		if(pageNumStr != null) {
 			pageVo.setPageNum(Integer.parseInt(pageNumStr));
 		}
 		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", qnaService.allList(pageVo));
-		mav.addObject("pageVO", pageVo);
-		mav.setViewName("client/qna/qnaList");
+		String userid = (String)session.getAttribute("logId");
+		if(userid == null || userid.equals("")) {
+			mav.setViewName("admin/member/login");
+		}else {
+			pageVo.setUserid(userid);
+			pageVo.setTotalRecord(qnaService.totalRecord(pageVo));
+			mav.addObject("list", qnaService.allList(pageVo));
+			mav.addObject("pageVO", pageVo);
+			mav.setViewName("client/qna/qnaList");
+		}
 		
 		return mav;
 	}
@@ -43,10 +48,9 @@ public class QnaController {
 		return "client/qna/qnaWrite";
 	}
 	
-	//세션 아이디 가져오기 수정해야됨 2021-04-20
 	@RequestMapping(value="/qnaWriteOk", method=RequestMethod.POST)
-	public ModelAndView qnaWriteOk(QnaVO vo) {
-		vo.setUserid("zerojunee");
+	public ModelAndView qnaWriteOk(QnaVO vo, HttpSession session) {
+		vo.setUserid((String)session.getAttribute("logId"));
 		
 		int cnt = qnaService.qnaInsert(vo);
 		ModelAndView mav = new ModelAndView();
@@ -78,7 +82,8 @@ public class QnaController {
 	}
 	//세션 아이디값 가져오기 수정해야됨 2021-04-20
 	@RequestMapping("/qnaEditOk")
-	public ModelAndView qnaEditOk(QnaVO vo) {
+	public ModelAndView qnaEditOk(QnaVO vo, HttpSession session) {
+		vo.setUserid((String)session.getAttribute("logId"));
 		int cnt = qnaService.qnaUpdate(vo);
 		
 		ModelAndView mav = new ModelAndView();
@@ -91,10 +96,10 @@ public class QnaController {
 		return mav;
 	}
 	@RequestMapping("/qnaDel")
-	public ModelAndView qnaDel(int no) {
+	public ModelAndView qnaDel(int no, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
-		if(qnaService.qnaDelete(no)>0) {
+		if(qnaService.qnaDelete(no, (String)session.getAttribute("logId"))>0) {
 			mav.setViewName("redirect:qnaList");
 		}else {
 			mav.setViewName("redirect:qnaView");
@@ -195,7 +200,7 @@ public class QnaController {
 	public ModelAndView qnaAdDel(int no) {
 		
 		ModelAndView mav = new ModelAndView();
-		if(qnaService.qnaDelete(no)>0) {
+		if(qnaService.qnaAdDelete(no)>0) {
 			mav.setViewName("redirect:qnaAdList");
 		}else {
 			mav.setViewName("redirect:qnaAdView");

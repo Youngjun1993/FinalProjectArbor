@@ -5,7 +5,7 @@
   <!--  --> 
 <mapper namespace="com.arbor.home.dao.QnaDAOImp">
 	<select id="allList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
+		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
 	</select>
 	<insert id="qnaInsert" parameterType="com.arbor.home.vo.QnaVO">
 		insert into qna(qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno) values(qnasq.nextval, #{userid}, #{qnacate}, #{qnasubject}, #{qnacontent}, 12341234, qnasq.currval)
@@ -14,10 +14,10 @@
 		select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate, to_char(ansdate, 'YYYY-MM-DD HH:MI') as ansdate from qna where qnano=#{param1}
 	</select>
 	<update id="qnaUpdate" parameterType="com.arbor.home.vo.QnaVO">
-		update qna set qnacate=#{qnacate}, qnasubject=#{qnasubject}, qnacontent=#{qnacontent} where qnano=#{qnano}
+		update qna set qnacate=#{qnacate}, qnasubject=#{qnasubject}, qnacontent=#{qnacontent} where qnano=#{qnano} and userid=#{userid}
 	</update>
 	<delete id="qnaDelete">
-		delete from qna where qnano=#{param1}
+		delete from qna where qnano=#{param1} and userid=#{param2}
 	</delete>
 	
 	<!-- Admin -->
@@ -28,7 +28,7 @@
 		update qna set answercontent=#{param2}, ansdate=sysdate where qnano=#{param1}
 	</update>
 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
-		select count(qnano) as totalRecord from qna <if test="qnaSearchWord != null"> where ${qnaSearchKey} like '%${qnaSearchWord}%'</if>
+		select count(qnano) as totalRecord from qna where  where userid = #{userid} <if test="qnaSearchWord != null"> and ${qnaSearchKey} like '%${qnaSearchWord}%'</if>
 	</select>
 	<select id="onePageRecordSelect" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
 		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate, to_char(ansdate, 'YYYY-MM-DD HH:MI') as ansdate from qna 
@@ -41,4 +41,7 @@
 	<select id="noAnswerTotal" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(qnano) as totalRecord from qna where answercontent is null
 	</select>
+	<delete id="qnaAdDelete">
+		delete from qna where qnano=#{param1}
+	</delete>
 </mapper>

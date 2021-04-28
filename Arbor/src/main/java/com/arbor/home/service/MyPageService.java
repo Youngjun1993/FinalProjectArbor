@@ -10,6 +10,7 @@ import com.arbor.home.dao.MyPageDAOImp;
 import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
+import com.arbor.home.vo.PointVO;
 import com.arbor.home.vo.SubOrderVO;
 
 @Service
@@ -34,8 +35,8 @@ public class MyPageService implements MyPageServiceImp {
 	}
 
 	@Override
-	public List<SubOrderVO> orderPopup(int orderno) {
-		return mypageDAO.orderPopup(orderno);
+	public PointVO recordCountSum(String userid) {
+		return mypageDAO.recordCountSum(userid);
 	}
 
 }
