@@ -6,12 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/productInsert.css" type="text/css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/product.js"></script>
 <script>
 
@@ -21,9 +18,9 @@
 	<div class="w1400_container font_ng">
 		<div id="sidefrm">사이드메뉴</div>
 		<div id="centerfrm">
-			<h1>상품 목록</h1>
+			<h1>카테고리 관리</h1>
 			<div id="insertInfo">
-				<p><span class=pTitle>상품 검색</span>
+				<p><span class=pTitle>카테고리 관리</span>
 					<img src="<%=request.getContextPath() %>/img/downpage.png"/>
 					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 				</p><br/>

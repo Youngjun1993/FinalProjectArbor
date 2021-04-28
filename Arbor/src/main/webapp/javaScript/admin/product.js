@@ -80,7 +80,7 @@ $(function(){
 				});
 				$("#subcate").html(tag);
 			}, error : function(e) {
-			
+				
 			}
 		});
 	});
@@ -90,6 +90,9 @@ $(function(){
          readURL(this);
     });
     $("#img2").on('change', function(){
+         readURL(this);
+    });
+    $("input[name=filename]").on('change', function(){
          readURL(this);
     });
 	
@@ -119,8 +122,29 @@ $(function(){
 		} else if ($("#img1").val()=='' || $("#img1").val()==null){
 			alert("상품 목록에 표시될 파일이므로, 이미지파일 최소 한개는 첨부해주셔야 합니다.");
 			return false;
-		} else if ($(".optionList>input[name=optname]).val()=='' || $(".optionList>input[name=optname]).val()==null) {
+		} else if ($(".optionList>input[name=optname]").val()=='' || $(".optionList>input[name=optname]").val()==null) {
 			alert("옵션명은 필수 입력항목으로, 추가옵션이 없는경우 삭제해주세요");
+			return false;
+		} else if ($('#description').summernote('code')=='' || $('#description').summernote('code')==null) {
+			alert("상품 소개글은 필수 입력항목입니다.");
+			return false;
+		}
+		return true;
+	});
+	
+	// product Insert 유효성검사
+	$("#centerfrmEdit>form").on('submit', function(){
+		if($("#pname").val()=='' || $("#pname").val()==null) {
+			alert("상품명은 필수 입력 항목입니다.");
+			return false;
+		} else if($("#pprice").val()=='' || $("#pprice").val()==null){
+			alert("상품 가격은 필수 입력 항목입니다.");
+			return false;
+		} else if ($("input[name=optname]").val()=='' || $("input[name=optname]").val()==null) {
+			alert("옵션명은 필수 입력항목으로, 추가옵션이 없는경우 삭제해주세요");
+			return false;
+		} else if ($('#description').summernote('code')=='' || $('#description').summernote('code')==null) {
+			alert("상품 소개글은 필수 입력항목입니다.");
 			return false;
 		}
 		return true;
@@ -133,7 +157,9 @@ $(function(){
 		tag += " <input type='text' name='optname' placeholder='옵션명을 입력하세요'/>";
 		tag += " <input type='text' name='optvalue' placeholder='옵션값을 입력하세요' />";
 		tag += " <input type='color' name='rgbvalue' style='width:50px; vertical-align: middle;'/>";
-		tag += " <input type='text' name='optprice' placeholder='추가가격(-가능, 0가능)'/>";
+		tag += " <input type='text' name='optprice' value=0 />";
+		tag += " <input type='hidden' name='optno' value='' />";
+		tag += " <input type='hidden' name='deleteno' value='' />";
 		tag += " <img src='./img/plus.png' class='plus'/>";
 		tag += " <img src='./img/minus.png' class='minus'/>";
 		tag += "</div>";
@@ -142,12 +168,15 @@ $(function(){
 	});
 	
 	$(document).on("click",".minus", function(){
-		$(this).parent().remove();
+		$(this).parent().hide();
+		
+		var num = $(this).prev().prev().prev().val();
+		$(this).prev().prev().val(num);
 	});
 	
 	/* productEdit - 파일삭제 */
-	$("#insertImg b").on('click', ()=>{
-		$(this).parent().css('display', 'none');
+	$(".imgEdit").on('click', function(){
+		$(this).parent().hide();
 		$(this).parent().next().attr('name', 'delFile');
 		$(this).parent().next().next().attr('type', 'file');
 	});
@@ -183,3 +212,9 @@ $(function(){
 	    }
 	});
 });
+
+function productdel(pno){
+	if(confirm(pno+"번 상품을 삭제하시겠습니까?")) {
+		location.href="productDelete?pno="+pno;
+	}
+}

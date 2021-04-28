@@ -19,7 +19,7 @@
  	
  	<insert id="optionInsert" parameterType="com.arbor.home.vo.OptionVO">
  		insert into optiontbl(optno, pno, optname, optvalue, optprice, rgbvalue)
- 		values(optionsq.nextval, ${pno}, #{optname}, #{optvalue}, #{optprice}, #{rgbvalue})
+ 		values(optionsq.nextval, ${pno}, #{optname}, #{optvalue}, ${optprice}, #{rgbvalue})
  	</insert>
  	
  	<select id="pnoSelect" resultType="int">
@@ -42,4 +42,26 @@
  	<select id="optionSelect" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
  		select optno, optname, optvalue, optprice, rgbvalue from optiontbl where pno=${param1}
  	</select>
+ 	
+ 	<update id="productUpdate" parameterType="com.arbor.home.vo.ProductVO">
+ 		update product set subno=${subno}, pname=#{pname}, pprice=${pprice}, saleprice=${saleprice},
+ 		stock=${stock}, img1=#{img1}, img2=#{img2}, description=#{description} where pno=${pno}
+ 	</update>
+ 	
+ 	<delete id="optionDelete" parameterType="int">
+ 		delete from optiontbl where optno=${param1}
+ 	</delete>
+ 	
+ 	<update id="optionUpdate" parameterType="com.arbor.home.vo.OptionVO">
+ 		update optiontbl set pno=${pno}, optname=#{optname}, optvalue=#{optvalue}, rgbvalue=#{rgbvalue},
+ 		optprice=${optprice} where optno=${optno}
+ 	</update>
+ 	
+ 	<delete id="productDelete" parameterType="int">
+ 		delete from product where pno=${param1}
+ 	</delete>
+ 	
+ 	<delete id="optionAllDelete" parameterType="int">
+ 		delete from optiontbl where pno=${param1}
+ 	</delete>
  </mapper>
