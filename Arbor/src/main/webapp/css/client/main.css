@@ -137,8 +137,50 @@ nav>ul ul{position:absolute;}
 
 
 /*main*/
-#d_topimg{height:calc(100vh - 132px);}
-#d_topimg>div img{width:50%; height:calc(100vh - 132px);float:left;margin-bottom:200px;}
+
+/*탑 슬라이드  */
+#d_top{
+	width:100%;
+	height:calc(100vh - 132px);
+	position:relative;
+	margin-bottom:200px;
+}
+.d_next{
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:10;
+	width:30px;
+	height:30px;
+	font-size:20px;
+}
+#d_topslider{
+	width:600%;
+	height:calc(100vh - 132px);
+	position:absolute;
+	left:0; right:0; top:0; bottom:0;
+	z-index:0;
+	}
+.slide{
+	width:calc(100vw - 17px);
+	height:100%;
+	float:left;
+}
+
+.slide img{
+	width:100%;
+	height:100%;
+	}
+
+.pagination{
+	position:absolute;
+	left:50%;
+	transform:translateX(-50%);
+	bottom:6rem;
+	z-index:1;
+}
+
+/*상품*/
 #d_list{height:600px;}
 #d_listTitle {width:100%; height:20px}
 #d_list li {
@@ -253,7 +295,6 @@ nav>ul ul{position:absolute;}
 .slide_wraper{
 	height:400px;
 	width:100%;
-	
 	position:relative;
 	overflow:hidden;
 }
@@ -277,8 +318,9 @@ nav>ul ul{position:absolute;}
 .controlls{
 	width:100%;
 	height:40px;
-	position:relative;
-
+	position:absolute;
+	z-index:1;
+	top:40%;
 }
 .controlls span{
 	font-size:25px;
@@ -293,7 +335,8 @@ nav>ul ul{position:absolute;}
 	display:none;
 }
 .controlls span.next{
-	left:50px;
+	left:calc(100% - 22px);
+	
 }
 
 /*동영상*/
