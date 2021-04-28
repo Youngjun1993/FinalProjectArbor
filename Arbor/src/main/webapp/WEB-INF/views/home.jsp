@@ -29,9 +29,9 @@ $(function(){
 		currentIdx =0,	//현재인덱스
 		slideCount = slide.length, //슬라이드의 갯수
 		prevBtn = document.querySelector('.prev'),
-		nextBtn = document.querySelector('.next');
+		nextBtn = document.querySelector('.next'),
 		slideWidth = 400,
-		slideMargin = 30,
+		slideMargin = 30;
 	
 	slides.style.width = (slideWidth + slideMargin)*slideCount - slideMargin +'px';//슬라이드의 넓이
 	
@@ -66,17 +66,51 @@ $(function(){
 	});
 		
 });
+
+$(function(){
+	var slides = document.querySelector('#d_topslider'),
+		slide = document.querySelectorAll('#d_topslider div'),
+		slideCount = slide.length, //슬라이드의 갯수
+		nextBtn = document.querySelector('.d_next'),
+		currentIdx =0;	//현재인덱스
+
+	function moveSlide(num){
+		slides.style.left = -num * 100 +'%';
+		currentIdx = num;
+	}
+		
+	nextBtn.addEventListener('click',function(){
+		console.log(currentIdx);
+		moveSlide(currentIdx + 1);
+	});
+
+});
 	
 </script>
 <div class="d_main">
-	<div id="d_topimg">
-		<div>
-			<img src="<%=request.getContextPath()%>/img/testfuniture.jpg">
+<div id="d_top">
+	<span class="d_next">▶</span>
+	<div id="d_topslider">
+		<div class="slide" id="slide-1">
+			<img src="<%=request.getContextPath()%>/img/메인이미지1.PNG">
 		</div>
-		<div>
-			<img src="<%=request.getContextPath()%>/img/testfuniture2.jpg">
+		<div class="slide" id="slide-2">
+			<img src="<%=request.getContextPath()%>/img/메인이미지2.jpg">
+		</div>
+		<div class="slide" id="slide-3">
+			<img src="<%=request.getContextPath()%>/img/메인이미지3.jpg">
+		</div>
+		<div class="slide" id="slide-4">
+			<img src="<%=request.getContextPath()%>/img/메인이미지4.jpg">
+		</div>
+		<div class="slide" id="slide-5">
+			<img src="<%=request.getContextPath()%>/img/메인이미지5.jpg">
+		</div>
+		<div class="slide" id="slide-6">
+			<img src="<%=request.getContextPath()%>/img/메인이미지6.jpg">
 		</div>
 	</div>
+</div>
 	<!-- 인기상품 -->
 	<div id="d_list" class="clearfix w1400_container" trigger-up>
 		<div>실시간 인기상품</div>
