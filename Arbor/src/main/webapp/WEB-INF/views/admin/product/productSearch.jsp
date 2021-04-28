@@ -84,7 +84,7 @@
 						<li>판매가</li>
 						<li>재고</li>
 						<li>둥록일</li>
-						<li>수정/삭제</li>
+						<li>&nbsp</li>
 						<c:forEach var="vo" items="${productList }">
 							<li><input type="checkbox" value=${vo.pno }/></li>
 							<li>${vo.pno }</li>

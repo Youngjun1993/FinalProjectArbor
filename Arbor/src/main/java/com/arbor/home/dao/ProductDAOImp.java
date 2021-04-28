@@ -22,4 +22,8 @@ public interface ProductDAOImp {
 	public List<ProductVO> productList();
 	// 수정 위한 pno에 따른 정보 불러오기
 	public ProductVO productSelect(int pno);
+	// optionList불러오기
+	public List<OptionVO> optionSelect(int pno);
+	// pvo 업데이트
+	public int productUpdate(ProductVO pvo);
 }

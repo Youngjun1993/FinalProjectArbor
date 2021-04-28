@@ -3,6 +3,7 @@ package com.arbor.home.controller;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -197,8 +198,116 @@ public class ProductController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("vo", productService.productSelect(pno));
+		mav.addObject("subCate", productService.subCateList(1));
+		mav.addObject("mainCate", productService.mainCateList());
+		mav.addObject("optList", productService.optionSelect(pno));
 		mav.setViewName("/admin/product/productEdit");
 		
+		return mav;
+	}
+	
+	@RequestMapping(value="/productEditOk", method=RequestMethod.POST)
+	public ModelAndView productEditOk(
+			ProductVO pvo,
+			OptionVO optvo,
+			HttpServletRequest req
+			) {
+		String path = req.getSession().getServletContext().getRealPath("/upload");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		// 변경전 파일명 가져오기
+		ProductVO fileVO = productService.productSelect(pvo.getPno());
+		
+		// 파일 배열에 담기
+		List<String> selFile = new ArrayList<String>();
+		selFile.add(pvo.getImg1());
+		if (pvo.getImg2()!=null && !pvo.getImg2().equals("")) {
+			selFile.add(pvo.getImg2());
+		}
+		
+		// 삭제한 파일 담기
+		String delFile[] = req.getParameterValues("delFile");
+		// 새로 추가 업로드하기
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
+		List<MultipartFile> list = mr.getFiles("filename");
+		
+		List<String> newUpload = new ArrayList<String>();
+		if(newUpload!=null && list.size()>0) {
+			for(MultipartFile mf : list) {
+				if(mf!=null) {
+					String orgname = mf.getOriginalFilename(); // 업로드한 파일명
+					if(orgname!=null && !orgname.equals("")) {
+						
+						File ff = new File(path, orgname);
+						int i = 0;
+						while(ff.exists()) {
+							int pnt = orgname.lastIndexOf(".");
+							String firstName = orgname.substring(0, pnt);
+							String lastName = orgname.substring(pnt+1);
+							
+							ff = new File(path, firstName+"("+(++i)+")."+lastName);
+						}
+						
+						try {
+							mf.transferTo(ff);
+						} catch(Exception e) {
+							System.out.println("DataController > dataEditOk에서 에러 발생!");
+							e.printStackTrace();
+						}
+						newUpload.add(ff.getName());
+					}
+				}
+			}
+		}
+		
+		// DB선택 파일 목록에서 삭제한 파일명 지우기
+		if(delFile!=null) {
+			for(String delName : delFile) {
+				selFile.remove(delName);
+			}
+		}
+		// DB선택 파일 목록에 새로 업로드된 파일명 추가
+		for(String newFile : newUpload) {
+			selFile.add(newFile);
+		}
+		
+		pvo.setImg1(selFile.get(0));
+		if(selFile.size()>1) {
+			pvo.setImg2(selFile.get(1));
+		}
+		
+		if(productService.productUpdate(pvo)>0) {
+			// 수정완료 (삭제파일 지우고 글내용보기로 돌아감)
+			if(delFile!=null) {
+				for(String dFile : delFile) {
+					try {
+						File dFileObj = new File(path, dFile);
+						dFileObj.delete();
+					}catch(Exception e) {
+						System.out.println("삭제파일 지우던 중 에러 발생!");
+						e.printStackTrace();
+					}
+				}
+			}
+			mav.addObject("pno", pvo.getPno());
+			mav.setViewName("redirect:productView");
+		} else {
+			// 새로 업로드 된 파일 지우고 글 수정 폼으로 돌아가기
+			if(newUpload.size()>0) {
+				for(String nFile : newUpload) {
+					try {
+						File dFileObj = new File(path,nFile);
+						dFileObj.delete();
+					} catch(Exception e) {
+						System.out.println("새업로드파일 지우던중 에러 발생!");
+						e.printStackTrace();
+					}
+				}
+			}
+			mav.addObject("pno", pvo.getPno());
+			mav.setViewName("redirect:ProductEdit");
+		}
 		return mav;
 	}
 	

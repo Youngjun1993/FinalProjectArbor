@@ -80,11 +80,14 @@
 						<br/><br/>
 						<img src="<%=request.getContextPath() %>/img/option.png"/>
 					</div>
-					<input type="text" name="optname" placeholder="옵션명을 입력하세요"/>
-					<input type="text" name="optvalue" placeholder="옵션값을 입력하세요"/>
-					<input type='color' name='rgbvalue'/>
-					<input type="text" name="optprice" placeholder="추가 가격(-가능, 0가능)"/>
-					<button type='button' onclick='javascript:optionAdd()'>+</button>
+					<div class="optionList">
+						<input type="text" name="optname" placeholder="옵션명을 입력하세요"/>
+						<input type="text" name="optvalue" placeholder="옵션값을 입력하세요"/>
+						<input type='color' name='rgbvalue'/>
+						<input type="text" name="optprice" placeholder="추가 가격(-가능, 0가능)"/>
+						<img src="<%=request.getContextPath() %>/img/plus.png" class="plus"/>
+						<img src="<%=request.getContextPath() %>/img/minus.png" class="minus"/>
+					</div>
 				</div>
 			</div>
 			<p id="lastP"><input type="submit" value="저장"/><input type="reset" value="다시쓰기" /></p>

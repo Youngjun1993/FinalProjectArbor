@@ -53,4 +53,14 @@ public class ProductService implements ProductServiceImp {
 		return productDAO.productSelect(pno);
 	}
 
+	@Override
+	public List<OptionVO> optionSelect(int pno) {
+		return productDAO.optionSelect(pno);
+	}
+
+	@Override
+	public int productUpdate(ProductVO pvo) {
+		return productDAO.productUpdate(pvo);
+	}
+
 }
