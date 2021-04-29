@@ -1,0 +1,27 @@
+@charset "UTF-8";
+/* class */
+
+
+/*--------------
+	타임세일 등록
+---------------*/
+
+#saleSubject{
+	width:493px;
+}
+#j_pNo, #j_pName{
+	width:250px;
+}
+
+/*--------------
+	타임세일 뷰
+---------------*/
+#j_saleContent{text-align:center;}
+#j_emptyTimeSale{
+	height:600px;
+	line-height:600px;
+	text-align:center;
+	font-size:1.5em;
+	color:#bbb;
+	font-weight:bold;
+}

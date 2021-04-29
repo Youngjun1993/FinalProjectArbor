@@ -18,7 +18,7 @@
   		lag(eventSubject, 1, '이전글이 없습니다.') over (order by eventNo desc) prevSubject,
   		lead(eventNo, 1, 0) over (order by eventNo desc) nextNo,
   		lead(eventSubject, 1, '다음글이 없습니다.') over (order by eventNo desc) nextSubject
-  		from event) where eventNo=#{param1}
+  		from event where to_date(eventEnd, 'YY-MM-DD')>sysdate) where eventNo=#{param1}
   	</select>
   	<select id="eventAllSelect" resultType="com.arbor.home.vo.EventVO">
   		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yy/mm/dd hh24:mi') eventDate

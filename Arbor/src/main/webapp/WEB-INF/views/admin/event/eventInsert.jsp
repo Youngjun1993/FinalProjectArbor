@@ -11,14 +11,14 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <!-- datepicker -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <!-- summernote -->
 <script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <script>
-	$(function(){		
+	$(function(){
 		//datepicker 옵션 설정
 		$.datepicker.setDefaults({
 			dateFormat: "yy-mm-dd",
@@ -76,7 +76,7 @@
 			$.ajax({
 				data: data,
 				type: 'POST',
-				url: 'uploadSummernoteImageFile1',
+				url: 'uploadSummernoteImageFile',
 				contentType: false,
 				processData: false,
 				success: function(data){
@@ -90,12 +90,12 @@
 <body>
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
-	<div class="j_centerFrm" id="j_insertFrm">
+	<div class="j_centerFrm j_eventFrm">
 		<h1>이벤트 등록</h1>
-		<form method="post" action="eventInsertOk" enctype="multipart/form-data">
+		<form method="post" action="eventInsertOk">
 			<div>
 				<span class="j_category">제목</span>
-					<input type="text" name="eventSubject" id="eventSubject"/>
+					<input type="text" name="eventSubject"/>
 				<br/>
 				<span class="j_category">이벤트 기간</span> 
 					<input type="text" name="eventStart" id="eventStart" placeholder="시작일"/> ~ 
@@ -106,7 +106,7 @@
 				<br/><br/>
 				<textarea name="eventContent" id="eventContent"></textarea>
 				<br/>
-				<p class="j_eventSetBtn"><input type="submit" value="등록"> <input type="button" id="j_insertCnlBtn" value="취소"></p>
+				<p class="j_eventSetBtn"><input type="submit" value="등록"></p>
 			</div>
 		</form>
 	</div>

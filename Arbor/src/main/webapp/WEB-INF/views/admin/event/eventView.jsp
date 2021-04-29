@@ -28,7 +28,7 @@
 <body>
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
-	<div class="j_centerFrm" id="j_listFrm">
+	<div class="j_centerFrm">
 		<h1>이벤트 내용</h1>
 		<div>
 			<span class="j_category">제목</span> ${vo.eventSubject }<br/>
@@ -38,7 +38,7 @@
 			<span id="j_contentImg">${vo.eventContent }</span>
 			<hr/>
 			<p class="j_eventSetBtn">
-				<input type="submit" id="j_editBtn" value="수정"/> 
+				<input type="button" id="j_editBtn" value="수정"/> 
 				<input type="button" id="j_delBtn" value="삭제"/> 
 				<input type="button" id="j_listBtn" value="목록"/>
 			</p>
