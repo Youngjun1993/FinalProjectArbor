@@ -34,22 +34,23 @@ y_myPageMain_wrap{
     padding: 20px;
 }
 #y_myPage_rightCon>div:first-of-type>ul>li:first-child{
-    width: 573px;
+    width: 450px;
     text-align: left;
-    padding-left: 30px;
     border: none;
+    font-size: 25px;
+    padding: 40px 0 30px 30px;
 }
 #y_myPage_rightCon>div:first-of-type>ul>li{
     float: left;
-    width: 200px;
     height: 80px;
-    padding: 40px 0 30px 0px;
+    padding: 40px 50px 30px 50px;
     text-align: center;
     font-size: 18px;
     border-right: 1px solid #ddd;
 }
-#y_myPage_rightCon>div:first-of-type>ul>li:first-child{
-    font-size: 25px;
+#y_myPage_rightCon>div:first-of-type>ul>li span:nth-of-type(2){
+	margin-left:15px;
+	display : block;
 }
 #y_myPage_rightCon>div:first-of-type>ul>li:last-child{
     border: none;
@@ -69,11 +70,9 @@ y_myPageMain_wrap{
     float: left;
     display: block;
 }
-#y_myPage_rightCon div ul li:nth-child(2) span:first-child{
-    margin: 0 10px 0 30px;
-}
-#y_myPage_rightCon div ul li span:first-child{
-    margin:0 10px 0 50px;
+#y_myPage_rightCon div:nth-of-type(2) h3{
+	height:50px;
+	line-height: 50px;
 }
 #y_myPage_rightCon div:nth-of-type(2) ul{
     border-top: 1px solid #333;
@@ -99,8 +98,9 @@ y_myPageMain_wrap{
     border: 1px solid #333;
     position: absolute;
     left: 30%;
-    top: 10%;
+    top: 15%;
     background: #fff;
+    display:none;
 }
 #y_orderPopup_Wrap p{
     font-size: 18px;
@@ -156,8 +156,8 @@ y_myPageMain_wrap{
 #y_orderPopup_Wrap>div:nth-of-type(3) ul li{
     text-align: center;
     border-right: 1px solid #ddd;
-    height: 100px;
-    line-height: 100px;
+    height: 50px;
+    line-height: 50px;
 }
 #y_orderPopup_Wrap>div:nth-of-type(3) ul li:nth-child(4n+1){
     width: 298px;
@@ -219,9 +219,10 @@ y_myPageMain_wrap{
     width: 500px;
     background: #fff;
     position: absolute;
-    left: 50%;
-    top: 5%;
+    left: 45%;
+    top: 16%;
     border: 1px solid #333;
+    display:none;
 }
 #y_printPopup_Wrap>div:nth-of-type(1){
     width: 100%;
