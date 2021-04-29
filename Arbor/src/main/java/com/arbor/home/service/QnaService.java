@@ -38,8 +38,8 @@ public class QnaService implements QnaServiceImp {
 	}
 
 	@Override
-	public int qnaDelete(int no) {
-		return qnaDAO.qnaDelete(no);
+	public int qnaDelete(int no, String userid) {
+		return qnaDAO.qnaDelete(no, userid);
 	}
 
 	@Override
@@ -59,8 +59,7 @@ public class QnaService implements QnaServiceImp {
 
 	@Override
 	public List<QnaVO> onePageRecordSelect(PageSearchVO vo) {
-		// TODO Auto-generated method stub
-		return null;
+		return qnaDAO.onePageRecordSelect(vo);
 	}
 
 	@Override
@@ -76,6 +75,11 @@ public class QnaService implements QnaServiceImp {
 	@Override
 	public int noAnswerTotal(PageSearchVO vo) {
 		return qnaDAO.noAnswerTotal(vo);
+	}
+
+	@Override
+	public int qnaAdDelete(int no) {
+		return qnaDAO.qnaAdDelete(no);
 	}
 	
 	

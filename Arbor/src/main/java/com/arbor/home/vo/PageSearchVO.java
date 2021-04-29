@@ -10,7 +10,15 @@ public class PageSearchVO {
 	private int lastPageRecord;
 	private String qnaSearchKey;
 	private String qnaSearchWord;
+	private String userid;
 	
+	
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 	public int getOnePageRecord() {
 		return onePageRecord;
 	}

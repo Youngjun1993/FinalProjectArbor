@@ -22,4 +22,16 @@ public interface ProductDAOImp {
 	public List<ProductVO> productList();
 	// 수정 위한 pno에 따른 정보 불러오기
 	public ProductVO productSelect(int pno);
+	// optionList불러오기
+	public List<OptionVO> optionSelect(int pno);
+	// pvo 업데이트
+	public int productUpdate(ProductVO pvo);
+	// optionTbl 삭제 (optionNo로 한 줄 삭제)
+	public int optionDelete(int optno);
+	// optiontbl 수정
+	public int optionUpdate(OptionVO vo);
+	// 상품번호로 해당상품 삭제
+	public int productDelete(int pno);
+	// 옵션테이블에 해당 상품번호에 해당하는 옵션 모두 삭제
+	public int optionAllDelete(int pno);
 }
