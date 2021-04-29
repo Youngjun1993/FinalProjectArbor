@@ -18,7 +18,7 @@
 <body>
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
-	<div class="j_centerFrm" id="j_listFrm">
+	<div class="j_centerFrm">
 		<h1>이벤트 목록</h1>
 		<div class="clearfix j_search">
 			<form method="post" class="searchFrm" action="eventList">

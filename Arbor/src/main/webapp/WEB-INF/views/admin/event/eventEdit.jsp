@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
 <!-- datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <!-- summernote -->
 <script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
@@ -76,7 +76,7 @@
 			$.ajax({
 				data: data,
 				type: 'POST',
-				url: 'uploadSummernoteImageFile1',
+				url: 'uploadSummernoteImageFile',
 				contentType: false,
 				processData: false,
 				success: function(data){
@@ -86,7 +86,7 @@
 		}
 		
 		//첨부파일 삭제
-		$("#j_insertFrm b").click(function(){
+		$("#j_editFrm b").click(function(){
 			$(this).parent().css("display", "none");
 			$(this).parent().next().attr("name", "delFile");
 			$(this).parent().next().next().attr("type", "file");
@@ -98,13 +98,13 @@
 <body>
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
-	<div class="j_centerFrm" id="j_insertFrm">
+	<div class="j_centerFrm" id="j_editFrm">
 		<h1>이벤트 수정</h1>
-		<form method="post" action="eventEditOk" enctype="multipart/form-data">
+		<form method="post" action="eventEditOk">
 		<input type="hidden" name="eventNo" value="${vo.eventNo }"/>
 			<div>
 				<span class="j_category">제목</span>
-					<input type="text" name="eventSubject" id="eventSubject" value="${vo.eventSubject }"/>
+					<input type="text" name="eventSubject" value="${vo.eventSubject }"/>
 				<br/>
 				<span class="j_category">이벤트 기간</span>
 					<input type="text" name="eventStart" id="eventStart" value="${vo.eventStart }"/> ~ 

@@ -43,7 +43,6 @@ public class EventController {
 	}
 	@RequestMapping("/eventContent")
 	public ModelAndView eventContent(int eventNo) {
-		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("vo", eventService.eventSelect(eventNo));
 		mav.addObject("pnList", eventService.lagLeadSelect(eventNo));
@@ -117,35 +116,6 @@ public class EventController {
 			}
 		}
 		return mav;
-	}
-	
-	@RequestMapping("/uploadSummernoteImageFile1")
-	@ResponseBody
-	public JsonObject uploadSummernoteImageFile1(
-			@RequestParam("file") MultipartFile multipartFile,
-			HttpSession session) {
-		JsonObject jsonObject = new JsonObject();
-		
-		//저장 경로 위치 설정
-		String path = session.getServletContext().getRealPath("/summernote");
-		//파일명 구하기
-		String orgName = multipartFile.getOriginalFilename();
-		//파일 확장자
-		String extension = orgName.substring(orgName.lastIndexOf("."));
-		
-		try {
-			if(orgName!=null && !orgName.equals("")) {
-				multipartFile.transferTo(new File(path, orgName));
-				//업로드
-				jsonObject.addProperty("url", "/home/summernote/"+orgName);
-				jsonObject.addProperty("responseCode", "success");
-			}
-		}catch(Exception e) {
-			jsonObject.addProperty("responseCode", "error");
-			System.out.println("EventController > summernote upload 에러 발생");
-			e.printStackTrace();
-		}
-		return jsonObject;
 	}
 	
 	@RequestMapping("/eventView")
