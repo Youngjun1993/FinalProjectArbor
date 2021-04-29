@@ -18,5 +18,7 @@
   	<update id="timeSaleEdit">
   		update timesale set pNo=#{pNo}, salePrice=#{salePrice}, saleStart=to_date(#{saleStart}, 'yyyy-mm-dd hh24:mi'), saleEnd=to_date(#{saleEnd}, 'yyyy-mm-dd hh24:mi'), saleContent=#{saleContent} where saleNo=#{saleNo}
   	</update>
-  	
+  	<delete id="timeSaleDelete">
+  		delete from timesale where saleNo=#{param1}
+  	</delete>
   </mapper>

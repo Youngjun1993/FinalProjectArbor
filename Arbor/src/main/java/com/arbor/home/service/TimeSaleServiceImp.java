@@ -9,4 +9,5 @@ public interface TimeSaleServiceImp {
 	public TimeSaleVO timeSaleSelect();
 	public TimeSaleVO timeSaleEditRecord(int saleNo);
 	public int timeSaleEdit(TimeSaleVO vo);
+	public int timeSaleDelete(int saleNo);
 }

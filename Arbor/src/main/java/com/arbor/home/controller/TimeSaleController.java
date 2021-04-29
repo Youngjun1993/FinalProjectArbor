@@ -72,6 +72,18 @@ public class TimeSaleController {
 		return mav;
 	}
 	
+	@RequestMapping("/timeSaleDelete")
+	public ModelAndView timeSaleDelete(int saleNo) {
+		ModelAndView mav = new ModelAndView();
+		if(timeSaleService.timeSaleDelete(saleNo)>0) {
+			//mav.addObject("msg", "삭제가 완료되었습니다.");
+			mav.setViewName("redirect:timeSaleView");
+		}else {
+			mav.setViewName("redirect:timeSaleView");			
+		}
+		return mav;
+	}
+	
 	
 	
 	

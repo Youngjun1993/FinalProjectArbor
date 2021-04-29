@@ -38,4 +38,9 @@ public class TimeSaleService implements TimeSaleServiceImp {
 		return dao.timeSaleEdit(vo);
 	}
 
+	@Override
+	public int timeSaleDelete(int saleNo) {
+		return dao.timeSaleDelete(saleNo);
+	}
+
 }

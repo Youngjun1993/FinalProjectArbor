@@ -14,19 +14,37 @@
 		});		
 		//header-EVENT 서브메뉴 클릭시 이벤트 탭 이동
 		var title = "${title}";
-		if(title=="timesale"){
+		if(title=="timesale"){	//타임세일 tab -> 타임세일 이미지, 시간 불러오기 **
+			console.log("여기는 타임세일 탭!!!! 왜안나와");
 			$("#j_tab1").prop("checked",true);
+			$.ajax(
+				{
+					url: 'timeSaleView',
+					dataType: 'json',
+					success: function(timeSale){
+						console.log("ajax 넘어왔니?");
+						console.log(timeSale.saleContent);
+						console.log(timeSale.saleEnd);
+						$("#timeSaleContent").html(timeSale.saleContent);
+						runTimer(timeSale.saleEnd);
+					},error: function(error){
+						alert("*** 에러 ***");
+					}
+				}
+			)
 		}
 		else if(title=="nowEvent"){
+			console.log("여기는 진행중인이벤트 탭!!!!!!!!!!");
 			$("#j_tab2").prop("checked",true);
 		}		
 		else if(title=="endEvent"){
 			$("#j_tab3").prop("checked",true);
+			console.log("여기는 지난이벤트 탭!!!!!!!!!!");
 		}
 		let chkr = $(".j_tab-wrap [name='tabs']:checked").next().text();
 		$(".j_eventMenu").text(chkr);
 		
-		
+		//EVENT 게시물 검색
 		$(".searchFrm").submit(function(){
 			if(!$(".searchWord").val()){
 				alert("검색어를 입력하세요.");
@@ -34,6 +52,44 @@
 			}
 		});
 		return true;
+		
+		//타임세일 tab - 타이머 구현
+		function runTimer(date){
+			var saleEnd = new Date(date);
+			var _second = 1000;
+			var _minute = _second*60;
+			var _hour = _minute*60;
+			var _day = _hour*24;
+			var timer;
+			
+			function showCountDown(){
+				var now = new Date();
+				var interval = saleEnd - now;
+				
+				if(interval<0){
+					clearInterva(timer);
+					document.getElementById("timeSaleContent").textContent="해당 이벤트가 종료 되었습니다.";
+					return;
+				}
+				
+				//남은 시간 계산
+				var days = Math.floor(inteval / _day);
+				var hours = Math.floor((interval % _day) / _hour);
+				var minutes = Math.floor((interval % _hour) / _minute);
+				var seconds = Math.floor((interval % _minute) / _second);
+				
+				var setTimer = document.getElement("timer").innerHTML;
+				setTimer = "D-"+days ;
+				setTimer += hours+"시간 ";
+				setTimer += minutes+"분 ";
+				setTimer += seconds+"초 ";
+				
+			}
+			
+			timer = setInterval(showCountDown, 1000);
+		}
+		
+		
 		
 	});
 </script>
@@ -54,8 +110,13 @@
 		<label for="j_tab3" class="j_tabLbl">지난 이벤트</label>
 		
 		<!-- 타임세일 -->
-		<div class="j_tab-content" id="j_tab1_content">타임세일
-		
+		<div class="j_tab-content" id="j_tab1_content">
+			<div>	<!-- 타임세일 진행시 -->
+				<div id="timer"></div>
+				<div id="timeSaleContent"></div>
+			</div>
+			<div>	<!-- 타임세일 없을 때 -->
+			</div>
 		</div>
 		
 		<!-- 진행중인 이벤트 -->
@@ -66,7 +127,7 @@
 						<option value="eventSubject">제목</option>
 						<option value="eventContent">내용</option>
 					</select>
-					<input type="text" name="searchWord" class="j_searchWord placeholder="검색어 입력"/>
+					<input type="text" name="searchWord" class="j_searchWord" placeholder="검색어 입력"/>
 					<input type="submit" value="검색"/>
 				</form>
 			</div>

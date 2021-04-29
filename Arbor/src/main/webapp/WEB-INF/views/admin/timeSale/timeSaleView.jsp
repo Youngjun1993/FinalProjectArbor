@@ -13,11 +13,21 @@
 <script>
 	$(function(){
 		$("#j_tsEditBtn").click(function(){
+			console.log("*** 수정버튼 클릭 ***")
 			location.href="timeSaleEdit?saleNo=${vo.saleNo}";
 		});
 		$("#j_tsDelBtn").click(function(){
-			location.href="timeSaleDelete";			
+			console.log("*** 삭제버튼 클릭 ***")
+			if(confirm("삭제하시겠습니까?")){
+				location.href="timeSaleDelete?saleNo=${vo.saleNo}";							
+			}
 		});
+		/*
+		var msg = "";
+		if(${msg}!=null){
+			alert(${msg});
+		}
+		*/
 		
 	});
 </script>
