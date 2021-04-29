@@ -176,7 +176,7 @@ public class MemberController {
                "<br>" + 
                "해당 인증번호를 인증번호 확인란에 기입하여 주세요. 감사합니다";
        
-     /* try {
+       try {
            
            MimeMessage message = mailSender.createMimeMessage();
            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
@@ -188,7 +188,7 @@ public class MemberController {
            
        }catch(Exception e) {
            e.printStackTrace();
-       }*/
+       }
       
       String num = Integer.toString(checkNum);
       
