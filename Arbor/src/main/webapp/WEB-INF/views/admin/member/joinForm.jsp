@@ -34,19 +34,79 @@
 			}
 		});
 		
+		
+		//비밀번호확인 잠금 해제
+		$('#userpwd').change(function() {
+			if($('#userpwd').val()!=""){
+				$('#pwdCheck').attr("disabled", false);
+				console.log("비번값있음");
+				$('.h_pwdchk').css("background-color","white");
+			}
+		});
+		
 		//비밀번호 확인
 		$('#pwdCheck').blur(function(){
-			   if($('#userpwd').val() != $('#pwdCheck').val()){
-			    	if($('#pwdCheck').val()!=''){
-				    alert("비밀번호가 일치하지 않습니다.");
-			    	    $('#pwdCheck').val('');
-			          $('#pwdCheck').focus();
-			          $('#h_pwd_ok').hide();
-			       }
-			    }else{
-			    	$('#h_pwd_ok').show();
+			   var inputpwd = $("#userpwd").val();//비밀번호
+			   var checkpwd = $("#pwdCheck").val()
+				//비밀번호 확인
+				var checkResult = $("#h_pwd_ok");//span
+				 if(inputpwd == checkpwd){// 일치할 경우
+				        checkResult.html("인증번호가 일치합니다");
+				        checkResult.addClass("correct");        
+				        checkResult.removeClass("incorrect");        
+				    } else {                                            // 일치하지 않을 경우
+				        checkResult.html("인증번호를 다시 확인해주세요");
+				        checkResult.addClass("incorrect");
+				        checkResult.removeClass("correct");  
+				        $('.h_emailvalid').focus();
+				    }
+			   
+		});
+		
+		//이메일인증 인증번호 전송
+		
+		var emailcode = ""; 
+		
+		$('.h_check_btn.emailchk').click(function() {
+			
+			var emailid = $(".h_ipt.emailid").val();// 입력한 이메일
+			var domain = $(".h_select.emaildomain").val()//도메인
+			var email = emailid + "@" + domain;//입력한 이메일 아이디 완전체
+			var chkBox = $("#emailvalid");        // 인증번호 입력란
+			
+			$.ajax({
+		        
+		        type:"GET",
+		        url:"mailcheck?email=" + email,
+		        success:function(data){
+		        	 //console.log("data : " + data);/* 반환데이터 확인 : data는 컨트롤러 이메일 인증 메소드에서 생성해 리턴한 난수(String타입) */
+		        	chkBox.attr("disabled", false);
+		        	chkBox.attr("id", "emailvalid_ok");
+		        	emailcode = data;
+		        	
+		        	$('.h_pwdchk').css("background-color","white");
+		        }
+		        		
+		    });
+			
+		});
+		
+		//인증번호 비교
+		$(".h_emailvalid").blur(function(){
+			 var inputCode = $(".h_emailvalid").val();// 입력코드    
+			 var checkResult = $(".h_email_warning");    // 비교 결과   
+			 if(inputCode == emailcode){                            // 일치할 경우
+			        checkResult.html("인증번호가 일치합니다");
+			        checkResult.addClass("correct");        
+			        checkResult.removeClass("incorrect");        
+			    } else {                                            // 일치하지 않을 경우
+			        checkResult.html("인증번호를 다시 확인해주세요");
+			        checkResult.addClass("incorrect");
+			        checkResult.removeClass("correct");  
+			        $('.h_emailvalid').focus();
 			    }
-			})  	   
+			 
+		});
 		
 	});
 </script>
@@ -89,8 +149,9 @@
 		<label for="pwdCheck">비밀번호 확인 *</label>
 		</td>
 		<td>
-		<input type="password" name="pwdCheck" id="pwdCheck" size="20px" class="h_ipt" required="required">
-		<span id="h_pwd_ok" style="display:none;"> 비밀번호 일치</span>
+		<input type="password" name="pwdCheck" id="pwdCheck" size="20px" class="h_pwdchk" required="required" disabled="disabled">
+		<!-- <input type="button" id="pwdconfirm" value="확 인" class="h_pwdchk_btn"/> -->
+		<span id="h_pwd_ok"></span>
 		</td>
 		</tr>
 		
@@ -147,8 +208,8 @@
 		<label for="email">이메일</label>
 		</td>
 		<td>
-		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt"> @ 
-		<select name="emaildomain" class="h_select">
+		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid"> @ 
+		<select name="emaildomain" class="h_select emaildomain">
 			<option value=""></option>
 			<option value="google.com">google.com</option>
 			<option value="naver.com">naver.com</option>
@@ -163,8 +224,9 @@
 		<label for="emailvalid">인증번호</label>
 		</td>
 	 	<td>
-	 	<input type="text" name="emailvalid" id="emailvalid" size="20px" class="h_ipt">
-		<input type="button" id="emailcheck" value="인증 요청" class="h_check_btn">
+	 	<input type="text" name="emailvalid" id="emailvalid" size="20px" class="h_emailvalid" disabled="disabled">
+		<input type="button" id="emailcheck" value="인증 요청" class="h_check_btn emailchk">
+		<span class="h_email_warning"></span>
 		</td>
 		</tr>
 		
