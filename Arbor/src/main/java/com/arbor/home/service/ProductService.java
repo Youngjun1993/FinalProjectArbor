@@ -82,4 +82,9 @@ public class ProductService implements ProductServiceImp {
 	public int optionAllDelete(int pno) {
 		return productDAO.optionAllDelete(pno);
 	}
+
+	@Override
+	public List<SubCateVO> subCateListAll() {
+		return productDAO.subCateListAll();
+	}
 }

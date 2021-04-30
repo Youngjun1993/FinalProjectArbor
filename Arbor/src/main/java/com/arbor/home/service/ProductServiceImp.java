@@ -12,6 +12,8 @@ public interface ProductServiceImp {
 	public List<MainCateVO> mainCateList();
 	// 중분류 불러오기
 	public List<SubCateVO> subCateList(int mainno);
+	// 중분류 불러오기 전체
+	public List<SubCateVO> subCateListAll();
 	// 상품등록
 	public int productInsert(ProductVO vo);
 	// 옵션테이블 등록

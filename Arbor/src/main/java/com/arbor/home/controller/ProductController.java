@@ -91,11 +91,10 @@ public class ProductController {
 		
 		// 저장할 경로 위치 설정 (upload 폴더에 넣을거임)
 		String path = req.getSession().getServletContext().getRealPath("/upload");
-		System.out.println(path);
 		// 파일 업로드
 		String imgName1 = image1.getOriginalFilename();
 		String imgName2 = image2.getOriginalFilename();
-System.out.println(imgName2);
+System.out.println("imgName2?"+imgName2);
 		// 실제 파일 업로드시키기 (img1)
 		int p=1;
 		if(imgName1!=null && !imgName1.equals("")) {
@@ -153,8 +152,10 @@ System.out.println(imgName2);
 				System.out.println("productInsert 에러발생!!!");
 				File f = new File(path, imgName1);
 				f.delete();
-				File del2 = new File(path, pvo.getImg2());
-				del2.delete();
+				if(imgName2!=null && !imgName2.equals("")) {
+					File del2 = new File(path, pvo.getImg2());
+					del2.delete();
+				}
 				mav.setViewName("redirect:productInsert");
 			}
 			for(int i=0; i<optNameArr.length; i++) {
@@ -393,8 +394,15 @@ System.out.println(imgName2);
 	}
 	
 	@RequestMapping("/manageCate")
-	public String manageCate() {
-		return "admin/product/manageCate";
+	public ModelAndView manageCate() {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("subCate", productService.subCateList(1));
+		mav.addObject("mainCate", productService.mainCateList());
+		mav.addObject("cateList", productService.subCateListAll());
+		mav.setViewName("admin/product/manageCate");
+		
+		return mav;
 	}
 	
 	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
