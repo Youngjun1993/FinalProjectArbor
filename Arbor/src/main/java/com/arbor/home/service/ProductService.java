@@ -87,4 +87,9 @@ public class ProductService implements ProductServiceImp {
 	public List<SubCateVO> subCateListAll() {
 		return productDAO.subCateListAll();
 	}
+
+	@Override
+	public List<ProductVO> productListClient(int subno) {
+		return productDAO.productListClient(subno);
+	}
 }
