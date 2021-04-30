@@ -23,7 +23,7 @@ header{
 	z-index:900;
 }
 
-#d_logo{position:absolute; top:50px; left:47%; z-index:999;}
+#d_logo{position:absolute;width:155px; height:60px; left:50%; top:50%; margin-left:-77.5px; margin-top:-15px;z-index:101;}
 #d_topline{position:inherit;height:30px; line-height:30px; color:rgb(248,244,236); background-color:rgb(90,120,114);z-index:900;}
 nav{width:100%; height:102px; background-color:#fff;position:absolute;z-index:100; border-bottom:1px solid rgb(90,120,114)}
 nav>ul{width:100%; height:100%; text-align:center; position:relative;}
@@ -209,7 +209,7 @@ nav>ul ul{position:absolute;}
 	overflow:hidden;
 	margin-bottom:200px
 }
-#d_box div{background-color:black;float:left; margin:0;padding:0;}
+#d_box div{float:left;}
 #d_box div:nth-of-type(1){
 	width:20%;
 	
@@ -397,6 +397,7 @@ nav>ul ul{position:absolute;}
 .videoBox {
 	width:100%;
 	position:relative;
+	margin-bottom:200px;
 	
 }
 .d_video {
@@ -431,9 +432,77 @@ nav>ul ul{position:absolute;}
 	color:#fff;
 	background-color:black;
 }
+
+/*링크*/
+.d_linkBox{
+	max-width:1690px;
+	width:100%;
+	height:700px;
+	margin:0 auto;
+	overflow:hidden;
+	
+	
+}
+.d_linkBox ul{font-size:0;}
+.d_linkBox>ul>li{
+	display:inline-block;
+	vertical-align:top;
+	
+}
+.d_linkBox li:not(:last-child){
+	margin-right:30px;
+}
+.d_linkBox>ul>li>a{
+	display:block;
+	text-decoration:none;
+	margin:5px;
+}
+.d_linkBox>ul>li>a .screen{
+	position:relative;
+	overflow:hidden;
+}
+.d_linkBox>ul>li>a .screen .top{
+	position:absolute;
+	bottom:60%;
+	left:30px;
+	z-index:2;
+	color:#fff;
+	text-shadow: 2px 4px 15px #000000ab;
+	font-size:55px;
+	font-weight:bold;
+	opacity:0;
+	transition:all 0.7s;
+}
+.d_linkBox>ul>li>a .screen .bottom{
+	position:absolute;
+	bottom:50%;
+	left:30px;
+	z-index:2;
+	text-shadow: 2px 4px 15px #000000ab;
+	color:#fff;
+	font-size:30px;
+	font-weight:bold;
+	opacity:0;
+	transition:all 0.7s;
+}
+
+.d_linkBox>ul>li>a:hover .top{bottom:50%;opacity:1;}
+.d_linkBox>ul>li>a:hover .bottom{bottom:40%;opacity:1;}
+.screen img{
+	width:533.33px;
+	height:700px;
+	display:block;
+}
 /*footer*/
-
-
+footer{
+	width:100%;
+	height:500px;
+	background-color:lightblue;
+}
+footer img{
+	width:200px;
+	height:200px;
+}
 
 
 
