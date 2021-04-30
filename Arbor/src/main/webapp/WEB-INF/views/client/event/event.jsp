@@ -117,11 +117,9 @@
 		
 		<!-- 타임세일 -->
 		<div class="j_tab-content" id="j_tab1_content">
-			<div>	<!-- 타임세일 진행시 -->
+			<div>
 				<div id="timer"></div>
 				<div id="timeSaleContent"></div>
-			</div>
-			<div>	<!-- 타임세일 없을 때 -->
 			</div>
 		</div>
 		

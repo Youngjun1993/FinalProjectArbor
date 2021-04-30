@@ -18,11 +18,9 @@
 #timeSaleList>li:nth-child(6n+3){width:30%;}
 #timeSaleList>li:nth-child(6n+6){width:30%;}
 
-
 /*--------------
 	타임세일 등록
 ---------------*/
-
 #saleSubject{
 	width:493px;
 }
