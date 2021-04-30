@@ -40,7 +40,10 @@ public class MyPageController {
 			mav.addObject("list", mypageService.purchaseList(pageVo));
 			mav.addObject("pageVO", pageVo);
 			mav.addObject("username", (String)session.getAttribute("logName"));
-			mav.addObject("pointVO", mypageService.recordCountSum(userid));
+			mav.addObject("pointVO", mypageService.pointSum(userid));
+			mav.addObject("couponVO", mypageService.couponCount(userid));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
+			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.setViewName("client/myPage/myPageMain");
 			
 		}
@@ -54,5 +57,51 @@ public class MyPageController {
 		
 		return list;
 	}
-	
+	//qna 리스트 페이지
+	@RequestMapping("/qnaList")
+	public ModelAndView qnaList(HttpServletRequest req, HttpSession session) {
+		String pageNumStr = req.getParameter("pageNum");
+		PageSearchVO pageVo = new PageSearchVO();
+		ModelAndView mav = new ModelAndView();
+		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		String userid = (String)session.getAttribute("logId");
+		if(userid == null || userid.equals("")) {
+			mav.setViewName("admin/member/login");
+		}else {
+			pageVo.setUserid(userid);
+			pageVo.setTotalRecord(mypageService.qnaTotalRecord(pageVo));
+			mav.addObject("username", (String)session.getAttribute("logName"));
+			mav.addObject("pointVO", mypageService.pointSum(userid));
+			mav.addObject("couponVO", mypageService.couponCount(userid));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
+			mav.addObject("qnaVO", mypageService.qnaCount(userid));
+			mav.addObject("list", mypageService.allList(pageVo));
+			mav.addObject("pageVO", pageVo);
+			mav.setViewName("client/qna/qnaList");
+		}
+		
+		return mav;
+	}
+	//쿠폰 리스트 페이지
+	@RequestMapping("/couponList")
+	public ModelAndView couponList(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String userid = (String)session.getAttribute("logId");
+		if(userid == null || userid.equals("")) {
+			mav.setViewName("admin/member/login");
+		}else {
+			mav.addObject("username", (String)session.getAttribute("logName"));
+			mav.addObject("pointVO", mypageService.pointSum(userid));
+			mav.addObject("couponVO", mypageService.couponCount(userid));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
+			mav.addObject("qnaVO", mypageService.qnaCount(userid));
+			mav.setViewName("client/myPage/couponList");
+			
+		}
+		return mav;
+	}
 }

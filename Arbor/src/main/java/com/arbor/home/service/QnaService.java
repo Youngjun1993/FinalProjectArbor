@@ -8,20 +8,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.dao.QnaDAOImp;
+import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.PageSearchVO;
+import com.arbor.home.vo.PointVO;
 import com.arbor.home.vo.QnaVO;
+import com.arbor.home.vo.ReviewVO;
 
 @Service
 public class QnaService implements QnaServiceImp {
 	
 	@Inject
 	QnaDAOImp qnaDAO;
-
-	@Override
-	public List<QnaVO> allList(PageSearchVO vo) {
-		return qnaDAO.allList(vo);
-	}
-
 	@Override
 	public int qnaInsert(QnaVO vo) {
 		return qnaDAO.qnaInsert(vo);
@@ -81,7 +78,12 @@ public class QnaService implements QnaServiceImp {
 	public int qnaAdDelete(int no) {
 		return qnaDAO.qnaAdDelete(no);
 	}
-	
+
+	@Override
+	public int admintotalRecord(PageSearchVO vo) {
+		// TODO Auto-generated method stub
+		return qnaDAO.admintotalRecord(vo);
+	}
 	
 
 }
