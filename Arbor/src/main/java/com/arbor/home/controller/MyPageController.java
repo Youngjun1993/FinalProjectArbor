@@ -88,18 +88,87 @@ public class MyPageController {
 	}
 	//쿠폰 리스트 페이지
 	@RequestMapping("/couponList")
-	public ModelAndView couponList(HttpSession session) {
+	public ModelAndView couponList(HttpServletRequest req, HttpSession session) {
+		String pageNumStr = req.getParameter("pageNum");
 		ModelAndView mav = new ModelAndView();
+		PageSearchVO pageVo = new PageSearchVO();
+		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
 		String userid = (String)session.getAttribute("logId");
 		if(userid == null || userid.equals("")) {
 			mav.setViewName("admin/member/login");
 		}else {
+			pageVo.setUserid(userid);
+			pageVo.setTotalRecord(mypageService.cpnTotalRecord(pageVo));
 			mav.addObject("username", (String)session.getAttribute("logName"));
 			mav.addObject("pointVO", mypageService.pointSum(userid));
 			mav.addObject("couponVO", mypageService.couponCount(userid));
 			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
+			mav.addObject("list", mypageService.cpnList(pageVo));
+			mav.addObject("pageVO", pageVo);
 			mav.setViewName("client/myPage/couponList");
+			
+		}
+		return mav;
+	}
+	//적립금 리스트 페이지
+	@RequestMapping("/pointList")
+	public ModelAndView pointList(HttpServletRequest req, HttpSession session) {
+		String pageNumStr = req.getParameter("pageNum");
+		ModelAndView mav = new ModelAndView();
+		PageSearchVO pageVo = new PageSearchVO();
+		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		String userid = (String)session.getAttribute("logId");
+		if(userid == null || userid.equals("")) {
+			mav.setViewName("admin/member/login");
+		}else {
+			pageVo.setUserid(userid);
+			pageVo.setTotalRecord(mypageService.pointTotalRecord(pageVo));
+			mav.addObject("username", (String)session.getAttribute("logName"));
+			mav.addObject("pointVO", mypageService.pointSum(userid));
+			mav.addObject("couponVO", mypageService.couponCount(userid));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
+			mav.addObject("qnaVO", mypageService.qnaCount(userid));
+			mav.addObject("list", mypageService.pointList(pageVo));
+			mav.addObject("pageVO", pageVo);
+			mav.setViewName("client/myPage/pointList");
+			
+		}
+		return mav;
+	}
+	//리뷰관리 리스트 페이지
+	@RequestMapping("/reviewList")
+	public ModelAndView reviewList(HttpServletRequest req, HttpSession session) {
+		String pageNumStr = req.getParameter("pageNum");
+		ModelAndView mav = new ModelAndView();
+		PageSearchVO pageVo = new PageSearchVO();
+		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		String userid = (String)session.getAttribute("logId");
+		if(userid == null || userid.equals("")) {
+			mav.setViewName("admin/member/login");
+		}else {
+			pageVo.setUserid(userid);
+			pageVo.setTotalRecord(mypageService.reviewTotalRecord(pageVo));
+			mav.addObject("username", (String)session.getAttribute("logName"));
+			mav.addObject("pointVO", mypageService.pointSum(userid));
+			mav.addObject("couponVO", mypageService.couponCount(userid));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
+			mav.addObject("qnaVO", mypageService.qnaCount(userid));
+			mav.addObject("list", mypageService.reviewList(pageVo));
+			mav.addObject("pageVO", pageVo);
+			mav.setViewName("client/myPage/reviewList");
 			
 		}
 		return mav;

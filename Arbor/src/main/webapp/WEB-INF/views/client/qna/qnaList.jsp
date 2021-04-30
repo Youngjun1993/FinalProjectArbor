@@ -4,11 +4,11 @@
 <script>
 	$(function(){
 		//페이징 li만큼 갯수
-		var liCnt = $("#qnaPaging>li").length;
-		$("#qnaPaging").css({
-			"width" : liCnt*30+"px",
+		var liCnt = $(".paging>li");
+		$(".paging").css({
+			"width" : liCnt.length*40+"px",
 			"margin" : "0 auto"
-		});
+		});		
 	});
 </script>
     <div id="y_qnaWrap" class="w1400_container clearfix">
@@ -37,14 +37,14 @@
                 </c:forEach>
             </ul>
             <a href="qnaWrite" id="y_qnaGo">문의하기</a>
-            <ul id="qnaPaging" class="clearfix">
+            <ul class="paging" class="clearfix">
             	<c:if test="${pageVO.pageNum>1 }">
-                	<li><a href="qnaList?pageNum=${pageVO.pageNum-1}">이전</a></li>
+                	<li style="border-bottom:none;"><a class="pagingLR_a" href="qnaList?pageNum=${pageVO.pageNum-1}">＜</a></li>
                 </c:if>
                 <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
                 	<c:if test="${p<=pageVO.totalPage }">
 	                	<c:if test="${p==pageVO.pageNum }">
-	                		<li><a href="qnaList?pageNum=${p}">${p }</a></li>
+	                		<li style="border-bottom:3px solid rgb(93, 121, 115);"><a href="qnaList?pageNum=${p}">${p }</a></li>
 	                	</c:if>
 	                	<c:if test="${p!=pageVO.pageNum }">
 	                		<li><a href="qnaList?pageNum=${p}">${p }</a></li>
@@ -52,7 +52,7 @@
                 	</c:if>
                 </c:forEach>
                 <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-                	<li><a href="qnaList?pageNum=${pageVO.pageNum+1}">다음</a></li>
+                	<li style="border-bottom:none;"><a class="pagingLR_a" href="qnaList?pageNum=${pageVO.pageNum+1}">＞</a></li>
                 </c:if>
             </ul>
         </div>

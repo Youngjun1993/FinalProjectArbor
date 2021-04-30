@@ -13,11 +13,11 @@
 <script>
 	$(function(){
 		//페이징 li만큼 갯수
-		var liCnt = $("#qnaPaging>li").length;
-		$("#qnaPaging").css({
-			"width" : liCnt*30+"px",
-			"margin" : "0 auto"
-		});
+		var liCnt = $(".adPaging>li").length;
+		$(".adPaging").css({
+			"width" : liCnt*40+"px",
+			"margin" : "30px auto"
+		});	
 		//문의유형 선택시 이벤트
 		$("#qnaSearchKey").change(function(){
 			if($("#qnaSearchKey option:selected").text() == "문의유형"){
@@ -62,9 +62,9 @@
                     	<option value="userid">작성자</option>
                     </select>
                     <input type="text" name="qnaSearchWord" id="qnaSearchWord" />
-                    <input type="submit" id="qnaSearchBtn" value="검색">
+                    <input type="submit" id="qnaSearchBtn" class="adminMainBtn" value="검색">
                 </form>
-                <a href="qnaNoAnswerList">미답변 질문(${countAns}건)</a>
+                <a href="qnaNoAnswerList" class="adminMainBtn">미답변 질문(${countAns}건)</a>
             </div>
             <ul class="clearfix">
                 <li>문의유형</li>
@@ -88,14 +88,14 @@
 	             </c:forEach>   
             </ul>
             <c:if test="${ansBtnCheck eq 'Y'}">
-	            <ul id="qnaPaging" class="clearfix">
+	            <ul class="adPaging" class="clearfix">
 	            	<c:if test="${pageVO.pageNum>1 }">
-	                	<li><a href="qnaNoAnswerList?pageNum=${pageVO.pageNum-1}">이전</a></li>
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="qnaNoAnswerList?pageNum=${pageVO.pageNum-1}">＜</a></li>
 	                </c:if>
 	                <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
 	                	<c:if test="${p<=pageVO.totalPage }">
 		                	<c:if test="${p==pageVO.pageNum }">
-		                		<li><a href="qnaNoAnswerList?pageNum=${p}<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">${p }</a></li>
+		                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="qnaNoAnswerList?pageNum=${p}<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">${p }</a></li>
 		                	</c:if>
 		                	<c:if test="${p!=pageVO.pageNum }">
 		                		<li><a href="qnaNoAnswerList?pageNum=${p}">${p }</a></li>
@@ -103,19 +103,19 @@
 	                	</c:if>
 	                </c:forEach>
 	                <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-	                	<li><a href="qnaNoAnswerList?pageNum=${pageVO.pageNum+1}<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">다음</a></li>
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="qnaNoAnswerList?pageNum=${pageVO.pageNum+1}<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">＞</a></li>
 	                </c:if>
 	            </ul>
             </c:if>
             <c:if test="${ansBtnCheck eq 'N'}">
-	            <ul id="qnaPaging" class="clearfix">
+	            <ul class="adPaging" class="clearfix">
 	            	<c:if test="${pageVO.pageNum>1 }">
-	                	<li><a href="qnaAdList?pageNum=${pageVO.pageNum-1}">이전</a></li>
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="qnaAdList?pageNum=${pageVO.pageNum-1}">＜</a></li>
 	                </c:if>
 	                <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
 	                	<c:if test="${p<=pageVO.totalPage }">
 		                	<c:if test="${p==pageVO.pageNum }">
-		                		<li><a href="qnaAdList?pageNum=${p}<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">${p }</a></li>
+		                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="qnaAdList?pageNum=${p}<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">${p }</a></li>
 		                	</c:if>
 		                	<c:if test="${p!=pageVO.pageNum }">
 		                		<li><a href="qnaAdList?pageNum=${p}">${p }</a></li>
@@ -123,7 +123,7 @@
 	                	</c:if>
 	                </c:forEach>
 	                <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-	                	<li><a href="qnaAdList?pageNum=${pageVO.pageNum+1}<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">다음</a></li>
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="qnaAdList?pageNum=${pageVO.pageNum+1}<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">＞</a></li>
 	                </c:if>
 	            </ul>
             </c:if>
