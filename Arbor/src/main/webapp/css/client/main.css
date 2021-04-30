@@ -433,6 +433,7 @@ nav>ul ul{position:absolute;}
 	background-color:black;
 }
 
+/*====================================================*/
 /*링크*/
 .d_linkBox{
 	max-width:1690px;
@@ -462,11 +463,11 @@ nav>ul ul{position:absolute;}
 	position:relative;
 	overflow:hidden;
 }
-.d_linkBox>ul>li>a .screen .top{
+.d_linkBox>ul>li>a .screen .s_top{
 	position:absolute;
-	bottom:60%;
+	bottom:20%;
 	left:30px;
-	z-index:2;
+	z-index:3;
 	color:#fff;
 	text-shadow: 2px 4px 15px #000000ab;
 	font-size:55px;
@@ -474,11 +475,11 @@ nav>ul ul{position:absolute;}
 	opacity:0;
 	transition:all 0.7s;
 }
-.d_linkBox>ul>li>a .screen .bottom{
+.d_linkBox>ul>li>a .screen .s_bottom{
 	position:absolute;
-	bottom:50%;
+	bottom:30%;
 	left:30px;
-	z-index:2;
+	z-index:3;
 	text-shadow: 2px 4px 15px #000000ab;
 	color:#fff;
 	font-size:30px;
@@ -486,16 +487,32 @@ nav>ul ul{position:absolute;}
 	opacity:0;
 	transition:all 0.7s;
 }
+.d_linkBox>ul>li>a .screen .s_video{
+	width:533.33px;
+	height:700px;
+	position:absolute;
+	opacity:0;
+	transition:all 0.7s;
+}
+.d_linkBox>ul>li>a .screen .s_video video{object-fit:fill;}
 
-.d_linkBox>ul>li>a:hover .top{bottom:50%;opacity:1;}
-.d_linkBox>ul>li>a:hover .bottom{bottom:40%;opacity:1;}
+.d_linkBox>ul>li>a:hover .s_top{bottom:10%;opacity:1;}
+.d_linkBox>ul>li>a:hover .s_bottom{bottom:20%;opacity:1;}
+.d_linkBox>ul>li>a:hover .s_video{opacity:1;}
+.screen{
+	width:533.33px;
+	height:700px;
+}
 .screen img{
 	width:533.33px;
 	height:700px;
 	display:block;
 }
+
+/*====================================================*/
 /*footer*/
 footer{
+	
 	width:100%;
 	height:450px;
 	background-color:#fff;
