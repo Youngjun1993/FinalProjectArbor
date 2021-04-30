@@ -77,6 +77,7 @@
 				}
 			});
 		}
+	
 		//상품번호에 따른 상품명, 상품가격 불러오기
 		$("#j_pSearchBtn").click(function(){
 			$.ajax(
@@ -99,7 +100,7 @@
 			)
 		});
 		
-		//timeSale Insert & Edit 유효성 검사
+		//TimeSale Edit 유효성 검사
 		$("#j_tsEditBtn").on('click', function(){
 			if($('#j_pNo').val()=='' || $('#j_pNo').val()==null){
 				alert("상품번호는 필수 입력 항목입니다.");

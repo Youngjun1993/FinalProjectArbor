@@ -1,5 +1,7 @@
 package com.arbor.home.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -14,6 +16,11 @@ public class TimeSaleService implements TimeSaleServiceImp {
 	TimeSaleDAOImp dao;
 
 	@Override
+	public List<TimeSaleVO> timeSaleAllSelect(TimeSaleVO vo) {
+		return dao.timeSaleAllSelect(vo);
+	}
+
+	@Override
 	public ProductVO pInfoSearch(int pNo) {
 		return dao.pInfoSearch(pNo);
 	}
@@ -24,18 +31,24 @@ public class TimeSaleService implements TimeSaleServiceImp {
 	}
 
 	@Override
-	public TimeSaleVO timeSaleSelect() {
-		return dao.timeSaleSelect();
-	}
-
-	@Override
-	public TimeSaleVO timeSaleEditRecord(int saleNo) {
-		return dao.timeSaleEditRecord(saleNo);
+	public TimeSaleVO timeSaleSelect(int saleNo) {
+		return dao.timeSaleSelect(saleNo);
 	}
 
 	@Override
 	public int timeSaleEdit(TimeSaleVO vo) {
 		return dao.timeSaleEdit(vo);
 	}
+
+	@Override
+	public int timeSaleDelete(int saleNo) {
+		return dao.timeSaleDelete(saleNo);
+	}
+
+	@Override
+	public TimeSaleVO getTimeSale() {
+		return dao.getTimeSale();
+	}
+
 
 }

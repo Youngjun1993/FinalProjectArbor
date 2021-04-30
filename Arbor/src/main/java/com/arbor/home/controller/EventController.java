@@ -105,11 +105,9 @@ public class EventController {
 		
 		ModelAndView mav = new ModelAndView();
 		if(eventService.eventInsert(vo)>0) {
-			System.out.println("이벤트 등록 성공 !");
 			mav.setViewName("redirect:eventList");
 		}else {
 			if(orgName!=null) {
-				System.out.println("이벤트 등록 실패 (첨부1)");
 				mav.setViewName("redirect:eventInsert");
 				File f = new File(path, orgName);
 				f.delete();
