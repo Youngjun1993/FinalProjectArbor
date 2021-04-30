@@ -512,9 +512,9 @@ footer{
 	height:50px;
 	line-height:50px;
 	float:left;
-	font-size:20px;
+	font-size:15px;
 	font-weight:bold;
-	margin-right:20px;
+	margin-left:25px;
 }
 #d_footerTop li a{
 	color:rgb(248,244,236);
