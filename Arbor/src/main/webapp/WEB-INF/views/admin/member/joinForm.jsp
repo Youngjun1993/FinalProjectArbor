@@ -22,6 +22,8 @@
 		 var mailnumCheck = false;// 이메일 인증번호 확인
 		 var addressCheck = false;// 주소
 		 var telCheck = false;//연락처
+		 var termsCheck1 = false;//약관
+		 var termsCheck2 = false;//개인정보
 		 
 	$(function() {
 		
@@ -144,7 +146,9 @@
 	        var addr = $('#detailaddr').val();//상세주소 입력란
 			var tel2 = $('#tel2').val();//연락처 
 			var tel3 = $('#tel3').val();//연락처 
-	        
+	        var termok = $('#termok').is(":checked"); 
+	        var privacyok = $('#privacyok').is(":checked"); 
+			
 	    	if(id == ""){
 	    		alert("아이디를 입력해주세요");
 	    		idCheck = false;
@@ -192,6 +196,19 @@
 				                            mailCheck = false;
 				                        }else{
 				                            mailCheck = true;
+				                            //개인정보 약관 체크
+				                            if(termok == false){
+				                            	alert("개인정보 및 약관을 동의해야 가입이 가능합니다.")
+				                            	termsCheck1 = false;
+				                            }else{
+				                            	termsCheck1 = true;
+				                            	if(privacyok == false){
+					                            	alert("개인정보 및 약관을 동의해야 가입이 가능합니다.")
+					                            	termsCheck2 = false;
+					                            }else{
+					                            	termsCheck2 = true;
+					                            }
+				                            }
 				                        }
 			                        }
 	                            }
@@ -201,10 +218,12 @@
 		        }
 	    	}
 			
-	    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck&&mailnumCheck&&addressCheck&&telCheck ){
-	    		$('.inputForm').attr('action', 'memberjoin');
-		    	$('.inputForm').submit;
+	    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck&&mailnumCheck&&addressCheck&&telCheck&&termsCheck ){
+	    		/* $('.inputForm').attr('action', 'memberjoin');
+		    	$('.inputForm').submit; */
 	        } 
+	    	
+	    	
 	    	
 	    });
 		
@@ -324,7 +343,7 @@
 		</td>
 		<td>
 		<input type="text" name="zipcode" id="zipcode" size="5" class="h_ipt zipcode" readonly="readonly">
-		<input type="button" id="zipcode" value="우편번호 찾기" class="h_check_btn" onclick="kakao_address()"/>
+		<input type="button" id="zipcode_btn" value="우편번호 찾기" class="h_check_btn" onclick="kakao_address()"/>
 		
 	  	<input type="text" name="addr" id="addr" size="60" class="h_ipt addr" readonly="readonly"> 기본주소
 		
@@ -397,8 +416,8 @@
 		</table>
 		
 		<ul class="h_2box">
-			<li class="h_terms">약관 위치<div class="h_title">동의하겠읍니까</div></li>
-			<li class="h_privacy"><div class="h_title">동의하겠읍니까</div><div class ="h_termcontent">■ 수집하는 개인정보 항목
+			<li class="h_terms"><div class="h_title">쇼핑몰 이용약관</div><div class ="h_termcontent"></div></li>
+			<li class="h_privacy"><div class="h_title">개인정보수집,이용동의</div><div class ="h_termcontent">■ 수집하는 개인정보 항목
 회사는 회원가입, 상담, 서비스 신청 등등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 ο 수집항목 : 이름 , 생년월일 , 성별 , 로그인ID , 비밀번호 , 비밀번호 질문과 답변 , 자택 전화번호 , 자택 주소 , 휴대전화번호 , 이메일 , 직업 , 회사명 , 부서 , 직책 , 회사전화번호 , 취미 , 결혼여부 , 기념일 , 법정대리인정보 , 서비스 이용기록 , 접속 로그 , 접속 IP 정보 , 결제기록
 ο 개인정보 수집방법 : 홈페이지(회원가입) , 서면양식
@@ -416,7 +435,8 @@
 
 회사는 개인정보 수집 및 이용목적이 달성된 후에는 예외 없이 해당 정보를 지체 없이 파기합니다.</div></li>
 		</ul>
-		<div>체크박스 위치</div>
+		<div class="h_term_chk"><input type="checkbox" name="termok" id="termok" required="required">약관에 동의하시겠습니까?</div>
+		<div class="h_term_chk"><input type="checkbox" name="privacyok" id="privacyok" required="required">개인정보수집에 동의하시겠습니까?</div>
 		<input type="submit" id="memberjoin" value="Join NOW" class="h_check_btn join">
 	</form>
     
