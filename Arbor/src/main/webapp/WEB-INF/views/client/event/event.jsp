@@ -7,51 +7,49 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/event.css" type="text/css"/>
 <script>
 	$(function(){
+		
 		//EVENT 메뉴 내에서 탭 클릭시 view 변경
 		$(".j_tabLbl").click(function(){
 			var title = $(this).text();
 			$(".j_eventMenu").text(title);
+			if(title=="TIME SALE"){
+				timeSaleAjax();
+			}
 		});		
 		//header-EVENT 서브메뉴 클릭시 이벤트 탭 이동
 		var title = "${title}";
-		if(title=="timesale"){	//타임세일 tab -> 타임세일 이미지, 시간 불러오기 **
-			console.log("여기는 타임세일 탭!!!! 왜안나와");
+		if(title=="timeSale"){	//타임세일 tab -> 타임세일 이미지, 시간 불러오기 **
 			$("#j_tab1").prop("checked",true);
-			$.ajax(
-				{
-					url: 'timeSaleView',
-					dataType: 'json',
-					success: function(timeSale){
-						console.log("ajax 넘어왔니?");
-						console.log(timeSale.saleContent);
-						console.log(timeSale.saleEnd);
-						$("#timeSaleContent").html(timeSale.saleContent);
-						runTimer(timeSale.saleEnd);
-					},error: function(error){
-						alert("*** 에러 ***");
-					}
-				}
-			)
+			timeSaleAjax();
 		}
 		else if(title=="nowEvent"){
-			console.log("여기는 진행중인이벤트 탭!!!!!!!!!!");
 			$("#j_tab2").prop("checked",true);
 		}		
 		else if(title=="endEvent"){
 			$("#j_tab3").prop("checked",true);
-			console.log("여기는 지난이벤트 탭!!!!!!!!!!");
 		}
 		let chkr = $(".j_tab-wrap [name='tabs']:checked").next().text();
 		$(".j_eventMenu").text(chkr);
 		
-		//EVENT 게시물 검색
-		$(".searchFrm").submit(function(){
-			if(!$(".searchWord").val()){
-				alert("검색어를 입력하세요.");
-				return false;
-			}
-		});
-		return true;
+		//타임세일 데이터 가져오기
+		function timeSaleAjax(){
+			$.ajax(
+				{
+					url: 'getTimeSale',
+					dataType: 'json',
+					success: function(vo){
+						console.log("ajax 넘어왔니?");
+						console.log(vo.saleContent);
+						console.log(vo.saleEnd);
+						$("#timeSaleContent").html(vo.saleContent);
+						runTimer(vo.saleEnd);
+					},error: function(error){
+						console.log("에ㅔㅔㅔㅔ러ㅓㅓㅓㅓㅓㅓㅓ");
+					}
+				}
+			)
+		}
+		
 		
 		//타임세일 tab - 타이머 구현
 		function runTimer(date){
@@ -73,22 +71,30 @@
 				}
 				
 				//남은 시간 계산
-				var days = Math.floor(inteval / _day);
+				var days = Math.floor(interval / _day);
 				var hours = Math.floor((interval % _day) / _hour);
 				var minutes = Math.floor((interval % _hour) / _minute);
 				var seconds = Math.floor((interval % _minute) / _second);
 				
-				var setTimer = document.getElement("timer").innerHTML;
-				setTimer = "D-"+days ;
+				var setTimer = "D-"+days+" ";
 				setTimer += hours+"시간 ";
 				setTimer += minutes+"분 ";
 				setTimer += seconds+"초 ";
-				
+				$("#timer").text(setTimer);
+				console.log(setTimer);
 			}
 			
 			timer = setInterval(showCountDown, 1000);
 		}
 		
+		//EVENT 게시물 검색
+		$(".searchFrm").submit(function(){
+			if(!$(".searchWord").val()){
+				alert("검색어를 입력하세요.");
+				return false;
+			}
+		});
+		return true;
 		
 		
 	});

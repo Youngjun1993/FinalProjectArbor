@@ -2,6 +2,23 @@
 /* class */
 
 
+/*----------------
+	타임세일 리스트
+-----------------*/
+#timeSaleList>li{
+	float:left;
+	width:10%;
+	height:40px;
+	line-height:40px;
+	border-bottom:1px solid #ddd;
+	font-size:12px;
+	text-align:center;
+}
+#timeSaleList>li:nth-child(-n+6){font-weight:bold;font-size:1em;color:#333;}
+#timeSaleList>li:nth-child(6n+3){width:30%;}
+#timeSaleList>li:nth-child(6n+6){width:30%;}
+
+
 /*--------------
 	타임세일 등록
 ---------------*/

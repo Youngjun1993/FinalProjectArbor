@@ -16,6 +16,26 @@ import com.arbor.home.vo.TimeSaleVO;
 public class TimeSaleController {
 	@Inject
 	TimeSaleServiceImp timeSaleService;
+	
+	/* client */
+	@RequestMapping("/getTimeSale")
+	@ResponseBody
+	public TimeSaleVO getTimeSale() {
+		TimeSaleVO vo = timeSaleService.getTimeSale();
+		return vo;
+	}
+	
+	//////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////	
+	
+	/* admin */
+	@RequestMapping("/timeSaleList")
+	public ModelAndView timeSaleList(TimeSaleVO vo) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", timeSaleService.timeSaleAllSelect(vo));
+		mav.setViewName("admin/timeSale/timeSaleList");
+		return mav;
+	}
 
 	@RequestMapping("/timeSaleInsert")
 	public String eventInsert() {
@@ -33,8 +53,7 @@ public class TimeSaleController {
 	public ModelAndView timeSaleInsertOk(TimeSaleVO vo) {
 		ModelAndView mav = new ModelAndView();
 		if(timeSaleService.timeSaleInsert(vo)>0) {
-			mav.addObject("vo", timeSaleService.timeSaleSelect());
-			mav.setViewName("admin/timeSale/timeSaleView");
+			mav.setViewName("redirect:timeSaleList");
 		}else {
 			mav.setViewName("redirect:timeSaleInsert");
 		}
@@ -42,9 +61,9 @@ public class TimeSaleController {
 	}
 	
 	@RequestMapping("/timeSaleView")
-	public ModelAndView timeSaleView() {
+	public ModelAndView timeSaleView(int saleNo) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("vo", timeSaleService.timeSaleSelect());
+		mav.addObject("vo", timeSaleService.timeSaleSelect(saleNo));
 		mav.setViewName("admin/timeSale/timeSaleView");
 		return mav;
 	}
@@ -52,7 +71,7 @@ public class TimeSaleController {
 	@RequestMapping("/timeSaleEdit")
 	public ModelAndView timeSaleEdit(int saleNo) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("vo", timeSaleService.timeSaleEditRecord(saleNo));
+		mav.addObject("vo", timeSaleService.timeSaleSelect(saleNo));
 		mav.setViewName("admin/timeSale/timeSaleEdit");
 		return mav;
 	}
@@ -61,12 +80,10 @@ public class TimeSaleController {
 	public ModelAndView timeSaleEditOk(TimeSaleVO vo){
 		ModelAndView mav = new ModelAndView();
 		System.out.println("saleNo->"+vo.getSaleNo());
+		mav.addObject("saleNo", vo.getSaleNo());
 		if(timeSaleService.timeSaleEdit(vo)>0) {
-			mav.addObject("vo", timeSaleService.timeSaleSelect());
 			mav.setViewName("redirect:timeSaleView");
 		}else {
-			System.out.println("vo.getSaleNo()->"+vo.getSaleNo());
-			mav.addObject("saleNo", vo.getSaleNo());
 			mav.setViewName("redirect:timeSaleEdit");
 		}
 		return mav;
@@ -83,10 +100,6 @@ public class TimeSaleController {
 		}
 		return mav;
 	}
-	
-	
-	
-	
 	
 	
 	
