@@ -3,6 +3,7 @@ package com.arbor.home.controller;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -43,16 +44,24 @@ public class ProductController {
 	
 	// View - 상품목록
 	@RequestMapping("/productList")
-	public String productList() {
-		return "client/product/productList";
+	public ModelAndView productList(int mainno, int subno ) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("subCate", productService.subCateList(mainno));
+		mav.setViewName("client/product/productView");
+		return mav;
 	}
 	
 	// View - 상품상세페이지
 	@RequestMapping("/productView")
-	public String productView() {
-		return "client/product/productView";
+	public ModelAndView productView(int pno) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vo");
+		mav.setViewName("client/product/productView");
+		return mav;
 	}
 	
+	
+	/* 관리자 */
 	// Admin - 상품등록페이지로 넘어감
 	@RequestMapping("/productInsert")
 	public ModelAndView productInsert() {
@@ -88,7 +97,6 @@ public class ProductController {
 		
 		// 저장할 경로 위치 설정 (upload 폴더에 넣을거임)
 		String path = req.getSession().getServletContext().getRealPath("/upload");
-		System.out.println(path);
 		// 파일 업로드
 		String imgName1 = image1.getOriginalFilename();
 		String imgName2 = image2.getOriginalFilename();
@@ -149,8 +157,10 @@ public class ProductController {
 				System.out.println("productInsert 에러발생!!!");
 				File f = new File(path, imgName1);
 				f.delete();
-				File del2 = new File(path, pvo.getImg2());
-				del2.delete();
+				if(imgName2!=null && !imgName2.equals("")) {
+					File del2 = new File(path, pvo.getImg2());
+					del2.delete();
+				}
 				mav.setViewName("redirect:productInsert");
 			}
 			for(int i=0; i<optNameArr.length; i++) {
@@ -166,10 +176,10 @@ public class ProductController {
 				}
 				// 가격추가 없을시 0원으로 표기
 				if(optPriceArr[i].equals("") || optPriceArr[i]==null) {
-						vo.setOptprice(0);
-					} else {
-						vo.setOptprice(Integer.parseInt(optPriceArr[i]));
-					}
+					vo.setOptprice(0);
+				} else {
+					vo.setOptprice(Integer.parseInt(optPriceArr[i]));
+				}
 				productService.optionInsert(vo);
 			}
 			transactionManager.commit(status);
@@ -196,8 +206,206 @@ public class ProductController {
 	public ModelAndView productEdit(int pno) {
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("vo", productService.productSelect(pno));
+		ProductVO vo = productService.productSelect(pno);
+		
+		mav.addObject("vo", vo);
+		mav.addObject("subCate", productService.subCateList(vo.getMainno()));
+		mav.addObject("mainCate", productService.mainCateList());
+		mav.addObject("optList", productService.optionSelect(pno));
 		mav.setViewName("/admin/product/productEdit");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/productEditOk", method=RequestMethod.POST)
+	@Transactional(rollbackFor= {Exception.class, RuntimeException.class})
+	public ModelAndView productEditOk(
+			ProductVO pvo,
+			@RequestParam(value="optno",required=true) String[] optNoArr,
+			@RequestParam(value="deleteno",required=true) String[] deleteNoArr,
+			@RequestParam(value="optname",required=true) String[] optNameArr,
+			@RequestParam(value="optvalue",required=true) String[] optValueArr,
+			@RequestParam(value="rgbvalue",required=true) String[] rgbValueArr,
+			@RequestParam(value="optprice",required=true) String[] optPriceArr,
+			HttpServletRequest req
+			) {
+		// 트랜잭션객체
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(DefaultTransactionDefinition.PROPAGATION_REQUIRED);
+		TransactionStatus status = transactionManager.getTransaction(def);
+		
+		String path = req.getSession().getServletContext().getRealPath("/upload");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		// 변경전 파일명 가져오기
+		ProductVO fileVO = productService.productSelect(pvo.getPno());
+		
+		// 파일 배열에 담기
+		List<String> selFile = new ArrayList<String>();
+		selFile.add(fileVO.getImg1());
+		if (fileVO.getImg2()!=null && !fileVO.getImg2().equals("")) {
+			selFile.add(fileVO.getImg2());
+		}
+		
+		// 삭제한 파일 담기
+		String delFile[] = req.getParameterValues("delFile");
+		// 새로 추가 업로드하기
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest)req;
+		List<MultipartFile> list = mr.getFiles("filename");
+		
+		List<String> newUpload = new ArrayList<String>();
+		if(newUpload!=null && list.size()>0) {
+			for(MultipartFile mf : list) {
+				if(mf!=null) {
+					String orgname = mf.getOriginalFilename(); // 업로드한 파일명
+					if(orgname!=null && !orgname.equals("")) {
+						
+						File ff = new File(path, orgname);
+						int i = 0;
+						while(ff.exists()) {
+							int pnt = orgname.lastIndexOf(".");
+							String firstName = orgname.substring(0, pnt);
+							String lastName = orgname.substring(pnt+1);
+							
+							ff = new File(path, firstName+"("+(++i)+")."+lastName);
+						}
+						
+						try {
+							mf.transferTo(ff);
+						} catch(Exception e) {
+							System.out.println("DataController > dataEditOk에서 에러 발생!");
+							e.printStackTrace();
+						}
+						newUpload.add(ff.getName());
+					}
+				}
+			}
+		}
+		
+		// DB선택 파일 목록에서 삭제한 파일명 지우기
+		if(delFile!=null) {
+			for(String delName : delFile) {
+				selFile.remove(delName);
+			}
+		}
+		// DB선택 파일 목록에 새로 업로드된 파일명 추가
+		for(String newFile : newUpload) {
+			selFile.add(newFile);
+		}
+		
+		pvo.setImg1(selFile.get(0));
+		if(selFile.size()>1) {
+			pvo.setImg2(selFile.get(1));
+		}
+		try {
+			if(pvo.getAllstock()!=0) {
+				pvo.setStock(pvo.getStock()+pvo.getAllstock());
+			} else {
+				pvo.setStock(pvo.getStock());
+				pvo.setAllstock(0);
+			}
+			int result = productService.productUpdate(pvo);
+			if(result>0) {
+				// product 수정완료 (삭제파일 지우고 글내용보기로 돌아감)
+				if(delFile!=null) {
+					for(String dFile : delFile) {
+						try {
+							File dFileObj = new File(path, dFile);
+							dFileObj.delete();
+						}catch(Exception e) {
+							System.out.println("삭제파일 지우던 중 에러 발생!");
+							e.printStackTrace();
+						}
+					}
+				}
+				// optiontbl 수정하기
+				if(optNameArr.length>0) {
+					for(int i=0; i<optNameArr.length; i++) {
+						OptionVO optvo = new OptionVO();
+						optvo.setOptname(optNameArr[i]);
+						optvo.setOptvalue(optValueArr[i]);
+						optvo.setPno(pvo.getPno());
+						// rgb코드는 색상 구분일 때만 받아옴
+						if(optNameArr[i].equals("색상")) {
+							optvo.setRgbvalue(rgbValueArr[i]);
+						} else {
+							optvo.setRgbvalue("");
+						}
+						// 가격추가 없을시 0원으로 표기
+						if(optPriceArr[i].equals("") || optPriceArr[i]==null) {
+							optvo.setOptprice(0);
+						} else {
+							optvo.setOptprice(Integer.parseInt(optPriceArr[i]));
+						}
+						if(optNoArr[i]==null || optNoArr[i].equals("")) {
+							// optno가 없으면 새로 추가된 옵션이란 소리임~ (insert)
+							productService.optionInsert(optvo);
+						} else {
+							// optno가 있으면 기존 옵션이란 소리임~ (update)
+							productService.optionUpdate(optvo);
+						}
+					}
+				}
+				// 원래 존재하던 옵션 중 삭제된 옵션 DB에서 지우기
+				for(int d=0; d<deleteNoArr.length; d++) {
+					if(deleteNoArr[d]!=null && !deleteNoArr[d].equals("")) {
+						productService.optionDelete(Integer.parseInt(deleteNoArr[d]));
+					}
+				}
+				mav.addObject("pno", pvo.getPno());
+				mav.setViewName("redirect:productView");
+			} else {
+				// 새로 업로드 된 파일 지우고 글 수정 폼으로 돌아가기
+				if(newUpload.size()>0) {
+					for(String nFile : newUpload) {
+						try {
+							File dFileObj = new File(path,nFile);
+							dFileObj.delete();
+						} catch(Exception e) {
+							System.out.println("새업로드파일 지우던중 에러 발생!");
+							e.printStackTrace();
+						}
+					}
+				}
+				mav.addObject("pno", pvo.getPno());
+				mav.setViewName("redirect:productEdit");
+			}
+			transactionManager.commit(status);	
+		} catch(Exception e) {
+			transactionManager.rollback(status);
+			mav.addObject("pno", pvo.getPno());
+			mav.setViewName("redirect:productEdit");
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	
+	@RequestMapping("/productDelete")
+	public String productDelete(int pno, HttpServletRequest req) {
+		// 원래 DB 파일명 가져오기
+		ProductVO dbFilename = productService.productSelect(pno);
+		String path = req.getSession().getServletContext().getRealPath("/upload");
+		File f = new File(path, dbFilename.getImg1());
+		f.delete();
+		if(dbFilename.getImg2()!=null && !dbFilename.getImg2().equals("")) {
+			File f2 = new File(path, dbFilename.getImg2());
+			f2.delete();
+		}
+		
+		productService.productDelete(pno);
+		productService.optionAllDelete(pno);
+		return "redirect:productSearch";
+	}
+	
+	@RequestMapping("/manageCate")
+	public ModelAndView manageCate() {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("subCate", productService.subCateList(1));
+		mav.addObject("mainCate", productService.mainCateList());
+		mav.addObject("cateList", productService.subCateListAll());
+		mav.setViewName("admin/product/manageCate");
 		
 		return mav;
 	}
@@ -226,6 +434,7 @@ public class ProductController {
 		
 		// 저장할 경로 위치 설정 (웹루트로 업로드하면 빌드하고 재배포시 이미지가 사라짐 외부 경로에 잡아준다.)
 		String path = req.getSession().getServletContext().getRealPath("/summernote");
+		System.out.println(path);
 		// 파일명 구하기
 		String orgName = multipartFile.getOriginalFilename();
 		

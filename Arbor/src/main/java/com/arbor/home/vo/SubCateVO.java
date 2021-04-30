@@ -5,7 +5,14 @@ public class SubCateVO {
 	private int subno=1;
 	private int mainno=1;
 	private String subname;
+	private String mainname;
 	
+	public String getMainname() {
+		return mainname;
+	}
+	public void setMainname(String mainname) {
+		this.mainname = mainname;
+	}
 	public int getSubno() {
 		return subno;
 	}

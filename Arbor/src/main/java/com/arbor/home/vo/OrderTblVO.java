@@ -1,5 +1,7 @@
 package com.arbor.home.vo;
 
+import java.text.DecimalFormat;
+
 public class OrderTblVO {
 	private int orderno;
 	private String orderdate;
@@ -12,8 +14,8 @@ public class OrderTblVO {
 	private int pluspoint;
 	private int usepoint;
 	private String usecoupon;
-	private int deliveryprice;
-	private int totalprice;
+	private String deliveryprice;
+	private String totalprice;
 	private String status;
 	private String pname;
 	
@@ -89,17 +91,19 @@ public class OrderTblVO {
 	public void setUsecoupon(String usecoupon) {
 		this.usecoupon = usecoupon;
 	}
-	public int getDeliveryprice() {
+	public String getDeliveryprice() {
 		return deliveryprice;
 	}
 	public void setDeliveryprice(int deliveryprice) {
-		this.deliveryprice = deliveryprice;
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		this.deliveryprice = formatter.format(deliveryprice);
 	}
-	public int getTotalprice() {
+	public String getTotalprice() {
 		return totalprice;
 	}
 	public void setTotalprice(int totalprice) {
-		this.totalprice = totalprice;
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		this.totalprice = formatter.format(totalprice);
 	}
 	public String getStatus() {
 		return status;

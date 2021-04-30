@@ -9,13 +9,10 @@
 	</div>
 	<div id="p_header" class="clearfix">
 		<ul id="p_leftTitle" class="clearfix">
-			<li><a href="#">소파</a></li>
-			<li>&nbsp</li>
-			<li><a href="#">TV장식장</a></li>
-			<li>&nbsp</li>
-			<li><a href="#">거실테이블</a></li>
-			<li>&nbsp</li>
-			<li><a href="#">거실장</a></li>
+			<c:forEach var="subCate" items="${subCate }">
+				<li><a href="productList?subno=${subCate.subno }">${subCate.subname }</a></li>
+				<li>&nbsp</li>
+			</c:forEach>
 		</ul>
 		<ul id="p_rightTitle" class="clearfix">
 			<li><a href="#">최신순</a></li>
@@ -31,16 +28,17 @@
 	<div id="p_list">
 		<ul>
 			<li>
-			<a href="productView"><img src="<%=request.getContextPath()%>/img/sofa1.png"/></a><br/>
-			<div class="p_color" class="clearfix">
-				<div></div>
-				<div></div>
-				<div></div>
-			</div><br/>
-			<p class="p_listdetail1">소파가 1+1인가봐용</p>
-			<p class="p_listdetail2">600,000원</p>
-			<p class="p_listdetail3">480,000원</p>
+				<a href="productView"><img src="<%=request.getContextPath()%>/img/sofa1.png"/></a><br/>
+				<div class="p_color" class="clearfix">
+					<div></div>
+					<div></div>
+					<div></div>
+				</div><br/>
+				<p class="p_listdetail1">소파가 1+1인가봐용</p>
+				<p class="p_listdetail2">600,000원</p>
+				<p class="p_listdetail3">480,000원</p>
 			</li>
+			
 			<li>
 			<a href="productView"><img src="<%=request.getContextPath()%>/img/sofa2.jpg"/></a><br/>
 			<div class="p_color" class="clearfix">

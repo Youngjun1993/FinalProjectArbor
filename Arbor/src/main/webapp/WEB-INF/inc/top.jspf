@@ -12,10 +12,13 @@
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/qna.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/myPage.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/client/productList.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/client/ScrollTrigger.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <script>
 	$(function(){
 		var $firstMenu = $('nav > ul > li:nth-of-type(1)'),
@@ -82,12 +85,12 @@
 <body>
 <header>
 	<div id="d_topline">Funiture is not bulit in a day</div>
-	<a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/img/logogo.png" id="d_logo"/></a>
+	<div id="d_logo"><a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/img/logogo.png"/></a></div>
 	<nav>
 		<ul>
 			<li><a href="">FUNITURE</a></li>
 			<li><a href="">COMMUNITY</a></li>
-			<li><a href="">EVENT</a></li>
+			<li><a href="event">EVENT</a></li>
 			<li><a href="">ABOUT US</a></li>
 			<li><a href="">JOIN</a></li>
 			<li><a href="">LOGIN</a></li>
@@ -147,9 +150,9 @@
 		<div class="d_col">
 			<ul>
 				<li>EVENT</li>
-				<li><a href="">TIME SALE</a></li>
-				<li><a href="">진행중인 이벤트</a></li>
-				<li><a href="">지난 이벤트</a></li>
+				<li><a href="event?title=timeSale">TIME SALE</a></li>
+				<li><a href="event?title=nowEvent">진행중인 이벤트</a></li>
+				<li><a href="event?title=endEvent">지난 이벤트</a></li>
 			</ul>
 		</div>
 		<div class="d_col">
