@@ -13,7 +13,23 @@
 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(rownum) as totalRecord from ordertbl where userid = #{userid}
 	</select>
-	<select id="recordCountSum" resultType="com.arbor.home.vo.PointVO">
-		select sum(p.point) as point, count(c.cpnno) as cpncount, count(r.reviewno) as reviewcount from point p join coupon c on p.userid=c.userid join review r on p.userid=r.userid where p.userid=#{param1}
+	<select id="pointSum" resultType="com.arbor.home.vo.PointVO">
+		select sum(point) as point from point where userid = #{userid}
+	</select>
+		<select id="couponCount" resultType="com.arbor.home.vo.CouponVO">
+		select count(cpnno) as cpnno from coupon where userid = #{userid}
+	</select>
+		<select id="reviewCount" resultType="com.arbor.home.vo.ReviewVO">
+		select count(reviewno) as reviewno from review where userid = #{userid}
+	</select>
+		<select id="qnaCount" resultType="com.arbor.home.vo.QnaVO">
+		select count(qnano) as qnano from qna where userid = #{userid}
+	</select>
+	<!-- qna List 페이지  -->
+	<select id="allList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
+	</select>
+	<select id="qnaTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(qnano) as totalRecord from qna where userid = #{userid} <if test="qnaSearchWord != null"> and ${qnaSearchKey} like '%${qnaSearchWord}%'</if>
 	</select>
 </mapper>

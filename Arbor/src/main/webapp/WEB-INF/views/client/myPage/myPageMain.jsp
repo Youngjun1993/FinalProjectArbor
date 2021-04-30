@@ -108,13 +108,15 @@
 		var initBody;
 		
 		subpopup.style.display="none";
-		printpopup.style.left="20%";
+		printpopup.classList.remove("boxshadow");
 		window.onbeforeprint = function(){
 			initBody = document.body.innerHTML;
+			printpopup.style.left="20%";
 			document.body.innerHTML = document.getElementById("y_printarea").innerHTML;
 		};
 		window.onafterprint = function(){
 			document.body.innerHTML = initBody;
+			printpopup.style.display="none";
 			window.location.reload();
 		};
 		
@@ -123,41 +125,10 @@
 	}
 </script>
 <div id="y_myPageMain_wrap" class="clearfix w1400_container">
-    <div id="y_leftMenu">
-        <ul>
-            <li class="title_fs25">My Page</li>
-            <li><a href="#">구매내역</a></li>
-            <li><a href="#">회원정보수정</a></li>
-            <li><a href="#">리뷰관리</a></li>
-            <li><a href="#">1:1문의</a></li>
-            <li><a href="#">쿠폰내역</a></li>
-            <li><a href="#">적립금내역</a></li>
-            <li><a href="#">회원탈퇴</a></li>
-        </ul>
-    </div>
+	<%@include file="/WEB-INF/inc/mypageMenu.jspf"%>
     <div id="y_myPage_rightCon">
         <div>
-            <ul class="clearfix">
-                <li>${username }님 환영합니다.</li>
-                <li>
-                    <span><i class="fas fa-gem fa-3x"></i></span>
-                    <span>적립금<br/>
-                    <a href="#" class="ftBold25_blue">${pointVO.point }</a>원</span>
-                </li>
-                <li>
-                    <span><i class="fas fa-tag fa-3x"></i></span>
-                    <span>쿠폰<br/>
-                    <a href="#" class="ftBold25_blue">${pointVO.cpncount }</a>개</span>
-                </li>
-                <li>
-                    <span><i class="fas fa-edit fa-3x"></i></span>
-                    <span>리뷰<br/>
-                    <a href="#" class="ftBold25_blue">${pointVO.reviewcount }</a>건</span>
-                </li>
-            </ul>
-        </div>
-        <div>
-        	<h3>구매내역</h3>
+        	<h2>구매내역</h2>
             <ul class="clearfix">
                 <li>주문일자</li>
                 <li>상품명</li>
@@ -198,7 +169,7 @@
               </c:if>
           </ul>
     </div>
-   <div id="y_orderPopup_Wrap">
+   <div id="y_orderPopup_Wrap" class="boxshadow">
            <p>-</p>
            <div class="w600_center">
                <p>주문자정보</p>
@@ -254,7 +225,7 @@
            <a id="y_popupCloseBtn" href="#">닫기</a>
        </div>
        <div id="y_printarea">	
-	       <div id="y_printPopup_Wrap">
+	       <div id="y_printPopup_Wrap" class="boxshadow">
 	           <div>
 	              <p><a href="#" class="subPopCloseBtn">✕</a></p>
 	           </div>
