@@ -219,8 +219,8 @@
 	    	}
 			
 	    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck&&mailnumCheck&&addressCheck&&telCheck&&termsCheck ){
-	    		/* $('.inputForm').attr('action', 'memberjoin');
-		    	$('.inputForm').submit; */
+	    		$('.inputForm').attr('action', 'memberjoin');
+		    	$('.inputForm').submit;
 	        } 
 	    	
 	    	

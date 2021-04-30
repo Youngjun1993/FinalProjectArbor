@@ -151,7 +151,7 @@ public class MemberController {
 	}
 	
 	//이메일 인증
-    @RequestMapping(value="/mailcheck", method=RequestMethod.POST)
+    @RequestMapping("/mailcheck")
     @ResponseBody
     public String mailCheckGET(String email){//나중에 반환타입 String
         
