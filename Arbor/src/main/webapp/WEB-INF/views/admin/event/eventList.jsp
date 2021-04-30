@@ -19,7 +19,7 @@
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm">
-		<h1>이벤트 목록</h1>
+		<h1 class="j_adminMemu">이벤트 목록</h1>
 		<div class="clearfix j_search">
 			<form method="post" class="searchFrm" action="eventList">
 				<select id="j_searchKey" name="searchKey">
@@ -46,7 +46,7 @@
 				<li>${vo.eventDate }</li>
 			</c:forEach>
 		</ul>
-		<p class="j_eventSetBtn"><input type="button" id="j_insertBtn" value="게시물 등록"></p>
+		<p class="j_eventSetBtn"><input type="button" id="j_insertBtn" value="이벤트 등록"></p>
 		</div>
 	</div>
 </div>

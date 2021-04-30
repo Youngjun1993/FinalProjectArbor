@@ -10,13 +10,17 @@
 	width:10%;
 	height:40px;
 	line-height:40px;
-	border-bottom:1px solid #ddd;
-	font-size:12px;
-	text-align:center;
+	border-bottom:1px solid #eee;
 }
-#timeSaleList>li:nth-child(-n+6){font-weight:bold;font-size:1em;color:#333;}
+#timeSaleList>li:nth-child(-n+6){
+	font-weight:bold;
+	font-size:1em;
+	color:#333;
+	border-bottom:1px solid #aaa;
+}
 #timeSaleList>li:nth-child(6n+3){width:30%;}
 #timeSaleList>li:nth-child(6n+6){width:30%;}
+#timeSlaeList>li:not(.wordcut){text-align:center;}
 
 /*--------------
 	타임세일 등록

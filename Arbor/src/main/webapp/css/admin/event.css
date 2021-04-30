@@ -22,6 +22,15 @@
 .j_search select, .j_search input{height:25px;line-height:25px;vertical-align:middle;} /* 높이 통일화 필요 */
 .j_search input[type=text]{padding:0;box-sizing:border-box;}
 
+/*관리자 메뉴 상단 타이틀*/
+.j_adminMemu{
+	height:100px;
+	line-height:100px;
+	text-align:center;
+	border-bottom:1px solid #333;
+}
+
+
 input[type=submit], input[type=button] {
 	cursor:pointer;
 }
@@ -33,10 +42,14 @@ input[type=submit], input[type=button] {
 	width:10%;
 	height:40px;
 	line-height:40px;
-	border-bottom:1px solid #ddd;
-	font-size:12px;
+	border-bottom:1px solid #eee;
 }
-#eventList>li:nth-child(-n+5){font-weight:bold;font-size:1em;color:#333;}
+#eventList>li:nth-child(-n+5){
+	font-weight:bold;
+	font-size:1em;
+	color:#333;
+	border-bottom:1px solid #aaa;
+}
 #eventList>li:nth-child(5n+2){width:5%;}
 #eventList>li:nth-child(5n+3){width:55%;}
 #eventList>li:nth-child(5n+4){width:20%;}

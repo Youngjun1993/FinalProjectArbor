@@ -20,7 +20,7 @@
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm">
-		<h1>타임세일 목록</h1>
+		<h1 class="j_adminMemu">타임세일 목록</h1>
 		<div class="clearfix j_search">
 			<form method="post" class="searchFrm" action="eventList">
 				<select id="j_searchKey" name="searchKey">
@@ -43,7 +43,7 @@
 			<c:forEach var="vo" items="${list }">
 				<li>${vo.saleNo }</li>
 				<li>${vo.pNo }</li>
-				<li><a href="timeSaleView?saleNo=${vo.saleNo }">${vo.pName }</a></li>
+				<li class="wordcut"><a href="timeSaleView?saleNo=${vo.saleNo }">${vo.pName }</a></li>
 				<li>${vo.pPrice }</li>
 				<li>${vo.salePrice }</li>
 				<li>${vo.saleStart } ~ ${vo.saleEnd }</li>
