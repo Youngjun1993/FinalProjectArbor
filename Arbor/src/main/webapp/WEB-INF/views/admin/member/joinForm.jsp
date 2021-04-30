@@ -8,15 +8,33 @@
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/memberJoin.css" type="text/css" />
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
+		// 유효성 검사 전역변수
+		 var idCheck = false;// 아이디
+		 var idckCheck = false;// 아이디 중복 검사
+		 var pwCheck = false;// 비번
+		 var pwckCheck = false;// 비번 확인
+		 var pwckcorCheck = false;// 비번 확인 일치 확인
+		 var nameCheck = false;// 이름
+		 var mailCheck = false;// 이메일
+		 var mailnumCheck = false;// 이메일 인증번호 확인
+		 var addressCheck = false;// 주소
+		 var telCheck = false;//연락처
+		 var termsCheck1 = false;//약관
+		 var termsCheck2 = false;//개인정보
+		 
 	$(function() {
+		
+		
+		
 		//아이디 중복검사
 		$('.h_idchk').click(function(){
 			if($('#userid').val()!=""){
 				window.open("<%=request.getContextPath()%>/idcheck?userid="+$('#userid').val(),"idchk","width=500,height=400");
 			}else{
-				alert("아이디 입력 후 중복검사 해주세요.")
+				alert("아이디 입력 후 중복검사 해주세요.");
 			}
 		});
 		
@@ -34,13 +52,15 @@
 			}
 		});
 		
-		
 		//비밀번호확인 잠금 해제
-		$('#userpwd').change(function() {
+		$('#userpwd').blur(function() {
 			if($('#userpwd').val()!=""){
 				$('#pwdCheck').attr("disabled", false);
 				console.log("비번값있음");
 				$('.h_pwdchk').css("background-color","white");
+			}else {
+				alert("비밀번호가 너무 짧습니다(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)");
+				$('#userid').focus();
 			}
 		});
 		
@@ -51,14 +71,14 @@
 				//비밀번호 확인
 				var checkResult = $("#h_pwd_ok");//span
 				 if(inputpwd == checkpwd){// 일치할 경우
-				        checkResult.html("인증번호가 일치합니다");
+				        checkResult.html("비밀번호가 일치합니다");
 				        checkResult.addClass("correct");        
 				        checkResult.removeClass("incorrect");        
-				    } else {                                            // 일치하지 않을 경우
-				        checkResult.html("인증번호를 다시 확인해주세요");
+				    } else {// 일치하지 않을 경우
+				        checkResult.html("비밀번호를 다시 확인해주세요");
 				        checkResult.addClass("incorrect");
 				        checkResult.removeClass("correct");  
-				        $('.h_emailvalid').focus();
+				        $('#pwdCheck').focus();
 				    }
 			   
 		});
@@ -91,24 +111,177 @@
 			
 		});
 		
-		//인증번호 비교
+		//이메일 인증번호 비교
 		$(".h_emailvalid").blur(function(){
 			 var inputCode = $(".h_emailvalid").val();// 입력코드    
 			 var checkResult = $(".h_email_warning");    // 비교 결과   
 			 if(inputCode == emailcode){                            // 일치할 경우
 			        checkResult.html("인증번호가 일치합니다");
 			        checkResult.addClass("correct");        
-			        checkResult.removeClass("incorrect");        
+			        checkResult.removeClass("incorrect");
+			        mailnumCheck = true;
 			    } else {                                            // 일치하지 않을 경우
 			        checkResult.html("인증번호를 다시 확인해주세요");
 			        checkResult.addClass("incorrect");
 			        checkResult.removeClass("correct");  
 			        $('.h_emailvalid').focus();
+			        mailnumCheck = false;
 			    }
 			 
 		});
 		
-	});
+		
+		//memberjoin
+		$('#memberjoin').click(function() {
+	    	
+	    	console.log("조인버튼 이벤트");
+	    	
+	    	/* 입력값 변수 */
+	        var id = $('#userid').val();// id 입력란
+	        var pw = $('#userpwd').val();// 비밀번호 입력란
+	        var pwck = $('#pwdCheck').val();// 비밀번호 확인 입력란
+	        var name = $('#username').val();// 이름 입력란
+	        var mail = $('#emailid').val();// 이메일 입력란
+	        var domain = $('#emaildomain').val();// 이메일도메인
+	        var addr = $('#detailaddr').val();//상세주소 입력란
+			var tel2 = $('#tel2').val();//연락처 
+			var tel3 = $('#tel3').val();//연락처 
+	        var termok = $('#termok').is(":checked"); 
+	        var privacyok = $('#privacyok').is(":checked"); 
+			
+	    	if(id == ""){
+	    		alert("아이디를 입력해주세요");
+	    		idCheck = false;
+	    	}else{
+	    		idCheck = true;
+	    		//아이디체크 유효성
+	    		if($('#hiddenCheck').val()=="N"){
+		        	alert("아이디 중복검사를 해주세요")
+		        	idCheck = false;
+		        }else{
+		        	idckCheck = true;
+		        	//비밀번호 유효성
+		        	if(pw == ""){
+		        		alert("비밀번호를 입력 해주세요")
+		                pwCheck = false;
+		            }else{
+		                pwCheck = true;
+		            //비밀번호 확인 유효성
+		                if(pwck == ""){
+		            		alert("비밀번호를 확인 해주세요")
+		                    pwckCheck = false;
+		                }else{
+		                    pwckCheck = true;
+		                    //이름 입력
+		                    if(name == ""){
+		                    	alert("회원성함을 입력해주세요")
+		                        nameCheck = false;
+		                    }else{
+		                        nameCheck = true;
+		                        //주소입력
+		                        if(addr == ""){
+	                            	alert("주소를 입력해주세요")
+	                                addressCheck = false;
+	                            }else{
+	                                addressCheck = true;
+	                                //연락처 입력
+	                                if(tel2 == "" || tel3 == ""){
+			                        	alert("연락처를 입력해주세요")
+			                            telCheck = false;
+			                        }else{
+			                            telCheck = true;
+			                          	//이메일 입력
+				                        if(mail == "" || domain == ""){
+				                        	alert("이메일을 입력해주세요")
+				                            mailCheck = false;
+				                        }else{
+				                            mailCheck = true;
+				                            //개인정보 약관 체크
+				                            if(termok == false){
+				                            	alert("개인정보 및 약관을 동의해야 가입이 가능합니다.")
+				                            	termsCheck1 = false;
+				                            }else{
+				                            	termsCheck1 = true;
+				                            	if(privacyok == false){
+					                            	alert("개인정보 및 약관을 동의해야 가입이 가능합니다.")
+					                            	termsCheck2 = false;
+					                            }else{
+					                            	termsCheck2 = true;
+					                            }
+				                            }
+				                        }
+			                        }
+	                            }
+		                    }
+		                }
+		            }
+		        }
+	    	}
+			
+	    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck&&mailnumCheck&&addressCheck&&telCheck&&termsCheck ){
+	    		/* $('.inputForm').attr('action', 'memberjoin');
+		    	$('.inputForm').submit; */
+	        } 
+	    	
+	    	
+	    	
+	    });
+		
+		
+});
+	
+/* 카카오주소api 연동 */
+	function kakao_address(){
+	 
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+	        	 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+ 
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+ 
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    //주소변수 문자열과 합치기
+                    addr += extraAddr;
+                
+                } else {
+                	addr += ' ';
+                }
+ 
+                $(".h_ipt.zipcode").val(data.zonecode);//우편변호
+                $(".h_ipt.addr").val(addr);//주소
+                
+                // 커서를 상세주소 필드로 이동한다.
+                $(".h_ipt.detailaddr").attr("readonly", false);
+                $(".h_ipt.detailaddr").focus();
+	 
+	        }
+	    
+	    }).open();    
+	    
+	}
+	
 </script>
 
 </head>
@@ -119,7 +292,7 @@
 <div class="h_jointop"><img src="<%=request.getContextPath() %>/img/logo.png"/></div>
 			
 	<div class ="h_formbox">
-	<form method="post" name="inputForm" action = "memberjoin">
+	<form method="post" name="inputForm" class="inputForm">
 		<table class="h_formtable">
 		<tr><!-- 공백 --></tr>
 		<!-- 아이디 -->
@@ -128,7 +301,7 @@
 		<label for="userid">아이디 *</label>
 		</td>
 		<td>
-		<input type="text" name="userid" id="userid" size="20px" class="h_ipt">
+		<input type="text" name="userid" id="userid" size="20px" class="h_ipt" required="required">
 		<input type="button" value="중복확인" class="h_check_btn h_idchk">
 		<!-- 입력검사 확인용 -->				
 		<input type="text" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
@@ -140,7 +313,7 @@
 		<label for="pwd">비밀번호 *</label>
 		</td>
 		<td>
-		<input type="password" name="userpwd" id="userpwd" size="20px" class="h_ipt">(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
+		<input type="password" name="userpwd" id="userpwd" size="20px" class="h_ipt" required="required">(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
 		</td>
 		</tr>
 		
@@ -160,7 +333,7 @@
 		<label for="username">이름 *</label>
 		</td>
 		<td>
-		<input type="text" name="username" id="username" size="20px" class="h_ipt">
+		<input type="text" name="username" id="username" size="20px" class="h_ipt" required="required">
 		</td>
 		</tr>
 		
@@ -169,12 +342,12 @@
 		<label for="addr">주 소</label>
 		</td>
 		<td>
-		<input type="text" name="zipcode" id="zipcode" size="5" class="h_ipt">
-		<input type="button" id="zipcode" value="우편번호 찾기" class="h_check_btn">
+		<input type="text" name="zipcode" id="zipcode" size="5" class="h_ipt zipcode" readonly="readonly">
+		<input type="button" id="zipcode_btn" value="우편번호 찾기" class="h_check_btn" onclick="kakao_address()"/>
 		
-	  	<input type="text" name="addr" id="addr" size="60" class="h_ipt"> 기본주소
+	  	<input type="text" name="addr" id="addr" size="60" class="h_ipt addr" readonly="readonly"> 기본주소
 		
-		<input type="text" name="detailaddr" id="detailaddr" size="60" class="h_ipt"> 나머지 주소
+		<input type="text" name="detailaddr" id="detailaddr" size="60" class="h_ipt detailaddr" required="required"> 나머지 주소
 		</td>
 		</tr>
 		
@@ -188,8 +361,8 @@
 		  	<option value="011">011</option>
 			<option value="02">02</option>
 		</select>
-		-<input type="text" name="tel2" size="5" class="h_ipt">
-		-<input type="text" name="tel3" size="5" class="h_ipt">
+		-<input type="text" name="tel2" id="tel2" size="5" class="h_ipt" required="required">
+		-<input type="text" name="tel3" id="tel3" size="5" class="h_ipt" required="required">
 		</td>
 		</tr>
 		
@@ -208,8 +381,8 @@
 		<label for="email">이메일</label>
 		</td>
 		<td>
-		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid"> @ 
-		<select name="emaildomain" class="h_select emaildomain">
+		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid" required="required"> @ 
+		<select name="emaildomain" id="emaildomain" class="h_select emaildomain" required="required">
 			<option value=""></option>
 			<option value="google.com">google.com</option>
 			<option value="naver.com">naver.com</option>
@@ -224,7 +397,7 @@
 		<label for="emailvalid">인증번호</label>
 		</td>
 	 	<td>
-	 	<input type="text" name="emailvalid" id="emailvalid" size="20px" class="h_emailvalid" disabled="disabled">
+	 	<input type="text" name="emailvalid" id="emailvalid" size="20px" class="h_emailvalid" required="required" disabled="disabled">
 		<input type="button" id="emailcheck" value="인증 요청" class="h_check_btn emailchk">
 		<span class="h_email_warning"></span>
 		</td>
@@ -243,8 +416,8 @@
 		</table>
 		
 		<ul class="h_2box">
-			<li class="h_terms">약관 위치<div class="h_title">동의하겠읍니까</div></li>
-			<li class="h_privacy"><div class="h_title">동의하겠읍니까</div><div class ="h_termcontent">■ 수집하는 개인정보 항목
+			<li class="h_terms"><div class="h_title">쇼핑몰 이용약관</div><div class ="h_termcontent"></div></li>
+			<li class="h_privacy"><div class="h_title">개인정보수집,이용동의</div><div class ="h_termcontent">■ 수집하는 개인정보 항목
 회사는 회원가입, 상담, 서비스 신청 등등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 ο 수집항목 : 이름 , 생년월일 , 성별 , 로그인ID , 비밀번호 , 비밀번호 질문과 답변 , 자택 전화번호 , 자택 주소 , 휴대전화번호 , 이메일 , 직업 , 회사명 , 부서 , 직책 , 회사전화번호 , 취미 , 결혼여부 , 기념일 , 법정대리인정보 , 서비스 이용기록 , 접속 로그 , 접속 IP 정보 , 결제기록
 ο 개인정보 수집방법 : 홈페이지(회원가입) , 서면양식
@@ -262,7 +435,8 @@
 
 회사는 개인정보 수집 및 이용목적이 달성된 후에는 예외 없이 해당 정보를 지체 없이 파기합니다.</div></li>
 		</ul>
-		<div>체크박스 위치</div>
+		<div class="h_term_chk"><input type="checkbox" name="termok" id="termok" required="required">약관에 동의하시겠습니까?</div>
+		<div class="h_term_chk"><input type="checkbox" name="privacyok" id="privacyok" required="required">개인정보수집에 동의하시겠습니까?</div>
 		<input type="submit" id="memberjoin" value="Join NOW" class="h_check_btn join">
 	</form>
     
