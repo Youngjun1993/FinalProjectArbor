@@ -137,7 +137,7 @@
 		<form method="post" id="j_timeSaleInsertFrm" action="timeSaleInsertOk">
 			<div>
 				<span class="j_category">상품번호</span> <input type="text" name="pNo" id="j_pNo"/>
-				<input type="button" value="조회" id="j_pSearchBtn"/><br/>
+				<input type="button" value="조회" class="adminSubBtn" id="j_pSearchBtn"/><br/>
 				<span class="j_category">상품명</span> <input type="text" name="pName" id="j_pName" disabled/><br/>
 				<span class="j_category">상품가격</span> <input type="text" name="pPrice" id="j_pPrice" disabled/><br/>
 				<span class="j_category">할인가격</span> <input type="text" name="salePrice" id="j_salePrice"/><br/>
@@ -147,7 +147,7 @@
 				<br/><br/>
 				<textarea name="saleContent" id="saleContent"></textarea>
 				<br/>
-				<p class="j_eventSetBtn"><input type="button" id="j_tsInsertBtn" value="등록"> <input type="button" id="j_tsInsertCnlBtn" value="취소"></p>
+				<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_tsInsertBtn" value="등록"> <input type="button" class="adminSubBtn" id="j_tsInsertCnlBtn" value="취소"></p>
 			</div>
 		</form>
 	</div>

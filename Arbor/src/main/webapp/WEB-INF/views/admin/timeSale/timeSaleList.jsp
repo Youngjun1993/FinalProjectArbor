@@ -27,7 +27,7 @@
 					<option value="pNo">상품번호</option>
 					<option value="pName">상품명</option>
 				</select>
-				<input type="text" name="searchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
+				<input type="text" name="searchWord" class="adminMainBtn" id="j_searchWordNow" placeholder="검색어 입력"/>
 				<input type="submit" value="검색"/>
 			</form>
 		</div>
@@ -49,7 +49,7 @@
 				<li>${vo.saleStart } ~ ${vo.saleEnd }</li>
 			</c:forEach>
 		</ul>
-		<p class="j_eventSetBtn"><input type="button" id="j_timeSaleInsertBtn" value="등록"></p>
+		<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_timeSaleInsertBtn" value="등록"></p>
 		</div>
 	</div>
 </div>

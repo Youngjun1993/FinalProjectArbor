@@ -1,18 +1,19 @@
 package com.arbor.home.vo;
 
 public class SubOrderVO {
-	private int subno;
+	private int suborderno;
 	private int orderno;
 	private int pno;
 	private int optno;
 	private int quantity;
 	private int subprice;
 	private String pname;
-	public int getSubno() {
-		return subno;
+	
+	public int getSuborderno() {
+		return suborderno;
 	}
-	public void setSubno(int subno) {
-		this.subno = subno;
+	public void setSubno(int suborderno) {
+		this.suborderno = suborderno;
 	}
 	public int getOrderno() {
 		return orderno;

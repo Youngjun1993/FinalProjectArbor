@@ -27,7 +27,7 @@
 					<option value="eventContent">내용</option>
 				</select>
 				<input type="text" name="searchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
-				<input type="submit" value="검색"/>
+				<input type="submit" class="adminMainBtn" value="검색"/>
 			</form>
 		</div>
 		<div>
@@ -46,7 +46,7 @@
 				<li>${vo.eventDate }</li>
 			</c:forEach>
 		</ul>
-		<p class="j_eventSetBtn"><input type="button" id="j_insertBtn" value="이벤트 등록"></p>
+		<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_insertBtn" value="이벤트 등록"></p>
 		</div>
 	</div>
 </div>

@@ -38,9 +38,9 @@
 			<span id="j_contentImg">${vo.eventContent }</span>
 			<hr/>
 			<p class="j_eventSetBtn">
-				<input type="button" id="j_editBtn" value="수정"/> 
-				<input type="button" id="j_delBtn" value="삭제"/> 
-				<input type="button" id="j_listBtn" value="목록"/>
+				<input type="button" class="adminMainBtn" id="j_editBtn" value="수정"/> 
+				<input type="button" class="adminSubBtn" id="j_delBtn" value="삭제"/> 
+				<input type="button" class="adminSubBtn" id="j_listBtn" value="목록"/>
 			</p>
 		</div>
 	</div>
