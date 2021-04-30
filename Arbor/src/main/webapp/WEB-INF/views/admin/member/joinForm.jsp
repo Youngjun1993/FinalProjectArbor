@@ -27,8 +27,6 @@
 		 
 	$(function() {
 		
-		
-		
 		//아이디 중복검사
 		$('.h_idchk').click(function(){
 			if($('#userid').val()!=""){
@@ -218,7 +216,7 @@
 		        }
 	    	}
 			
-	    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck&&mailnumCheck&&addressCheck&&telCheck&&termsCheck ){
+	    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck&&mailnumCheck&&addressCheck&&telCheck&&termsCheck1&&termsCheck2 ){
 	    		$('.inputForm').attr('action', 'memberjoin');
 		    	$('.inputForm').submit;
 	        } 
