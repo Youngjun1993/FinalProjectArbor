@@ -9,8 +9,8 @@ $(function(){
 			offset: {
 					element: {
 						x:0,
-						y:(trigger, rect, direction) => {
-							return 0.5 //몇%나왔을때 나타나는지
+						y:(trigger, frame, direction) => {
+							return trigger.visible ? 0 : 0.5 //몇%나왔을때 나타나는지
 					}
 				},
 			}
@@ -255,6 +255,39 @@ $(function(){
 		</div>
 	</div>
 	<!-- videoBox -->
+	
+	<!-- 링크~ -->
+	<div class="d_linkBox">
+		<ul>
+			<li>
+				<a href="">
+					<div class="screen" trigger-left>
+						<div class="top">침대를 봅시다</div>
+						<div class="bottom">침대리스트로 이동</div>
+						<img src="<%=request.getContextPath()%>/img/슬라이드침대1.PNG">
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<div class="screen" trigger-up>
+						<div class="top">테이블 봅시다</div>
+						<div class="bottom">테이블리스트로 이동</div>
+						<img src="<%=request.getContextPath()%>/img/슬라이드침대2.PNG">
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<div class="screen" trigger-right >
+						<div class="top">화장대를 봅시다.</div>
+						<div class="bottom">화장대리스트로 이동</div>
+						<img src="<%=request.getContextPath()%>/img/슬라이드침대3.PNG">
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
 </div>
 <!-- d_main -->
 

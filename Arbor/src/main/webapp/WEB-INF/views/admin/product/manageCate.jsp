@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/productInsert.css" type="text/css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/admin/product.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/productSearch.js"></script>
 <script>
 
 </script>
@@ -24,76 +24,57 @@
 					<img src="<%=request.getContextPath() %>/img/downpage.png"/>
 					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 				</p><br/>
-				<div>
-					<form method="post" action="productListSearch">
-						<span class="pContent">카테고리</span>
-						<select name="mainno" id="maincate">
-							<c:forEach var="mainCate" items="${mainCate }">
-								<c:if test="${mainCate.mainno!=null && mainCate.mainno!='' }">
-									<option value=${mainCate.mainno }>${mainCate.mainname }</option>
-								</c:if>
+				<div id="insertCategoryDiv">
+					<span class="pContent"></span>
+					<span class="pContent">대분류</span>
+					<span class="pContent"></span>
+					<span class="pContent">중분류</span>
+					<br/>
+					<span class="pContent">카테고리</span>
+					<select name="mainno" id="maincate">
+						<c:forEach var="mainCate" items="${mainCate }">
+							<c:if test="${mainCate.mainno!=null && mainCate.mainno!='' }">
+								<option value=${mainCate.mainno }>${mainCate.mainname }</option>
+							</c:if>
+						</c:forEach>
+					</select>
+					<select name="subno" id="subcate">
+						<c:forEach var="subCate" items="${subCate }">
+							<option value=${subCate.subno }>${subCate.subname }</option>
+						</c:forEach>
+					</select>
+					<form method="post" action="">
+						<span class="pContent">신규등록</span>
+						<select name="insertTbl">
+							<option value="maincate">대분류</option>
+							<option value="subcate">중분류</option>
+						</select>
+						<input type="text" name="edit" id="searchWord" />
+						<input type="submit" value="등록" />
+					</form>
+					<hr/>
+					<form>
+						<p><input type="checkbox" id="listCheckAll"/>전체선택
+						<input type="submit" value="선택삭제"/><p>
+						<ul id="categoryList">
+							<li>&nbsp</li>
+							<li>대분류번호</li>
+							<li>중분류번호</li>
+							<li>대분류</li>
+							<li>중분류</li>
+							<li>&nbsp</li>
+							
+							<c:forEach var="vo" items="${cateList }">
+								<li><input type="checkbox" value="${vo.subno }"/></li>
+								<li>${vo.mainno }</li>
+								<li>${vo.subno }</li>
+								<li>${vo.mainname }</li>
+								<li>${vo.subname }</li>
+								<li><a href="#">수정</a> | <a href="#">삭제</a></li>
 							</c:forEach>
-						</select>
-						<select name="subno" id="subcate">
-							<c:forEach var="subCate" items="${subCate }">
-								<option value=${subCate.subno }>${subCate.subname }</option>
-							</c:forEach>
-						</select>
-						<span id="searchContent">검색어</span>
-						<select name="searchKey" id="searchKey">
-							<option value="pname">상품명</option>
-							<option value="stock">재고량</option>
-							<option value="pprice">판매가격</option>
-						</select>
-						<input type="text" name="searchWord" id="searchWord" />
-						<br/><br/>
-						<ul id="pDateCate">
-							<li><span class="pContent">등록일자</span></li>
-							<li><a href="#">당일</a></li>
-							<li><a href="#">일주일</a></li>
-							<li><a href="#">1개월</a></li>
-							<li><a href="#">3개월</a></li>
-							<li><a href="#">1년</a></li>
 						</ul>
-						<span class="pContent"></span>
-						<input type="text" id="startDate" placeholder="시작일 직접 선택" />
-						<span class="centertxt">~</span>
-						<input type="text" id="endDate" placeholder="종료일 직접 선택" />
-						<input type="submit" value="Search" />
-						<br/>
 					</form>
 				</div>
-			</div>
-			<br/><br/>
-			<div id="ProductListPrint">
-				<p><span class=pTitle>상품목록</span>
-					<img src="<%=request.getContextPath() %>/img/downpage.png"/>
-					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
-				</p><br/>
-				<form method="post" action="ProductDeleteCheck">
-					<p><input type="checkbox" id="listCheckAll"/>전체선택
-					<input type="submit" value="선택삭제"/><p>
-					<ul id="productList">
-						<li>&nbsp</li>
-						<li>상품코드</li>
-						<li>카테고리</li>
-						<li>상품명</li>
-						<li>판매가</li>
-						<li>재고</li>
-						<li>둥록일</li>
-						<li>&nbsp</li>
-						<c:forEach var="vo" items="${productList }">
-							<li><input type="checkbox" value=${vo.pno }/></li>
-							<li>${vo.pno }</li>
-							<li>${vo.mainname } > ${vo.subname }</li>
-							<li>${vo.pname }</li>
-							<li>${vo.saleprice }</li>
-							<li>${vo.stock }</li>
-							<li>${vo.pdate }</li>
-							<li><a href="productEdit?pno=${vo.pno }">수정</a> | <a href="javascript:productdel(${vo.pno })">삭제</a></li>
-						</c:forEach>
-					</ul>
-				</form>
 			</div>
 		</div>
 	</div>

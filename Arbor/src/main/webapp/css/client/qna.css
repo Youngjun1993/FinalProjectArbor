@@ -58,11 +58,17 @@
 }
 
 /* qnaList 스타일*/
-#y_list_rightcon>p, #y_adminQnaList_rightcon>p{
+#y_list_rightcon>h2{
+	margin-bottom: 20px;
+}
+#y_adminQnaList_rightcon>p{
     height: 100px;
     line-height: 100px;
     text-align: center;
     border-bottom: 1px solid #eee;
+}
+#y_list_rightcon>ul:nth-of-type(1){
+	border-top: 1px solid #333;
 }
 #y_list_rightcon>ul:first-of-type, #y_adminQnaList_rightcon>ul:first-of-type{
     margin-bottom: 30px;
@@ -74,6 +80,9 @@
     line-height: 40px;
     width: 15%;
     border-bottom: 1px solid #eee;
+}
+#y_list_rightcon>ul:first-of-type>li:first-child{
+	border-bottom:1px solid #ddd;
 }
 #y_list_rightcon>ul:first-of-type>li:nth-child(5n+2), #y_adminQnaList_rightcon>ul:first-of-type>li:nth-child(5n+2){
     width: 40%;

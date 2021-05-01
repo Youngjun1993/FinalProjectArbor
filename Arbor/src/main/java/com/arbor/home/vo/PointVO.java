@@ -8,9 +8,6 @@ public class PointVO {
 	private String point;
 	private String userid;
 	
-	private int cpncount; // 쿠폰 카운트 조인
-	private int reviewcount; // 리뷰 카운트 조인
-	
 	public String getPointdate() {
 		return pointdate;
 	}
@@ -36,19 +33,6 @@ public class PointVO {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	public int getCpncount() {
-		return cpncount;
-	}
-	public void setCpncount(int cpncount) {
-		this.cpncount = cpncount;
-	}
-	public int getReviewcount() {
-		return reviewcount;
-	}
-	public void setReviewcount(int reviewcount) {
-		this.reviewcount = reviewcount;
-	}
-	
 	
 	
 }

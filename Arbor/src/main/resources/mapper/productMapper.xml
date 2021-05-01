@@ -7,14 +7,20 @@
  		select mainno, mainname from maincate
  	</select>
  	
- 	<select id="subCateList" resultType="com.arbor.home.vo.SubCateVO">
- 		select subno, subname from subcate where mainno=${param1}
+ 	<select id="subCateList" parameterType="int" resultType="com.arbor.home.vo.SubCateVO">
+ 		select mainno, subno, subname from subcate where mainno=${param1}
+ 	</select>
+ 	
+ 	<select id="subCateListAll" resultType="com.arbor.home.vo.SubCateVO">
+ 		select subno, s.mainno, mainname, subname from subcate s join maincate m
+ 		on s.mainno=m.mainno order by subno 
  	</select>
  	
  	<insert id="productInsert" parameterType="com.arbor.home.vo.ProductVO">
- 		insert into product(pno, subno, pname, stock, allstock, pprice, saleprice, img1, img2, description)
+ 		insert into product(pno, subno, pname, stock, allstock, pprice, saleprice, img1,
+ 		<if test='#{img2}!=null || #{img2}!=""'>img2, </if>description)
  		values(productsq.nextval, ${subno}, #{pname}, ${stock}, ${allstock}, ${pprice}, ${saleprice},
- 		#{img1}, #{img2}, #{description})
+ 		#{img1}, <if test='#{img2}!=null || #{img2}!=""'> #{img2}, </if>#{description})
  	</insert>
  	
  	<insert id="optionInsert" parameterType="com.arbor.home.vo.OptionVO">
@@ -45,7 +51,7 @@
  	
  	<update id="productUpdate" parameterType="com.arbor.home.vo.ProductVO">
  		update product set subno=${subno}, pname=#{pname}, pprice=${pprice}, saleprice=${saleprice},
- 		stock=${stock}, img1=#{img1}, img2=#{img2}, description=#{description} where pno=${pno}
+ 		stock=${stock}, img1=#{img1}, <if test='#{img2}!=null || #{img2}!=""'>img2=#{img2}, </if>description=#{description} where pno=${pno}
  	</update>
  	
  	<delete id="optionDelete" parameterType="int">
@@ -64,4 +70,16 @@
  	<delete id="optionAllDelete" parameterType="int">
  		delete from optiontbl where pno=${param1}
  	</delete>
+ 	
+ 	<select id="productListClient" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
+ 		select pno, subno, pname, pprice, saleprice, img1, img2 from product where subno=${param1}
+ 	</select>
+ 	
+ 	<select id="productListRGB" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
+ 		select o.pno, rgbvalue from optiontbl o join product p on o.pno=p.pno where p.subno=${param1}
+ 	</select>
+ 	
+ 	<select id="mainnameSelect" parameterType="int" resultType="string">
+ 		select mainname from maincate where mainno=${param1}
+ 	</select>
  </mapper>

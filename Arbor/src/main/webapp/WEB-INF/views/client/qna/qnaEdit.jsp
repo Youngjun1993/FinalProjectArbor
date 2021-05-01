@@ -55,15 +55,15 @@
 <div id="y_qnaWrite_Wrap" class="w1400_container clearfix"> 
        <div id="y_leftMenu">
            <ul>
-               <li class="y_title_fs25">My Page</li>
-               <li><a href="#">구매내역</a></li>
-               <li><a href="#">회원정보수정</a></li>
-               <li><a href="#">리뷰관리</a></li>
-               <li><a href="qnaList">1:1문의</a></li>
-               <li><a href="#">쿠폰내역</a></li>
-               <li><a href="#">적립금내역</a></li>
-               <li><a href="#">회원탈퇴</a></li>
-           </ul>
+	           <li class="y_title_fs25">My Page</li>
+	           <li><a href="purchaseList">구매내역</a></li>
+	           <li><a href="memberEdit">회원정보수정</a></li>
+	           <li><a href="reviewList">리뷰관리</a></li>
+	           <li><a href="qnaList">1:1문의</a></li>
+	           <li><a href="couponList">쿠폰내역</a></li>
+	           <li><a href="pointList">적립금내역</a></li>
+	           <li><a href="memberDel">회원탈퇴</a></li>
+       		</ul>
        </div>
        <div id="y_write_rightcon" class="y_rightcon">
            <p class="y_title_fs25">1:1문의(Q&#38;A) 수정하기</p>

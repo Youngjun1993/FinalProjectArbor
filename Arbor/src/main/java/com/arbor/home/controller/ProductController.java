@@ -1,16 +1,12 @@
 package com.arbor.home.controller;
 
 import java.io.File;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Controller;
@@ -25,9 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.arbor.home.dao.ProductDAOImp;
 import com.arbor.home.service.ProductServiceImp;
-import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
@@ -44,14 +38,28 @@ public class ProductController {
 	
 	// View - 상품목록
 	@RequestMapping("/productList")
-	public String productList() {
-		return "client/product/productList";
+	public ModelAndView productList(int mainno, int subno) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", productService.productListClient(subno));
+		mav.addObject("subCate", productService.subCateList(mainno));
+		mav.addObject("mainname", productService.mainnameSelect(mainno));
+		mav.setViewName("client/product/productList");
+		return mav;
+	}
+	
+	@RequestMapping("/rgb")
+	@ResponseBody
+	public List<OptionVO> rgbSearch(int subno) {
+		return productService.productListRGB(subno);
 	}
 	
 	// View - 상품상세페이지
 	@RequestMapping("/productView")
-	public String productView() {
-		return "client/product/productView";
+	public ModelAndView productView(int pno) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vo", productService.productSelect(pno));
+		mav.setViewName("client/product/productView");
+		return mav;
 	}
 	
 	
@@ -91,11 +99,8 @@ public class ProductController {
 		
 		// 저장할 경로 위치 설정 (upload 폴더에 넣을거임)
 		String path = req.getSession().getServletContext().getRealPath("/upload");
-		System.out.println(path);
 		// 파일 업로드
 		String imgName1 = image1.getOriginalFilename();
-		String imgName2 = image2.getOriginalFilename();
-System.out.println(imgName2);
 		// 실제 파일 업로드시키기 (img1)
 		int p=1;
 		if(imgName1!=null && !imgName1.equals("")) {
@@ -120,16 +125,17 @@ System.out.println(imgName2);
 			pvo.setImg1(f.getName());
 		}
 		// img2에 업로드
+		String imgName2 = image2.getOriginalFilename();
 		int j=1;
 		if(imgName2!=null && !imgName2.equals("")) {
 			File f2 = new File(path, imgName2);
 			while(f2.exists()) {
 				/* 있으면 true, 없으면 false 반환되므로 true일때 filename rename */
-				int point = imgName2.lastIndexOf(".");
-				String name = imgName2.substring(0, point);
-				String extName = imgName2.substring(point+1);
+				int point2 = imgName2.lastIndexOf(".");
+				String name2 = imgName2.substring(0, point2);
+				String extName2 = imgName2.substring(point2+1);
 				
-				f2 = new File(path, name+"_"+(j++)+"."+extName);
+				f2 = new File(path, name2+"_"+(j++)+"."+extName2);
 			}
 			try {
 				if(imgName2!=null && !imgName2.equals("")) {
@@ -153,7 +159,7 @@ System.out.println(imgName2);
 				System.out.println("productInsert 에러발생!!!");
 				File f = new File(path, imgName1);
 				f.delete();
-				File del2 = new File(path, pvo.getImg2());
+				File del2 = new File(path, imgName2);
 				del2.delete();
 				mav.setViewName("redirect:productInsert");
 			}
@@ -177,6 +183,8 @@ System.out.println(imgName2);
 				productService.optionInsert(vo);
 			}
 			transactionManager.commit(status);
+			mav.addObject("mainno", pvo.getMainno());
+			mav.addObject("subno", pvo.getSubno());
 			mav.setViewName("redirect:productList");
 		} catch(Exception e) {
 			System.out.println("ProductController > productInsertOk에서 에러 발생!");
@@ -314,6 +322,7 @@ System.out.println(imgName2);
 					}
 				}
 				// optiontbl 수정하기
+System.out.println("등록옵션몇개야?"+optNameArr.length);
 				if(optNameArr.length>0) {
 					for(int i=0; i<optNameArr.length; i++) {
 						OptionVO optvo = new OptionVO();
@@ -393,8 +402,15 @@ System.out.println(imgName2);
 	}
 	
 	@RequestMapping("/manageCate")
-	public String manageCate() {
-		return "admin/product/manageCate";
+	public ModelAndView manageCate() {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("subCate", productService.subCateList(1));
+		mav.addObject("mainCate", productService.mainCateList());
+		mav.addObject("cateList", productService.subCateListAll());
+		mav.setViewName("admin/product/manageCate");
+		
+		return mav;
 	}
 	
 	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)

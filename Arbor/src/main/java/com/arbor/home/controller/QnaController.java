@@ -19,30 +19,6 @@ public class QnaController {
 	@Inject
 	QnaServiceImp qnaService;
 	
-	@RequestMapping("/qnaList")
-	public ModelAndView qnaList(HttpServletRequest req, HttpSession session) {
-		String pageNumStr = req.getParameter("pageNum");
-		PageSearchVO pageVo = new PageSearchVO();
-		ModelAndView mav = new ModelAndView();
-		
-		if(pageNumStr != null) {
-			pageVo.setPageNum(Integer.parseInt(pageNumStr));
-		}
-		
-		String userid = (String)session.getAttribute("logId");
-		if(userid == null || userid.equals("")) {
-			mav.setViewName("admin/member/login");
-		}else {
-			pageVo.setUserid(userid);
-			pageVo.setTotalRecord(qnaService.totalRecord(pageVo));
-			mav.addObject("list", qnaService.allList(pageVo));
-			mav.addObject("pageVO", pageVo);
-			mav.setViewName("client/qna/qnaList");
-		}
-		
-		return mav;
-	}
-	
 	@RequestMapping("/qnaWrite")
 	public String qnaWrite() {
 		return "client/qna/qnaWrite";
@@ -121,7 +97,7 @@ public class QnaController {
 		pageVo.setQnaSearchKey(req.getParameter("qnaSearchKey"));
 		pageVo.setQnaSearchWord(req.getParameter("qnaSearchWord"));
 		
-		pageVo.setTotalRecord(qnaService.totalRecord(pageVo));
+		pageVo.setTotalRecord(qnaService.admintotalRecord(pageVo));
 		
 		QnaVO vo = qnaService.qnaAdAnsCount();
 		vo.setAnsBtnCheck("N");
