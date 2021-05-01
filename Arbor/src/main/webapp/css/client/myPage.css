@@ -11,68 +11,23 @@
 .boxshadow{
 	box-shadow: 5px 5px 10px gray;
 }
-/*마이페이지 공통 메뉴바*/
-#y_leftMenu{
-    width: 150px;
-    float: left;
-}
-#y_leftMenu>ul>li{
-    height: 50px;
-    line-height: 50px;
-}
-#y_leftMenu>ul>li>a:hover{
-    font-weight: bold;
-}
-
-/*마이페이지 공통 탑 스타일*/
-#y_myPageTop ul{
-    color:#333;
-    border: 1px solid #fff;
-    background: rgb(248, 244, 236);
-    margin: 0 0 30px 0;
-    padding: 30px 40px 30px 40px;
-}
-#y_myPageTop>ul>li:first-child{
-    width: 400px;
-    text-align: left;
-    border: none;
-    font-size: 25px;
-    padding: 40px 0 30px 30px;
-}
-#y_myPageTop>ul>li{
-    float: left;
-    height: 80px;
-    padding: 40px 40px 30px 40px;
-    text-align: center;
-    font-size: 18px;
-    border-right: 1px solid #ddd;
-}
-#y_myPageTop>ul>li span:nth-of-type(2){
-	margin-left:15px;
-	display : block;
-}
-#y_myPageTop>ul>li:last-child{
-    border: none;
-}
-#y_myPageTop ul li span{
-    float: left;
-    display: block;
-}
 
 /*myPagemain 스타일*/
-y_myPageMain_wrap{
+#y_myPageMain_wrap{
     position: relative;
 }
-#y_myPage_rightCon{
+#y_myPage_rightCon, #y_pointList_rightCon{
     float: left;   
 }
-#y_myPage_rightCon>div{
+#y_myPage_rightCon>div, #y_pointList_rightCon>div{
     width: 1250px;
 }
-#y_myPage_rightCon>div h2{
+#y_myPage_rightCon>div h2, #y_pointList_rightCon>div h2,  #y_reviewList_rightCon>div h2{
 	margin-bottom:20px;
+	margin-top:10px;
 }
-#y_myPage_rightCon>div:nth-of-type(1)>ul>li{
+#y_myPage_rightCon>div:nth-of-type(1)>ul>li,
+#y_pointList_rightCon>div:nth-of-type(1)>ul>li{
     float: left;
     width: 200px;
     text-align: center;
@@ -88,15 +43,20 @@ y_myPageMain_wrap{
 	height:50px;
 	line-height: 50px;
 }
-#y_myPage_rightCon div:nth-of-type(1) ul{
+#y_myPage_rightCon div:nth-of-type(1) ul,
+#y_pointList_rightCon div:nth-of-type(1) ul{
     border-top: 1px solid #333;
 }
-#y_myPage_rightCon div:nth-of-type(1) ul li {
+#y_myPage_rightCon div:nth-of-type(1) ul li,
+#y_pointList_rightCon div:nth-of-type(1) ul li {
     height: 40px;
     line-height: 40px;
-    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
 }
-
+#y_myPage_rightCon div:nth-of-type(1) ul li:nth-child(1), #y_myPage_rightCon div:nth-of-type(1) ul li:nth-child(2),
+#y_myPage_rightCon div:nth-of-type(1) ul li:nth-child(3), #y_myPage_rightCon div:nth-of-type(1) ul li:nth-child(4){
+	border-bottom : 1px solid #aaa;
+}
 /*페이징*/
 #myPagePaging li{
     float: left;
@@ -119,6 +79,7 @@ y_myPageMain_wrap{
 #y_orderPopup_Wrap p{
     font-size: 18px;
     padding: 20px 20px 10px 10px;
+    font-weight: bold;
 }
 #y_orderPopup_Wrap>p{
     text-align: right;
@@ -128,12 +89,9 @@ y_myPageMain_wrap{
 }
 #y_orderPopup_Wrap div ul li{
     float: left;
-    border-top: 1px solid #ddd;
-}
-/* 팝업 테이블 스타일 */
-#y_orderPopup_Wrap>div:first-of-type ul{
     border-bottom: 1px solid #ddd;
 }
+/* 팝업 테이블 스타일 */
 #y_orderPopup_Wrap>div:first-of-type ul li:nth-child(2n+1), #y_orderPopup_Wrap>div:nth-of-type(2) ul:nth-of-type(1) li:nth-child(2n+1){
     width:110px;
     height: 30px;
@@ -156,7 +114,6 @@ y_myPageMain_wrap{
 }
 #y_orderPopup_Wrap>div:nth-of-type(2) ul:nth-of-type(2){
     border-top: none;
-    border-bottom: 1px solid #ddd;
 }
 #y_orderPopup_Wrap>div:nth-of-type(2) ul:nth-of-type(2) li:nth-child(2n+2){
     width: 470px;
@@ -164,15 +121,17 @@ y_myPageMain_wrap{
     height: 30px;
     line-height: 30px;
 }
-#y_orderPopup_Wrap>div:nth-of-type(3) ul{
-    border-bottom: 1px solid #ddd;
-}
 #y_orderPopup_Wrap>div:nth-of-type(3) ul li{
     text-align: center;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid #eee;
     height: 50px;
     line-height: 50px;
 }
+#y_orderPopup_Wrap>div:nth-of-type(3) ul li:nth-child(1), #y_orderPopup_Wrap>div:nth-of-type(3) ul li:nth-child(2),
+#y_orderPopup_Wrap>div:nth-of-type(3) ul li:nth-child(3), #y_orderPopup_Wrap>div:nth-of-type(3) ul li:nth-child(4){
+	border-bottom:1px solid #aaa;
+}
+
 #y_orderPopup_Wrap>div:nth-of-type(3) ul li:nth-child(4n+1){
     width: 298px;
 }
@@ -191,15 +150,16 @@ y_myPageMain_wrap{
     height: 30px;
     line-height: 30px;
 }
-#y_orderPopup_Wrap>div:nth-of-type(4) ul{
-    border-bottom: 1px solid #ddd;
-}
 #y_orderPopup_Wrap>div:nth-of-type(4) ul li{
     width: 199px;
     height: 30px;
     line-height: 30px;
     text-align: center;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid #eee;
+}
+#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(1),#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(2),
+#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(3){
+	border-bottom: 1px solid #aaa;
 }
 #y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(3n+3){
     border-right: none;
@@ -370,7 +330,7 @@ y_myPageMain_wrap{
 }
 #y_coupon_rightCon>div:nth-of-type(2) ul:first-child{
     border-top: 2px solid #333;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #aaa;
 }
 #y_coupon_rightCon>div:nth-of-type(2) ul li:nth-child(2){
     width: 400px;
@@ -378,6 +338,63 @@ y_myPageMain_wrap{
 #y_coupon_rightCon>div:nth-of-type(2) ul li:nth-child(5){
     width: 200px;
 }
-#y_coupon_rightCon>div:nth-of-type(2) ul:last-child{
+#y_coupon_rightCon>div:nth-of-type(2) ul:last-child li{
     border-bottom: 1px solid #eee;
+}
+/*pointList 스타일*/
+#y_pointList_rightCon>div:nth-of-type(1) ul li:nth-child(1),#y_pointList_rightCon>div:nth-of-type(1) ul li:nth-child(2),
+#y_pointList_rightCon>div:nth-of-type(1) ul li:nth-child(2),#y_pointList_rightCon>div:nth-of-type(1) ul li:nth-child(3),
+#y_pointList_rightCon>div:nth-of-type(1) ul li:nth-child(4),#y_pointList_rightCon>div:nth-of-type(1) ul li:nth-child(5) {
+	border-bottom: 1px solid #aaa;
+}
+#y_pointList_rightCon>div:nth-of-type(1) ul li:nth-child(5n+2){
+	width: 450px;
+	text-align: left;
+}
+#y_pointList_rightCon>div:nth-of-type(1) ul li:nth-child(2){
+	text-align: center;	
+}
+
+/* rewview 페이지 스타일 */
+#y_reviewList_rightCon{
+    float: left;
+    width: 1250px;
+}
+
+#y_reviewList_rightCon button{
+    border: 1px solid #ddd;
+    width: 60px;
+    height: 25px;
+    line-height: 25px;
+    background: #fff;
+    cursor: pointer;
+}
+#y_reviewList_rightCon>div:nth-of-type(1){
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+#y_reviewList_rightCon>div:nth-of-type(2) ul li{
+    font-size: 14px;
+    float: left;
+    width: 200px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+}
+#y_reviewList_rightCon>div:nth-of-type(2) ul:first-child{
+    border-top: 2px solid #333;
+    border-bottom: 1px solid #aaa;
+}
+#y_reviewList_rightCon>div:nth-of-type(2) ul li:nth-child(2){
+    width: 450px;
+    text-align: center;
+}
+#y_reviewList_rightCon>div:nth-of-type(2) ul li:nth-child(5){
+    width: 200px;
+}
+#y_reviewList_rightCon>div:nth-of-type(2) ul:last-child li{
+    border-bottom: 1px solid #eee;
+}
+#y_reviewList_rightCon>div:nth-of-type(2) ul:last-child li:nth-child(5n+2) {
+	text-align: left;	
 }

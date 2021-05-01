@@ -67,4 +67,34 @@ public class MyPageService implements MyPageServiceImp {
 		return mypageDAO.qnaTotalRecord(vo);
 	}
 
+	@Override
+	public List<CouponVO> cpnList(PageSearchVO vo) {
+		return mypageDAO.cpnList(vo);
+	}
+	@Override
+	public int cpnTotalRecord(PageSearchVO vo) {
+		return mypageDAO.cpnTotalRecord(vo);
+	}
+
+	@Override
+	public List<PointVO> pointList(PageSearchVO vo) {
+		return mypageDAO.pointList(vo);
+	}
+
+	@Override
+	public int pointTotalRecord(PageSearchVO vo) {
+		return mypageDAO.pointTotalRecord(vo);
+	}
+
+	@Override
+	public List<ReviewVO> reviewList(PageSearchVO vo) {
+		return mypageDAO.reviewList(vo);
+	}
+
+	@Override
+	public int reviewTotalRecord(PageSearchVO vo) {
+		return mypageDAO.reviewTotalRecord(vo);
+	}
+
+
 }
