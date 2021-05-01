@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* 왼쪽메뉴 */
+/* 관리자 공통메뉴 */
 .h_sidemenuContainer {
 	float:left;
 	width: 150px;
@@ -96,6 +96,8 @@
     background: #fff;
     opacity: 0;
 }
+/* 관리자 공통메뉴 끝 */
+
 
 .h_mainContainer{
 	float:right;
@@ -134,7 +136,7 @@
    
      }
 	
-	/* 테이블정렬용 */
+	/* 테이블 정렬용 */
 	
 	.h_formtable{
 		border:1px solid;
@@ -165,8 +167,20 @@
 		
 	}
 	
-	/* 회원검색 ul li */
+	.h_searchBtnBox {
+		margin:10px 0;
+		width:1200px;
+		text-align:center;
+		
+	}
+	.h_searchMultiBtn {
 	
+		margin:10px 0;
+		width:1200px;
+		
+	}
+	
+	/* 회원검색 ul li */
 	
 	.h_mainContainer li{
 		float:left;
@@ -185,9 +199,6 @@
 		border-bottom:1px solid #aaa !important;
 	}
 	
-	.h_memSearchList.clearfix{
-		margin-top:20px
-	}
 	/* .h_mainContainer li:nth-child(9n+5) {
 		
 	} */

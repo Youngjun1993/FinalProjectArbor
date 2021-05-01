@@ -31,9 +31,9 @@ public class MemberService implements MemberServiceImp {
 	}
 
 	@Override
-	public List<MemberVO> memberAllselect() {
+	public List<MemberVO> memberAllselect(MemberVO vo) {
 		
-		return memberDAO.memberAllselect();
+		return memberDAO.memberAllselect(vo);
 	}
 
 }

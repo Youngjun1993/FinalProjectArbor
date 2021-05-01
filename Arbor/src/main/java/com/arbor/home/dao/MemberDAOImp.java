@@ -15,6 +15,6 @@ public interface MemberDAOImp {
 	public int idCheck(String userid);
 	
 	//회원검색 전체선택
-	public List<MemberVO> memberAllselect();
+	public List<MemberVO> memberAllselect(MemberVO vo);
 	
 }
