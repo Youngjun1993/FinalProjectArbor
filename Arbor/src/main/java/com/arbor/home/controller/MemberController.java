@@ -146,9 +146,6 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("list", memberService.memberAllselect(vo));
-		
-		System.out.println("smsok의 값 = " + vo.getSmsok());
-		
 		mav.setViewName("admin/member/memberAdminSearch");
 		
 		return mav;
