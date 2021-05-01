@@ -119,12 +119,21 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
+		//세션아웃 값을 넘겨줘야함 디비?
 		return "home";
 	}
 	
+	
+	
 	@RequestMapping("/memberSearch")
-	public String member() {
-		return "admin/member/memberAdminSearch";
+	public ModelAndView memberSearch() {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("list", memberService.memberAllselect());
+		mav.setViewName("admin/member/memberAdminSearch");
+		
+		return mav;
 	}
 	
 	//중복아이디 체크

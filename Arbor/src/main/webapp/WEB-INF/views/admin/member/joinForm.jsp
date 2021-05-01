@@ -84,7 +84,7 @@
 			   
 		});
 		
-		//이메일인증 인증번호 전송
+		//이메일인증 인증번호 전송 인터셉션으로 mailcheck끊기
 		
 		var emailcode = ""; 
 		
@@ -97,7 +97,7 @@
 			
 			$.ajax({
 		        
-		        type:"GET",
+		        type:"POST",
 		        url:"mailcheck?email=" + email,
 		        success:function(data){
 		        	 //console.log("data : " + data);/* 반환데이터 확인 : data는 컨트롤러 이메일 인증 메소드에서 생성해 리턴한 난수(String타입) */
