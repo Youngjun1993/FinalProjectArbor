@@ -5,6 +5,11 @@
 <title>arbor > event</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/event.css" type="text/css"/>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+
 <script>
 	$(function(){
 		
@@ -20,7 +25,7 @@
 		var title = "${title}";
 		if(title=="timeSale"){	//타임세일 tab -> 타임세일 이미지, 시간 불러오기 **
 			$("#j_tab1").prop("checked",true);
-			timeSaleAjax();
+//			timeSaleAjax();
 		}
 		else if(title=="nowEvent"){
 			$("#j_tab2").prop("checked",true);
@@ -31,29 +36,30 @@
 		let chkr = $(".j_tab-wrap [name='tabs']:checked").next().text();
 		$(".j_eventMenu").text(chkr);
 		
+		//==================== TIME SALE ====================
 		//타임세일 데이터 가져오기
+/*	
 		function timeSaleAjax(){
 			$.ajax(
 				{
 					url: 'getTimeSale',
 					dataType: 'json',
 					success: function(vo){
-						console.log("ajax 넘어왔니?");
-						console.log(vo.saleContent);
-						console.log(vo.saleEnd);
 						$("#timeSaleContent").html(vo.saleContent);
+						$.each(vo, function(idx, list){
+							var tag = "";
+							tag = "<div id='timer'>"
+						});
 						runTimer(vo.saleEnd);
-					},error: function(error){
-						console.log("에ㅔㅔㅔㅔ러ㅓㅓㅓㅓㅓㅓㅓ");
 					}
 				}
 			)
 		}
-		
-		
+*/
 		//타임세일 tab - 타이머 구현
-		function runTimer(date){
-			var saleEnd = new Date(date);
+/*
+		function runTimer(saleEndDate){
+			var saleEnd = new Date(saleEndDate);
 			var _second = 1000;
 			var _minute = _second*60;
 			var _hour = _minute*60;
@@ -75,17 +81,34 @@
 				var hours = Math.floor((interval % _day) / _hour);
 				var minutes = Math.floor((interval % _hour) / _minute);
 				var seconds = Math.floor((interval % _minute) / _second);
-				
-				var setTimer = "D-"+days+" ";
+
+				var setTimer = "<span class='d-day'>D-"+days+" </span>";
 				setTimer += hours+"시간 ";
 				setTimer += minutes+"분 ";
-				setTimer += seconds+"초 ";
-				$("#timer").text(setTimer);
-				console.log(setTimer);
+				setTimer += seconds+"초";
+				$("#timer").html(setTimer);
 			}
-			
 			timer = setInterval(showCountDown, 1000);
 		}
+*/		
+		
+		//타임세일 슬라이드
+		$("#timeSaleSlider").bxSlider({
+			mode: 'horizontal',
+			slideWidth: 800,
+			slideHeight: 500,
+			auto: true,
+			infiniteLoop: true,
+			onSlideAfter:function(){
+				console.log("@@ 타임세일 슬라이드 실행 @@");
+			}
+		});
+		
+		
+		
+		
+		
+		//===================================================
 		
 		//EVENT 게시물 검색
 		$(".searchFrm").submit(function(){
@@ -119,7 +142,12 @@
 		<div class="j_tab-content" id="j_tab1_content">
 			<div>
 				<div id="timer"></div>
-				<div id="timeSaleContent"></div>
+				<div id="timeSaleContent">
+					<ul id="timeSaleSlider">
+						<li><a href="#"><img src="<%=request.getContextPath() %>/img/슬라이드침대1.PNG"></a></li>
+						<li><a href="#"><img src="<%=request.getContextPath() %>/img/슬라이드침대2.PNG"></a></li>
+					</ul>
+				</div>			
 			</div>
 		</div>
 		
@@ -132,7 +160,7 @@
 						<option value="eventContent">내용</option>
 					</select>
 					<input type="text" name="searchWord" class="j_searchWord" placeholder="검색어 입력"/>
-					<input type="submit" value="검색"/>
+					<input type="submit" class="clientMainBtn" value="검색"/>
 				</form>
 			</div>
 			<div>
@@ -172,7 +200,7 @@
 						<option value="eventContent">내용</option>
 					</select>
 					<input type="text" name="searchWord" class="j_searchWord" placeholder="검색어 입력"/>
-					<input type="submit" value="검색"/>
+					<input type="submit" class="clientMainBtn" value="검색"/>
 				</form>			
 			</div>
 		

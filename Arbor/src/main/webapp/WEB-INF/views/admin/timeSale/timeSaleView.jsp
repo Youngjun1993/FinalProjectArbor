@@ -48,8 +48,8 @@
 			<span id="j_saleContent">${vo.saleContent }</span>
 		<hr/>
 		<p class="j_eventSetBtn">
-			<input type="button" id="j_tsEditBtn" value="수정"/> 
-			<input type="button" id="j_tsDelBtn" value="삭제"/> 
+			<input type="button" class="adminMainBtn" id="j_tsEditBtn" value="수정"/> 
+			<input type="button" class="adminSubBtn" id="j_tsDelBtn" value="삭제"/> 
 		</p>
 		</div>
 	</div>

@@ -142,7 +142,7 @@
 				<br/><br/>
 				<textarea name="eventContent" id="eventContent">${vo.eventContent }</textarea>
 				<br/>
-				<p class="j_eventSetBtn"><input type="button" id="j_eventEditBtn" value="수정"> <input type="button" id="j_editCnlBtn" value="취소"></p>
+				<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_eventEditBtn" value="수정"> <input type="button" class="adminSubBtn" id="j_editCnlBtn" value="취소"></p>
 			</div>
 		</form>
 	</div>

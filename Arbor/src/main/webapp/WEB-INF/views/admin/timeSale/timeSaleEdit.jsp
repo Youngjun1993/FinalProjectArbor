@@ -140,7 +140,7 @@
 				<input type="hidden" name="saleNo" value="${vo.saleNo }"/>
 				<span class="j_category">TIMESALE No.</span> ${vo.saleNo }<br/>
 				<span class="j_category">상품번호</span> <input type="text" name="pNo" id="j_pNo" value="${vo.pNo }"/>
-				<input type="button" value="조회" id="j_pSearchBtn"/><br/>
+				<input type="button" class="adminMainBtn" id="j_pSearchBtn" value="조회"/><br/>
 				<span class="j_category">상품명</span> <input type="text" name="pName" id="j_pName" disabled value="${vo.pName }"/><br/>
 				<span class="j_category">상품가격</span> <input type="text" name="pPrice" id="j_pPrice" disabled value="${vo.pPrice }"/><br/>
 				<span class="j_category">할인가격</span> <input type="text" name="salePrice" id="j_salePrice" value="${vo.salePrice }"/><br/>
@@ -150,7 +150,7 @@
 				<br/><br/>
 				<textarea name="saleContent" id="saleContent">${vo.saleContent }</textarea>
 				<br/>
-				<p class="j_eventSetBtn"><input type="button" id="j_tsEditBtn" value="수정"> <input type="button" id="j_tsEditCnlBtn" value="취소"></p>
+				<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_tsEditBtn" value="수정"> <input type="button" class="adminSubBtn" id="j_tsEditCnlBtn" value="취소"></p>
 			</div>
 		</form>
 	</div>

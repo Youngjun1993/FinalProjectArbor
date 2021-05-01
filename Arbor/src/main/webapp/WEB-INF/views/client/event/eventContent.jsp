@@ -52,7 +52,7 @@
 		</div>
 	</c:if>
 	<form action="event">
-		<input type="button" value="목록" id="j_eventListBtn"/>
+		<input type="button" class="clientMainBtn" id="j_eventListBtn"  value="목록"/>
 	</form>
 </div>
 </body>

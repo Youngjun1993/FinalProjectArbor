@@ -20,14 +20,14 @@
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm">
-		<h1>타임세일 목록</h1>
+		<h1 class="j_adminMemu">타임세일 목록</h1>
 		<div class="clearfix j_search">
 			<form method="post" class="searchFrm" action="eventList">
 				<select id="j_searchKey" name="searchKey">
 					<option value="pNo">상품번호</option>
 					<option value="pName">상품명</option>
 				</select>
-				<input type="text" name="searchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
+				<input type="text" name="searchWord" class="adminMainBtn" id="j_searchWordNow" placeholder="검색어 입력"/>
 				<input type="submit" value="검색"/>
 			</form>
 		</div>
@@ -43,13 +43,13 @@
 			<c:forEach var="vo" items="${list }">
 				<li>${vo.saleNo }</li>
 				<li>${vo.pNo }</li>
-				<li><a href="timeSaleView?saleNo=${vo.saleNo }">${vo.pName }</a></li>
+				<li class="wordcut"><a href="timeSaleView?saleNo=${vo.saleNo }">${vo.pName }</a></li>
 				<li>${vo.pPrice }</li>
 				<li>${vo.salePrice }</li>
 				<li>${vo.saleStart } ~ ${vo.saleEnd }</li>
 			</c:forEach>
 		</ul>
-		<p class="j_eventSetBtn"><input type="button" id="j_timeSaleInsertBtn" value="등록"></p>
+		<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_timeSaleInsertBtn" value="등록"></p>
 		</div>
 	</div>
 </div>
