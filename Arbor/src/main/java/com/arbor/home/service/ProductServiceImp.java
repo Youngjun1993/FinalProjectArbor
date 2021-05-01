@@ -20,7 +20,10 @@ public interface ProductServiceImp {
 	
 	//상품목록 불러오기
 	public List<ProductVO> productListClient(int subno);
-	
+	// 목록에 사용할 rgb컬러 불러오기
+	public List<OptionVO> productListRGB(int subno);
+	// mainname 가져오기
+	public String mainnameSelect(int mainno);
 	
 	/* 관리자 */
 	

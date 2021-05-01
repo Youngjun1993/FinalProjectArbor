@@ -27,6 +27,10 @@
 	position:relative;
 }
 
+#insertImg>div>p {
+	margin-bottom: 100px;
+}
+
 #secondP {
 	display: inline-block;
 	margin-left: 12px;
@@ -56,13 +60,34 @@
 	width:450px; margin: 0 auto;
 }
 
-#lastP>input {
+#lastP>input[type=submit] {
 	width:200px; height: 50px;
-	border-color: #fff; border-radius:15px;
-	border:blue;
-	background-color: rgb(248, 244, 236);
+	border: none;
+	background-color: rgb(191,43,53); color:#fff;
 	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 1.2em; font-weight: bold;
+	margin-bottom: 30px;
+}
+#lastP>input[type=reset] {
+	width:200px; height: 50px;
+	border: 1px solid rgb(191,43,53);
+	outline:none;
+	color: rgb(191,43,53); background-color:#fff;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 1.2em; font-weight: bold;
+	margin-bottom: 30px;
+}
+
+#lastP>input[type=submit]:hover {
+	background-color:rgb(171,23,33);
+	position:relative;
+	top:2px;
+}
+#lastP>input[type=reset]:hover {
+	border: 2px solid rgb(171,23,33);
+	color:rgb(171,23,33);
+	position:relative;
+	top:2px;
 }
 
 /* optionTbl */
@@ -72,10 +97,6 @@
 #optionTbl>div:first-child {
 	width: 750px; margin:30px auto;
 	text-align: center;
-}
-#optionTbl>div>input:nth-of-type(3) {
-	width:50px;
-	vertical-align: middle;
 }
 
 #optionTbl img {
@@ -93,9 +114,6 @@
 #insertInfo>div>form>input[type=submit] {
 	float:right; width: 150px; height: 35px;
 	margin-right: 50px;
-	border:#fff;
-	background-color: rgb(93, 121, 115);
-	color:#fff;
 }
 #searchContent {
 	display:inline-block;
@@ -146,6 +164,10 @@
 #productList>li>input[type=checkbox] {
 	width: 15px; height: 15px;
 }
+#productList>li>input[type=submit]{
+	width: 100px; height: 30px;
+}
+
 
 #listCheckAll {
 	width: 15px; height: 15px;
@@ -199,18 +221,8 @@ select {
 }
 
 input {
-	width: 285px; height: 28px;
+	width: 306px; height: 28px;
 	margin:5px 15px 5px 0;
-}
-
-input[type=submit], input[type=reset], button {
-	cursor:pointer;
-}
-input[value=선택삭제] {
-	float:right; width: 100px; height: 30px;
-	margin: 0 65px;
-	border:none; background-color: rgb(93, 121, 115);
-	color:#fff;
 }
 
 p>img {
@@ -230,8 +242,22 @@ p>img {
 	width: 80px;
 }
 
+/* product insert */
+.optionList>input {
+	width: 285px;
+}
+
+.optionList>input:nth-of-type(3) {
+	width:50px;
+	vertical-align: middle;
+}
+.optionList>input:nth-of-type(4) {
+	margin-right: 10px;
+}
+
 /* product Search */
 
 .centertxt {
 	margin-right: 10px;
 }
+

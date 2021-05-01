@@ -92,4 +92,14 @@ public class ProductService implements ProductServiceImp {
 	public List<ProductVO> productListClient(int subno) {
 		return productDAO.productListClient(subno);
 	}
+
+	@Override
+	public List<OptionVO> productListRGB(int subno) {
+		return productDAO.productListRGB(subno);
+	}
+
+	@Override
+	public String mainnameSelect(int mainno) {
+		return productDAO.mainnameSelect(mainno);
+	}
 }

@@ -63,7 +63,7 @@
 						<input type="text" id="startDate" placeholder="시작일 직접 선택" />
 						<span class="centertxt">~</span>
 						<input type="text" id="endDate" placeholder="종료일 직접 선택" />
-						<input type="submit" value="Search" />
+						<input type="submit" value="Search" class="adminMainBtn"/>
 						<br/>
 					</form>
 				</div>
@@ -75,17 +75,15 @@
 					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 				</p><br/>
 				<form method="post" action="ProductDeleteCheck">
-					<p><input type="checkbox" id="listCheckAll"/>전체선택
-					<input type="submit" value="선택삭제"/><p>
 					<ul id="productList">
-						<li>&nbsp</li>
+						<li><input type="checkbox" value="전체선택"/></li>
 						<li>상품코드</li>
 						<li>카테고리</li>
 						<li>상품명</li>
 						<li>판매가</li>
 						<li>재고</li>
 						<li>둥록일</li>
-						<li>&nbsp</li>
+						<li><input type="submit" value="선택삭제" class="adminSubBtn"/></li>
 						<c:forEach var="vo" items="${productList }">
 							<li><input type="checkbox" value=${vo.pno }/></li>
 							<li>${vo.pno }</li>
