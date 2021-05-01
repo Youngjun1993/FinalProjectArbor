@@ -38,14 +38,20 @@ public class ProductController {
 	
 	// View - 상품목록
 	@RequestMapping("/productList")
-	public String productList() {
-		return "client/product/productList";
+	public ModelAndView productList(int mainno, int subno ) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("subCate", productService.subCateList(mainno));
+		mav.setViewName("client/product/productView");
+		return mav;
 	}
 	
 	// View - 상품상세페이지
 	@RequestMapping("/productView")
-	public String productView() {
-		return "client/product/productView";
+	public ModelAndView productView(int pno) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vo");
+		mav.setViewName("client/product/productView");
+		return mav;
 	}
 	
 	
@@ -88,7 +94,6 @@ public class ProductController {
 		// 파일 업로드
 		String imgName1 = image1.getOriginalFilename();
 		String imgName2 = image2.getOriginalFilename();
-System.out.println("imgName2?"+imgName2);
 		// 실제 파일 업로드시키기 (img1)
 		int p=1;
 		if(imgName1!=null && !imgName1.equals("")) {
