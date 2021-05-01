@@ -1,16 +1,12 @@
 package com.arbor.home.controller;
 
 import java.io.File;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Controller;
@@ -25,9 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.arbor.home.dao.ProductDAOImp;
 import com.arbor.home.service.ProductServiceImp;
-import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
