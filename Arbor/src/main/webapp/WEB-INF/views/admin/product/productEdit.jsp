@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +84,7 @@
 					</c:if>
 					<c:if test="${vo.img2=='' || vo.img2==null}">
 					<!-- 두번째 파일 없을 때 -->
-						<input type="file" name="img2"/>
+						<input type="file" name="filename"/>
 					</c:if>
 					<br/>
 					<p>* 첫번째 이미지는 목록에 띄워질 메인이미지<br/><span id="secondP">두번째 이미지는 서브이미지 입니다.</span></p>
@@ -119,6 +120,18 @@
 							<img src="<%=request.getContextPath() %>/img/minus.png" class="minus"/>
 						</div>
 					</c:forEach>
+					<c:if test="${fn:length(optList)==0}">
+						<div class="optionList">
+							<input type="text" name="optname" placeholder="옵션명을 입력하세요"/>
+							<input type="text" name="optvalue" placeholder="옵션값을 입력하세요"/>
+							<input type='color' name='rgbvalue'/>
+							<input type="text" name="optprice" placeholder="추가 가격(-가능, 0가능)"/>
+							<input type="hidden" name="optno" value=""/>
+							<input type="hidden" name="deleteno" value=""/>
+							<img src="<%=request.getContextPath() %>/img/plus.png" class="plus"/>
+							<img src="<%=request.getContextPath() %>/img/minus.png" class="minus"/>
+						</div>
+					</c:if>
 				</div>
 			</div>
 			<p id="lastP"><input type="submit" value="수정완료"/><input type="reset" value="다시쓰기" /></p>
