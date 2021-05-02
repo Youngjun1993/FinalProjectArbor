@@ -12,7 +12,7 @@
 </head>
 <script>
 	$(function(){
-		//페이징 li만큼 갯수
+		//페이징 li만큼 갯수 구하기
 		var liCnt = $(".adPaging>li").length;
 		$(".adPaging").css({
 			"width" : liCnt*40+"px",
