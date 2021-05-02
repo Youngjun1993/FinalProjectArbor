@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<div id="y_myPageTop">
+        <ul class="clearfix">
+            <li>${username }님 환영합니다.</li>
+            <li>
+                <span><i class="fas fa-gem fa-3x"></i></span>
+                <span>적립금<br/>
+                <a href="pointList" class="ftBold25_blue">${pointVO.point}</a>원</span>
+            </li>
+            <li>
+                <span><i class="fas fa-tag fa-3x"></i></span>
+                <span>쿠폰<br/>
+                <a href="couponList" class="ftBold25_blue">${couponVO.cpnno}</a>개</span>
+            </li>
+            <li>
+                <span><i class="fas fa-edit fa-3x"></i></span>
+                <span>리뷰<br/>
+                <a href="reviewList" class="ftBold25_blue">${reviewVO.reviewno}</a>건</span>
+            </li>
+            <li>
+                <span><i class="fab fa-quora fa-3x"></i></span>
+                <span>문의<br/>
+                <a href="qnaList" class="ftBold25_blue">${qnaVO.qnano}</a>건</span>
+            </li>
+        </ul>
+    </div>
+    <div id="y_leftMenu">
+        <ul>
+            <li class="y_title_fs25">My Page</li>
+            <li><a href="purchaseList">구매내역</a></li>
+            <li><a href="#">회원정보수정</a></li>
+            <li><a href="reviewList">리뷰관리</a></li>
+            <li><a href="qnaList">1:1문의</a></li>
+            <li><a href="couponList">쿠폰내역</a></li>
+            <li><a href="pointList">적립금내역</a></li>
+            <li><a href="#">회원탈퇴</a></li>
+        </ul>
+    </div>

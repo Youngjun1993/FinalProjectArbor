@@ -59,7 +59,7 @@
 					<h3>이미지</h3><br/>
 					<input type="file" name="imgName1" id="img1" /><br/>
 					<input type="file" name="imgName2" id="img2" /><br/>
-					<p>* 이미지 크기는 10MB, 1200PX이하로 등록</p>
+					<p>* 첫번째 이미지는 목록에 띄워질 메인이미지<br/><span id="secondP">두번째 이미지는 서브이미지 입니다.</span></p>
 					<div id="imgPrint"><img src="<%=request.getContextPath() %>/img/noimg.png"/></div>
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					<h3>상세설명</h3><br/>
@@ -80,11 +80,14 @@
 						<br/><br/>
 						<img src="<%=request.getContextPath() %>/img/option.png"/>
 					</div>
-					<input type="text" name="optname" placeholder="옵션명을 입력하세요"/>
-					<input type="text" name="optvalue" placeholder="옵션값을 입력하세요"/>
-					<input type='color' name='rgbvalue'/>
-					<input type="text" name="optprice" placeholder="추가 가격(-가능, 0가능)"/>
-					<button type='button' onclick='javascript:optionAdd()'>+</button>
+					<div class="optionList">
+						<input type="text" name="optname" placeholder="옵션명을 입력하세요"/>
+						<input type="text" name="optvalue" placeholder="옵션값을 입력하세요"/>
+						<input type='color' name='rgbvalue'/>
+						<input type="text" name="optprice" placeholder="추가 가격(-가능, 0가능)"/>
+						<img src="<%=request.getContextPath() %>/img/plus.png" class="plus"/>
+						<img src="<%=request.getContextPath() %>/img/minus.png" class="minus"/>
+					</div>
 				</div>
 			</div>
 			<p id="lastP"><input type="submit" value="저장"/><input type="reset" value="다시쓰기" /></p>

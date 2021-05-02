@@ -5,17 +5,27 @@
 <title>arbor > event</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/event.css" type="text/css"/>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+
 <script>
 	$(function(){
+		
 		//EVENT 메뉴 내에서 탭 클릭시 view 변경
 		$(".j_tabLbl").click(function(){
 			var title = $(this).text();
 			$(".j_eventMenu").text(title);
+			if(title=="TIME SALE"){
+				timeSaleAjax();
+			}
 		});		
 		//header-EVENT 서브메뉴 클릭시 이벤트 탭 이동
 		var title = "${title}";
-		if(title=="timesale"){
+		if(title=="timeSale"){	//타임세일 tab -> 타임세일 이미지, 시간 불러오기 **
 			$("#j_tab1").prop("checked",true);
+//			timeSaleAjax();
 		}
 		else if(title=="nowEvent"){
 			$("#j_tab2").prop("checked",true);
@@ -23,17 +33,92 @@
 		else if(title=="endEvent"){
 			$("#j_tab3").prop("checked",true);
 		}
-		var chkr = $(".j_tab-wrap [name='tabs']:checked").next().text();
+		let chkr = $(".j_tab-wrap [name='tabs']:checked").next().text();
 		$(".j_eventMenu").text(chkr);
 		
+		//==================== TIME SALE ====================
+		//타임세일 데이터 가져오기
+/*	
+		function timeSaleAjax(){
+			$.ajax(
+				{
+					url: 'getTimeSale',
+					dataType: 'json',
+					success: function(vo){
+						$("#timeSaleContent").html(vo.saleContent);
+						$.each(vo, function(idx, list){
+							var tag = "";
+							tag = "<div id='timer'>"
+						});
+						runTimer(vo.saleEnd);
+					}
+				}
+			)
+		}
+*/
+		//타임세일 tab - 타이머 구현
+/*
+		function runTimer(saleEndDate){
+			var saleEnd = new Date(saleEndDate);
+			var _second = 1000;
+			var _minute = _second*60;
+			var _hour = _minute*60;
+			var _day = _hour*24;
+			var timer;
+			
+			function showCountDown(){
+				var now = new Date();
+				var interval = saleEnd - now;
+				
+				if(interval<0){
+					clearInterva(timer);
+					document.getElementById("timeSaleContent").textContent="해당 이벤트가 종료 되었습니다.";
+					return;
+				}
+				
+				//남은 시간 계산
+				var days = Math.floor(interval / _day);
+				var hours = Math.floor((interval % _day) / _hour);
+				var minutes = Math.floor((interval % _hour) / _minute);
+				var seconds = Math.floor((interval % _minute) / _second);
+
+				var setTimer = "<span class='d-day'>D-"+days+" </span>";
+				setTimer += hours+"시간 ";
+				setTimer += minutes+"분 ";
+				setTimer += seconds+"초";
+				$("#timer").html(setTimer);
+			}
+			timer = setInterval(showCountDown, 1000);
+		}
+*/		
 		
+		//타임세일 슬라이드
+		$("#timeSaleSlider").bxSlider({
+			mode: 'horizontal',
+			slideWidth: 800,
+			slideHeight: 500,
+			auto: true,
+			infiniteLoop: true,
+			onSlideAfter:function(){
+				console.log("@@ 타임세일 슬라이드 실행 @@");
+			}
+		});
+		
+		
+		
+		
+		
+		//===================================================
+		
+		//EVENT 게시물 검색
 		$(".searchFrm").submit(function(){
-			if("#j_searchWordNow").val()==""){
+			if(!$(".searchWord").val()){
 				alert("검색어를 입력하세요.");
 				return false;
 			}
 		});
 		return true;
+		
 		
 	});
 </script>
@@ -54,8 +139,16 @@
 		<label for="j_tab3" class="j_tabLbl">지난 이벤트</label>
 		
 		<!-- 타임세일 -->
-		<div class="j_tab-content" id="j_tab1_content">타임세일
-		
+		<div class="j_tab-content" id="j_tab1_content">
+			<div>
+				<div id="timer"></div>
+				<div id="timeSaleContent">
+					<ul id="timeSaleSlider">
+						<li><a href="#"><img src="<%=request.getContextPath() %>/img/슬라이드침대1.PNG"></a></li>
+						<li><a href="#"><img src="<%=request.getContextPath() %>/img/슬라이드침대2.PNG"></a></li>
+					</ul>
+				</div>			
+			</div>
 		</div>
 		
 		<!-- 진행중인 이벤트 -->
@@ -66,8 +159,8 @@
 						<option value="eventSubject">제목</option>
 						<option value="eventContent">내용</option>
 					</select>
-					<input type="text" name="searchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
-					<input type="submit" value="검색"/>
+					<input type="text" name="searchWord" class="j_searchWord" placeholder="검색어 입력"/>
+					<input type="submit" class="clientMainBtn" value="검색"/>
 				</form>
 			</div>
 			<div>
@@ -106,8 +199,8 @@
 						<option value="eventSubejct">제목</option>
 						<option value="eventContent">내용</option>
 					</select>
-					<input type="text" name="searchWord" id="j_searchWordEnd" placeholder="검색어 입력"/>
-					<input type="submit" value="검색"/>
+					<input type="text" name="searchWord" class="j_searchWord" placeholder="검색어 입력"/>
+					<input type="submit" class="clientMainBtn" value="검색"/>
 				</form>			
 			</div>
 		

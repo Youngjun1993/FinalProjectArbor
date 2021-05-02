@@ -14,6 +14,116 @@ $(function(){
 		$(this).prev().show();
 	});
 	
+	// mainCate, subCate 셀렉트 박스 변환
+	$("#maincate").change(function() {
+		var url="subCateList";
+		var param = "mainno="+$(this).val();
+		$.ajax({
+			url : url,
+			data : param,
+			success : function(result) {
+				var $result = $(result);
+				var tag="";
+				$result.each(function(idx, val){
+					tag += "<option value='"+val.subno+"'>"+val.subname+"</option>";
+				});
+				$("#subcate").html(tag);
+			}, error : function(e) {
+				
+			}
+		});
+	});
+	
+	// 파일 이미지 div에 띄우기
+	$("#img1").on('change', function(){
+         readURL(this);
+    });
+    $("#img2").on('change', function(){
+         readURL(this);
+    });
+    $("input[name=filename]").on('change', function(){
+         readURL(this);
+    });
+	
+    function readURL(input) {
+	      if (input.files && input.files[0]) {
+	         var reader = new FileReader();
+	
+	         reader.onload = function (e) {
+	            $('#imgPrint').children().attr('src', e.target.result);
+	         }
+	
+	         reader.readAsDataURL(input.files[0]);
+	      }
+	};
+	
+	// product Insert 유효성검사
+	$("#centerfrm>form").on('submit', function(){
+		if($("#pname").val()=='' || $("#pname").val()==null) {
+			alert("상품명은 필수 입력 항목입니다.");
+			return false;
+		} else if($("#stock").val()=='' || $("#stock").val()==null){
+			alert("재고량(입고량)은 필수 입력 항목입니다.");
+			return false;
+		} else if($("#pprice").val()=='' || $("#pprice").val()==null){
+			alert("상품 가격은 필수 입력 항목입니다.");
+			return false;
+		} else if ($("#img1").val()=='' || $("#img1").val()==null){
+			alert("상품 목록에 표시될 파일이므로, 이미지파일 최소 한개는 첨부해주셔야 합니다.");
+			return false;
+		} else if ($('#description').val()=='' || $('#description').val()==null) {
+			alert("상품 소개글은 필수 입력항목입니다.");
+			return false;
+		}
+		return true;
+	});
+	
+	// product Edit 유효성검사
+	$("#centerfrmEdit>form").on('submit', function(){
+		if($("#pname").val()=='' || $("#pname").val()==null) {
+			alert("상품명은 필수 입력 항목입니다.");
+			return false;
+		} else if($("#pprice").val()=='' || $("#pprice").val()==null){
+			alert("상품 가격은 필수 입력 항목입니다.");
+			return false;
+		} else if ($('#description').val()=='' || $('#description').val()==null) {
+			alert("상품 소개글은 필수 입력항목입니다.");
+			return false;
+		}
+		return true;
+	});
+	
+	/* 옵션 추가 및 삭제 */
+	$(document).on("click",".plus", function(){
+		
+		var tag = "<div class='optionList'>";	
+		tag += " <input type='text' name='optname' placeholder='옵션명을 입력하세요'/>";
+		tag += " <input type='text' name='optvalue' placeholder='옵션값을 입력하세요' />";
+		tag += " <input type='color' name='rgbvalue' style='width:50px; vertical-align: middle;'/>";
+		tag += " <input type='text' name='optprice' value=0 />";
+		tag += " <input type='hidden' name='optno' value='' />";
+		tag += " <input type='hidden' name='deleteno' value='' />";
+		tag += " <img src='./img/plus.png' class='plus'/>";
+		tag += " <img src='./img/minus.png' class='minus'/>";
+		tag += "</div>";
+		
+		$(this).next().after(tag);
+	});
+	
+	$(document).on("click",".minus", function(){
+		$(this).parent().hide();
+		
+		var num = $(this).prev().prev().prev().val();
+		$(this).prev().prev().val(num);
+	});
+	
+	/* productEdit - 파일삭제 */
+	$(".imgEdit").on('click', function(){
+		$(this).parent().hide();
+		$(this).parent().next().attr('name', 'delFile');
+		$(this).parent().next().next().attr('type', 'file');
+	});
+	
 	<!-- summerNote -->
 	$("#description").summernote({
 		height : 300, // 높이
@@ -64,112 +174,4 @@ $(function(){
 			}
 		});
 	}
-	
-	// mainCate, subCate 셀렉트 박스 변환
-	$("#maincate").change(function() {
-		var url="subCateList";
-		var param = "mainno="+$(this).val();
-		$.ajax({
-			url : url,
-			data : param,
-			success : function(result) {
-				var $result = $(result);
-				var tag="";
-				$result.each(function(idx, val){
-					tag += "<option value='"+val.subno+"'>"+val.subname+"</option>";
-				});
-				$("#subcate").html(tag);
-			}, error : function(e) {
-			
-			}
-		});
-	});
-	
-	// 파일 이미지 div에 띄우기
-	$("#img1").on('change', function(){
-         readURL(this);
-    });
-    $("#img2").on('change', function(){
-         readURL(this);
-    });
-	
-    function readURL(input) {
-	      if (input.files && input.files[0]) {
-	         var reader = new FileReader();
-	
-	         reader.onload = function (e) {
-	            $('#imgPrint').children().attr('src', e.target.result);
-	         }
-	
-	         reader.readAsDataURL(input.files[0]);
-	      }
-	};
-	
-	// product Insert 유효성검사
-	$("#centerfrm>form").on('submit', function(){
-		if($("#pname").val()=='' || $("#pname").val()==null) {
-			alert("상품명은 필수 입력 항목입니다.");
-			return false;
-		} else if($("#stock").val()=='' || $("#stock").val()==null){
-			alert("재고량(입고량)은 필수 입력 항목입니다.");
-			return false;
-		} else if($("#pprice").val()=='' || $("#pprice").val()==null){
-			alert("상품 가격은 필수 입력 항목입니다.");
-			return false;
-		} else if ($("#img1").val()=='' || $("#img1").val()==null){
-			alert("상품 목록에 표시될 파일이므로, 이미지파일 최소 한개는 첨부해주셔야 합니다.");
-			return false;
-		}
-		return true;
-	});
-	
-	// Datepicker
-	$.datepicker.setDefaults( $.datepicker.regional[ "ko" ] );
-	$("#startDate").datepicker({
-		showOn: "both",		//both:버튼을 누르거나 input을 클릭하면 달력 표시	
-		buttonImage: "<%=request.getContextPath()%>/img/calendar2.png",
-		buttonImageOnly: true,
-		changeMonth: true, 
-	    changeYear: true,
-	    dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-	    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-	    monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	    monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	    dateFormat: "yy-mm-dd",
-	    maxDate: 0, // 오늘일자 이후 선택불가 설정
-	    onClose : function(selectedDate){
-	    	// 시작일 datepicker가 닫히면 종료일 datepick는 시작일 이전 선택불가하게 설정
-	    	$("#endDate").datepicker("option", "minDate", selectedDate);
-	    }
-	});
-	$("#endDate").datepicker({
-		showOn: "both",		//both:버튼을 누르거나 input을 클릭하면 달력 표시	
-		buttonImage: "<%=request.getContextPath()%>/img/calendar2.png",
-		buttonImageOnly: true,
-		changeMonth: true, 
-	    changeYear: true,
-	    dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-	    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-	    monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	    monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	    dateFormat: "yy-mm-dd",
-	    maxDate: 0, // 오늘일자 이후 선택불가 설정
-	    onClose : function(selectedDate){
-	    	// 종료일 datepicker가 닫히면 시작일 datepick는 종료일 이후 선택불가하게 설정
-	    	$("#startDate").datepicker("option", "maxDate", selectedDate);
-	    }
-	});
-	
 });
-
-function optionAdd() {
-	var tag = "";
-		
-	tag += " <input type='text' name='optname' placeholder='옵션명을 입력하세요'/>";
-	tag += " <input type='text' name='optvalue' placeholder='옵션값을 입력하세요' />";
-	tag += " <input type='color' name='rgbvalue'/>";
-	tag += " <input type='text' name='optprice' placeholder='추가가격(-가능, 0가능)'/>";
-	tag += " <button type='button' onclick='javascript:optionAdd()'>+</button>";
-	
-	$("#optionTbl").append(tag);
-}

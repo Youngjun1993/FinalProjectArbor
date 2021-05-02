@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
 <!-- datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <!-- summernote -->
 <script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
@@ -76,7 +76,7 @@
 			$.ajax({
 				data: data,
 				type: 'POST',
-				url: 'uploadSummernoteImageFile1',
+				url: 'uploadSummernoteImageFile',
 				contentType: false,
 				processData: false,
 				success: function(data){
@@ -86,10 +86,38 @@
 		}
 		
 		//첨부파일 삭제
-		$("#j_insertFrm b").click(function(){
+		$("#j_editFrm b").click(function(){
 			$(this).parent().css("display", "none");
 			$(this).parent().next().attr("name", "delFile");
+			$(this).parent().next().removeAttr("id");
 			$(this).parent().next().next().attr("type", "file");
+			$(this).parent().next().next().attr("id", "eventImg1");
+		});
+		
+		//EVENT Edit 유효성 검사
+		$("#j_eventEditBtn").on('click', function(){
+			if($('#eventSubject').val()=='' || $('#eventSubject').val()==null){
+				alert("제목은 필수 입력 항목입니다.");
+				$('#eventSubject').focus();
+				return false;
+			}else if($('#eventStart').val()=='' || $('#eventStart').val()==null){
+				alert("이벤트 시작일은 필수 입력 항목입니다.");
+				return false;
+			}else if($('#eventEnd').val()=='' || $('#eventEnd').val()==null){
+				alert("이벤트 종료일은 필수 입력 항목입니다.");
+				return false;
+			}else if($('#eventImg1').val()=='' || $('#eventImg1').val()==null){
+				alert("이벤트 타이틀 이미지는 필수 입력 항목입니다.");
+				return false;
+			}else if($('#eventContent').summernote('code')=='' || $('#eventContent').summernote('code')==null){
+				alert("본문 내용은 필수 입력 항목입니다.");
+				return false;
+			}
+			$("#j_eventEditFrm").submit();
+		});
+		
+		$("#j_editCnlBtn").click(function(){
+			location.href="eventView?eventNo=${vo.eventNo}";
 		});
 		
 	});
@@ -98,26 +126,23 @@
 <body>
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
-	<div class="j_centerFrm" id="j_insertFrm">
+	<div class="j_centerFrm" id="j_editFrm">
 		<h1>이벤트 수정</h1>
-		<form method="post" action="eventEditOk" enctype="multipart/form-data">
+		<form method="post" id="j_eventEditFrm" action="eventEditOk">
 		<input type="hidden" name="eventNo" value="${vo.eventNo }"/>
 			<div>
-				<span class="j_category">제목</span>
-					<input type="text" name="eventSubject" id="eventSubject" value="${vo.eventSubject }"/>
-				<br/>
+				<span class="j_category">제목</span> <input type="text" name="eventSubject" id="eventSubject" value="${vo.eventSubject }"/><br/>
 				<span class="j_category">이벤트 기간</span>
 					<input type="text" name="eventStart" id="eventStart" value="${vo.eventStart }"/> ~ 
-					<input type="text" name="eventEnd" id="eventEnd" value="${vo.eventEnd }"/>
-				<br/>
+					<input type="text" name="eventEnd" id="eventEnd" value="${vo.eventEnd }"/><br/>
 				<span class="j_category" id="j_eventFile">타이틀 이미지</span>
-					<span>${vo.eventImg1 } <b>X</b></span>
-					<input type="hidden" name="" value="${vo.eventImg1 }"/>
-					<input type="hidden" name="img1" value="${vo.eventImg1 }"/>
+				<span>${vo.eventImg1 } <b>X</b></span>
+					<input type="hidden" id="eventImg1" value="${vo.eventImg1 }"/>
+					<input type="hidden" name="img1" value=""/>
 				<br/><br/>
 				<textarea name="eventContent" id="eventContent">${vo.eventContent }</textarea>
 				<br/>
-				<p class="j_eventSetBtn"><input type="submit" value="수정"> <input type="button" id="j_editCnlBtn" value="취소"></p>
+				<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_eventEditBtn" value="수정"> <input type="button" class="adminSubBtn" id="j_editCnlBtn" value="취소"></p>
 			</div>
 		</form>
 	</div>
