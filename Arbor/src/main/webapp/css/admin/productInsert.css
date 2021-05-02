@@ -9,7 +9,7 @@
 	float:left;
 }
 
-#centerfrm {
+#centerfrm, #centerfrmEdit {
 	border-left: 2px solid rgb(93, 121, 115);
 	width: 1250px;
 	float: right;
@@ -62,6 +62,7 @@
 	border:blue;
 	background-color: rgb(248, 244, 236);
 	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 1.2em; font-weight: bold;
 }
 
 /* optionTbl */
@@ -72,12 +73,16 @@
 	width: 750px; margin:30px auto;
 	text-align: center;
 }
-#optionTbl>input:nth-of-type(4n+3) {
+#optionTbl>div>input:nth-of-type(3) {
 	width:50px;
 	vertical-align: middle;
 }
-#optionTbl>button {
-	width: 33px; height: 33px;
+
+#optionTbl img {
+	margin:0 5px;
+	vertical-align: middle;
+	width: 32px; height: 32px;
+	cursor: pointer;
 }
 
 
@@ -132,8 +137,11 @@
 #productList>li:nth-of-type(8n+1) {
 	width: 5%;
 }
+#productList>li:nth-of-type(8n+3) {
+	width: 15%;
+}
 #productList>li:nth-of-type(8n+4) {
-	width: 35%;
+	width: 30%;
 }
 #productList>li>input[type=checkbox] {
 	width: 15px; height: 15px;
@@ -141,8 +149,39 @@
 
 #listCheckAll {
 	width: 15px; height: 15px;
-	margin: 0 5px;
+	margin: 0 5px 0 50px;
 	vertical-align: middle;
+}
+
+/* product Edit */
+#editImg>div>div>img {
+	width: 15px; height: 15px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+/* manage category */
+#categoryList {
+	overflow: auto; text-align: center;
+	width: 1000px; margin: 30px auto;
+}
+#categoryList>li {
+	float:left; width: 10%; height: 40px; line-height: 40px;
+	border-bottom: 1px solid #ddd;
+}
+#categoryList>li:nth-of-type(6n+4), #categoryList>li:nth-of-type(6n+5), #categoryList>li:nth-of-type(6n+6) {
+	width: 23%;
+}
+#categoryList>li>input[type=checkbox] {
+	width: 15px; height: 15px;
+}
+
+#insertCategoryDiv {
+	margin-top: 15px;
+}
+
+#insertCategoryDiv>hr {
+	margin: 30px 0 80px;
 }
 
 /*tag css*/
@@ -160,7 +199,7 @@ select {
 }
 
 input {
-	width: 300px; height: 28px;
+	width: 285px; height: 28px;
 	margin:5px 15px 5px 0;
 }
 
@@ -169,7 +208,7 @@ input[type=submit], input[type=reset], button {
 }
 input[value=선택삭제] {
 	float:right; width: 100px; height: 30px;
-	margin: 0 15px;
+	margin: 0 65px;
 	border:none; background-color: rgb(93, 121, 115);
 	color:#fff;
 }

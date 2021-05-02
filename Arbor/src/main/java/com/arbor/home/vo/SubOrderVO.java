@@ -8,6 +8,7 @@ public class SubOrderVO {
 	private int quantity;
 	private int subprice;
 	private String pname;
+	
 	public int getSuborderno() {
 		return suborderno;
 	}

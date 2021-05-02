@@ -8,4 +8,8 @@ public interface MemberServiceImp {
 	
 	//회원가입
 	public int memberInsert(MemberVO vo);
+	
+	//idCheck
+	public int idCheck(String userid);
+	
 }

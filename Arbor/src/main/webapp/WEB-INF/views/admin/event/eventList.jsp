@@ -18,8 +18,8 @@
 <body>
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
-	<div class="j_centerFrm" id="j_listFrm">
-		<h1>이벤트 목록</h1>
+	<div class="j_centerFrm">
+		<h1 class="j_adminMemu">이벤트 목록</h1>
 		<div class="clearfix j_search">
 			<form method="post" class="searchFrm" action="eventList">
 				<select id="j_searchKey" name="searchKey">
@@ -27,7 +27,7 @@
 					<option value="eventContent">내용</option>
 				</select>
 				<input type="text" name="searchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
-				<input type="submit" value="검색"/>
+				<input type="submit" class="adminMainBtn" value="검색"/>
 			</form>
 		</div>
 		<div>
@@ -46,7 +46,7 @@
 				<li>${vo.eventDate }</li>
 			</c:forEach>
 		</ul>
-		<p class="j_eventSetBtn"><input type="button" id="j_insertBtn" value="게시물 등록"></p>
+		<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_insertBtn" value="이벤트 등록"></p>
 		</div>
 	</div>
 </div>

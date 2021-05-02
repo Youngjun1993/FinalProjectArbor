@@ -9,10 +9,11 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/productInsert.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/admin/product.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/productSearch.js"></script>
 <script>
 
 </script>
@@ -84,16 +85,16 @@
 						<li>판매가</li>
 						<li>재고</li>
 						<li>둥록일</li>
-						<li>수정/삭제</li>
+						<li>&nbsp</li>
 						<c:forEach var="vo" items="${productList }">
 							<li><input type="checkbox" value=${vo.pno }/></li>
 							<li>${vo.pno }</li>
-							<li>${vo.mainname } > ${vo.subname }</li>
-							<li>${vo.pname }</li>
+							<li class="wordcut">${vo.mainname } > ${vo.subname }</li>
+							<li class="wordcut">${vo.pname }</li>
 							<li>${vo.saleprice }</li>
 							<li>${vo.stock }</li>
 							<li>${vo.pdate }</li>
-							<li><a href="productEdit?pno=${vo.pno }">수정</a> | <a href="productDelete?pno=${vo.pno }">삭제</a></li>
+							<li><a href="productEdit?pno=${vo.pno }">수정</a> | <a href="javascript:productdel(${vo.pno })">삭제</a></li>
 						</c:forEach>
 					</ul>
 				</form>

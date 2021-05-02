@@ -122,7 +122,6 @@
 		
 		window.print();
 		return false;
-
 	}
 </script>
 <div id="y_myPageMain_wrap" class="clearfix w1400_container">

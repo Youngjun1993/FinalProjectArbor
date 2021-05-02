@@ -11,15 +11,21 @@
  		select subno, subname from subcate where mainno=${param1}
  	</select>
  	
+ 	<select id="subCateListAll" resultType="com.arbor.home.vo.SubCateVO">
+ 		select subno, s.mainno, mainname, subname from subcate s join maincate m
+ 		on s.mainno=m.mainno order by subno 
+ 	</select>
+ 	
  	<insert id="productInsert" parameterType="com.arbor.home.vo.ProductVO">
- 		insert into product(pno, subno, pname, stock, allstock, pprice, saleprice, img1, img2, description)
+ 		insert into product(pno, subno, pname, stock, allstock, pprice, saleprice, img1,
+ 		<if test='#{img2}==null || #{img2}==""'>img2, </if>description)
  		values(productsq.nextval, ${subno}, #{pname}, ${stock}, ${allstock}, ${pprice}, ${saleprice},
- 		#{img1}, #{img2}, #{description})
+ 		#{img1}, <if test='#{img2}==null || #{img2}==""'> #{img2}, </if>#{description})
  	</insert>
  	
  	<insert id="optionInsert" parameterType="com.arbor.home.vo.OptionVO">
  		insert into optiontbl(optno, pno, optname, optvalue, optprice, rgbvalue)
- 		values(optionsq.nextval, ${pno}, #{optname}, #{optvalue}, #{optprice}, #{rgbvalue})
+ 		values(optionsq.nextval, ${pno}, #{optname}, #{optvalue}, ${optprice}, #{rgbvalue})
  	</insert>
  	
  	<select id="pnoSelect" resultType="int">
@@ -30,5 +36,42 @@
  		select p.pno, s.mainname, s.subname, p.pname, p.saleprice, p.stock, 
  		to_char(p.pdate, 'yyyy-mm-dd') as pdate from product p join (select s.subno, s.subname, m.mainname 
  		from subcate s join maincate m on s.mainno=m.mainno) s on p.subno=s.subno order by pno desc
+ 	</select>
+ 	
+ 	<select id="productSelect" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
+ 		select pno, mainno, s.subno, pname, stock, pprice, saleprice, img1, img2, description
+		from product p
+		join (select s.subno, s.subname, m.mainno from subcate s join maincate m on s.mainno=m.mainno) s
+		on p.subno=s.subno where pno=${param1}
+ 	</select>
+ 	
+ 	<select id="optionSelect" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
+ 		select optno, optname, optvalue, optprice, rgbvalue from optiontbl where pno=${param1}
+ 	</select>
+ 	
+ 	<update id="productUpdate" parameterType="com.arbor.home.vo.ProductVO">
+ 		update product set subno=${subno}, pname=#{pname}, pprice=${pprice}, saleprice=${saleprice},
+ 		stock=${stock}, img1=#{img1}, <if test='#{img2}==null || #{img2}==""'>img2=#{img2}, </if>description=#{description} where pno=${pno}
+ 	</update>
+ 	
+ 	<delete id="optionDelete" parameterType="int">
+ 		delete from optiontbl where optno=${param1}
+ 	</delete>
+ 	
+ 	<update id="optionUpdate" parameterType="com.arbor.home.vo.OptionVO">
+ 		update optiontbl set pno=${pno}, optname=#{optname}, optvalue=#{optvalue}, rgbvalue=#{rgbvalue},
+ 		optprice=${optprice} where optno=${optno}
+ 	</update>
+ 	
+ 	<delete id="productDelete" parameterType="int">
+ 		delete from product where pno=${param1}
+ 	</delete>
+ 	
+ 	<delete id="optionAllDelete" parameterType="int">
+ 		delete from optiontbl where pno=${param1}
+ 	</delete>
+ 	
+ 	<select id="productListClient" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
+ 		select pno, subno, pname, pprice, saleprice from product where subno=${param1};
  	</select>
  </mapper>

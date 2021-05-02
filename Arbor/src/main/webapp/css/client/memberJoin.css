@@ -2,6 +2,9 @@
 
 
 /* 틀 공통 */
+
+	/* 라벨 폰트 */
+
 	.h_jointop{
 	width:800px;
 	text-align:center;
@@ -45,19 +48,19 @@
 		text-align:left;
 		padding:0 0 0 25px;
 		width:150px;
-		height: 40px;
-		font-size:15px;
+		height: 15px;
+		font-size:1.1em;
 	}
 	
 	.h_formtable td:nth-child(2n){
 		text-align:left;
-		height: 40px;
+		height: 15px;
 	}
 	
 	 .h_select {
 	    padding: 7px 40px 7px 12px;
 	    border: 1px solid #E8EAED;
-	    border-radius: 2px;
+	    border-radius: 1px;
 	    background: white;
 	    box-shadow: 0 1px 3px -2px #9098A9;
 	    cursor: pointer;
@@ -68,15 +71,51 @@
 	.h_ipt{
 		padding: 7px 40px 7px 12px;
 		
-		border: 2px solid #E8EAED;
-		border-radius: 2px;
+		border: 1px solid #E8EAED;
+		border-radius: 1px;
 	    background: white;
 	    box-shadow: 0 1px 3px -2px #9098A9;
 		margin:10px 0;
 	}
 	
+	/* 이메일 인증 체크박스 */
+	.h_pwdchk{
+	background-color:#ebebe4;
+	padding: 7px 40px 7px 12px;
+	border: 1px solid #E8EAED;
+	border-radius: 1px;
+	box-shadow: 0 1px 3px -2px #9098A9;
+	margin:10px 0;
+	}
+	
+	.h_emailvalid{
+	
+	background-color:#ebebe4;
+	padding: 7px 40px 7px 12px;
+	border: 1px solid #E8EAED;
+	border-radius: 1px;
+	box-shadow: 0 1px 3px -2px #9098A9;
+	margin:10px 0;
+	
+	}
+	/* 이메일 인증후  */
+	#emailvalid_ok{
+	background-color:white;
+	}
+	
+	/* 이메일 인증확인 */
+	.h_email_warning.correct{
+		color : green;
+	}
+	.h_email_warning.incorrect{
+		color : red;
+	}
+	
+	/* 확인버튼 */
+	
+	
 	.h_check_btn {
-	font-size: 12px;
+	font-size: 1.1em;
 	line-height: 32px;
 	width: 150px;
 	height: 32px;
@@ -84,15 +123,17 @@
 	vertical-align: middle;
 	letter-spacing: 2px;
 	text-transform: uppercase;
-	color: #263238;
-	border: 1px solid #263238;
+	color: rgb(90,120,114);
+	border: 1px solid rgb(90,120,114);
 	background: transparent;
-	border-radius: 2px;
+	border-radius: 1px;
 	text-align:center;
 		
 	}
+	
 	.h_check_btn:hover {
-	background-color: #263238;
+	/* background-color:  rgb(191, 43, 53) 빨강; */
+	background-color:rgb(90,120,114);
 	color: #ffffff;
 	transition: all 0.5s;
 	}
@@ -122,10 +163,9 @@
 		overflow:auto;
 		width:330px;
 		height:300px;
-		margin: 40px 20px;
-		
-		border: 2px solid #E8EAED;
-		border-radius: 2px;
+		margin: 10px 20px 0 20px;
+		border: 1px solid #E8EAED;
+		border-radius: 1px;
 	    background: white;
 	    box-shadow: 0 1px 3px -2px #9098A9;
 	}
@@ -134,12 +174,21 @@
 		overflow:auto;
 		width:330px;
 		height:300px;
-		margin: 40px 20px;
 		
-		border: 2px solid #E8EAED;
-		border-radius: 2px;
+		margin: 10px 20px 0 20px;
+		
+		border: 1px solid #E8EAED;
+		border-radius: 1px;
 	    background: white;
 	    box-shadow: 0 1px 3px -2px #9098A9;
+	}
+	
+	.h_term_chk{
+		display: inline-block;
+		overflow:auto;
+		width:330px;
+		height:50px;
+		margin: 0 20px;
 	}
 	
 	.h_title{
@@ -150,10 +199,20 @@
 	
 	.h_termcontent{
 		overflow:auto;
-		border-bottom: 2px solid #ccc;
 	}
 	
 	/* 로그인 확인 부분*/
+	
+	/* 중복아이디 존재하지 않는경우 */
+	.h_id_chk_1{
+		color : green;
+		display : none;
+	}
+	/* 중복아이디 존재하는 경우 */
+	.h_id_chk_2{
+		color : red;
+		display : none;
+	}
 	
 	
 	.h_check_headline {
@@ -172,7 +231,6 @@
 	}
 	
 	/* 비밀번호 변경 페이지 탭 */
-	
 	
 	.h_pwdsearchhead {
 	font-size: 1.2em;
@@ -289,11 +347,11 @@
 	}
 	
 	.h_tab.active {
-	border-bottom: 1px solid #263238;
+		border-bottom: 1px solid #263238;
 	}
 	
 	.h_tab.active a{
-	color:black;
+		color:black;
 	}
 	
 	/*

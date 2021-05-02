@@ -1,17 +1,20 @@
 package com.arbor.home.controller;
 
+import java.util.Random;
+
 import javax.inject.Inject;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.arbor.home.dao.MemberDAOImp;
 import com.arbor.home.service.MemberServiceImp;
 import com.arbor.home.vo.MemberVO;
 
@@ -20,6 +23,9 @@ public class MemberController {
 	
 	@Inject
 	MemberServiceImp memberService;
+	
+	@Inject
+	private JavaMailSender mailSender;
 	
 	//로그인 폼 이동
 	@RequestMapping("/login")
@@ -43,6 +49,7 @@ public class MemberController {
 			mav.setViewName("redirect:/");
 			System.out.println("로그아이디 = " + logVO.getUserid());
 			System.out.println("사용자이름 = " + logVO.getUsername());
+		
 		}
 		
 		return mav;
@@ -120,11 +127,73 @@ public class MemberController {
 		return "admin/member/memberAdminSearch";
 	}
 	
-	//0426아이디체크 매핑
-	@RequestMapping("idcheck")
-	public String idCheck() {
+	//중복아이디 체크
+	@RequestMapping("/idcheck")
+	public String asdfasdf(HttpServletRequest req) {
+
+		//DB조회 : id가 있는 지 없는지 결과들고 view로 간다
+		String userid = req.getParameter("userid");
+		
+		int result = memberService.idCheck(userid);
+		
+		if(result != 0) {//있는아이디
+			req.setAttribute("userid", userid);
+			req.setAttribute("checkResult", "N");
+		} else {//없는아이디
+			req.setAttribute("userid", userid);
+			req.setAttribute("checkResult", "Y");
+		}
+		
+		System.out.println(result);
+		//request 객체에 필요한 데이터를 저장 후 뷰페이지로 이동
 		
 		return "admin/member/idCheck";
 	}
+	
+	//이메일 인증
+    @RequestMapping("/mailcheck")
+    @ResponseBody
+    public String mailCheckGET(String email){//나중에 반환타입 String
+        
+        /* 뷰(View)로부터 넘어온 데이터 확인 */
+       System.out.println("이메일 데이터 전송 확인");
+       System.out.println("뷰에서 넘어온 이메일 값 : " + email);
+       
+       //인증번호 생성
+       Random random = new Random();
+       int checkNum = random.nextInt(888888) + 111111;
+       
+       System.out.println("인증번호 = " + checkNum);
+       
+       //이메일 보내기
+       String sender = "emailarbor@gmail.com";//메일을 보낼 관리자계정
+       String toMail = email;//뷰에서 가져온 인증번호 받을 이메일 값
+       String title = "Arbor 회원가입 인증 이메일 입니다.";
+       String content = 
+               "Arbor를 방문해주셔서 감사합니다." +
+               "<br><br>" + 
+               "인증 번호는 <b>" + checkNum + "</b> 입니다.(인증번호를 타인에게 노출하지 마세요)" + 
+               "<br>" + 
+               "해당 인증번호를 인증번호 확인란에 기입하여 주세요. 감사합니다";
+       
+       try {
+           
+           MimeMessage message = mailSender.createMimeMessage();
+           MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+           helper.setFrom(sender);
+           helper.setTo(toMail);
+           helper.setSubject(title);
+           helper.setText(content,true);
+           mailSender.send(message);
+           
+       }catch(Exception e) {
+           e.printStackTrace();
+       }
+      
+      String num = Integer.toString(checkNum);
+      
+      return num;
+      
+    }
 	
 }
