@@ -1,5 +1,7 @@
 package com.arbor.home.vo;
 
+import java.text.DecimalFormat;
+
 public class CouponVO {
 	private int cpnno;
 	private String userid;
@@ -37,7 +39,9 @@ public class CouponVO {
 		return available;
 	}
 	public void setAvailable(String available) {
-		this.available = available;
+		int availableInt = Integer.parseInt(available);
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		this.available = formatter.format(availableInt);
 	}
 	public int getSalerate() {
 		return salerate;

@@ -22,12 +22,27 @@
 	            <li>지급 적립금</li>
 	            <li>사용 적립금</li>
 	            <li>잔여 적립금</li>
-	            
-	            <li>-</li>
-	            <li class="wordcut">-</li>
-	            <li>-</li>
-	            <li>-</li>
-	            <li>-</li>
+	            <c:forEach var="pointLst" items="${list }">
+		            <li>${pointLst.pointdate }</li>
+		            <li class="wordcut">${pointLst.pointcontent }</li>
+		            <li>
+		            	<c:choose>
+			            	<c:when test="${pointLst.mfpoint>0 }">${pointLst.mfpoint }</c:when>
+			            	<c:otherwise>-</c:otherwise>
+			            </c:choose>
+		            </li>
+		            <li>
+		            	<c:choose>
+			            	<c:when test="${pointLst.mfpoint<0 }">${pointLst.mfpoint }</c:when>
+			            	<c:otherwise>-</c:otherwise>
+			            </c:choose>
+		            </li>
+		            <c:choose>
+		            	<c:when test="${pointLst.mfpoint>0 }"><li style="color:red;font-weight:bold;">${pointLst.point }</li></c:when>
+		            	<c:when test="${pointLst.mfpoint<0 }"><li style="color:blue;font-weight:bold;">${pointLst.point }</li></c:when>
+		            	<c:otherwise><li style="font-weight:bold;">${pointLst.point }</li></c:otherwise>
+		            </c:choose>
+	            </c:forEach>
 	        </ul>
 	    </div>
 	    <ul class="paging" class="clearfix">

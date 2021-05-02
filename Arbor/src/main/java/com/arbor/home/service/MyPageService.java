@@ -96,5 +96,10 @@ public class MyPageService implements MyPageServiceImp {
 		return mypageDAO.reviewTotalRecord(vo);
 	}
 
+	@Override
+	public List<CouponVO> cpnSaleDesc(PageSearchVO vo) {
+		return mypageDAO.cpnSaleDesc(vo);
+	}
+
 
 }

@@ -35,6 +35,8 @@ public interface MyPageDAOImp {
 	public List<CouponVO> cpnList(PageSearchVO vo);
 	//Coupon 총 레코드 수	
 	public int cpnTotalRecord(PageSearchVO vo);
+	//Coupon 할인율 정렬 리스트
+	public List<CouponVO> cpnSaleDesc(PageSearchVO vo);
 	
 	//point 리스트
 	public List<PointVO> pointList(PageSearchVO vo);

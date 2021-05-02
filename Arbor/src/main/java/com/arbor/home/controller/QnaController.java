@@ -94,8 +94,8 @@ public class QnaController {
 			pageVo.setPageNum(Integer.parseInt(pageNumStr));
 		}
 		
-		pageVo.setQnaSearchKey(req.getParameter("qnaSearchKey"));
-		pageVo.setQnaSearchWord(req.getParameter("qnaSearchWord"));
+		pageVo.setSearchKey(req.getParameter("searchKey"));
+		pageVo.setSearchWord(req.getParameter("searchWord"));
 		
 		pageVo.setTotalRecord(qnaService.admintotalRecord(pageVo));
 		
@@ -139,8 +139,8 @@ public class QnaController {
 		QnaVO vo = qnaService.qnaSelect(qnano);
 		
 		pageVo.setPageNum(Integer.parseInt(req.getParameter("pageNum")));
-		pageVo.setQnaSearchKey(req.getParameter("qnaSearchKey"));
-		pageVo.setQnaSearchWord(req.getParameter("qnaSearchWord"));
+		pageVo.setSearchKey(req.getParameter("searchKey"));
+		pageVo.setSearchWord(req.getParameter("searchWord"));
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -149,8 +149,8 @@ public class QnaController {
 		mav.addObject("pageVO", pageVo);
 		
 		String editAddr = "qnano="+vo.getQnano()+"&pageNum="+pageVo.getPageNum();
-		if(pageVo.getQnaSearchWord() != null && pageVo.getQnaSearchWord().equals("")) {
-			editAddr += "&qnaSearchKey="+pageVo.getQnaSearchKey()+"&qnaSearchWord="+pageVo.getQnaSearchWord();
+		if(pageVo.getSearchWord() != null && pageVo.getSearchWord().equals("")) {
+			editAddr += "&searchKey="+pageVo.getSearchKey()+"&searchWord="+pageVo.getSearchWord();
 		}
 		mav.addObject("editAddr", editAddr);
 		

@@ -227,13 +227,13 @@
 #y_adminQnaList_rightcon>div>form{
     float: left;
 }
-#qnaSearchKey{
+#y_qnaSearchFrm select{
     height: 30px;
     width: 100px;
     margin-right: 5px;
     margin-left: 30px;
 }
-#qnaSearchWord{
+#y_qnaSearchFrm input[type="text"]{
     height: 25px;
     width: 300px;
     margin-right: 5px;
