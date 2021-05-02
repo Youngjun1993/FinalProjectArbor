@@ -99,7 +99,7 @@ $(function(){
 		var tag = "<div class='optionList'>";	
 		tag += " <input type='text' name='optname' placeholder='옵션명을 입력하세요'/>";
 		tag += " <input type='text' name='optvalue' placeholder='옵션값을 입력하세요' />";
-		tag += " <input type='color' name='rgbvalue' style='width:50px; vertical-align: middle;'/>";
+		tag += " <input type='color' name='rgbvalue' style='width:50px; vertical-align: top;'/>";
 		tag += " <input type='text' name='optprice' value=0 />";
 		tag += " <input type='hidden' name='optno' value='' />";
 		tag += " <input type='hidden' name='deleteno' value='' />";
@@ -107,7 +107,7 @@ $(function(){
 		tag += " <img src='./img/minus.png' class='minus'/>";
 		tag += "</div>";
 		
-		$(this).next().after(tag);
+		$(this).parent().after(tag);
 	});
 	
 	$(document).on("click",".minus", function(){
@@ -126,9 +126,9 @@ $(function(){
 	
 	<!-- summerNote -->
 	$("#description").summernote({
-		height : 300, // 높이
-		minHeight : 300, // 최소높이
-		maxHeight : 300, // 최대높이
+		height : 400, // 높이
+		minHeight : 400, // 최소높이
+		maxHeight : 400, // 최대높이
 		focus : false, // 에디터 로딩 후 포커스 여부
 		lang : "ko-KR", // 한글설정
 		placeholder : '제품 상세설명 부분입니다.',
