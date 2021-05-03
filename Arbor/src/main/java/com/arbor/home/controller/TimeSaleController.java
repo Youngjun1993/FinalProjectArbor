@@ -1,5 +1,7 @@
 package com.arbor.home.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,9 @@ public class TimeSaleController {
 	/* client */
 	@RequestMapping("/getTimeSale")
 	@ResponseBody
-	public TimeSaleVO getTimeSale() {
-		TimeSaleVO vo = timeSaleService.getTimeSale();
-		return vo;
+	public List<TimeSaleVO> getTimeSale() {
+		
+		return timeSaleService.getTimeSale();
 	}
 	
 	//////////////////////////////////////////////////////////

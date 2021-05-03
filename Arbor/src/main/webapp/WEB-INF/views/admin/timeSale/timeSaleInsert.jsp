@@ -133,7 +133,7 @@
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm">
-		<h1>타임세일 등록</h1>
+		<p class="j_adminMemu"><span>타임세일 등록</span></p>
 		<form method="post" id="j_timeSaleInsertFrm" action="timeSaleInsertOk">
 			<div>
 				<span class="j_category">상품번호</span> <input type="text" name="pNo" id="j_pNo"/>

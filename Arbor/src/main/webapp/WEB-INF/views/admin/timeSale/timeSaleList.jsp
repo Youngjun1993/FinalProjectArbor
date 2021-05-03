@@ -20,15 +20,15 @@
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm">
-		<h1 class="j_adminMemu">타임세일 목록</h1>
+		<p class="j_adminMemu"><span>타임세일 목록</span></p>
 		<div class="clearfix j_search">
 			<form method="post" class="searchFrm" action="eventList">
 				<select id="j_searchKey" name="searchKey">
 					<option value="pNo">상품번호</option>
 					<option value="pName">상품명</option>
 				</select>
-				<input type="text" name="searchWord" class="adminMainBtn" id="j_searchWordNow" placeholder="검색어 입력"/>
-				<input type="submit" value="검색"/>
+				<input type="text" name="searchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
+				<input type="submit" class="adminMainBtn" value="검색"/>
 			</form>
 		</div>
 		<div>

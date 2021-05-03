@@ -22,6 +22,6 @@
   		delete from timesale where saleNo=#{param1}
   	</delete>
   	<select id="getTimeSale" resultType="com.arbor.home.vo.TimeSaleVO">
-  		select saleNo, p.pNo, pName, pPrice, t.salePrice, to_char(saleStart, 'yyyy-mm-dd hh24:mi') saleStart, to_char(saleEnd, 'yyyy-mm-dd hh24:mi') saleEnd, saleContent from timesale t join product p on t.pNo=p.pNo where saleNo=11
+  		select saleNo, p.pNo, pName, pPrice, t.salePrice, to_char(saleStart, 'yyyy-mm-dd hh24:mi') saleStart, to_char(saleEnd, 'yyyy-mm-dd hh24:mi') saleEnd, saleContent from timesale t join product p on t.pNo=p.pNo
   	</select>
   </mapper>

@@ -27,10 +27,33 @@
 	height:100px;
 	line-height:100px;
 	text-align:center;
-	border-bottom:1px solid #333;
 }
-
-
+.j_adminMemu>span{
+	display:inline-block;
+	font-size:30px;
+	font-weight:bold;
+}
+.j_adminMemu>span:after{
+	content:"";
+	display:block;
+	width:80px;
+	border-bottom:1px solid rgb(191,43,53);
+	margin:20px auto;
+}
+.j_centerFrm div{
+	padding-top:20px;
+	line-height:35px;
+}
+/*버튼 css*/
+.j_eventSetBtn input[type=button]{
+	height:25px;width:40px;
+}
+.j_eventSetBtn{
+	text-align:right;
+}
+#j_insertBtn{
+	height:25px;width:85px;
+}
 input[type=submit], input[type=button] {
 	cursor:pointer;
 }
@@ -58,20 +81,17 @@ input[type=submit], input[type=button] {
 /*--------------
 	이벤트 등록
 ---------------*/
-.j_centerFrm div{
-	padding-top:20px;
-	line-height:35px;
-}
 #j_eventSubject{
 	width:375px;
 }
-.j_eventSetBtn{
-	text-align:right;
-}
+
 /*--------------
 	이벤트 뷰
 ---------------*/
-#j_contentImg{text-align:center;}
+#j_contentImg{
+	text-align:center;
+}
+
 /*--------------
 	이벤트 수정
 ---------------*/
