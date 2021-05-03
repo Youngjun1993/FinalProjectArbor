@@ -25,6 +25,21 @@ public class MemberVO {
 	private String regdate;
 	private String lastdate;
 	
+	private String searchCate;
+	private String searchWord;
+	
+	public String getSearchCate() {
+		return searchCate;
+	}
+	public void setSearchCate(String searchCate) {
+		this.searchCate = searchCate;
+	}
+	public String getSearchWord() {
+		return searchWord;
+	}
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
 	public String getZipcode() {
 		return zipcode;
 	}

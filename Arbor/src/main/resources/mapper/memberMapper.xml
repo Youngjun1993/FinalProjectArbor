@@ -14,4 +14,27 @@
 	<select id="idCheck" resultType="int">
   		select count(*) from member where userid = #{userid}
   	</select>
+  	<!-- 회원검색 리스트 -->
+	<select id="memberAllselect" resultType="com.arbor.home.vo.MemberVO">
+	 	select userid, username, email, tel, to_char(regdate, 'YY-MM-DD HH:MI') regdate, to_char(lastdate, 'MM-DD HH:MI') lastdate, smsok, emailok from member
+                <if test="searchWord!=null">
+                  where ${searchCate} like '%${searchWord}%'
+                </if>
+                <if test='emailok=="All"' >
+                	and emailok in ('Y','N')
+                </if>
+                <if test='emailok=="Y"'>
+                    and emailok = 'Y'
+                </if>
+                <if test='emailok=="N"'>
+                    and emailok = 'N'
+                </if>
+                <if test='smsok=="Y"'>
+                    and smsok = 'Y'
+                </if>
+                <if test='smsok=="N"'>
+                    and smsok = 'N'
+                </if>
+		 order by userid desc
+	</select>
 </mapper>

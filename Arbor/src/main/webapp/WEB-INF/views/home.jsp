@@ -262,17 +262,27 @@ $(function(){
 			<li>
 				<a href="">
 					<div class="screen" trigger-left>
-						<div class="top">침대를 봅시다</div>
-						<div class="bottom">침대리스트로 이동</div>
-						<img src="<%=request.getContextPath()%>/img/슬라이드침대1.PNG">
+						<div class="s_top">소파를 봅시다</div>
+						<div class="s_bottom">소파리스트로 이동</div>
+						<div class="s_video">
+							<video width="533.33" height="700" autoplay loop muted preload="auto">
+	  							<source src="<%=request.getContextPath()%>/img/linkVideo1.mp4" type="video/mp4">
+							</video>
+						</div>
+						<img src="<%=request.getContextPath()%>/img/linkSofa.PNG">
 					</div>
 				</a>
 			</li>
 			<li>
 				<a href="">
 					<div class="screen" trigger-up>
-						<div class="top">테이블 봅시다</div>
-						<div class="bottom">테이블리스트로 이동</div>
+						<div class="s_top">침대를 봅시다</div>
+						<div class="s_bottom">침대리스트로 이동</div>
+						<div class="s_video">
+							<video width="533.33" height="700" autoplay loop muted preload="auto">
+	  							<source src="<%=request.getContextPath()%>/img/linkVideo2.mp4" type="video/mp4">
+							</video>
+						</div>
 						<img src="<%=request.getContextPath()%>/img/슬라이드침대2.PNG">
 					</div>
 				</a>
@@ -280,9 +290,14 @@ $(function(){
 			<li>
 				<a href="">
 					<div class="screen" trigger-right >
-						<div class="top">화장대를 봅시다.</div>
-						<div class="bottom">화장대리스트로 이동</div>
-						<img src="<%=request.getContextPath()%>/img/슬라이드침대3.PNG">
+						<div class="s_top">가구를 봅시다.</div>
+						<div class="s_bottom">가구리스트로 이동</div>
+						<div class="s_video">
+							<video width="533.33" height="700" autoplay loop muted preload="auto">
+	  							<source src="<%=request.getContextPath()%>/img/linkVideo3.mp4" type="video/mp4">
+							</video>
+						</div>
+						<img src="<%=request.getContextPath()%>/img/linkF.PNG">
 					</div>
 				</a>
 			</li>

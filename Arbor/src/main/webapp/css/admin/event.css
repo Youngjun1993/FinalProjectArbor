@@ -22,6 +22,38 @@
 .j_search select, .j_search input{height:25px;line-height:25px;vertical-align:middle;} /* 높이 통일화 필요 */
 .j_search input[type=text]{padding:0;box-sizing:border-box;}
 
+/*관리자 메뉴 상단 타이틀*/
+.j_adminMemu{
+	height:100px;
+	line-height:100px;
+	text-align:center;
+}
+.j_adminMemu>span{
+	display:inline-block;
+	font-size:30px;
+	font-weight:bold;
+}
+.j_adminMemu>span:after{
+	content:"";
+	display:block;
+	width:80px;
+	border-bottom:1px solid rgb(191,43,53);
+	margin:20px auto;
+}
+.j_centerFrm div{
+	padding-top:20px;
+	line-height:35px;
+}
+/*버튼 css*/
+.j_eventSetBtn input[type=button]{
+	height:25px;width:40px;
+}
+.j_eventSetBtn{
+	text-align:right;
+}
+#j_insertBtn{
+	height:25px;width:85px;
+}
 input[type=submit], input[type=button] {
 	cursor:pointer;
 }
@@ -33,10 +65,14 @@ input[type=submit], input[type=button] {
 	width:10%;
 	height:40px;
 	line-height:40px;
-	border-bottom:1px solid #ddd;
-	font-size:12px;
+	border-bottom:1px solid #eee;
 }
-#eventList>li:nth-child(-n+5){font-weight:bold;font-size:1em;color:#333;}
+#eventList>li:nth-child(-n+5){
+	font-weight:bold;
+	font-size:1em;
+	color:#333;
+	border-bottom:1px solid #aaa;
+}
 #eventList>li:nth-child(5n+2){width:5%;}
 #eventList>li:nth-child(5n+3){width:55%;}
 #eventList>li:nth-child(5n+4){width:20%;}
@@ -45,20 +81,17 @@ input[type=submit], input[type=button] {
 /*--------------
 	이벤트 등록
 ---------------*/
-.j_centerFrm div{
-	padding-top:20px;
-	line-height:35px;
-}
 #j_eventSubject{
 	width:375px;
 }
-.j_eventSetBtn{
-	text-align:right;
-}
+
 /*--------------
 	이벤트 뷰
 ---------------*/
-#j_contentImg{text-align:center;}
+#j_contentImg{
+	text-align:center;
+}
+
 /*--------------
 	이벤트 수정
 ---------------*/

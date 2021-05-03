@@ -14,5 +14,5 @@ public interface TimeSaleDAOImp {
 	public int timeSaleDelete(int saleNo);
 	
 	
-	public TimeSaleVO getTimeSale();
+	public List<TimeSaleVO> getTimeSale();
 }

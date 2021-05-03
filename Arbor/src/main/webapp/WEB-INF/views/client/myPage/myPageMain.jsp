@@ -71,9 +71,9 @@
 	}
 	$(function(){
 		//페이징 li만큼 갯수
-		var liCnt = $("#qnaPaging>li").length;
-		$("#qnaPaging").css({
-			"width" : liCnt*30+"px",
+		var liCnt = $(".paging>li").length;
+		$(".paging").css({
+			"width" : liCnt*35+"px",
 			"margin" : "30px auto"
 		});
 		
@@ -150,29 +150,29 @@
                 </c:forEach>
             </ul>
         </div>
-        <ul id="qnaPaging" class="clearfix">
+        <ul class="paging" class="clearfix">
           	<c:if test="${pageVO.pageNum>1 }">
-              	<li><a href="qnaList?pageNum=${pageVO.pageNum-1}">이전</a></li>
+              	<li><a class="pagingLR_a"  href="purchaseList?pageNum=${pageVO.pageNum-1}">＜</a></li>
               </c:if>
               <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
               	<c:if test="${p<=pageVO.totalPage }">
                	<c:if test="${p==pageVO.pageNum }">
-               		<li><a href="qnaList?pageNum=${p}">${p }</a></li>
+               		<li style="border-bottom:3px solid rgb(93, 121, 115);"><a href="purchaseList?pageNum=${p}">${p }</a></li>
                	</c:if>
                	<c:if test="${p!=pageVO.pageNum }">
-               		<li><a href="qnaList?pageNum=${p}">${p }</a></li>
+               		<li><a href="purchaseList?pageNum=${p}">${p }</a></li>
                	</c:if>
               	</c:if>
               </c:forEach>
               <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-              	<li><a href="qnaList?pageNum=${pageVO.pageNum+1}">다음</a></li>
+              	<li><a class="pagingLR_a"  href="purchaseList?pageNum=${pageVO.pageNum+1}">＞</a></li>
               </c:if>
           </ul>
     </div>
    <div id="y_orderPopup_Wrap" class="boxshadow">
-           <p>-</p>
+           <p><b>-</b></p>
            <div class="w600_center">
-               <p>주문자정보</p>
+               <p><b>주문자정보</b></p>
                <ul class="clearfix">
                    <li>주문번호</li>
                    <li>-</li>
@@ -185,7 +185,7 @@
                </ul>
            </div>
            <div class="w600_center">
-               <p>배송지정보</p>
+               <p><b>배송지정보</b></p>
                <ul class="clearfix">
                    <li>수취인</li>
                    <li>-</li>
@@ -200,13 +200,13 @@
                </ul>
            </div>
            <div class="w600_center">
-               <p>주문상품</p>
+               <p><b>주문상품</b></p>
                <ul class="clearfix">
                    
                </ul>
            </div>
            <div class="w600_center">
-               <p class="clearfix">결제정보 <a id="y_popupPrintBtn" href="javascript:printPopup()">영수증출력</a></p>
+               <p class="clearfix"><b>결제정보</b> <a id="y_popupPrintBtn" href="javascript:printPopup()">영수증출력</a></p>
                <ul class="clearfix">
                    <li>결제방법</li>
                    <li>결제금액</li>

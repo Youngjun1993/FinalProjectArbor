@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.EventDAOImp;
 import com.arbor.home.vo.EventVO;
+import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PrevNextVO;
 
 @Service
@@ -48,20 +49,27 @@ public class EventService implements EventServiceImp {
 
 	@Override
 	public EventVO getFilename(int eventNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return eventdao.getFilename(eventNo);
 	}
 
 	@Override
 	public int eventUpdate(EventVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return eventdao.eventUpdate(vo);
 	}
 
 	@Override
 	public int eventDelete(int eventNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return eventdao.eventDelete(eventNo);
+	}
+
+	@Override
+	public int totalRecord(PageSearchVO vo) {
+		return eventdao.totalRecord(vo);
+	}
+
+	@Override
+	public List<EventVO> onePageRecordSelect(PageSearchVO pageVo) {
+		return eventdao.onePageRecordSelect(pageVo);
 	}
 
 }

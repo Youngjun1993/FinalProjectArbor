@@ -1,5 +1,7 @@
 package com.arbor.home.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -118,13 +120,35 @@ public class MemberController {
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
+		//세션아웃 값을 넘겨줘야함 디비?
+		long logoutTime =session.getLastAccessedTime();
+
+		DateFormat df = new SimpleDateFormat("YY-MM-dd HH:mm:ss");
+		String lastDate = df.format(logoutTime);
+		
+		System.out.println(lastDate);
+		
+		//세션 아이디를 구함
+		
+		//세션 아이디에 lastDate 업데이트 해줌
+		
 		session.invalidate();
+		
+		
 		return "home";
 	}
 	
+	
+	
 	@RequestMapping("/memberSearch")
-	public String member() {
-		return "admin/member/memberAdminSearch";
+	public ModelAndView memberSearchList(MemberVO vo) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("list", memberService.memberAllselect(vo));
+		mav.setViewName("admin/member/memberAdminSearch");
+		
+		return mav;
 	}
 	
 	//중복아이디 체크
@@ -155,7 +179,7 @@ public class MemberController {
     @ResponseBody
     public String mailCheckGET(String email){//나중에 반환타입 String
         
-        /* 뷰(View)로부터 넘어온 데이터 확인 */
+        /* 뷰로부터 넘어온 데이터 확인 */
        System.out.println("이메일 데이터 전송 확인");
        System.out.println("뷰에서 넘어온 이메일 값 : " + email);
        

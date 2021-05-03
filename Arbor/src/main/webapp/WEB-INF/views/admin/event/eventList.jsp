@@ -13,21 +13,29 @@
 	$("#j_insertBtn").click(function(){
 		location.href="eventInsert";
 	});
+	
+	//페이징 li만큼 갯수
+	var liCnt = $("#eventPaging>li").length;
+	$("#eventPaging").css({
+		"width" : liCnt*30+"px",
+		"margin" : "0 auto"
+	});
+	
 </script>
 </head>
 <body>
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm">
-		<h1>이벤트 목록</h1>
+		<p class="j_adminMemu"><span>이벤트 목록</span></p>
 		<div class="clearfix j_search">
 			<form method="post" class="searchFrm" action="eventList">
-				<select id="j_searchKey" name="searchKey">
+				<select id="j_searchKey" name="qnaSearchKey">
 					<option value="eventSubject">제목</option>
 					<option value="eventContent">내용</option>
 				</select>
-				<input type="text" name="searchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
-				<input type="submit" value="검색"/>
+				<input type="text" name="qnaSearchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
+				<input type="submit" class="adminMainBtn" value="검색"/>
 			</form>
 		</div>
 		<div>
@@ -46,8 +54,40 @@
 				<li>${vo.eventDate }</li>
 			</c:forEach>
 		</ul>
-		<p class="j_eventSetBtn"><input type="button" id="j_insertBtn" value="게시물 등록"></p>
+		<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_insertBtn" value="이벤트 등록"></p>
 		</div>
+		<ul id="eventPaging" class="clearfix">
+			<c:if test="${pageVO.pageNum>1 }">
+				<li><a href="eventList?pageNum=${pageVO.pageNum-1 }">이전</a></li>
+			</c:if>
+			<c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+				<c:if test="${p<=pageVO.totalPage }">
+					<c:if test="${p!=pageVO.pageNum }">
+						<li><a href="eventList?pageNum=${p }">${p }</a></li>
+					</c:if>
+				</c:if>
+			</c:forEach>
+			<c:if test="${pageVO.pageNum<pageVO.totalPage }">
+				<li><a href="eventList?pageNum=${pageVO.pageNum+1 }">다음</a></li>
+			</c:if>
+		
+		</ul>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</div>
 </div>
 </body>

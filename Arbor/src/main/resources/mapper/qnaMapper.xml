@@ -25,15 +25,15 @@
 		update qna set answercontent=#{param2}, ansdate=sysdate where qnano=#{param1}
 	</update>
 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
-		select count(qnano) as totalRecord from qna where userid = #{userid} <if test="qnaSearchWord != null"> and ${qnaSearchKey} like '%${qnaSearchWord}%'</if>
+		select count(qnano) as totalRecord from qna where userid = #{userid} <if test="searchWord != null"> and ${searchKey} like '%${searchWord}%'</if>
 	</select>
 	<select id="admintotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
-		select count(qnano) as totalRecord from qna <if test="qnaSearchWord != null">where ${qnaSearchKey} like '%${qnaSearchWord}%'</if>
+		select count(qnano) as totalRecord from qna <if test="searchWord != null">where ${searchKey} like '%${searchWord}%'</if>
 	</select>
 	<select id="onePageRecordSelect" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
 		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate, to_char(ansdate, 'YYYY-MM-DD HH:MI') as ansdate from qna 
-		<if test="qnaSearchWord!=null">where ${qnaSearchKey} like '%${qnaSearchWord}%' order by qnano desc) <![CDATA[where rownum <= ]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc</if> 
-		<if test="qnaSearchWord==null">order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc</if>
+		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%' order by qnano desc) <![CDATA[where rownum <= ]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc</if> 
+		<if test="searchWord==null">order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc</if>
 	</select>
 	<select id="noAnswerSelect" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
 		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where answercontent is null order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc

@@ -2,6 +2,9 @@
 
 
 /* 틀 공통 */
+
+	/* 라벨 폰트 */
+
 	.h_jointop{
 	width:800px;
 	text-align:center;
@@ -46,7 +49,7 @@
 		padding:0 0 0 25px;
 		width:150px;
 		height: 15px;
-		font-size:10px;
+		font-size:1.1em;
 	}
 	
 	.h_formtable td:nth-child(2n){
@@ -57,7 +60,7 @@
 	 .h_select {
 	    padding: 7px 40px 7px 12px;
 	    border: 1px solid #E8EAED;
-	    border-radius: 2px;
+	    border-radius: 1px;
 	    background: white;
 	    box-shadow: 0 1px 3px -2px #9098A9;
 	    cursor: pointer;
@@ -68,8 +71,8 @@
 	.h_ipt{
 		padding: 7px 40px 7px 12px;
 		
-		border: 2px solid #E8EAED;
-		border-radius: 2px;
+		border: 1px solid #E8EAED;
+		border-radius: 1px;
 	    background: white;
 	    box-shadow: 0 1px 3px -2px #9098A9;
 		margin:10px 0;
@@ -79,8 +82,8 @@
 	.h_pwdchk{
 	background-color:#ebebe4;
 	padding: 7px 40px 7px 12px;
-	border: 2px solid #E8EAED;
-	border-radius: 2px;
+	border: 1px solid #E8EAED;
+	border-radius: 1px;
 	box-shadow: 0 1px 3px -2px #9098A9;
 	margin:10px 0;
 	}
@@ -89,8 +92,8 @@
 	
 	background-color:#ebebe4;
 	padding: 7px 40px 7px 12px;
-	border: 2px solid #E8EAED;
-	border-radius: 2px;
+	border: 1px solid #E8EAED;
+	border-radius: 1px;
 	box-shadow: 0 1px 3px -2px #9098A9;
 	margin:10px 0;
 	
@@ -112,7 +115,7 @@
 	
 	
 	.h_check_btn {
-	font-size: 12px;
+	font-size: 1.1em;
 	line-height: 32px;
 	width: 150px;
 	height: 32px;
@@ -120,16 +123,17 @@
 	vertical-align: middle;
 	letter-spacing: 2px;
 	text-transform: uppercase;
-	color: #263238;
-	border: 1px solid #263238;
+	color: rgb(90,120,114);
+	border: 1px solid rgb(90,120,114);
 	background: transparent;
-	border-radius: 2px;
+	border-radius: 1px;
 	text-align:center;
 		
 	}
 	
 	.h_check_btn:hover {
-	background-color: #263238;
+	/* background-color:  rgb(191, 43, 53) 빨강; */
+	background-color:rgb(90,120,114);
 	color: #ffffff;
 	transition: all 0.5s;
 	}
@@ -159,11 +163,9 @@
 		overflow:auto;
 		width:330px;
 		height:300px;
-		
 		margin: 10px 20px 0 20px;
-		
-		border: 2px solid #E8EAED;
-		border-radius: 2px;
+		border: 1px solid #E8EAED;
+		border-radius: 1px;
 	    background: white;
 	    box-shadow: 0 1px 3px -2px #9098A9;
 	}
@@ -175,8 +177,8 @@
 		
 		margin: 10px 20px 0 20px;
 		
-		border: 2px solid #E8EAED;
-		border-radius: 2px;
+		border: 1px solid #E8EAED;
+		border-radius: 1px;
 	    background: white;
 	    box-shadow: 0 1px 3px -2px #9098A9;
 	}

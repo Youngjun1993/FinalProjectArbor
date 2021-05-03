@@ -6,22 +6,22 @@
             <li>
                 <span><i class="fas fa-gem fa-3x"></i></span>
                 <span>적립금<br/>
-                <a href="#" class="ftBold25_blue">${pointVO.point}</a>원</span>
+                <a href="pointList" class="ftBold25_blue">${pointVO.point}</a>원</span>
             </li>
             <li>
                 <span><i class="fas fa-tag fa-3x"></i></span>
                 <span>쿠폰<br/>
-                <a href="#" class="ftBold25_blue">${couponVO.cpnno}</a>개</span>
+                <a href="couponList" class="ftBold25_blue">${couponVO.cpnno}</a>개</span>
             </li>
             <li>
                 <span><i class="fas fa-edit fa-3x"></i></span>
                 <span>리뷰<br/>
-                <a href="#" class="ftBold25_blue">${reviewVO.reviewno}</a>건</span>
+                <a href="reviewList" class="ftBold25_blue">${reviewVO.reviewno}</a>건</span>
             </li>
             <li>
                 <span><i class="fab fa-quora fa-3x"></i></span>
                 <span>문의<br/>
-                <a href="#" class="ftBold25_blue">${qnaVO.qnano}</a>건</span>
+                <a href="qnaList" class="ftBold25_blue">${qnaVO.qnano}</a>건</span>
             </li>
         </ul>
     </div>
