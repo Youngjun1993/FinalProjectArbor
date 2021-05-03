@@ -58,10 +58,9 @@
 				<div>
 					<h3>이미지</h3><br/>
 					<input type="file" name="imgName1" id="img1" /><br/>
-					<input type="file" name="imgName2" id="img2" /><br/>
+					<input type="file" name="imgName2" id="img2" /><br/><br/>
 					<p>* 첫번째 이미지는 목록에 띄워질 메인이미지<br/><span id="secondP">두번째 이미지는 서브이미지 입니다.</span></p>
 					<div id="imgPrint"><img src="<%=request.getContextPath() %>/img/noimg.png"/></div>
-					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					<h3>상세설명</h3><br/>
 					<textarea name="description" id="description"></textarea>
 				</div>

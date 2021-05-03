@@ -137,3 +137,57 @@ body{
     float: left;
     display: block;
 }
+
+/*클라이언트 메인버튼*/
+.clientMainBtn {
+	border: none;
+	background-color: rgb(93, 121, 115); color:#fff;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bold; cursor:pointer;
+}
+.clientMainBtn:hover {
+	background-color: rgb(73, 101, 95);
+	position:relative;
+	top:2px;
+}
+/*클라이언트 서브버튼*/
+.clientsubBtn {
+	border: 1px solid rgb(93, 121, 115);
+	outline:none;
+	color: rgb(93, 121, 115); background-color:#fff;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bold; cursor:pointer;
+}
+.clientsubBtn:hover {
+	border: 2px solid rgb(73, 101, 95);
+	color: rgb(73, 101, 95);
+	position:relative;
+	top:2px;
+}
+/*관리자 메인버튼*/
+.adminMainBtn {
+	border: none;
+	background-color: rgb(191,43,53); color:#fff;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bold; cursor:pointer;
+}
+.adminMainBtn:hover {
+	background-color:rgb(171,23,33);
+	position:relative;
+	top:2px;
+}
+/*관리자 서브버튼*/
+.adminSubBtn {
+	border: 1px solid rgb(191,43,53);
+	outline:none;
+	color: rgb(191,43,53); background-color:#fff;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bold; cursor:pointer;
+}
+.adminSubBtn:hover {
+	border: 2px solid rgb(171,23,33);
+	color:rgb(171,23,33);
+	position:relative;
+	top:2px;
+}
+

@@ -13,14 +13,15 @@
 <script>
 	$(function(){
 		$("#j_tsEditBtn").click(function(){
-			console.log("*** 수정버튼 클릭 ***")
 			location.href="timeSaleEdit?saleNo=${vo.saleNo}";
 		});
 		$("#j_tsDelBtn").click(function(){
-			console.log("*** 삭제버튼 클릭 ***")
 			if(confirm("삭제하시겠습니까?")){
 				location.href="timeSaleDelete?saleNo=${vo.saleNo}";							
 			}
+		});
+		$("#j_tsListBtn").click(function(){
+			location.href="timeSaleList";
 		});
 		/*
 		var msg = "";
@@ -36,7 +37,7 @@
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm">
-		<h1>타임세일</h1>
+		<p class="j_adminMemu"><span>타임세일</span></p>
 		<div>
 			<span class="j_category">TIMESALE No.</span> ${vo.saleNo }<br/>
 			<span class="j_category">상품번호</span> ${vo.pNo }<br/>
@@ -49,7 +50,8 @@
 		<hr/>
 		<p class="j_eventSetBtn">
 			<input type="button" class="adminMainBtn" id="j_tsEditBtn" value="수정"/> 
-			<input type="button" class="adminSubBtn" id="j_tsDelBtn" value="삭제"/> 
+			<input type="button" class="adminSubBtn" id="j_tsDelBtn" value="삭제"/>
+			<input type="button" class="adminSubBtn" id="j_tsListBtn" value="목록"/>
 		</p>
 		</div>
 	</div>

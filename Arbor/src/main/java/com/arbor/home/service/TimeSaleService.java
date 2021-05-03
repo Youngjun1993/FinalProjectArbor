@@ -46,7 +46,7 @@ public class TimeSaleService implements TimeSaleServiceImp {
 	}
 
 	@Override
-	public TimeSaleVO getTimeSale() {
+	public List<TimeSaleVO> getTimeSale() {
 		return dao.getTimeSale();
 	}
 

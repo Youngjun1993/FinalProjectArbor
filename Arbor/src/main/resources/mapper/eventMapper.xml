@@ -3,10 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.arbor.home.dao.EventDAOImp">
+  	<!-- client -->
   	<select id="eventList" resultType="com.arbor.home.vo.EventVO">
   		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, eventImg1
   		from event where <if test="searchWord!=null">${searchKey} like '%${searchWord}%' and</if>
   		to_date(eventEnd, 'YY-MM-DD')>sysdate order by eventNo desc
+  	</select>
+  	<select id="eventSelect" resultType="com.arbor.home.vo.EventVO">
+  		select eventNo, eventSubject, eventContent, eventImg1, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yyyy-mm-dd hh24:mi') eventDate from event where eventNo=#{param1}
   	</select>
   	<select id="closeEvent" resultType="com.arbor.home.vo.EventVO">
   		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd
@@ -20,6 +24,8 @@
   		lead(eventSubject, 1, '다음글이 없습니다.') over (order by eventNo desc) nextSubject
   		from event where to_date(eventEnd, 'YY-MM-DD')>sysdate) where eventNo=#{param1}
   	</select>
+
+  	<!-- admin -->
   	<select id="eventAllSelect" resultType="com.arbor.home.vo.EventVO">
   		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yy/mm/dd hh24:mi') eventDate
   		from event <if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if> order by eventNo desc
@@ -27,9 +33,6 @@
   	<insert id="eventInsert" parameterType="com.arbor.home.vo.EventVO">
   		insert into event(eventNo, eventSubject, eventContent, eventStart, eventEnd, eventImg1) values(eventsq.nextval, #{eventSubject}, #{eventContent}, #{eventStart}, #{eventEnd}, #{eventImg1})
   	</insert>
-  	<select id="eventSelect" resultType="com.arbor.home.vo.EventVO">
-  		select eventNo, eventSubject, eventContent, eventImg1, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yyyy-mm-dd hh24:mi') eventDate from event where eventNo=#{param1}
-  	</select>
   	<select id="getFilename" resultType="com.arbor.home.vo.EventVO">
   		select eventImg1 from event where eventNo=#{param1}
   	</select>
@@ -39,4 +42,19 @@
 	<delete id="eventDelete">
 		delete from event where eventNo=#{param1}
 	</delete>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(eventNo) as totalRecord from event
+	</select>
+	<select id="onePageRecordSelect" resultType="com.arbor.home.vo.EventVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart,
+		to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yy/mm/dd hh24:mi') eventDate from event
+		<if test="qnaSearchWord!=null">where ${qnaSearchKey} like '%${qnaSearchWord}%' order by eventNo desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageNum} order by eventNo asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by eventNo desc</if>
+		<if test="qnaSearchWord==null">order by eventNo desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageNum} order by eventNo asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by eventNo desc</if>
+	</select>
   </mapper>

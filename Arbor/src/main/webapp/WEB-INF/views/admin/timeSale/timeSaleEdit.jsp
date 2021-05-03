@@ -124,7 +124,7 @@
 		});
 		
 		$("#j_tsEditCnlBtn").click(function(){
-			location.href="timeSaleView";
+			location.href="timeSaleView?saleNo=${vo.saleNo}";
 		});
 
 	});
@@ -134,7 +134,7 @@
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm">
-		<h1>타임세일 등록</h1>
+		<p class="j_adminMemu"><span>타임세일 수정</span></p>
 		<form method="post" id="j_timeSaleEditFrm" action="timeSaleEditOk">
 			<div>
 				<input type="hidden" name="saleNo" value="${vo.saleNo }"/>

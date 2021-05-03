@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="w1400_container font_ng">
-	<h1 id="p_detailTitle">소파</h1>
+	<h1 id="p_detailTitle">${vo.pname }</h1>
 	<hr />
 	<div id="p_detail">
 		<!-- 모델명, 이미지 띄울 곳 -->
 		<div id="p_detailImg">
-			<h2>BMA-1150-LC</h2>
-			<img src="<%=request.getContextPath() %>/img/sofa2.jpg"/>
+			<img src="<%=request.getContextPath() %>/upload/${vo.img1}"/>
 		</div>
 		<!-- 이미지 옆에 기본정보, 옵션 띄우는 곳
 		div 분리되어있어서 form을 여기부터 걸었음... -->
@@ -17,9 +17,9 @@
 				<h3>기본정보</h3>
 				<ul>
 					<li>판매가</li>
-					<li><span class="p_bigPrice">600,000원 ~</span></li>
+					<li><span class="p_bigPrice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원 ~ </span></li>
 					<li>정상가</li>
-					<li><span class="p_smallPrice">900,000원 ~</span></li>
+					<li><span class="p_smallPrice"><fmt:formatNumber value="${vo.pprice }" pattern="#,###"/>원 </span></li>
 					<li>배송가능지역</li>
 					<li>전국</li>
 					<li>배송방법</li>
@@ -87,7 +87,7 @@
 		<h3>전자상거래 등에서의 상품정보제공 고시에 따라 작성되었습니다.</h3>
 		<ul>
 			<li>품명 및 모델명</li>
-			<li>BMA-1150-LC</li>
+			<li>${vo.pname }</li>
 			<li>색상</li>
 			<li>컨텐츠 참조</li>
 			<li>구성품</li>
