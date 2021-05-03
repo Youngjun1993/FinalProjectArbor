@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+/* 관리자 공통메뉴 */
+.h_sidemenuContainer {
+	float:left;
+	width: 150px;
+	text-align:center;
+}
+
 .h_menu_list .h_menu_submenu {
     padding:0;
 }
@@ -24,6 +31,9 @@
     z-index: 99;
     overflow-y: auto;
     overflow-x: hidden;
+}
+.h_menu_list li{
+	text-align:left;
 }
 
 /* 관리탭 대분류 */
@@ -86,8 +96,116 @@
     background: #fff;
     opacity: 0;
 }
+/* 관리자 공통메뉴 끝 */
 
 
+.h_mainContainer{
+	float:right;
+	width:100%;
+	width:1200px;
+}
+
+.h_memberSearch_header{
+	
+	height:150px;
+	text-align:center;
+	line-height:150px;
+	font-size:25px;
+	
+}
+
+/* 메인카테고리 */
+	.h_ipt{
+		padding: 8px 0;
+		border: 1px solid #E8EAED;
+		border-radius: 1px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+		margin:0;
+		font-size: 16px;
+	}
+	
+	.h_searchSelect {
+	    padding: 8px 10px;
+	    border: 1px solid #E8EAED;
+	    border-radius: 1px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+	    cursor: pointer;
+	    font-size: 16px;
+   
+     }
+	
+	/* 테이블 정렬용 */
+	
+	.h_formtable{
+		border:1px solid;
+	}
+	
+	.h_formtable td:nth-child(2n+1){
+		text-align:left;
+		padding:0 0 0 25px;
+		width:300px;
+		height: 40px;
+		font-size:1.1em;
+		background-color:lightgray;
+	}
+	
+	.h_formtable td:nth-child(2n){
+		text-align:left;
+		height: 40px;
+		width:900px;
+		border-bottom: 1px solid #E8EAED;;
+	}
+
+	.h_last_td{
+		border-bottom: none !important;
+	}
+	
+	.h_radiochk {
+		font-size: 16px;
+		
+	}
+	
+	.h_searchBtnBox {
+		margin:10px 0;
+		width:1200px;
+		text-align:center;
+		
+	}
+	.h_searchMultiBtn {
+	
+		margin:10px 0;
+		width:1200px;
+		
+	}
+	
+	/* 회원검색 ul li */
+	
+	.h_mainContainer li{
+		float:left;
+		width:12%;
+		height:40px;
+		line-height:40px;
+		text-align:left;
+		border-bottom:1px solid #eee;
+		font-size:12px;
+		text-align:center;
+		
+	}
+	
+	.h_listHeader {
+		border-top: 1px solid #ddd;
+		border-bottom:1px solid #aaa !important;
+	}
+	
+	/* .h_mainContainer li:nth-child(9n+5) {
+		
+	} */
+	
+	
+	
+	
 
 	
 
