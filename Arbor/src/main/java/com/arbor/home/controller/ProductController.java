@@ -57,7 +57,9 @@ public class ProductController {
 	@RequestMapping("/productView")
 	public ModelAndView productView(int pno) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("vo", productService.productSelect(pno));
+		ProductVO vo = productService.productSelect(pno);
+		mav.addObject("vo", vo);
+		mav.addObject("rgb", productService.productListRGB(vo.getSubno()));
 		mav.setViewName("client/product/productView");
 		return mav;
 	}

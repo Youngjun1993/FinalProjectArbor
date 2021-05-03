@@ -13,5 +13,5 @@ public interface TimeSaleServiceImp {
 	public int timeSaleEdit(TimeSaleVO vo);
 	public int timeSaleDelete(int saleNo);
 	
-	public TimeSaleVO getTimeSale();
+	public List<TimeSaleVO> getTimeSale();
 }

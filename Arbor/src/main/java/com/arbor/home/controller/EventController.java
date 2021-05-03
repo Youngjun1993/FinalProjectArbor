@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arbor.home.dao.EventDAOImp;
 import com.arbor.home.service.EventServiceImp;
 import com.arbor.home.vo.EventVO;
+import com.arbor.home.vo.PageSearchVO;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -57,15 +58,21 @@ public class EventController {
 		return mav;
 	}
 	
-	
 	//////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////	
 	
 	/* admin */
 	@RequestMapping("/eventList")
-	public ModelAndView eventList(EventVO vo){
+	public ModelAndView eventList(PageSearchVO pageVo, HttpServletRequest req){
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr!=null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		pageVo.setTotalRecord(eventService.totalRecord(pageVo));
+		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", eventService.eventAllSelect(vo));
+		mav.addObject("list", eventService.onePageRecordSelect(pageVo));
+		mav.addObject("pageVO", pageVo);
 		mav.setViewName("admin/event/eventList");
 		return mav;
 	}

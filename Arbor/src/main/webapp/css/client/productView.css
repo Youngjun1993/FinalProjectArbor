@@ -99,26 +99,57 @@
 #p_detailMenu {
 	width: 1300px; margin: 100px auto;
 }
-#p_detailMenu>ul {
+#p_reviewMenu {
+	width: 1300px; margin: 400px auto 100px;
+}
+#p_pqnaMenu, #p_deliveryMenu {
+	width: 1300px; margin: 300px auto 100px;
+}
+#p_detailMenu>ul, #p_reviewMenu>ul, #p_pqnaMenu>ul, #p_deliveryMenu>ul {
 	overflow: auto; text-align: center;
 }
-#p_detailMenu>ul>li {
+#p_detailMenu>ul>li, #p_reviewMenu>ul>li, #p_pqnaMenu>ul>li, #p_deliveryMenu>ul>li {
 	float:left; width: 24%; height: 70px; line-height: 70px;
 	text-align: center; font-size:1.3em;
 	border: 1px solid #ddd;
+	background-color: rgb(248, 244, 236);
 }
 #p_detailMenu>ul>li:first-child {
 	border-bottom: none;
-	background-color: rgb(248, 244, 236);
+	background-color: #fff;
 	font-weight:bold;
 }
+#p_reviewMenu>ul>li:nth-of-type(2) {
+	border-bottom: none;
+	background-color: #fff;
+	font-weight:bold;
+}
+#p_pqnaMenu>ul>li:nth-of-type(3) {
+	border-bottom: none;
+	background-color: #fff;
+	font-weight:bold;
+}
+#p_deliveryMenu>ul>li:nth-of-type(4) {
+	border-bottom: none;
+	background-color: #fff;
+	font-weight:bold;
+}
+
 /* 상품상세페이지 */
 #p_detailView {
 	width: 1300px; text-align: center;
 	margin:140px auto; 
 }
 #p_detailView>h2 {
-	margin-bottom: 10px;
+	margin: 200px 0 10px;
+}
+#p_detailView>img {
+	margin: 100px 0 100px;
+}
+#p_detailView>div {
+	width: 100%; overflow:auto;
+	text-align: center;
+	margin: 100px 0;
 }
 #p_detailView>ul {
 	overflow: auto; text-align: center;
@@ -141,7 +172,7 @@
 
 /* 리뷰 */
 #p_review {
-	width: 1300px; margin : 400px auto 100px;
+	width: 1300px; margin : 140px auto 100px;
 	overflow : auto; text-align: center;
 }
 #p_review>h1, #p_pqna>h1 {
@@ -157,7 +188,7 @@
 
 /* 상품문의 */
 #p_pqna {
-	width: 1300px; margin: 100px auto;
+	width: 1300px; margin: 0 auto;
 	text-align: center;
 }
 #p_pqna>div {
@@ -165,12 +196,9 @@
 	padding-bottom:20px; border-bottom: 1px solid #ddd;
 }
 #p_pqna button {
-	width:150px; height: 40px; line-height: 40px;
-	border-radius: 10px; border: 1px solid gray;
-	text-align: center; background-color: #fff;
-	cursor: pointer; margin-bottom: 50px;
+	width:150px; height: 40px;
+	margin-bottom: 20px;
 }
-
 /* 배송/교환/반품 안내 */
 #p_delivery {
 	width: 1300px; text-align: center;
@@ -247,7 +275,7 @@
 	float:left; width: 10%; text-align: center;
 }
 .p_qna_leftDiv>img {
-	width: 50px; height: 50px; margin-top: 10px;
+	width: 30px; height: 30px; margin-top: 20px;
 }
 .p_qna_rightDiv {
 	float:right; overflow: auto;

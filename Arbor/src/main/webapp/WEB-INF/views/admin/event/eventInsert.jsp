@@ -33,11 +33,11 @@
 	        buttonImage: "<%=request.getContextPath()%>/img/calendar2.png",
 	        buttonImageOnly: true
 		});
-		$("#eventStart").datepicker();
-		$("#eventEnd").datepicker();
+		$("#j_eventStart").datepicker();
+		$("#j_eventEnd").datepicker();
 		
 		//summernote
-		$("#eventContent").summernote({
+		$("#j_eventContent").summernote({
 			height: 300,
 			minHeight: 300,
 			maxHeight: 300,
@@ -87,20 +87,20 @@
 		
 		//EVENT Insert 유효성 검사
 		$("#j_eventInsertBtn").on('click', function(){
-			if($('#eventSubject').val()=='' || $('#eventSubject').val()==null){
+			if($('#j_eventSubject').val()=='' || $('#j_eventSubject').val()==null){
 				alert("제목은 필수 입력 항목입니다.");
-				$('#eventSubject').focus();
+				$('#j_eventSubject').focus();
 				return false;
-			}else if($('#eventStart').val()=='' || $('#eventStart').val()==null){
+			}else if($('#j_eventStart').val()=='' || $('#j_eventStart').val()==null){
 				alert("이벤트 시작일은 필수 입력 항목입니다.");
 				return false;
-			}else if($('#eventEnd').val()=='' || $('#eventEnd').val()==null){
+			}else if($('#j_eventEnd').val()=='' || $('#j_eventEnd').val()==null){
 				alert("이벤트 종료일은 필수 입력 항목입니다.");
 				return false;
-			}else if($('#eventImg1').val()=='' || $('#eventImg1').val()==null){
+			}else if($('#j_eventImg1').val()=='' || $('#j_eventImg1').val()==null){
 				alert("이벤트 타이틀 이미지는 필수 입력 항목입니다.");
 				return false;
-			}else if($('#eventContent').val()=='' || $('#eventContent').val()==null){
+			}else if($('#j_eventContent').val()=='' || $('#j_eventContent').val()==null){
 				alert("본문 내용은 필수 입력 항목입니다.");
 				return false;
 			}
@@ -114,17 +114,17 @@
 <div class="w1400_container font_ng">
 	<div class="j_sideMenu">사이드메뉴</div>
 	<div class="j_centerFrm">
-		<h1>이벤트 등록</h1>
-		<form method="post" id="j_eventInsertFrm" action="eventInsertOk">
+		<p class="j_adminMemu"><span>이벤트 등록</span></p>
+		<form method="post" id="j_eventInsertFrm" action="eventInsertOk" enctype="multipart/form-data">
 			<div>
-				<span class="j_category">제목</span> <input type="text" name="eventSubject" id="eventSubject"/><br/>
+				<span class="j_category">제목</span> <input type="text" name="eventSubject" id="j_eventSubject"/><br/>
 				<span class="j_category">이벤트 기간</span> 
-					<input type="text" name="eventStart" id="eventStart" placeholder="시작일"/> ~ 
-					<input type="text" name="eventEnd" id="eventEnd" placeholder="종료일"/><br/>
-				<span class="j_category">타이틀 이미지</span> <input type="file" name="img1" id="eventImg1"/>
+					<input type="text" name="eventStart" id="j_eventStart" placeholder="시작일"/> ~ 
+					<input type="text" name="eventEnd" id="j_eventEnd" placeholder="종료일"/><br/>
+				<span class="j_category">타이틀 이미지</span> <input type="file" name="img1" id="j_eventImg1"/>
 				<br/><br/>
-				<textarea name="eventContent" id="eventContent"></textarea><br/>
-				<p class="j_eventSetBtn"><input type="button" id="j_eventInsertBtn" value="등록"></p>
+				<textarea name="eventContent" id="j_eventContent"></textarea><br/>
+				<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_eventInsertBtn" value="등록"></p>
 			</div>
 		</form>
 	</div>

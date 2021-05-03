@@ -8,13 +8,13 @@
 		select * from (select * from (select o.orderno, to_char(o.orderdate, 'YY-MM-DD HH:MI')as orderdate, o.userid, o.arr, o.arrtel, o.arrzipcode, o.arraddr, o.arrdetailaddr, o.request, o.pluspoint, o.usecoupon, o.deliveryprice, o.totalprice, o.status, s.pname from ordertbl o join (select orderno, listagg(pname,',') within group (order by pname) as pname from suborder group by orderno) s on o.orderno=s.orderno where o.userid = #{userid} order by rownum desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by rownum asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by rownum desc
 	</select>
 	<select id="suborderList" resultType="com.arbor.home.vo.OrdsubOrdJoinVO">
-		select  o.orderno, to_char(o.orderdate, 'YYYY-MM-DD')as orderdate, o.arr, o.arrtel, o.arraddr, o.arrdetailaddr, o.request, o.status, o.usepoint, o.couponprice, o.usecoupon, o.totalprice, s.subno, s.orderno, s.pno, s.optno, s.quantity, s.subprice, s.pname from suborder s join ordertbl o on s.orderno = o.orderno where s.orderno=#{param1}
+		select  o.orderno, to_char(o.orderdate, 'YYYY-MM-DD')as orderdate, o.arr, o.arrtel, o.arraddr, o.arrdetailaddr, o.request, o.status, o.usepoint, o.couponprice, o.usecoupon, o.totalprice, s.suborderno, s.orderno, s.pno, s.optno, s.quantity, s.subprice, s.pname from suborder s join ordertbl o on s.orderno = o.orderno where s.orderno=#{param1}
 	</select>
 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(rownum) as totalRecord from ordertbl where userid = #{userid}
 	</select>
 	<select id="pointSum" resultType="com.arbor.home.vo.PointVO">
-		select sum(point) as point from point where userid = #{userid}
+		select point from (select point, userid from point order by pointno desc) where userid = #{userid} and rownum = 1
 	</select>
 		<select id="couponCount" resultType="com.arbor.home.vo.CouponVO">
 		select count(cpnno) as cpnno from coupon where userid = #{userid}
@@ -30,6 +30,34 @@
 		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
 	</select>
 	<select id="qnaTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
-		select count(qnano) as totalRecord from qna where userid = #{userid} <if test="qnaSearchWord != null"> and ${qnaSearchKey} like '%${qnaSearchWord}%'</if>
+		select count(qnano) as totalRecord from qna where userid = #{userid} <if test="searchWord != null"> and ${searchKey} like '%${searchWord}%'</if>
+	</select>
+	
+	<!-- coupon List 페이지 -->
+	<select id="cpnList" resultType="com.arbor.home.vo.CouponVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select cpnno, userid, cpnname, apply, available, salerate, to_char(cpnstart, 'YY/MM/DD') as cpnstart, to_char(cpnend, 'YY/MM/DD') as cpnend from coupon where userid=#{userid} order by cpnno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by cpnno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by cpnno desc
+	</select>
+	<select id="cpnTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(cpnno) as totalRecord from coupon where userid = #{userid}
+	</select>
+	<!-- coupon 할인율 정렬  -->
+	<select id="cpnSaleDesc" resultType="com.arbor.home.vo.CouponVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select cpnno, userid, cpnname, apply, available, salerate, to_char(cpnstart, 'YY/MM/DD') as cpnstart, to_char(cpnend, 'YY/MM/DD') as cpnend from coupon where userid=#{userid} order by salerate desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by salerate asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by salerate desc
+	</select>
+	
+	<!-- point List 페이지 -->
+	<select id="pointList" resultType="com.arbor.home.vo.PointVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select pointno, to_char(pointdate, 'YY/MM/DD') as pointdate, pointcontent, point, lead(point) over (order by pointno) as beforePoint, (point-lead(point) over (order by pointno desc)) as mfpoint, userid from point where userid=#{userid} order by pointno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by pointno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by pointno desc
+	</select>
+	<select id="pointTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(rownum) as totalRecord from point where userid = #{userid}
+	</select>
+	
+	<!-- review List 페이지 -->
+	<select id="reviewList" resultType="com.arbor.home.vo.ReviewVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select reviewno, pno, userid, grade, reviewcontent, reviewdate from review where userid=#{userid} order by reviewno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by reviewno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by reviewno desc
+	</select>
+	<select id="reviewTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(reviewno) as totalRecord from review where userid = #{userid}
 	</select>
 </mapper>

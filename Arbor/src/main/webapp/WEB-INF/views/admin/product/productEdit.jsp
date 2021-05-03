@@ -22,7 +22,7 @@
 	<div class="w1400_container font_ng">
 		<div id="sidefrm">사이드메뉴</div>
 		<div id="centerfrmEdit">
-			<h1>상품 수정</h1>
+			<p id="pageTitle"><span>상품 수정</span></p>
 			<form method="post" action="productEditOk" enctype="multipart/form-data" autocomplete="off">
 			<div id="insertInfo">
 				<p><span class=pTitle>상품 정보</span>
@@ -68,12 +68,14 @@
 				</p><br/>
 				<div id="editImg">
 					<h3>이미지</h3><br/>
+					<p id="p_insertImgDiv">* 목록에 띄워질 메인이미지</p>
 					<div>
 						<div>${vo.img1 } <img src="<%=request.getContextPath() %>/img/cancel.png" class="imgEdit"/></div>
 						<input type="hidden" name="" value="${vo.img1 }" />
 						<input type="hidden" name="filename" />
 					</div>
 					<br/>
+					<p>* 마우스 이동에 따라 변환될 서브 이미지</p>
 					<c:if test="${vo.img2!='' && vo.img2!=null }">
 					<!-- 두번째 파일 있을 때 -->
 						<div>
@@ -87,8 +89,7 @@
 						<input type="file" name="filename"/>
 					</c:if>
 					<br/>
-					<p>* 첫번째 이미지는 목록에 띄워질 메인이미지<br/><span id="secondP">두번째 이미지는 서브이미지 입니다.</span></p>
-					<div id="imgPrint"><img src="<%=request.getContextPath() %>/img/noimg.png"/></div>
+					<div id="imgPrint"><img src="<%=request.getContextPath() %>/upload/${vo.img1}"/></div>
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					<h3>상세설명</h3><br/>
 					<textarea name="description" id="description">${vo.description }</textarea>
@@ -134,7 +135,7 @@
 					</c:if>
 				</div>
 			</div>
-			<p id="lastP"><input type="submit" value="수정완료"/><input type="reset" value="다시쓰기" /></p>
+			<p id="lastP"><input type="submit" value="수정완료" class="adminMainBtn"/><input type="reset" value="다시쓰기" class="adminSubBtn" /></p>
 			</form>
 		</div>
 	</div>
