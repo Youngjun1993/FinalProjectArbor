@@ -26,55 +26,10 @@ $(function() {
 </script>
 </head>
 <body>
-<div class="w1400_container">
-	<div class="h_sidemenuContainer">
-	<img src="<%=request.getContextPath() %>/img/sublogo.jpg" class="h_sub">
-	
-	<!-- 관리자 공통메뉴 -->	
-	<div id="h_menucontainer">
-            <ul class="h_menu_list accordion">
-                <!-- 관리자 1번 메뉴 -->
-                <li id="h_largemenu" class="toggle accordion-toggle"> 
-                    <a class="h_menu_link" href="#">회원관리</a>
-                </li>
-                <ul class="h_menu_submenu accordion-content">
-                    <li><a class="head" href="#">회원검색</a></li>
-                    <li><a class="head" href="#">휴면회원검색</a></li>
-                    <li><a class="head" href="#">탈퇴회원검색</a></li>
-                </ul>
-                <!-- 관리자 2번 메뉴 -->
-                <li id="nav1" class="toggle accordion-toggle"> 
-                    <a class="h_menu_link" href="#">상품관리</a>
-                </li>
-                <ul class="h_menu_submenu accordion-content">
-                    <li><a class="head" href="#">Submenu1</a></li>
-                    <li><a class="head" href="#">Submenu2</a></li>
-                    <li><a class="head" href="#">Submenu3</a></li>
-                </ul>
-                <!-- 관리자 3번 메뉴 -->
-                <li id="nav1" class="toggle accordion-toggle"> 
-                    <a class="h_menu_link" href="#">결제관리</a>
-                </li>
-                <ul class="h_menu_submenu accordion-content">
-                    <li><a class="head" href="#">Submenu1</a></li>
-                    <li><a class="head" href="#">Submenu2</a></li>
-                    <li><a class="head" href="#">Submenu3</a></li>
-                </ul>
-                <!-- 관리자 4번 메뉴 -->
-                <li id="nav1" class="toggle accordion-toggle"> 
-                    <a class="h_menu_link" href="#">문의관리</a>
-                </li>
-                <ul class="h_menu_submenu accordion-content">
-                    <li><a class="head" href="#">Submenu1</a></li>
-                    <li><a class="head" href="#">Submenu2</a></li>
-                    <li><a class="head" href="#">Submenu3</a></li>
-                </ul>
-                
-            </ul>
-            <!-- menu-list accordion-->
-		</div>
-	</div>
-	
+<div class="w1400_container clearfix">
+
+	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
+	<!-- 관리자공통메뉴 -->
 	
 	<!-- 회원검색 컨테이너-->
 	<div class="h_memberSearch_header">회원 검색</div>
