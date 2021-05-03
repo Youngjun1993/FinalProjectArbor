@@ -199,6 +199,15 @@
 		border-bottom:1px solid #aaa !important;
 	}
 	
+	.h_memdormant {
+		border: none;
+		background-color: rgb(191,43,53); color:#fff;
+		font-family: 'Nanum Gothic', sans-serif;
+		font-weight: bold; cursor:pointer;
+		pointer-events: none;
+	}
+	
+	
 	/* .h_mainContainer li:nth-child(9n+5) {
 		
 	} */

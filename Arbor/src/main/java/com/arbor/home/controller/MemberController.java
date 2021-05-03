@@ -78,8 +78,6 @@ public class MemberController {
 		 */
 		int cnt = memberService.memberInsert(vo);
 		
-		System.out.println("겟텔 =" + vo.getTel()+ "겟이메일 =" +vo.getEmail());
-		
 		ModelAndView mav = new ModelAndView();
 		
 		try {
@@ -123,27 +121,25 @@ public class MemberController {
 		//세션아웃 값을 넘겨줘야함 디비?
 		long logoutTime =session.getLastAccessedTime();
 
-		DateFormat df = new SimpleDateFormat("YY/MM/dd HH:mm");
+		DateFormat df = new SimpleDateFormat("YYYYMMddHHmmss");
+		//세션 아이디와 DB에 넣어줄 시간을 구함
+		String nowId = (String)session.getAttribute("logId");
 		String lastDate = df.format(logoutTime);
 		
-		System.out.println(logoutTime);
-		
-		System.out.println(lastDate);
-		
-		//세션 아이디를 구함
-		String nowId = (String)session.getAttribute("logId");
-		System.out.println("세션 아이디 = " + nowId);
-		
 		//세션 아이디에 lastDate 업데이트 해줌
+		int cnt = memberService.lastDateUpdate(lastDate, nowId);
 		
-		session.invalidate();
-		
+		if(cnt>0) {
+			System.out.println(lastDate);
+			System.out.println("세션 아이디 = " + nowId);
+			System.out.println("세션타임 업데이트 완료");
+			session.invalidate();
+		}
 		
 		return "home";
 	}
 	
-	
-	
+	//회원 전체검색
 	@RequestMapping("/memberSearch")
 	public ModelAndView memberSearchList(MemberVO vo) {
 		
@@ -154,6 +150,42 @@ public class MemberController {
 		
 		return mav;
 	}
+	
+	//휴면회원 처리
+    @RequestMapping("/memDormant")
+    public ModelAndView memDormant(String userid) {
+    	ModelAndView mav = new ModelAndView();
+    	System.out.println(userid);
+    	
+    	int cnt = memberService.memDormant(userid);
+    	
+    	if(cnt>0) {
+			System.out.println("휴면처리 완료");
+			mav.setViewName("redirect:memberSearch");
+		}else {
+			System.out.println("휴면처리 실패");
+			mav.setViewName("redirect:memberSearch");
+		}
+    	
+    	
+    	return mav;
+    }
+    
+    //회원삭제
+    @RequestMapping("/memDel")
+	public ModelAndView memDel(String userid) {
+    	
+		ModelAndView mav = new ModelAndView();
+		if (memberService.memDel(userid)>0) {//삭제
+			mav.setViewName("redirect:memberSearch");
+		}else {//삭제 실패
+			System.out.println("삭제실패");
+			mav.setViewName("redirect:memberSearch");
+		}
+		
+		return mav;
+	}
+    
 	
 	//중복아이디 체크
 	@RequestMapping("/idcheck")
@@ -223,5 +255,6 @@ public class MemberController {
       return num;
       
     }
+    
 	
 }
