@@ -45,14 +45,14 @@ body{
 	top:2px;
 }
 /*클라이언트 서브버튼*/
-.clientsubBtn {
+.clientSubBtn {
 	border: 1px solid rgb(93, 121, 115);
 	outline:none;
 	color: rgb(93, 121, 115); background-color:#fff;
 	font-family: 'Nanum Gothic', sans-serif;
 	font-weight: bold; cursor:pointer;
 }
-.clientsubBtn:hover {
+.clientSubBtn:hover {
 	border: 2px solid rgb(73, 101, 95);
 	color: rgb(73, 101, 95);
 	position:relative;

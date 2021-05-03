@@ -18,18 +18,13 @@
 	<div class="w1400_container font_ng">
 		<div id="sidefrm">사이드메뉴</div>
 		<div id="centerfrm">
-			<h1>카테고리 관리</h1>
+			<p id="pageTitle"><span>카테고리 관리</span></p>
 			<div id="insertInfo">
-				<p><span class=pTitle>카테고리 관리</span>
+				<p><span class=pTitle>카테고리</span>
 					<img src="<%=request.getContextPath() %>/img/downpage.png"/>
 					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 				</p><br/>
 				<div id="insertCategoryDiv">
-					<span class="pContent"></span>
-					<span class="pContent">대분류</span>
-					<span class="pContent"></span>
-					<span class="pContent">중분류</span>
-					<br/>
 					<span class="pContent">카테고리</span>
 					<select name="mainno" id="maincate">
 						<c:forEach var="mainCate" items="${mainCate }">
@@ -50,19 +45,17 @@
 							<option value="subcate">중분류</option>
 						</select>
 						<input type="text" name="edit" id="searchWord" />
-						<input type="submit" value="등록" />
+						<input type="submit" value="등록" class="adminMainBtn"/>
 					</form>
 					<hr/>
 					<form>
-						<p><input type="checkbox" id="listCheckAll"/>전체선택
-						<input type="submit" value="선택삭제"/><p>
 						<ul id="categoryList">
-							<li>&nbsp</li>
-							<li>대분류번호</li>
-							<li>중분류번호</li>
-							<li>대분류</li>
-							<li>중분류</li>
-							<li>&nbsp</li>
+							<li class="tableHeader"><input type="checkbox" value="전체선택"/></li>
+							<li class="tableHeader">대분류번호</li>
+							<li class="tableHeader">중분류번호</li>
+							<li class="tableHeader">대분류</li>
+							<li class="tableHeader">중분류</li>
+							<li class="tableHeader"><input type="submit" value="선택삭제" class="adminSubBtn"/></li>
 							
 							<c:forEach var="vo" items="${cateList }">
 								<li><input type="checkbox" value="${vo.subno }"/></li>

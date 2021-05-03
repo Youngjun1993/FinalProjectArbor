@@ -37,11 +37,11 @@
     margin: 20px auto;
 }
 
-#centerfrm>form>div>p, #centerfrmEdit>form>div>p {
-	margin-bottom: 40px; height: 50px; line-height: 50px;
+#centerfrm>form>div>p, #centerfrmEdit>form>div>p, #centerfrm>div>p:first-child {
+	margin-bottom: 20px; height: 50px; line-height: 50px;
 	border-bottom : 2px solid;
 }
-#centerfrm>form>div {
+#centerfrm>form>div, #centerfrmEdit>form>div, #centerfrm>div {
 	margin-bottom: 40px;
 }
 
@@ -115,6 +115,7 @@
 
 #pDateCate {
 	overflow: auto; text-align: center;
+	margin-bottom: 5px;
 }
 #pDateCate>li {
 	float:left; width: 83px; height: 30px; line-height: 30px;
@@ -123,7 +124,7 @@
 }
 #pDateCate>li:first-child {
 	background-color: #fff; text-align: left;
-	border: none;
+	border: none; width:93px;
 }
 #pDateCate>li:last-child {
 	border: none;
@@ -139,29 +140,29 @@
 }
 #productList>li {
 	float:left; width: 10%; height: 40px; line-height: 40px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #eee;
+}
+#productList>li.tableHeader, #categoryList>li.tableHeader {
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #aaa;
 }
 #productList>li:nth-of-type(8n+1) {
-	width: 5%;
+	width: 4%;
 }
 #productList>li:nth-of-type(8n+3) {
 	width: 15%;
+}
+#productList>li:nth-of-type(8n+4):not(#productList>li:nth-of-type(4)) {
+	text-align: left; padding-left:2%; width: 28%;
 }
 #productList>li:nth-of-type(8n+4) {
 	width: 30%;
 }
 #productList>li>input[type=checkbox] {
-	width: 15px; height: 15px;
+	width: 15px; height: 15px; margin: 0 auto;
 }
 #productList>li>input[type=submit]{
 	width: 100px; height: 30px;
-}
-
-
-#listCheckAll {
-	width: 15px; height: 15px;
-	margin: 0 5px 0 50px;
-	vertical-align: middle;
 }
 
 /* product Edit */
@@ -178,13 +179,17 @@
 }
 #categoryList>li {
 	float:left; width: 10%; height: 40px; line-height: 40px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #eee;
 }
 #categoryList>li:nth-of-type(6n+4), #categoryList>li:nth-of-type(6n+5), #categoryList>li:nth-of-type(6n+6) {
 	width: 23%;
 }
 #categoryList>li>input[type=checkbox] {
 	width: 15px; height: 15px;
+}
+#categoryList>li.tableHeader>input[type=submit] {
+	width: 130px; height: 30px;
+	margin: 0 auto;
 }
 
 #insertCategoryDiv {
