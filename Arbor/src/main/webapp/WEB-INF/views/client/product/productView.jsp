@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="w1400_container font_ng">
-	<h1 id="p_detailTitle">${vo.pname }</h1>
+	<h1 id="p_detailTitle">《 ${vo.pname } 》</h1>
 	<hr />
 	<div id="p_detail">
 		<!-- 모델명, 이미지 띄울 곳 -->
@@ -46,43 +46,47 @@
 		<!-- 옵션 선택 시 띄울 공간 -->
 		<div id="p_detailSelect">
 			<ul>
-				<li>색상 : 네이비</li>
+				<li>${vo.pname }</li>
 				<li>
 					<button>-</button>
 					<span class="p_selectNum">1</span>
 					<button>+</button>
 				</li>
-				<li class="p_bigPrice">600,000원</li>
-				<li><img src="<%=request.getContextPath() %>/img/cancel.png"/></li>
-			</ul>
-			<ul>
-				<li>스툴포함여부 : 포함(+80,000)</li>
-				<li>
-					<button>-</button>
-					<span class="p_selectNum">1</span>
-					<button>+</button>
-				</li>
-				<li class="p_bigPrice">80,000원</li>
+				<li class="p_bigPrice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</li>
 				<li><img src="<%=request.getContextPath() %>/img/cancel.png"/></li>
 			</ul>
 			<div>
-				총 상품금액 <span id="p_totalprice">680,000원</span><br/>
+				총 상품금액 <span id="p_totalprice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</span><br/>
 				<input type="submit" value="찜하기" formaction="/cart" />
 				<input type="submit" value="장바구니" formaction="/cart" />
 				<input type="submit" value="바로구매" formaction="/order" />
 			</div>
 		</div>
 		</form>
+		<span id="p_detailMenu_up"></span>
 	</div>
 	<div id="p_detailMenu">
 		<ul>
 			<li>상품상세</li>
-			<li>상품후기</li>
-			<li>상품문의</li>
-			<li>배송안내</li>
+			<li><a href="#p_reviewMenu_up">상품후기</a></li>
+			<li><a href="#p_pqnaMenu_up">상품문의</a></li>
+			<li><a href="#p_deliveryMenu_up">배송안내</a></li>
 		</ul>
 	</div>
 	<div id="p_detailView">
+		<img src="<%=request.getContextPath() %>/img/tree_detail3.jpg"/><br/>
+		<img src="<%=request.getContextPath() %>/img/info_detail2.jpg"/>
+		<img src="<%=request.getContextPath() %>/img/info_detail3.jpg"/><br/>
+		<img src="<%=request.getContextPath() %>/img/tree_detail.jpg"/><br/>
+		<div>
+			<h2>상품상세</h2><br/>
+			${vo.description }
+	2	</div>
+		<img src="<%=request.getContextPath() %>/upload/${vo.img1}"/>
+		<c:if test="${vo.img2!=null && vo.img2!='' }">
+			<img src="<%=request.getContextPath() %>/upload/${vo.img2}"/>
+		</c:if>
+		<img src="<%=request.getContextPath() %>/img/detail3.jpg"/>
 		<h2>상품필수정보</h2>
 		<h3>전자상거래 등에서의 상품정보제공 고시에 따라 작성되었습니다.</h3>
 		<ul>
@@ -105,7 +109,15 @@
 			<li>AS 책임자와 전화번호</li>
 			<li>&nbsp</li>
 		</ul>
-		<img src="<%=request.getContextPath() %>/img/detail3.jpg"/>
+	</div>
+	<span id="p_reviewMenu_up"></span>
+	<div id="p_reviewMenu">
+		<ul>
+			<li><a href="#p_detailMenu_up">상품상세</a></li>
+			<li>상품후기</li>
+			<li><a href="#p_pqnaMenu_up">상품문의</a></li>
+			<li><a href="#p_deliveryMenu_up">배송안내</a></li>
+		</ul>
 	</div>
 	<div id="p_review">
 		<h1>상품후기</h1>
@@ -139,11 +151,20 @@
 		</div>
 		<hr/>
 	</div>
+	<span id="p_pqnaMenu_up"></span>
+	<div id="p_pqnaMenu">
+		<ul>
+			<li><a href="#p_detailMenu_up">상품상세</a></li>
+			<li><a href="#p_reviewMenu_up">상품후기</a></li>
+			<li>상품문의</li>
+			<li><a href="#p_deliveryMenu_up">배송안내</a></li>
+		</ul>
+	</div>
 	<div id="p_pqna">
 		<h1>상품문의</h1>
 		<h3>해당 상품에 대한 문의만 답변이 가능하며 답변완료까지 1~5일이 소요될 수 있습니다.<br/>
 		주문, 결제, 배송, 반품/교환 문의는 1:1문의를 이용해주세요.</h3>
-		<button type="button">1:1문의 바로가기</button><br/>
+		<a href="qnaList"><button type="button" class="clientSubBtn">1:1문의 바로가기</button></a><br/>
 		<hr/>
 		<div>
 			<div class="p_qna_leftDiv">
@@ -199,6 +220,16 @@
 				<div class="p_qna_sideDiv">hyu******** | 2021-04-19</div>
 			</div>
 		</div>
+		<a href="#s"><button type="button" class="clientMainBtn">상품문의글 작성</button></a><br/>
+	</div>
+	<span id="p_deliveryMenu_up"></span>
+	<div id="p_deliveryMenu">
+		<ul>
+			<li><a href="#p_detailMenu_up">상품상세</a></li>
+			<li><a href="#p_reviewMenu_up">상품후기</a></li>
+			<li><a href="#p_pqnaMenu_up">상품문의</a></li>
+			<li>배송안내</li>
+		</ul>
 	</div>
 	<div id="p_delivery">
 		<img src="<%=request.getContextPath() %>/img/detail2.jpg"/>

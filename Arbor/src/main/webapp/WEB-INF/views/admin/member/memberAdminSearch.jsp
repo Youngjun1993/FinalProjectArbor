@@ -8,22 +8,8 @@
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 
-<script>
-
-$(function() {
-
-    $(".h_menu_list").find(".accordion-toggle").click(function() {
-        $(this).next().toggleClass("open").slideToggle("fast");
-        $(this).toggleClass("active-tab").find(".h_menu_link").toggleClass("active");
-
-        $(".h_menu_list .accordion-content").not($(this).next()).slideUp("fast").removeClass("open");
-        $(".h_menu_list .accordion-toggle").not(jQuery(this)).removeClass("active-tab").find(".h_menu_link").removeClass("active");
-	
-    });
-    
-});
-</script>
 </head>
 <body>
 <div class="w1400_container clearfix">

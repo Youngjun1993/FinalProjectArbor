@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.arbor.home.dao.EventDAOImp">
+  
   	<!-- client -->
   	<select id="eventList" resultType="com.arbor.home.vo.EventVO">
   		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, eventImg1
