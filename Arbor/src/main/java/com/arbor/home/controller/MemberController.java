@@ -46,7 +46,7 @@ public class MemberController {
 			System.out.println("로그인 실패");
 			mav.setViewName("redirect:login");
 		}else {//로그인성공
-			session.setAttribute("logId", logVO.getUserid());
+			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
 			session.setAttribute("logName", logVO.getUsername());
 			mav.setViewName("redirect:/");
 			System.out.println("로그아이디 = " + logVO.getUserid());
@@ -123,12 +123,16 @@ public class MemberController {
 		//세션아웃 값을 넘겨줘야함 디비?
 		long logoutTime =session.getLastAccessedTime();
 
-		DateFormat df = new SimpleDateFormat("YY-MM-dd HH:mm:ss");
+		DateFormat df = new SimpleDateFormat("YY-MM-dd HH:mm");
 		String lastDate = df.format(logoutTime);
+		
+		System.out.println(logoutTime);
 		
 		System.out.println(lastDate);
 		
 		//세션 아이디를 구함
+		String nowId = (String)session.getAttribute("logId");
+		System.out.println("세션 아이디 = " + nowId);
 		
 		//세션 아이디에 lastDate 업데이트 해줌
 		
