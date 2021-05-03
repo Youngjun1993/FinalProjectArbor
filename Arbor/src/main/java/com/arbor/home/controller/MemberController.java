@@ -123,7 +123,7 @@ public class MemberController {
 		//세션아웃 값을 넘겨줘야함 디비?
 		long logoutTime =session.getLastAccessedTime();
 
-		DateFormat df = new SimpleDateFormat("YY-MM-dd HH:mm");
+		DateFormat df = new SimpleDateFormat("YY/MM/dd HH:mm");
 		String lastDate = df.format(logoutTime);
 		
 		System.out.println(logoutTime);
