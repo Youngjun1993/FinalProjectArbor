@@ -18,7 +18,9 @@
 </head>
 <body>
 	<div class="w1400_container font_ng">
-		<div id="sidefrm">사이드메뉴</div>
+		<div id="sidefrm">
+			<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
+		</div>
 		<div id="centerfrm">
 			<p id="pageTitle"><span>상품 등록</span></p>
 			<form method="post" action="productInsertOk" enctype="multipart/form-data" autocomplete="off">
