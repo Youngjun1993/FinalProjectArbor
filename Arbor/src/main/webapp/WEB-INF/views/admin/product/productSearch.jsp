@@ -76,7 +76,7 @@
 				</p><br/>
 				<form method="post" action="ProductDeleteCheck">
 					<ul id="productList">
-						<li class="tableHeader"><input type="checkbox" value="전체선택"/></li>
+						<li class="tableHeader"><input type="checkbox" value="전체선택" id="listCheckAll"/></li>
 						<li class="tableHeader">상품코드</li>
 						<li class="tableHeader">카테고리</li>
 						<li class="tableHeader">상품명</li>

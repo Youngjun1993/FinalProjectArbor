@@ -50,7 +50,7 @@
 					<hr/>
 					<form>
 						<ul id="categoryList">
-							<li class="tableHeader"><input type="checkbox" value="전체선택"/></li>
+							<li class="tableHeader"><input type="checkbox" value="전체선택" id="listCheckAll"/></li>
 							<li class="tableHeader">대분류번호</li>
 							<li class="tableHeader">중분류번호</li>
 							<li class="tableHeader">대분류</li>

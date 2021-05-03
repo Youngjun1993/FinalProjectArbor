@@ -10,7 +10,6 @@
 }
 
 #centerfrm, #centerfrmEdit {
-	border-left: 2px solid rgb(191,43,53);
 	width: 1250px;
 	float: right;
 }

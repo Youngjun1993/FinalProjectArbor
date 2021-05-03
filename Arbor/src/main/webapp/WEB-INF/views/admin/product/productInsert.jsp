@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/productInsert.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
@@ -18,9 +19,7 @@
 </head>
 <body>
 	<div class="w1400_container font_ng">
-		<div id="sidefrm">
-			<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
-		</div>
+		<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 		<div id="centerfrm">
 			<p id="pageTitle"><span>상품 등록</span></p>
 			<form method="post" action="productInsertOk" enctype="multipart/form-data" autocomplete="off">
