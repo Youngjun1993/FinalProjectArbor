@@ -1,5 +1,7 @@
 package com.arbor.home.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -44,7 +46,7 @@ public class MemberController {
 			System.out.println("로그인 실패");
 			mav.setViewName("redirect:login");
 		}else {//로그인성공
-			session.setAttribute("logId", logVO.getUserid());
+			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
 			session.setAttribute("logName", logVO.getUsername());
 			mav.setViewName("redirect:/");
 			System.out.println("로그아이디 = " + logVO.getUserid());
@@ -75,8 +77,6 @@ public class MemberController {
 		 * vo.setEmaildomain(req.getParameter("emaildomain"));
 		 */
 		int cnt = memberService.memberInsert(vo);
-		
-		System.out.println("겟텔 =" + vo.getTel()+ "겟이메일 =" +vo.getEmail());
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -118,14 +118,74 @@ public class MemberController {
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
-		session.invalidate();
+		//세션아웃 값을 넘겨줘야함 디비?
+		long logoutTime =session.getLastAccessedTime();
+
+		DateFormat df = new SimpleDateFormat("YYYYMMddHHmmss");
+		//세션 아이디와 DB에 넣어줄 시간을 구함
+		String nowId = (String)session.getAttribute("logId");
+		String lastDate = df.format(logoutTime);
+		
+		//세션 아이디에 lastDate 업데이트 해줌
+		int cnt = memberService.lastDateUpdate(lastDate, nowId);
+		
+		if(cnt>0) {
+			System.out.println(lastDate);
+			System.out.println("세션 아이디 = " + nowId);
+			System.out.println("세션타임 업데이트 완료");
+			session.invalidate();
+		}
+		
 		return "home";
 	}
 	
+	//회원 전체검색
 	@RequestMapping("/memberSearch")
-	public String member() {
-		return "admin/member/memberAdminSearch";
+	public ModelAndView memberSearchList(MemberVO vo) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("list", memberService.memberAllselect(vo));
+		mav.setViewName("admin/member/memberAdminSearch");
+		
+		return mav;
 	}
+	
+	//휴면회원 처리
+    @RequestMapping("/memDormant")
+    public ModelAndView memDormant(String userid) {
+    	ModelAndView mav = new ModelAndView();
+    	System.out.println(userid);
+    	
+    	int cnt = memberService.memDormant(userid);
+    	
+    	if(cnt>0) {
+			System.out.println("휴면처리 완료");
+			mav.setViewName("redirect:memberSearch");
+		}else {
+			System.out.println("휴면처리 실패");
+			mav.setViewName("redirect:memberSearch");
+		}
+    	
+    	
+    	return mav;
+    }
+    
+    //회원삭제
+    @RequestMapping("/memDel")
+	public ModelAndView memDel(String userid) {
+    	
+		ModelAndView mav = new ModelAndView();
+		if (memberService.memDel(userid)>0) {//삭제
+			mav.setViewName("redirect:memberSearch");
+		}else {//삭제 실패
+			System.out.println("삭제실패");
+			mav.setViewName("redirect:memberSearch");
+		}
+		
+		return mav;
+	}
+    
 	
 	//중복아이디 체크
 	@RequestMapping("/idcheck")
@@ -155,7 +215,7 @@ public class MemberController {
     @ResponseBody
     public String mailCheckGET(String email){//나중에 반환타입 String
         
-        /* 뷰(View)로부터 넘어온 데이터 확인 */
+        /* 뷰로부터 넘어온 데이터 확인 */
        System.out.println("이메일 데이터 전송 확인");
        System.out.println("뷰에서 넘어온 이메일 값 : " + email);
        
@@ -195,5 +255,6 @@ public class MemberController {
       return num;
       
     }
+    
 	
 }

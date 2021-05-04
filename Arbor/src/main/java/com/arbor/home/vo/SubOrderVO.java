@@ -12,7 +12,7 @@ public class SubOrderVO {
 	public int getSuborderno() {
 		return suborderno;
 	}
-	public void setSubno(int suborderno) {
+	public void setSuborderno(int suborderno) {
 		this.suborderno = suborderno;
 	}
 	public int getOrderno() {

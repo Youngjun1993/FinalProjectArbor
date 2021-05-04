@@ -12,14 +12,32 @@
 	</div>
 	<div id="d_footerCenter">
 		<div>
+			<ul>
+				<li>CUSTOMER CENTER</li>
+				<li>1588-1234</li>
+				<li>온라인 : am09:00 ~ pm18:00(월~금/공휴일제외)</li>
+				<li>오프라인 : am09:00 ~ pm19:30(월요일~일요일)</li>
+			</ul>
 		</div>
 		<div>
+			<ul>
+				<li>AS 문의</li>
+				<li>080-123-4567</li>
+				<li>가능시간 : am09:00 ~ pm18:00(월~금/공휴일제외)</li>
+			</ul>
 		</div>
 	</div>
 	<div id="d_footerBottom">
-		<img src="<%=request.getContextPath()%>/img/footerLogo.jpg">
-		<p></p>
-		<p></p>
+		<div>
+			<img src="<%=request.getContextPath()%>/img/footerLogo.jpg">
+		</div>
+		<div>
+			<ul>
+				<li>법인명(상호) : (주)아르보르 대표: 이영준 상업자등록번호: 123-00-00000 통신판매업신고번호: 2020-ㅁㅁㅁ-0219</li>
+				<li>본사: 서울시 마포구 백범로 23 대표번호: 1588-1234 팩스번호: 02-123-1234 </li>
+				<li><img src="<%=request.getContextPath() %>/img/logogo.png"/>Copyright (c) 2021 ARBOR Co,. Ltd All Rights Reserved.<li>
+			</ul>
+		</div>
 	</div>
 	<div id="d_bottomLine">
 	</div>

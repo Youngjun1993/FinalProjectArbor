@@ -32,6 +32,112 @@ body{
 	clear:both;
 }
 
+/* 클라이언트, 관리자 페이징 스타일 */
+.paging>li{
+    width: 30px;
+    float: left;
+    margin-right:10px;
+	border-bottom: 3px solid #eee;
+}
+.adPaging>li{
+    width: 30px;
+    float: left;
+    margin-right:10px;
+	border-bottom: 3px solid #eee;
+}
+.paging>li:nth-child(1){
+	border-bottom: 3px solid rgb(93, 121, 115);
+}
+.adPaging>li:nth-child(1){
+	border-bottom: 3px solid rgb(93, 121, 115);
+}
+.paging>li:hover{
+	border-bottom: 3px solid rgb(93, 121, 115);
+}
+.adPaging>li:hover{
+	border-bottom: 3px solid rgb(191,43,53);
+}
+.paging>li a{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	display: block;
+}
+.adPaging>li a{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	display: block;
+}
+.pagingLR_a{
+	color:#333;
+	background: #eee;
+	border-radius: 30px;
+}
+.pagingLR_a:hover{
+	color:#fff;
+	background: rgb(93, 121, 115);
+}
+.pagingAdLR_a{
+	color:#333;
+	background: #eee;
+	border-radius: 30px;
+}
+.pagingAdLR_a:hover{
+	color:#fff;
+	background: rgb(191,43,53);
+}
+
+/*마이페이지 공통 메뉴바 스타일*/
+#y_leftMenu{
+    width: 150px;
+    float: left;
+}
+#y_leftMenu>ul>li{
+    height: 50px;
+    
+}
+#y_leftMenu>ul>li>a:hover{
+    font-weight: bold;
+}
+
+/* 마이페이지 공통 탑 스타일 */
+#y_myPageTop ul{
+    color:#333;
+    border: 1px solid #fff;
+    background: rgb(248, 244, 236);
+    margin: 0 0 30px 0;
+    padding: 30px 40px 30px 40px;
+}
+#y_myPageTop>ul>li:first-child{
+    width: 400px;
+    text-align: left;
+    border: none;
+    font-size: 25px;
+    padding: 40px 0 30px 30px;
+}
+#y_myPageTop>ul>li{
+    float: left;
+    height: 80px;
+    padding: 40px 40px 30px 40px;
+    text-align: center;
+    font-size: 18px;
+    border-right: 1px solid #ddd;
+}
+#y_myPageTop>ul>li span:nth-of-type(2){
+	margin-left:15px;
+	display : block;
+}
+#y_myPageTop>ul>li:last-child{
+    border: none;
+}
+#y_myPageTop ul li span{
+    float: left;
+    display: block;
+}
+
 /*클라이언트 메인버튼*/
 .clientMainBtn {
 	border: none;
@@ -45,14 +151,14 @@ body{
 	top:2px;
 }
 /*클라이언트 서브버튼*/
-.clientsubBtn {
+.clientSubBtn {
 	border: 1px solid rgb(93, 121, 115);
 	outline:none;
 	color: rgb(93, 121, 115); background-color:#fff;
 	font-family: 'Nanum Gothic', sans-serif;
 	font-weight: bold; cursor:pointer;
 }
-.clientsubBtn:hover {
+.clientSubBtn:hover {
 	border: 2px solid rgb(73, 101, 95);
 	color: rgb(73, 101, 95);
 	position:relative;
@@ -84,3 +190,4 @@ body{
 	position:relative;
 	top:2px;
 }
+

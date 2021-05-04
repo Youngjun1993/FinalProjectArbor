@@ -25,6 +25,25 @@ public class MemberVO {
 	private String regdate;
 	private String lastdate;
 	
+	private String memstat;
+	
+	//검색 데이터저장용	
+	private String searchCate;
+	private String searchWord;
+	
+	
+	public String getSearchCate() {
+		return searchCate;
+	}
+	public void setSearchCate(String searchCate) {
+		this.searchCate = searchCate;
+	}
+	public String getSearchWord() {
+		return searchWord;
+	}
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
 	public String getZipcode() {
 		return zipcode;
 	}
@@ -143,5 +162,12 @@ public class MemberVO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public String getMemstat() {
+		return memstat;
+	}
+	public void setMemstat(String memstat) {
+		this.memstat = memstat;
+	}
+	
 	
 }

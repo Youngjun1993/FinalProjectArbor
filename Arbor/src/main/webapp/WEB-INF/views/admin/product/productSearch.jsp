@@ -22,7 +22,7 @@
 	<div class="w1400_container font_ng">
 		<div id="sidefrm">사이드메뉴</div>
 		<div id="centerfrm">
-			<h1>상품 목록</h1>
+			<p id="pageTitle"><span>상품 목록</span></p>
 			<div id="insertInfo">
 				<p><span class=pTitle>상품 검색</span>
 					<img src="<%=request.getContextPath() %>/img/downpage.png"/>
@@ -76,14 +76,14 @@
 				</p><br/>
 				<form method="post" action="ProductDeleteCheck">
 					<ul id="productList">
-						<li><input type="checkbox" value="전체선택"/></li>
-						<li>상품코드</li>
-						<li>카테고리</li>
-						<li>상품명</li>
-						<li>판매가</li>
-						<li>재고</li>
-						<li>둥록일</li>
-						<li><input type="submit" value="선택삭제" class="adminSubBtn"/></li>
+						<li class="tableHeader"><input type="checkbox" value="전체선택"/></li>
+						<li class="tableHeader">상품코드</li>
+						<li class="tableHeader">카테고리</li>
+						<li class="tableHeader">상품명</li>
+						<li class="tableHeader">판매가</li>
+						<li class="tableHeader">재고</li>
+						<li class="tableHeader">둥록일</li>
+						<li class="tableHeader"><input type="submit" value="선택삭제" class="adminSubBtn"/></li>
 						<c:forEach var="vo" items="${productList }">
 							<li><input type="checkbox" value=${vo.pno }/></li>
 							<li>${vo.pno }</li>

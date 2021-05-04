@@ -8,8 +8,8 @@ public class PageSearchVO {
 	private int totalRecord;
 	private int onePageRecord=5;
 	private int lastPageRecord;
-	private String qnaSearchKey;
-	private String qnaSearchWord;
+	private String searchKey;
+	private String searchWord;
 	private String userid;
 	
 	
@@ -67,17 +67,17 @@ public class PageSearchVO {
 	public void setLastPageRecord(int lastPageRecord) {
 		this.lastPageRecord = lastPageRecord;
 	}
-	public String getQnaSearchKey() {
-		return qnaSearchKey;
+	public String getSearchKey() {
+		return searchKey;
 	}
-	public void setQnaSearchKey(String qnaSearchKey) {
-		this.qnaSearchKey = qnaSearchKey;
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
 	}
-	public String getQnaSearchWord() {
-		return qnaSearchWord;
+	public String getSearchWord() {
+		return searchWord;
 	}
-	public void setQnaSearchWord(String qnaSearchWord) {
-		this.qnaSearchWord = qnaSearchWord;
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
 	}
 	
 	

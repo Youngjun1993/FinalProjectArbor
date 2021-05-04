@@ -11,6 +11,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
+
 		// 유효성 검사 전역변수
 		 var idCheck = false;// 아이디
 		 var idckCheck = false;// 아이디 중복 검사
@@ -26,8 +27,6 @@
 		 var termsCheck2 = false;//개인정보
 		 
 	$(function() {
-		
-		
 		
 		//아이디 중복검사
 		$('.h_idchk').click(function(){
@@ -73,17 +72,19 @@
 				 if(inputpwd == checkpwd){// 일치할 경우
 				        checkResult.html("비밀번호가 일치합니다");
 				        checkResult.addClass("correct");        
-				        checkResult.removeClass("incorrect");        
+				        checkResult.removeClass("incorrect");
+				        pwckcorCheck = true;
 				    } else {// 일치하지 않을 경우
 				        checkResult.html("비밀번호를 다시 확인해주세요");
 				        checkResult.addClass("incorrect");
 				        checkResult.removeClass("correct");  
 				        $('#pwdCheck').focus();
+				        pwckcorCheck = false;
 				    }
 			   
 		});
 		
-		//이메일인증 인증번호 전송
+		//이메일인증 인증번호 전송 인터셉션으로 mailcheck끊기
 		
 		var emailcode = ""; 
 		
@@ -96,7 +97,7 @@
 			
 			$.ajax({
 		        
-		        type:"GET",
+		        type:"POST",
 		        url:"mailcheck?email=" + email,
 		        success:function(data){
 		        	 //console.log("data : " + data);/* 반환데이터 확인 : data는 컨트롤러 이메일 인증 메소드에서 생성해 리턴한 난수(String타입) */
@@ -157,7 +158,7 @@
 	    		//아이디체크 유효성
 	    		if($('#hiddenCheck').val()=="N"){
 		        	alert("아이디 중복검사를 해주세요")
-		        	idCheck = false;
+		        	idckCheck = false;
 		        }else{
 		        	idckCheck = true;
 		        	//비밀번호 유효성
@@ -218,15 +219,14 @@
 		        }
 	    	}
 			
-	    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck&&mailnumCheck&&addressCheck&&telCheck&&termsCheck ){
-	    		$('.inputForm').attr('action', 'memberjoin');
-		    	$('.inputForm').submit;
-	        } 
-	    	
-	    	
-	    	
-	    });
-		
+    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&nameCheck&&addressCheck&&telCheck&&mailCheck&&termsCheck1&&termsCheck2){
+    		
+   		 alert("서브밋발생")
+    		$('.inputForm').attr('action', 'memberjoin');
+	    	$('.inputForm').submit;
+        } 
+    	
+    });
 		
 });
 	
@@ -304,7 +304,7 @@
 		<input type="text" name="userid" id="userid" size="20px" class="h_ipt" required="required">
 		<input type="button" value="중복확인" class="h_check_btn h_idchk">
 		<!-- 입력검사 확인용 -->				
-		<input type="text" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
+		<input type="hidden" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
 		</td>
 		</tr>
 		<!-- 비밀번호 -->
