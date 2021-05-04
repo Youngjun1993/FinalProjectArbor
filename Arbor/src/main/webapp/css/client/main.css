@@ -7,9 +7,6 @@
 	margin:0 auto;
 }
 
-
-
-
 /*header*/
 header{
 	margin:0;
@@ -319,27 +316,25 @@ nav>ul ul{position:absolute;}
 	display:block;
 }
 
-.controlls{
-	width:100%;
-	height:60px;
-	position:relative;
-}
-.controlls p{
-	font-size:20px;
+.slideBox>p{
+	font-size:25px;
 	font-weight:bold;
 }
-.controlls span{
-	font-size:25px;
-	width:40px;
-	height:40px;
-	line-height:40px;
-	position:absolute;
+.controlls{
+	width:calc(100% + 128px);
+	height:64px;
+	position:relative;
+	top:50%;
+	margin-left:-64px;
+	margin-top: -32px;
 }
-.controlls span.prev{
+.controlls .prev{
+	position:absolute;
 	display:none;
 }
-.controlls span.next{
-	left:3%;
+.controlls .next{
+	position:absolute;
+	left:calc(100% - 64px);
 }
 /* 슬라이드2222222 */
 .slideBox2{
@@ -370,28 +365,25 @@ nav>ul ul{position:absolute;}
 	height:400px;
 	display:block;
 }
-
-.controlls2{
-	width:100%;
-	height:60px;
-	position:relative;
-}
-.controlls2 span{
+.slideBox2>p{
 	font-size:25px;
-	width:40px;
-	height:40px;
-	line-height:40px;
-	position:absolute;
-}
-.controlls2 p{
-	font-size:20px;
 	font-weight:bold;
 }
-.controlls2 span.prev2{
+.controlls2{
+	width:calc(100% + 128px);
+	height:64px;
+	position:relative;
+	top:50%;
+	margin-left:-64px;
+	margin-top: -32px;
+}
+.controlls2 .prev2{
+	position:absolute;
 	display:none;
 }
-.controlls2 span.next2{
-	left:3%;
+.controlls2 .next2{
+	position:absolute;
+	left:calc(100% - 64px);
 }
 /*동영상*/
 .videoBox {
@@ -509,10 +501,20 @@ nav>ul ul{position:absolute;}
 	display:block;
 }
 
+#d_instar{
+	width:100%;
+	font-align:center;
+}
+#d_instar p{
+	margin-left:calc(50% - 250px);
+	font-size:50px;
+	font-weight:bold;
+	font-align:center;
+	}
 /*====================================================*/
 /*footer*/
 footer{
-	
+	margin-top:50px;
 	width:100%;
 	height:450px;
 	background-color:#fff;
