@@ -4,19 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.arbor.home.dao.MemberDAOImp">
-	<select id="loginCheck" resultType="com.arbor.home.vo.MemberVO">
-		select userid, username from member where userid=#{userid} and userpwd=#{userpwd}
-	</select>
+	<!-- memstat 0 활성 1 휴면 2 탈퇴 -->
+	
+	<!-- 회원가입 -->
 	<insert id="memberInsert" parameterType="com.arbor.home.vo.MemberVO">
-		insert into member(userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, regdate, lastdate)
-		values(#{userid}, #{userpwd}, #{username}, #{zipcode}, #{addr}, #{detailaddr}, #{tel}, #{smsok}, #{email}, #{emailok}, sysdate, sysdate)
+		insert into member(userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, regdate, lastdate, memstat)
+		values(#{userid}, #{userpwd}, #{username}, #{zipcode}, #{addr}, #{detailaddr}, #{tel}, #{smsok}, #{email}, #{emailok}, sysdate, sysdate, 0)
 	</insert>
+	<select id="loginCheck" resultType="com.arbor.home.vo.MemberVO">
+		select userid, username from member where userid=#{userid} and userpwd=#{userpwd} and memstat = 0
+	</select>
 	<select id="idCheck" resultType="int">
   		select count(*) from member where userid = #{userid}
   	</select>
   	<!-- 회원검색 리스트 -->
 	<select id="memberAllselect" resultType="com.arbor.home.vo.MemberVO">
-	 	select userid, username, email, tel, to_char(regdate, 'YY-MM-DD HH:MI') regdate, to_char(lastdate, 'MM-DD HH:MI') lastdate, smsok, emailok from member
+	 	select userid, username, email, tel, to_char(regdate, 'YY-MM-DD HH:MI') regdate, to_char(lastdate, 'YY-MM-DD HH:MI') lastdate, smsok, emailok, memstat from member
                 <if test="searchWord!=null">
                   where ${searchCate} like '%${searchWord}%'
                 </if>
@@ -37,5 +40,16 @@
                 </if>
 		 order by userid desc
 	</select>
-	
+	<!-- 로그아웃 시간기록 -->
+	<update id="lastDateUpdate">
+		update member set lastdate = TO_DATE(#{param1},'YYYYMMDDHH24miss') where userid = #{param2}
+	</update>
+	<!-- 휴면계정전환처리 -->
+	<update id="memDormant">
+	update member set memstat = 1 where userid=#{param1}
+	</update>
+	<!-- 회원삭제 -->
+	<delete id = "memDel">
+		delete from member where userid=#{param1}
+	</delete>
 </mapper>

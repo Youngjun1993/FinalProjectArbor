@@ -36,4 +36,21 @@ public class MemberService implements MemberServiceImp {
 		return memberDAO.memberAllselect(vo);
 	}
 
+	@Override
+	public int lastDateUpdate(String lastdate, String nowid) {
+		return memberDAO.lastDateUpdate(lastdate, nowid);
+	}
+
+	@Override
+	public int memDormant(String userid) {
+		return memberDAO.memDormant(userid);
+	}
+
+	@Override
+	public int memDel(String userid) {
+		return memberDAO.memDel(userid);
+	}
+	
+	
+
 }

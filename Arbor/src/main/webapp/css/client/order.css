@@ -3,13 +3,14 @@
 /* class */
 .j_orderTitle{
 	border:1px solid #ccc;
+	border-radius:15px;
 	width:110px;
 	height:35px;
 	line-height:35px;
 	text-align:center;
 	font-size:15px;
 	font-weight:bold;
-	margin-top:20px;
+	margin-top:30px;
 	margin-bottom:10px;
 }
 .j_tableForm{
@@ -23,7 +24,56 @@
 	border:1px solid #ccc;
 	padding:10px;
 }
-.j_tableForm td:nth-child(2n+1){
+.j_tableForm td:nth-child(2n+1):not(#j_productInfo td, .j_addr){
 	text-align:center;
 	background:#eee;
+}
+.j_tableForm input, .j_tableForm select{
+	margin-left:5px;
+}
+
+/* 상품정보 테이블 */
+#j_productInfo thead td{
+	text-align:center;
+	background:#eee;
+}
+#j_productInfo tbody td{
+	text-align:left;
+	background:#fff;
+}
+/* 적립급,쿠폰 테이블 */
+#j_couponInfo input{ /* 높이 통일화 필요 */
+	height:25px;line-height:25px;vertical-align:middle;
+}
+#j_couponInfo input[type=text]{
+	width:265px;
+	padding:0;
+	box-sizing:border-box;
+	margin-right:10px;
+}
+#j_couponInfo input[type=button]{
+	margin-right:20px;
+}
+#j_couponInfo select{
+	width:500px;
+}
+#totalAmount{
+	float:right;
+	font-size:14px;
+	font-weight:bold;
+	margin-top:10px;
+}
+#totalAmount>span{
+	color:rgb(52,152,219);
+}
+
+
+
+
+
+
+
+#j_orderFlex{
+	dlsplay:flex;
+	float:left;
 }
