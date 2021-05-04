@@ -102,4 +102,14 @@ public class ProductService implements ProductServiceImp {
 	public String mainnameSelect(int mainno) {
 		return productDAO.mainnameSelect(mainno);
 	}
+
+	@Override
+	public List<OptionVO> optNameSelect(int pno) {
+		return productDAO.optNameSelect(pno);
+	}
+
+	@Override
+	public List<OptionVO> optValueSelect(int pno) {
+		return productDAO.optValueSelect(pno);
+	}
 }

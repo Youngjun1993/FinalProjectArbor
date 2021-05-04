@@ -14,6 +14,7 @@
 <script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/product.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script>
 </script>
 </head>

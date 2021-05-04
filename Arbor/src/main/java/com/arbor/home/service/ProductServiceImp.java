@@ -24,6 +24,10 @@ public interface ProductServiceImp {
 	public List<OptionVO> productListRGB(int subno);
 	// mainname 가져오기
 	public String mainnameSelect(int mainno);
+	// ProductView에 사용할 optname 가져오기
+	public List<OptionVO> optNameSelect(int pno);
+	// optname에 따른 optvalue 가져오기
+	public List<OptionVO> optValueSelect(int pno);
 	
 	/* 관리자 */
 	

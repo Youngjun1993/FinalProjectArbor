@@ -60,6 +60,8 @@ public class ProductController {
 		ProductVO vo = productService.productSelect(pno);
 		mav.addObject("vo", vo);
 		mav.addObject("rgb", productService.productListRGB(vo.getSubno()));
+		mav.addObject("optName", productService.optNameSelect(pno));
+		mav.addObject("optValue", productService.optValueSelect(pno));
 		mav.setViewName("client/product/productView");
 		return mav;
 	}

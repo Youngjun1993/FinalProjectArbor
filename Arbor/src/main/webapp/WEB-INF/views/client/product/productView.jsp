@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="w1400_container font_ng">
 	<h1 id="p_detailTitle">《 ${vo.pname } 》</h1>
 	<hr />
-	<div id="p_detail">
+	<div id="p_detail" class="clearfix">
 		<!-- 모델명, 이미지 띄울 곳 -->
 		<div id="p_detailImg">
 			<img src="<%=request.getContextPath() %>/upload/${vo.img1}"/>
@@ -30,22 +31,27 @@
 			</div>
 			<div id="p_detailOption">
 				<h3>상품옵션</h3>
-				<span class="p_optTitle">색상</span>
-				<select name="p_optname" class="p_optname">
-					<option value="네이비">네이비</option>
-					<option value="그레이">그레이</option>
-					<option value="아이보리">아이보리</option>
-				</select><br/>
-				<span class="p_optTitle">스툴포함여부</span>
-				<select name="p_optname" class="p_optname">
-					<option value="포함">포함(+80,000)</option>
-					<option value="포함안함">포함안함</option>
-				</select>
+				<c:forEach var="name" items="${optName }">
+					<span class="p_optTitle">${name.optname }</span>
+					<select name="${name.optname }" class="p_optname">
+					<option value="" selected disabled hidden>==선택하세요==</option>
+						<c:forEach var="val" items="${optValue }">
+							<c:if test="${val.optname==name.optname }">
+								<option value="${val.optvalue }">${val.optvalue }
+									<c:if test="${val.optprice!=0 }">(+${val.optprice })</c:if>
+								</option>
+							</c:if>
+						</c:forEach>
+					</select><br/>
+				</c:forEach>
+				<c:if test="${fn:length(optName)==0}">
+					<br/><br/>해당 상품은 옵션이 존재하지 않습니다.
+				</c:if>
 			</div>
 		</div>
 		<!-- 옵션 선택 시 띄울 공간 -->
 		<div id="p_detailSelect">
-			<ul>
+			<ul class="p_detailSelect_ul">
 				<li>${vo.pname }</li>
 				<li>
 					<button>-</button>
@@ -55,11 +61,11 @@
 				<li class="p_bigPrice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</li>
 				<li><img src="<%=request.getContextPath() %>/img/cancel.png"/></li>
 			</ul>
-			<div>
+			<div id="p_totalDiv">
 				총 상품금액 <span id="p_totalprice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</span><br/>
-				<input type="submit" value="찜하기" formaction="/cart" />
-				<input type="submit" value="장바구니" formaction="/cart" />
-				<input type="submit" value="바로구매" formaction="/order" />
+				<input type="submit" value="찜하기" formaction="/cart" class="clientSubBtn"/>
+				<input type="submit" value="장바구니" formaction="/cart" class="clientSubBtn"/>
+				<input type="submit" value="바로구매" formaction="/order" class="clientMainBtn"/>
 			</div>
 		</div>
 		</form>

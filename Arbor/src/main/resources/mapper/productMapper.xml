@@ -82,4 +82,12 @@
  	<select id="mainnameSelect" parameterType="int" resultType="string">
  		select mainname from maincate where mainno=${param1}
  	</select>
+ 	
+ 	<select id="optNameSelect" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
+ 		select DISTINCT(optname) as optname from optiontbl where pno=${param1}
+ 	</select>
+ 	
+ 	<select id="optValueSelect" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
+ 		select optno, optname, optvalue, optprice from optiontbl where pno=${param1} order by optname
+ 	</select>
  </mapper>
