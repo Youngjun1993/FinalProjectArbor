@@ -78,6 +78,15 @@ public class ProductController {
 	
 	
 	/* 관리자 */
+	// Admin - 상품문의 목록
+	@RequestMapping("/pqnaList")
+	public ModelAndView pqnaList() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vo", productService.pqnaList());
+		mav.setViewName("admin/product/productQNA");
+		return mav;
+	}
+	
 	// Admin - 상품등록페이지로 넘어감
 	@RequestMapping("/productInsert")
 	public ModelAndView productInsert() {

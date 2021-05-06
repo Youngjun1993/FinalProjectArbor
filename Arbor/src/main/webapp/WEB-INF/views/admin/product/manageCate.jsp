@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div class="w1400_container font_ng">
-		<div id="sidefrm">사이드메뉴</div>
+		<%@include file="/WEB-INF/inc/adminMenu.jspf"%>>
 		<div id="centerfrm">
 			<p id="pageTitle"><span>카테고리 관리</span></p>
 			<div id="insertInfo">

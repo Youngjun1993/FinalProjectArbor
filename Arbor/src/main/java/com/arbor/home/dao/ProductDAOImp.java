@@ -58,4 +58,6 @@ public interface ProductDAOImp {
 	public int productDelete(int pno);
 	// 옵션테이블에 해당 상품번호에 해당하는 옵션 모두 삭제 (상품 삭제시 관련 옵션도 지워야 함 - 관리자/상품관리/삭제)
 	public int optionAllDelete(int pno);
+	// 상품문의 목록 불러오기
+	public List<ProductQnaVO> pqnaList();
 }

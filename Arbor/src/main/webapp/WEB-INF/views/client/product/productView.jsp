@@ -33,7 +33,7 @@
 				<h3>상품옵션</h3>
 				<c:forEach var="name" items="${optName }">
 					<span class="p_optTitle">${name.optname }</span>
-					<select name="${name.optname }" class="p_optname">
+					<select name="optname" class="p_optname">
 					<option value="" selected disabled hidden>==선택하세요==</option>
 						<c:forEach var="val" items="${optValue }">
 							<c:if test="${val.optname==name.optname }">
@@ -71,6 +71,16 @@
 			</div>
 		</div>
 		</form>
+<script>
+	$(()=>{
+		$("#p_detailOption").on('change', '.p_optname', ()=>{
+			console.log(this.val());
+			if($(this).val()!=null && $(this).val()!=0) {
+				
+			}
+		});
+	});
+</script>
 		<span id="p_detailMenu_up"></span>
 	</div>
 	<div id="p_detailMenu">

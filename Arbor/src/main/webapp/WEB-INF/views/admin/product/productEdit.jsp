@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div class="w1400_container font_ng">
-		<div id="sidefrm">사이드메뉴</div>
+		<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 		<div id="centerfrmEdit">
 			<p id="pageTitle"><span>상품 수정</span></p>
 			<form method="post" action="productEditOk" enctype="multipart/form-data" autocomplete="off">
