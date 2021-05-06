@@ -96,7 +96,7 @@
  		values(pqnasq.nextval, ${pno}, #{userid}, #{pqnasubject}, #{pqnacontent}, #{pqnaopen})
  	</insert>
  	
- 	<select id="pqnaList" resultType="com.arbor.home.vo.productQnaVO">
+ 	<select id="pqnaList" resultType="com.arbor.home.vo.ProductQnaVO">
  		select pqnano, pno, userid, pqnasubject, pqnacontent, panswercontent, pqnadate from productqna
  	</select>
  </mapper>
