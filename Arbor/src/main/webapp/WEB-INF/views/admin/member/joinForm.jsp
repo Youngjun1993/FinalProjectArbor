@@ -26,7 +26,7 @@
 		 var telCheck = false;//연락처
 		 var termsCheck1 = false;//약관
 		 var termsCheck2 = false;//개인정보
-		 
+		 var captcha = false;//리캡챠
 		 
 	$(function() {
 		
@@ -70,7 +70,7 @@
 			   var inputpwd = $("#userpwd").val();//비밀번호
 			   var checkpwd = $("#pwdCheck").val()
 				//비밀번호 확인
-				var checkResult = $("#h_pwd_ok");//span
+				var checkResult = $(".h_pwd_ok");//span
 				 if(inputpwd == checkpwd){// 일치할 경우
 				        checkResult.html("비밀번호가 일치합니다");
 				        checkResult.addClass("correct");        
@@ -134,6 +134,33 @@
 		});
 		
 		
+		
+		//리캡차 활성버튼
+		$('.h_reCaptcha').click(function () {
+			  $.ajax({
+                url: 'VerifyRecaptcha',
+                type: 'post',
+                data: {
+                    recaptcha: $("#g-recaptcha-response").val()
+                },
+                success: function(data) {
+              	  if(data == 0) {
+              			alert("자동 가입 방지 봇 통과");
+              			captcha = true;
+              		}else if(data == 1) {
+              			 alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요~");
+              			captcha = false
+              		}else {
+              			 alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
+              			captcha = false;
+              		}
+                    
+                }
+            });
+		
+		});
+		///////////////////////////////////////////////////////////t리캡차끝
+		
 		//memberjoin
 		$('#memberjoin').click(function() {
 	    	
@@ -151,7 +178,8 @@
 			var tel3 = $('#tel3').val();//연락처 
 	        var termok = $('#termok').is(":checked"); 
 	        var privacyok = $('#privacyok').is(":checked"); 
-			
+			var captchaChk = false;
+	        
 	    	if(id == ""){
 	    		alert("아이디를 입력해주세요");
 	    		idCheck = false;
@@ -210,6 +238,11 @@
 					                            	termsCheck2 = false;
 					                            }else{
 					                            	termsCheck2 = true;
+					                            	if(captcha == false) {
+					                            		alert("로봇체크를 해주세요");
+					                            	}else {
+					                            		captchaChk = true;
+					                            	}
 					                            }
 				                            }
 				                        }
@@ -221,17 +254,16 @@
 		        }
 	    	}
 			
-    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&nameCheck&&addressCheck&&telCheck&&mailCheck&&termsCheck1&&termsCheck2){
-    		
-   		 alert("서브밋발생")
-    		$('.inputForm').attr('action', 'memberjoin');
-	    	$('.inputForm').submit;
-        } 
+	    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&nameCheck&&addressCheck&&telCheck&&mailCheck&&termsCheck1&&termsCheck2&&captchaChk){
+	    		
+	   		 alert("서브밋발생")
+	    		$('.inputForm').attr('action', 'memberjoin');
+		    	$('.inputForm').submit;
+	        } 
     	
-    });
-		
-});
-	
+		});
+	});
+		 
 /* 카카오주소api 연동 */
 	function kakao_address(){
 	 
@@ -283,7 +315,6 @@
 	    }).open();    
 	    
 	}
-	
 </script>
 
 </head>
@@ -303,7 +334,7 @@
 		<label for="userid">아이디 *</label>
 		</td>
 		<td>
-		<input type="text" name="userid" id="userid" size="20px" class="h_ipt" required="required">
+		<input type="text" name="userid" id="userid" size="20px" class="h_ipt" required="required" value="test2">
 		<input type="button" value="중복확인" class="h_check_btn h_idchk">
 		<!-- 입력검사 확인용 -->				
 		<input type="hidden" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
@@ -315,7 +346,7 @@
 		<label for="pwd">비밀번호 *</label>
 		</td>
 		<td>
-		<input type="password" name="userpwd" id="userpwd" size="20px" class="h_ipt" required="required">(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
+		<input type="password" name="userpwd" id="userpwd" size="20px" class="h_ipt" required="required" value="1234">(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
 		</td>
 		</tr>
 		
@@ -324,9 +355,9 @@
 		<label for="pwdCheck">비밀번호 확인 *</label>
 		</td>
 		<td>
-		<input type="password" name="pwdCheck" id="pwdCheck" size="20px" class="h_pwdchk" required="required" disabled="disabled">
+		<input type="password" name="pwdCheck" id="pwdCheck" size="20px" class="h_pwdchk" required="required" disabled="disabled" value="1234">
 		<!-- <input type="button" id="pwdconfirm" value="확 인" class="h_pwdchk_btn"/> -->
-		<span id="h_pwd_ok"></span>
+		<span class="h_pwd_ok"></span>
 		</td>
 		</tr>
 		
@@ -335,7 +366,7 @@
 		<label for="username">이름 *</label>
 		</td>
 		<td>
-		<input type="text" name="username" id="username" size="20px" class="h_ipt" required="required">
+		<input type="text" name="username" id="username" size="20px" class="h_ipt" required="required" value="1234">
 		</td>
 		</tr>
 		
@@ -363,8 +394,8 @@
 		  	<option value="011">011</option>
 			<option value="02">02</option>
 		</select>
-		-<input type="text" name="tel2" id="tel2" size="5" class="h_ipt" required="required">
-		-<input type="text" name="tel3" id="tel3" size="5" class="h_ipt" required="required">
+		-<input type="text" name="tel2" id="tel2" size="5" class="h_ipt" required="required" value="1234">
+		-<input type="text" name="tel3" id="tel3" size="5" class="h_ipt" required="required" value="1234">
 		</td>
 		</tr>
 		
@@ -383,7 +414,7 @@
 		<label for="email">이메일</label>
 		</td>
 		<td>
-		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid" required="required"> @ 
+		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid" required="required" value="1234"> @ 
 		<select name="emaildomain" id="emaildomain" class="h_select emaildomain" required="required">
 			<option value=""></option>
 			<option value="google.com">gmail.com</option>
@@ -414,16 +445,6 @@
 		<input type="radio" name="emailok" value="N">아니오
 		</td>
 		</tr>
-		
-		<tr>
-		<td>
-		<div id="google_recaptha">
-		<div class="g-recaptcha" data-sitekey="6LeRXsgaAAAAACGTfFgrnZhBDe76aaMSCLv8yz1D"></div>
-		
-		</div>
-		</td>
-		</tr>
-		
 		</table>
 		
 		<ul class="h_2box">
@@ -448,9 +469,12 @@
 		</ul>
 		<div class="h_term_chk"><input type="checkbox" name="termok" id="termok" required="required">약관에 동의하시겠습니까?</div>
 		<div class="h_term_chk"><input type="checkbox" name="privacyok" id="privacyok" required="required">개인정보수집에 동의하시겠습니까?</div>
+    	<div id="h_google_recaptha">
+		<div class="g-recaptcha" data-sitekey="6LeRXsgaAAAAACGTfFgrnZhBDe76aaMSCLv8yz1D"></div>
+		<input type = "button" class="h_reCaptcha" value ="로봇체크"/>
+		</div>
 		<input type="submit" id="memberjoin" value="Join NOW" class="h_check_btn join">
 	</form>
-    
 		</div>
 	</div>
 </div>

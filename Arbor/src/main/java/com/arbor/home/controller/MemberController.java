@@ -70,14 +70,6 @@ public class MemberController {
 	@RequestMapping("/memberjoin")
 	public ModelAndView memberJoin(MemberVO vo, HttpServletRequest req) { 
 		
-		/*
-		 * vo.setTel1(req.getParameter("tel1")); vo.setTel2(req.getParameter("tel2"));
-		 * vo.setTel3(req.getParameter("tel3"));
-		 * 
-		 * System.out.println(vo.getTel1()+vo.getTel2()+vo.getTel3());
-		 * 
-		 * vo.setEmaildomain(req.getParameter("emaildomain"));
-		 */
 		int cnt = memberService.memberInsert(vo);
 		
 		ModelAndView mav = new ModelAndView();
@@ -274,7 +266,24 @@ public class MemberController {
       
     }
     
-    
+    //Recaptcha 자바
+	@ResponseBody
+	@RequestMapping(value = "VerifyRecaptcha", method = RequestMethod.POST)
+	public int VerifyRecaptcha(HttpServletRequest request) {
+	    VerifyRecaptcha.setSecretKey("6LeRXsgaAAAAAJJvfONVdEQrHl9Q6Ex90bzU6zv6");
+	    String gRecaptchaResponse = request.getParameter("recaptcha");
+	    System.out.println("캡챠 응답 값"  + gRecaptchaResponse);
+	    try {
+	       if(VerifyRecaptcha.verify(gRecaptchaResponse)) {
+	    	   return 0;
+	          } // 성공
+	       		else return 1; // 실패
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return -1; //에러
+	    }
+	}
+	
     //회원탈퇴
     @RequestMapping("/memberQuit")
 	public String memberQuit() {
