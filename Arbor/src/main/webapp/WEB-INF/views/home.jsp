@@ -10,7 +10,7 @@ $(function(){
 					element: {
 						x:0,
 						y:(trigger, frame, direction) => {
-							return trigger.visible ? 0 : 0.5 //몇%나왔을때 나타나는지
+							return trigger.visible ? 0 : 0.3 //몇%나왔을때 나타나는지
 					}
 				},
 			}
@@ -141,7 +141,7 @@ $(function(){
 	},4000);
  
 });
-	
+
 </script>
 <div class="d_main">
 	<div id="topSlide">
@@ -173,10 +173,10 @@ $(function(){
 	</div>
 	<!-- 인기상품 -->
 	<div class="slideBox" trigger-up>
+		<p>Arbor's 인기상품</p>
 		<div class="controlls">
-			<p>Arbor's 인기상품</p>
-			<span class="prev">◀</span>
-			<span class="next">▶</span>
+			<img class="prev" src="<%=request.getContextPath()%>/img/prev2.png">
+			<img class="next" src="<%=request.getContextPath()%>/img/next2.png">
 		</div>
 		<div class="slide_wraper">
 			<div class="slides">
@@ -217,10 +217,10 @@ $(function(){
 	<!-- 두번째리스트 -->
 	<!-- 인기상품 -->
 	<div class="slideBox2" trigger-up>
+		<p>Arbor's 추천상품</p>
 		<div class="controlls2">
-			<p>BEDROOM 인기상품</p>
-			<span class="prev2">◀</span>
-			<span class="next2">▶</span>
+			<img class="prev2" src="<%=request.getContextPath()%>/img/prev2.png">
+			<img class="next2" src="<%=request.getContextPath()%>/img/next2.png">
 		</div>
 		<div class="slide_wraper2">
 			<div class="slides2">
@@ -250,7 +250,7 @@ $(function(){
 			</video>
 		</div>
 		<div id="lookbook">
-			<p>Arbor Look Book</p>
+			<p>Arbor's LOOKBOOK</p>
 			<button>GET INSFIRED</button>
 		</div>
 	</div>
@@ -302,6 +302,10 @@ $(function(){
 				</a>
 			</li>
 		</ul>
+	</div>
+	<div id="d_instar" trigger-up>
+		<p>Arbor's INSTARGRAM</p>
+		<iframe src="//lightwidget.com/widgets/2078de7f99a35149a4d8536a633f791a.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>
 	</div>
 </div>
 <!-- d_main -->

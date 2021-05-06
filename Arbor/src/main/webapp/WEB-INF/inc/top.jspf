@@ -16,9 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/client/productList.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/client/ScrollTrigger.min.js"></script>
-<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
+<!-- LightWidget WIDGET --><script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
 <script>
 	$(function(){
 		var $firstMenu = $('nav > ul > li:nth-of-type(1)'),
@@ -82,7 +81,7 @@
 	
 </script>
 </head>
-<body>
+<body onselectstart="return false" ondragstart="return false">
 <header>
 	<div id="d_topline">Funiture is not bulit in a day</div>
 	<div id="d_logo"><a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/img/logogo.png"/></a></div>
