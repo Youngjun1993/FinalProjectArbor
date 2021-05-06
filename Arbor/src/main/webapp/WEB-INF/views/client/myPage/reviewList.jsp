@@ -9,33 +9,97 @@
 			"width" : liCnt*35+"px",
 			"margin" : "30px auto"
 		});	
+		$("#y_leftMenu>ul>li:nth-child(4)").css({
+			"font-weight":"bold"
+		});
+		if(window.location.pathname=="/home/reviewList"){
+			$("#y_reviewDateDescBtn").css({
+				"border":"1px solid #333"
+			});
+		}else if(window.location.pathname=="/home/reviewGradeDesc"){
+			$("#y_reviewGradeDescBtn").css({
+				"border":"1px solid #333"
+			});
+		}
 	});
+	function reviewDel(reviewno){
+		if(confirm("삭제하시겠습니까?")){
+			location.href="reviewDel?reviewno="+reviewno;
+		}
+	}
+	function reviewEdit(grade, status){
+		var gradeLen;
+		if(grade.indexOf("☆") < 0){
+			gradeLen = "★★★★★";
+		}else{
+			gradeLen = grade.substring(0, grade.indexOf("☆"));
+		}
+		console.log(status);
+		//버튼 클릭시 변경
+		if($(status).text()=="수정"){
+			$(status).text("닫기");
+		}else{
+			$(status).text("수정");
+		}
+		//display 이벤트
+		$(status).parent().next().slideToggle();
+		
+		//평점 셀렉트
+		$(status).parent().next().children().children().children().children("input[name='grade']").val([gradeLen.length]);
+	}
+	function reviewEditOk(){
+		location.href = "reviewEditOk";
+	}
 </script>
 <div id="y_reviewList_wrap" class="clearfix w1400_container">
 	<%@include file="/WEB-INF/inc/mypageMenu.jspf"%>
     <div id="y_reviewList_rightCon">
         <h2>리뷰관리</h2>
-        <div>
-            <button>최신순</button>
-            <button>평점순</button>
+        <div class="clearfix">
+            <a id="y_reviewDateDescBtn" href="reviewList">최신순</a>
+            <a id="y_reviewGradeDescBtn" href="reviewGradeDesc">평점순</a>
         </div>
         <div>
             <ul class="clearfix">
-                <li>상품번호</li>
+                <li>리뷰번호</li>
+                <li>상품명</li>
                 <li>리뷰내용</li>
                 <li>별점</li>
                 <li>등록일</li>
                 <li>　</li>
             </ul>
             <ul class="clearfix">
-                <li>-</li>
-                <li class="wordcut">-</li>
-                <li>-</li>
-                <li>-</li>
-                <li>
-                	<a href="#" class="clientSubBtn">수정</a>
-                	<a href="#" class="clientSubBtn">삭제</a>
-                </li>
+            	<c:forEach var="data" items="${list }">
+	                <li>${data.reviewno }</li>
+	                <li class="wordcut"><a href="#">${data.pname }</a></li>
+	                <li class="wordcut">${data.reviewcontent }</li>
+	                <li>${data.grade }</li>
+	                <li>${data.reviewdate }</li>
+	                <li>
+	                	<button id="y_reviewEdit" class="clientSubBtn" onclick="javascript:reviewEdit('${data.grade}',this)">수정</button>
+	                	<button class="clientSubBtn" onclick="reviewDel(${data.reviewno })">삭제</button>
+	                </li>
+	                <li>
+	                	<form action="reviewEditOk" method="post" class="clearfix">
+	                		<p><b>상품명</b></p>
+	                		<p>${data.pname }</p>
+	                		<p><b>리뷰내용</b></p>
+	                		<p><textarea name="reviewcontent" rows="5" cols="50">${data.reviewcontent }</textarea></p>
+	                		<p><b>평점</b></p>
+	                		<p>
+	                			<span>
+			                		<input type="radio" name="grade" value="1">1
+			                		<input type="radio" name="grade" value="2">2
+			                		<input type="radio" name="grade" value="3">3
+			                		<input type="radio" name="grade" value="4">4
+			                		<input type="radio" name="grade" value="5">5
+		                		</span>
+	                		</p>
+	                		<input type="submit" name="reviewEditBtn" class="clientMainBtn" value="수정완료">
+	                		<input type="hidden" name="reviewno" value="${data.reviewno }">
+	                	</form>
+	                </li>
+                </c:forEach>
             </ul>
         </div>
         <ul class="paging" class="clearfix">
