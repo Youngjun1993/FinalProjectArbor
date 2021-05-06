@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
 /* class */
+.j_orderDiv{
+	margin-top:30px;
+}
 .j_orderTitle{
 	border:1px solid #ccc;
 	border-radius:15px;
@@ -12,6 +15,7 @@
 	font-weight:bold;
 	margin-top:30px;
 	margin-bottom:10px;
+	float:left;
 }
 .j_tableForm{
 	width:1400px;
@@ -24,12 +28,22 @@
 	border:1px solid #ccc;
 	padding:10px;
 }
-.j_tableForm td:nth-child(2n+1):not(#j_productInfo td, .j_addr){
+.j_tableForm td:nth-child(2n+1):not(#j_productInfo td){
 	text-align:center;
 	background:#eee;
 }
 .j_tableForm input, .j_tableForm select{
 	margin-left:5px;
+	height:30px;
+	line-height:30px;
+	vertical-align:middle;
+	padding:0 0 0 5px;
+	box-sizing:border-box;
+	margin-right:10px;
+	border:1px solid #ddd;
+}
+.j_tableForm input[type=button]{
+	margin-right:10px; padding:0 5px 0 5px;
 }
 
 /* 상품정보 테이블 */
@@ -41,39 +55,101 @@
 	text-align:left;
 	background:#fff;
 }
-/* 적립급,쿠폰 테이블 */
-#j_couponInfo input{ /* 높이 통일화 필요 */
-	height:25px;line-height:25px;vertical-align:middle;
+#amountDiv{
+	float:right;
+	font-size:15px;
+	font-weight:bold;
+	margin-top:20px;
 }
-#j_couponInfo input[type=text]{
-	width:265px;
-	padding:0;
-	box-sizing:border-box;
-	margin-right:10px;
+#amountDiv>span{	/* 주문자정보테이블과 간격 조정 필요!! */
+	color:rgb(52,152,219);
+	border:1px solid #ccc;
+	border-radius:5px;
+	padding:10px;
+	margin:0;
 }
-#j_couponInfo input[type=button]{
-	margin-right:20px;
+
+/* 주문자정보 테이블 */
+#j_tel{
+	width:70px;
 }
-#j_couponInfo select{
+#j_emaildomain{
+	width:230px;
+}
+
+/* 배송지정보 테이블 */
+#j_addr input{
+	margin:3px;
+}
+#j_addrWrap{
+	display:none;
+	border:1px solid;
+	width:500px;
+	height:300px;
+	margin:5px 0;
+	position:relavtive;
+}
+#j_addrWrap img{
+	cursor:pointer;
+	position:absolute;
+	right:0px;
+	top:-1px;
+	z-index:1;
+}
+#j_arrInfo select:last-child, #j_couponInfo select{
 	width:500px;
 }
-#totalAmount{
+#j_orderFlex{	/* 가로 정렬 !!! */
+	display: flex;
+	align-items: center;
+}
+#j_orderFlex span{
+	margin-left: 20px;
+	padding-top: 22px;
+}
+
+/* 적립급,쿠폰 테이블 */
+#j_couponInfo input[type=text]{
+	width:265px;
+}
+#j_paymentBtn input[type=button]{
 	float:right;
-	font-size:14px;
-	font-weight:bold;
-	margin-top:10px;
-}
-#totalAmount>span{
-	color:rgb(52,152,219);
+	width:40px;
+	height:20px;
 }
 
+#j_orderBtn input[type=button]{
+	height:30px;width:75px;
+}
+#j_orderBtn{
+	text-align:right; margin-top:20px;
+}
+
+/*/////////////////////////////////////////////*/
+/* 결제 상세 */
+#j_paymentDetail>div:last-child{
+	display:flex;
+	align-items:center;
+	height:200px;
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+}
+#j_paymentDetail>div:last-child>div{
+	width:50%;
+	text-align:center;
+}
 
 
-
-
-
-
-#j_orderFlex{
-	dlsplay:flex;
-	float:left;
+#akakak{width:50%;background:lightyellow;float:left;}
+.celth{
+	width:50%;
+	background:lightblue;
+}
+.celtd{
+	width:50%;
+	background:#ccc;
+}
+.paymentFlex{	/* 가로 정렬 !!! */
+	display: flex;
+	align-items: center;
 }
