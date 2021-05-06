@@ -90,4 +90,9 @@
  	<select id="optValueSelect" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
  		select optno, optname, optvalue, optprice from optiontbl where pno=${param1} order by optname
  	</select>
+ 	
+ 	<insert id="pqnaInsert" parameterType="com.arbor.home.vo.ProductQnaVO">
+ 		insert into productqna(pqnano, pno, userid, pqnasubject, pqnacontent, pqnaopen)
+ 		values(pqnasq.nextval, ${pno}, #{userid}, #{pqnasubject}, #{pqnacontent}, #{pqnaopen})
+ 	</insert>
  </mapper>

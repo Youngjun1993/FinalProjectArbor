@@ -13,7 +13,7 @@
 		<!-- 이미지 옆에 기본정보, 옵션 띄우는 곳
 		div 분리되어있어서 form을 여기부터 걸었음... -->
 		<form>
-		<div id="p_detailRight">
+		<div id="p_detailRight" class="clearfix">
 			<div id="p_detailInfo">
 				<h3>기본정보</h3>
 				<ul>
@@ -37,7 +37,7 @@
 					<option value="" selected disabled hidden>==선택하세요==</option>
 						<c:forEach var="val" items="${optValue }">
 							<c:if test="${val.optname==name.optname }">
-								<option value="${val.optvalue }">${val.optvalue }
+								<option value="${val.optno }">${val.optvalue }
 									<c:if test="${val.optprice!=0 }">(+${val.optprice })</c:if>
 								</option>
 							</c:if>
@@ -50,17 +50,19 @@
 			</div>
 		</div>
 		<!-- 옵션 선택 시 띄울 공간 -->
-		<div id="p_detailSelect">
-			<ul class="p_detailSelect_ul">
-				<li>${vo.pname }</li>
-				<li>
-					<button>-</button>
-					<span class="p_selectNum">1</span>
-					<button>+</button>
-				</li>
-				<li class="p_bigPrice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</li>
-				<li><img src="<%=request.getContextPath() %>/img/cancel.png"/></li>
-			</ul>
+		<div id="p_detailSelect" class="clearfix">
+			<div id="p_detailSelect_Div" class="clearfix">
+				<ul class="p_detailSelect_ul">
+					<li>${vo.pname } <input type="hidden" name="pno" value="${vo.pno }" /></li>
+					<li>
+						<button>-</button>
+						<span class="p_selectNum">1</span>
+						<button>+</button>
+					</li>
+					<li class="p_bigPrice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</li>
+					<li><img src="<%=request.getContextPath() %>/img/cancel.png"/></li>
+				</ul>
+			</div>
 			<div id="p_totalDiv">
 				총 상품금액 <span id="p_totalprice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</span><br/>
 				<input type="submit" value="찜하기" formaction="/cart" class="clientSubBtn"/>
@@ -199,7 +201,7 @@
 			<div class="p_qna_rightDiv">
 				<ul>
 					<li>
-						답변완료<img src="<%=request.getContextPath() %>/img/lock.jpg"/>
+						답변완료<img src="<%=request.getContextPath() %>/img/nolock.jpg"/>
 					</li>
 					<li><a class="p_qna_answer" href="#s">배송 한 달 걸리는게 맞나요?</a></li>
 					<li>
@@ -226,8 +228,23 @@
 				<div class="p_qna_sideDiv">hyu******** | 2021-04-19</div>
 			</div>
 		</div>
-		<a href="#s"><button type="button" class="clientMainBtn">상품문의글 작성</button></a><br/>
+		<a href="javascript:hiddenOpen()"><button type="button" class="clientMainBtn">상품문의글 작성</button></a><br/>
+		<div id="p_qna_hidden">
+			<h1>상품문의글 작성</h1>
+			<form action="javascript:pqnaInsert()" method="post" id="p_qna_hiddenFrm">
+				<p>
+				문의글 공개여부선택 : 
+				<input type="radio" name="pqnaopen" value="Y" checked="checked">공개
+				<input type="radio" name="pqnaopen" value="N">비공개
+				</p>
+				<input type="hidden" name="pno" value="${vo.pno }" />
+				<input type="text" name="pqnasubject" id="pqnasubject" placeholder="제목을 입력하세요"/><br />
+				<textarea name="pqnacontent" id="pqnacontent" placeholder="문의내용을 입력하세요"></textarea><br/>
+				<input type="submit" value="등록하기" class="clientMainBtn" /><button type="button" class="clientSubBtn" onclick="location.href='javascript:hiddenClose()'">취소하기</button>
+			</form>
+		</div>
 	</div>
+	
 	<span id="p_deliveryMenu_up"></span>
 	<div id="p_deliveryMenu">
 		<ul>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.ProductServiceImp;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
 import com.google.gson.JsonObject;
@@ -64,6 +66,14 @@ public class ProductController {
 		mav.addObject("optValue", productService.optValueSelect(pno));
 		mav.setViewName("client/product/productView");
 		return mav;
+	}
+	
+	// 상품문의 등록
+	@RequestMapping("/pqnaInsert")
+	@ResponseBody
+	public int pqnaInsert(ProductQnaVO vo, HttpSession ses) {
+		vo.setUserid((String)ses.getAttribute("logId"));
+		return productService.pqnaInsert(vo);
 	}
 	
 	
@@ -350,6 +360,7 @@ System.out.println("등록옵션몇개야?"+optNameArr.length);
 							productService.optionInsert(optvo);
 						} else {
 							// optno가 있으면 기존 옵션이란 소리임~ (update)
+							optvo.setOptno(Integer.parseInt(optNoArr[i]));
 							productService.optionUpdate(optvo);
 						}
 					}

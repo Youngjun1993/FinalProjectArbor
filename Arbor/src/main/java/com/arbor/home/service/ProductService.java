@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.arbor.home.dao.ProductDAOImp;
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
 
@@ -111,5 +112,10 @@ public class ProductService implements ProductServiceImp {
 	@Override
 	public List<OptionVO> optValueSelect(int pno) {
 		return productDAO.optValueSelect(pno);
+	}
+
+	@Override
+	public int pqnaInsert(ProductQnaVO vo) {
+		return productDAO.pqnaInsert(vo);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
 
@@ -28,6 +29,8 @@ public interface ProductServiceImp {
 	public List<OptionVO> optNameSelect(int pno);
 	// optname에 따른 optvalue 가져오기
 	public List<OptionVO> optValueSelect(int pno);
+	// 상품문의 등록하기
+	public int pqnaInsert(ProductQnaVO vo);
 	
 	/* 관리자 */
 	
