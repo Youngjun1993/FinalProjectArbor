@@ -46,10 +46,26 @@
 	</update>
 	<!-- 휴면계정전환처리 -->
 	<update id="memDormant">
-	update member set memstat = 1 where userid=#{param1}
+		update member set memstat = 1 where userid=#{param1}
 	</update>
+	
 	<!-- 회원삭제 -->
-	<delete id = "memDel">
-		delete from member where userid=#{param1}
-	</delete>
+	<update id = "memDel">
+		update member set memstat = 2 where userid=#{param1}
+	</update>
+	
+	<!-- 다중삭제 -->
+	<update id = "memMultiDel">
+		<!-- update member set memstat = 2 where userid in
+		<foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach> -->
+		update member set memstat = 2 where userid = #{userid}
+	</update>
+	
+	<!-- 비밀번호 체크 #{userid}는 view페이지에서 전달되는 name속성이 userid인 요소의 값 -->
+	<select id="pwdCheck" resultType="com.arbor.home.vo.MemberVO">
+		select userid, userpwd from member where userid=#{param1} and memstat in(0,1)
+	</select>
+	
 </mapper>

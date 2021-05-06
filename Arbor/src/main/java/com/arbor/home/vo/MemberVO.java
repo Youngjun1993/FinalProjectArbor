@@ -25,12 +25,21 @@ public class MemberVO {
 	private String regdate;
 	private String lastdate;
 	
-	private String memstat;
+	private int memstat;
+	
+	//다중선택
+	private String[] userList;
 	
 	//검색 데이터저장용	
 	private String searchCate;
 	private String searchWord;
-	
+		
+	public String[] getUserList() {
+		return userList;
+	}
+	public void setUserList(String[] userList) {
+		this.userList = userList;
+	}
 	
 	public String getSearchCate() {
 		return searchCate;
@@ -162,12 +171,13 @@ public class MemberVO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getMemstat() {
+	public int getMemstat() {
 		return memstat;
 	}
-	public void setMemstat(String memstat) {
+	public void setMemstat(int memstat) {
 		this.memstat = memstat;
 	}
+	
 	
 	
 }

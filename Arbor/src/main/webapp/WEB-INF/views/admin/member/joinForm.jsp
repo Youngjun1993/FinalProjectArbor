@@ -84,7 +84,7 @@
 			   
 		});
 		
-		//이메일인증 인증번호 전송 인터셉션으로 mailcheck끊기
+		//이메일인증 인증번호 전송 // 인터셉션으로 mailcheck끊기
 		
 		var emailcode = ""; 
 		
@@ -384,9 +384,9 @@
 		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid" required="required"> @ 
 		<select name="emaildomain" id="emaildomain" class="h_select emaildomain" required="required">
 			<option value=""></option>
-			<option value="google.com">google.com</option>
+			<option value="google.com">gmail.com</option>
 			<option value="naver.com">naver.com</option>
-			<option value="daum.com">daum.com</option>
+			<option value="daum.com">daum.net</option>
 		</select>
 		
 		</td>
@@ -440,7 +440,7 @@
 		<input type="submit" id="memberjoin" value="Join NOW" class="h_check_btn join">
 	</form>
     
-	</div>
+		</div>
 	</div>
 </div>
 </body>
