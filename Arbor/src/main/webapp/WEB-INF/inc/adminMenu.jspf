@@ -19,7 +19,7 @@
                     <a class="h_menu_link" href="#">상품관리</a>
                 </li>
                 <ul class="h_menu_submenu accordion-content">
-                    <li><a class="head" href="productSearch">상품목록(수정/삭제)</a></li>
+                    <li><a class="head" href="productSearch">상품목록<br/>(수정/삭제)</a></li>
                     <li><a class="head" href="productInsert">상품등록</a></li>
                     <li><a class="head" href="manageCate">카테고리관리</a></li>
                     <li><a class="head" href="pqnaList">상품문의관리</a></li>

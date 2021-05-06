@@ -16,7 +16,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/client/productList.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/client/ScrollTrigger.min.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <!-- LightWidget WIDGET --><script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
 <script>
 	$(function(){

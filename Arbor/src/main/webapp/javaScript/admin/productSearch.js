@@ -82,3 +82,9 @@ function productdel(pno){
 		location.href="productDelete?pno="+pno;
 	}
 }
+
+function pqnaAnswerDelete(pqnano) {
+	if(confirm(pqnano+"번 글을 블라인드 처리하시겠습니까? 내용만 사라지게 됩니다.")) {
+		location.href="pqnaAnswerDelete?pqnano="+pqnano;
+	}
+}

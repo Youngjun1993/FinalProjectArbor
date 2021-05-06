@@ -10,6 +10,14 @@ public class ProductQnaVO {
 	private String pqnadate;
 	private String pqnaopen;
 	
+	private String pname;
+	
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
 	public int getPqnano() {
 		return pqnano;
 	}

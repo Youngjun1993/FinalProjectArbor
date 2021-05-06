@@ -123,4 +123,26 @@ public class ProductService implements ProductServiceImp {
 	public List<ProductQnaVO> pqnaList() {
 		return productDAO.pqnaList();
 	}
+
+	@Override
+	public ProductQnaVO pqnaAnswer(int pqnano) {
+		return productDAO.pqnaAnswer(pqnano);
+	}
+
+	@Override
+	public int pqnaNoAnswerCnt() {
+		return productDAO.pqnaNoAnswerCnt();
+	}
+
+	@Override
+	public int pqnaAnswerInsert(ProductQnaVO vo) {
+		return productDAO.pqnaAnswerInsert(vo);
+	}
+
+	@Override
+	public int pqnaAnswerDelete(int pqnano) {
+		return productDAO.pqnaAnswerDelete(pqnano);
+	}
+	
+	
 }

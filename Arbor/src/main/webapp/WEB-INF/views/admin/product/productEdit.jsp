@@ -9,11 +9,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/productInsert.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/product.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script>
 
 </script>

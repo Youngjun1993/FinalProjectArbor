@@ -89,7 +89,7 @@
 		<div>
 			<h2>상품상세</h2><br/>
 			${vo.description }
-	2	</div>
+		</div>
 		<img src="<%=request.getContextPath() %>/upload/${vo.img1}"/>
 		<c:if test="${vo.img2!=null && vo.img2!='' }">
 			<img src="<%=request.getContextPath() %>/upload/${vo.img2}"/>
