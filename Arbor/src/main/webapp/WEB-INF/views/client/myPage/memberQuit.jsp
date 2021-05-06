@@ -35,21 +35,18 @@
 <script>
 $('#pwdCheck').blur(function(){
 	if($('#pwdCheck').val()!=""){
-		alert("이벤트 발생");
 		var pwdArr = new Array();
 		//controller로 넘겨서 세션아이디와 비밀번호 일치 확인
 		
 		pwdArr.push($('#pwdCheck').val());//배열에 비밀번호입력값 넣기
 		
 		console.log(pwdArr);
-		alert("콘솔확인용");
 		
 		$.ajax({
 			url:'pwdCheck',
 			type:'POST',
 			data: { pwdCheck : pwdArr},
 			success : function(result) {
-				console.log("AJAX 성공");
 				if(result == 1) {
 					$('.h_pwd_div').html("비밀번호가 일치합니다");
 					$('.h_pwd_div').addClass("correct");

@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/memberJoin.css" type="text/css" />
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 
 <script>
 
@@ -25,6 +26,7 @@
 		 var telCheck = false;//연락처
 		 var termsCheck1 = false;//약관
 		 var termsCheck2 = false;//개인정보
+		 
 		 
 	$(function() {
 		
@@ -410,6 +412,15 @@
 	 	<td>
 		<input type="radio" name="emailok" value="Y" checked>예
 		<input type="radio" name="emailok" value="N">아니오
+		</td>
+		</tr>
+		
+		<tr>
+		<td>
+		<div id="google_recaptha">
+		<div class="g-recaptcha" data-sitekey="6LeRXsgaAAAAACGTfFgrnZhBDe76aaMSCLv8yz1D"></div>
+		
+		</div>
 		</td>
 		</tr>
 		
