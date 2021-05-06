@@ -5,6 +5,7 @@ public class ReviewProductJoinVO {
 	private int pno;
 	private String userid;
 	private String grade;
+	private int gradeint;
 	private String reviewcontent;
 	private String reviewdate;
 	private int subno;
@@ -18,6 +19,7 @@ public class ReviewProductJoinVO {
 	private String description;
 	private int deliveryprice;
 	private String pdate;
+	
 	public int getReviewno() {
 		return reviewno;
 	}
@@ -127,6 +129,10 @@ public class ReviewProductJoinVO {
 	public void setPdate(String pdate) {
 		this.pdate = pdate;
 	}
-	
-	
+	public int getGradeint() {
+		return gradeint;
+	}
+	public void setGradeint(int gradeint) {
+		this.gradeint = gradeint;
+	}
 }

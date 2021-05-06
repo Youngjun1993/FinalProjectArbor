@@ -73,7 +73,7 @@
 	                <li>${data.reviewno }</li>
 	                <li class="wordcut"><a href="#">${data.pname }</a></li>
 	                <li class="wordcut">${data.reviewcontent }</li>
-	                <li>${data.grade }</li>
+	                <li>${data.grade }(${data.gradeint })</li>
 	                <li>${data.reviewdate }</li>
 	                <li>
 	                	<button id="y_reviewEdit" class="clientSubBtn" onclick="javascript:reviewEdit('${data.grade}',this)">수정</button>
