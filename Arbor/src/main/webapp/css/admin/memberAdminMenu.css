@@ -184,7 +184,7 @@
 	
 	.h_mainContainer li{
 		float:left;
-		width:12%;
+		width:12.5%;
 		height:40px;
 		line-height:40px;
 		text-align:left;
@@ -206,6 +206,13 @@
 		font-weight: bold; cursor:pointer;
 		pointer-events: none;
 	}
+	
+	.h_memTableLi{
+		margin:40px 0;
+		
+	}
+	
+	
 	
 	
 	/* .h_mainContainer li:nth-child(9n+5) {
