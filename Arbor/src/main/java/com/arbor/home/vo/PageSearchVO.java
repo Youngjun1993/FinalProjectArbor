@@ -6,7 +6,7 @@ public class PageSearchVO {
 	private int startPageNum=1;
 	private int totalPage;
 	private int totalRecord;
-	private int onePageRecord=5;
+	private int onePageRecord=10;
 	private int lastPageRecord;
 	private String searchKey;
 	private String searchWord;

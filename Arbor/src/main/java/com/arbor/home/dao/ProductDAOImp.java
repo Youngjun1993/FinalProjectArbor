@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
 
@@ -24,7 +25,14 @@ public interface ProductDAOImp {
 	public List<OptionVO> productListRGB(int subno);
 	// mainname 가져오기
 	public String mainnameSelect(int mainno);
-	
+	// ProductView에 사용할 optname 가져오기
+	public List<OptionVO> optNameSelect(int pno);
+	// optname에 따른 optvalue 가져오기
+	public List<OptionVO> optValueSelect(int pno);
+	// 상품문의 등록하기
+	public int pqnaInsert(ProductQnaVO vo);
+	// 상품문의 확인을 위한 List
+	public List<ProductQnaVO> pqnaViewList(int pno);
 	
 	/* 관리자 */
 	
@@ -52,4 +60,14 @@ public interface ProductDAOImp {
 	public int productDelete(int pno);
 	// 옵션테이블에 해당 상품번호에 해당하는 옵션 모두 삭제 (상품 삭제시 관련 옵션도 지워야 함 - 관리자/상품관리/삭제)
 	public int optionAllDelete(int pno);
+	// 상품문의 목록 불러오기
+	public List<ProductQnaVO> pqnaList();
+	// 상품문의 번호에 따라 내용 불러오기
+	public ProductQnaVO pqnaAnswer(int pqnano);
+	// 미답변글 갯수 받아오기
+	public int pqnaNoAnswerCnt();
+	// 상품문의 답변 등록하기
+	public int pqnaAnswerInsert(ProductQnaVO vo);
+	// 상품문의 답변 삭제하기
+	public int pqnaAnswerDelete(int pqnano);
 }

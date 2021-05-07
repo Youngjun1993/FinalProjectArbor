@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.ProductServiceImp;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
 import com.google.gson.JsonObject;
@@ -60,12 +62,78 @@ public class ProductController {
 		ProductVO vo = productService.productSelect(pno);
 		mav.addObject("vo", vo);
 		mav.addObject("rgb", productService.productListRGB(vo.getSubno()));
+		mav.addObject("optName", productService.optNameSelect(pno));
+		mav.addObject("optValue", productService.optValueSelect(pno));
+		mav.addObject("pqnalst", productService.pqnaViewList(pno));
 		mav.setViewName("client/product/productView");
 		return mav;
 	}
 	
+	// 상품문의 등록
+	@RequestMapping("/pqnaInsert")
+	@ResponseBody
+	public int pqnaInsert(ProductQnaVO vo, HttpSession ses) {
+		vo.setUserid((String)ses.getAttribute("logId"));
+		return productService.pqnaInsert(vo);
+	}
+	
 	
 	/* 관리자 */
+	// Admin - 상품문의 목록
+	@RequestMapping("/pqnaList")
+	public ModelAndView pqnaList() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vo", productService.pqnaList());
+		mav.addObject("cnt", productService.pqnaNoAnswerCnt());
+		mav.setViewName("admin/product/productQna");
+		return mav;
+	}
+	
+	// Admin - 상품문의 답변등록 창으로 이동
+	@RequestMapping("/pqnaAnswer")
+	public ModelAndView pqnaAnswer(int pqnano) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("ans", productService.pqnaAnswer(pqnano));
+		mav.setViewName("admin/product/productQnaWrite");
+		return mav;
+	}
+	
+	// Admin - 상품문의 답변 등록
+	@RequestMapping(value="/pqnaAnswerInsert", method=RequestMethod.POST)
+	public ModelAndView pqnaAnswerInsert(ProductQnaVO vo) {
+		ModelAndView mav = new ModelAndView();
+		if(productService.pqnaAnswerInsert(vo)>0) {
+			mav.setViewName("redirect:pqnaList");
+		} else {
+			mav.addObject("pqnano", vo.getPqnano());
+			mav.setViewName("redirect:pqnaAnswer");
+		}
+		
+		return mav;
+	}
+	
+	// 상품문의 답변 수정
+	@RequestMapping(value="/pqnaAnswerEdit", method=RequestMethod.POST)
+	public ModelAndView pqnaAnswerEdit(ProductQnaVO vo) {
+		ModelAndView mav = new ModelAndView();
+		if(productService.pqnaAnswerInsert(vo)>0) {
+			mav.setViewName("redirect:pqnaList");
+		} else {
+			mav.addObject("pqnano", vo.getPqnano());
+			mav.setViewName("redirect:pqnaAnswer");
+		}
+		
+		return mav;
+	}
+	
+	// 상품문의 답변 삭제
+	@RequestMapping("/pqnaAnswerDelete")
+	public ModelAndView pqnaAnswerDelete(int pqnano) {
+		ModelAndView mav = new ModelAndView();
+		
+		return mav;
+	}
+	
 	// Admin - 상품등록페이지로 넘어감
 	@RequestMapping("/productInsert")
 	public ModelAndView productInsert() {
@@ -348,6 +416,7 @@ System.out.println("등록옵션몇개야?"+optNameArr.length);
 							productService.optionInsert(optvo);
 						} else {
 							// optno가 있으면 기존 옵션이란 소리임~ (update)
+							optvo.setOptno(Integer.parseInt(optNoArr[i]));
 							productService.optionUpdate(optvo);
 						}
 					}

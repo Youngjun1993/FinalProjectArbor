@@ -32,8 +32,8 @@
 	</select>
 	<select id="onePageRecordSelect" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
 		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate, to_char(ansdate, 'YYYY-MM-DD HH:MI') as ansdate from qna 
-		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%' order by qnano desc) <![CDATA[where rownum <= ]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc</if> 
-		<if test="searchWord==null">order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc</if>
+		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%' order by qnano desc) <![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc</if> 
+		<if test="searchWord==null">order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc</if>
 	</select>
 	<select id="noAnswerSelect" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
 		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where answercontent is null order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc

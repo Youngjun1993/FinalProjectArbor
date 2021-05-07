@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.arbor.home.dao.ProductDAOImp;
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
 
@@ -102,4 +103,51 @@ public class ProductService implements ProductServiceImp {
 	public String mainnameSelect(int mainno) {
 		return productDAO.mainnameSelect(mainno);
 	}
+
+	@Override
+	public List<OptionVO> optNameSelect(int pno) {
+		return productDAO.optNameSelect(pno);
+	}
+
+	@Override
+	public List<OptionVO> optValueSelect(int pno) {
+		return productDAO.optValueSelect(pno);
+	}
+
+	@Override
+	public int pqnaInsert(ProductQnaVO vo) {
+		return productDAO.pqnaInsert(vo);
+	}
+
+	@Override
+	public List<ProductQnaVO> pqnaList() {
+		return productDAO.pqnaList();
+	}
+
+	@Override
+	public ProductQnaVO pqnaAnswer(int pqnano) {
+		return productDAO.pqnaAnswer(pqnano);
+	}
+
+	@Override
+	public int pqnaNoAnswerCnt() {
+		return productDAO.pqnaNoAnswerCnt();
+	}
+
+	@Override
+	public int pqnaAnswerInsert(ProductQnaVO vo) {
+		return productDAO.pqnaAnswerInsert(vo);
+	}
+
+	@Override
+	public int pqnaAnswerDelete(int pqnano) {
+		return productDAO.pqnaAnswerDelete(pqnano);
+	}
+
+	@Override
+	public List<ProductQnaVO> pqnaViewList(int pno) {
+		return productDAO.pqnaViewList(pno);
+	}
+	
+	
 }

@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="w1400_container font_ng">
 	<h1 id="p_detailTitle">《 ${vo.pname } 》</h1>
 	<hr />
-	<div id="p_detail">
+	<div id="p_detail" class="clearfix">
 		<!-- 모델명, 이미지 띄울 곳 -->
 		<div id="p_detailImg">
 			<img src="<%=request.getContextPath() %>/upload/${vo.img1}"/>
@@ -12,7 +13,7 @@
 		<!-- 이미지 옆에 기본정보, 옵션 띄우는 곳
 		div 분리되어있어서 form을 여기부터 걸었음... -->
 		<form>
-		<div id="p_detailRight">
+		<div id="p_detailRight" class="clearfix">
 			<div id="p_detailInfo">
 				<h3>기본정보</h3>
 				<ul>
@@ -30,36 +31,43 @@
 			</div>
 			<div id="p_detailOption">
 				<h3>상품옵션</h3>
-				<span class="p_optTitle">색상</span>
-				<select name="p_optname" class="p_optname">
-					<option value="네이비">네이비</option>
-					<option value="그레이">그레이</option>
-					<option value="아이보리">아이보리</option>
-				</select><br/>
-				<span class="p_optTitle">스툴포함여부</span>
-				<select name="p_optname" class="p_optname">
-					<option value="포함">포함(+80,000)</option>
-					<option value="포함안함">포함안함</option>
-				</select>
+				<c:forEach var="name" items="${optName }">
+					<span class="p_optTitle">${name.optname }</span>
+					<select name="optname" class="p_optname">
+					<option value="" selected disabled hidden>==선택하세요==</option>
+						<c:forEach var="val" items="${optValue }">
+							<c:if test="${val.optname==name.optname }">
+								<option value="${val.optno }">${val.optvalue }
+									<c:if test="${val.optprice!=0 }">(+${val.optprice })</c:if>
+								</option>
+							</c:if>
+						</c:forEach>
+					</select><br/>
+				</c:forEach>
+				<c:if test="${fn:length(optName)==0}">
+					<br/><br/>해당 상품은 옵션이 존재하지 않습니다.
+				</c:if>
 			</div>
 		</div>
 		<!-- 옵션 선택 시 띄울 공간 -->
-		<div id="p_detailSelect">
-			<ul>
-				<li>${vo.pname }</li>
-				<li>
-					<button>-</button>
-					<span class="p_selectNum">1</span>
-					<button>+</button>
-				</li>
-				<li class="p_bigPrice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</li>
-				<li><img src="<%=request.getContextPath() %>/img/cancel.png"/></li>
-			</ul>
-			<div>
+		<div id="p_detailSelect" class="clearfix">
+			<div id="p_detailSelect_Div" class="clearfix">
+				<ul class="p_detailSelect_ul">
+					<li>${vo.pname } <input type="hidden" name="pno" value="${vo.pno }" /></li>
+					<li>
+						<button>-</button>
+						<span class="p_selectNum">1</span>
+						<button>+</button>
+					</li>
+					<li class="p_bigPrice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</li>
+					<li><img src="<%=request.getContextPath() %>/img/cancel.png"/></li>
+				</ul>
+			</div>
+			<div id="p_totalDiv">
 				총 상품금액 <span id="p_totalprice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</span><br/>
-				<input type="submit" value="찜하기" formaction="/cart" />
-				<input type="submit" value="장바구니" formaction="/cart" />
-				<input type="submit" value="바로구매" formaction="/order" />
+				<input type="submit" value="찜하기" formaction="/cart" class="clientSubBtn"/>
+				<input type="submit" value="장바구니" formaction="/cart" class="clientSubBtn"/>
+				<input type="submit" value="바로구매" formaction="/order" class="clientMainBtn"/>
 			</div>
 		</div>
 		</form>
@@ -81,7 +89,7 @@
 		<div>
 			<h2>상품상세</h2><br/>
 			${vo.description }
-	2	</div>
+		</div>
 		<img src="<%=request.getContextPath() %>/upload/${vo.img1}"/>
 		<c:if test="${vo.img2!=null && vo.img2!='' }">
 			<img src="<%=request.getContextPath() %>/upload/${vo.img2}"/>
@@ -166,26 +174,7 @@
 		주문, 결제, 배송, 반품/교환 문의는 1:1문의를 이용해주세요.</h3>
 		<a href="qnaList"><button type="button" class="clientSubBtn">1:1문의 바로가기</button></a><br/>
 		<hr/>
-		<div>
-			<div class="p_qna_leftDiv">
-				<img src="<%=request.getContextPath() %>/img/question.jpg"/>
-			</div>
-			<div class="p_qna_rightDiv">
-				<ul>
-					<li>
-						답변대기중<img src="<%=request.getContextPath() %>/img/nolock.jpg"/>
-					</li>
-					<li><a class="p_qna_answer" href="#s">스툴 색상 변경 문의</a></li>
-					<li>
-						<div>
-						<p>Q. 스툴을 두개 주문하면, 두 가지 색상을 각각 제가 지정할 수 있나요?</p>
-						<p>답변대기중입니다.</p>
-						</div>
-					</li>
-				</ul>
-				<div class="p_qna_sideDiv">sou******** | 2021-04-21</div>
-			</div>
-		</div>
+	
 		<div>
 			<div class="p_qna_leftDiv">
 				<img src="<%=request.getContextPath() %>/img/done.jpg"/>
@@ -193,7 +182,7 @@
 			<div class="p_qna_rightDiv">
 				<ul>
 					<li>
-						답변완료<img src="<%=request.getContextPath() %>/img/lock.jpg"/>
+						답변완료<img src="<%=request.getContextPath() %>/img/nolock.jpg"/>
 					</li>
 					<li><a class="p_qna_answer" href="#s">배송 한 달 걸리는게 맞나요?</a></li>
 					<li>
@@ -220,8 +209,23 @@
 				<div class="p_qna_sideDiv">hyu******** | 2021-04-19</div>
 			</div>
 		</div>
-		<a href="#s"><button type="button" class="clientMainBtn">상품문의글 작성</button></a><br/>
+		<a href="javascript:hiddenOpen()"><button type="button" class="clientMainBtn">상품문의글 작성</button></a><br/>
+		<div id="p_qna_hidden">
+			<h1>상품문의글 작성</h1>
+			<form action="javascript:pqnaInsert()" method="post" id="p_qna_hiddenFrm">
+				<p>
+				문의글 공개여부선택 : 
+				<input type="radio" name="pqnaopen" value="Y" checked="checked">공개
+				<input type="radio" name="pqnaopen" value="N">비공개
+				</p>
+				<input type="hidden" name="pno" value="${vo.pno }" />
+				<input type="text" name="pqnasubject" id="pqnasubject" placeholder="제목을 입력하세요"/><br />
+				<textarea name="pqnacontent" id="pqnacontent" placeholder="문의내용을 입력하세요"></textarea><br/>
+				<input type="submit" value="등록하기" class="clientMainBtn" /><button type="button" class="clientSubBtn" onclick="location.href='javascript:hiddenClose()'">취소하기</button>
+			</form>
+		</div>
 	</div>
+	
 	<span id="p_deliveryMenu_up"></span>
 	<div id="p_deliveryMenu">
 		<ul>

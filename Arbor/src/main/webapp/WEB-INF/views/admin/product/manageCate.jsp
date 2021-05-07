@@ -8,15 +8,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/productInsert.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/productSearch.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script>
 
 </script>
 </head>
 <body>
 	<div class="w1400_container font_ng">
-		<div id="sidefrm">사이드메뉴</div>
+		<%@include file="/WEB-INF/inc/adminMenu.jspf"%>>
 		<div id="centerfrm">
 			<p id="pageTitle"><span>카테고리 관리</span></p>
 			<div id="insertInfo">
@@ -50,7 +52,7 @@
 					<hr/>
 					<form>
 						<ul id="categoryList">
-							<li class="tableHeader"><input type="checkbox" value="전체선택"/></li>
+							<li class="tableHeader"><input type="checkbox" value="전체선택" id="listCheckAll"/></li>
 							<li class="tableHeader">대분류번호</li>
 							<li class="tableHeader">중분류번호</li>
 							<li class="tableHeader">대분류</li>
