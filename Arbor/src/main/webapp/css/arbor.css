@@ -92,18 +92,28 @@ body{
 
 /*마이페이지 공통 메뉴바 스타일*/
 #y_leftMenu{
-    width: 150px;
+    width: 120px;
     float: left;
+    margin-right: 30px;
+    height:600px;
 }
 #y_leftMenu>ul>li{
     height: 50px;
-    
+    line-height: 50px;
+}
+#y_leftMenu>ul>li:first-child{
+	margin-bottom: 10px;
 }
 #y_leftMenu>ul>li>a:hover{
     font-weight: bold;
 }
 
 /* 마이페이지 공통 탑 스타일 */
+.ftBold25_blue{
+    font-weight: bold;
+    font-size: 25px;
+    color: rgb(191,43,53);
+}
 #y_myPageTop ul{
     color:#333;
     border: 1px solid #fff;

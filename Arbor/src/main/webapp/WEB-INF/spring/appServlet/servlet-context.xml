@@ -32,5 +32,4 @@
 	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<beans:constructor-arg name="dataSource" ref="dataSource"></beans:constructor-arg>
 	</beans:bean>
-	
 </beans:beans>

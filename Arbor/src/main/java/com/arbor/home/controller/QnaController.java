@@ -82,7 +82,6 @@ public class QnaController {
 		}
 		return mav;
 	}
-	
 	//////////////////// ADMIN //////////////////////////
 	//검색추가
 	@RequestMapping("/qnaAdList")

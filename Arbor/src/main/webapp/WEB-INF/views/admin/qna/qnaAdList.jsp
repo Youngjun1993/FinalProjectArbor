@@ -79,10 +79,10 @@
 	                <li>${data.qnadate }</li>
 	                <li>
 	                	<c:if test="${data.answercontent == null }">
-	                		<span class="y_anserWait">답변대기</span>
+	                		<span class="y_anserRed">답변대기</span>
 	                	</c:if>
 	                	<c:if test="${data.answercontent != null }">
-	                		<span class="y_anserComp">답변완료</span>
+	                		<span class="y_anserDark">답변완료</span>
 	                	</c:if>
 	                </li>
 	             </c:forEach>   

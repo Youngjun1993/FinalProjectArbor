@@ -8,7 +8,21 @@
 		$(".paging").css({
 			"width" : liCnt.length*40+"px",
 			"margin" : "0 auto"
-		});		
+		});
+		$("#y_leftMenu>ul>li:nth-child(5)").css({
+			"font-weight":"bold"
+		});
+		/* $("#qnaDescBtn").click(function(){
+			var url = "qnaAnsDescList"
+			$.ajax({
+				url : url,
+				success : function(){
+					
+				}, error : function(){
+					
+				}
+			});
+		}); */
 	});
 </script>
     <div id="y_qnaWrap" class="w1400_container clearfix">
@@ -19,24 +33,24 @@
                 <li>문의유형</li>
                 <li>제목</li>
                 <li>주문번호</li>
-                <li>처리상태</li>
+                <li>처리상태 <button id="qnaAnsDescBtn">▲</button></li>
                 <li>등록일</li>
-                <c:forEach var="data" items="${list }">
-	                <li>${data.qnacate }</li>
-	                <li><a href="qnaView?qnano=${data.qnano }" class="wordcut">${data.qnasubject }</a></li>
-	                <li>${data.orderno }</li>
-	                <li>
-	                	<c:if test="${data.answercontent == null }">
-	                		<span class="y_anserWait">답변대기</span>
-	                	</c:if>
-	                	<c:if test="${data.answercontent != null }">
-	                		<span class="y_anserComp">답변완료</span>
-	                	</c:if>
-	                </li>
-	                <li>${data.qnadate }</li>
-                </c:forEach>
+           			<c:forEach var="data" items="${list }">
+		                <li>${data.qnacate }</li>
+		                <li><a href="qnaView?qnano=${data.qnano }" class="wordcut">${data.qnasubject }</a></li>
+		                <li>${data.orderno }</li>
+		                <li>
+		                	<c:if test="${data.answercontent == null }">
+		                		<span class="y_anserDark">답변대기</span>
+		                	</c:if>
+		                	<c:if test="${data.answercontent != null }">
+		                		<span class="y_anserRed">답변완료</span>
+		                	</c:if>
+		                </li>
+		                <li>${data.qnadate }</li>
+	                </c:forEach>
             </ul>
-            <a href="qnaWrite" id="y_qnaGo">문의하기</a>
+            <a href="qnaWrite" class="clientMainBtn" id="y_qnaGo">문의하기</a>
             <ul class="paging" class="clearfix">
             	<c:if test="${pageVO.pageNum>1 }">
                 	<li style="border-bottom:none;"><a class="pagingLR_a" href="qnaList?pageNum=${pageVO.pageNum-1}">＜</a></li>
