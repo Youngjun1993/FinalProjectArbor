@@ -96,18 +96,33 @@
 		</ul>
 	</nav>
 	<div class="d_sub_menu">
+		<c:forEach var="main" items="${mainList}">
 		<div class="d_col">
 			<ul>
-				<li>LIVING</li>
-				<li><a href="productList">소파</a></li>
+				<li>${main.mainname}</li>
+				<c:forEach var="sub" items="${subList }">
+					<c:if test="${main.mainno == sub.mainno }">
+						<li><a href="productList?mainno=${main.mainno }&subno=${sub.subno}">${sub.subname}</a></li>
+					</c:if>
+				</c:forEach>
+			</ul>
+		</div>
+		</c:forEach>
+		
+		<%-- <div class="d_col">
+			<ul>
+				<li><c:out value="${mainList[0].mainname }"/></li>
+				
+				<li><a href="productList"><c:out value="${subList[0].mainname }"/></a></li>
 				<li><a href="">TV장식장</a></li>
 				<li><a href="">거실테이블</a></li>
 				<li><a href="">거실장</a></li>
+				
 			</ul>
 		</div>
 		<div class="d_col">
 			<ul>
-				<li>BEDROOM</li>
+				<li><c:out value="${mainList[1].mainname }"/></li>
 				<li><a href="">침대</a></li>
 				<li><a href="">협탁</a></li>
 				<li><a href="">화장대/거울</a></li>
@@ -115,7 +130,7 @@
 		</div>
 		<div class="d_col">
 			<ul>
-				<li>DINING</li>
+				<li><c:out value="${mainList[2].mainname }"/></li>
 				<li><a href="">식탁</a></li>
 				<li><a href="">식탁의자</a></li>
 				<li><a href="">렌지대</a></li>
@@ -123,12 +138,12 @@
 		</div>
 		<div class="d_col">
 			<ul>
-				<li>DRESSROOM</li>
+				<li><c:out value="${mainList[3].mainname }"/></li>
 				<li><a href="">옷장</a></li>
 				<li><a href="">붙박이장</a></li>
 				<li><a href="">서랍장</a></li>
 			</ul>
-		</div>
+		</div> --%>
 		<div class="d_col">
 			<img src="<%=request.getContextPath() %>/img/test.jpg">
 		</div>
