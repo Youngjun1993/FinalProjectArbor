@@ -328,7 +328,7 @@
 		<label for="userid">아이디 *</label>
 		</td>
 		<td>
-		<input type="text" name="userid" id="userid" size="20px" class="h_ipt" required="required" value="test2">
+		<input type="text" name="userid" id="userid" size="20px" class="h_ipt" required="required" value="">
 		<input type="button" value="중복확인" class="h_check_btn h_idchk">
 		<!-- 입력검사 확인용 -->				
 		<input type="hidden" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
@@ -340,7 +340,7 @@
 		<label for="pwd">비밀번호 *</label>
 		</td>
 		<td>
-		<input type="password" name="userpwd" id="userpwd" size="20px" class="h_ipt" required="required" value="1234">(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
+		<input type="password" name="userpwd" id="userpwd" size="20px" class="h_ipt" required="required" value="">(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
 		</td>
 		</tr>
 		
@@ -349,7 +349,7 @@
 		<label for="pwdCheck">비밀번호 확인 *</label>
 		</td>
 		<td>
-		<input type="password" name="pwdCheck" id="pwdCheck" size="20px" class="h_pwdchk" required="required" disabled="disabled" value="1234">
+		<input type="password" name="pwdCheck" id="pwdCheck" size="20px" class="h_pwdchk" required="required" disabled="disabled" value="">
 		<!-- <input type="button" id="pwdconfirm" value="확 인" class="h_pwdchk_btn"/> -->
 		<span class="h_pwd_ok"></span>
 		</td>
@@ -360,7 +360,7 @@
 		<label for="username">이름 *</label>
 		</td>
 		<td>
-		<input type="text" name="username" id="username" size="20px" class="h_ipt" required="required" value="1234">
+		<input type="text" name="username" id="username" size="20px" class="h_ipt" required="required" value="">
 		</td>
 		</tr>
 		
@@ -388,8 +388,8 @@
 		  	<option value="011">011</option>
 			<option value="02">02</option>
 		</select>
-		-<input type="text" name="tel2" id="tel2" size="5" class="h_ipt" required="required" value="1234">
-		-<input type="text" name="tel3" id="tel3" size="5" class="h_ipt" required="required" value="1234">
+		-<input type="text" name="tel2" id="tel2" size="5" class="h_ipt" required="required" value="">
+		-<input type="text" name="tel3" id="tel3" size="5" class="h_ipt" required="required" value="">
 		</td>
 		</tr>
 		
@@ -408,7 +408,7 @@
 		<label for="email">이메일</label>
 		</td>
 		<td>
-		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid" required="required" value="1234"> @ 
+		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid" required="required" value=""> @ 
 		<select name="emaildomain" id="emaildomain" class="h_select emaildomain" required="required">
 			<option value=""></option>
 			<option value="gmail.com">gmail.com</option>
