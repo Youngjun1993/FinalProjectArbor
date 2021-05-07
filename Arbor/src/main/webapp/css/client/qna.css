@@ -4,8 +4,8 @@
     font-size: 25px;
     font-weight: bold;
 }
-.y_anserWait{
-    background: rgb(52,152,219);
+.y_anserRed{
+    background: rgb(191,43,53);
     width: 100px;
     height: 30px;
     line-height:30px;
@@ -14,7 +14,7 @@
     margin: 5px auto;
     border-radius: 5px;
 }
-.y_anserComp{
+.y_anserDark{
     background: rgb(94, 94, 94);
     width: 100px;
     height: 30px;
@@ -65,9 +65,6 @@
     width: 300px;
     height: 40px;
     line-height: 40px;
-    background: rgb(94,94,94);
-    border-radius: 5px;
-    color: #fff;
     font-weight: bold;
     margin: 0 auto 30px auto;
     display: block;
@@ -247,12 +244,10 @@
 #y_adminQnaList_rightcon>div>a{
 	display:block;
     float: right;
-    background: #ddd;
     width: 200px;
     height: 30px;
     line-height: 30px;
     text-align: center;
-    border-radius: 10px;
     margin-top: 25px;
     margin-right: 30px;
     font-weight: bold;

@@ -9,6 +9,9 @@
 			"width" : liCnt*35+"px",
 			"margin" : "30px auto"
 		});	
+		$("#y_leftMenu>ul>li:nth-child(7)").css({
+			"font-weight":"bold"
+		});
 	});
 </script>
 <div id="y_pointList_wrap" class="clearfix w1400_container">

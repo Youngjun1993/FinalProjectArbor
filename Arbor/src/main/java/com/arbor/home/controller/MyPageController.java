@@ -1,5 +1,7 @@
 package com.arbor.home.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arbor.home.service.MyPageServiceImp;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
+import com.arbor.home.vo.QnaVO;
+import com.arbor.home.vo.ReviewVO;
 
 @Controller
 public class MyPageController {
@@ -86,6 +90,19 @@ public class MyPageController {
 		
 		return mav;
 	}
+	/*
+	 * @RequestMapping("qnaAnsDescList")
+	 * 
+	 * @ResponseBody public HashMap<String, List<QnaVO>>
+	 * qnaAnsDescList(HttpServletRequest req, HttpSession session){ HashMap<String,
+	 * List<QnaVO>> map = new HashMap<String, List<QnaVO>>(); String pageNumStr =
+	 * req.getParameter("pageNum"); PageSearchVO pageVo = new PageSearchVO();
+	 * 
+	 * if(pageNumStr != null) { pageVo.setPageNum(Integer.parseInt(pageNumStr)); }
+	 * map.put("list", (List<QnaVO>) mypageService.qnaAnsDesc(pageVo)); return map;
+	 * }
+	 */
+	
 	//쿠폰 리스트 페이지
 	@RequestMapping("/couponList")
 	public ModelAndView couponList(HttpServletRequest req, HttpSession session) {
@@ -203,4 +220,35 @@ public class MyPageController {
 		}
 		return mav;
 	}
+	
+	//리뷰 평점 정렬
+	@RequestMapping("reviewGradeDesc")
+	public ModelAndView reviewGradeDesc(HttpServletRequest req, HttpSession session) {
+		String pageNumStr = req.getParameter("pageNum");
+		ModelAndView mav = new ModelAndView();
+		PageSearchVO pageVo = new PageSearchVO();
+		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		String userid = (String)session.getAttribute("logId");
+		if(userid == null || userid.equals("")) {
+			mav.setViewName("admin/member/login");
+		}else {
+			pageVo.setUserid(userid);
+			pageVo.setTotalRecord(mypageService.reviewTotalRecord(pageVo));
+			mav.addObject("username", (String)session.getAttribute("logName"));
+			mav.addObject("pointVO", mypageService.pointSum(userid));
+			mav.addObject("couponVO", mypageService.couponCount(userid));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
+			mav.addObject("qnaVO", mypageService.qnaCount(userid));
+			mav.addObject("list", mypageService.reviewGradeList(pageVo));
+			mav.addObject("pageVO", pageVo);
+			mav.setViewName("client/myPage/reviewList");
+			
+		}
+		return mav;
+	}
+
 }

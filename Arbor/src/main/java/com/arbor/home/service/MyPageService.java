@@ -1,5 +1,6 @@
 package com.arbor.home.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,6 +14,7 @@ import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PointVO;
 import com.arbor.home.vo.QnaVO;
+import com.arbor.home.vo.ReviewProductJoinVO;
 import com.arbor.home.vo.ReviewVO;
 import com.arbor.home.vo.SubOrderVO;
 
@@ -87,7 +89,7 @@ public class MyPageService implements MyPageServiceImp {
 	}
 
 	@Override
-	public List<ReviewVO> reviewList(PageSearchVO vo) {
+	public List<ReviewProductJoinVO> reviewList(PageSearchVO vo) {
 		return mypageDAO.reviewList(vo);
 	}
 
@@ -100,6 +102,16 @@ public class MyPageService implements MyPageServiceImp {
 	public List<CouponVO> cpnSaleDesc(PageSearchVO vo) {
 		return mypageDAO.cpnSaleDesc(vo);
 	}
+
+	@Override
+	public List<ReviewProductJoinVO> reviewGradeList(PageSearchVO vo) {
+		return mypageDAO.reviewGradeList(vo);
+	}
+
+	/*
+	 * @Override public HashMap<String, List<QnaVO>> qnaAnsDesc(PageSearchVO vo) {
+	 * return mypageDAO.qnaAnsDesc(vo); }
+	 */
 
 
 }
