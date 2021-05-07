@@ -2,6 +2,7 @@ package com.arbor.home.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,7 +44,7 @@ public class MemberController {
 		MemberVO logVO = memberService.loginCheck(vo);
 		
 		ModelAndView mav = new ModelAndView();
-		if(logVO==null) {//로그인실패
+		if(logVO==null && vo.getMemstat()!=0) {//로그인실패
 			System.out.println("로그인 실패");
 			mav.setViewName("redirect:login");
 		}else {//로그인성공
@@ -68,14 +70,6 @@ public class MemberController {
 	@RequestMapping("/memberjoin")
 	public ModelAndView memberJoin(MemberVO vo, HttpServletRequest req) { 
 		
-		/*
-		 * vo.setTel1(req.getParameter("tel1")); vo.setTel2(req.getParameter("tel2"));
-		 * vo.setTel3(req.getParameter("tel3"));
-		 * 
-		 * System.out.println(vo.getTel1()+vo.getTel2()+vo.getTel3());
-		 * 
-		 * vo.setEmaildomain(req.getParameter("emaildomain"));
-		 */
 		int cnt = memberService.memberInsert(vo);
 		
 		ModelAndView mav = new ModelAndView();
@@ -155,7 +149,6 @@ public class MemberController {
     @RequestMapping("/memDormant")
     public ModelAndView memDormant(String userid) {
     	ModelAndView mav = new ModelAndView();
-    	System.out.println(userid);
     	
     	int cnt = memberService.memDormant(userid);
     	
@@ -174,9 +167,11 @@ public class MemberController {
     //회원삭제
     @RequestMapping("/memDel")
 	public ModelAndView memDel(String userid) {
+    	ModelAndView mav = new ModelAndView();
     	
-		ModelAndView mav = new ModelAndView();
-		if (memberService.memDel(userid)>0) {//삭제
+    	int cnt = memberService.memDel(userid);
+    	
+		if (cnt>0) {//삭제
 			mav.setViewName("redirect:memberSearch");
 		}else {//삭제 실패
 			System.out.println("삭제실패");
@@ -184,6 +179,21 @@ public class MemberController {
 		}
 		
 		return mav;
+	}
+    
+    //다중삭제
+    @ResponseBody
+    @RequestMapping("/memMultiDel")
+	public int memMultiDel(@RequestParam(value = "memberChk[]") List<String> chArr, MemberVO vo) {
+    	int result = 0;
+    	
+    	System.out.println(chArr.size());
+    	///////수정중
+		  for (int i=0; i<chArr.size(); i++) {
+			 memberService.memMultiDel(chArr.get(i));
+		  }
+		  result = 1;
+		return result;
 	}
     
 	
@@ -211,8 +221,8 @@ public class MemberController {
 	}
 	
 	//이메일 인증
+	@ResponseBody
     @RequestMapping("/mailcheck")
-    @ResponseBody
     public String mailCheckGET(String email){//나중에 반환타입 String
         
         /* 뷰로부터 넘어온 데이터 확인 */
@@ -255,6 +265,60 @@ public class MemberController {
       return num;
       
     }
+    
+    //Recaptcha 자바
+	@ResponseBody
+	@RequestMapping(value = "VerifyRecaptcha", method = RequestMethod.POST)
+	public int VerifyRecaptcha(HttpServletRequest request) {
+	    VerifyRecaptcha.setSecretKey("6LeRXsgaAAAAAJJvfONVdEQrHl9Q6Ex90bzU6zv6");
+	    String gRecaptchaResponse = request.getParameter("recaptcha");
+	    System.out.println("캡챠 응답 값"  + gRecaptchaResponse);
+	    try {
+	       if(VerifyRecaptcha.verify(gRecaptchaResponse)) {
+	    	   return 0;
+	          } // 성공
+	       		else return 1; // 실패
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return -1; //에러
+	    }
+	}
+	
+    //회원탈퇴
+    @RequestMapping("/memberQuit")
+	public String memberQuit() {
+		
+		return "client/myPage/memberQuit";
+	}
+    
+    //포스트방식 비밀번호 가져오기
+    @ResponseBody
+    @RequestMapping("/pwdCheck")
+    //매개변수 ajax param, session
+    //유저아이디가 
+	public int pwdCheck(@RequestParam(value = "pwdCheck[]") List<String> arr, HttpSession session) {
+    	int result = 0;
+    	
+    	String logId = (String)session.getAttribute("logId");
+    	MemberVO vo = memberService.pwdCheck(logId);
+    	String userpwd = vo.getUserpwd();
+    	String inputpwd = arr.get(0);
+    	
+    	/*System.out.println("세션아이디 = " + logId);
+		System.out.println("vo에 담긴 =" + userpwd);
+		System.out.println("ajax에서 배열로 가져온 값 = " + inputpwd);
+		 */
+    	//배열로 전달한 값과 vo의 pwd를 비교한다
+    	if(userpwd.equals(inputpwd)) {
+    		System.out.println("비밀번호 일치");
+    		result = 1;
+    	}else {
+    		System.out.println("비밀번호 불일치");
+    		result = 0;
+    	}
+    	
+		return result;
+	}
     
 	
 }

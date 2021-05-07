@@ -163,7 +163,8 @@
 		    <artifactId>commons-io</artifactId>
 		    <version>2.8.0</version>
 		</dependency>
-	
+		
+		<!-- java mail  -->
 		 <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
         <dependency>
             <groupId>javax.mail</groupId>
@@ -177,6 +178,34 @@
             <artifactId>spring-context-support</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
+        
+        <!-- Google reCAPTCHA -->
+        <dependency>
+            <groupId>net.tanesha.recaptcha4j</groupId>
+            <artifactId>recaptcha4j</artifactId>
+            <version>0.0.7</version>
+        </dependency>
+ 
+        <!-- json for reCAPTCHA -->
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.1</version>
+        </dependency>
+ 
+        <!-- jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.5</version>
+        </dependency>
+        
 		
 				
 		

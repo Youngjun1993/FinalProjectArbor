@@ -50,7 +50,17 @@ public class MemberService implements MemberServiceImp {
 	public int memDel(String userid) {
 		return memberDAO.memDel(userid);
 	}
-	
+
+	@Override
+	public int memMultiDel(String userid) {
+		return memberDAO.memMultiDel(userid);
+	}
+
+	@Override
+	public MemberVO pwdCheck(String userid) {
+		
+		return memberDAO.pwdCheck(userid);
+	}
 	
 
 }

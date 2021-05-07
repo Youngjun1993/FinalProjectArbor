@@ -12,6 +12,7 @@
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/qna.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/myPage.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/memberQuit.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/client/productList.js"></script>

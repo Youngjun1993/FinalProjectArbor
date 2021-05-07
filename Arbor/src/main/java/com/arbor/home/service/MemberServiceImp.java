@@ -25,4 +25,10 @@ public interface MemberServiceImp {
 	
 	//삭제이벤트
 	public int memDel(String userid);
+	
+	//다중삭제
+	public int memMultiDel(String userid);
+	
+	//비밀번호 체크
+	public MemberVO pwdCheck(String userid);//userid 세션에서 구할 userid
 }

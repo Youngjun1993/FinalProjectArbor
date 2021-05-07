@@ -78,7 +78,8 @@
 		margin:10px 0;
 	}
 	
-	/* 이메일 인증 체크박스 */
+	
+	/* 비번 이메일 인증 체크박스 */
 	.h_pwdchk{
 	background-color:#ebebe4;
 	padding: 7px 40px 7px 12px;
@@ -86,6 +87,14 @@
 	border-radius: 1px;
 	box-shadow: 0 1px 3px -2px #9098A9;
 	margin:10px 0;
+	}
+	
+	.h_pwd_ok.correct{
+		color : green;
+	}
+	
+	.h_pwd_ok.incorrect{
+		color : red;
 	}
 	
 	.h_emailvalid{
@@ -353,6 +362,17 @@
 	.h_tab.active a{
 		color:black;
 	}
+	
+	.h_google_recaptha {
+		width:800px;
+		margin:0 auto;
+	}
+	
+	.g-recaptcha{
+	    margin: 30px auto;
+    	width: 300px;
+	}
+	
 	
 	/*
 	.h_pwdChangeipt {
