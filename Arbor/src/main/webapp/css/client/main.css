@@ -400,20 +400,22 @@ nav>ul ul{position:absolute;}
 }
 #lookbook{
 	width:1230px;
-	height:280px;
+	height:400px;
+
 	position:absolute;
 	left:50%;
 	top:50%;
 	margin-left:-615px;
-	margin-top:-140px;
+	margin-top:-200px;
 	text-align:center;
 	
 }
 #lookbook p{
 	color:#fff;
 	text-shadow: 2px 4px 15px #000000ab;
-	font-size:150px;
+	font-size:140px;
 	font-weight:bold;
+	
 }
 #lookbook button{
 	
