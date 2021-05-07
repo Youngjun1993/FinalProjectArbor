@@ -1,5 +1,6 @@
 package com.arbor.home.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.arbor.home.vo.CouponVO;
@@ -8,6 +9,7 @@ import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PointVO;
 import com.arbor.home.vo.QnaVO;
+import com.arbor.home.vo.ReviewProductJoinVO;
 import com.arbor.home.vo.ReviewVO;
 
 public interface MyPageDAOImp {
@@ -30,7 +32,11 @@ public interface MyPageDAOImp {
 	public List<QnaVO> allList(PageSearchVO vo);
 	//Q&A 총 레코드 수
 	public int qnaTotalRecord(PageSearchVO vo);
-	
+	/*
+	 * //Q&A 처리상태 desc 정렬 public HashMap<String, List<QnaVO>>
+	 * qnaAnsDesc(PageSearchVO vo);
+	 */
+		
 	//Coupon 리스트
 	public List<CouponVO> cpnList(PageSearchVO vo);
 	//Coupon 총 레코드 수	
@@ -43,8 +49,11 @@ public interface MyPageDAOImp {
 	//point 총 레코드 수	
 	public int pointTotalRecord(PageSearchVO vo);
 	
-	//point 리스트
-	public List<ReviewVO> reviewList(PageSearchVO vo);
-	//point 총 레코드 수	
+	//review 리스트
+	public List<ReviewProductJoinVO> reviewList(PageSearchVO vo);
+	//review 총 레코드 수	
 	public int reviewTotalRecord(PageSearchVO vo);
+	//review 평점 정렬 리스트
+	public List<ReviewProductJoinVO> reviewGradeList(PageSearchVO vo);
+	
 }

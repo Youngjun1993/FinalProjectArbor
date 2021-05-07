@@ -101,6 +101,10 @@
 				"display":"block"
 			});
 		});
+		
+		$("#y_leftMenu>ul>li:nth-child(2)").css({
+			"font-weight":"bold"
+		});
 	});
 	function printWindow() {//프린트 호출
 		var subpopup = document.getElementById("y_orderPopup_Wrap");

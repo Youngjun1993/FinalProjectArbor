@@ -46,7 +46,7 @@
       </props>
      </property>
     </bean>
-	
+    
 	<mybatis-spring:scan base-package="com.arbor.home.dao"/>
 		
 </beans>

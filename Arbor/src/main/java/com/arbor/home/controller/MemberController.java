@@ -127,7 +127,8 @@ public class MemberController {
 			System.out.println(lastDate);
 			System.out.println("세션 아이디 = " + nowId);
 			System.out.println("세션타임 업데이트 완료");
-			session.invalidate();
+			session.removeAttribute("logId");
+			session.removeAttribute("logName");
 		}
 		
 		return "home";

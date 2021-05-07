@@ -9,7 +9,9 @@
 			"width" : liCnt*35+"px",
 			"margin" : "30px auto"
 		});
-		console.log(window.location.pathname);
+		$("#y_leftMenu>ul>li:nth-child(6)").css({
+			"font-weight":"bold"
+		});
 		if(window.location.pathname=="/home/couponList"){
 			$("#y_cpnDateDescBtn").css({
 				"border":"1px solid #333"
@@ -18,7 +20,8 @@
 			$("#y_cpnSaleDescBtn").css({
 				"border":"1px solid #333"
 			})
-		}	
+		}
+		
 	});
 </script>
 <div id="y_couponList_wrap" class="clearfix w1400_container">
@@ -26,8 +29,8 @@
     <div id="y_coupon_rightCon">
         <h2>쿠폰내역</h2>
         <div class="clearfix">
-            <a id="y_cpnDateDescBtn" class="couponDescBtn" href="couponList">최신순</a>
-            <a id="y_cpnSaleDescBtn" class="couponDescBtn" href="cpnSaleDesc">할인순</a>
+            <a id="y_cpnDateDescBtn" href="couponList">최신순</a>
+            <a id="y_cpnSaleDescBtn" href="cpnSaleDesc">할인순</a>
         </div>
         <div>
             <ul class="clearfix">
