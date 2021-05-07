@@ -174,26 +174,7 @@
 		주문, 결제, 배송, 반품/교환 문의는 1:1문의를 이용해주세요.</h3>
 		<a href="qnaList"><button type="button" class="clientSubBtn">1:1문의 바로가기</button></a><br/>
 		<hr/>
-		<div>
-			<div class="p_qna_leftDiv">
-				<img src="<%=request.getContextPath() %>/img/question.jpg"/>
-			</div>
-			<div class="p_qna_rightDiv">
-				<ul>
-					<li>
-						답변대기중<img src="<%=request.getContextPath() %>/img/nolock.jpg"/>
-					</li>
-					<li><a class="p_qna_answer" href="#s">스툴 색상 변경 문의</a></li>
-					<li>
-						<div>
-						<p>Q. 스툴을 두개 주문하면, 두 가지 색상을 각각 제가 지정할 수 있나요?</p>
-						<p>답변대기중입니다.</p>
-						</div>
-					</li>
-				</ul>
-				<div class="p_qna_sideDiv">sou******** | 2021-04-21</div>
-			</div>
-		</div>
+	
 		<div>
 			<div class="p_qna_leftDiv">
 				<img src="<%=request.getContextPath() %>/img/done.jpg"/>
@@ -278,66 +259,3 @@
 		</ul>
 	</div>
 </div>
-
-
-<script>
-$(function(){
-	$(document).on('change', '#p_detailOption>select', ()=>{
-		var opt1=""; var opt2="";
-		var optName1=""; var optName2="";
-		var optPrice1=""; var optPrice2="";
-	
-		$("select[class=p_optname]").each(function(i, name){
-			if(i==0){
-				if($(name).val()!=null) {
-					opt1 = $(name).children("option:selected").text();
-				} else {
-					opt1 = '';
-				}
-				optName1 = $(name).attr('name');
-			} else if(i==1) {
-				if($(name).val()!=null) {
-					opt2 = $(name).children("option:selected").text();
-				} else {
-					opt2 = '';
-				}
-				optName2 = $(name).attr('name');
-			}
-		});
-		
-		if(opt1.indexOf("(+")>0) {
-			<!-- + 추가값이 있다는소리 -->
-			optPrice1 = opt1.substring(opt1.indexOf("(+")+2, opt1.lastIndexOf(")"));
-		} else {
-			optPrice1 = 0;
-		}
-		if(opt2.indexOf("(+")>0) {
-			<!-- + 추가값이 있다는소리 -->
-			optPrice2 = opt2.substring(opt2.indexOf("(+")+2, opt2.lastIndexOf(")"));
-		} else {
-			optPrice2 = 0;
-		}
-		
-		console.log("option Name?"+optName1+", "+optName2);
-		console.log("option Value?"+opt1+", "+opt2);
-		console.log("option Price?"+optPrice1+", "+optPrice2);
-		var tag = "";
-		if(opt1!=''){
-			tag += "<ul class='p_detailSelect_ul'><li>"+optName1+"</li>";
-			tag += "<li><button>-</button><span class='p_selectNum'>1</span><button>+</button></li>";
-			tag += "<li class='p_bigPrice'><fmt:formatNumber value="+optPrice1+" pattern='#,###'/>원</li>";
-			tag += "<li><img src='./img/cancel.png'/></li></ul>";
-		}
-		if(opt2!=''){
-			tag += "<ul class='p_detailSelect_ul'>><li>"+optName2+"</li>";
-			tag += "<li><button>-</button><span class='p_selectNum'>1</span><button>+</button></li>";
-			tag += "<li class='p_bigPrice'><fmt:formatNumber value='"+optPrice2+"' pattern='#,###'/>원</li>";
-			tag += "<li><img src='./img/cancel.png'/></li></ul>";
-		}
-		
-		console.log("현재까지 금액?"+$("#p_totalprice").text());
-		$("#p_detailOptionSelect").html(tag);
-	});
-	
-});
-</script>

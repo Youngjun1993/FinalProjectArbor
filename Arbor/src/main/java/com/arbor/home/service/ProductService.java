@@ -143,6 +143,11 @@ public class ProductService implements ProductServiceImp {
 	public int pqnaAnswerDelete(int pqnano) {
 		return productDAO.pqnaAnswerDelete(pqnano);
 	}
+
+	@Override
+	public List<ProductQnaVO> pqnaViewList(int pno) {
+		return productDAO.pqnaViewList(pno);
+	}
 	
 	
 }

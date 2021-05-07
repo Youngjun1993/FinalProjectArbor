@@ -31,6 +31,8 @@ public interface ProductDAOImp {
 	public List<OptionVO> optValueSelect(int pno);
 	// 상품문의 등록하기
 	public int pqnaInsert(ProductQnaVO vo);
+	// 상품문의 확인을 위한 List
+	public List<ProductQnaVO> pqnaViewList(int pno);
 	
 	/* 관리자 */
 	
