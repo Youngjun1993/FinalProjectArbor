@@ -133,13 +133,14 @@
 			 
 		});
 		
-		
-		
-		//리캡차 활성버튼
-		$('.h_reCaptcha').click(function () {
-			  $.ajax({
+		/////////////////////////////////////////////////////////가입 이벤트시작
+	    	
+		$('#memberjoin').mouseup(function() {
+	    	
+	    	$.ajax({
                 url: 'VerifyRecaptcha',
                 type: 'post',
+                async: false,//동기방식으로 처리해야 script이전에 동작
                 data: {
                     recaptcha: $("#g-recaptcha-response").val()
                 },
@@ -148,7 +149,6 @@
               			alert("자동 가입 방지 봇 통과");
               			captcha = true;
               		}else if(data == 1) {
-              			 alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요~");
               			captcha = false
               		}else {
               			 alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
@@ -157,14 +157,6 @@
                     
                 }
             });
-		
-		});
-		///////////////////////////////////////////////////////////t리캡차끝
-		
-		//memberjoin
-		$('#memberjoin').click(function() {
-	    	
-	    	console.log("조인버튼 이벤트");
 	    	
 	    	/* 입력값 변수 */
 	        var id = $('#userid').val();// id 입력란
@@ -239,9 +231,12 @@
 					                            }else{
 					                            	termsCheck2 = true;
 					                            	if(captcha == false) {
-					                            		alert("로봇체크를 해주세요");
+					                            		alert("로봇 체크를 확인해주세요");
 					                            	}else {
 					                            		captchaChk = true;
+					                            		 alert("서브밋발생")
+					                     	    		$('.inputForm').attr('action', 'memberJoin');
+					                     		    	$('.inputForm').submit;
 					                            	}
 					                            }
 				                            }
@@ -253,15 +248,14 @@
 		            }
 		        }
 	    	}
-			
-	    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&nameCheck&&addressCheck&&telCheck&&mailCheck&&termsCheck1&&termsCheck2&&captchaChk){
+	    	/* if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&nameCheck&&addressCheck&&telCheck&&mailCheck&&termsCheck1&&termsCheck2&&captchaChk){
 	    		
 	   		 alert("서브밋발생")
-	    		$('.inputForm').attr('action', 'memberjoin');
+	    		$('.inputForm').attr('action', 'memberJoin');
 		    	$('.inputForm').submit;
-	        } 
-    	
+	        }  */
 		});
+		
 	});
 		 
 /* 카카오주소api 연동 */
@@ -417,9 +411,9 @@
 		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid" required="required" value="1234"> @ 
 		<select name="emaildomain" id="emaildomain" class="h_select emaildomain" required="required">
 			<option value=""></option>
-			<option value="google.com">gmail.com</option>
+			<option value="gmail.com">gmail.com</option>
 			<option value="naver.com">naver.com</option>
-			<option value="daum.com">daum.net</option>
+			<option value="daum.net">daum.net</option>
 		</select>
 		
 		</td>
@@ -471,7 +465,6 @@
 		<div class="h_term_chk"><input type="checkbox" name="privacyok" id="privacyok" required="required">개인정보수집에 동의하시겠습니까?</div>
     	<div id="h_google_recaptha">
 		<div class="g-recaptcha" data-sitekey="6LeRXsgaAAAAACGTfFgrnZhBDe76aaMSCLv8yz1D"></div>
-		<input type = "button" class="h_reCaptcha" value ="로봇체크"/>
 		</div>
 		<input type="submit" id="memberjoin" value="Join NOW" class="h_check_btn join">
 	</form>

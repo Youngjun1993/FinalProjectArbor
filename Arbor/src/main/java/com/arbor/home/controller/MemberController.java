@@ -67,7 +67,7 @@ public class MemberController {
 	}
 	
 	//회원가입
-	@RequestMapping("/memberjoin")
+	@RequestMapping("/memberJoin")
 	public ModelAndView memberJoin(MemberVO vo, HttpServletRequest req) { 
 		
 		int cnt = memberService.memberInsert(vo);
@@ -276,6 +276,7 @@ public class MemberController {
 	    System.out.println("캡챠 응답 값"  + gRecaptchaResponse);
 	    try {
 	       if(VerifyRecaptcha.verify(gRecaptchaResponse)) {
+	    	   System.out.println("캡차 통과 0 반환");
 	    	   return 0;
 	          } // 성공
 	       		else return 1; // 실패
