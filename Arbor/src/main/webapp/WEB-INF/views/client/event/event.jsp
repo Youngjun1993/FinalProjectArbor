@@ -10,27 +10,25 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
 
-<style type="text/css">
-.bx-wrapper{max-width: 100% !important;}
-</style>
-
 <script>
 	$(function(){
+		var sEndDate = new Array();
 		timeSaleAjax();
 		
 		//EVENT 메뉴 내에서 탭 클릭시 view 변경
 		$(".j_tabLbl").click(function(){
 			var title = $(this).text();
 			$(".j_eventMenu").text(title);
+			
 			if(title=="TIME SALE"){
 				runSlider();
+				runTimer(sEndDate[0]);
 			}
 		});		
 		//header-EVENT 서브메뉴 클릭시 이벤트 탭 이동
 		var title = "${title}";
 		if(title=="timeSale"){	//타임세일 tab -> 타임세일 이미지, 시간 불러오기 **
 			$("#j_tab1").prop("checked",true);
-//			timeSaleAjax();
 		}
 		else if(title=="nowEvent"){
 			$("#j_tab2").prop("checked",true);
@@ -41,9 +39,9 @@
 		let chkr = $(".j_tab-wrap [name='tabs']:checked").next().text();
 		$(".j_eventMenu").text(chkr);
 		
+		
 		//==================== TIME SALE ====================
 		//타임세일 데이터 가져오기
-		var sEndDate = new Array();
 		function timeSaleAjax(){
 			$.ajax({
 					url: 'getTimeSale',
@@ -57,21 +55,21 @@
 							tag += "</a></li>";
 							sEndDate[idx] = vo.saleEnd;
 						});
-						console.log(sEndDate);
+						console.log(tag);
 						$("#timeSaleSlider").html(tag);
 					}
 			});
 		}
 
 		//타임세일 tab - 타이머 구현
-
+		var timer;
 		function runTimer(saleEndDate){
+			clearInterval(timer);
 			var saleEnd = new Date(saleEndDate);
 			var _second = 1000;
 			var _minute = _second*60;
 			var _hour = _minute*60;
 			var _day = _hour*24;
-			var timer;
 			
 			function showCountDown(){
 				var now = new Date();
@@ -106,15 +104,18 @@
 				slideHeight: 500,
 				auto: true,
 				infiniteLoop: true,
-				onSlideAfter:function(){
-					console.log("@@ 타임세일 슬라이드 실행 @@");
+				onSlideBefore:function(){
+				//onSlideAfter:function(){
+				//onSliderLoad:function(){
+					//console.log("@@ 타임세일 슬라이드 실행 @@");
 					index = mys.getCurrentSlide();
 				 	console.log(index);
+				 	console.log(sEndDate[index]);
 				 	runTimer(sEndDate[index]);
 				}
 			});
 		};
-		
+
 		
 		//===================================================
 		
@@ -137,10 +138,10 @@
 		<span>TIME SALE</span>
 	</div>
 	<div class="j_tab-wrap">
-		<input type="radio" name="tabs" class="j_tabs" id="j_tab1" checked>
+		<input type="radio" name="tabs" class="j_tabs" id="j_tab1">
 		<label for="j_tab1" class="j_tabLbl">TIME SALE</label>
 
-		<input type="radio" name="tabs" class="j_tabs" id="j_tab2" >
+		<input type="radio" name="tabs" class="j_tabs" id="j_tab2" checked>
 		<label for="j_tab2" class="j_tabLbl">진행중인 이벤트</label>
 
 		<input type="radio" name="tabs" class="j_tabs" id="j_tab3">
@@ -152,8 +153,10 @@
 				<div id="timer"></div>
 				<div id="timeSaleContent">
 					<ul id="timeSaleSlider">
-						<%-- <li><a href="#"><img src="<%=request.getContextPath() %>/img/슬라이드침대1.PNG"></a></li>
-						<li><a href="#"><img src="<%=request.getContextPath() %>/img/슬라이드침대2.PNG"></a></li> --%>
+						<%-- 
+						<li><a href="#"><img src="<%=request.getContextPath() %>/img/슬라이드침대1.PNG"></a></li>
+						<li><a href="#"><img src="<%=request.getContextPath() %>/img/슬라이드침대2.PNG"></a></li>
+						 --%>
 					</ul>
 				</div>			
 			</div>
@@ -175,10 +178,12 @@
 				<ul class="clearfix" id="j_eventList">
 					<c:forEach var="vo" items="${list }">
 					<li>
-						<a href="eventContent?eventNo=${vo.eventNo }">
-							<img src="./upload/${vo.eventImg1}"><br/>
-							<strong>${vo.eventSubject }</strong>
-						</a>
+						<span>
+							<a href="eventContent?eventNo=${vo.eventNo }">
+								<img src="./upload/${vo.eventImg1}"><br/>
+								<strong>${vo.eventSubject }</strong>
+							</a>						
+						</span>
 						<p>${vo.eventStart } ~ ${vo.eventEnd }</p>
 					</li>
 					</c:forEach>

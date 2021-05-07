@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.arbor.home.dao.OrderDAOImp">
+	<select id="getMemberInfo" resultType="com.arbor.home.vo.MemberVO">
+		select username, zipcode, addr, detailaddr, tel, email from member where userid=#{param1}
+	</select>
+	<select id="getUserPoint" resultType="com.arbor.home.vo.PointVO">
+		select * from point where userid=#{param1} and pointNo=(select max(pointNo) from point)
+	</select>
+	<select id="getUserCoupon" resultType="com.arbor.home.vo.CouponVO">
+		select cpnname, apply, available, salerate, cpnstart, cpnend from coupon where userid=#{param1} and cpnend>=sysdate-1
+	</select>
+	<select id="getCouponCount" resultType="int">
+		select count(cpnNo) from coupon where userid=#{param1} and cpnend>=sysdate-1
+	</select>
+  </mapper>

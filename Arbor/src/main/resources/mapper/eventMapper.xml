@@ -49,11 +49,11 @@
 	<select id="onePageRecordSelect" resultType="com.arbor.home.vo.EventVO" parameterType="com.arbor.home.vo.PageSearchVO">
 		select * from (select * from (select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart,
 		to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yy/mm/dd hh24:mi') eventDate from event
-		<if test="qnaSearchWord!=null">where ${qnaSearchKey} like '%${qnaSearchWord}%' order by eventNo desc)
+		<if test="searchWord!=null">where ${qnaSearchKey} like '%${qnaSearchWord}%' order by eventNo desc)
 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageNum} order by eventNo asc)
 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by eventNo desc</if>
-		<if test="qnaSearchWord==null">order by eventNo desc)
+		<if test="searchWord==null">order by eventNo desc)
 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageNum} order by eventNo asc)
 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by eventNo desc</if>

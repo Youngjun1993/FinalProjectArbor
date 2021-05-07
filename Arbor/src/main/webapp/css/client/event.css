@@ -36,7 +36,9 @@
 .j_search select, .j_search input{height:25px;line-height:25px;vertical-align:middle;} /* 높이 통일화 필요 */
 .j_search input[type=text]{padding:0;box-sizing:border-box;}
 
-#j_eventFrm{padding-top:30px;}
+#j_eventFrm{
+	padding-top:30px;
+}
 
 /* tab content */
 #j_tab1:checked~#j_tab1_content,
@@ -44,17 +46,10 @@
 #j_tab3:checked~#j_tab3_content{
 	display:block;
 }
+
 /*----------------
 	타임세일 tab
 -----------------*/
-#timer{
-	height:100px;
-	line-height:100px;
-	text-align:center;
-	font-size:4em;
-	font-family:LAB디지털;
-	color:#444;
-}
 @font-face {
     font-family: 'LAB디지털';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/LAB디지털.woff') format('woff');
@@ -67,17 +62,29 @@
     font-weight: normal;
     font-style: normal;
 }
-.d-day{font-family:BMHANNAAir;}
-#timeSaleContent{
-	height:300px;
-	line-height:300px;
+#timer{
+	height:100px;
+	line-height:100px;
 	text-align:center;
+	font-size:4em;
+	font-family:LAB디지털;
+	color:#444;
 }
+.d-day{
+	font-family:BMHANNAAir;
+}
+#timeSaleContent{
+	margin: 0 300px;
+	padding: 0 auto;
 
-
-
-
-
+}
+#timeSaleContent .bx-wrapper{
+	box-shadow: 0 0 0 0;
+	-webkit-box-shadow: 0 0 0 0;
+}
+#timeSaleContent .bx-viewport{
+	
+}
 /*---------------------
 	진행중인 이벤트 tab
 ----------------------*/
@@ -91,11 +98,18 @@
 }
 #j_eventList img{width:300px;height:250px;}
 #j_eventList a:hover{cursor:pointer;}
-#j_eventList strong, .j_eventList p{font-size:12px;}
-#j_eventList a{border-bottom:1px solid #bbb;}
-#j_eventList a:hover {border-bottom:1px solid #333;}
 #j_eventList strong{margin:10px 0;line-height:20px;}
-#j_eventList p{color:#aaa;}
+#j_eventList p{color:gray;}
+#j_eventList span:after{
+	content:"";
+	display:block;
+	width:300px;
+	border-bottom:1px solid #bbb;
+	margin:5px 0 5px 0;
+}
+#j_eventList span:hover:after{
+	border-bottom:1px solid #333;
+}
 /* 진행중인 이벤트 view */
 #j_eventTitle, #j_contentList{
 	border-top:1px solid rgb(229,229,229);
@@ -118,6 +132,7 @@
 #j_eventListBtn{
 	margin:15px 0; float:right;
 }
+
 /*------------------
 	지난 이벤트 tab
 ------------------*/
