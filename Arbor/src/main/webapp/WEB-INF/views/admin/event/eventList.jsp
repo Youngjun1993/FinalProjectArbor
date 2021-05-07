@@ -34,7 +34,7 @@
 					<option value="eventSubject">제목</option>
 					<option value="eventContent">내용</option>
 				</select>
-				<input type="text" name="qnaSearchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
+				<input type="text" name="searchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
 				<input type="submit" class="adminMainBtn" value="검색"/>
 			</form>
 		</div>
