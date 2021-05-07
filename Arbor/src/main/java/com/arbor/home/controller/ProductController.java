@@ -64,6 +64,7 @@ public class ProductController {
 		mav.addObject("rgb", productService.productListRGB(vo.getSubno()));
 		mav.addObject("optName", productService.optNameSelect(pno));
 		mav.addObject("optValue", productService.optValueSelect(pno));
+		mav.addObject("pqnalst", productService.pqnaViewList(pno));
 		mav.setViewName("client/product/productView");
 		return mav;
 	}
@@ -83,7 +84,53 @@ public class ProductController {
 	public ModelAndView pqnaList() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("vo", productService.pqnaList());
-		mav.setViewName("admin/product/productQNA");
+		mav.addObject("cnt", productService.pqnaNoAnswerCnt());
+		mav.setViewName("admin/product/productQna");
+		return mav;
+	}
+	
+	// Admin - 상품문의 답변등록 창으로 이동
+	@RequestMapping("/pqnaAnswer")
+	public ModelAndView pqnaAnswer(int pqnano) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("ans", productService.pqnaAnswer(pqnano));
+		mav.setViewName("admin/product/productQnaWrite");
+		return mav;
+	}
+	
+	// Admin - 상품문의 답변 등록
+	@RequestMapping(value="/pqnaAnswerInsert", method=RequestMethod.POST)
+	public ModelAndView pqnaAnswerInsert(ProductQnaVO vo) {
+		ModelAndView mav = new ModelAndView();
+		if(productService.pqnaAnswerInsert(vo)>0) {
+			mav.setViewName("redirect:pqnaList");
+		} else {
+			mav.addObject("pqnano", vo.getPqnano());
+			mav.setViewName("redirect:pqnaAnswer");
+		}
+		
+		return mav;
+	}
+	
+	// 상품문의 답변 수정
+	@RequestMapping(value="/pqnaAnswerEdit", method=RequestMethod.POST)
+	public ModelAndView pqnaAnswerEdit(ProductQnaVO vo) {
+		ModelAndView mav = new ModelAndView();
+		if(productService.pqnaAnswerInsert(vo)>0) {
+			mav.setViewName("redirect:pqnaList");
+		} else {
+			mav.addObject("pqnano", vo.getPqnano());
+			mav.setViewName("redirect:pqnaAnswer");
+		}
+		
+		return mav;
+	}
+	
+	// 상품문의 답변 삭제
+	@RequestMapping("/pqnaAnswerDelete")
+	public ModelAndView pqnaAnswerDelete(int pqnano) {
+		ModelAndView mav = new ModelAndView();
+		
 		return mav;
 	}
 	

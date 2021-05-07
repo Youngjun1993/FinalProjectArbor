@@ -9,18 +9,20 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/productInsert.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/productSearch.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script>
 
 </script>
 </head>
 <body>
 	<div class="w1400_container font_ng">
-		<%@include file="/WEB-INF/inc/adminMenu.jspf"%>>사이드메뉴</div>
+		<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 		<div id="centerfrm">
 			<p id="pageTitle"><span>상품 목록</span></p>
 			<div id="insertInfo">

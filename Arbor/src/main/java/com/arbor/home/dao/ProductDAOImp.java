@@ -31,6 +31,8 @@ public interface ProductDAOImp {
 	public List<OptionVO> optValueSelect(int pno);
 	// 상품문의 등록하기
 	public int pqnaInsert(ProductQnaVO vo);
+	// 상품문의 확인을 위한 List
+	public List<ProductQnaVO> pqnaViewList(int pno);
 	
 	/* 관리자 */
 	
@@ -60,4 +62,12 @@ public interface ProductDAOImp {
 	public int optionAllDelete(int pno);
 	// 상품문의 목록 불러오기
 	public List<ProductQnaVO> pqnaList();
+	// 상품문의 번호에 따라 내용 불러오기
+	public ProductQnaVO pqnaAnswer(int pqnano);
+	// 미답변글 갯수 받아오기
+	public int pqnaNoAnswerCnt();
+	// 상품문의 답변 등록하기
+	public int pqnaAnswerInsert(ProductQnaVO vo);
+	// 상품문의 답변 삭제하기
+	public int pqnaAnswerDelete(int pqnano);
 }
