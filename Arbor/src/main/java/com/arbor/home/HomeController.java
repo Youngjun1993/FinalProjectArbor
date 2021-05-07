@@ -4,7 +4,7 @@ package com.arbor.home;
 import java.util.List;
 
 import javax.inject.Inject;
-
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +21,10 @@ public class HomeController {
 	HomeServiceImp homeService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home() {
+	public ModelAndView home(HttpSession ses) {
+		
+		ses.setAttribute("mainList", homeService.mainList());
+		ses.setAttribute("subList", homeService.subList());
 		ModelAndView mav = new ModelAndView();
 		//메인메뉴
 		mav.addObject("mainList", homeService.mainList());
