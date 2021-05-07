@@ -27,7 +27,7 @@
 }
 
 #p_detailInfo {
-	padding-bottom:20px;
+	padding-bottom:40px;
 	border-bottom: 1px dotted #ddd;
 }
 
@@ -35,15 +35,18 @@
 	overflow: auto;
 }
 #p_detailInfo li {
-	float:left; width: 25%; text-align: center;
-	margin-bottom: 10px;
+	float:left; width: 20%; text-align: left;
+	margin-bottom: 10px; 
 }
 #p_detailInfo li:nth-of-type(2n) {
-	width: 75%; text-align: left;
+	width: 65%; 
+}
+#p_detailInfo li:nth-of-type(odd) {
+	margin-left: 10%; margin-right:5%;
 }
 
 #p_detailInfo>h3, #p_detailOption>h3 {
-	margin: 20px 0; text-align: left;
+	margin: 30px 0; 
 }
 
 /* 선택 옵션 */
@@ -107,6 +110,9 @@
 	text-align: center; font-size:1.3em;
 	border: 1px solid #ddd;
 	background-color: rgb(248, 244, 236);
+}
+#p_detailMenu>ul>li>a, #p_reviewMenu>ul>li>a, #p_pqnaMenu>ul>li>a, #p_deliveryMenu>ul>li>a {
+	display:block;
 }
 #p_detailMenu>ul>li:first-child {
 	border-bottom: none;
@@ -273,7 +279,7 @@
 }
 .p_optTitle {
 	display: inline-block; text-align: left;
-	width: 30%; height: 30px; line-height: 30px; margin-bottom: 10px;
+	width: 20%; height: 30px; line-height: 30px; margin-bottom: 15px;
 }
 .p_optname {
 	width: 50%; height: 30px; line-height: 30px;

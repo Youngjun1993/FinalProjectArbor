@@ -7,8 +7,6 @@ $(function(){
 		$(this).parent().next().css('height', '100px');
 	});
 	
-	
-	
 });
 
 <!-- 상품문의 글작성 폼 띄우기 -->
