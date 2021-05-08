@@ -47,7 +47,11 @@ public class MemberController {
 		if(logVO==null && vo.getMemstat()!=0) {//로그인실패
 			System.out.println("로그인 실패");
 			mav.setViewName("redirect:login");
-		}else {//로그인성공
+		}else if(logVO.getUserid().equals("admin")){//관리자 로그인성공
+			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
+			session.setAttribute("logName", logVO.getUsername());
+			mav.setViewName("redirect:/memberSearch");
+		}else {//사용자로그인성공
 			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
 			session.setAttribute("logName", logVO.getUsername());
 			mav.setViewName("redirect:/");
