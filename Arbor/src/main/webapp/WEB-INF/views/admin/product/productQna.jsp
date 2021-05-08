@@ -71,8 +71,8 @@
 					<li class="tableHeader">답변상태</li><br/>
 					<c:forEach var="vo" items="${vo }">
 						<li><input type="checkbox" value="${vo.pqnano }"/></li>
-						<li>${vo.pname }</li>
-						<li><a href="pqnaAnswer?pqnano=${vo.pqnano }">${vo.pqnasubject }</a></li>
+						<li class="wordcut">${vo.pname }</li>
+						<li class="wordcut"><a href="pqnaAnswer?pqnano=${vo.pqnano }">${vo.pqnasubject }</a></li>
 						<li>${vo.userid }</li>
 						<li>${vo.pqnadate }</li>
 						<c:if test="${vo.panswercontent=='' || vo.panswercontent==null }">

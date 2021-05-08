@@ -303,6 +303,12 @@
 .p_review_rightDiv>p {
 	margin-top: 10px;
 }
+.gradestar {
+	font-size:1.4em; color:rgb(255,150,0);
+}
+.elsestar {
+	font-size:1.4em; color:rgb(204,204,204);
+}
 
 /* 상품문의 */
 .p_qna_leftDiv {
@@ -329,4 +335,4 @@
 	float:right; width: 20%; 
 	height: 30px; line-height: 30px;
 }
-/* tag */
+/*  */
