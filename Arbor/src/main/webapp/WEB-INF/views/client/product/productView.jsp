@@ -130,7 +130,23 @@
 			</div>
 			<div class="p_review_rightDiv">
 				<p>${lst.username } (${lst.userid }) | ${lst.reviewdate }</p>
-				<p>★★★★★</p><br/>
+				<c:choose>
+					<c:when test="${lst.grade==1 }">
+						<p><span class="gradestar">★</span><span class="elsestar">★★★★</span></p><br/>
+					</c:when>
+					<c:when test="${lst.grade==2 }">
+						<p><span class="gradestar">★★</span><span class="elsestar">★★★</span></p><br/>
+					</c:when>
+					<c:when test="${lst.grade==3 }">
+						<p><span class="gradestar">★★★</span><span class="elsestar">★★</span></p><br/>
+					</c:when>
+					<c:when test="${lst.grade==4 }">
+						<p><span class="gradestar">★★★★</span><span class="elsestar">★</span></p><br/>
+					</c:when>
+					<c:otherwise>
+						<p><span class="gradestar">★★★★★</span></p><br/>
+					</c:otherwise>
+				</c:choose>
 				<p>${lst.reviewcontent }</p>
 			</div>
 		</div>
@@ -285,7 +301,22 @@
 
 <script>
 	$(function(){
+		
 		var totalPrice = 0;
+		
+		$(".p_qna_answer").parent().next().css('display', 'none');
+		
+		$(document).on('click', '.p_qna_answer', function(){
+			var click = $(this).parent().next();
+			console.log("display?"+click.css('display'))
+			if(click.css('display')=='block') {
+				click.css('display', 'none');
+				click.css('height', '0px');
+			} else {
+				click.css('display', 'block');
+				click.css('height', '130px');
+			}
+		});
 		
 		if(${optName.size()}==0) {
 			totalPrice = ${vo.saleprice};
@@ -359,4 +390,79 @@
 			return true;
 		});
 	});
+	
+	<!-- 상품문의 글 등록하기 -->
+	function pqnaInsert() {
+		var data = $("#p_qna_hiddenFrm").serialize();
+		$.ajax({
+			url : 'pqnaInsert',
+			data : data,
+			type : 'POST',
+			success : (result)=>{
+				if(result>0) {
+					alert("정상적으로 처리되었습니다.");
+					$("#p_qna_hidden").hide();
+					
+					$.ajax({
+						url : "pqnaView",
+						data : "pno=${vo.pno}",
+						success : function(result) {
+							var tag = "<h1>상품문의</h1><h3>해당 상품에 대한 문의만 답변이 가능하며 답변완료까지 1~5일이 소요될 수 있습니다.<br/>";
+								tag += "주문, 결제, 배송, 반품/교환 문의는 1:1문의를 이용해주세요.</h3>";
+								tag += "<a href='qnaList'><button type='button' class='clientSubBtn'>1:1문의 바로가기</button></a><br/>	<hr/>";
+							var $result = $(result);
+							$result.each((idx, val)=>{
+								tag += "<div>";
+								if(val.panswercontent=='답변 대기중 입니다.'){
+									tag += "<div class='p_qna_leftDiv'><img src='./img/question.jpg'/>";
+									tag += "</div><div class='p_qna_rightDiv'><ul>";
+									tag += "<li>답변대기중";
+									if(val.pqnaopen=='Y'){
+										tag += "<img src='./img/nolock.jpg'/></li>";
+										tag += "<li><a class='p_qna_answer' href='#s'>"+val.pqnasubject+"</a></li>";
+										tag += "<li style='display:none;'><div><p>Q. "+val.pqnacontent+"</p><p>A. "+val.panswercontent+"</p></div></li>";
+									} else {
+										tag += "<img src='./img/lock.jpg'/></li>";
+										tag += "<li><a class='p_qna_answer' href='#s'>사용자의 요청에 의해 비공개처리된 글입니다.</a></li>";
+										tag += "<li style='display:none;'><div><p>Q. 사용자의 요청에 의해 비공개처리된 글입니다.</p><p>A. 사용자의 요청에 의해 비공개처리된 글입니다.</p></div></li>";
+									}
+									tag += "</ul><div class='p_qna_sideDiv'>"+val.userid+" | "+val.pqnadate+"</div></div>";
+								} else {
+									tag += "<div class='p_qna_leftDiv'><img src='./img/done.jpg'/></div>";
+									tag += "<div class='p_qna_rightDiv'><ul><li>답변완료";
+									if (val.pqnaopen=='Y') {
+										tag += "<img src='./img/nolock.jpg'/></li>";
+										tag += "<li><a class='p_qna_answer' href='#s'>"+val.pqnasubject+"</a></li>";
+										tag += "<li style='display:none;'><div><p>Q. "+val.pqnacontent+"</p><p>A. "+val.panswercontent+"</p></div></li>"
+									} else {
+										tag += "<img src='./img/lock.jpg'/></li>";
+										tag += "<li><a class='p_qna_answer' href='#s'>사용자의 요청에 의해 비공개처리된 글입니다.</a></li>";
+										tag += "<li style='display:none;'><div><p>Q. 사용자의 요청에 의해 비공개처리된 글입니다.</p><p>A. 사용자의 요청에 의해 비공개처리된 글입니다.</p></div></li>";
+									}
+									tag += "</ul><div class='p_qna_sideDiv'>"+val.userid+" | "+val.pqnadate+"</div></div>";
+								}
+								tag += "</div>";
+							});
+							
+							tag += "<a href='javascript:hiddenOpen()'><button type='button' class='clientMainBtn'>상품문의글 작성</button></a><br/>";
+							tag += "<div id='p_qna_hidden'><h1>상품문의글 작성</h1>";
+							tag += "<form action='javascript:pqnaInsert()' method='post' id='p_qna_hiddenFrm'>";
+							tag += "<p>문의글 공개여부선택 : 	<input type='radio' name='pqnaopen' value='Y' checked='checked'>공개";
+							tag += "<input type='radio' name='pqnaopen' value='N'>비공개</p>";
+							tag += "<input type='hidden' name='pno' value='${vo.pno }' /><input type='text' name='pqnasubject' id='pqnasubject' placeholder='제목을 입력하세요'/><br />";
+							tag += "<textarea name='pqnacontent' id='pqnacontent' placeholder='문의내용을 입력하세요'></textarea><br/>";
+							tag += "<input type='submit' value='등록하기' class='clientMainBtn' /><button type='button' class='clientSubBtn' onclick='javascript:hiddenClose()'>취소하기</button>";
+							tag += "</form></div>";
+							
+							$("#p_pqna").html(tag);
+						}, error : function(e) {
+							
+						}
+					});
+				}
+			}, error : (e)=>{
+			
+			}
+		});
+	}
 </script>

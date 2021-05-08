@@ -91,6 +91,13 @@ public class ProductController {
 		return productService.pqnaInsert(vo);
 	}
 	
+	// 상품문의 등록 후 목록 다시 불러오기
+	@RequestMapping("/pqnaView")
+	@ResponseBody
+	public List<ProductQnaVO> pqnaView(int pno) {
+		return productService.pqnaViewList(pno);
+	}
+	
 	
 	/* 관리자 */
 	// Admin - 상품문의 목록
@@ -144,7 +151,8 @@ public class ProductController {
 	@RequestMapping("/pqnaAnswerDelete")
 	public ModelAndView pqnaAnswerDelete(int pqnano) {
 		ModelAndView mav = new ModelAndView();
-		
+		productService.pqnaAnswerDelete(pqnano);
+		mav.setViewName("redirect:pqnaList");
 		return mav;
 	}
 	
@@ -406,7 +414,6 @@ public class ProductController {
 					}
 				}
 				// optiontbl 수정하기
-System.out.println("등록옵션몇개야?"+optNameArr.length);
 				if(optNameArr.length>0) {
 					for(int i=0; i<optNameArr.length; i++) {
 						OptionVO optvo = new OptionVO();
