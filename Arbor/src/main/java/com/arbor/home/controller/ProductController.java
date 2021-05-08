@@ -65,8 +65,22 @@ public class ProductController {
 		mav.addObject("optName", productService.optNameSelect(pno));
 		mav.addObject("optValue", productService.optValueSelect(pno));
 		mav.addObject("pqnalst", productService.pqnaViewList(pno));
+		mav.addObject("qnaList", productService.qnaViewList(pno));
 		mav.setViewName("client/product/productView");
 		return mav;
+	}
+	
+	// View - 상품상세, 옵션 셀렉트박스 변경시 Div추가
+	@RequestMapping(value="/productOptionView", method=RequestMethod.POST)
+	@ResponseBody
+	public List<OptionVO> productOptionView(
+			@RequestParam(value="optno[]",required=true) String[] optno) {
+		List<OptionVO> list = new ArrayList<OptionVO>();
+		for(int i=0; i<optno.length; i++) {
+			int opt = Integer.parseInt(optno[i]);
+			list.add(productService.productOptionView(opt));
+		}
+		return list;
 	}
 	
 	// 상품문의 등록

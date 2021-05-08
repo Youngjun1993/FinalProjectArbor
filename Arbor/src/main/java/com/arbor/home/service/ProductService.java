@@ -11,6 +11,7 @@ import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
+import com.arbor.home.vo.QnaVO;
 import com.arbor.home.vo.SubCateVO;
 
 @Service
@@ -147,6 +148,16 @@ public class ProductService implements ProductServiceImp {
 	@Override
 	public List<ProductQnaVO> pqnaViewList(int pno) {
 		return productDAO.pqnaViewList(pno);
+	}
+
+	@Override
+	public List<QnaVO> qnaViewList(int pno) {
+		return productDAO.qnaViewList(pno);
+	}
+
+	@Override
+	public OptionVO productOptionView(int optno) {
+		return productDAO.productOptionView(optno);
 	}
 	
 	
