@@ -12,7 +12,6 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
 
 <script>
-
 		// 유효성 검사 전역변수
 		 var idCheck = false;// 아이디
 		 var idckCheck = false;// 아이디 중복 검사

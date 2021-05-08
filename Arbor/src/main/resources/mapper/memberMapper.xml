@@ -77,4 +77,13 @@
 		INSERT INTO byemember (userid, regdate, byetype, byereason, byedate)
 		values((SELECT userid FROM member where userid=#{param1}),(SELECT regdate FROM member where userid=#{param1}),'사용자',#{param2},sysdate)
 	</insert>
+	
+	<!-- 수정 회원 선택 -->
+	<select id="memUpdateSelect"  resultType="com.arbor.home.vo.MemberVO">
+		select userid, username, zipcode, addr, detailaddr, tel, email from member where userid=#{param1}
+	</select>
+	<!-- 회원 업데이트 -->
+	<update id="memberUpdateOk" parameterType="com.arbor.home.vo.MemberVO">
+		update member set userpwd = #{userpwd}, zipcode = #{zipcode}, addr=#{addr}, detailaddr=#{detailaddr}, tel=#{tel}, email=#{email} where userid = #{userid}
+	</update>	
 </mapper>

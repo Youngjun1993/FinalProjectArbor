@@ -289,44 +289,6 @@ public class MemberController {
 	        return -1; //에러
 	    }
 	}
-	
-    ///////////////회원탈퇴
-    @RequestMapping("/memberQuit")
-	public String memberQuit() {
-		
-		return "client/myPage/memberQuit";
-	}
-    
-    
-    
-    //회원탈퇴확인
-    @ResponseBody
-    @RequestMapping("/memberGoodbye")
-    public int memberGoodbye (@RequestParam("reason") String reason, HttpSession session) {
-    	//requestParam()의 속성명은 뷰 ajax에서 data로 넘겨준 속성명 
-    	int result = 0;
-    	String nowId = (String)session.getAttribute("logId");
-    	
-    	//컨트롤러에서 dao호출해서 member테이블 업데이트하고 byemember테이블에 insert문을 추가해준다.
-    	int cnt1 = memberService.memberQuit(nowId);
-    	int cnt2 = memberService.insertByeMember(nowId, reason);
-    	
-    	if(cnt1>0 && cnt2>0) {
-    		result = 1;
-    		return result;
-    	}else {
-    		result = 0;
-    		return result;
-    	}
-    	//새로운 페이지 반환
-    }
-    
-    //탈퇴인사
-    @RequestMapping("/memberGoodbye2")
-   	public String byebye() {
-   		
-   		return "client/myPage/memberGoodbye2";
-   	}
     
     //포스트방식 비밀번호 가져오기
     @ResponseBody
@@ -357,5 +319,82 @@ public class MemberController {
 		return result;
 	}
     
+	///////////////회원탈퇴
+	@RequestMapping("/memberQuit")
+	public String memberQuit() {
+	
+		return "client/myPage/memberQuit";
+	}
+	
+	
+	
+	//회원탈퇴확인
+	@ResponseBody
+	@RequestMapping("/memberGoodbye")
+	public int memberGoodbye (@RequestParam("reason") String reason, HttpSession session) {
+		//requestParam()의 속성명은 뷰 ajax에서 data로 넘겨준 속성명 
+		int result = 0;
+		String nowId = (String)session.getAttribute("logId");
+		
+		//컨트롤러에서 dao호출해서 member테이블 업데이트하고 byemember테이블에 insert문을 추가해준다.
+		int cnt1 = memberService.memberQuit(nowId);
+		int cnt2 = memberService.insertByeMember(nowId, reason);
+		
+		if(cnt1>0 && cnt2>0) {
+			result = 1;
+			return result;
+		}else {
+			result = 0;
+			return result;
+		}
+	//새로운 페이지 반환
+	}
+	
+	//탈퇴인사
+	@RequestMapping("/memberGoodbye2")
+	public String byebye() {
+		
+		return "client/myPage/memberGoodbye2";
+	}
+    
+	
+	//회원 업데이트 이동
+	@RequestMapping("/memberUpdate")
+	public ModelAndView memberUpdate (HttpSession session) {
+		//셀렉트문으로 세션유저의 정보 가져오기
+		String nowId = (String)session.getAttribute("logId");
+		
+		ModelAndView mav = new ModelAndView();
+		MemberVO vo = memberService.memUpdateSelect(nowId);
+		
+		mav.addObject("vo", vo);
+		mav.setViewName("client/myPage/memberUpdate");
+		
+		return mav;
+	}
+	
+	//회원정보 수정
+	@RequestMapping("/memberUpdateOk")
+	public ModelAndView memberUpdateOk (MemberVO vo, HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		String nowId = (String)session.getAttribute("logId");
+		System.out.println("세션입력전 vo 유저아이디" + vo.getUserid());
+		vo.setUserid(nowId);
+		System.out.println("수정시 vo 유저아이디" + vo.getUserid());
+		
+		int cnt = memberService.memberUpdateOk(vo);
+		if(cnt>0) {
+			System.out.println("가입완료");
+			mav.setViewName("redirect:/");
+		}else {
+			System.out.println("폼입력 에러");
+			mav.setViewName("redirect:memberUpdate");
+		}
+		
+		return mav;
+	}
+	
+	
 	
 }

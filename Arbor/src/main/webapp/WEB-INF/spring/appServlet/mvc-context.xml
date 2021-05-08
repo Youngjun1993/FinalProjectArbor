@@ -30,6 +30,7 @@
 			<mvc:mapping path="/productDelete"/>
 			<mvc:mapping path="/manageCate"/>
 			<mvc:mapping path="/productSearch"/>
+			<mvc:mapping path="/memberSearch"/>
 			<bean class="com.arbor.home.interceptor.Logininterceptor_Admin"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

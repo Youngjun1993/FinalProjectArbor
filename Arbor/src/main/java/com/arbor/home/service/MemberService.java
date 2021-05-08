@@ -72,6 +72,18 @@ public class MemberService implements MemberServiceImp {
 	public int insertByeMember(String userid, String reason) {
 		return memberDAO.insertByeMember(userid, reason);
 	}
+
+	@Override
+	public MemberVO memUpdateSelect(String vo) {
+		
+		return memberDAO.memUpdateSelect(vo);
+	}
+
+	@Override
+	public int memberUpdateOk(MemberVO vo) {
+		
+		return memberDAO.memberUpdateOk(vo);
+	}
 	
 	
 	
