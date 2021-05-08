@@ -110,7 +110,6 @@
 </body>
 <script>
 
-
 $(()=>{
 	$('#delMulti').click(()=> {
 		var confirm_val = confirm("선택한 회원을 삭제하시겠습니까?");

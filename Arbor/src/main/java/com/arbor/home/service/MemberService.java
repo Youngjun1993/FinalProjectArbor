@@ -61,6 +61,18 @@ public class MemberService implements MemberServiceImp {
 		
 		return memberDAO.pwdCheck(userid);
 	}
-	
 
+	@Override
+	public int memberQuit(String userid) {
+		
+		return memberDAO.memberQuit(userid);
+	}
+
+	@Override
+	public int insertByeMember(String userid, String reason) {
+		return memberDAO.insertByeMember(userid, reason);
+	}
+	
+	
+	
 }
