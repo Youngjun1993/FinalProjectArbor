@@ -185,7 +185,7 @@ public class MemberController {
     //다중삭제
     @ResponseBody
     @RequestMapping("/memMultiDel")
-	public int memMultiDel(@RequestParam(value = "memberChk[]") List<String> chArr, MemberVO vo) {
+	public int memMultiDel(@RequestParam(value = "memberChk[]") List<String> chArr) {
     	int result = 0;
     	
     	System.out.println(chArr.size());
@@ -286,12 +286,43 @@ public class MemberController {
 	    }
 	}
 	
-    //회원탈퇴
+    ///////////////회원탈퇴
     @RequestMapping("/memberQuit")
 	public String memberQuit() {
 		
 		return "client/myPage/memberQuit";
 	}
+    
+    
+    
+    //회원탈퇴확인
+    @ResponseBody
+    @RequestMapping("/memberGoodbye")
+    public int memberGoodbye (@RequestParam("reason") String reason, HttpSession session) {
+    	//requestParam()의 속성명은 뷰 ajax에서 data로 넘겨준 속성명 
+    	int result = 0;
+    	String nowId = (String)session.getAttribute("logId");
+    	
+    	//컨트롤러에서 dao호출해서 member테이블 업데이트하고 byemember테이블에 insert문을 추가해준다.
+    	int cnt1 = memberService.memberQuit(nowId);
+    	int cnt2 = memberService.insertByeMember(nowId, reason);
+    	
+    	if(cnt1>0 && cnt2>0) {
+    		result = 1;
+    		return result;
+    	}else {
+    		result = 0;
+    		return result;
+    	}
+    	//새로운 페이지 반환
+    }
+    
+    //탈퇴인사
+    @RequestMapping("/memberGoodbye2")
+   	public String byebye() {
+   		
+   		return "client/myPage/memberGoodbye2";
+   	}
     
     //포스트방식 비밀번호 가져오기
     @ResponseBody
