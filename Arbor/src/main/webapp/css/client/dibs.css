@@ -1,0 +1,27 @@
+@charset "UTF-8";
+#y_dibs_wrap>div:nth-child(1) h1{
+    height: 100px;
+    line-height: 100px;
+    margin-bottom: 40px;
+}
+#y_dibs_wrap>div:nth-child(1)>div ul{
+    background: rgb(248,244,236);
+    width: 340px;
+    height: 400px;
+    margin-right: 10px;
+    float: left;
+    border: 1px solid #ddd;
+}
+#y_dibs_wrap>div:nth-child(1)>div ul li:first-child{
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    text-align: right;
+}
+#y_dibs_wrap>div:nth-child(1)>div ul li:first-child button{
+    background: #fff;
+    border: none;
+    cursor: pointer;
+}
+#y_dibs_wrap>div:nth-child(1)>div ul:nth-child(4n+4){
+    margin-right: 0;
+}

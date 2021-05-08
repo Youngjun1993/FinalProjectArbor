@@ -117,7 +117,7 @@ body{
 #y_myPageTop ul{
     color:#333;
     border: 1px solid #fff;
-    background: rgb(248, 244, 236);
+    background: rgb(248,244,236);
     margin: 0 0 30px 0;
     padding: 30px 40px 30px 40px;
 }
@@ -134,7 +134,7 @@ body{
     padding: 40px 40px 30px 40px;
     text-align: center;
     font-size: 18px;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid #aaa; /*#b98d72;*/
 }
 #y_myPageTop>ul>li span:nth-of-type(2){
 	margin-left:15px;
@@ -167,12 +167,14 @@ body{
 	color: rgb(93, 121, 115); background-color:#fff;
 	font-family: 'Nanum Gothic', sans-serif;
 	font-weight: bold; cursor:pointer;
+    box-sizing: border-box;
 }
 .clientSubBtn:hover {
 	border: 2px solid rgb(73, 101, 95);
 	color: rgb(73, 101, 95);
 	position:relative;
 	top:2px;
+    box-sizing: border-box;
 }
 /*관리자 메인버튼*/
 .adminMainBtn {
@@ -193,11 +195,13 @@ body{
 	color: rgb(191,43,53); background-color:#fff;
 	font-family: 'Nanum Gothic', sans-serif;
 	font-weight: bold; cursor:pointer;
+    box-sizing: border-box;
 }
 .adminSubBtn:hover {
 	border: 2px solid rgb(171,23,33);
 	color:rgb(171,23,33);
 	position:relative;
 	top:2px;
+    box-sizing: border-box;
 }
 
