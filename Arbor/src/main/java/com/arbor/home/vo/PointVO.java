@@ -42,7 +42,12 @@ public class PointVO {
 	}
 	public void setPoint(int point) {
 		DecimalFormat formatter = new DecimalFormat("###,###");
-		this.point = formatter.format(point);
+		String pointStr = Integer.toString(point);
+		if(pointStr == null || pointStr.equals("")) {
+			this.point = "0";
+		}else {
+			this.point = formatter.format(point);
+		}
 	}
 	public String getUserid() {
 		return userid;

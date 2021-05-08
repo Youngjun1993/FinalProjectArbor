@@ -6,6 +6,7 @@ import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
+import com.arbor.home.vo.QnaVO;
 import com.arbor.home.vo.SubCateVO;
 
 public interface ProductServiceImp {
@@ -33,6 +34,10 @@ public interface ProductServiceImp {
 	public int pqnaInsert(ProductQnaVO vo);
 	// 상품문의 확인을 위한 List
 	public List<ProductQnaVO> pqnaViewList(int pno);
+	// 해당 상품에 대한 리뷰목록 불러오기
+	public List<QnaVO> qnaViewList(int pno);
+	// 옵션번호로 정보 끌어오기
+	public OptionVO productOptionView(int optno);
 	
 	/* 관리자 */
 	

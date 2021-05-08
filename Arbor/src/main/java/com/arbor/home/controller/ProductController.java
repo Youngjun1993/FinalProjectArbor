@@ -65,8 +65,22 @@ public class ProductController {
 		mav.addObject("optName", productService.optNameSelect(pno));
 		mav.addObject("optValue", productService.optValueSelect(pno));
 		mav.addObject("pqnalst", productService.pqnaViewList(pno));
+		mav.addObject("qnaList", productService.qnaViewList(pno));
 		mav.setViewName("client/product/productView");
 		return mav;
+	}
+	
+	// View - 상품상세, 옵션 셀렉트박스 변경시 Div추가
+	@RequestMapping(value="/productOptionView", method=RequestMethod.POST)
+	@ResponseBody
+	public List<OptionVO> productOptionView(
+			@RequestParam(value="optno[]",required=true) String[] optno) {
+		List<OptionVO> list = new ArrayList<OptionVO>();
+		for(int i=0; i<optno.length; i++) {
+			int opt = Integer.parseInt(optno[i]);
+			list.add(productService.productOptionView(opt));
+		}
+		return list;
 	}
 	
 	// 상품문의 등록
@@ -75,6 +89,13 @@ public class ProductController {
 	public int pqnaInsert(ProductQnaVO vo, HttpSession ses) {
 		vo.setUserid((String)ses.getAttribute("logId"));
 		return productService.pqnaInsert(vo);
+	}
+	
+	// 상품문의 등록 후 목록 다시 불러오기
+	@RequestMapping("/pqnaView")
+	@ResponseBody
+	public List<ProductQnaVO> pqnaView(int pno) {
+		return productService.pqnaViewList(pno);
 	}
 	
 	
@@ -130,7 +151,8 @@ public class ProductController {
 	@RequestMapping("/pqnaAnswerDelete")
 	public ModelAndView pqnaAnswerDelete(int pqnano) {
 		ModelAndView mav = new ModelAndView();
-		
+		productService.pqnaAnswerDelete(pqnano);
+		mav.setViewName("redirect:pqnaList");
 		return mav;
 	}
 	
@@ -392,7 +414,6 @@ public class ProductController {
 					}
 				}
 				// optiontbl 수정하기
-System.out.println("등록옵션몇개야?"+optNameArr.length);
 				if(optNameArr.length>0) {
 					for(int i=0; i<optNameArr.length; i++) {
 						OptionVO optvo = new OptionVO();
