@@ -1,7 +1,4 @@
-$(function(){	
-	$("#j_insertBtn").click(function(){
-		location.href="eventInsert";
-	});
+$(function(){
 	
 	//datepicker 옵션 설정
 	$.datepicker.setDefaults({
@@ -13,15 +10,25 @@ $(function(){
 		showMonthAfterYear:true,	//년+월
 		changeYear: true,			//콤보박스 연도 선택 가능
 		changeMonth: true,			//콤보박스 월 선택 가능
+		minDate: 0,					//금일 이전 선택 불가
 		showOn: "both",				//both:버튼을 누르거나 input을 클릭하면 달력 표시	
-        buttonImage: "<%=request.getContextPath()%>/img/calendar2.png",
-        buttonImageOnly: true
+       	//buttonImage: "../../../img/calendar2.png",
+       	//buttonImageOnly: true
+       	buttonText: '달력선택'
 	});
-	$("#eventStart").datepicker();
-	$("#eventEnd").datepicker();
-	
+	$("#j_eventStart").datepicker({
+		onClose : function(selectedDate){
+	    	$("#j_eventEnd").datepicker("option", "minDate", selectedDate);
+	    }
+	});
+	$("#j_eventEnd").datepicker({
+		onClose : function(selectedDate){
+	    	$("#j_eventStart").datepicker("option", "maxDate", selectedDate);
+	    }
+	});
+
 	//summernote
-	$("#eventContent").summernote({
+	$("#j_eventContent").summernote({
 		height: 300,
 		minHeight: 300,
 		maxHeight: 300,
@@ -54,49 +61,19 @@ $(function(){
 		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 	});
 	
-	function uploadSummernoteImageFile(file, editor){
+	function uploadSummernoteImageFile(file, editor) {
 		data = new FormData();
 		data.append("file", file);
 		$.ajax({
 			data: data,
 			type: 'POST',
-			url: 'uploadSummernoteImageFile1',
+			url: 'uploadSummernoteImageFile',
 			contentType: false,
 			processData: false,
-			success: function(data){
+			success: function(data) {
+				console.log(data);
 				$(editor).summernote('insertImage', data.url);
 			}
 		});
 	}
-	
-	$("#j_insertCnlBtn").click(function(){
-		location.href="eventList";
-	});
-	
-	$("#j_editBtn").click(function(){
-		location.href="eventEdit?eventNo=${vo.eventNo}";
-	});
-	
-	$("#j_delBtn").click(function(){
-		location.href="";
-	});
-	
-	$("#j_listBtn").click(function(){
-		location.href="eventList";
-	});
-		
-	$("#j_editCnlBtn").click(function(){
-		location.href="eventList";
-	});
-	
-	//첨부파일 삭제
-	$("#j_insertFrm b").click(function(){
-		alert("123");
-		$(this).parent().css("display", "none");
-		$(this).parent().next().attr("name", "delFile");
-		$(this).parent().next().next().attr("type", "file");
-	});
-	
-	
-		
 });

@@ -51,8 +51,11 @@
 			</c:if>
 		</div>
 	</c:if>
+	<c:if test="${vo.eventEnd < today }">
+		<hr/>
+	</c:if>
 	<form action="event">
-		<input type="button" class="clientMainBtn" id="j_eventListBtn"  value="목록"/>
+		<input type="button" class="clientMainBtn j_eventBtn" id="j_eventListBtn"  value="목록"/>
 	</form>
 </div>
 </body>

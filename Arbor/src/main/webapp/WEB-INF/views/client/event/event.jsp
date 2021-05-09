@@ -5,13 +5,12 @@
 <title>arbor > event</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/event.css" type="text/css"/>
-
+<script src="<%=request.getContextPath() %>/javaScript/client/event.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
-
 <script>
-	$(function(){
+/* 	$(function(){
 		var sEndDate = new Array();
 		timeSaleAjax();
 		
@@ -115,21 +114,28 @@
 				}
 			});
 		};
-
+		
+		//페이징 li만큼 갯수
+		var liCnt = $(".paging>li").length;
+		$(".paging").css({
+			"width" : liCnt*40+"px",
+			"margin" : "30px auto"
+		});	
+		
 		
 		//===================================================
 		
 		//EVENT 게시물 검색
 		$(".searchFrm").submit(function(){
-			if(!$(".searchWord").val()){
+			if(!$(".j_searchWord").val()){
 				alert("검색어를 입력하세요.");
+				$(".j_searchWord").focus();
 				return false;
 			}
 		});
 		return true;
 		
-		
-	});
+	}); */
 </script>
 </head>
 <body>
@@ -152,12 +158,7 @@
 			<div>
 				<div id="timer"></div>
 				<div id="timeSaleContent">
-					<ul id="timeSaleSlider">
-						<%-- 
-						<li><a href="#"><img src="<%=request.getContextPath() %>/img/슬라이드침대1.PNG"></a></li>
-						<li><a href="#"><img src="<%=request.getContextPath() %>/img/슬라이드침대2.PNG"></a></li>
-						 --%>
-					</ul>
+					<ul id="timeSaleSlider"></ul>
 				</div>			
 			</div>
 		</div>
@@ -171,7 +172,7 @@
 						<option value="eventContent">내용</option>
 					</select>
 					<input type="text" name="searchWord" class="j_searchWord" placeholder="검색어 입력"/>
-					<input type="submit" class="clientMainBtn" value="검색"/>
+					<input type="submit" class="clientMainBtn j_eventBtn" value="검색"/>
 				</form>
 			</div>
 			<div>
@@ -189,6 +190,24 @@
 					</c:forEach>
 				</ul>
 			</div>
+<%-- 		<ul class="paging clearfix">
+				<c:if test="${pageVO.pageNum>1 }">
+					<li style="border-bottom:none;"><a class="pagingLR_a" href="event?title=endEvent&pageNum=${pageVO.pageNum-1 }">＜</a></li>
+				</c:if>
+				<c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+					<c:if test="${p<=pageVO.totalPage }">
+						<c:if test="${p==pageVO.pageNum }">
+							<li style="border-bottom:3px solid rgb(93,121,115);"><a href="event?title=endEvent&pageNum=${p }">${p }</a></li>
+						</c:if>
+						<c:if test="${p!=pageVO.pageNum }">
+							<li><a href="event?title=endEvent&pageNum=${p }">${p }</a></li>
+						</c:if>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pageVO.pageNum<pageVO.totalPage }">
+					<li style="border-bottom:none;"><a class="pagingLR_a" href="event?title=endEvent&pageNum=${pageVO.pageNum+1 }">＞</a></li>
+				</c:if>
+			</ul> --%>
 		</div>
 		
 		<!-- 지난 이벤트 -->
@@ -209,19 +228,34 @@
 			<div class="clearfix j_search">
 				<form method="post" class="searchFrm" action="event?title=endEvent">
 					<select id="j_searchKey" name="searchKey">
-						<option value="eventSubejct">제목</option>
+						<option value="eventSubject">제목</option>
 						<option value="eventContent">내용</option>
 					</select>
 					<input type="text" name="searchWord" class="j_searchWord" placeholder="검색어 입력"/>
-					<input type="submit" class="clientMainBtn" value="검색"/>
-				</form>			
+					<input type="submit" class="clientMainBtn j_eventBtn" value="검색"/>
+				</form>
 			</div>
-		
+<%-- 		<ul class="paging clearfix">
+				<c:if test="${pageVO.pageNum>1 }">
+					<li style="border-bottom:none;"><a class="pagingLR_a" href="event?title=endEvent&pageNum=${pageVO.pageNum-1 }">＜</a></li>
+				</c:if>
+				<c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+					<c:if test="${p<=pageVO.totalPage }">
+						<c:if test="${p==pageVO.pageNum }">
+							<li style="border-bottom:3px solid rgb(93,121,115);"><a href="event?title=endEvent&pageNum=${p }">${p }</a></li>
+						</c:if>
+						<c:if test="${p!=pageVO.pageNum }">
+							<li><a href="event?title=endEvent&pageNum=${p }">${p }</a></li>
+						</c:if>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pageVO.pageNum<pageVO.totalPage }">
+					<li style="border-bottom:none;"><a class="pagingLR_a" href="event?title=endEvent&pageNum=${pageVO.pageNum+1 }">＞</a></li>
+				</c:if>
+			</ul> --%>
 		</div>
 	</div>
 </div>
-
-
 </body>
 </html>
 

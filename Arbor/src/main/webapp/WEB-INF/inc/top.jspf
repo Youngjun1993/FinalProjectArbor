@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/main.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/productList.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/productView.css" type="text/css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/order.css" type="text/css"/>
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/qna.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/myPage.css" type="text/css" />

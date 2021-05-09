@@ -27,10 +27,18 @@
   	</select>
 
   	<!-- admin -->
-  	<select id="eventAllSelect" resultType="com.arbor.home.vo.EventVO">
-  		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yy/mm/dd hh24:mi') eventDate
-  		from event <if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if> order by eventNo desc
-  	</select>
+	<select id="eventListSelect" resultType="com.arbor.home.vo.EventVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart,
+		to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yy/mm/dd hh24:mi') eventDate from event
+		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%' order by eventNo desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by eventNo asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by eventNo desc</if>
+		<if test="searchWord==null">order by eventNo desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by eventNo asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by eventNo desc</if>
+	</select>
   	<insert id="eventInsert" parameterType="com.arbor.home.vo.EventVO">
   		insert into event(eventNo, eventSubject, eventContent, eventStart, eventEnd, eventImg1) values(eventsq.nextval, #{eventSubject}, #{eventContent}, #{eventStart}, #{eventEnd}, #{eventImg1})
   	</insert>
@@ -45,17 +53,5 @@
 	</delete>
 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(eventNo) as totalRecord from event
-	</select>
-	<select id="onePageRecordSelect" resultType="com.arbor.home.vo.EventVO" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from (select * from (select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart,
-		to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yy/mm/dd hh24:mi') eventDate from event
-		<if test="searchWord!=null">where ${qnaSearchKey} like '%${qnaSearchWord}%' order by eventNo desc)
-		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageNum} order by eventNo asc)
-		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
-		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by eventNo desc</if>
-		<if test="searchWord==null">order by eventNo desc)
-		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageNum} order by eventNo asc)
-		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
-		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by eventNo desc</if>
 	</select>
   </mapper>
