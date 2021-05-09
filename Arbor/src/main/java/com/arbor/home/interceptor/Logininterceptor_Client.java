@@ -23,7 +23,7 @@ public class Logininterceptor_Client extends HandlerInterceptorAdapter {
 					return false;
 				} else {
 					// 로그인으로 반환됨
-					res.sendRedirect(req.getContextPath()+"/loginForm");
+					res.sendRedirect(req.getContextPath()+"/login");
 					return false; // false로 반환하면 -> 새로운 컨트롤러로 넘어감!
 				}
 			}
