@@ -29,6 +29,7 @@ import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
 import com.google.gson.JsonObject;
 
+
 @Controller
 public class ProductController {
 
@@ -518,14 +519,12 @@ public class ProductController {
 	}
 	
 	// SummerNote upload
-	@RequestMapping("/uploadSummernoteImageFile")
+	@RequestMapping(value="/uploadSummernoteImageFile", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public JsonObject uploadSummernoteImageFile(
+	public String uploadSummernoteImageFile(
 			@RequestParam("file") MultipartFile multipartFile,
 			HttpServletRequest req
 			) {
-		
-		JsonObject jsonObject = new JsonObject();
 		
 		// 저장할 경로 위치 설정 (웹루트로 업로드하면 빌드하고 재배포시 이미지가 사라짐 외부 경로에 잡아준다.)
 		String path = req.getSession().getServletContext().getRealPath("/summernote");
@@ -538,16 +537,14 @@ public class ProductController {
 			if(orgName!=null && !orgName.equals("")) {
 				multipartFile.transferTo(new File(path, orgName));
 				// 업로드 시키기 (path경로에 orgName을 업로드 시킨다)
-				jsonObject.addProperty("url", "/home/summernote/"+orgName);
-				jsonObject.addProperty("responseCode", "success");
+				
 			}
 		} catch(Exception e) {
 			System.out.println("ProductController > summernote upload 에서 에러 발생!!!");
-			jsonObject.addProperty("responseCode", "error");
 			e.printStackTrace();
 		}
 		
-		return jsonObject;
+		return "/home/summernote/"+orgName;
 	}
 
 }
