@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <script>
 	$(function(){
+		$("#y_leftMenu>ul>li:nth-child(5) a").css({
+			"font-weight":"bold",
+			"background" :"rgb(94, 94, 94)",
+			"color":"#fff"
+		});
 		<!-- summerNote -->
 		$("#qnacontent").summernote({
 			height : 300, // 높이
@@ -83,7 +88,7 @@
                    <p>내용 <span class="colorRed">*</span></p>
                    <p><textarea name="qnacontent" id="qnacontent">${vo.qnacontent}</textarea></p>
                </div>
-               <input type="submit" name="y_insertBtn" id="y_insertBtn" value="수정하기" />
+               <input type="submit" name="y_insertBtn" id="y_insertBtn" class="clientMainBtn" value="수정하기" />
            </form>
        </div>
    </div>
