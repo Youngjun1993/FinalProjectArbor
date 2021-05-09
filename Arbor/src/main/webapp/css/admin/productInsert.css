@@ -319,4 +319,11 @@ p>img {
 .centertxt {
 	margin-right: 10px;
 }
-
+#pagingDiv {
+	text-align: center;
+}
+#pagingDiv>ul {
+	margin-bottom: 50px;
+	overflow:auto;
+	display:inline-block;	
+}

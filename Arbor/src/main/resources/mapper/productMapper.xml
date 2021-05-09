@@ -32,10 +32,14 @@
  		select pno from product where subno=${param1} and pname=#{param2}
  	</select>
  	
- 	<select id="productList" resultType="com.arbor.home.vo.ProductVO">
- 		select p.pno, s.mainname, s.subname, p.pname, p.saleprice, p.stock, 
+ 	<select id="productList" resultType="com.arbor.home.vo.ProductVO" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(select p.pno, s.mainname, s.subname, p.pname, p.saleprice, p.stock, 
  		to_char(p.pdate, 'yyyy-mm-dd') as pdate from product p join (select s.subno, s.subname, m.mainname 
- 		from subcate s join maincate m on s.mainno=m.mainno) s on p.subno=s.subno order by pno desc
+ 		from subcate s join maincate m on s.mainno=m.mainno) s on p.subno=s.subno
+ 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if> order by pno desc)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pno asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pno desc
  	</select>
  	
  	<select id="productSelect" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
@@ -76,7 +80,7 @@
  	</select>
  	
  	<select id="productListRGB" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
- 		select o.pno, rgbvalue from optiontbl o join product p on o.pno=p.pno where p.subno=${param1}
+ 		select o.pno, optvalue, rgbvalue from optiontbl o join product p on o.pno=p.pno where p.subno=${param1}
  	</select>
  	
  	<select id="mainnameSelect" parameterType="int" resultType="string">
@@ -131,4 +135,8 @@
  	<select id="productOptionView" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
  		select optno, pno, optname, optvalue, optprice from optiontbl where optno=${param1}
  	</select>
+ 	
+ 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(pno) as totalRecord from product <if test="searchWord != null"> where ${searchKey} like '%${searchWord}%'</if>
+	</select>
  </mapper>

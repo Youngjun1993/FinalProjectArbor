@@ -74,14 +74,11 @@
 	margin-left: 30px; 
 }
 .p_color>div {
-	float:left; width:10px; height:10px; background-color: red;
+	float:left; width:10px; height:10px;
 	margin: 5px;
 }
-.p_color>div:nth-of-type(2) {
-	background-color: maroon;
-}
-.p_color>div:nth-of-type(3) {
-	background-color: navy;
+.p_colorDiv>div {
+	float:left; height: 40px; line-height: 40px;
 }
 
 .p_listdetail1 {

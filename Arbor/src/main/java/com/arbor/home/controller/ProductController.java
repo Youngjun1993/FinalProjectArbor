@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.ProductServiceImp;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
@@ -46,14 +47,9 @@ public class ProductController {
 		mav.addObject("list", productService.productListClient(subno));
 		mav.addObject("subCate", productService.subCateList(mainno));
 		mav.addObject("mainname", productService.mainnameSelect(mainno));
+		mav.addObject("opt", productService.productListRGB(subno));
 		mav.setViewName("client/product/productList");
 		return mav;
-	}
-	
-	@RequestMapping("/rgb")
-	@ResponseBody
-	public List<OptionVO> rgbSearch(int subno) {
-		return productService.productListRGB(subno);
 	}
 	
 	// View - 상품상세페이지
@@ -62,7 +58,7 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView();
 		ProductVO vo = productService.productSelect(pno);
 		mav.addObject("vo", vo);
-		mav.addObject("rgb", productService.productListRGB(vo.getSubno()));
+		mav.addObject("opt", productService.productListRGB(vo.getSubno()));
 		mav.addObject("optName", productService.optNameSelect(pno));
 		mav.addObject("optValue", productService.optValueSelect(pno));
 		mav.addObject("pqnalst", productService.pqnaViewList(pno));
@@ -508,12 +504,24 @@ public class ProductController {
 	
 	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
 	@RequestMapping("/productSearch")
-	public ModelAndView productSearch() {
-		ModelAndView mav = new ModelAndView();
+	public ModelAndView productSearch(HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		PageSearchVO pageVo = new PageSearchVO();
 		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		pageVo.setSearchKey(req.getParameter("searchKey"));
+		pageVo.setSearchWord(req.getParameter("searchWord"));
+		
+		pageVo.setTotalRecord(productService.totalRecord(pageVo));
+		
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("subCate", productService.subCateList(1));
 		mav.addObject("mainCate", productService.mainCateList());
-		mav.addObject("productList", productService.productList());
+		mav.addObject("productList", productService.productList(pageVo));
+		mav.addObject("pageVO", pageVo);
 		mav.setViewName("/admin/product/productSearch");
 		return mav;
 	}
