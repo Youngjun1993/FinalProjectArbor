@@ -12,6 +12,7 @@
 </head>
 <body>
 <div class="w1400_container clearfix">
+ 
 	<!-- 관리자메뉴 -->
 	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<!-- 회원검색 컨테이너-->

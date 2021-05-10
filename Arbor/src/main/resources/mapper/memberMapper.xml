@@ -5,7 +5,7 @@
   
 <mapper namespace="com.arbor.home.dao.MemberDAOImp">
 	<!-- memstat 0 활성 1 휴면 2 탈퇴 -->
-	
+	 
 	<!-- 회원가입 -->
 	<insert id="memberInsert" parameterType="com.arbor.home.vo.MemberVO">
 		insert into member(userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, regdate, lastdate, memstat)
