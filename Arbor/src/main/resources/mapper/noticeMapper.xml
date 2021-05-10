@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.arbor.home.dao.NoticeDAOImp">
+	<select id="noticeList" resultType="com.arbor.home.vo.NoticeVO">
+		select * from notice
+	</select>
+	<select id="noticeView" resultType="com.arbor.home.vo.NoticeVO">
+		select * from notice where noticeno=#{param1}
+	</select>
+</mapper>

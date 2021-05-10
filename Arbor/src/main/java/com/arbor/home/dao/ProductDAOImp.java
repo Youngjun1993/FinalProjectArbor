@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
+import com.arbor.home.vo.QnaVO;
 import com.arbor.home.vo.SubCateVO;
 
 public interface ProductDAOImp {
@@ -15,6 +17,11 @@ public interface ProductDAOImp {
 	public List<MainCateVO> mainCateList();
 	// 중분류 불러오기 (여기저기서 씀)
 	public List<SubCateVO> subCateList(int mainno);
+	
+	/* paging */
+	
+	// 전체 레코드 수 구하기
+	public int totalRecord(PageSearchVO vo);
 	
 	
 	/* 사용자 */
@@ -27,12 +34,16 @@ public interface ProductDAOImp {
 	public String mainnameSelect(int mainno);
 	// ProductView에 사용할 optname 가져오기
 	public List<OptionVO> optNameSelect(int pno);
-	// optname에 따른 optvalue 가져오기
+	// optname의 옵션으로 들어갈 optvalue 가져오기
 	public List<OptionVO> optValueSelect(int pno);
 	// 상품문의 등록하기
 	public int pqnaInsert(ProductQnaVO vo);
 	// 상품문의 확인을 위한 List
 	public List<ProductQnaVO> pqnaViewList(int pno);
+	// 해당 상품에 대한 리뷰목록 불러오기
+	public List<QnaVO> qnaViewList(int pno);
+	// 옵션번호로 정보 끌어오기
+	public OptionVO productOptionView(int optno);
 	
 	/* 관리자 */
 	
@@ -45,7 +56,9 @@ public interface ProductDAOImp {
 	// option 등록 위한 pno구해오기
 	public int pnoSelect(int subno, String pname);
 	// 상품 전체 목록 불러오기 (관리자 - 상품관리)
-	public List<ProductVO> productList();
+	public List<ProductVO> productList(PageSearchVO pageVo);
+	// 날짜 기준으로 목록 불러오기 (관리자 - 상품관리)
+	public List<ProductVO> productListDate(PageSearchVO pageVo);
 	// 상품 수정 위한 pno에 따른 1개 정보 구해오기 (관리자 - 상품수정)
 	public ProductVO productSelect(int pno);
 	// optionList불러오기 (상품수정 위해 기존 List 뽑아오기)

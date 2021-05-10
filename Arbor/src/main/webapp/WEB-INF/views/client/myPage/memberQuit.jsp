@@ -4,10 +4,9 @@
 	<%@include file="/WEB-INF/inc/mypageMenu.jspf"%>
 	<div class="h_memberQuit_header">회원 탈퇴</div>
 	<div class="h_memberQuit_Container">
-		<form>
 		<div class="h_password_checkbox">
 		<img src="<%=request.getContextPath() %>/img/password_lock.png"/>
-		</div>
+		</div> 
 		<div class="h_pwdconfirm_div">
 		<b>비밀번호 재확인</b><br/>
 		회원정보의 보호를 위해 비밀번호를 다시 확인합니다<br/>
@@ -26,9 +25,8 @@
 			<option value="쇼핑기능">쇼핑기능 불만</option>
 			<option value="개인정보">개인정보 유출 우려</option>
 		</select>
-			<div class="h_quitBtn_div"><input type="button" class="" value="탈퇴"/></div>
+			<div class="h_quitBtn_div"><input type="button" id="h_quitBtn" class="clientSubBtn" value="탈퇴"/></div>
 		</div>
-		</form>
 	</div>
 </div>
 
@@ -67,5 +65,39 @@ $('#pwdCheck').blur(function(){
 	}
 	
 });
+
+//버튼을 선택하면
+$('#h_quitBtn').click(function (){
+	var quitReason = $('.h_quitReason').val();
+	console.log(quitReason);
+	$.ajax({
+		url:'memberGoodbye',
+		type:'POST',
+		data:{ reason : quitReason },
+		success : function(result) {
+			if(result == 1) {
+				confirm('정말 탈퇴하시겠습니까?');
+				alert('탈퇴처리가 완료되었습니다.');
+				location.href = "/home"
+			}else{
+				alert('탈퇴가 실패하였습니다.');
+			}
+		},error:function() {
+			console.log('ajax에러');
+		}
+		
+	});
+	
+	
+});
+
+
+//select의 option 밸류값을ㅏㅏㅏ앙ㅇ
+
+//memberOutOk로 1.겟방식 2.ajax? 로 컨트롤러로 넘겨준다.
+		
+
+
+//마지막은 /home으로 뷰페이지 반환
 	
 </script>

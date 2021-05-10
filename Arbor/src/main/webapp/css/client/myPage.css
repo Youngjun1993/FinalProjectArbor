@@ -68,7 +68,7 @@
     border: 1px solid #333;
     position: absolute;
     left: 30%;
-    top: 10%;
+    top: 5%;
     background: #fff;
     display:none;
 }
@@ -167,8 +167,6 @@
     height: 25px;
     line-height: 25px;
     width: 100px;
-    background: rgb(94,94,94);
-    border-radius: 5px;
     color:#fff;
     text-align: center;
 }
@@ -179,8 +177,6 @@
     line-height: 30px;
     text-align: center;
     margin: 20px auto;
-    background: rgb(94,94,94);
-    border-radius: 5px;
     color:#fff;
 }
 
@@ -271,8 +267,6 @@
     margin: 0 auto 20px auto;
 }
 #y_printPopup_Wrap>div:nth-of-type(4) a:first-child{
-    background: rgb(93, 121, 115);
-    color: #fff;
     margin-right: 10px;
 }
 #y_printPopup_Wrap>div:nth-of-type(4) a{
@@ -282,8 +276,7 @@
     height: 30px;
     line-height: 30px;
     text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 /* coupon 페이지 스타일 */

@@ -41,7 +41,7 @@
 						</p><br/>
 						<c:if test="${ans.panswercontent==null || ans.panswercontent=='' }">
 						<textarea name="panswercontent" placeholder="답변내용을 기재해 주세요"></textarea><br/>
-						<input type="submit" value="답변등록" class="adminMainBtn" formaction="pqnaAnswerInsert"/>
+						<input type="submit" value="글삭제" formaction="javascript:pqnaAnswerDelete(${ans.pqnano })" class="adminSubBtn"><input type="submit" value="답변등록" class="adminMainBtn" formaction="pqnaAnswerInsert"/>
 						</c:if>
 						<c:if test="${ans.panswercontent!=null && ans.panswercontent!='' }">
 						<textarea name="panswercontent">${ans.panswercontent }</textarea><br/>

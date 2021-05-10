@@ -32,10 +32,24 @@
  		select pno from product where subno=${param1} and pname=#{param2}
  	</select>
  	
- 	<select id="productList" resultType="com.arbor.home.vo.ProductVO">
- 		select p.pno, s.mainname, s.subname, p.pname, p.saleprice, p.stock, 
+ 	<select id="productList" resultType="com.arbor.home.vo.ProductVO" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(select p.pno, s.mainname, s.subname, p.pname, p.saleprice, p.stock, 
  		to_char(p.pdate, 'yyyy-mm-dd') as pdate from product p join (select s.subno, s.subname, m.mainname 
- 		from subcate s join maincate m on s.mainno=m.mainno) s on p.subno=s.subno order by pno desc
+ 		from subcate s join maincate m on s.mainno=m.mainno) s on p.subno=s.subno
+ 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if> order by pno desc)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pno asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pno desc
+ 	</select>
+ 	
+ 	<select id="productListDate" resultType="com.arbor.home.vo.ProductVO" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(select p.pno, s.mainname, s.subname, p.pname, p.saleprice, p.stock, 
+ 		to_char(p.pdate, 'yyyy-mm-dd') as pdate from product p join (select s.subno, s.subname, m.mainname 
+ 		from subcate s join maincate m on s.mainno=m.mainno) s on p.subno=s.subno
+ 		where pdate between #{startdate} and #{enddate} order by pno desc)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pno asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pno desc
  	</select>
  	
  	<select id="productSelect" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
@@ -76,7 +90,7 @@
  	</select>
  	
  	<select id="productListRGB" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
- 		select o.pno, rgbvalue from optiontbl o join product p on o.pno=p.pno where p.subno=${param1}
+ 		select o.pno, optvalue, rgbvalue from optiontbl o join product p on o.pno=p.pno where p.subno=${param1}
  	</select>
  	
  	<select id="mainnameSelect" parameterType="int" resultType="string">
@@ -97,7 +111,7 @@
  	</insert>
  	
  	<select id="pqnaList" resultType="com.arbor.home.vo.ProductQnaVO">
- 		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate from productqna q join product p on q.pno=p.pno
+ 		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate from productqna q join product p on q.pno=p.pno order by pqnano desc
  	</select>
  	
  	<select id="pqnaAnswer" resultType="com.arbor.home.vo.ProductQnaVO">
@@ -118,7 +132,21 @@
  	</update>
  	
  	<select id="pqnaViewList" parameterType="int" resultType="com.arbor.home.vo.ProductQnaVO">
- 		select pqnano, pno, substr(userid,1,3) || lpad('*',length(userid)-2,'*'), pqnasubject, pqnacontent,  nvl(panswercontent, '답변 대기중 입니다.') as panswercontent,
- 		to_char(pqnadate, 'yyyy-mm-dd') as pqnadate, pqnaopen from productqna where pno=${param1}
+ 		select pqnano, pno, substr(userid,1,3) || lpad('*',length(userid)-2,'*') as userid, pqnasubject, pqnacontent,  nvl(panswercontent, '답변 대기중 입니다.') as panswercontent,
+ 		to_char(pqnadate, 'yyyy-mm-dd') as pqnadate, pqnaopen from productqna where pno=${param1} order by pqnano desc
  	</select>
+ 	
+ 	<select id="qnaViewList" parameterType="int" resultType="com.arbor.home.vo.ReviewVO">
+ 		select reviewno, pno, substr(r.userid,1,3) || lpad('*',length(r.userid)-2,'*') as userid,
+ 		substr(username,1,1) || lpad('*',length(username)-1,'*') as username, grade, reviewcontent, to_char(reviewdate, 'yyyy-mm-dd') as reviewdate
+ 		from review r join member m on r.userid=m.userid where pno=${param1} order by reviewno desc
+ 	</select>
+ 	
+ 	<select id="productOptionView" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
+ 		select optno, pno, optname, optvalue, optprice from optiontbl where optno=${param1}
+ 	</select>
+ 	
+ 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(pno) as totalRecord from product <if test="searchWord != null"> where ${searchKey} like '%${searchWord}%'</if>
+	</select>
  </mapper>

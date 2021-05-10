@@ -7,6 +7,15 @@ public class ReviewVO {
 	private int grade;
 	private String reviewcontent;
 	private String reviewdate;
+	
+	private String username;
+	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public int getReviewno() {
 		return reviewno;
 	}

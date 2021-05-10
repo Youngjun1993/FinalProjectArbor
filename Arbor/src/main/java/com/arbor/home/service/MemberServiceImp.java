@@ -31,4 +31,19 @@ public interface MemberServiceImp {
 	
 	//비밀번호 체크
 	public MemberVO pwdCheck(String userid);//userid 세션에서 구할 userid
+	
+	//회원탈퇴 확인
+	public int memberQuit(String userid);
+	
+	//회원탈퇴 테이블 이동
+	public int insertByeMember(String userid, String reason);
+	
+	//회원탈퇴 테이블 이동
+	public int insertByeMemberMulti(String userid, String reason);
+	
+	//수정폼 이동시 회원정보 선택
+	public MemberVO memUpdateSelect(String vo);
+	
+	//수정반영
+	public int memberUpdateOk(MemberVO vo);
 }
