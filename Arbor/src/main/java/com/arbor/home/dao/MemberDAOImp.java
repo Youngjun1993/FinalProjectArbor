@@ -31,4 +31,16 @@ public interface MemberDAOImp {
 	
 	//비밀번호 체크
 	public MemberVO pwdCheck(String userid);
+	
+	//회원탈퇴 확인
+	public int memberQuit(String userid);
+	
+	//회원탈퇴 테이블 이동
+	public int insertByeMember(String userid, String reason);
+	
+	//수정폼 이동시 회원정보 선택
+	public MemberVO memUpdateSelect(String vo);
+	
+	//회워정보수정반영
+	public int memberUpdateOk(MemberVO vo);
 }

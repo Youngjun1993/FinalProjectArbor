@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- interceptor 처리할 컨트롤러를 등록
+		beans태그에 namespaces 탭에서 mvc, context를 추가 -->	
+		
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/pqnaInsert"/>
+			<mvc:mapping path="/dibsList"/> <!-- 찜목록 -->
+			<mvc:mapping path="/cartList"/> <!-- 장바구니 -->
+			<bean class="com.arbor.home.interceptor.Logininterceptor_Client"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/pqnaList"/>
+			<mvc:mapping path="/pqnaAnswer"/>
+			<mvc:mapping path="/pqnaAnswerInsert"/>
+			<mvc:mapping path="/pqnaAnswerEdit"/>
+			<mvc:mapping path="/pqnaAnswerDelete"/>
+			<mvc:mapping path="/productInsert"/>
+			<mvc:mapping path="/productInsertOk"/>
+			<mvc:mapping path="/productEdit"/>
+			<mvc:mapping path="/productEditOk"/>
+			<mvc:mapping path="/productDelete"/>
+			<mvc:mapping path="/manageCate"/>
+			<mvc:mapping path="/productSearch"/>
+			<mvc:mapping path="/memberSearch"/>
+			<bean class="com.arbor.home.interceptor.Logininterceptor_Admin"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+</beans>

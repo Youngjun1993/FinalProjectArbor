@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
@@ -45,7 +46,7 @@ public interface ProductServiceImp {
 	// option 등록 위한 pno구해오기
 	public int pnoSelect(int subno, String pname);
 	// 상품 전체 목록 불러오기 (관리자 - 상품관리)
-	public List<ProductVO> productList();
+	public List<ProductVO> productList(PageSearchVO pageVo);
 	// 상품 수정 위한 pno에 따른 1개 정보 구해오기 (관리자 - 상품수정)
 	public ProductVO productSelect(int pno);
 	// optionList불러오기 (상품수정 위해 기존 List 뽑아오기)
