@@ -43,6 +43,7 @@ public class MyPageController {
 			mav.addObject("pointVO", mypageService.pointSum(userid));
 			mav.addObject("couponVO", mypageService.couponCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.setViewName("client/myPage/myPageMain");
 			
 		}
@@ -78,6 +79,7 @@ public class MyPageController {
 			mav.addObject("couponVO", mypageService.couponCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.allList(pageVo));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("pageVO", pageVo);
 			mav.setViewName("client/qna/qnaList");
 		}
@@ -119,6 +121,7 @@ public class MyPageController {
 			mav.addObject("couponVO", mypageService.couponCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.cpnList(pageVo));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("pageVO", pageVo);
 			mav.setViewName("client/myPage/couponList");
 			
@@ -147,6 +150,7 @@ public class MyPageController {
 			mav.addObject("couponVO", mypageService.couponCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.cpnSaleDesc(pageVo));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("pageVO", pageVo);
 			mav.setViewName("client/myPage/couponList");
 			
@@ -176,6 +180,7 @@ public class MyPageController {
 			mav.addObject("couponVO", mypageService.couponCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.pointList(pageVo));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("pageVO", pageVo);
 			mav.setViewName("client/myPage/pointList");
 			
@@ -204,6 +209,7 @@ public class MyPageController {
 			mav.addObject("couponVO", mypageService.couponCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.reviewList(pageVo));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("pageVO", pageVo);
 			mav.setViewName("client/myPage/reviewList");
 			
@@ -233,6 +239,7 @@ public class MyPageController {
 			mav.addObject("couponVO", mypageService.couponCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.reviewGradeList(pageVo));
+			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("pageVO", pageVo);
 			mav.setViewName("client/myPage/reviewList");
 			

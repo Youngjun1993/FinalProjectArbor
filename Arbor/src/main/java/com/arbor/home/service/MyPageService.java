@@ -15,6 +15,7 @@ import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PointVO;
 import com.arbor.home.vo.QnaVO;
 import com.arbor.home.vo.ReviewProductJoinVO;
+import com.arbor.home.vo.ReviewVO;
 import com.arbor.home.vo.SubOrderVO;
 
 @Service
@@ -100,6 +101,11 @@ public class MyPageService implements MyPageServiceImp {
 	@Override
 	public List<ReviewProductJoinVO> reviewGradeList(PageSearchVO vo) {
 		return mypageDAO.reviewGradeList(vo);
+	}
+
+	@Override
+	public ReviewVO reviewCount(String userid) {
+		return mypageDAO.reviewCount(userid);
 	}
 
 	/*
