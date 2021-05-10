@@ -1,75 +1,92 @@
 @charset "UTF-8";
 
 /* class */
-.j_orderDiv{
-	margin-top:30px;
-}
 .j_orderTitle{
-	border:1px solid #ccc;
-	border-radius:15px;
-	width:110px;
-	height:35px;
-	line-height:35px;
-	text-align:center;
-	font-size:15px;
-	font-weight:bold;
-	margin-top:30px;
-	margin-bottom:10px;
-	float:left;
+ 	margin: 25px 0 0 5px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #333;
 }
-.j_tableForm{
-	width:1400px;
-	height:30px;
-	border-spacing:0px 0px;
-	border-collapse:collapse;
-	font-size:13px;
+.j_orderTable{
+	border-top: 4px solid #333;
+	margin:0 0 40px 0;
 }
-.j_tableForm td{
-	border:1px solid #ccc;
-	padding:10px;
+.j_orderTable>table{
+	margin: 15px 10px 0 10px;
 }
-.j_tableForm td:nth-child(2n+1):not(#j_productInfo td){
-	text-align:center;
-	background:#eee;
+.j_orderTable input:not(input[type=button]), .j_orderTable select{
+	border: none;
+	border-bottom: 1px solid #ddd;
+	padding: 0 0 0 5px;
+	height: 30px;
+	line-height: 30px;
+	vertical-align: middle;
+	box-sizing: border-box;
+	margin: 5px 10px 5px 0;
 }
-.j_tableForm input, .j_tableForm select{
-	margin-left:5px;
-	height:30px;
-	line-height:30px;
-	vertical-align:middle;
-	padding:0 0 0 5px;
-	box-sizing:border-box;
-	margin-right:10px;
-	border:1px solid #ddd;
+.j_orderTable input[type=button]{
+	margin-right: 10px;
+	padding: 0 5px 0 5px;
+	height: 25px;
 }
-.j_tableForm input[type=button]{
-	margin-right:10px; padding:0 5px 0 5px;
+.j_orderTable:not(#j_productInfo) tr>td:nth-child(2n+1){
+	font-weight: bold;
 }
 
-/* 상품정보 테이블 */
-#j_productInfo thead td{
-	text-align:center;
-	background:#eee;
+#orderCenterDiv{
+	/* display: flex; */
+	height: 1000px;
 }
-#j_productInfo tbody td{
-	text-align:left;
-	background:#fff;
+#orderCenterDiv>div{
+	float: left;
 }
-#amountDiv{
-	float:right;
-	font-size:15px;
-	font-weight:bold;
-	margin-top:20px;
+#orderCenterDiv>div:first-child{
+	width: 1050px;
 }
-#amountDiv>span{	/* 주문자정보테이블과 간격 조정 필요!! */
-	color:rgb(52,152,219);
-	border:1px solid #ccc;
-	border-radius:5px;
-	padding:10px;
-	margin:0;
+#orderCenterDiv>div:nth-child(2){
+	width: 350px;
+	height: 100%;
 }
 
-/* 주문자정보 테이블 */
+/* 상품정보 */
+#j_productInfo table{
+	border-collapse: collapse;
+}
+#j_productInfo tr:first-child>td{
+	height: 30px;
+	line-height: 20px;
+	text-align: center;
+	color: #333;
+	font-weight: bold;
+}
+#j_productInfo td{
+	border-bottom: 1px solid #ddd;
+}
+.j_productList>td:not(.j_pInfo){
+	text-align: center;
+}
+.j_pInfo>div{
+	display: flex;
+	align-items: center;
+}
+.j_pInfo>div>div{
+	display: flex;
+	flex-direction: column;
+	text-align: top;
+	height: 150px;
+}
+.j_pInfo span:first-child{
+	margin: 10px 0 0 10px;
+	font-size: 15px;
+	font-weight: bold;
+}
+.j_pInfo span:last-child{
+	margin: 5px 0 0 10px;
+	color: gray;
+	font-size: 12px;
+}
+
+/* 주문자 정보 */
 #j_tel{
 	width:70px;
 }
@@ -77,79 +94,102 @@
 	width:230px;
 }
 
-/* 배송지정보 테이블 */
-#j_addr input{
-	margin:3px;
-}
-#j_addrWrap{
-	display:none;
-	border:1px solid;
-	width:500px;
-	height:300px;
-	margin:5px 0;
-	position:relavtive;
-}
-#j_addrWrap img{
-	cursor:pointer;
-	position:absolute;
-	right:0px;
-	top:-1px;
-	z-index:1;
-}
-#j_arrInfo select:last-child, #j_couponInfo select{
-	width:500px;
-}
-#j_orderFlex{	/* 가로 정렬 !!! */
+/* 배송지 정보 */
+#j_orderFlex{
 	display: flex;
 	align-items: center;
 }
 #j_orderFlex span{
 	margin-left: 20px;
 	padding-top: 22px;
+	font-size: 13px;
+	color: #666;
+}
+#j_shippingInfo tr:nth-child(2)>td:first-child{
+	vertical-align: top;
 }
 
-/* 적립급,쿠폰 테이블 */
-#j_couponInfo input[type=text]{
-	width:265px;
+/* 적립금 및 쿠폰 */
+#j_couponInfo span{
+	font-size: 13px;
+	color: #666;
 }
-#j_paymentBtn input[type=button]{
-	float:right;
-	width:40px;
-	height:20px;
+#j_couponInfo select{
+	width:500px;
 }
-
-#j_orderBtn input[type=button]{
-	height:30px;width:75px;
-}
-#j_orderBtn{
-	text-align:right; margin-top:20px;
+#j_shippingInfo p, #j_couponInfo p{
+	font-size: 12px;
+	color: #aaa;
 }
 
-/*/////////////////////////////////////////////*/
-/* 결제 상세 */
-#j_paymentDetail>div:last-child{
-	display:flex;
-	align-items:center;
-	height:200px;
-	border-top:1px solid #ccc;
-	border-bottom:1px solid #ccc;
+/* 결제 정보 */
+#j_paymentDetail{
+	margin: 0 14px 0 0;
+	width: 250px;
+	height: 560px;
+	float: right;
+	border: 1px solid #ddd;
+	position: sticky;
+	top: 160px;
 }
-#j_paymentDetail>div:last-child>div{
-	width:50%;
-	text-align:center;
+#j_paymentDetail div:first-child{
+	padding: 0 25px;
+}
+#j_paymentDetail>div:first-child>p{
+	margin: 20px 0;
+	font-size: 18px;
+	font-weight: bold;
 }
 
+/* 최종 결제금액 부분 */
+#j_paymentDetail table{
+	width: 200px;
+	color: gray;
+	font-size: 13px;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 20px;
+}
+#j_paymentDetail tr{	/* 줄 간격 안먹힘 */
+	height: 20px;
+}
+#j_paymentDetail td:nth-child(2n+1){
+	text-align: left;
+}
+#j_paymentDetail td:nth-child(2n+2){
+	text-align: right;
+}
+#j_totalPrice{
+	margin-top: 20px;
+	text-align: right;
+	color: #555;
+	font-weight:bold;
+}
+#j_totalPrice>p:first-child{
+	font-size: 13px;
+}
+#j_totalPrice>p:last-child{
+	margin-top: 5px;
+	font-size: 18px;
+}
+#j_totalPrice span{
+	color: rgb(191,43,53);
+}
 
-#akakak{width:50%;background:lightyellow;float:left;}
-.celth{
-	width:50%;
-	background:lightblue;
+/* 결제 규정 */
+#j_orderRegulation{
+	margin-top: 20px;
+	background: rgb(245,245,245);
 }
-.celtd{
-	width:50%;
-	background:#ccc;
+#j_orderRegulation>p{
+	padding: 10px;
+	font-size: 13px;
 }
-.paymentFlex{	/* 가로 정렬 !!! */
-	display: flex;
-	align-items: center;
+#j_orderRegulation>p:nth-child(2){
+	color: gray;
+}
+#checkoutBtn{
+	width: 200px;
+	height: 40px;
+	margin: 15px 25px;
+	font-size: 15px;
 }

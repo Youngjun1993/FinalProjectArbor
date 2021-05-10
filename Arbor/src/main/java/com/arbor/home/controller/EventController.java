@@ -68,10 +68,14 @@ public class EventController {
 		if(pageNumStr!=null) {
 			pageVo.setPageNum(Integer.parseInt(pageNumStr));
 		}
+		
+		pageVo.setSearchKey(req.getParameter("searchKey"));
+		pageVo.setSearchWord(req.getParameter("searchWord"));
+		
 		pageVo.setTotalRecord(eventService.totalRecord(pageVo));
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", eventService.onePageRecordSelect(pageVo));
+		mav.addObject("list", eventService.eventListSelect(pageVo));
 		mav.addObject("pageVO", pageVo);
 		mav.setViewName("admin/event/eventList");
 		return mav;
@@ -98,26 +102,39 @@ public class EventController {
 		System.out.println(orgName);
 		System.out.println("파일 저장 위치 : "+path);
 		//////////////////////////////////
-
+		
 		//파일 업로드
-		try {
-			if(orgName!=null && !orgName.equals("")) {
-				eventimg1.transferTo(new File(path, orgName));
-			}			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+
+		if(orgName!=null && !orgName.equals("")) {
+			File f = new File(path, orgName);
+			int idx=0;
+			while(f.exists()){	//동일한 파일명 존재여부 확인-> 존재할 경우 파일명 변경(true)
+				int point = orgName.lastIndexOf(".");
+				String fileName = orgName.substring(0, point);
+				String extName = orgName.substring(point+1);
+				
+				f = new File(path, fileName+"("+ ++idx +")."+extName);
+				System.out.println("======>"+f.getName());
+			}
+			try {
+				if(orgName!=null && !orgName.equals("")) {
+					eventimg1.transferTo(f);
+				}
+			}catch(Exception e) {
+				System.out.println("eventInsert 파일 업로드 에러 발생");
+				e.printStackTrace();
+			}
 		//DB 처리
 		vo.setEventImg1(orgName);
-		
+		}
 		ModelAndView mav = new ModelAndView();
 		if(eventService.eventInsert(vo)>0) {
 			mav.setViewName("redirect:eventList");
 		}else {
 			if(orgName!=null) {
 				mav.setViewName("redirect:eventInsert");
-				File f = new File(path, orgName);
-				f.delete();
+				File ff = new File(path, orgName);
+				ff.delete();
 			}
 		}
 		return mav;
@@ -169,9 +186,9 @@ public class EventController {
 				File f = new File(path, orgName);
 				int idx=0;
 				while(f.exists()){
-					int pnt = orgName.lastIndexOf(".");
-					String fileName = orgName.substring(0, pnt);
-					String extName = orgName.substring(pnt+1);
+					int point = orgName.lastIndexOf(".");
+					String fileName = orgName.substring(0, point);
+					String extName = orgName.substring(point+1);
 					
 					f = new File(path, fileName+"("+ ++idx +")."+extName);
 					System.out.println("======>"+f.getName());
@@ -179,6 +196,7 @@ public class EventController {
 				try {
 					mf.transferTo(f);			
 				}catch(Exception e) {
+					System.out.println("eventEdit 파일 업로드 에러 발생");
 					e.printStackTrace();
 				}
 				newFile = f.getName();
@@ -186,21 +204,27 @@ public class EventController {
 		}
 		//DB에서 삭제한 파일명 지우기
 		if(delFile!=null) {	//수정 완료
+			System.out.println("delFile->"+delFile);
 			selFile.remove(delFile);
 		}
 		//DB에 새로 업로드된 파일명 추가
 		vo.setEventImg1(newFile);
 		System.out.println("newFile->"+newFile);
 		System.out.println("vo->"+vo.toString());
+		
 		mav.addObject("eventNo", vo.getEventNo());
 		
 		if(eventService.eventUpdate(vo)>0) {
-			File dFileObj = new File(path, delFile);
-			dFileObj.delete();
-			mav.setViewName("redirect:eventView");
+			if(delFile!=null) {
+				File dFileObj = new File(path, delFile);
+				dFileObj.delete();
+			}
+			mav.setViewName("redirect:eventView");				
 		}else {	//수정 실패
-			File dFileObj = new File(path, newFile);
-			dFileObj.delete();
+			if(newFile!=null && !newFile.equals("")) {
+				File dFileObj = new File(path, newFile);
+				dFileObj.delete();				
+			}
 			mav.setViewName("redirect:eventEdit");
 		}
 		return mav;

@@ -554,7 +554,6 @@ public class ProductController {
 		System.out.println(path);
 		// 파일명 구하기
 		String orgName = multipartFile.getOriginalFilename();
-		
 		// transferTo : 실제 업로드 발생
 		try {
 			if(orgName!=null && !orgName.equals("")) {

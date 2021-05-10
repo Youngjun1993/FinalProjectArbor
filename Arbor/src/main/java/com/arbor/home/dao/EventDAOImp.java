@@ -15,13 +15,12 @@ public interface EventDAOImp {
 	
 	
 	/* admin */
-	public List<EventVO> eventAllSelect(EventVO vo);	//이벤트 목록
+	public List<EventVO> eventListSelect(PageSearchVO pageVo);	//이벤트 목록
 	public int eventInsert(EventVO vo);					//이벤트 등록
 	public EventVO getFilename(int eventNo);			//이벤트 수정시 이미지 파일명 얻어오기
 	public int eventUpdate(EventVO vo);					//이벤트 수정
 	public int eventDelete(int eventNo);				//이벤트 삭제
 	public int totalRecord(PageSearchVO vo);			//총 레코드 수
-	public List<EventVO> onePageRecordSelect(PageSearchVO pageVo);	//한 페이지 레코드 선택
 	
 
 }

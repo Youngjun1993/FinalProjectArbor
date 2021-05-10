@@ -4,21 +4,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>arbor > EventInsert</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/javaScript/admin/eventInsertEdit.js"></script> --%>
 <!-- datepicker -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <!-- summernote -->
 <script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <script>
-	$(function(){
+$(function(){
 		//datepicker 옵션 설정
 		$.datepicker.setDefaults({
 			dateFormat: "yy-mm-dd",
@@ -38,13 +42,14 @@
 		
 		//summernote
 		$("#j_eventContent").summernote({
-			height: 300,
-			minHeight: 300,
-			maxHeight: 300,
+			height: 400,
+			minHeight: 400,
+			maxHeight: 400,
 			focus: false,
 			lang: "ko-KR",
 			callbacks: {
 				onImageUpload: function(files){
+					console.log(files)
 					uploadSummernoteImageFile(files[0], this);
 				},
 				onPaste: function(e){
@@ -70,17 +75,24 @@
 			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 		});
 		
-		function uploadSummernoteImageFile(file, editor){
+		function uploadSummernoteImageFile(file, editor) {
 			data = new FormData();
 			data.append("file", file);
+			console.log(file)
+			console.log(data)
 			$.ajax({
 				data: data,
 				type: 'POST',
 				url: 'uploadSummernoteImageFile',
 				contentType: false,
 				processData: false,
-				success: function(data){
-					$(editor).summernote('insertImage', data.url);
+				success: function(data) {
+					console.log('success')
+					console.log('data->'+data)
+					$(editor).summernote('insertImage', data);
+				},
+				error: function() {
+					console.log('error')
 				}
 			});
 		}
@@ -107,12 +119,18 @@
 			$("#j_eventInsertFrm").submit();
 		});
 		
+		//등록 취소 버튼
+		$('#j_insertCnlBtn').click(function(){
+			location.href="eventList";
+		});
+		
 	});
 </script>
 </head>
 <body>
 <div class="w1400_container font_ng">
-	<div class="j_sideMenu">사이드메뉴</div>
+	<!-- 관리자메뉴 -->
+	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="j_centerFrm">
 		<p class="j_adminMemu"><span>이벤트 등록</span></p>
 		<form method="post" id="j_eventInsertFrm" action="eventInsertOk" enctype="multipart/form-data">
@@ -124,7 +142,7 @@
 				<span class="j_category">타이틀 이미지</span> <input type="file" name="img1" id="j_eventImg1"/>
 				<br/><br/>
 				<textarea name="eventContent" id="j_eventContent"></textarea><br/>
-				<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_eventInsertBtn" value="등록"></p>
+				<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_eventInsertBtn" value="등록"> <input type="button" class="adminSubBtn" id="j_insertCnlBtn" value="취소"></p>
 			</div>
 		</form>
 	</div>
