@@ -196,6 +196,7 @@ public class MemberController {
     	///////수정중
 		  for (int i=0; i<chArr.size(); i++) {
 			 memberService.memMultiDel(chArr.get(i));
+			 memberService.insertByeMemberMulti(chArr.get(i), "관리자삭제");
 		  }
 		  result = 1;
 		return result;
@@ -341,6 +342,8 @@ public class MemberController {
 		int cnt2 = memberService.insertByeMember(nowId, reason);
 		
 		if(cnt1>0 && cnt2>0) {
+			session.removeAttribute("logId");
+			session.removeAttribute("logName");
 			result = 1;
 			return result;
 		}else {
@@ -357,7 +360,6 @@ public class MemberController {
 		return "client/myPage/memberGoodbye2";
 	}
     
-	
 	//회원 업데이트 이동
 	@RequestMapping("/memberUpdate")
 	public ModelAndView memberUpdate (HttpSession session) {

@@ -13,10 +13,72 @@
 	/* overflow:auto; */
 }
 
+.h_UpdateWriteForm{
+	float:right;
+	width:1250px;
+	display:none;
+}
+
 .h_memUpdate_form{
-	height:400px;
+	height:500px;
 	
 }
+/* 비밀번호 체크 div */
+
+.h_memPwdCheck_container{
+	float:right;
+	width:1250px;
+}
+
+.h_password_checkbox{
+	width:400px;
+	height:160px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.h_password_checkbox>img{
+	width:150px;
+	height:150px;
+	margin:5px 5px;
+	
+}
+
+.h_pwdconfirm_div {
+	width:400px;
+	height:100px;
+	margin: 0 auto;
+	font-size:1.2em;
+}
+
+.h_pwd_div{
+	margin:15px 0;
+	text-align:center;
+}
+
+.h_wrongPwd {
+	text-align:center;
+	display:none;
+	color:red;
+}
+
+.h_pwd_div.correct{
+	color:green;
+}
+
+.h_pwd_div.incorrect{
+	color:red;
+}
+
+.h_pwd_ok.correct{
+	color : green;
+}
+	
+.h_pwd_ok.incorrect{
+	color : red;
+}
+	
+/* /////////////////////////////////////////////// */
 
 /* li스타일  */
 

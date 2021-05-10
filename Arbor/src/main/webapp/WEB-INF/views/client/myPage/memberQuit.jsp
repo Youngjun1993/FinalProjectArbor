@@ -4,10 +4,9 @@
 	<%@include file="/WEB-INF/inc/mypageMenu.jspf"%>
 	<div class="h_memberQuit_header">회원 탈퇴</div>
 	<div class="h_memberQuit_Container">
-		<form>
 		<div class="h_password_checkbox">
 		<img src="<%=request.getContextPath() %>/img/password_lock.png"/>
-		</div>
+		</div> 
 		<div class="h_pwdconfirm_div">
 		<b>비밀번호 재확인</b><br/>
 		회원정보의 보호를 위해 비밀번호를 다시 확인합니다<br/>
@@ -28,7 +27,6 @@
 		</select>
 			<div class="h_quitBtn_div"><input type="button" id="h_quitBtn" class="clientSubBtn" value="탈퇴"/></div>
 		</div>
-		</form>
 	</div>
 </div>
 
@@ -78,7 +76,9 @@ $('#h_quitBtn').click(function (){
 		data:{ reason : quitReason },
 		success : function(result) {
 			if(result == 1) {
-				location.href = "memberGoodbye2"
+				confirm('정말 탈퇴하시겠습니까?');
+				alert('탈퇴처리가 완료되었습니다.');
+				location.href = "/home"
 			}else{
 				alert('탈퇴가 실패하였습니다.');
 			}

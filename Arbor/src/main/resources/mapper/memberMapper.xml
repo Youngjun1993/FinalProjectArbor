@@ -62,11 +62,18 @@
 		</foreach> -->
 		update member set memstat = 2 where userid = #{userid}
 	</update>
+	<!-- 다중삭제시 byemember로 insert문 수행 -->
+	<insert id="insertByeMemberMulti">
+		INSERT INTO byemember (userid, regdate, byetype, byereason, byedate)
+		values((SELECT userid FROM member where userid=#{param1}),(SELECT regdate FROM member where userid=#{param1}),'관리자',#{param2},sysdate)
+	</insert>
 	
 	<!-- 비밀번호 체크 #{userid}는 view페이지에서 전달되는 name속성이 userid인 요소의 값 -->
 	<select id="pwdCheck" resultType="com.arbor.home.vo.MemberVO">
 		select userid, userpwd from member where userid=#{param1} and memstat in(0,1)
 	</select>
+	
+	
 	
 	<!-- 탈퇴시 memstat 변경(스스로) -->
 	<update id="memberQuit">
@@ -77,6 +84,7 @@
 		INSERT INTO byemember (userid, regdate, byetype, byereason, byedate)
 		values((SELECT userid FROM member where userid=#{param1}),(SELECT regdate FROM member where userid=#{param1}),'사용자',#{param2},sysdate)
 	</insert>
+	
 	
 	<!-- 수정 회원 선택 -->
 	<select id="memUpdateSelect"  resultType="com.arbor.home.vo.MemberVO">
