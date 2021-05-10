@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/order.css" type="text/css"/>
 <!-- 다음 주소록 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- jQuery -->
@@ -204,13 +203,7 @@
 			}			
 		}).open();
 	}
-	
-	
-	
-	
-	
-	
-	
+
 </script>
 </head>
 <body>
@@ -395,8 +388,8 @@
 					<tr>
 						<td></td>
 						<td>
-							<p>- 도서산간 지역의 경우 추후 수령 시 추가 배송비가 발생할 수 있으며, 해외배송은 불가합니다.</p>
-							<p>- 배송지 불분명 및 수신불가 연락처 기입으로 반송되는 왕복 택배 비용은 구매자 부담으로 정확한 주소 및 통화 가능한 연락처 필수 기입.</p>
+							<p>- 특정 상품 및 도서산간 지역의 경우 추후 수령 시 추가 배송비가 발생할 수 있습니다.</p>
+							<p>- 배송지 불분명 및 수신불가 연락처 기입으로 반송되는 왕복 택배 비용은 구매자 부담으로 정확한 주소 및 연락처를 필수 기입해 주시기 바랍니다.</p>
 						</td>
 					</tr>
 				</table>
@@ -412,7 +405,8 @@
 						<td>적립금 사용</td>
 						<td>
 							<input type="text" name="usePoint" id="j_usePoint" placeholder="0"/>
-							<input type="button" class="clientSubBtn" id="j_allPoint" value="모두 사용"/><span>보유 적립금 ${pointVo.point}p</span>
+							<input type="button" class="clientSubBtn" id="j_allPoint" value="모두 사용"/>
+							<span>보유 적립금 <c:if test="${pointVo.point!=null }">${pointVo.point}</c:if><c:if test="${pointVo.point==null }">0</c:if>p</span>
 						</td>
 					</tr>
 					<tr>
@@ -432,8 +426,6 @@
 						<td></td>
 						<td>
 							<p>- 할인쿠폰 제외 상품이 포함되어 있는 경우, 해당 제품을 제외하고 할인이 적용됩니다.</p>
-							<p>- 브랜드쿠폰과 보너스쿠폰은 중복사용이 불가능합니다.</p>
-							<p>- 일부 상품(할인쿠폰제외상품)에는 보너스쿠폰이 적용되지 않습니다.</p>
 							<p>- 쿠폰에 따라 최대 쿠폰 사용 금액이 제한될 수 있습니다.</p>
 						</td>
 					</tr>
@@ -450,8 +442,8 @@
 						<td>결제수단</td>
 						<td>
 							<span><input type="radio" name="payType" id="j_creditCard"/>신용카드</span>
-							<span><input type="radio" name="payType" id="j_naverPay"/>네이버페이</span>
-							<span><input type="radio" name="payType" id="j_kakaoPay"/>카카오페이</span>
+							<!-- <span><input type="radio" name="payType" id="j_naverPay"/>네이버페이</span>
+							<span><input type="radio" name="payType" id="j_kakaoPay"/>카카오페이</span> -->
 						</td>
 					</tr>
 				</table>
@@ -491,6 +483,9 @@
 						<p>총 결제예정금액</p>
 						<p><span>2,202,900</span>원</p>
 					</div>
+					<div id="j_plusPoint">
+						<p>적립예정금액<span>23,500</span>원</p>
+					</div>
 				</div>
 				<div id="j_orderRegulation">
 					<p><b>주문동의</b></p>
@@ -503,27 +498,4 @@
 			</div>		
 		</div>	<!-- 센터 오른쪽div -->
 	</div>	<!-- 센터div -->
-	
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
