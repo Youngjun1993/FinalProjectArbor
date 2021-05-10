@@ -7,15 +7,21 @@ import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
+import com.arbor.home.vo.QnaVO;
 import com.arbor.home.vo.SubCateVO;
 
 public interface ProductServiceImp {
-/* 관리자, 사용자 공통 */
+	/* 관리자, 사용자 공통 */
 	
 	// 대분류 불러오기 (여기저기서 씀)
 	public List<MainCateVO> mainCateList();
 	// 중분류 불러오기 (여기저기서 씀)
 	public List<SubCateVO> subCateList(int mainno);
+	
+	/* paging */
+	
+	// 전체 레코드 수 구하기
+	public int totalRecord(PageSearchVO vo);
 	
 	
 	/* 사용자 */
@@ -34,6 +40,10 @@ public interface ProductServiceImp {
 	public int pqnaInsert(ProductQnaVO vo);
 	// 상품문의 확인을 위한 List
 	public List<ProductQnaVO> pqnaViewList(int pno);
+	// 해당 상품에 대한 리뷰목록 불러오기
+	public List<QnaVO> qnaViewList(int pno);
+	// 옵션번호로 정보 끌어오기
+	public OptionVO productOptionView(int optno);
 	
 	/* 관리자 */
 	
