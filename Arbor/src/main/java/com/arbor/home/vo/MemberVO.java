@@ -33,7 +33,111 @@ public class MemberVO {
 	//검색 데이터저장용	
 	private String searchCate;
 	private String searchWord;
+	
+	//페이징용 VO 여기에 다..? criteria
+	
+	private int pageNum = 2;//페이지번호
+	private int amount = 10;//한페이지당 페이지 데이터
+	
+	//PageDTO 인터페이스 페이지수(화면아래)
+	
+	private int startPage;
+	private int endPage;
+	
+	private boolean prev, next;
+	private int total;
+	
+
+	public MemberVO() {
 		
+	}
+	
+	//pageDTO
+	public MemberVO(int total) {
+		
+		System.out.println("페이지넘값 " + pageNum);
+		System.out.println(amount);
+		
+		this.total = total;
+		
+		this.endPage = (int)(Math.ceil(pageNum/10.0)*10);
+		this.startPage = this.endPage - 9;
+		
+		int realEnd = (int)(Math.ceil((total*1.0)/amount));
+		
+		if (realEnd < this.endPage) {
+			this.endPage = realEnd;
+		}
+		
+		this.prev = this.startPage > 1;
+		
+		this.next = this.endPage < realEnd;
+		
+	}
+	///////////////////////
+	
+	
+	public int getStartPage() {
+		return startPage;
+	}
+
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+
+
+	public boolean isPrev() {
+		return prev;
+	}
+
+
+	public void setPrev(boolean prev) {
+		this.prev = prev;
+	}
+
+
+	public boolean isNext() {
+		return next;
+	}
+
+
+	public void setNext(boolean next) {
+		this.next = next;
+	}
+
+
+	public int getTotal() {
+		return total;
+	}
+
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public int getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+	
+	
 	public String[] getUserList() {
 		return userList;
 	}
@@ -177,6 +281,7 @@ public class MemberVO {
 	public void setMemstat(int memstat) {
 		this.memstat = memstat;
 	}
+	
 	
 	
 }

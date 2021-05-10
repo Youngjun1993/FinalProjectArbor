@@ -31,12 +31,6 @@ public class MemberService implements MemberServiceImp {
 	}
 
 	@Override
-	public List<MemberVO> memberAllselect(MemberVO vo) {
-		
-		return memberDAO.memberAllselect(vo);
-	}
-
-	@Override
 	public int lastDateUpdate(String lastdate, String nowid) {
 		return memberDAO.lastDateUpdate(lastdate, nowid);
 	}
@@ -89,6 +83,12 @@ public class MemberService implements MemberServiceImp {
 	public int insertByeMemberMulti(String userid, String reason) {
 		
 		return memberDAO.insertByeMemberMulti(userid, reason);
+	}
+	
+	@Override
+	public List<MemberVO> memSearchPaging(MemberVO mvo) {
+		
+		return memberDAO.memSearchPaging(mvo);
 	}
 	
 	

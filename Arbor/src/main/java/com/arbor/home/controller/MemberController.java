@@ -144,7 +144,10 @@ public class MemberController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("list", memberService.memberAllselect(vo));
+		System.out.println("테스트페이지 값 = " + vo.getPageNum());
+		
+		mav.addObject("list", memberService.memSearchPaging(vo));
+		mav.addObject("pageMaker", new MemberVO(56));//전체데이터가 담긴 memberVO 객체
 		mav.setViewName("admin/member/memberAdminSearch");
 		
 		return mav;
@@ -164,7 +167,6 @@ public class MemberController {
 			System.out.println("휴면처리 실패");
 			mav.setViewName("redirect:memberSearch");
 		}
-    	
     	
     	return mav;
     }

@@ -70,7 +70,7 @@
 	<!-- 회원목록 -->
 	<div class="h_memTableLi">
 	<form method="get" id="delMultiForm" action="memMultiDel">
-		<ul class="clearfix">
+		<ul class="h_memList clearfix">
 			<li class="h_listHeader">선택</li>
 			<li class="h_listHeader">아이디</li>
 			<li class="h_listHeader">성명</li>
@@ -104,6 +104,21 @@
 		</c:forEach>
 		</ul>
 	</form>
+		<div class="clearfix">
+		<ul class="paging">
+		<c:if test = "${pageMaker.prev }">
+			<li><a class="pagingLR_a" href="#">＜</a></li>
+		</c:if>
+		
+		<c:forEach var="vo" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+			<li><a href="#">${vo }</a></li>
+		</c:forEach>
+		
+		<c:if test = "${pageMaker.next }">
+			<li><a class="pagingLR_a" href="#">＞</a></li>
+		</c:if>
+		</ul>
+		</div>
 	</div>
 	</div>
 </div>
