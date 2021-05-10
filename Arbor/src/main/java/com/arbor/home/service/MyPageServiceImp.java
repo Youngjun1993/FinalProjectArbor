@@ -10,7 +10,6 @@ import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PointVO;
 import com.arbor.home.vo.QnaVO;
 import com.arbor.home.vo.ReviewProductJoinVO;
-import com.arbor.home.vo.ReviewVO;
 
 public interface MyPageServiceImp {
 	//구매내역 리스트
@@ -23,8 +22,6 @@ public interface MyPageServiceImp {
 	public PointVO pointSum(String userid);
 	//쿠폰 카운트
 	public CouponVO couponCount(String userid);
-	//리뷰 카운트
-	public ReviewVO reviewCount(String userid);
 	//문의 카운트
 	public QnaVO qnaCount(String userid);
 

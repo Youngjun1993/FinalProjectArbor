@@ -13,7 +13,6 @@
 		</div>
 		<!-- 이미지 옆에 기본정보, 옵션 띄우는 곳
 		div 분리되어있어서 form을 여기부터 걸었음... -->
-		<form>
 		<div id="p_detailRight" class="clearfix">
 			<div id="p_detailInfo">
 				<h3>기본정보</h3>
@@ -51,6 +50,7 @@
 			</div>
 		</div>
 		<!-- 옵션 선택 시 띄울 공간 -->
+		<form>
 		<div id="p_detailSelect" class="clearfix">
 			<div id="p_detailSelect_Div" class="clearfix">
 				
@@ -58,8 +58,8 @@
 			<div id="p_totalDiv">
 				총 상품금액 <span id="p_totalprice">0 원</span><br/>
 				<input type="submit" value="찜하기" formaction="/cart" class="clientSubBtn"/>
-				<input type="submit" value="장바구니" formaction="/cart" class="clientSubBtn"/>
-				<input type="submit" value="바로구매" formaction="/order" class="clientMainBtn"/>
+				<input type="submit" value="장바구니" formaction="cartList" class="clientSubBtn"/>
+				<input type="submit" value="바로구매" formaction="order" class="clientMainBtn"/>
 			</div>
 			<span id="p_detailMenu_up"></span>
 		</div>
@@ -93,7 +93,15 @@
 			<li>품명 및 모델명</li>
 			<li>${vo.pname }</li>
 			<li>색상</li>
-			<li>컨텐츠 참조</li>
+			<li class="wordcut">
+				<div class="p_colorDiv" class="clearfix">
+					<c:forEach var="opt" items="${opt }">
+						<c:if test="${opt.rgbvalue!=null && vo.pno==opt.pno }">
+							<div>${opt.optvalue }&nbsp|&nbsp </div>
+						</c:if>
+					</c:forEach>
+				</div>
+			</li>
 			<li>구성품</li>
 			<li>컨텐츠 참조</li>
 			<li>제조자, 수입품의 경우 수입자를 함께 표기 (병행수입 대체 가능)</li>
@@ -301,11 +309,11 @@
 
 <script>
 	$(function(){
-		
+		<!-- 총금액 넣을 변수 -->
 		var totalPrice = 0;
-		
+		<!-- 상품문의 제목만 보이게 세팅 -->
 		$(".p_qna_answer").parent().next().css('display', 'none');
-		
+		<!-- 상품문의 제목 클릭시 답변 보이게 세팅 -->
 		$(document).on('click', '.p_qna_answer', function(){
 			var click = $(this).parent().next();
 			console.log("display?"+click.css('display'))
@@ -317,7 +325,7 @@
 				click.css('height', '130px');
 			}
 		});
-		
+		<!-- 옵션이 없는 상품인 경우 Div 하나 먼저 등록해두기 -->
 		if(${optName.size()}==0) {
 			totalPrice = ${vo.saleprice};
 			
@@ -329,7 +337,7 @@
 			$("#p_detailSelect_Div").append(tag);
 			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
 		}
-		
+		<!-- 지정된 상품 x 누르면 한 줄 지우면서 총금액 재계산 -->
 		$(document).on('click', '.cancelimg', function(){
 			var selectPrice = $(this).parent().prev().children().val();
 			console.log("selectPrice?"+selectPrice);
@@ -337,7 +345,7 @@
 			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
 			$(this).parent().parent().remove();
 		});
-		
+		<!-- 셀렉트 박스 변동시 밑에 선택옵션 추가하기 -->
 		$(document).on('change', 'select[name=optname]', ()=>{
 			var cnt = 0;
 			var optnoStr = [];

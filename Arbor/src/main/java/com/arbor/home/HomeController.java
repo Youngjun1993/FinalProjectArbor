@@ -25,7 +25,6 @@ public class HomeController {
 		
 		ses.setAttribute("mainList", homeService.mainList());
 		ses.setAttribute("subList", homeService.subList());
-		ses.setMaxInactiveInterval(-1);
 		ModelAndView mav = new ModelAndView();
 		//메인메뉴
 		mav.addObject("mainList", homeService.mainList());

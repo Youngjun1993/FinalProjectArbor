@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.ReviewDAOImp;
-import com.arbor.home.vo.ReviewVO;
 
 @Service
 public class ReviewService implements ReviewServiceImp {
@@ -17,9 +16,6 @@ public class ReviewService implements ReviewServiceImp {
 		return reviewService.reviewDelete(reviewno, userid);
 	}
 
-	@Override
-	public int reviewUpdate(ReviewVO vo) {
-		return reviewService.reviewUpdate(vo);
-	}
+	
 	
 }

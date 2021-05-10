@@ -8,7 +8,6 @@ import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PointVO;
 import com.arbor.home.vo.QnaVO;
-import com.arbor.home.vo.ReviewVO;
 
 public interface QnaServiceImp {
 	//Q&A 등록
