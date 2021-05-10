@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.arbor.home.dao.CartDAOImp">
+	<insert id="cartInsert" parameterType="com.arbor.home.CartVO">
+		insert into cart(cartno, pno, userid, quantity, optionvalue, price)
+		values(CARTSQ.nextval, ${pno}, #{userid}, ${quantity}, #{optionvalue}, ${price})
+	</insert>
+</mapper>

@@ -167,8 +167,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public List<ProductVO> productListDate(PageSearchVO pageVo, String startDate, String endDate) {
-		return productDAO.productListDate(pageVo, startDate, endDate);
+	public List<ProductVO> productListDate(PageSearchVO pageVo) {
+		return productDAO.productListDate(pageVo);
 	}
 	
 	
