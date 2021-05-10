@@ -4,13 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>arbor > EventEdit</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/javaScript/admin/eventInsertEdit.js"></script> --%>
 <!-- datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -18,7 +21,7 @@
 <script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <script>
-	$(function(){		
+ 	$(function(){		
 		//datepicker 옵션 설정
 		$.datepicker.setDefaults({
 			dateFormat: "yy-mm-dd",
@@ -92,40 +95,14 @@
 			$(this).parent().next().removeAttr("id");
 			$(this).parent().next().next().attr("type", "file");
 			$(this).parent().next().next().attr("id", "eventImg1");
-		});
-		
-		//EVENT Edit 유효성 검사
-		$("#j_eventEditBtn").on('click', function(){
-			if($('#j_eventSubject').val()=='' || $('#j_eventSubject').val()==null){
-				alert("제목은 필수 입력 항목입니다.");
-				$('#j_eventSubject').focus();
-				return false;
-			}else if($('#j_eventStart').val()=='' || $('#j_eventStart').val()==null){
-				alert("이벤트 시작일은 필수 입력 항목입니다.");
-				return false;
-			}else if($('#j_eventEnd').val()=='' || $('#j_eventEnd').val()==null){
-				alert("이벤트 종료일은 필수 입력 항목입니다.");
-				return false;
-			}else if($('#j_eventImg1').val()=='' || $('#j_eventImg1').val()==null){
-				alert("이벤트 타이틀 이미지는 필수 입력 항목입니다.");
-				return false;
-			}else if($('#j_eventContent').summernote('code')=='' || $('#j_eventContent').summernote('code')==null){
-				alert("본문 내용은 필수 입력 항목입니다.");
-				return false;
-			}
-			$("#j_eventEditFrm").submit();
-		});
-		
-		$("#j_editCnlBtn").click(function(){
-			location.href="eventView?eventNo=${vo.eventNo}";
-		});
-		
+		});		
 	});
 </script>
 </head>
 <body>
 <div class="w1400_container font_ng">
-	<div class="j_sideMenu">사이드메뉴</div>
+	<!-- 관리자메뉴 -->
+	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="j_centerFrm" id="j_editFrm">
 		<p class="j_adminMemu"><span>이벤트 수정</span></p>
 		<form method="post" id="j_eventEditFrm" action="eventEditOk" enctype="multipart/form-data">
@@ -142,7 +119,7 @@
 				<br/><br/>
 				<textarea name="eventContent" id="j_eventContent">${vo.eventContent }</textarea>
 				<br/>
-				<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_eventEditBtn" value="수정"> <input type="button" class="adminSubBtn" id="j_editCnlBtn" value="취소"></p>
+				<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_editOkBtn" value="수정"> <input type="button" class="adminSubBtn" onclick="location.href='eventView?eventNo=${vo.eventNo}'" value="취소"></p>
 			</div>
 		</form>
 	</div>

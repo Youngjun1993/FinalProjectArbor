@@ -56,7 +56,6 @@
 		$('#userpwd').blur(function() {
 			if($('#userpwd').val()!=""){
 				$('#pwdCheck').attr("disabled", false);
-				console.log("비번값있음");
 				$('.h_pwdchk').css("background-color","white");
 			}else {
 				alert("비밀번호가 너무 짧습니다(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)");

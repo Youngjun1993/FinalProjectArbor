@@ -91,7 +91,7 @@
 				<li class="wordcut">${vo.email}</li>
 				<li>${vo.tel}</li>
 				<li>${vo.regdate}</li>
-				<li>${vo.lastdate} <%-- ,${vo.smsok }+${vo.emailok } --%></li>
+				<li>${vo.lastdate}</li>
 				<li>
 					<input type="button" name="memberDelBtn" value="탈퇴" class="h_memberDel" onclick="memDel(clickid${status.index})"/>
 				<c:if test = "${vo.memstat == 0}">
@@ -151,7 +151,6 @@ $(()=>{
 	};
 	
 	function memDel(clickid) {
-		//var clickid = document.getElementById('h_userid').value;
 		console.log(clickid.value)
 		if(confirm("탈퇴 처리 하시겠습니까?")) {
 			location.href="memDel?userid="+clickid.value;

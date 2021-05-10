@@ -36,6 +36,10 @@
 .j_search select, .j_search input{height:25px;line-height:25px;vertical-align:middle;} /* 높이 통일화 필요 */
 .j_search input[type=text]{padding:0;box-sizing:border-box;}
 
+.j_eventBtn{
+	height:25px;width:40px;
+}
+
 #j_eventFrm{
 	padding-top:30px;
 }
@@ -130,7 +134,7 @@
 	padding:10px; line-height:25px;
 }
 #j_eventListBtn{
-	margin:15px 0; float:right;
+	margin:10px 0; float:right;
 }
 
 /*------------------

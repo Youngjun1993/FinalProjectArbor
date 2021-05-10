@@ -192,6 +192,7 @@ public class MemberController {
     	///////수정중
 		  for (int i=0; i<chArr.size(); i++) {
 			 memberService.memMultiDel(chArr.get(i));
+			 memberService.insertByeMemberMulti(chArr.get(i), "관리자삭제");
 		  }
 		  result = 1;
 		return result;
@@ -320,6 +321,4 @@ public class MemberController {
     	
 		return result;
 	}
-    
-	
 }

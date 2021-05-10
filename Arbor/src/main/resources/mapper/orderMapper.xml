@@ -10,7 +10,7 @@
 		select * from point where userid=#{param1} and pointNo=(select max(pointNo) from point)
 	</select>
 	<select id="getUserCoupon" resultType="com.arbor.home.vo.CouponVO">
-		select cpnname, apply, available, salerate, cpnstart, cpnend from coupon where userid=#{param1} and cpnend>=sysdate-1
+		select cpnname, apply, available, salerate, to_char(cpnstart, 'yyyy-mm-dd') cpnstart, to_char(cpnend, 'yyyy-mm-dd') cpnend from coupon where userid=#{param1} and cpnend>=sysdate-1
 	</select>
 	<select id="getCouponCount" resultType="int">
 		select count(cpnNo) from coupon where userid=#{param1} and cpnend>=sysdate-1

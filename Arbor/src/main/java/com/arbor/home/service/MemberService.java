@@ -84,6 +84,12 @@ public class MemberService implements MemberServiceImp {
 		
 		return memberDAO.memberUpdateOk(vo);
 	}
+
+	@Override
+	public int insertByeMemberMulti(String userid, String reason) {
+		
+		return memberDAO.insertByeMemberMulti(userid, reason);
+	}
 	
 	
 	
