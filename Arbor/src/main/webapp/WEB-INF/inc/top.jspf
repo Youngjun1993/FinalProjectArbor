@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/main.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/productList.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/productView.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/noticeList.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/noticeView.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/order.css" type="text/css"/>
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/qna.css" type="text/css" />
@@ -23,6 +25,51 @@
 <script src="<%=request.getContextPath() %>/javaScript/client/ScrollTrigger.min.js"></script>
 <!-- LightWidget WIDGET --><script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
 <script>
+
+//헤더이벤트
+$(function(){
+	// Hide Header on on scroll down 
+	var didScroll; 
+	var lastScrollTop = 0; 
+	var delta = 5; 
+	var navbarHeight = $('header').outerHeight(); 
+	
+	$(window).scroll(function(event){ 
+		didScroll = true;
+	}); 
+	
+	setInterval(function() {
+		if (didScroll) {
+			hasScrolled();
+			didScroll = false;
+			}
+		}, 250);
+	
+	function hasScrolled() {
+		var st = $(this).scrollTop();
+		
+		
+		if(Math.abs(lastScrollTop - st) <= delta)
+			return;
+		
+		if (st > lastScrollTop && st > navbarHeight){
+			// Scroll Down
+			$('header').removeClass('nav-down').addClass('nav-up');
+			} else {
+				// Scroll Up
+				if(st + $(window).height() < $(document).height()) {
+					$('header').removeClass('nav-up').addClass('nav-down');
+					}
+				}
+		
+		lastScrollTop = st;
+		
+	}
+});
+
+
+//
+
 	$(function(){
 		var $firstMenu = $('nav > ul > li:nth-of-type(1)'),
 			$subMenu = $('.d_sub_menu');
@@ -95,7 +142,12 @@
 			<li><a href="">COMMUNITY</a></li>
 			<li><a href="event">EVENT</a></li>
 			<li><a href="">ABOUT US</a></li>
+			<c:if test="${logName==null || logName=='' }">
 			<li><a href="joinform">JOIN</a></li>
+			</c:if>
+			<c:if test="${logName!=null && logName!='' }">
+			<li><a href="">MyPage</a></li>
+			</c:if>
 			<c:if test="${logName==null || logName=='' }">
 				<li><a href="login">LOGIN</a></li>
 			</c:if>
@@ -117,56 +169,20 @@
 			</ul>
 		</div>
 		</c:forEach>
-		
-		<%-- <div class="d_col">
-			<ul>
-				<li><c:out value="${mainList[0].mainname }"/></li>
-				
-				<li><a href="productList"><c:out value="${subList[0].mainname }"/></a></li>
-				<li><a href="">TV장식장</a></li>
-				<li><a href="">거실테이블</a></li>
-				<li><a href="">거실장</a></li>
-				
-			</ul>
-		</div>
 		<div class="d_col">
-			<ul>
-				<li><c:out value="${mainList[1].mainname }"/></li>
-				<li><a href="">침대</a></li>
-				<li><a href="">협탁</a></li>
-				<li><a href="">화장대/거울</a></li>
-			</ul>
-		</div>
-		<div class="d_col">
-			<ul>
-				<li><c:out value="${mainList[2].mainname }"/></li>
-				<li><a href="">식탁</a></li>
-				<li><a href="">식탁의자</a></li>
-				<li><a href="">렌지대</a></li>
-			</ul>
-		</div>
-		<div class="d_col">
-			<ul>
-				<li><c:out value="${mainList[3].mainname }"/></li>
-				<li><a href="">옷장</a></li>
-				<li><a href="">붙박이장</a></li>
-				<li><a href="">서랍장</a></li>
-			</ul>
-		</div> --%>
-		<div class="d_col">
-			<img src="<%=request.getContextPath() %>/img/test.jpg">
+			<img src="<%=request.getContextPath() %>/img/header_img1.jpg">
 		</div>
 	</div>
 	<div class="d_sub_menu2">
 		<div class="d_col">
 			<ul>
 				<li>COMMUNITY</li>
-				<li><a href="">공지사항</a></li>
+				<li><a href="noticeList">공지사항</a></li>
 				<li><a href="">자주묻는 질문</a></li>
 			</ul>
 		</div>
 		<div class="d_col">
-			<img src="<%=request.getContextPath() %>/img/test2.jpg">
+			<img src="<%=request.getContextPath() %>/img/header_img2.jpg">
 		</div>
 	</div> 
 	<div class="d_sub_menu3">
@@ -179,7 +195,7 @@
 			</ul>
 		</div>
 		<div class="d_col">
-			<img src="<%=request.getContextPath() %>/img/test3.jpg">
+			<img src="<%=request.getContextPath() %>/img/header_img3.jpg">
 		</div>
 	</div>
 </header>
