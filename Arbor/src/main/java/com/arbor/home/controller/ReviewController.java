@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.ReviewServiceImp;
-import com.arbor.home.vo.ReviewVO;
 
 @Controller
 public class ReviewController {
@@ -30,17 +29,10 @@ public class ReviewController {
 	}
 	//리뷰 수정
 	@RequestMapping("/reviewEditOk")
-	public ModelAndView reviewEditOk(ReviewVO vo, HttpSession session, HttpServletResponse response){
+	public ModelAndView reviewEditOk( HttpSession session, HttpServletResponse response){
 		ModelAndView mav = new ModelAndView();
-		vo.setUserid((String)session.getAttribute("logId"));
-		int cnt = reviewService.reviewUpdate(vo);
-		System.out.println(cnt);
+	
 		
-		if(cnt>0) {
-			mav.setViewName("redirect:reviewList");
-		}else {
-			mav.setViewName("redirect:reviewList");
-		}
 		return mav;
 	}
 }

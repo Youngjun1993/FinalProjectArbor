@@ -1,7 +1,5 @@
 package com.arbor.home.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,8 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arbor.home.service.MyPageServiceImp;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
-import com.arbor.home.vo.QnaVO;
-import com.arbor.home.vo.ReviewVO;
 
 @Controller
 public class MyPageController {
@@ -46,7 +42,6 @@ public class MyPageController {
 			mav.addObject("username", (String)session.getAttribute("logName"));
 			mav.addObject("pointVO", mypageService.pointSum(userid));
 			mav.addObject("couponVO", mypageService.couponCount(userid));
-			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.setViewName("client/myPage/myPageMain");
 			
@@ -81,7 +76,6 @@ public class MyPageController {
 			mav.addObject("username", (String)session.getAttribute("logName"));
 			mav.addObject("pointVO", mypageService.pointSum(userid));
 			mav.addObject("couponVO", mypageService.couponCount(userid));
-			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.allList(pageVo));
 			mav.addObject("pageVO", pageVo);
@@ -123,7 +117,6 @@ public class MyPageController {
 			mav.addObject("username", (String)session.getAttribute("logName"));
 			mav.addObject("pointVO", mypageService.pointSum(userid));
 			mav.addObject("couponVO", mypageService.couponCount(userid));
-			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.cpnList(pageVo));
 			mav.addObject("pageVO", pageVo);
@@ -152,7 +145,6 @@ public class MyPageController {
 			mav.addObject("username", (String)session.getAttribute("logName"));
 			mav.addObject("pointVO", mypageService.pointSum(userid));
 			mav.addObject("couponVO", mypageService.couponCount(userid));
-			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.cpnSaleDesc(pageVo));
 			mav.addObject("pageVO", pageVo);
@@ -182,7 +174,6 @@ public class MyPageController {
 			mav.addObject("username", (String)session.getAttribute("logName"));
 			mav.addObject("pointVO", mypageService.pointSum(userid));
 			mav.addObject("couponVO", mypageService.couponCount(userid));
-			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.pointList(pageVo));
 			mav.addObject("pageVO", pageVo);
@@ -211,7 +202,6 @@ public class MyPageController {
 			mav.addObject("username", (String)session.getAttribute("logName"));
 			mav.addObject("pointVO", mypageService.pointSum(userid));
 			mav.addObject("couponVO", mypageService.couponCount(userid));
-			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.reviewList(pageVo));
 			mav.addObject("pageVO", pageVo);
@@ -241,7 +231,6 @@ public class MyPageController {
 			mav.addObject("username", (String)session.getAttribute("logName"));
 			mav.addObject("pointVO", mypageService.pointSum(userid));
 			mav.addObject("couponVO", mypageService.couponCount(userid));
-			mav.addObject("reviewVO", mypageService.reviewCount(userid));
 			mav.addObject("qnaVO", mypageService.qnaCount(userid));
 			mav.addObject("list", mypageService.reviewGradeList(pageVo));
 			mav.addObject("pageVO", pageVo);
