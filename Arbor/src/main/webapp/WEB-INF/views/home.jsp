@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script>
+//
 $(function(){
 	const trigger = new ScrollTrigger.default({
 		trigger:{
@@ -21,6 +22,35 @@ $(function(){
 	trigger.add('[trigger-left]');
 	trigger.add('[trigger-down]');
 	trigger.add('[trigger-right]');
+});
+//자동이벤트
+$(function(){
+	$(document).ready(function(){
+		$('#d_homeleft').delay(1500).one("click",function(){
+			$(this).animate({
+				opacity: '0',
+				left: '-50%'
+			},1200);
+		});
+		$('#d_homeright').delay(1500).one("click",function(){
+			$(this).animate({
+				opacity: '0',
+				left: '100%',
+				width: '0'
+			},1200);
+		});
+		$("#topFont").one("click",function(){
+			$(this).delay(2000).animate({
+				opacity: '1',
+				top: '50%'
+				
+			},'slow');
+			
+		});
+	$("#d_homeleft").trigger("click");
+	$("#d_homeright").trigger("click");	
+	$("#topFont").trigger("click");
+	});
 });
 
 //첫번째 상품 슬라이드
@@ -143,26 +173,32 @@ $(function(){
 });
 
 </script>
+<div id="d_homeleft" class="d_mainhome">
+	<img src="<%=request.getContextPath()%>/img/main2left.jpg">
+</div>
+<div id="d_homeright" class="d_mainhome">
+	<img src="<%=request.getContextPath()%>/img/main2right.jpg">
+</div>
 <div class="d_main">
 	<div id="topSlide">
 		<div id="d_top">
 			<div class="slide" id="slide-1">
-				<img src="<%=request.getContextPath()%>/img/메인이미지1.PNG">
+				<img src="<%=request.getContextPath()%>/img/mainimg1.PNG">
 			</div>
 			<div class="slide" id="slide-2">
-				<img src="<%=request.getContextPath()%>/img/메인이미지2.jpg">
+				<img src="<%=request.getContextPath()%>/img/mainimg2.jpg">
 			</div>
 			<div class="slide" id="slide-3">
-				<img src="<%=request.getContextPath()%>/img/메인이미지3.jpg">
+				<img src="<%=request.getContextPath()%>/img/mainimg3.jpg">
 			</div>
 			<div class="slide" id="slide-4">
-				<img src="<%=request.getContextPath()%>/img/메인이미지4.jpg">
+				<img src="<%=request.getContextPath()%>/img/mainimg4.jpg">
 			</div>
 			<div class="slide" id="slide-5">
-				<img src="<%=request.getContextPath()%>/img/메인이미지5.jpg">
+				<img src="<%=request.getContextPath()%>/img/mainimg5.jpg">
 			</div>
 			<div class="slide" id="slide-6">
-				<img src="<%=request.getContextPath()%>/img/메인이미지6.jpg">
+				<img src="<%=request.getContextPath()%>/img/mainimg6.jpg">
 			</div>
 		</div>
 		<div id="topFont">
@@ -181,14 +217,14 @@ $(function(){
 		<div class="slide_wraper">
 			<div class="slides">
 				<ul>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대1.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대2.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대3.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대4.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대5.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대6.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대7.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대8.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed1.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed4.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed5.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed6.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed7.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed8.PNG"></li>
 				</ul>
 			</div>
 			<!-- "slides" -->
@@ -225,14 +261,14 @@ $(function(){
 		<div class="slide_wraper2">
 			<div class="slides2">
 				<ul>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대1.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대2.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대3.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대4.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대5.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대6.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대7.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/슬라이드침대8.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed11.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed12.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed13.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed14.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed15.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed16.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed1.PNG"></li>
+					<li><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></li>
 				</ul>
 			</div>
 			<!-- "slides" -->
@@ -283,7 +319,7 @@ $(function(){
 	  							<source src="<%=request.getContextPath()%>/img/linkVideo2.mp4" type="video/mp4">
 							</video>
 						</div>
-						<img src="<%=request.getContextPath()%>/img/슬라이드침대2.PNG">
+						<img src="<%=request.getContextPath()%>/img/slide_bed2.PNG">
 					</div>
 				</a>
 			</li>
