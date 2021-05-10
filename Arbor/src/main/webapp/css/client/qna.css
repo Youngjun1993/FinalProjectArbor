@@ -268,10 +268,8 @@
     width: 100px;
     height: 30px;
     line-height: 30px;
-    background: #ddd;
-    border: 1px solid #333;
     text-align: center;
     float: right;
-    margin: 20px;
+    margin: 20px 0;
     cursor: pointer;
 }
