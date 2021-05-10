@@ -165,6 +165,11 @@ public class ProductService implements ProductServiceImp {
 	public int totalRecord(PageSearchVO vo) {
 		return productDAO.totalRecord(vo);
 	}
+
+	@Override
+	public List<ProductVO> productListDate(PageSearchVO pageVo) {
+		return productDAO.productListDate(pageVo);
+	}
 	
 	
 }
