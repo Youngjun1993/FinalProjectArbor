@@ -9,8 +9,10 @@
 			"width" : liCnt*35+"px",
 			"margin" : "30px auto"
 		});	
-		$("#y_leftMenu>ul>li:nth-child(7)").css({
-			"font-weight":"bold"
+		$("#y_leftMenu>ul>li:nth-child(7) a").css({
+			"font-weight":"bold",
+			"background" :"rgb(94, 94, 94)",
+			"color":"#fff"
 		});
 	});
 </script>

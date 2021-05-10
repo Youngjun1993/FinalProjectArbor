@@ -9,8 +9,10 @@
 			"width" : liCnt*35+"px",
 			"margin" : "30px auto"
 		});
-		$("#y_leftMenu>ul>li:nth-child(6)").css({
-			"font-weight":"bold"
+		$("#y_leftMenu>ul>li:nth-child(6) a").css({
+			"font-weight":"bold",
+			"background" :"rgb(94, 94, 94)",
+			"color":"#fff"
 		});
 		if(window.location.pathname=="/home/couponList"){
 			$("#y_cpnDateDescBtn").css({
