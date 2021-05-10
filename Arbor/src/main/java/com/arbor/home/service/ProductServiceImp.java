@@ -58,7 +58,7 @@ public interface ProductServiceImp {
 	// 상품 전체 목록 불러오기 (관리자 - 상품관리)
 	public List<ProductVO> productList(PageSearchVO pageVo);
 	// 날짜 기준으로 목록 불러오기 (관리자 - 상품관리)
-	public List<ProductVO> productListDate(PageSearchVO pageVo);
+	public List<ProductVO> productListDate(PageSearchVO pageVo, String startDate, String endDate);
 	// 상품 수정 위한 pno에 따른 1개 정보 구해오기 (관리자 - 상품수정)
 	public ProductVO productSelect(int pno);
 	// optionList불러오기 (상품수정 위해 기존 List 뽑아오기)

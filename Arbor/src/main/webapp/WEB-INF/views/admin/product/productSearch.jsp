@@ -61,7 +61,7 @@
 							<li><a href="productSearchDate?startDate=sysdate-7&endDate=sysdate+1">일주일</a></li>
 							<li><a href="productSearchDate?startDate=sysdate-30&endDate=sysdate+1">1개월</a></li>
 							<li><a href="productSearchDate?startDate=sysdate-90&endDate=sysdate+1">3개월</a></li>
-							<li><a href="productSearch?startDate=sysdate-365&endDate=sysdate+1">1년</a></li>
+							<li><a href="productSearchDate?startDate=sysdate-365&endDate=sysdate+1">1년</a></li>
 						</ul>
 						<span class="pContent"></span>
 						<input type="text" name="startDate" placeholder="시작일 직접 선택" />

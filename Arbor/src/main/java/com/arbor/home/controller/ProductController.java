@@ -526,21 +526,6 @@ public class ProductController {
 		return mav;
 	}
 	
-	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
-	@RequestMapping("/productSearchDate")
-	public ModelAndView productSearchDate(String startDate, String endDate) {
-		PageSearchVO pageVo = new PageSearchVO();
-		pageVo.setTotalRecord(productService.totalRecord(pageVo));
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("subCate", productService.subCateList(1));
-		mav.addObject("mainCate", productService.mainCateList());
-		mav.addObject("productList", productService.productList(pageVo));
-		mav.addObject("pageVO", pageVo);
-		mav.setViewName("/admin/product/productSearch");
-		return mav;
-	}
-	
 	// SummerNote upload
 	@RequestMapping(value="/uploadSummernoteImageFile", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	@ResponseBody
