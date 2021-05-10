@@ -31,7 +31,9 @@ body{
 	display: block;
 	clear:both;
 }
-
+.colorYellow{
+	color:rgb(255, 210, 3);
+}
 /* 클라이언트, 관리자 페이징 스타일 */
 .paging>li{
     width: 30px;
