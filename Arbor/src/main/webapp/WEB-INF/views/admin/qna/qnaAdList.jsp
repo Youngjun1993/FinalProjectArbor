@@ -8,7 +8,10 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/qna.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/productSearch.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 </head>
 <script>
 	$(function(){
@@ -48,10 +51,8 @@
 </script>
 <body>
     <div id="y_adminQnaList_Wrap" class="w1400_container clearfix">
-        <div id="leftcon">
-            공통메뉴
-        </div>
-        <div id="y_adminQnaList_rightcon" class="y_rightcon">
+        <%@include file="/WEB-INF/inc/adminMenu.jspf"%>
+        <div id="y_adminQnaList_rightcon" class="y_Adrightcon">
             <p class="y_title_fs25">1:1문의(Q&#38;A) 목록</p>
             <div>
                 <form id="y_qnaSearchFrm" action="qnaAdList" method="get">
