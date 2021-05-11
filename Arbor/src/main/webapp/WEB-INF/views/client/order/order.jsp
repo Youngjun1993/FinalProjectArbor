@@ -259,10 +259,10 @@
 							<div>
 								<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
 								<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
-								<input type="hidden" name="pno" value="555"/>
-								<input type="hidden" name="pname" value="폭신폭신침대"/>
+								<input type="hidden" name="pno" value="17"/>
+								<input type="hidden" name="pname" value="침대 옆에 두기 좋은 미니협탁"/>
 								<input type="hidden" name="quantity" value="1"/>
-								<input type="hidden" name="subprice" value="3000"/>
+								<input type="hidden" name="subprice" value="42000"/>
 							</div>
 						</td>
 						<td>1,500,000</td>
@@ -276,10 +276,10 @@
 							<div>
 								<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
 								<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
-								<input type="hidden" name="pno" value="123"/>
-								<input type="hidden" name="pname" value="넓은식탁"/>
+								<input type="hidden" name="pno" value="20"/>
+								<input type="hidden" name="pname" value="카펜 H형 화장대"/>
 								<input type="hidden" name="quantity" value="2"/>
-								<input type="hidden" name="subprice" value="10000"/>
+								<input type="hidden" name="subprice" value="65000"/>
 							</div>
 						</td>
 						<td>1,500,000</td>
@@ -408,7 +408,7 @@
 								<td>배송시 요청사항</td>
 								<td>
 									<select name="request" id="j_request">
-										<option value="none">배송 시 요청사항을 선택해 주세요.</option>
+										<option value="-">배송 시 요청사항을 선택해 주세요.</option>
 										<option value="부재시 문앞에 놓아주세요.">부재시 문앞에 놓아주세요.</option>
 										<option value="부재시 경비실에 맡겨 주세요.">부재시 경비실에 맡겨 주세요.</option>
 										<option value="부재시 전화 또는 문자 주세요.">부재시 전화 또는 문자 주세요.</option>
@@ -446,12 +446,11 @@
 							<tr>
 								<td>쿠폰 사용</td>
 								<td>
-									<select>
-										<option>사용가능 쿠폰 ${cpnCount }장</option>
+									<select name="usecoupon">
+										<option value="-">사용가능 쿠폰 ${cpnCount }장</option>
 										<c:if test="${cpnCount>0}">
 											<c:forEach var="cpnVo" items="${list }">
 												<option>${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
-												<input type="hidden" name="usecoupon" value="${cpnVo.cpnname }"/>
 											</c:forEach>
 										</c:if>
 									</select>

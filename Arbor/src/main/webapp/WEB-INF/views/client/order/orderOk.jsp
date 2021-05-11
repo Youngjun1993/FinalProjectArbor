@@ -89,7 +89,7 @@
 			</tr>
 			<tr>
 				<td>주소</td>
-				<td>${orderVo.arraddr } ${orderVo.arrdetailaddr } (우 ${orderVo.arrzipcode })</td>
+				<td>(${orderVo.arrzipcode }) ${orderVo.arraddr } ${orderVo.arrdetailaddr }</td>
 			</tr>
 			<tr>
 				<td>연락처</td>

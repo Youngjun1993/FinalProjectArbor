@@ -27,7 +27,7 @@
 		values(subordersq.nextval, #{orderno}, #{pno}, #{pname}, #{quantity}, #{subprice})
 	</insert>
 	<select id="getSubOrderList" resultType="com.arbor.home.vo.SubOrderVO">
-		select suborderno, orderno, p.pno, p.pname, optno, quantity, pprice, saleprice, deliveryprice, subprice from suborder s join product p on s.pno=p.pno where orderno=#{param1}	
+		select suborderno, orderno, p.pno, p.pname, optno, quantity, pprice, saleprice, deliveryprice, subprice from suborder s join product p on s.pno=p.pno where orderno=#{param1}
 	</select>
 	<select id="getOrderInfo" resultType="com.arbor.home.vo.OrderTblVO">
 		select * from orderTbl where orderno=#{param1}

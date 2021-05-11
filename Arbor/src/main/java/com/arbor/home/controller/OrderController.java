@@ -74,6 +74,7 @@ public class OrderController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pList", orderService.getSubOrderList(orderVo.getOrderno()));
+		System.out.println("listSize->"+orderService.getSubOrderList(orderVo.getOrderno()).size());
 		mav.addObject("orderVo", orderService.getOrderInfo(orderVo.getOrderno()));
 		mav.addObject("applyNum", applyNum);
 		mav.setViewName("client/order/orderOk");
