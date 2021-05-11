@@ -13,18 +13,18 @@
     background:  rgb(191,43,53);
     color: #fff;
     height: 150px;
-    width: 49%;
+    width: 48%;
     float: left;
     margin-top: 1%;
 }
-#y_adminCouponList_rightcon>div:nth-of-type(even){
+#y_adminCouponList_rightcon>div{
     margin-left: 1%;
 }
-#y_adminCouponList_rightcon>div div:first-child{
+#y_adminCouponList_rightcon>div div{
     padding: 10px 0;
     background: #333;
 }
-#y_adminCouponList_rightcon>div div:first-child span{
+#y_adminCouponList_rightcon>div div span{
     width: 100%;
     border: 1px dotted #fff;
     display: block;
@@ -52,7 +52,42 @@
     font-weight: bold;
     margin-bottom: 10px;
 }
-#y_adminCouponList_rightcon>div ul li:last-child button{
+#y_adminCouponList_rightcon>div ul li:last-child button, 
+#y_adminCouponList_rightcon>div ul li:last-child input[type='submit']
+{
     width: 50px;
     margin-top: 5px;
+}
+/* 수정버튼 후 인풋타입 스타일 */
+#y_adminCouponList_rightcon>div>form>div>input{
+	width:100px;
+	height:16px;
+	text-align: center;
+	font-size:18px;
+}
+#y_adminCouponList_rightcon>div>form ul li:nth-child(1) input {
+	width: 220px;
+	height: 23px;
+	text-align: center;
+	vertical-align: top;
+}
+#y_adminCouponList_rightcon>div>form ul li:nth-child(2) input{
+	width:100px;
+	text-align: center;
+}
+#y_adminCouponList_rightcon>div>form ul li:nth-child(3) input{
+	width:100px;
+	height:15px;
+	text-align: center;	
+}
+.y_inputCoupon{
+	display:none;
+}
+.y_disabledBtn{
+	color:#ddd;
+	boder:1px solid #ddd;
+	background: #eee;
+	color:#aaa;
+	height: 23px;
+	text-align: center;
 }
