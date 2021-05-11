@@ -12,6 +12,7 @@ public class PageSearchVO {
 	private String searchWord;
 	private String userid;
 	
+	/* Admin - productController */
 	
 	public String getUserid() {
 		return userid;

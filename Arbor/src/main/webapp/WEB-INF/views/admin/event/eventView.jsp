@@ -4,30 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>arbor > EventView</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
-<script>
-	$(function(){
-		$("#j_eventListBtn").click(function(){
-			location.href="eventList";
-		});
-		$("#j_eventEditBtn").click(function(){
-			location.href="eventEdit?eventNo=${vo.eventNo}";
-		});
-		$("#j_eventDelBtn").click(function(){
-			if(confirm("삭제하시겠습니까?")){
-				location.href="eventDel?eventNo=${vo.eventNo}";				
-			}
-		});
-	});
-</script>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
 </head>
 <body>
 <div class="w1400_container font_ng">
-	<div class="j_sideMenu">사이드메뉴</div>
+	<!-- 관리자메뉴 -->
+	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="j_centerFrm">
 		<p class="j_adminMemu"><span>이벤트 상세보기</span></p>
 		<div>
@@ -38,8 +27,8 @@
 			<span id="j_contentImg">${vo.eventContent }</span>
 			<hr/>
 			<p class="j_eventSetBtn">
-				<input type="button" class="adminMainBtn" id="j_eventEditBtn" value="수정"/> 
-				<input type="button" class="adminSubBtn" id="j_eventDelBtn" value="삭제"/> 
+				<input type="button" class="adminMainBtn" onclick="location.href='eventEdit?eventNo=${vo.eventNo}'" id="j_eventEditBtn" value="수정"/> 
+				<input type="button" class="adminSubBtn" onclick="javascript:eventDel(${vo.eventNo})" value="삭제"/> 
 				<input type="button" class="adminSubBtn" id="j_eventListBtn" value="목록"/>
 			</p>
 		</div>

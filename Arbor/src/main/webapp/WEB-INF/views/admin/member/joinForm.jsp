@@ -12,7 +12,6 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
 
 <script>
-
 		// 유효성 검사 전역변수
 		 var idCheck = false;// 아이디
 		 var idckCheck = false;// 아이디 중복 검사
@@ -57,7 +56,6 @@
 		$('#userpwd').blur(function() {
 			if($('#userpwd').val()!=""){
 				$('#pwdCheck').attr("disabled", false);
-				console.log("비번값있음");
 				$('.h_pwdchk').css("background-color","white");
 			}else {
 				alert("비밀번호가 너무 짧습니다(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)");
@@ -133,13 +131,14 @@
 			 
 		});
 		
-		
-		
-		//리캡차 활성버튼
-		$('.h_reCaptcha').click(function () {
-			  $.ajax({
+		/////////////////////////////////////////////////////////가입 이벤트시작
+	    	
+		$('#memberjoin').mouseup(function() {
+	    	
+	    	$.ajax({
                 url: 'VerifyRecaptcha',
                 type: 'post',
+                async: false,//동기방식으로 처리해야 script이전에 동작
                 data: {
                     recaptcha: $("#g-recaptcha-response").val()
                 },
@@ -148,7 +147,6 @@
               			alert("자동 가입 방지 봇 통과");
               			captcha = true;
               		}else if(data == 1) {
-              			 alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요~");
               			captcha = false
               		}else {
               			 alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
@@ -157,14 +155,6 @@
                     
                 }
             });
-		
-		});
-		///////////////////////////////////////////////////////////t리캡차끝
-		
-		//memberjoin
-		$('#memberjoin').click(function() {
-	    	
-	    	console.log("조인버튼 이벤트");
 	    	
 	    	/* 입력값 변수 */
 	        var id = $('#userid').val();// id 입력란
@@ -239,9 +229,12 @@
 					                            }else{
 					                            	termsCheck2 = true;
 					                            	if(captcha == false) {
-					                            		alert("로봇체크를 해주세요");
+					                            		alert("로봇 체크를 확인해주세요");
 					                            	}else {
 					                            		captchaChk = true;
+					                            		 alert("서브밋발생")
+					                     	    		$('.inputForm').attr('action', 'memberJoin');
+					                     		    	$('.inputForm').submit;
 					                            	}
 					                            }
 				                            }
@@ -253,15 +246,14 @@
 		            }
 		        }
 	    	}
-			
-	    	if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&nameCheck&&addressCheck&&telCheck&&mailCheck&&termsCheck1&&termsCheck2&&captchaChk){
+	    	/* if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&nameCheck&&addressCheck&&telCheck&&mailCheck&&termsCheck1&&termsCheck2&&captchaChk){
 	    		
 	   		 alert("서브밋발생")
-	    		$('.inputForm').attr('action', 'memberjoin');
+	    		$('.inputForm').attr('action', 'memberJoin');
 		    	$('.inputForm').submit;
-	        } 
-    	
+	        }  */
 		});
+		
 	});
 		 
 /* 카카오주소api 연동 */
@@ -334,7 +326,7 @@
 		<label for="userid">아이디 *</label>
 		</td>
 		<td>
-		<input type="text" name="userid" id="userid" size="20px" class="h_ipt" required="required" value="test2">
+		<input type="text" name="userid" id="userid" size="20px" class="h_ipt" required="required" value="">
 		<input type="button" value="중복확인" class="h_check_btn h_idchk">
 		<!-- 입력검사 확인용 -->				
 		<input type="hidden" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
@@ -346,7 +338,7 @@
 		<label for="pwd">비밀번호 *</label>
 		</td>
 		<td>
-		<input type="password" name="userpwd" id="userpwd" size="20px" class="h_ipt" required="required" value="1234">(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
+		<input type="password" name="userpwd" id="userpwd" size="20px" class="h_ipt" required="required" value="">(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
 		</td>
 		</tr>
 		
@@ -355,7 +347,7 @@
 		<label for="pwdCheck">비밀번호 확인 *</label>
 		</td>
 		<td>
-		<input type="password" name="pwdCheck" id="pwdCheck" size="20px" class="h_pwdchk" required="required" disabled="disabled" value="1234">
+		<input type="password" name="pwdCheck" id="pwdCheck" size="20px" class="h_pwdchk" required="required" disabled="disabled" value="">
 		<!-- <input type="button" id="pwdconfirm" value="확 인" class="h_pwdchk_btn"/> -->
 		<span class="h_pwd_ok"></span>
 		</td>
@@ -366,7 +358,7 @@
 		<label for="username">이름 *</label>
 		</td>
 		<td>
-		<input type="text" name="username" id="username" size="20px" class="h_ipt" required="required" value="1234">
+		<input type="text" name="username" id="username" size="20px" class="h_ipt" required="required" value="">
 		</td>
 		</tr>
 		
@@ -392,10 +384,27 @@
 		<select id="tel" name="tel1" class="h_select">
 			<option value="010">010</option>
 		  	<option value="011">011</option>
+			<option value="070">070</option>
 			<option value="02">02</option>
+			<option value="031">031</option>
+			<option value="032">032</option>
+			<option value="033">033</option>
+			<option value="041">041</option>
+			<option value="042">042</option>
+			<option value="043">043</option>
+			<option value="044">044</option>
+			<option value="051">051</option>
+			<option value="052">052</option>
+			<option value="053">053</option>
+			<option value="054">054</option>
+			<option value="055">055</option>
+			<option value="061">061</option>
+			<option value="062">062</option>
+			<option value="063">063</option>
+			<option value="064">064</option>
 		</select>
-		-<input type="text" name="tel2" id="tel2" size="5" class="h_ipt" required="required" value="1234">
-		-<input type="text" name="tel3" id="tel3" size="5" class="h_ipt" required="required" value="1234">
+		-<input type="text" name="tel2" id="tel2" size="5" class="h_ipt" required="required" value="">
+		-<input type="text" name="tel3" id="tel3" size="5" class="h_ipt" required="required" value="">
 		</td>
 		</tr>
 		
@@ -414,12 +423,14 @@
 		<label for="email">이메일</label>
 		</td>
 		<td>
-		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid" required="required" value="1234"> @ 
+		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid" required="required" value=""> @ 
 		<select name="emaildomain" id="emaildomain" class="h_select emaildomain" required="required">
 			<option value=""></option>
-			<option value="google.com">gmail.com</option>
+			<option value="gmail.com">gmail.com</option>
 			<option value="naver.com">naver.com</option>
-			<option value="daum.com">daum.net</option>
+			<option value="daum.net">daum.net</option>
+			<option value="nate.com">nate.com</option>
+			<option value="hotmail.com">hotmail.com</option>
 		</select>
 		
 		</td>
@@ -450,20 +461,20 @@
 		<ul class="h_2box">
 			<li class="h_terms"><div class="h_title">쇼핑몰 이용약관</div><div class ="h_termcontent"></div></li>
 			<li class="h_privacy"><div class="h_title">개인정보수집,이용동의</div><div class ="h_termcontent">■ 수집하는 개인정보 항목
-회사는 회원가입, 상담, 서비스 신청 등등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
-ο 수집항목 : 이름 , 생년월일 , 성별 , 로그인ID , 비밀번호 , 비밀번호 질문과 답변 , 자택 전화번호 , 자택 주소 , 휴대전화번호 , 이메일 , 직업 , 회사명 , 부서 , 직책 , 회사전화번호 , 취미 , 결혼여부 , 기념일 , 법정대리인정보 , 서비스 이용기록 , 접속 로그 , 접속 IP 정보 , 결제기록
-ο 개인정보 수집방법 : 홈페이지(회원가입) , 서면양식
+회사는 회원가입, 상담, 서비스 신청 등등을 위해 아래와 같은 개인정보를 수집하고 있습니다.<br/>
+ο 수집항목 : 이름 , 생년월일 , 성별 , 로그인ID , 비밀번호 , 비밀번호 질문과 답변 , 자택 전화번호 , 자택 주소 , 휴대전화번호 , 이메일 , 직업 , 회사명 , 부서 , 직책 , 회사전화번호 , 취미 , 결혼여부 , 기념일 , 법정대리인정보 , 서비스 이용기록 , 접속 로그 , 접속 IP 정보 , 결제기록<br/>
+ο 개인정보 수집방법 : 홈페이지(회원가입) , 서면양식<br/><br/>
 
-■ 개인정보의 수집 및 이용목적
+■ 개인정보의 수집 및 이용목적<br/>
 
-회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.
+회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.<br/>
 
-ο 서비스 제공에 관한 계약 이행 및 서비스 제공에 따른 요금정산 콘텐츠 제공 , 구매 및 요금 결제 , 물품배송 또는 청구지 등 발송
-ο 회원 관리
+ο 서비스 제공에 관한 계약 이행 및 서비스 제공에 따른 요금정산 콘텐츠 제공 , 구매 및 요금 결제 , 물품배송 또는 청구지 등 발송<br/>
+ο 회원 관리<br/>
 회원제 서비스 이용에 따른 본인확인 , 개인 식별 , 연령확인 , 만14세 미만 아동 개인정보 수집 시 법정 대리인 동의여부 확인 , 고지사항 전달 ο 마케팅 및 광고에 활용
-접속 빈도 파악 또는 회원의 서비스 이용에 대한 통계
+접속 빈도 파악 또는 회원의 서비스 이용에 대한 통계<br/><br/>
 
-■ 개인정보의 보유 및 이용기간
+■ 개인정보의 보유 및 이용기간<br/>
 
 회사는 개인정보 수집 및 이용목적이 달성된 후에는 예외 없이 해당 정보를 지체 없이 파기합니다.</div></li>
 		</ul>
@@ -471,7 +482,6 @@
 		<div class="h_term_chk"><input type="checkbox" name="privacyok" id="privacyok" required="required">개인정보수집에 동의하시겠습니까?</div>
     	<div id="h_google_recaptha">
 		<div class="g-recaptcha" data-sitekey="6LeRXsgaAAAAACGTfFgrnZhBDe76aaMSCLv8yz1D"></div>
-		<input type = "button" class="h_reCaptcha" value ="로봇체크"/>
 		</div>
 		<input type="submit" id="memberjoin" value="Join NOW" class="h_check_btn join">
 	</form>

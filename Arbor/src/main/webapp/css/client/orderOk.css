@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+/* 주문완료 페이지 상단 */
+#j_orderOk_wrap>div:nth-child(1) h1{
+    text-align: center;
+    height: 100px;
+    line-height: 100px;
+    margin-bottom: 20px;
+}
+#j_orderOk_wrap>div:nth-child(1) div{
+    width: 600px;
+    margin: 50px auto 0 auto;
+}
+#j_orderOk_wrap>div:nth-child(1) div ul:first-child li:nth-child(odd){
+    width: 45px;
+    float: left;
+    text-align: center;
+    border-radius: 100px;
+    background: #eee;
+    padding: 40px;
+    color: #aaa;
+}
+#j_orderOk_wrap>div:nth-child(1) div ul:first-child li:nth-child(even){
+    float: left;
+    width: 50px;
+    border-top: 5px dotted #eee;
+    margin: 65px 30px 0 30px;
+}
+#j_orderOk_wrap>div:nth-child(1) div ul:first-child li:last-child{
+    background: rgb(93,121,115);
+    color: #fff;
+}
+#j_orderOk_wrap>div:nth-child(1) div ul:last-child{
+    margin-top: 5px;
+}
+#j_orderOk_wrap>div:nth-child(1) div ul:last-child li{
+    float: left;
+    text-align: center;
+    width: 125px;
+    margin-right: 110px;
+    color:#aaa;
+    font-weight: bold;
+}
+#j_orderOk_wrap>div:nth-child(1) div ul:last-child li:last-child{
+    color: rgb(93,121,115);
+}
+#j_orderOk_wrap>div:nth-child(1) div ul:last-child li:last-child{
+    margin: 0;
+}
+
+/* 주문완료 문구 */
+#j_orderOk_wrap>div:nth-child(2){
+	margin-top: 50px;
+	border-top: 2px solid #aaa;
+	border-bottom: 2px solid #aaa;
+	text-align: center;
+}
+#j_orderOk_wrap>div:nth-child(2) p:first-child{
+	margin-top: 30px;
+	font-size: 23px;
+	font-weight: bold;
+}
+#j_orderOk_wrap>div:nth-child(2) p:first-child>span{
+	color: rgb(191,43,53);
+	/* color: #fff;
+	background: rgb(191,43,53); */
+}
+#j_orderOk_wrap>div:nth-child(2) p:last-child{
+	margin: 10px 0 30px 0;
+	font-size: 13px;
+}
+#j_orderOk_wrap>div:nth-child(2) p:last-child>span{
+	font-weight: bold;
+}
+
+/* 주문정보 테이블 */
+.j_orderOkDiv{
+	margin-top: 10px;
+}
+.j_orderOkTitle{
+	border: 1px solid #ccc;
+	border-radius: 15px;
+	width: 110px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+	margin-top: 30px;
+	margin-bottom: 10px;
+	float: left;
+}
+.j_tableForm{
+	width: 1400px;
+	height: 30px;
+	border-spacing: 0px 0px;
+	border-collapse: collapse;
+	font-size: 13px;
+}
+.j_tableForm td{
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+.j_tableForm td:nth-child(2n+1):not(#abc){
+	text-align: center;
+	background: #eee;
+}
+.j_orderOkDiv:first-child td{
+	text-align: center;
+	background: #eee;
+}
+.j_orderOkDiv:first-child td{
+	text-align: left;
+	background: #fff;
+}
+.j_orderOkDiv:last-child{
+	margin-top: 50px;
+	text-align: center;
+}
+.j_orderOkDiv:last-child>input[type='button']{
+	width: 100px;
+	height: 40px;
+}

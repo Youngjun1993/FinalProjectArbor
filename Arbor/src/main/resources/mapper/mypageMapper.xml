@@ -62,6 +62,6 @@
 	</select>
 	<!-- review 평점 정렬  -->
 	<select id="reviewGradeList" resultType="com.arbor.home.vo.ReviewProductJoinVO" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from (select * from (select r.reviewno, r.pno, r.userid, r.grade, r.reviewcontent, to_char(r.reviewdate, 'YY/MM/DD HH:MI') as reviewdate, p.subno, p.pname, p.stock, p.allstock, p.pprice, p.saleprice, p.img1, p.img2, p.description, p.deliveryprice, p.pdate from review r join product p on r.pno=p.pno where userid=#{userid} order by reviewno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by reviewno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by grade desc
+		select * from (select * from (select r.reviewno, r.pno, r.userid, r.grade, r.grade as gradeint, r.reviewcontent, to_char(r.reviewdate, 'YY/MM/DD HH:MI') as reviewdate, p.subno, p.pname, p.stock, p.allstock, p.pprice, p.saleprice, p.img1, p.img2, p.description, p.deliveryprice, p.pdate from review r join product p on r.pno=p.pno where userid=#{userid} order by reviewno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by reviewno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by grade desc
 	</select>
 </mapper>

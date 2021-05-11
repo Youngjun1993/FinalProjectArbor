@@ -31,6 +31,10 @@
 #y_myPage_rightCon>div:nth-of-type(1)>ul>li:nth-child(4n+2){
     width: 500px;
 }
+#y_myPage_rightCon>div:nth-of-type(1)>ul>li:nth-child(4n+2) a{
+    text-decoration: underline;
+    text-underline-position: under;
+}
 #y_myPage_rightCon>div:nth-of-type(1)>ul>li:nth-child(4n+4){
     width: 350px;
 }
@@ -68,7 +72,7 @@
     border: 1px solid #333;
     position: absolute;
     left: 30%;
-    top: 10%;
+    top: 5%;
     background: #fff;
     display:none;
 }
@@ -167,9 +171,6 @@
     height: 25px;
     line-height: 25px;
     width: 100px;
-    background: rgb(94,94,94);
-    border-radius: 5px;
-    color:#fff;
     text-align: center;
 }
 #y_popupCloseBtn{
@@ -179,8 +180,6 @@
     line-height: 30px;
     text-align: center;
     margin: 20px auto;
-    background: rgb(94,94,94);
-    border-radius: 5px;
     color:#fff;
 }
 
@@ -190,7 +189,7 @@
     background: #fff;
     position: absolute;
     left: 45%;
-    top: 16%;
+    top: 10%;
     border: 1px solid #333;
     display:none;
 }
@@ -200,13 +199,16 @@
     background: #fff;
     border-bottom: 1px solid #333;
 }
-#y_printPopup_Wrap>div>p>a{
+#y_printPopup_Wrap>div>p>button{
     display: block;
     float: right;
     height: 30px;
     line-height: 30px;
     width: 30px;
     text-align: center;
+    background: #fff;
+    border:none;
+    cursor: pointer;
 }
 #y_printPopup_Wrap>h3{
     background: rgb(248, 244, 236);
@@ -271,19 +273,16 @@
     margin: 0 auto 20px auto;
 }
 #y_printPopup_Wrap>div:nth-of-type(4) a:first-child{
-    background: rgb(93, 121, 115);
-    color: #fff;
     margin-right: 10px;
 }
-#y_printPopup_Wrap>div:nth-of-type(4) a{
+#y_printPopup_Wrap>div:nth-of-type(4) button, #y_printPopup_Wrap>div:nth-of-type(4) a{
     display: block;
     width: 48px;
     float: left;
     height: 30px;
     line-height: 30px;
     text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 /* coupon 페이지 스타일 */
@@ -467,7 +466,7 @@
 	height: 0.9rem;
 	border-radius: 100%;
 	margin-right: 0.1rem;
-	background-color: rgb(191,43,53);
+	background-color: #333;
 	border:2px solid #aaa;
 }
 #y_reviewList_rightCon>div:nth-of-type(2) ul:last-child li:nth-child(7n+7) form{

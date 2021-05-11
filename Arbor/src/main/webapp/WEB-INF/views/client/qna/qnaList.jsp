@@ -9,8 +9,10 @@
 			"width" : liCnt.length*40+"px",
 			"margin" : "0 auto"
 		});
-		$("#y_leftMenu>ul>li:nth-child(5)").css({
-			"font-weight":"bold"
+		$("#y_leftMenu>ul>li:nth-child(5) a").css({
+			"font-weight":"bold",
+			"background" :"rgb(94, 94, 94)",
+			"color":"#fff"
 		});
 		/* $("#qnaDescBtn").click(function(){
 			var url = "qnaAnsDescList"

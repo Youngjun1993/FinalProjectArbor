@@ -5,27 +5,29 @@
     font-weight: bold;
 }
 .y_anserRed{
-    background: rgb(191,43,53);
+	border:1px solid rgb(191,43,53);
     width: 100px;
     height: 30px;
     line-height:30px;
     display: block;
-    color: #fff;
+    color: rgb(191,43,53);
     margin: 5px auto;
-    border-radius: 5px;
 }
 .y_anserDark{
-    background: rgb(94, 94, 94);
+	border:1px solid rgb(94, 94, 94);
     width: 100px;
     height: 30px;
     line-height:30px;
     display: block;
-    color: #fff;
+    color: #333;
     margin: 5px auto;
-    border-radius: 5px;
 }   
 .y_rightcon{
     width: 1250px;
+    float: right;
+}
+.y_Adrightcon{
+    width: 1200px;
     float: right;
 }
 /* qnaList 스타일*/
@@ -53,6 +55,11 @@
 #y_list_rightcon>ul:first-of-type>li:nth-child(2), #y_list_rightcon>ul:first-of-type>li:nth-child(3),
 #y_list_rightcon>ul:first-of-type>li:nth-child(4), #y_list_rightcon>ul:first-of-type>li:nth-child(5){
 	border-bottom:1px solid #aaa;
+}
+#y_list_rightcon>ul:first-of-type>li:nth-child(4) button{
+	border:none;
+	background: #fff;
+	cursor: pointer;
 }
 #y_list_rightcon>ul:first-of-type>li:nth-child(5n+2), #y_adminQnaList_rightcon>ul:first-of-type>li:nth-child(5n+2){
     width: 40%;
@@ -88,6 +95,10 @@
 }
 #y_write_rightcon>form div p:first-of-type{
 	margin-top:20px;
+}
+#y_write_rightcon>form div p:nth-child(1),#y_write_rightcon>form div p:nth-child(3){
+	font-size: 20px;
+	font-weight: bold;
 }
 #y_write_rightcon>form div p:nth-child(2){
     margin:10px 0 40px 0;
@@ -166,8 +177,6 @@
     height: 30px;
     line-height: 30px;
     display: block;
-    background: #ddd;
-    border: 1px solid #333;
     text-align: center;
     
 }
@@ -198,19 +207,12 @@
 	width: 100px;
     height: 30px;
     line-height: 30px;
-    background: #ddd;
-    border: 1px solid #333;
     text-align: center;
     float: right;
     margin:10px 0 30px 0;
 }
 /*///////////////////////////////////////*/
 /* ADMIN List */
-#leftcon{
-    width: 150px;
-    float: left;
-}
-
 #y_adminQnaList_rightcon>p{
     height: 100px;
     line-height: 100px;
@@ -265,10 +267,8 @@
     width: 100px;
     height: 30px;
     line-height: 30px;
-    background: #ddd;
-    border: 1px solid #333;
     text-align: center;
     float: right;
-    margin: 20px;
+    margin: 20px 0;
     cursor: pointer;
 }

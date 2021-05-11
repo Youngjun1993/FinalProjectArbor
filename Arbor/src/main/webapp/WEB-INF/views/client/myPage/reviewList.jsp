@@ -9,8 +9,10 @@
 			"width" : liCnt*35+"px",
 			"margin" : "30px auto"
 		});	
-		$("#y_leftMenu>ul>li:nth-child(4)").css({
-			"font-weight":"bold"
+		$("#y_leftMenu>ul>li:nth-child(4) a").css({
+			"font-weight":"bold",
+			"background" :"rgb(94, 94, 94)",
+			"color":"#fff"
 		});
 		if(window.location.pathname=="/home/reviewList"){
 			$("#y_reviewDateDescBtn").css({
@@ -64,7 +66,7 @@
                 <li>리뷰번호</li>
                 <li>상품명</li>
                 <li>리뷰내용</li>
-                <li>별점</li>
+                <li>평점</li>
                 <li>등록일</li>
                 <li>　</li>
             </ul>
@@ -73,7 +75,7 @@
 	                <li>${data.reviewno }</li>
 	                <li class="wordcut"><a href="#">${data.pname }</a></li>
 	                <li class="wordcut">${data.reviewcontent }</li>
-	                <li>${data.grade }(${data.gradeint })</li>
+	                <li><span class="colorYellow">${data.grade }</span>(${data.gradeint })</li>
 	                <li>${data.reviewdate }</li>
 	                <li>
 	                	<button id="y_reviewEdit" class="clientSubBtn" onclick="javascript:reviewEdit('${data.grade}',this)">수정</button>

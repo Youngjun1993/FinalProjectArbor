@@ -31,7 +31,7 @@
         <div id="y_leftMenu">
         	공통메뉴
         </div>
-        <div id="y_qanView_rightcon" class="y_rightcon">
+        <div id="y_qanView_rightcon" class="y_Adrightcon">
             <p class="y_title_fs25">1:1문의(Q&#38;A) 삭제/답변등록</p>
             <div>
                 <h2>[${vo.qnacate}] ${vo.qnasubject }</h2>
@@ -40,16 +40,16 @@
                 </div>
             </div>
             <ul class="clearfix">
-                <c:if test="${ansBtnCheck eq 'N'}"><li><a href="qnaAdList?pageNum=${pageVO.pageNum }<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">목록</a></li></c:if>
-                <c:if test="${ansBtnCheck eq 'Y'}"><li><a href="qnaNoAnswerList?pageNum=${pageVO.pageNum }<c:if test="${pageVO.qnaSearchWord != null && pageVO.qnaSearchWord != ''}">&qnaSearchKey=${pageVO.qnaSearchKey }&qnaSearchWord=${pageVO.qnaSearchWord }</c:if>">목록</a></li></c:if>
-                <li><a href="javascript:qnaAdDel(${vo.qnano })">문의글 삭제</a></li>               
+                <c:if test="${ansBtnCheck eq 'N'}"><li><a href="qnaAdList?pageNum=${pageVO.pageNum }<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>" class="adminMainBtn">목록</a></li></c:if>
+                <c:if test="${ansBtnCheck eq 'Y'}"><li><a href="qnaNoAnswerList?pageNum=${pageVO.pageNum }<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>" class="adminMainBtn">목록</a></li></c:if>
+                <li><a href="javascript:qnaAdDel(${vo.qnano })" class="adminSubBtn">문의글 삭제</a></li>               
             </ul>
             <div class="clearfix">
                 <p>답변</p>
-                <form id="qnaAdViewFrm" method="post" action="qnaAdUpdate?${editAddr }">
+                <form id="qnaAdViewFrm" method="post" action="<c:if test="${ansBtnCheck eq 'N'}">qnaAdUpdate?${editAddr }</c:if><c:if test="${ansBtnCheck eq 'Y'}">qnaAnsAdUpdate?${editAddr }</c:if>">
                     <textarea name="answercontent" id="answercontent" cols="30" rows="10">${vo.answercontent }</textarea> 
-                    <c:if test="${vo.answercontent==null }"><input type="submit" id="qnaAnserBtn" value="답변등록"/></c:if>
-                    <c:if test="${vo.answercontent!=null }"><input type="submit" id="qnaAnserBtn" value="수정등록"/></c:if>
+                    <c:if test="${vo.answercontent==null }"><input type="submit" id="qnaAnserBtn" class="adminMainBtn" value="답변등록"/></c:if>
+                    <c:if test="${vo.answercontent!=null }"><input type="submit" id="qnaAnserBtn" class="adminMainBtn" value="수정등록"/></c:if>
                 </form>
             </div>
         </div>

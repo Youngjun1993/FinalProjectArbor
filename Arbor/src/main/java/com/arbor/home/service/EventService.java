@@ -38,8 +38,8 @@ public class EventService implements EventServiceImp {
 	}
 
 	@Override
-	public List<EventVO> eventAllSelect(EventVO vo) {
-		return eventdao.eventAllSelect(vo);
+	public List<EventVO> eventListSelect(PageSearchVO pageVo) {
+		return eventdao.eventListSelect(pageVo);
 	}
 
 	@Override
@@ -66,10 +66,5 @@ public class EventService implements EventServiceImp {
 	public int totalRecord(PageSearchVO vo) {
 		return eventdao.totalRecord(vo);
 	}
-
-	@Override
-	public List<EventVO> onePageRecordSelect(PageSearchVO pageVo) {
-		return eventdao.onePageRecordSelect(pageVo);
-	}
-
+	
 }

@@ -1,21 +1,17 @@
 @charset "UTF-8";
 /* class */
-.j_category{
-	width:100px;
-	font-weight:bold;
-	display:inline-block;
-}
-.j_sideMemu{
-	width:150px;
-	float:left;
-}
 .j_centerFrm{
-	width:1250px;
+	width:1200px;
 	float:right;
 }
 .j_centerFrm>h1{
 	padding-bottom:15px;
 	border-bottom:2px solid gray;
+}
+.j_category{
+	width:100px;
+	font-weight:bold;
+	display:inline-block;
 }
 .j_search{padding-top:10px;height:30px;}
 .j_search>form{float:right;height:25px;line-height:25px;}
@@ -24,8 +20,9 @@
 
 /*관리자 메뉴 상단 타이틀*/
 .j_adminMemu{
-	height:100px;
-	line-height:100px;
+	/* height:100px;
+	line-height:100px; */
+	margin: 50px auto 20px auto;
 	text-align:center;
 }
 .j_adminMemu>span{
@@ -39,10 +36,6 @@
 	width:80px;
 	border-bottom:1px solid rgb(191,43,53);
 	margin:20px auto;
-}
-.j_centerFrm div{
-	padding-top:20px;
-	line-height:35px;
 }
 
 /*버튼 css*/
@@ -82,8 +75,14 @@ input[type=submit], input[type=button] {
 /*--------------
 	이벤트 등록
 ---------------*/
+.j_category{
+	margin-bottom:15px;
+}
 #j_eventSubject{
-	width:375px;
+	width:375px; height:20px;
+}
+#j_eventStart, #j_eventEnd{
+	width:155px; height:20px;
 }
 
 /*--------------

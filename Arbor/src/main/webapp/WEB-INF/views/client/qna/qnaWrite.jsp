@@ -49,6 +49,11 @@
 				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
 				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 		});
+		$("#y_leftMenu>ul>li:nth-child(5) a").css({
+			"font-weight":"bold",
+			"background" :"rgb(94, 94, 94)",
+			"color":"#fff"
+		});
 	});
 	function uploadSummernoteImageFile(file, editor) {
 		data = new FormData();
@@ -96,7 +101,7 @@
                     <p>내용 <span class="colorRed">*</span></p>
                     <p><textarea name="qnacontent" id="qnacontent"></textarea></p>
                 </div>
-                <input type="submit" name="y_insertBtn" id="y_insertBtn" value="등록하기" />
+                <input type="submit" name="y_insertBtn" id="y_insertBtn" class="clientMainBtn" value="등록하기" />
             </form>
         </div>
     </div>

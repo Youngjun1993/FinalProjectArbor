@@ -101,9 +101,15 @@
 				"display":"block"
 			});
 		});
-		
-		$("#y_leftMenu>ul>li:nth-child(2)").css({
-			"font-weight":"bold"
+		$("#y_printPopup_Wrap>div:nth-of-type(4) button").click(function(){
+			$("#y_printPopup_Wrap").css({
+				"display":"none"
+			});
+		})
+		$("#y_leftMenu>ul>li:nth-child(2) a").css({
+			"font-weight":"bold",
+			"background" :"rgb(94, 94, 94)",
+			"color":"#fff"
 		});
 	});
 	function printWindow() {//프린트 호출
@@ -210,7 +216,7 @@
                </ul>
            </div>
            <div class="w600_center">
-               <p class="clearfix"><b>결제정보</b> <a id="y_popupPrintBtn" href="javascript:printPopup()">영수증출력</a></p>
+               <p class="clearfix"><b>결제정보</b> <a id="y_popupPrintBtn" href="javascript:printPopup()" class="clientSubBtn">영수증출력</a></p>
                <ul class="clearfix">
                    <li>결제방법</li>
                    <li>결제금액</li>
@@ -226,12 +232,12 @@
                    <li>-</li>
                </ul>
            </div>
-           <a id="y_popupCloseBtn" href="#">닫기</a>
+           <button id="y_popupCloseBtn" class="clientMainBtn">닫기</button>
        </div>
        <div id="y_printarea">	
 	       <div id="y_printPopup_Wrap" class="boxshadow">
 	           <div>
-	              <p><a href="#" class="subPopCloseBtn">✕</a></p>
+	              <p><button class="subPopCloseBtn">✕</button></p>
 	           </div>
 	           <h3>구매영수증</h3>
 	           <div>
@@ -264,8 +270,8 @@
 	               </div>
 	           </div>
 	           <div class="clearfix">
-	               <a href="javascript:printWindow()">인쇄</a>
-	               <a href="#" class="subPopCloseBtn">확인</a>
+	               <a href="javascript:printWindow()" class="clientMainBtn">인쇄</a>
+	               <button class="clientSubBtn">확인</button>
 	           </div>
 	       </div>
       </div>

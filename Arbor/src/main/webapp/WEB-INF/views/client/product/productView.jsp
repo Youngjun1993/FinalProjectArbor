@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <div class="w1400_container font_ng">
 	<h1 id="p_detailTitle">《 ${vo.pname } 》</h1>
 	<hr />
@@ -12,7 +13,6 @@
 		</div>
 		<!-- 이미지 옆에 기본정보, 옵션 띄우는 곳
 		div 분리되어있어서 form을 여기부터 걸었음... -->
-		<form>
 		<div id="p_detailRight" class="clearfix">
 			<div id="p_detailInfo">
 				<h3>기본정보</h3>
@@ -34,7 +34,7 @@
 				<c:forEach var="name" items="${optName }">
 					<span class="p_optTitle">${name.optname }</span>
 					<select name="optname" class="p_optname">
-					<option value="" selected disabled hidden>==선택하세요==</option>
+					<option value="" selected disabled hidden>==필수옵션선택==</option>
 						<c:forEach var="val" items="${optValue }">
 							<c:if test="${val.optname==name.optname }">
 								<option value="${val.optno }">${val.optvalue }
@@ -50,28 +50,20 @@
 			</div>
 		</div>
 		<!-- 옵션 선택 시 띄울 공간 -->
+		<form name="optionDiv" id="optionDiv">
 		<div id="p_detailSelect" class="clearfix">
 			<div id="p_detailSelect_Div" class="clearfix">
-				<ul class="p_detailSelect_ul">
-					<li>${vo.pname } <input type="hidden" name="pno" value="${vo.pno }" /></li>
-					<li>
-						<button>-</button>
-						<span class="p_selectNum">1</span>
-						<button>+</button>
-					</li>
-					<li class="p_bigPrice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</li>
-					<li><img src="<%=request.getContextPath() %>/img/cancel.png"/></li>
-				</ul>
+				
 			</div>
 			<div id="p_totalDiv">
-				총 상품금액 <span id="p_totalprice"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/>원</span><br/>
-				<input type="submit" value="찜하기" formaction="/cart" class="clientSubBtn"/>
-				<input type="submit" value="장바구니" formaction="/cart" class="clientSubBtn"/>
-				<input type="submit" value="바로구매" formaction="/order" class="clientMainBtn"/>
+				총 상품금액 <span id="p_totalprice">0 원</span><br/>
+				<button type="button" onclick="javascript:dibsInsert(${vo.pno})" class="clientSubBtn">찜하기</button>
+				<button type="button" onclick="javascript:cartInsert(${vo.pno})" class="clientSubBtn">장바구니</button>
+				<button type="button" onclick="javascript:orderInsert(${vo.pno})" class="clientSubBtn">바로구매</button>
 			</div>
+			<span id="p_detailMenu_up"></span>
 		</div>
 		</form>
-		<span id="p_detailMenu_up"></span>
 	</div>
 	<div id="p_detailMenu">
 		<ul>
@@ -101,7 +93,15 @@
 			<li>품명 및 모델명</li>
 			<li>${vo.pname }</li>
 			<li>색상</li>
-			<li>컨텐츠 참조</li>
+			<li class="wordcut">
+				<div class="p_colorDiv" class="clearfix">
+					<c:forEach var="opt" items="${opt }">
+						<c:if test="${opt.rgbvalue!=null && vo.pno==opt.pno }">
+							<div>${opt.optvalue }&nbsp|&nbsp </div>
+						</c:if>
+					</c:forEach>
+				</div>
+			</li>
 			<li>구성품</li>
 			<li>컨텐츠 참조</li>
 			<li>제조자, 수입품의 경우 수입자를 함께 표기 (병행수입 대체 가능)</li>
@@ -131,33 +131,35 @@
 		<h1>상품후기</h1>
 		<h3>실제 사용하신 경험담을 글과 사진으로 남겨주시면 해당 상품 구매를 고민하시는 많은 분들께 도움이 됩니다.</h3>
 		<hr/>
+		<c:forEach var="lst" items="${qnaList }">
 		<div>
 			<div class="p_review_leftDiv">
 				<img src="<%=request.getContextPath() %>/img/sublogo.jpg"/>
 			</div>
 			<div class="p_review_rightDiv">
-				<p>이** (so*********) | 2021-04-21</p>
-				<p>★★★★★</p><br/>
-				<h3>만족만족</h3><br/>
-				<p>후기후기 너모조코 넘모예뿌기 이렇게 옆으로 길게쓰면 덜 비어 보이게 됩 니 다 ~ 어떻습니까 여러분~~~~~~</p>
+				<p>${lst.username } (${lst.userid }) | ${lst.reviewdate }</p>
+				<c:choose>
+					<c:when test="${lst.grade==1 }">
+						<p><span class="gradestar">★</span><span class="elsestar">★★★★</span></p><br/>
+					</c:when>
+					<c:when test="${lst.grade==2 }">
+						<p><span class="gradestar">★★</span><span class="elsestar">★★★</span></p><br/>
+					</c:when>
+					<c:when test="${lst.grade==3 }">
+						<p><span class="gradestar">★★★</span><span class="elsestar">★★</span></p><br/>
+					</c:when>
+					<c:when test="${lst.grade==4 }">
+						<p><span class="gradestar">★★★★</span><span class="elsestar">★</span></p><br/>
+					</c:when>
+					<c:otherwise>
+						<p><span class="gradestar">★★★★★</span></p><br/>
+					</c:otherwise>
+				</c:choose>
+				<p>${lst.reviewcontent }</p>
 			</div>
 		</div>
 		<hr/>
-		<div>
-			<div class="p_review_leftDiv">
-				<img src="<%=request.getContextPath() %>/img/sublogo.jpg"/>
-			</div>
-			<div class="p_review_rightDiv">
-				<p>최** (le****) | 2021-04-20</p>
-				<p>★★★★☆</p><br/>
-				<h3>만족하긴하는데~</h3><br/>
-				<p>후기후기 너모조코 넘모예뿌기<br/>
-				근데 쪼꼼 아쉬워서 별한개빼기<br/>
-				길어지면 어떻게 되지<br/>
-				나랑<br/> 별보러<br/> 가지 않을래~~<br/></p>
-			</div>
-		</div>
-		<hr/>
+		</c:forEach>
 	</div>
 	<span id="p_pqnaMenu_up"></span>
 	<div id="p_pqnaMenu">
@@ -174,41 +176,86 @@
 		주문, 결제, 배송, 반품/교환 문의는 1:1문의를 이용해주세요.</h3>
 		<a href="qnaList"><button type="button" class="clientSubBtn">1:1문의 바로가기</button></a><br/>
 		<hr/>
-	
+			<c:forEach var="vo" items="${pqnalst }">
 		<div>
-			<div class="p_qna_leftDiv">
-				<img src="<%=request.getContextPath() %>/img/done.jpg"/>
-			</div>
-			<div class="p_qna_rightDiv">
-				<ul>
-					<li>
-						답변완료<img src="<%=request.getContextPath() %>/img/nolock.jpg"/>
-					</li>
-					<li><a class="p_qna_answer" href="#s">배송 한 달 걸리는게 맞나요?</a></li>
-					<li>
-						<div>
-						<p>Q. 지금 주문하면 한 달 후에 배송 시작이라는데 맞나요?</p>
-						<p>A. 해당상품은 주문량이 많아 예상 배송 시작일은 5월 중순 이후입니다. 변동사항이 발생되는 부분은 별도로 연락드리겠습니다. 감사합니다.</p>
-						</div>
-					</li>
-				</ul>
-				<div class="p_qna_sideDiv">nda*** | 2021-04-20</div>
-			</div>
+			<c:choose>
+				<c:when test="${vo.panswercontent=='답변 대기중 입니다.'}">
+					<div class="p_qna_leftDiv">
+						<img src="<%=request.getContextPath() %>/img/question.jpg"/>
+					</div>
+					<div class="p_qna_rightDiv">
+						<ul>
+							<li>
+								답변대기중
+								<c:if test="${vo.pqnaopen=='Y' }">
+								<img src="<%=request.getContextPath() %>/img/nolock.jpg"/>
+								</c:if>
+								<c:if test="${vo.pqnaopen=='N' }">
+								<img src="<%=request.getContextPath() %>/img/lock.jpg"/>
+								</c:if>
+							</li>
+							<c:if test="${vo.pqnaopen=='Y' }">
+							<li><a class="p_qna_answer" href="#s">${vo.pqnasubject }</a></li>
+							<li>
+								<div>
+								<p>Q. ${vo.pqnacontent }</p>
+								<p>A. ${vo.panswercontent }</p>
+								</div>
+							</li>
+							</c:if>
+							<c:if test="${vo.pqnaopen=='N' }">
+							<li><a class="p_qna_answer" href="#s">사용자의 요청에 의해 비공개처리된 글입니다.</a></li>
+							<li>
+								<div>
+								<p>Q. 사용자의 요청에 의해 비공개처리된 글입니다.</p>
+								<p>A. 사용자의 요청에 의해 비공개처리된 글입니다.</p>
+								</div>
+							</li>
+							</c:if>
+						</ul>
+						<div class="p_qna_sideDiv">${vo.userid } | ${vo.pqnadate }</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="p_qna_leftDiv">
+						<img src="<%=request.getContextPath() %>/img/done.jpg"/>
+					</div>
+					<div class="p_qna_rightDiv">
+						<ul>
+							<li>
+								답변완료
+								<c:if test="${vo.pqnaopen=='Y' }">
+								<img src="<%=request.getContextPath() %>/img/nolock.jpg"/>
+								</c:if>
+								<c:if test="${vo.pqnaopen=='N' }">
+								<img src="<%=request.getContextPath() %>/img/lock.jpg"/>
+								</c:if>
+							</li>
+							<c:if test="${vo.pqnaopen=='Y' }">
+							<li><a class="p_qna_answer" href="#s">${vo.pqnasubject }</a></li>
+							<li>
+								<div>
+								<p>Q. ${vo.pqnacontent }</p>
+								<p>A. ${vo.panswercontent }</p>
+								</div>
+							</li>
+							</c:if>
+							<c:if test="${vo.pqnaopen=='N' }">
+							<li><a class="p_qna_answer" href="#s">사용자의 요청에 의해 비공개처리된 글입니다.</a></li>
+							<li>
+								<div>
+								<p>Q. 사용자의 요청에 의해 비공개처리된 글입니다.</p>
+								<p>A. 사용자의 요청에 의해 비공개처리된 글입니다.</p>
+								</div>
+							</li>
+							</c:if>
+						</ul>
+						<div class="p_qna_sideDiv">${vo.userid } | ${vo.pqnadate }</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
-		<div>
-			<div class="p_qna_leftDiv">
-				<img src="<%=request.getContextPath() %>/img/done.jpg"/>
-			</div>
-			<div class="p_qna_rightDiv">
-				<ul>
-					<li>
-						답변완료<img src="<%=request.getContextPath() %>/img/lock.jpg"/>
-					</li>
-					<li>비공개처리된 문의글 입니다.</li>
-				</ul>
-				<div class="p_qna_sideDiv">hyu******** | 2021-04-19</div>
-			</div>
-		</div>
+		</c:forEach>
 		<a href="javascript:hiddenOpen()"><button type="button" class="clientMainBtn">상품문의글 작성</button></a><br/>
 		<div id="p_qna_hidden">
 			<h1>상품문의글 작성</h1>
@@ -259,3 +306,320 @@
 		</ul>
 	</div>
 </div>
+
+<script>
+	$(function(){
+		<!-- 총금액 넣을 변수 -->
+		var totalPrice = 0;
+		<!-- 상품문의 제목만 보이게 세팅 -->
+		$(".p_qna_answer").parent().next().css('display', 'none');
+		<!-- 상품문의 제목 클릭시 답변 보이게 세팅 -->
+		$(document).on('click', '.p_qna_answer', function(){
+			var click = $(this).parent().next();
+			console.log("display?"+click.css('display'))
+			if(click.css('display')=='block') {
+				click.css('display', 'none');
+				click.css('height', '0px');
+			} else {
+				click.css('display', 'block');
+				click.css('height', '130px');
+			}
+		});
+		<!-- 옵션이 없는 상품인 경우 Div 하나 먼저 등록해두기 -->
+		if(${optName.size()}==0) {
+			totalPrice = ${vo.saleprice};
+			
+			var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname}</li>";
+			tag += "<li><button class='optMinus'>-</button><span class='p_selectNum'>1</span><button class='optPlus'>+</button></li>";
+			tag += "<li class='p_bigPrice'>"+totalPrice.toLocaleString()+" 원<input type='hidden' name='price' value='"+totalPrice+"'/></li>";
+			tag += "<li><img src='./img/cancel.png' class='cancelimg' style='cursor:pointer;'/></li></ul>";
+			
+			$("#p_detailSelect_Div").append(tag);
+			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
+		}
+		
+		<!-- 지정된 상품 x 누르면 한 줄 지우면서 총금액 재계산 -->
+		$(document).on('click', '.cancelimg', function(){
+			var selectPrice = $(this).parent().prev().children().val();
+			console.log("selectPrice?"+selectPrice);
+			totalPrice -= selectPrice;
+			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
+			$(this).parent().parent().remove();
+		});
+		<!-- 셀렉트 박스 변동시 밑에 선택옵션 추가하기 -->
+		$(document).on('change', 'select[name=optname]', ()=>{
+			var cnt = 0;
+			var optnoStr = [];
+			$("select[name=optname] option:selected").each(function(idx, select){
+				if($(select).val()!=null && $(select).val()!='') {
+					cnt++;
+				}
+			});
+			if(cnt==${optName.size()}) {
+				$("select[name=optname] option:selected").each(function(idx, select){
+					optnoStr.push($(select).val());
+				});
+				$.ajax({
+					url : 'productOptionView',
+					dataType : 'json',
+					type: "POST",
+					data : { 
+						optno : optnoStr,
+					},
+					success : function(result){
+						var $result = $(result);
+						var price = ${vo.saleprice }
+						var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname} (&nbsp&nbsp";
+						$result.each(function(idx, val) {
+							tag += val.optname+" : "+val.optvalue+"&nbsp&nbsp";
+							price += val.optprice;
+						});
+						tag += ") <input type='hidden' name='pno' value='${vo.pno }'/></li>";
+						tag += "<li><button class='optMinus'>-</button><span class='p_selectNum'>1</span><button class='optPlus'>+</button></li>";
+						tag += "<li class='p_bigPrice'>"+price.toLocaleString()+"원<input type='hidden' name='price' value='"+price+"'/></li>";
+						tag += "<li><img src='./img/cancel.png' style='cursor:pointer;' class='cancelimg'/></li></ul>";
+						
+						totalPrice += price;
+						
+						$("#p_detailSelect_Div").append(tag);
+						$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
+						$("select[name=optname]").each(function(idx, select){
+							$(select).val("");
+						});
+					}, error : function(error){
+						console.log("AJAX ERROR!!"+error);
+					}
+				});
+				return true;
+			} else {
+				return false;
+			}
+			return true;
+		});
+		
+		<!-- 옵션 수량 변경하기 -->
+		$(document).on('click', '.optMinus', function(){
+			var quantity = $(this).next().text()*1;
+			if(quantity==1) {
+				alert("수량은 0이 될 수 없습니다.");
+				return false;
+			} else {
+				
+				var selectPrice = $(this).parent().next().children().val();
+				
+				quantity -= 1; // 수량
+				totalPrice -= selectPrice; // 상품 전체 총금액
+				quanprice = selectPrice*quantity; // 해당 옵션에 수량곱해진금액
+				
+				$(this).next().text(quantity);
+				$(this).parent().next().html(quanprice.toLocaleString()+" 원<input type='hidden' name='price' value='"+selectPrice+"'/>");
+				$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
+			}
+			return false;
+		});
+		
+		$(document).on('click', '.optPlus', function(){
+			var selectPrice = $(this).parent().next().children().val();
+			var quantity = $(this).prev().text()*1;
+			
+			quantity += 1; // 수량
+			totalPrice += selectPrice*1; // 상품 전체 총금액
+			quanprice = selectPrice*quantity; // 해당 옵션에 수량곱해진금액
+			
+			$(this).prev().text(quantity);
+			$(this).parent().next().html(quanprice.toLocaleString()+" 원<input type='hidden' name='price' value='"+selectPrice+"'/>");
+			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
+			
+			return false;
+		});
+	});
+	
+	<!-- 장바구니 클릭시 -->
+	function cartInsert(pno) {
+		var optnameArr = [];
+		var priceArr = [];
+		var quantityArr = [];
+		var pno = pno;
+		var cnt = 0;
+		$(".p_detailSelect_ul").each(function(idx, ul){
+			var txt = $(ul).children().eq(0).text();
+			var txtStart = txt.indexOf("(");
+			var txtEnd = txt.indexOf(")")-3;
+			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
+			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
+			priceArr.push($(ul).children().eq(2).children().val());
+		});
+		$.ajax({
+			url : 'cartInsert',
+			dataType : 'json',
+			type: "POST",
+			data : { 
+				optnameArr : optnameArr,
+				priceArr : priceArr,
+				quantityArr : quantityArr,
+				pno : pno
+			}, success : function(result) {
+				if(result>0) {
+					if(confirm("장바구니에 등록되었습니다. 장바구니로 이동하시겠습니까?")) {
+						location.href="cartList";
+					} else {
+						location.href="productView?pno=${vo.pno}";
+					}
+				}
+			}, error : function(e) {
+				
+			}
+		});
+	}
+	
+	<!-- 찜하기 클릭시 -->
+	function dibsInsert(pno) {
+		var optnameArr = [];
+		var priceArr = [];
+		var quantityArr = [];
+		var pno = pno;
+		var cnt = 0;
+		$(".p_detailSelect_ul").each(function(idx, ul){
+			var txt = $(ul).children().eq(0).text();
+			var txtStart = txt.indexOf("(");
+			var txtEnd = txt.indexOf(")")-3;
+			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
+			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
+			priceArr.push($(ul).children().eq(2).children().val());
+		});
+		$.ajax({
+			url : 'dibsInsert',
+			dataType : 'json',
+			type: "POST",
+			data : {
+				optnameArr : optnameArr,
+				priceArr : priceArr,
+				quantityArr : quantityArr,
+				pno : pno
+			}, success : function(result) {
+				if(result>0) {
+					if(confirm("찜목록에 등록되었습니다. 찜목록으로 이동하시겠습니까?")) {
+						location.href="dibsList";
+					} else {
+						location.href="productView?pno=${vo.pno}";
+					}
+				}
+			}, error : function(e) {
+				
+			}
+		});
+	}
+	
+	<!-- 바로구매 클릭시 -->
+	function dibsInsert(pno) {
+		var optnameArr = [];
+		var priceArr = [];
+		var quantityArr = [];
+		var pno = pno;
+		var cnt = 0;
+		$(".p_detailSelect_ul").each(function(idx, ul){
+			var txt = $(ul).children().eq(0).text();
+			var txtStart = txt.indexOf("(");
+			var txtEnd = txt.indexOf(")")-3;
+			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
+			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
+			priceArr.push($(ul).children().eq(2).children().val());
+		});
+		$.ajax({
+			url : 'dibsInsert',
+			dataType : 'json',
+			type: "POST",
+			data : {
+				optnameArr : optnameArr,
+				priceArr : priceArr,
+				quantityArr : quantityArr,
+				pno : pno
+			}, success : function(result) {
+				if(result>0) {
+					if(confirm("찜목록에 등록되었습니다. 찜목록으로 이동하시겠습니까?")) {
+						location.href="dibsList";
+					} else {
+						location.href="productView?pno=${vo.pno}";
+					}
+				}
+			}, error : function(e) {
+				
+			}
+		});
+	}
+	
+	<!-- 상품문의 글 등록하기 -->
+	function pqnaInsert() {
+		var data = $("#p_qna_hiddenFrm").serialize();
+		$.ajax({
+			url : 'pqnaInsert',
+			data : data,
+			type : 'POST',
+			success : (result)=>{
+				if(result>0) {
+					alert("정상적으로 처리되었습니다.");
+					$("#p_qna_hidden").hide();
+					
+					$.ajax({
+						url : "pqnaView",
+						data : "pno=${vo.pno}",
+						success : function(result) {
+							var tag = "<h1>상품문의</h1><h3>해당 상품에 대한 문의만 답변이 가능하며 답변완료까지 1~5일이 소요될 수 있습니다.<br/>";
+								tag += "주문, 결제, 배송, 반품/교환 문의는 1:1문의를 이용해주세요.</h3>";
+								tag += "<a href='qnaList'><button type='button' class='clientSubBtn'>1:1문의 바로가기</button></a><br/>	<hr/>";
+							var $result = $(result);
+							$result.each((idx, val)=>{
+								tag += "<div>";
+								if(val.panswercontent=='답변 대기중 입니다.'){
+									tag += "<div class='p_qna_leftDiv'><img src='./img/question.jpg'/>";
+									tag += "</div><div class='p_qna_rightDiv'><ul>";
+									tag += "<li>답변대기중";
+									if(val.pqnaopen=='Y'){
+										tag += "<img src='./img/nolock.jpg'/></li>";
+										tag += "<li><a class='p_qna_answer' href='#s'>"+val.pqnasubject+"</a></li>";
+										tag += "<li style='display:none;'><div><p>Q. "+val.pqnacontent+"</p><p>A. "+val.panswercontent+"</p></div></li>";
+									} else {
+										tag += "<img src='./img/lock.jpg'/></li>";
+										tag += "<li><a class='p_qna_answer' href='#s'>사용자의 요청에 의해 비공개처리된 글입니다.</a></li>";
+										tag += "<li style='display:none;'><div><p>Q. 사용자의 요청에 의해 비공개처리된 글입니다.</p><p>A. 사용자의 요청에 의해 비공개처리된 글입니다.</p></div></li>";
+									}
+									tag += "</ul><div class='p_qna_sideDiv'>"+val.userid+" | "+val.pqnadate+"</div></div>";
+								} else {
+									tag += "<div class='p_qna_leftDiv'><img src='./img/done.jpg'/></div>";
+									tag += "<div class='p_qna_rightDiv'><ul><li>답변완료";
+									if (val.pqnaopen=='Y') {
+										tag += "<img src='./img/nolock.jpg'/></li>";
+										tag += "<li><a class='p_qna_answer' href='#s'>"+val.pqnasubject+"</a></li>";
+										tag += "<li style='display:none;'><div><p>Q. "+val.pqnacontent+"</p><p>A. "+val.panswercontent+"</p></div></li>"
+									} else {
+										tag += "<img src='./img/lock.jpg'/></li>";
+										tag += "<li><a class='p_qna_answer' href='#s'>사용자의 요청에 의해 비공개처리된 글입니다.</a></li>";
+										tag += "<li style='display:none;'><div><p>Q. 사용자의 요청에 의해 비공개처리된 글입니다.</p><p>A. 사용자의 요청에 의해 비공개처리된 글입니다.</p></div></li>";
+									}
+									tag += "</ul><div class='p_qna_sideDiv'>"+val.userid+" | "+val.pqnadate+"</div></div>";
+								}
+								tag += "</div>";
+							});
+							
+							tag += "<a href='javascript:hiddenOpen()'><button type='button' class='clientMainBtn'>상품문의글 작성</button></a><br/>";
+							tag += "<div id='p_qna_hidden'><h1>상품문의글 작성</h1>";
+							tag += "<form action='javascript:pqnaInsert()' method='post' id='p_qna_hiddenFrm'>";
+							tag += "<p>문의글 공개여부선택 : 	<input type='radio' name='pqnaopen' value='Y' checked='checked'>공개";
+							tag += "<input type='radio' name='pqnaopen' value='N'>비공개</p>";
+							tag += "<input type='hidden' name='pno' value='${vo.pno }' /><input type='text' name='pqnasubject' id='pqnasubject' placeholder='제목을 입력하세요'/><br />";
+							tag += "<textarea name='pqnacontent' id='pqnacontent' placeholder='문의내용을 입력하세요'></textarea><br/>";
+							tag += "<input type='submit' value='등록하기' class='clientMainBtn' /><button type='button' class='clientSubBtn' onclick='javascript:hiddenClose()'>취소하기</button>";
+							tag += "</form></div>";
+							
+							$("#p_pqna").html(tag);
+						}, error : function(e) {
+							
+						}
+					});
+				}
+			}, error : (e)=>{
+			
+			}
+		});
+	}
+</script>

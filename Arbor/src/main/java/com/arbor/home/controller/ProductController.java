@@ -24,10 +24,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.ProductServiceImp;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
 import com.google.gson.JsonObject;
+
 
 @Controller
 public class ProductController {
@@ -45,14 +47,9 @@ public class ProductController {
 		mav.addObject("list", productService.productListClient(subno));
 		mav.addObject("subCate", productService.subCateList(mainno));
 		mav.addObject("mainname", productService.mainnameSelect(mainno));
+		mav.addObject("opt", productService.productListRGB(subno));
 		mav.setViewName("client/product/productList");
 		return mav;
-	}
-	
-	@RequestMapping("/rgb")
-	@ResponseBody
-	public List<OptionVO> rgbSearch(int subno) {
-		return productService.productListRGB(subno);
 	}
 	
 	// View - 상품상세페이지
@@ -61,12 +58,26 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView();
 		ProductVO vo = productService.productSelect(pno);
 		mav.addObject("vo", vo);
-		mav.addObject("rgb", productService.productListRGB(vo.getSubno()));
+		mav.addObject("opt", productService.productListRGB(vo.getSubno()));
 		mav.addObject("optName", productService.optNameSelect(pno));
 		mav.addObject("optValue", productService.optValueSelect(pno));
 		mav.addObject("pqnalst", productService.pqnaViewList(pno));
+		mav.addObject("qnaList", productService.qnaViewList(pno));
 		mav.setViewName("client/product/productView");
 		return mav;
+	}
+	
+	// View - 상품상세, 옵션 셀렉트박스 변경시 Div추가
+	@RequestMapping(value="/productOptionView", method=RequestMethod.POST)
+	@ResponseBody
+	public List<OptionVO> productOptionView(
+			@RequestParam(value="optno[]",required=true) String[] optno) {
+		List<OptionVO> list = new ArrayList<OptionVO>();
+		for(int i=0; i<optno.length; i++) {
+			int opt = Integer.parseInt(optno[i]);
+			list.add(productService.productOptionView(opt));
+		}
+		return list;
 	}
 	
 	// 상품문의 등록
@@ -75,6 +86,13 @@ public class ProductController {
 	public int pqnaInsert(ProductQnaVO vo, HttpSession ses) {
 		vo.setUserid((String)ses.getAttribute("logId"));
 		return productService.pqnaInsert(vo);
+	}
+	
+	// 상품문의 등록 후 목록 다시 불러오기
+	@RequestMapping("/pqnaView")
+	@ResponseBody
+	public List<ProductQnaVO> pqnaView(int pno) {
+		return productService.pqnaViewList(pno);
 	}
 	
 	
@@ -130,7 +148,8 @@ public class ProductController {
 	@RequestMapping("/pqnaAnswerDelete")
 	public ModelAndView pqnaAnswerDelete(int pqnano) {
 		ModelAndView mav = new ModelAndView();
-		
+		productService.pqnaAnswerDelete(pqnano);
+		mav.setViewName("redirect:pqnaList");
 		return mav;
 	}
 	
@@ -392,7 +411,6 @@ public class ProductController {
 					}
 				}
 				// optiontbl 수정하기
-System.out.println("등록옵션몇개야?"+optNameArr.length);
 				if(optNameArr.length>0) {
 					for(int i=0; i<optNameArr.length; i++) {
 						OptionVO optvo = new OptionVO();
@@ -486,47 +504,54 @@ System.out.println("등록옵션몇개야?"+optNameArr.length);
 	
 	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
 	@RequestMapping("/productSearch")
-	public ModelAndView productSearch() {
-		ModelAndView mav = new ModelAndView();
+	public ModelAndView productSearch(HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		PageSearchVO pageVo = new PageSearchVO();
 		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		pageVo.setSearchKey(req.getParameter("searchKey"));
+		pageVo.setSearchWord(req.getParameter("searchWord"));
+		
+		pageVo.setTotalRecord(productService.totalRecord(pageVo));
+		
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("subCate", productService.subCateList(1));
 		mav.addObject("mainCate", productService.mainCateList());
-		mav.addObject("productList", productService.productList());
+		mav.addObject("productList", productService.productList(pageVo));
+		mav.addObject("pageVO", pageVo);
 		mav.setViewName("/admin/product/productSearch");
 		return mav;
 	}
 	
 	// SummerNote upload
-	@RequestMapping("/uploadSummernoteImageFile")
+	@RequestMapping(value="/uploadSummernoteImageFile", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public JsonObject uploadSummernoteImageFile(
+	public String uploadSummernoteImageFile(
 			@RequestParam("file") MultipartFile multipartFile,
 			HttpServletRequest req
 			) {
-		
-		JsonObject jsonObject = new JsonObject();
 		
 		// 저장할 경로 위치 설정 (웹루트로 업로드하면 빌드하고 재배포시 이미지가 사라짐 외부 경로에 잡아준다.)
 		String path = req.getSession().getServletContext().getRealPath("/summernote");
 		System.out.println(path);
 		// 파일명 구하기
 		String orgName = multipartFile.getOriginalFilename();
-		
 		// transferTo : 실제 업로드 발생
 		try {
 			if(orgName!=null && !orgName.equals("")) {
 				multipartFile.transferTo(new File(path, orgName));
 				// 업로드 시키기 (path경로에 orgName을 업로드 시킨다)
-				jsonObject.addProperty("url", "/home/summernote/"+orgName);
-				jsonObject.addProperty("responseCode", "success");
+				
 			}
 		} catch(Exception e) {
 			System.out.println("ProductController > summernote upload 에서 에러 발생!!!");
-			jsonObject.addProperty("responseCode", "error");
 			e.printStackTrace();
 		}
 		
-		return jsonObject;
+		return "/home/summernote/"+orgName;
 	}
 
 }
