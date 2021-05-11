@@ -1,15 +1,20 @@
 package com.arbor.home.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.OrderServiceImp;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
+import com.arbor.home.vo.SubOrderVO;
 
 @Controller
 public class OrderController {
@@ -36,12 +41,41 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/orderOk")
-	public ModelAndView orderOk(String applyNum, String paidAt) {
+	public ModelAndView orderOk(
+			OrderTblVO orderVo, String applyNum, HttpSession session,
+			@RequestParam(value="pno",required=true) int[] pnoArr,
+			@RequestParam(value="pname",required=true) String[] pnameArr,
+			@RequestParam(value="quantity",required=true) int[] quantityArr,
+			@RequestParam(value="subprice",required=true) int[] subpriceArr
+			) {
+		String userid = (String)session.getAttribute("logId");
+		orderVo.setUserid(userid);
+				
+		Date now = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+		String today = sdf.format(now);
+		String orderSeq = String.valueOf(orderService.getOrderSeq());
+		orderVo.setOrderno(today+"-"+orderSeq); //당일날짜+시퀀스 형식으로 주문번호 생성 (ex.210511003)
+		
+		if(orderService.orderComplete(orderVo)>0) {
+
+			System.out.println("=== SubOrderTblVO List ===");
+			for(int i=0; i<pnoArr.length; i++) {
+				SubOrderVO subVo = new SubOrderVO();
+				subVo.setOrderno(orderVo.getOrderno());
+				subVo.setPno(pnoArr[i]);
+				subVo.setPname(pnameArr[i]);
+				subVo.setQuantity(quantityArr[i]);
+				subVo.setSubprice(subpriceArr[i]);
+				
+				orderService.createSubOrderList(subVo);
+			}
+		}
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("memberVo", orderService.getMemberInfo(userid));
+		mav.addObject("pList", orderService.getSubOrderList(orderVo.getOrderno()));
+		mav.addObject("orderVo", orderService.getOrderInfo(orderVo.getOrderno()));
 		mav.addObject("applyNum", applyNum);
-		mav.addObject("paidAt", paidAt);
-		System.out.println("넘어온 승인번호->"+applyNum);
-		System.out.println("넘어온 승인시각->"+paidAt);
 		mav.setViewName("client/order/orderOk");
 		return mav;
 	}

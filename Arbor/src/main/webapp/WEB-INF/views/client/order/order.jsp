@@ -37,23 +37,21 @@
 			$('#j_usePoint').val('${pointVo.point}');
 		});
 		
-		
-		
-		//결제수단 선택
-		/*
-		$('.payType>label').click(function(){
-			if($('.payType>input').is(':checked')){
-				console.log("결제수단 선택해제");
-				$('payType>input').attr('checked', false);
-			}else{
-				console.log("결제수단 선택");				
-				$('payType>input').attr('checked', true);
-			}
-		});
-		*/
-		
 		//주문,결제페이지 유효성 검자
 		$('#checkoutBtn').on('click', function(){
+			
+			var totalPrice = $('#tPrice').text();
+			console.log("** totalPrice->"+totalPrice);
+			$('#j_totalPrice').attr('value', totalPrice);
+			var aaa = $('#j_totalPrice').val();
+			console.log('aaa->'+aaa);
+			
+			var plusPoint = $('#pPoint').text();
+			console.log("** plusPoint->"+plusPoint);
+			$('#j_plusPoint').attr('value', plusPoint);
+			var bbb = $('#j_plusPoint').val();
+			console.log('bbb->'+bbb)
+
 			if($('#j_username').val()=='' || $('#j_username').val()==null){
 				alert("주문자는 필수 입력 항목입니다.");
 				$('#j_username').focus();
@@ -101,13 +99,7 @@
 				alert("주문동의란을 확인하여 주시기 바랍니다.")
 				return false;
 			}
-			var totalPrice = $('#j_totalPrice span').text
-			console.log("totalPrice->"+totalPrice);
-			$('#j_totalPrice input[type="text"]').val(totalPrice);
-			var plusPoint = $('#j_plusPoint span').text
-			console.log("plusPoint->"+plusPoint);
-			$('#j_plusPoint input[type="text"]').val(plusPoint);
-			checkout();
+			$("#j_checkoutFrm").submit();
 		});
 		
 		//요청사항 직접입력
@@ -136,9 +128,9 @@
 		// 결제 //////////////////////////////
 		var IMP = window.IMP;
 		IMP.init('imp60549605');	//가맹점 key
-		var msg;
-		var applyNum;	//결제 승인번호
-		var paidAt;		//결제 승인시각
+		var msg="";
+		var applyNum="";	//결제 승인번호
+		var paidAt="";		//결제 승인시각
 		
 	 	IMP.request_pay({
 		    pg : 'inicis',
@@ -170,7 +162,8 @@
 		    }
 		    alert(msg);
 		    console.log("결제승인번호->"+applyNum+", 결제승인시각->"+paidAt);
-		    location.href="orderOk?applyNum="+applyNum+"&paidAt="+paidAt+"";
+		    $('#j_applyNum').attr('value', applyNum)
+		    $("#j_checkoutFrm").submit();
 		});
 	}
 	
@@ -240,295 +233,309 @@
 	         </ul>
 		</div>
 	</div>
-	<div class="j_orderTable" id="j_productInfo">	<!-- 상품정보 -->
-		<div class="j_orderTitle">상품정보</div>
-		<table>
-			<colgroup>
-				<col width="630px">
-				<col width="150px">
-				<col width="165px">
-				<col width="165px">
-				<col width="120px">
-				<col width="170px">
-			</colgroup>
-			<tr>
-				<td>상품정보</td>
-				<td>상품금액</td>
-				<td>할인금액</td>
-				<td>수량</td>
-				<td>배송비</td>
-				<td>주문금액</td>
-			</tr>
-			<tr class="j_productList">
-				<td class="j_pInfo">
-					<div>
-						<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
-						<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
+	<div>
+		<form method="post" id="j_checkoutFrm" action="orderOk">
+			<div class="j_orderTable" id="j_productInfo">	<!-- 상품정보 -->
+				<div class="j_orderTitle">상품정보</div>
+				<table>
+					<colgroup>
+						<col width="630px">
+						<col width="150px">
+						<col width="165px">
+						<col width="165px">
+						<col width="120px">
+						<col width="170px">
+					</colgroup>
+					<tr>
+						<td>상품정보</td>
+						<td>상품금액</td>
+						<td>할인금액</td>
+						<td>수량</td>
+						<td>배송비</td>
+						<td>주문금액</td>
+					</tr>
+					<tr class="j_productList">
+						<td class="j_pInfo">
+							<div>
+								<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
+								<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
+								<input type="hidden" name="pno" value="555"/>
+								<input type="hidden" name="pname" value="폭신폭신침대"/>
+								<input type="hidden" name="quantity" value="1"/>
+								<input type="hidden" name="subprice" value="3000"/>
+							</div>
+						</td>
+						<td>1,500,000</td>
+						<td>1,000,000</td>
+						<td>1</td>
+						<td>30,000</td>
+						<td>1,000,000</td>
+					</tr>
+					<tr class="j_productList">
+						<td class="j_pInfo">
+							<div>
+								<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
+								<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
+								<input type="hidden" name="pno" value="123"/>
+								<input type="hidden" name="pname" value="넓은식탁"/>
+								<input type="hidden" name="quantity" value="2"/>
+								<input type="hidden" name="subprice" value="10000"/>
+							</div>
+						</td>
+						<td>1,500,000</td>
+						<td>1,000,000</td>
+						<td>1</td>
+						<td>30,000</td>
+						<td>1,000,000</td>
+					</tr>
+				</table>
+			</div>
+			<div class="clearfix" id="orderCenterDiv"> <!-- 센터div -->
+				<div id="orderFrm_left"> <!-- 센터 왼쪽div -->
+					<div class="j_orderTable" id="j_userInfo">
+						<div class="j_orderTitle">주문자 정보</div>
+						<table>
+							<colgroup>
+								<col width="200px">
+								<col width="auto">
+							</colgroup>
+							<tr>
+								<td>주문자</td>
+								<td>
+									<input type="text" name="username" id="j_username" value="${memberVo.username }" size="30" readonly/>
+								</td>
+							</tr>
+							<tr>
+								<td>이메일</td>
+								<td>
+									<input type="text" name="emailid" id="j_emailid" value="${memberVo.emailid }" size="30" readonly/>@ 
+									<select name="emaildomain" id="j_emaildomain">
+										<option value="none">이메일 선택</option>
+										<option value="gmail" <c:if test="${memberVo.emaildomain=='gmail.com'}">selected</c:if>>gmail.com</option>
+										<option value="naver" <c:if test="${memberVo.emaildomain=='naver.com'}">selected</c:if>>naver.com</option>
+										<option value="daum" <c:if test="${memberVo.emaildomain=='daum.net'}">selected</c:if>>daum.net</option>
+										<option value="nate" <c:if test="${memberVo.emaildomain=='nate.com'}">selected</c:if>>nate.com</option>
+										<option value="hotmail" <c:if test="${memberVo.emaildomain=='hotmail.com'}">selected</c:if>>hotmail.com</option>					
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>연락처</td>
+								<td>
+									<select name="tel1" id="j_tel1">
+										<option value="010" <c:if test="${memberVo.tel1=='010'}">selected</c:if>>010</option>
+										<option value="011" <c:if test="${memberVo.tel1=='011'}">selected</c:if>>011</option>
+										<option value="070" <c:if test="${memberVo.tel1=='070'}">selected</c:if>>011</option>
+										<option value="02" <c:if test="${memberVo.tel1=='02'}">selected</c:if>>02</option>
+										<option value="031" <c:if test="${memberVo.tel1=='031'}">selected</c:if>>031</option>
+										<option value="032" <c:if test="${memberVo.tel1=='032'}">selected</c:if>>032</option>
+										<option value="033" <c:if test="${memberVo.tel1=='033'}">selected</c:if>>033</option>
+										<option value="041" <c:if test="${memberVo.tel1=='041'}">selected</c:if>>041</option>
+										<option value="042" <c:if test="${memberVo.tel1=='042'}">selected</c:if>>042</option>
+										<option value="043" <c:if test="${memberVo.tel1=='043'}">selected</c:if>>043</option>
+										<option value="044" <c:if test="${memberVo.tel1=='044'}">selected</c:if>>044</option>
+										<option value="051" <c:if test="${memberVo.tel1=='051'}">selected</c:if>>051</option>
+										<option value="052" <c:if test="${memberVo.tel1=='052'}">selected</c:if>>052</option>
+										<option value="053" <c:if test="${memberVo.tel1=='053'}">selected</c:if>>053</option>
+										<option value="054" <c:if test="${memberVo.tel1=='054'}">selected</c:if>>054</option>
+										<option value="055" <c:if test="${memberVo.tel1=='055'}">selected</c:if>>055</option>
+										<option value="061" <c:if test="${memberVo.tel1=='061'}">selected</c:if>>061</option>
+										<option value="062" <c:if test="${memberVo.tel1=='062'}">selected</c:if>>062</option>
+										<option value="063" <c:if test="${memberVo.tel1=='063'}">selected</c:if>>063</option>
+										<option value="064" <c:if test="${memberVo.tel1=='064'}">selected</c:if>>064</option>
+									</select>
+									- <input type="text" name="tel2" id="j_tel2" value="${memberVo.tel2 }" size="5" readonly/>
+									- <input type="text" name="tel3" id="j_tel3" value="${memberVo.tel3 }" size="5" readonly/>
+								</td>
+							</tr>
+						</table>
 					</div>
-				</td>
-				<td>1,500,000</td>
-				<td>1,000,000</td>
-				<td>1</td>
-				<td>30,000</td>
-				<td>1,000,000</td>
-			</tr>
-			<tr class="j_productList">
-				<td class="j_pInfo">
-					<div>
-						<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
-						<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
+					<div class="j_orderTable" id="j_shippingInfo"> <!-- 배송지정보 -->
+						<div id="j_orderFlex" >
+							<div class="j_orderTitle" class="clearfix">배송지 정보</div>
+							<span><input type="checkbox" id="j_desCheckBox"/><label for="j_desCheckBox">주문자 정보와 같음</label></span>
+						</div>
+						<table>
+							<colgroup>
+								<col width="200px">
+								<col width="auto">
+							</colgroup>
+							<tr>
+								<td>수령인</td>
+								<td>
+									<input type="text" name="arr" id="j_arr" size="30"/>
+								</td>
+							</tr>
+							<tr>
+								<td>주소</td>
+								<td id="j_addr">
+									<input type="text" name="arrzipcode" id="j_arrzipcode" size="15" placeholder="우편번호" readonly/>
+									<input type="button" value="우편번호 검색" class="clientSubBtn" onclick='daum_address()'><br/>
+									<input type="text" name="arraddr" id="j_arraddr" size="65" placeholder="기본주소" readonly/><br/>
+									<input type="text" name="arrdetailaddr" id="j_arrdetailaddr" size="65" placeholder="상세주소" readonly/>			
+								</td>
+							</tr>
+							<tr>
+								<td>연락처</td>
+								<td>
+									<select name="arrtel1" id="j_arrtel1">
+										<option value="010" <c:if test="${memberVo.tel1=='010'}">selected</c:if>>010</option>
+										<option value="011" <c:if test="${memberVo.tel1=='011'}">selected</c:if>>011</option>
+										<option value="070" <c:if test="${memberVo.tel1=='070'}">selected</c:if>>011</option>
+										<option value="02" <c:if test="${memberVo.tel1=='02'}">selected</c:if>>02</option>
+										<option value="031" <c:if test="${memberVo.tel1=='031'}">selected</c:if>>031</option>
+										<option value="032" <c:if test="${memberVo.tel1=='032'}">selected</c:if>>032</option>
+										<option value="033" <c:if test="${memberVo.tel1=='033'}">selected</c:if>>033</option>
+										<option value="041" <c:if test="${memberVo.tel1=='041'}">selected</c:if>>041</option>
+										<option value="042" <c:if test="${memberVo.tel1=='042'}">selected</c:if>>042</option>
+										<option value="043" <c:if test="${memberVo.tel1=='043'}">selected</c:if>>043</option>
+										<option value="044" <c:if test="${memberVo.tel1=='044'}">selected</c:if>>044</option>
+										<option value="051" <c:if test="${memberVo.tel1=='051'}">selected</c:if>>051</option>
+										<option value="052" <c:if test="${memberVo.tel1=='052'}">selected</c:if>>052</option>
+										<option value="053" <c:if test="${memberVo.tel1=='053'}">selected</c:if>>053</option>
+										<option value="054" <c:if test="${memberVo.tel1=='054'}">selected</c:if>>054</option>
+										<option value="055" <c:if test="${memberVo.tel1=='055'}">selected</c:if>>055</option>
+										<option value="061" <c:if test="${memberVo.tel1=='061'}">selected</c:if>>061</option>
+										<option value="062" <c:if test="${memberVo.tel1=='062'}">selected</c:if>>062</option>
+										<option value="063" <c:if test="${memberVo.tel1=='063'}">selected</c:if>>063</option>
+										<option value="064" <c:if test="${memberVo.tel1=='064'}">selected</c:if>>064</option>
+									</select>
+									- <input type="text" name="arrtel2" id="j_arrtel2" size="5"/>
+									- <input type="text" name="arrtel3" id="j_arrtel3" size="5"/>
+								</td>
+							</tr>
+							<tr>
+								<td>배송시 요청사항</td>
+								<td>
+									<select name="request" id="j_request">
+										<option value="none">배송 시 요청사항을 선택해 주세요.</option>
+										<option value="부재시 문앞에 놓아주세요.">부재시 문앞에 놓아주세요.</option>
+										<option value="부재시 경비실에 맡겨 주세요.">부재시 경비실에 맡겨 주세요.</option>
+										<option value="부재시 전화 또는 문자 주세요.">부재시 전화 또는 문자 주세요.</option>
+										<option value="택배함에 넣어주세요.">택배함에 넣어주세요.</option>
+										<option value="배송전에 연락주세요.">배송전에 연락주세요.</option>
+										<option value="직접입력" id="j_inputRequest">직접 입력</option>
+									</select> 
+									<input type="hidden" name=""/>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<p>- 특정 상품 및 도서산간 지역의 경우 추후 수령 시 추가 배송비가 발생할 수 있습니다.</p>
+									<p>- 배송지 불분명 및 수신불가 연락처 기입으로 반송되는 왕복 택배 비용은 구매자 부담으로 정확한 주소 및 연락처를 필수 기입해 주시기 바랍니다.</p>
+								</td>
+							</tr>
+						</table>
 					</div>
-				</td>
-				<td>1,500,000</td>
-				<td>1,000,000</td>
-				<td>1</td>
-				<td>30,000</td>
-				<td>1,000,000</td>
-			</tr>
-		</table>
-	</div>
-	<div class="clearfix" id="orderCenterDiv"> <!-- 센터div -->
-		<div id="orderFrm_left"> <!-- 센터 왼쪽div -->
-			<div class="j_orderTable" id="j_userInfo">
-				<div class="j_orderTitle">주문자 정보</div>
-				<table>
-					<colgroup>
-						<col width="200px">
-						<col width="auto">
-					</colgroup>
-					<tr>
-						<td>주문자</td>
-						<td>
-							<input type="text" name="username" id="j_username" value="${memberVo.username }" size="30" readonly/>
-						</td>
-					</tr>
-					<tr>
-						<td>이메일</td>
-						<td>
-							<input type="text" name="emailid" id="j_emailid" value="${memberVo.emailid }" size="30" readonly/>@ 
-							<select name="emaildomain" id="j_emaildomain">
-								<option value="none">이메일 선택</option>
-								<option value="gmail" <c:if test="${memberVo.emaildomain=='gmail.com'}">selected</c:if>>gmail.com</option>
-								<option value="naver" <c:if test="${memberVo.emaildomain=='naver.com'}">selected</c:if>>naver.com</option>
-								<option value="daum" <c:if test="${memberVo.emaildomain=='daum.net'}">selected</c:if>>daum.net</option>
-								<option value="nate" <c:if test="${memberVo.emaildomain=='nate.com'}">selected</c:if>>nate.com</option>
-								<option value="hotmail" <c:if test="${memberVo.emaildomain=='hotmail.com'}">selected</c:if>>hotmail.com</option>					
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>연락처</td>
-						<td>
-							<select name="tel1" id="j_tel1">
-								<option value="010" <c:if test="${memberVo.tel1=='010'}">selected</c:if>>010</option>
-								<option value="011" <c:if test="${memberVo.tel1=='011'}">selected</c:if>>011</option>
-								<option value="070" <c:if test="${memberVo.tel1=='070'}">selected</c:if>>011</option>
-								<option value="02" <c:if test="${memberVo.tel1=='02'}">selected</c:if>>02</option>
-								<option value="031" <c:if test="${memberVo.tel1=='031'}">selected</c:if>>031</option>
-								<option value="032" <c:if test="${memberVo.tel1=='032'}">selected</c:if>>032</option>
-								<option value="033" <c:if test="${memberVo.tel1=='033'}">selected</c:if>>033</option>
-								<option value="041" <c:if test="${memberVo.tel1=='041'}">selected</c:if>>041</option>
-								<option value="042" <c:if test="${memberVo.tel1=='042'}">selected</c:if>>042</option>
-								<option value="043" <c:if test="${memberVo.tel1=='043'}">selected</c:if>>043</option>
-								<option value="044" <c:if test="${memberVo.tel1=='044'}">selected</c:if>>044</option>
-								<option value="051" <c:if test="${memberVo.tel1=='051'}">selected</c:if>>051</option>
-								<option value="052" <c:if test="${memberVo.tel1=='052'}">selected</c:if>>052</option>
-								<option value="053" <c:if test="${memberVo.tel1=='053'}">selected</c:if>>053</option>
-								<option value="054" <c:if test="${memberVo.tel1=='054'}">selected</c:if>>054</option>
-								<option value="055" <c:if test="${memberVo.tel1=='055'}">selected</c:if>>055</option>
-								<option value="061" <c:if test="${memberVo.tel1=='061'}">selected</c:if>>061</option>
-								<option value="062" <c:if test="${memberVo.tel1=='062'}">selected</c:if>>062</option>
-								<option value="063" <c:if test="${memberVo.tel1=='063'}">selected</c:if>>063</option>
-								<option value="064" <c:if test="${memberVo.tel1=='064'}">selected</c:if>>064</option>
-							</select>
-							- <input type="text" name="tel2" id="j_tel2" value="${memberVo.tel2 }" size="5" readonly/>
-							- <input type="text" name="tel3" id="j_tel3" value="${memberVo.tel3 }" size="5" readonly/>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="j_orderTable" id="j_shippingInfo"> <!-- 배송지정보 -->
-				<div id="j_orderFlex" >
-					<div class="j_orderTitle" class="clearfix">배송지 정보</div>
-					<span><input type="checkbox" id="j_desCheckBox"/>주문자 정보와 같음</span>
-				</div>
-				<table>
-					<colgroup>
-						<col width="200px">
-						<col width="auto">
-					</colgroup>
-					<tr>
-						<td>수령인</td>
-						<td>
-							<input type="text" name="arr" id="j_arr" size="30"/>
-						</td>
-					</tr>
-					<tr>
-						<td>주소</td>
-						<td id="j_addr">
-							<input type="text" name="arrzipcode" id="j_arrzipcode" size="15" placeholder="우편번호" readonly/>
-							<input type="button" value="우편번호 검색" class="clientSubBtn" onclick='daum_address()'><br/>
-							<input type="text" name="arraddr" id="j_arraddr" size="65" placeholder="기본주소" readonly/><br/>
-							<input type="text" name="arrdetailaddr" id="j_arrdetailaddr" size="65" placeholder="상세주소" readonly/>			
-						</td>
-					</tr>
-					<tr>
-						<td>연락처</td>
-						<td>
-							<select name="arrtel1" id="j_arrtel1">
-								<option value="010" <c:if test="${memberVo.tel1=='010'}">selected</c:if>>010</option>
-								<option value="011" <c:if test="${memberVo.tel1=='011'}">selected</c:if>>011</option>
-								<option value="070" <c:if test="${memberVo.tel1=='070'}">selected</c:if>>011</option>
-								<option value="02" <c:if test="${memberVo.tel1=='02'}">selected</c:if>>02</option>
-								<option value="031" <c:if test="${memberVo.tel1=='031'}">selected</c:if>>031</option>
-								<option value="032" <c:if test="${memberVo.tel1=='032'}">selected</c:if>>032</option>
-								<option value="033" <c:if test="${memberVo.tel1=='033'}">selected</c:if>>033</option>
-								<option value="041" <c:if test="${memberVo.tel1=='041'}">selected</c:if>>041</option>
-								<option value="042" <c:if test="${memberVo.tel1=='042'}">selected</c:if>>042</option>
-								<option value="043" <c:if test="${memberVo.tel1=='043'}">selected</c:if>>043</option>
-								<option value="044" <c:if test="${memberVo.tel1=='044'}">selected</c:if>>044</option>
-								<option value="051" <c:if test="${memberVo.tel1=='051'}">selected</c:if>>051</option>
-								<option value="052" <c:if test="${memberVo.tel1=='052'}">selected</c:if>>052</option>
-								<option value="053" <c:if test="${memberVo.tel1=='053'}">selected</c:if>>053</option>
-								<option value="054" <c:if test="${memberVo.tel1=='054'}">selected</c:if>>054</option>
-								<option value="055" <c:if test="${memberVo.tel1=='055'}">selected</c:if>>055</option>
-								<option value="061" <c:if test="${memberVo.tel1=='061'}">selected</c:if>>061</option>
-								<option value="062" <c:if test="${memberVo.tel1=='062'}">selected</c:if>>062</option>
-								<option value="063" <c:if test="${memberVo.tel1=='063'}">selected</c:if>>063</option>
-								<option value="064" <c:if test="${memberVo.tel1=='064'}">selected</c:if>>064</option>
-							</select>
-							- <input type="text" name="arrtel2" id="j_arrtel2" size="5"/>
-							- <input type="text" name="arrtel3" id="j_arrtel3" size="5"/>
-						</td>
-					</tr>
-					<tr>
-						<td>배송시 요청사항</td>
-						<td>
-							<select name="request" id="j_request">
-								<option value="none">배송 시 요청사항을 선택해 주세요.</option>
-								<option value="문앞">부재시 문앞에 놓아주세요.</option>
-								<option value="경비실">부재시 경비실에 맡겨 주세요.</option>
-								<option value="전화문자">부재시 전화 또는 문자 주세요.</option>
-								<option value="택배함">택배함에 넣어주세요.</option>
-								<option value="연락">배송전에 연락주세요.</option>
-								<option value="직접입력" id="j_inputRequest">직접 입력</option>
-							</select> 
-							<input type="hidden" name=""/>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<p>- 특정 상품 및 도서산간 지역의 경우 추후 수령 시 추가 배송비가 발생할 수 있습니다.</p>
-							<p>- 배송지 불분명 및 수신불가 연락처 기입으로 반송되는 왕복 택배 비용은 구매자 부담으로 정확한 주소 및 연락처를 필수 기입해 주시기 바랍니다.</p>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="j_orderTable" id="j_couponInfo">
-				<div class="j_orderTitle">적립금 및 쿠폰</div>	<!-- Coupon / Discount -->
-				<table>
-					<colgroup>
-						<col width="200px">
-						<col width="auto">
-					</colgroup>
-					<tr>
-						<td>적립금 사용</td>
-						<td>
-							<input type="text" name="usepoint" id="j_usePoint" placeholder="0"/>
-							<input type="button" class="clientSubBtn" id="j_allPoint" value="모두 사용"/>
-							<span>보유 적립금 <c:if test="${pointVo.point!=null }">${pointVo.point}</c:if><c:if test="${pointVo.point==null }">0</c:if>p</span>
-						</td>
-					</tr>
-					<tr>
-						<td>쿠폰 사용</td>
-						<td>
-							<select name="usecoupon">
-								<option>사용가능 쿠폰 ${cpnCount }장</option>
-								<c:if test="${cpnCount>0}">
-									<c:forEach var="cpnVo" items="${list }">
-										<option>${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
-									</c:forEach>
-								</c:if>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<p>- 할인쿠폰 제외 상품이 포함되어 있는 경우, 해당 제품을 제외하고 할인이 적용됩니다.</p>
-							<p>- 쿠폰에 따라 최대 쿠폰 사용 금액이 제한될 수 있습니다.</p>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="j_orderTable" id="j_paymentInfo">
-				<div class="j_orderTitle">결제수단</div>
-				<table>
-					<colgroup>
-						<col width="200px">
-						<col width="auto">
-					</colgroup>
-					<tr>
-						<td>결제수단</td>
-						<td>
-							<span><input type="radio" name="payType" id="j_creditCard"/>신용카드</span>
-							<!-- <span><input type="radio" name="payType" id="j_naverPay"/>네이버페이</span>
-							<span><input type="radio" name="payType" id="j_kakaoPay"/>카카오페이</span> -->
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>	<!-- 센터 왼쪽div -->
-		<div id="orderFrm_right">	<!-- 센터 오른쪽div -->
-			<div id="j_paymentDetail">
-				<div>
-					<p>결제정보</p>
-					<table>
-						<colgroup>
-							<col width="100px">
-							<col width="auto">
-						</colgroup>
-						<tr>
-							<td>주문상품금액</td>
-							<td>2,434,600원</td>
-						</tr>
-						<tr>
-							<td>할인금액</td>
-							<td>246,700원</td>
-						</tr>
-						<tr>
-							<td>적립금 사용</td>
-							<td>5,000원</td>
-						</tr>
-						<tr>
-							<td>쿠폰 사용</td>
-							<td>10,000원</td>
-						</tr>
-						<tr>
-							<td>배송비</td>
-							<td>30,000원</td>
-						</tr>
-					</table>
-					<div id="j_totalPrice">
-						<p>총 결제예정금액</p>
-						<p><span>2,202,900</span>원</p>
-						<input type="hidden" name="totalprice"/>
+					<div class="j_orderTable" id="j_couponInfo">
+						<div class="j_orderTitle">적립금 및 쿠폰</div>	<!-- Coupon / Discount -->
+						<table>
+							<colgroup>
+								<col width="200px">
+								<col width="auto">
+							</colgroup>
+							<tr>
+								<td>적립금 사용</td>
+								<td>
+									<input type="text" name="usepoint" id="j_usePoint" value="0"/>
+									<input type="button" class="clientSubBtn" id="j_allPoint" value="모두 사용"/>
+									<span>보유 적립금 <c:if test="${pointVo.point!=null }">${pointVo.point}</c:if><c:if test="${pointVo.point==null }">0</c:if>p</span>
+								</td>
+							</tr>
+							<tr>
+								<td>쿠폰 사용</td>
+								<td>
+									<select>
+										<option>사용가능 쿠폰 ${cpnCount }장</option>
+										<c:if test="${cpnCount>0}">
+											<c:forEach var="cpnVo" items="${list }">
+												<option>${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
+												<input type="hidden" name="usecoupon" value="${cpnVo.cpnname }"/>
+											</c:forEach>
+										</c:if>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<p>- 할인쿠폰 제외 상품이 포함되어 있는 경우, 해당 제품을 제외하고 할인이 적용됩니다.</p>
+									<p>- 쿠폰에 따라 최대 쿠폰 사용 금액이 제한될 수 있습니다.</p>
+								</td>
+							</tr>
+						</table>
 					</div>
-					<div id="j_plusPoint">
-						<p>적립예정금액<span>23,500</span>원</p>
-						<input type="hidden" name="pluspoint"/>
-					</div>					
-				</div>
-				<div id="j_orderRegulation">
-					<p><b>주문동의</b></p>
-					<p>주문할 상품의 상품명, 상품가격, 배송정보를 확인하였으며, 구매에 동의하시겠습니까?<br/>
-					(전자상거래법 제8조 제2항)<br/><br/>
-					주문제작상품의 경우, 교환/반품이 불가능하다는 내용을 확인하였으며 이에 동의합니다.</p>
-					<p><input type="checkbox"/> <b>동의합니다.</b></p>
-				</div>
-				<input type="button" class="clientMainBtn" id="checkoutBtn" value="결제하기"/>
-			</div>		
-		</div>	<!-- 센터 오른쪽div -->
-	</div>	<!-- 센터div -->
+					<div class="j_orderTable" id="j_paymentInfo">
+						<div class="j_orderTitle">결제수단</div>
+						<table>
+							<colgroup>
+								<col width="200px">
+								<col width="auto">
+							</colgroup>
+							<tr>
+								<td>결제수단</td>
+								<td>
+									<input type="radio" name="payType" id="j_creditCard"/><label for="j_creditCard">신용카드</label>
+									<!-- <span><input type="radio" name="payType" id="j_naverPay"/>네이버페이</span>
+									<span><input type="radio" name="payType" id="j_kakaoPay"/>카카오페이</span> -->
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>	<!-- 센터 왼쪽div -->
+				<div id="orderFrm_right">	<!-- 센터 오른쪽div -->
+					<div id="j_paymentDetail">
+						<div>
+							<p>결제정보</p>
+							<table>
+								<colgroup>
+									<col width="100px">
+									<col width="auto">
+								</colgroup>
+								<tr>
+									<td>주문상품금액</td>
+									<td>2,434,600원</td>
+								</tr>
+								<tr>
+									<td>할인금액</td>
+									<td>246,700원</td>
+								</tr>
+								<tr>
+									<td>적립금 사용</td>
+									<td>5,000원</td>
+								</tr>
+								<tr>
+									<td>쿠폰 사용</td>
+									<td>10,000원</td>
+								</tr>
+								<tr>
+									<td>배송비</td>
+									<td>30,000원</td>
+								</tr>
+							</table>
+							<div>
+								<p>총 결제예정금액</p>
+								<p><span id="tPrice">3202900</span>원</p>
+								<input type="hidden" id="j_totalPrice" name="totalprice" value=""/>
+							</div>
+							<div>
+								<p>적립예정금액 <span id="pPoint">23500</span>원</p>
+								<input type="hidden" id="j_plusPoint" name="pluspoint" value=""/>
+							</div>
+						</div>
+						<input type="hidden" name="applyNum" id="j_applyNum" value=""/>
+						<div id="j_orderRegulation">
+							<p><b>주문동의</b></p>
+							<p>주문할 상품의 상품명, 상품가격, 배송정보를 확인하였으며, 구매에 동의하시겠습니까?<br/>
+							(전자상거래법 제8조 제2항)<br/><br/>
+							주문제작상품의 경우, 교환/반품이 불가능하다는 내용을 확인하였으며 이에 동의합니다.</p>
+							<p><input type="checkbox" id="orderAgree"/> <label for=orderAgree><b>동의합니다.</b></label></p>
+						</div>
+						<input type="button" class="clientMainBtn" id="checkoutBtn" value="결제하기"/>
+					</div>		
+				</div>	<!-- 센터 오른쪽div -->
+			</div>	<!-- 센터div -->
+		</form>
+	</div>	
 </div>
