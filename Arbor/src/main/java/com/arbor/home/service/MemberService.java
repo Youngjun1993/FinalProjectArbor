@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.MemberDAOImp;
+import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemberVO;
 
 @Service
@@ -86,11 +87,15 @@ public class MemberService implements MemberServiceImp {
 	}
 	
 	@Override
-	public List<MemberVO> memSearchPaging(MemberVO mvo) {
+	public List<MemberVO> memSearchPaging(MemPagingCri cri) {
 		
-		return memberDAO.memSearchPaging(mvo);
+		return memberDAO.memSearchPaging(cri);
 	}
-	
-	
+
+	@Override
+	public int memCount() {
+		
+		return memberDAO.memCount();
+	}
 	
 }

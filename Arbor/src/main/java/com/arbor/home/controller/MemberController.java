@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.MemberServiceImp;
+import com.arbor.home.vo.MemPagingCri;
+import com.arbor.home.vo.MemPagingDTO;
 import com.arbor.home.vo.MemberVO;
 
 @Controller
@@ -138,16 +140,21 @@ public class MemberController {
 		return "home";
 	}
 	
-	//회원 전체검색
+	//회원 전체검색 및 페이징
 	@RequestMapping("/memberSearch")
-	public ModelAndView memberSearchList(MemberVO vo) {
+	public ModelAndView memberSearchList(MemPagingCri cri) {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		System.out.println("테스트페이지 값 = " + vo.getPageNum());
+		System.out.println("테스트페이지 값 = " + cri.getPageNum());
 		
-		mav.addObject("list", memberService.memSearchPaging(vo));
-		mav.addObject("pageMaker", new MemberVO(56));//전체데이터가 담긴 memberVO 객체
+		int cnt= memberService.memCount();
+		MemPagingDTO pageMaker = new MemPagingDTO(cri, cnt);
+		
+		mav.addObject("list", memberService.memSearchPaging(cri));
+		
+		mav.addObject("pageMaker", pageMaker);//전체데이터가 담긴 memberVO 객체
+		
 		mav.setViewName("admin/member/memberAdminSearch");
 		
 		return mav;

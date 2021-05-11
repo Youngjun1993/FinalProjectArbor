@@ -2,6 +2,7 @@ package com.arbor.home.service;
 
 import java.util.List;
 
+import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemberVO;
 
 public interface MemberServiceImp {
@@ -45,7 +46,9 @@ public interface MemberServiceImp {
 	public int memberUpdateOk(MemberVO vo);
 	
 	//회원검색 전체선택 +  페이징
-	public List<MemberVO> memSearchPaging(MemberVO mvo);
+	public List<MemberVO> memSearchPaging(MemPagingCri cri);
 	
-		
+	//총회원수 카운트(활성, 휴면 만)
+	public int memCount();
+	
 }

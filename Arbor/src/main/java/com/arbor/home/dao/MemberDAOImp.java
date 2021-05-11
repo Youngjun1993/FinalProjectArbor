@@ -2,6 +2,7 @@ package com.arbor.home.dao;
 
 import java.util.List;
 
+import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemberVO;
 
 public interface MemberDAOImp {
@@ -45,6 +46,9 @@ public interface MemberDAOImp {
 	public int memberUpdateOk(MemberVO vo);
 	
 	//회원검색 페이징
-	public List<MemberVO> memSearchPaging(MemberVO mvo);
+	public List<MemberVO> memSearchPaging(MemPagingCri cri);
+	
+	//총회원수 카운트(활성, 휴면 만)
+	public int memCount();
 	
 }

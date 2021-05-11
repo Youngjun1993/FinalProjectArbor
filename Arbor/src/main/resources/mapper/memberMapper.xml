@@ -107,4 +107,8 @@
 			where rn > (#{pageNum} - 1) * #{amount}
 		]]>
 	</select>
+	
+	<select id="memCount" resultType="int">
+		select count(*) from member where memstat in(0,1)
+	</select>
 </mapper>
