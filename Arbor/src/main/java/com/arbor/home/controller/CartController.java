@@ -36,8 +36,6 @@ public class CartController {
 			HttpSession ses
 			) {
 		String[] optnameArr = req.getParameterValues("optnameArr");
-System.out.println("priceArr?"+priceArr.length);
-System.out.println("quantityArr?"+quantityArr.length);
 		int result = 0;
 		for(int i=0; i<priceArr.length; i++) {
 			CartVO vo = new CartVO();
@@ -50,13 +48,11 @@ System.out.println("quantityArr?"+quantityArr.length);
 			vo.setPno(Integer.parseInt(pnoStr));
 			vo.setPrice(Integer.parseInt(priceArr[i]));
 			vo.setQuantity(Integer.parseInt(quantityArr[i]));
-System.out.println(vo.getPno()+","+vo.getUserid()+","+vo.getOptionvalue()+","+vo.getPrice());
 			int res = cartService.cartInsert(vo);
 			if(res>0) {
 				result++;
 			}
 		}
-System.out.println("결과?"+result);
 		return result;
 	}
 }
