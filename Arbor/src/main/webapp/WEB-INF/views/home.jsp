@@ -26,21 +26,21 @@ $(function(){
 //자동이벤트
 $(function(){
 	$(document).ready(function(){
-		$('#d_homeleft').delay(1500).one("click",function(){
+		$('#d_homeleft').delay(1000).one("click",function(){
 			$(this).animate({
 				opacity: '0',
 				left: '-50%'
-			},1200);
+			},1000);
 		});
-		$('#d_homeright').delay(1500).one("click",function(){
+		$('#d_homeright').delay(1000).one("click",function(){
 			$(this).animate({
 				opacity: '0',
 				left: '100%',
 				width: '0'
-			},1200);
+			},1000);
 		});
 		$("#topFont").one("click",function(){
-			$(this).delay(2000).animate({
+			$(this).delay(1500).animate({
 				opacity: '1',
 				top: '50%'
 				

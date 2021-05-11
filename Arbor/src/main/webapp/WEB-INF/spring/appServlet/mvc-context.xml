@@ -17,6 +17,7 @@
 			<mvc:mapping path="/pqnaInsert"/>
 			<mvc:mapping path="/dibsList"/> <!-- 찜목록 -->
 			<mvc:mapping path="/cartList"/> <!-- 장바구니 -->
+			<mvc:mapping path="/cartInsert"/>
 			<bean class="com.arbor.home.interceptor.Logininterceptor_Client"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>

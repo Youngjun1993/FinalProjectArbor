@@ -1,19 +1,20 @@
 package com.arbor.home.vo;
 
-public class CartVO {
-	private int cartno;
+public class DibsVO {
+	private int dibsno;
 	private int pno;
 	private String userid;
 	private int quantity;
 	private String optionvalue;
 	private int price;
+	private String dibsdate;
 	
-	public int getCartno() {
-		return cartno;
+	public int getDibsno() {
+		return dibsno;
 	}
 
-	public void setCartno(int cartno) {
-		this.cartno = cartno;
+	public void setDibsno(int dibsno) {
+		this.dibsno = dibsno;
 	}
 
 	public int getPno() {
@@ -56,7 +57,15 @@ public class CartVO {
 		this.price = price;
 	}
 
-	public CartVO() {
+	public String getDibsdate() {
+		return dibsdate;
+	}
+
+	public void setDibsdate(String dibsdate) {
+		this.dibsdate = dibsdate;
+	}
+
+	public DibsVO() {
 		// TODO Auto-generated constructor stub
 	}
 

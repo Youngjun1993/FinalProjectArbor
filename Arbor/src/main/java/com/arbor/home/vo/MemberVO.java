@@ -33,7 +33,8 @@ public class MemberVO {
 	//검색 데이터저장용	
 	private String searchCate;
 	private String searchWord;
-		
+
+	
 	public String[] getUserList() {
 		return userList;
 	}
@@ -177,6 +178,5 @@ public class MemberVO {
 	public void setMemstat(int memstat) {
 		this.memstat = memstat;
 	}
-	
 	
 }

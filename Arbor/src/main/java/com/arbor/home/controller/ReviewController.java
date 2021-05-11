@@ -43,4 +43,12 @@ public class ReviewController {
 		}
 		return mav;
 	}
+	
+	// Admin 컨트롤러 //
+	@RequestMapping("/reviewAdList")
+	public ModelAndView reviewAdList() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/review/reviewAdList");
+		return mav;
+	}
 }

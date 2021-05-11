@@ -5,7 +5,7 @@
   
 <mapper namespace="com.arbor.home.dao.MemberDAOImp">
 	<!-- memstat 0 활성 1 휴면 2 탈퇴 -->
-	
+	  
 	<!-- 회원가입 -->
 	<insert id="memberInsert" parameterType="com.arbor.home.vo.MemberVO">
 		insert into member(userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, regdate, lastdate, memstat)
@@ -17,29 +17,7 @@
 	<select id="idCheck" resultType="int">
   		select count(*) from member where userid = #{userid}
   	</select>
-  	<!-- 회원검색 리스트 -->
-	<select id="memberAllselect" resultType="com.arbor.home.vo.MemberVO">
-	 	select userid, username, email, tel, to_char(regdate, 'YY-MM-DD HH:MI') regdate, to_char(lastdate, 'YY-MM-DD HH:MI') lastdate, smsok, emailok, memstat from member
-                <if test="searchWord!=null">
-                  where ${searchCate} like '%${searchWord}%'
-                </if>
-                <if test='emailok=="All"' >
-                	and emailok in ('Y','N')
-                </if>
-                <if test='emailok=="Y"'>
-                    and emailok = 'Y'
-                </if>
-                <if test='emailok=="N"'>
-                    and emailok = 'N'
-                </if>
-                <if test='smsok=="Y"'>
-                    and smsok = 'Y'
-                </if>
-                <if test='smsok=="N"'>
-                    and smsok = 'N'
-                </if>
-		 order by userid desc
-	</select>
+  	
 	<!-- 로그아웃 시간기록 -->
 	<update id="lastDateUpdate">
 		update member set lastdate = TO_DATE(#{param1},'YYYYMMDDHH24miss') where userid = #{param2}
@@ -93,5 +71,44 @@
 	<!-- 회원 업데이트 -->
 	<update id="memberUpdateOk" parameterType="com.arbor.home.vo.MemberVO">
 		update member set userpwd = #{userpwd}, zipcode = #{zipcode}, addr=#{addr}, detailaddr=#{detailaddr}, tel=#{tel}, email=#{email} where userid = #{userid}
-	</update>	
+	</update>
+
+	<!-- 회원검색 리스트 -->
+	<select id="memberAllselect" resultType="com.arbor.home.vo.MemberVO">
+	 	select userid, username, email, tel, to_char(regdate, 'YY-MM-DD HH:MI') regdate, to_char(lastdate, 'YY-MM-DD HH:MI') lastdate, smsok, emailok, memstat from member
+                <if test="searchWord!=null">
+                  where ${searchCate} like '%${searchWord}%'
+                </if>
+                <if test='emailok=="All"' >
+                	and emailok in ('Y','N')
+                </if>
+                <if test='emailok=="Y"'>
+                    and emailok = 'Y'
+                </if>
+                <if test='emailok=="N"'>
+                    and emailok = 'N'
+                </if>
+                <if test='smsok=="Y"'>
+                    and smsok = 'Y'
+                </if>
+                <if test='smsok=="N"'>
+                    and smsok = 'N'
+                </if>
+		 order by userid desc
+	</select>
+	
+	<!-- 회원검색 페이징 -->
+	<select id="memSearchPaging" resultType="com.arbor.home.vo.MemberVO">
+		<![CDATA[
+			select * from
+			(select /*+ INDEX_asc(member pk_member) */ userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, to_char(regdate, 'YY-MM-DD HH:MI') regdate, to_char(lastdate, 'YY-MM-DD HH:MI') lastdate, memstat, rownum as rn
+			from member where rownum <= #{pageNum} * #{amount} and memstat in (0,1)
+			)
+			where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	<select id="memCount" resultType="int">
+		select count(*) from member where memstat in(0,1)
+	</select>
 </mapper>

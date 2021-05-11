@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.MemberDAOImp;
+import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemberVO;
 
 @Service
@@ -28,12 +29,6 @@ public class MemberService implements MemberServiceImp {
 	@Override
 	public int idCheck(String userid) {
 		return memberDAO.idCheck(userid);
-	}
-
-	@Override
-	public List<MemberVO> memberAllselect(MemberVO vo) {
-		
-		return memberDAO.memberAllselect(vo);
 	}
 
 	@Override
@@ -91,6 +86,16 @@ public class MemberService implements MemberServiceImp {
 		return memberDAO.insertByeMemberMulti(userid, reason);
 	}
 	
-	
+	@Override
+	public List<MemberVO> memSearchPaging(MemPagingCri cri) {
+		
+		return memberDAO.memSearchPaging(cri);
+	}
+
+	@Override
+	public int memCount() {
+		
+		return memberDAO.memCount();
+	}
 	
 }

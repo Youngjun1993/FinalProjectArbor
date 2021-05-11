@@ -7,6 +7,13 @@
 			location.href="qnaDel?no=${vo.qnano}"
 		}
 	}
+	$(function(){
+		$("#y_leftMenu>ul>li:nth-child(5) a").css({
+			"font-weight":"bold",
+			"background" :"rgb(94, 94, 94)",
+			"color":"#fff"
+		});
+	});
 </script>
 <div id="y_qnaView_wrap" class="w1400_container clearfix">
         <div id="y_leftMenu">
@@ -31,9 +38,9 @@
             </div>
             <c:if test="${vo.answercontent == null || vo.answercontent == '' }">
 	            <ul class="clearfix">
-	                <li><a href="qnaList">목록</a></li>
-	                <li><a href="javascript:qnaDel(${vo.qnano })">삭제</a></li>
-	                <li><a href="qnaEdit?qnano=${vo.qnano }">수정</a></li>
+	                <li><a href="qnaList" class="clientMainBtn">목록</a></li>
+	                <li><a href="javascript:qnaDel(${vo.qnano })" class="clientSubBtn">삭제</a></li>
+	                <li><a href="qnaEdit?qnano=${vo.qnano }" class="clientSubBtn">수정</a></li>
 	            </ul>
             </c:if>
             <c:if test="${vo.answercontent!=null }">
@@ -44,7 +51,7 @@
 	                </p>
 	            </div>
 	            <div>
-            		<a href="qnaList" id="y_qnaListBtn">목록</a>
+            		<a href="qnaList" id="y_qnaListBtn" class="clientMainBtn">목록</a>
             	</div>
             </c:if>            
         </div>
