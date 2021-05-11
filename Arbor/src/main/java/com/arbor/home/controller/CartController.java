@@ -29,19 +29,19 @@ public class CartController {
 	@RequestMapping(value="/cartInsert", method=RequestMethod.POST)
 	@ResponseBody
 	public int cartInsert(
+			@RequestParam(value="optnameArr[]", required=true) String[] optnameArr,
 			@RequestParam(value="priceArr[]", required=true) String[] priceArr,
 			@RequestParam(value="quantityArr[]", required=true) String[] quantityArr,
 			@RequestParam(value="pno", required=true) String pnoStr,
 			HttpServletRequest req,
 			HttpSession ses
 			) {
-		String[] optnameArr = req.getParameterValues("optnameArr");
 		int result = 0;
 		for(int i=0; i<priceArr.length; i++) {
 			CartVO vo = new CartVO();
 			vo.setUserid((String)ses.getAttribute("logId"));
-			if(optnameArr==null) {
-				vo.setOptionvalue(null);
+			if(optnameArr.length==0) {
+				vo.setOptionvalue("");
 			} else {
 				vo.setOptionvalue(optnameArr[i]);
 			}

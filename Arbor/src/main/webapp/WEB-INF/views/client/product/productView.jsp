@@ -355,12 +355,10 @@
 					cnt++;
 				}
 			});
-			console.log("cnt?"+cnt);
 			if(cnt==${optName.size()}) {
 				$("select[name=optname] option:selected").each(function(idx, select){
 					optnoStr.push($(select).val());
 				});
-				console.log("data?"+optnoStr);
 				$.ajax({
 					url : 'productOptionView',
 					dataType : 'json',
@@ -441,13 +439,13 @@
 		var optnameArr = [];
 		var priceArr = [];
 		var quantityArr = [];
-		var pnameLength = '${vo.pname}'.length+4;
 		var pno = pno;
 		var cnt = 0;
 		$(".p_detailSelect_ul").each(function(idx, ul){
 			var txt = $(ul).children().eq(0).text();
-			var txtLength = txt.length-18;
-			optnameArr.push(txt.substr(pnameLength, txtLength));
+			var txtStart = txt.indexOf("(");
+			var txtEnd = txt.indexOf(")")-3;
+			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
 			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
 			priceArr.push($(ul).children().eq(2).children().val());
 		});
@@ -479,14 +477,13 @@
 		var optnameArr = [];
 		var priceArr = [];
 		var quantityArr = [];
-		var pnameLength = '${vo.pname}'.length+4;
 		var pno = pno;
 		var cnt = 0;
 		$(".p_detailSelect_ul").each(function(idx, ul){
 			var txt = $(ul).children().eq(0).text();
-			var txtLength = txt.length-18;
-			optnameArr.push(txt.substr(pnameLength, txtLength));
-console.log(optnameArr[idx]);
+			var txtStart = txt.indexOf("(");
+			var txtEnd = txt.indexOf(")")-3;
+			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
 			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
 			priceArr.push($(ul).children().eq(2).children().val());
 		});
@@ -494,10 +491,8 @@ console.log(optnameArr[idx]);
 			url : 'dibsInsert',
 			dataType : 'json',
 			type: "POST",
-			data : { 
-				
-					optnameArr : optnameArr,
-				
+			data : {
+				optnameArr : optnameArr,
 				priceArr : priceArr,
 				quantityArr : quantityArr,
 				pno : pno

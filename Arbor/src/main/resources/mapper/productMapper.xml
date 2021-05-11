@@ -18,9 +18,9 @@
  	
  	<insert id="productInsert" parameterType="com.arbor.home.vo.ProductVO">
  		insert into product(pno, subno, pname, stock, allstock, pprice, saleprice, img1,
- 		<if test='#{img2}!=null || #{img2}!=""'>img2, </if>description)
+ 		<if test='#{img2}!=null and #{img2}!=""'>img2, </if>description)
  		values(productsq.nextval, ${subno}, #{pname}, ${stock}, ${allstock}, ${pprice}, ${saleprice},
- 		#{img1}, <if test='#{img2}!=null || #{img2}!=""'> #{img2}, </if>#{description})
+ 		#{img1}, <if test='#{img2}!=null and #{img2}!=""'> #{img2}, </if>#{description})
  	</insert>
  	
  	<insert id="optionInsert" parameterType="com.arbor.home.vo.OptionVO">

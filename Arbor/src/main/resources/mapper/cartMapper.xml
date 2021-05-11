@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.arbor.home.dao.CartDAOImp">
 	<insert id="cartInsert" parameterType="com.arbor.home.vo.CartVO">
-		insert into cart(cartno, pno, userid, quantity<if test="optionvalue!=null">, optionvalue</if>, price)
-		values(cartsq.nextval, ${pno}, #{userid}, ${quantity}<if test="optionvalue!=null">, #{optionvalue}</if>, ${price})
+		insert into cart(cartno, pno, userid, quantity<if test='#{optionvalue}!=null and #{optionvalue}!=""'>, optionvalue</if>, price)
+		values(cartsq.nextval, ${pno}, #{userid}, ${quantity}<if test='#{optionvalue}!=null and #{optionvalue}!=""'>, #{optionvalue}</if>, ${price})
 	</insert>
 </mapper>

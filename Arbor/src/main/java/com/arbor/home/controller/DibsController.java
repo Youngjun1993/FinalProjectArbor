@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,9 +24,9 @@ public class DibsController {
 		return "client/dibs/dibsList";
 	}
 	
-	@RequestMapping(value="/dibsInsert", method=RequestMethod.POST)
+	@RequestMapping(value="/dibsInsert", method= RequestMethod.POST)
 	@ResponseBody
-	public int dibsInsert(
+	public int dibsInsert(@Nullable
 			@RequestParam(value="optnameArr[]", required=true) String[] optnameArr,
 			@RequestParam(value="priceArr[]", required=true) String[] priceArr,
 			@RequestParam(value="quantityArr[]", required=true) String[] quantityArr,
@@ -37,8 +38,8 @@ public class DibsController {
 		for(int i=0; i<priceArr.length; i++) {
 			DibsVO vo = new DibsVO();
 			vo.setUserid((String)ses.getAttribute("logId"));
-			if(optnameArr==null) {
-				vo.setOptionvalue(null);
+			if(optnameArr.length==0) {
+				vo.setOptionvalue("");
 			} else {
 				vo.setOptionvalue(optnameArr[i]);
 			}
