@@ -57,8 +57,8 @@
 			</div>
 			<div id="p_totalDiv">
 				총 상품금액 <span id="p_totalprice">0 원</span><br/>
-				<input type="submit" value="찜하기" formaction="/cart" class="clientSubBtn"/>
-				<input type="submit" value="장바구니" formaction="cartList" class="clientSubBtn"/>
+				<input type="submit" value="찜하기" formaction="dibsList" class="clientSubBtn"/>
+				<input type="submit" value="장바구니" formaction="cartInsert" class="clientSubBtn"/>
 				<input type="submit" value="바로구매" formaction="order" class="clientMainBtn"/>
 			</div>
 			<span id="p_detailMenu_up"></span>
