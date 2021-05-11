@@ -1,0 +1,58 @@
+@charset "UTF-8";
+.y_Adrightcon{
+    width: 1200px;
+    float: right;
+}
+/*쿠폰관리 리스트*/
+#y_adminCouponList_rightcon h2{
+    text-align: center;
+    height: 100px;
+    line-height: 100px;
+}
+#y_adminCouponList_rightcon>div{
+    background:  rgb(191,43,53);
+    color: #fff;
+    height: 150px;
+    width: 49%;
+    float: left;
+    margin-top: 1%;
+}
+#y_adminCouponList_rightcon>div:nth-of-type(even){
+    margin-left: 1%;
+}
+#y_adminCouponList_rightcon>div div:first-child{
+    padding: 10px 0;
+    background: #333;
+}
+#y_adminCouponList_rightcon>div div:first-child span{
+    width: 100%;
+    border: 1px dotted #fff;
+    display: block;
+}
+#y_adminCouponList_rightcon>div div:nth-child(2){
+    width: 200px;
+    padding: 25px 0;
+    background: rgb(248,244,236);
+    color: #333;
+    font-weight: bold;
+    float: left;
+    margin-left: 15px;
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+#y_adminCouponList_rightcon>div ul{
+    float: right;
+    width: 350px;
+    margin-top: 10px;
+    text-align: center;
+}
+#y_adminCouponList_rightcon>div ul li:first-child{
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+#y_adminCouponList_rightcon>div ul li:last-child button{
+    width: 50px;
+    margin-top: 5px;
+}

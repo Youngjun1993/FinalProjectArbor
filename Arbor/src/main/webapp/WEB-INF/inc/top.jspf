@@ -9,9 +9,10 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/main.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/productList.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/productView.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/order.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/orderOk.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/noticeList.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/noticeView.css" type="text/css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/order.css" type="text/css"/>
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/qna.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/myPage.css" type="text/css" />
@@ -199,3 +200,192 @@ $(function(){
 		</div>
 	</div>
 </header>
+=======
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/qna.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/myPage.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/memberQuit.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/cart.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/dibs.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/client/productList.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/client/ScrollTrigger.min.js"></script>
+<!-- LightWidget WIDGET --><script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
+<script>
+
+//헤더이벤트
+$(function(){
+	// Hide Header on on scroll down 
+	var didScroll; 
+	var lastScrollTop = 0; 
+	var delta = 5; 
+	var navbarHeight = $('header').outerHeight(); 
+	
+	$(window).scroll(function(event){ 
+		didScroll = true;
+	}); 
+	
+	setInterval(function() {
+		if (didScroll) {
+			hasScrolled();
+			didScroll = false;
+			}
+		}, 250);
+	
+	function hasScrolled() {
+		var st = $(this).scrollTop();
+		
+		
+		if(Math.abs(lastScrollTop - st) <= delta)
+			return;
+		
+		if (st > lastScrollTop && st > navbarHeight){
+			// Scroll Down
+			$('header').removeClass('nav-down').addClass('nav-up');
+			} else {
+				// Scroll Up
+				if(st + $(window).height() < $(document).height()) {
+					$('header').removeClass('nav-up').addClass('nav-down');
+					}
+				}
+		
+		lastScrollTop = st;
+		
+	}
+});
+
+
+//
+
+	$(function(){
+		var $firstMenu = $('nav > ul > li:nth-of-type(1)'),
+			$subMenu = $('.d_sub_menu');
+		
+		
+		$firstMenu.mouseenter(function(){
+			$subMenu.stop().animate({top:'112px'},400);
+		})
+		.mouseleave(function(){
+			$subMenu.stop().animate({top:'-400px'},400);
+		});
+		$subMenu.mouseenter(function(){
+			$subMenu.stop().animate({top:'112px'},400);
+		})
+		.mouseleave(function(){
+			$subMenu.stop().animate({top:'-400px'},400);
+		});
+		
+		//2번째 서브
+		$(function(){
+			var $firstMenu = $('nav > ul > li:nth-of-type(2)'),
+			$subMenu = $('.d_sub_menu2');
+		
+			$firstMenu.mouseenter(function(){
+				$subMenu.stop().animate({top:'112px'},400);
+			})
+			.mouseleave(function(){
+				$subMenu.stop().animate({top:'-400px'},400);
+			});
+			$subMenu.mouseenter(function(){
+				$subMenu.stop().animate({top:'112px'},400);
+			})
+			.mouseleave(function(){
+				$subMenu.stop().animate({top:'-400px'},400);
+			});
+			
+		});
+		
+		
+		//3번째 서브
+		$(function(){
+			var $firstMenu = $('nav > ul > li:nth-of-type(3)'),
+			$subMenu = $('.d_sub_menu3');
+			
+			$firstMenu.mouseenter(function(){
+				$subMenu.stop().animate({top:'112px'},400);
+			})
+			.mouseleave(function(){
+				$subMenu.stop().animate({top:'-400px'},400);
+			});
+			$subMenu.mouseenter(function(){
+				$subMenu.stop().animate({top:'112px'},400);
+			})
+			.mouseleave(function(){
+				$subMenu.stop().animate({top:'-400px'},400);
+			});
+		});
+		
+	});
+	
+</script>
+</head>
+<body onselectstart="return false" ondragstart="return false">
+<header>
+	<div id="d_topline">Funiture is not bulit in a day</div>
+	<div id="d_logo"><a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/img/logogo.png"/></a></div>
+	<nav>
+		<ul>
+			<li><a href="">FUNITURE</a></li>
+			<li><a href="">COMMUNITY</a></li>
+			<li><a href="event">EVENT</a></li>
+			<li><a href="">ABOUT US</a></li>
+			<c:if test="${logName==null || logName=='' }">
+			<li><a href="joinform">JOIN</a></li>
+			</c:if>
+			<c:if test="${logName!=null && logName!='' }">
+			<li><a href="purchaseList">MyPage</a></li>
+			</c:if>
+			<c:if test="${logName==null || logName=='' }">
+				<li><a href="login">LOGIN</a></li>
+			</c:if>
+			<c:if test="${logName!=null && logName!='' }">
+				<li><a href="logout">LOGOUT</a></li>
+			</c:if>
+		</ul>
+	</nav>
+	<div class="d_sub_menu">
+		<c:forEach var="main" items="${mainList}">
+		<div class="d_col">
+			<ul>
+				<li>${main.mainname}</li>
+				<c:forEach var="sub" items="${subList }">
+					<c:if test="${main.mainno == sub.mainno }">
+						<li><a href="productList?mainno=${main.mainno }&subno=${sub.subno}">${sub.subname}</a></li>
+					</c:if>
+				</c:forEach>
+			</ul>
+		</div>
+		</c:forEach>
+		<div class="d_col">
+			<img src="<%=request.getContextPath() %>/img/header_img1.jpg">
+		</div>
+	</div>
+	<div class="d_sub_menu2">
+		<div class="d_col">
+			<ul>
+				<li>COMMUNITY</li>
+				<li><a href="noticeList">공지사항</a></li>
+				<li><a href="">자주묻는 질문</a></li>
+			</ul>
+		</div>
+		<div class="d_col">
+			<img src="<%=request.getContextPath() %>/img/header_img2.jpg">
+		</div>
+	</div> 
+	<div class="d_sub_menu3">
+		<div class="d_col">
+			<ul>
+				<li>EVENT</li>
+				<li><a href="event?title=timeSale">TIME SALE</a></li>
+				<li><a href="event?title=nowEvent">진행중인 이벤트</a></li>
+				<li><a href="event?title=endEvent">지난 이벤트</a></li>
+			</ul>
+		</div>
+		<div class="d_col">
+			<img src="<%=request.getContextPath() %>/img/header_img3.jpg">
+		</div>
+	</div>
+</header>
+>>>>>>> refs/remotes/origin/myPageYj

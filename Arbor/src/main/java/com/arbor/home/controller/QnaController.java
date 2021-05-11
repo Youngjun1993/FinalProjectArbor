@@ -171,6 +171,21 @@ public class QnaController {
 		}
 		return mav;
 	}
+	@RequestMapping("/qnaAnsAdUpdate")
+	public ModelAndView qnaAnsAdUpdate(int qnano, String answercontent, HttpServletRequest req) {
+		
+		int cnt = qnaService.qnaAdUpdate(qnano, answercontent);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("qnano", qnano);
+		
+		if(cnt>0) {
+			mav.setViewName("redirect:qnaNoAnswerList");
+		}else {
+			mav.setViewName("redirect:qnaAdView");
+		}
+		return mav;
+	}
 	@RequestMapping("/qnaAdDel")
 	public ModelAndView qnaAdDel(int no) {
 		

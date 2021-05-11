@@ -26,6 +26,10 @@
     width: 1250px;
     float: right;
 }
+.y_Adrightcon{
+    width: 1200px;
+    float: right;
+}
 /* qnaList 스타일*/
 #y_list_rightcon>h2{
 	margin-bottom: 20px;
@@ -209,11 +213,6 @@
 }
 /*///////////////////////////////////////*/
 /* ADMIN List */
-#leftcon{
-    width: 150px;
-    float: left;
-}
-
 #y_adminQnaList_rightcon>p{
     height: 100px;
     line-height: 100px;
