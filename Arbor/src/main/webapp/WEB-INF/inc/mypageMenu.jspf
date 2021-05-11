@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="y_myPageTop">
         <ul class="clearfix">
-            <li><b>${username }</b>님 환영합니다.</li>
+            <li class="clearfix"><b>${username }</b>님 환영합니다.<br/><a href="cartList" class="cartDibsBtn clientMainBtn">장바구니</a> <a href="dibsList" class="cartDibsBtn clientMainBtn">찜목록</a></li >
             <li>
                 <span><i class="fas fa-gem fa-3x"></i></span>
                 <span>적립금<br/>
 	                <a href="pointList" class="ftBold25_blue">
-						<c:if test="${pointVO.point!=null }">{pointVO.point}</c:if>
+						<c:if test="${pointVO.point!=null }">${pointVO.point}</c:if>
 						<c:if test="${pointVO.point==null }">0</c:if></a> 원
 				</span>
             </li>

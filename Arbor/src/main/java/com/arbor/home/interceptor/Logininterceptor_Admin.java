@@ -16,7 +16,7 @@ public class Logininterceptor_Admin extends HandlerInterceptorAdapter {
 		// 로그인 정보 구하기
 		String userid = (String) req.getSession().getAttribute("logId");
 		try {
-			if(userid==null || !userid.equals("admin")) {
+			if(userid==null || userid=="" || !userid.equals("admin")) {
 				if(isAjaxRequest(req)) {
 					res.sendError(400);
 					return false;

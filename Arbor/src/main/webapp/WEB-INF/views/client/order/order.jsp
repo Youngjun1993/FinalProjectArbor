@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/order.css" type="text/css"/>
 <!-- 다음 주소록 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- jQuery -->
@@ -102,6 +101,12 @@
 				alert("주문동의란을 확인하여 주시기 바랍니다.")
 				return false;
 			}
+			var totalPrice = $('#j_totalPrice span').text
+			console.log("totalPrice->"+totalPrice);
+			$('#j_totalPrice input[type="text"]').val(totalPrice);
+			var plusPoint = $('#j_plusPoint span').text
+			console.log("plusPoint->"+plusPoint);
+			$('#j_plusPoint input[type="text"]').val(plusPoint);
 			checkout();
 		});
 		
@@ -132,6 +137,8 @@
 		var IMP = window.IMP;
 		IMP.init('imp60549605');	//가맹점 key
 		var msg;
+		var applyNum;	//결제 승인번호
+		var paidAt;		//결제 승인시각
 		
 	 	IMP.request_pay({
 		    pg : 'inicis',
@@ -152,6 +159,9 @@
 		        msg2 += ' / 상점 거래ID : ' + rsp.merchant_uid;
 		        msg2 += ' / 결제 금액 : ' + rsp.paid_amount;
 		        msg2 += ' / 카드 승인번호 : ' + rsp.apply_num;
+		        msg2 += ' / 결제승인시각 : ' + rsp.paid_at;
+		        applyNum = rsp.apply_num;
+		        paidAt = rsp.paid_at;
 		        console.log(msg2);
 		    }else{
 		    	var msg = '결제에 실패하였습니다.';
@@ -159,7 +169,8 @@
 		   		console('에러내용 : ' + rsp.error_msg);
 		    }
 		    alert(msg);
-		   /*  location.href="orderOk"; */
+		    console.log("결제승인번호->"+applyNum+", 결제승인시각->"+paidAt);
+		    location.href="orderOk?applyNum="+applyNum+"&paidAt="+paidAt+"";
 		});
 	}
 	
@@ -203,19 +214,32 @@
 				$("#j_arrdetailaddr").focus();
 			}			
 		}).open();
+		
+		
 	}
-	
-	
-	
-	
-	
-	
-	
+
 </script>
 </head>
 <body>
-<div class="w1400_container font_ng">
-	<h1 style="margin-bottom:40px;">주문서 작성</h1>
+
+<div class="w1400_container font_ng" id="j_order_wrap">
+	<div>
+		<!-- <h1>주문/결제</h1> -->
+		<div>
+			<ul class="clearfix">
+				<li><i class="fas fa-cart-arrow-down fa-3x"></i></li>
+				<li></li>
+				<li><i class="far fa-credit-card fa-3x"></i></li>
+				<li></li>
+				<li><i class="far fa-check-square fa-3x"></i></li>
+			</ul>
+	         <ul class="clearfix">
+	             <li>장바구니</li>
+	             <li>주문/결제</li>
+	             <li>주문완료</li>
+	         </ul>
+		</div>
+	</div>
 	<div class="j_orderTable" id="j_productInfo">	<!-- 상품정보 -->
 		<div class="j_orderTitle">상품정보</div>
 		<table>
@@ -238,7 +262,7 @@
 			<tr class="j_productList">
 				<td class="j_pInfo">
 					<div>
-						<img src="<%=request.getContextPath() %>/img/eventTest.PNG" style="width:100px;height:150px"/> <!-- 상품이미지 -->
+						<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
 						<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
 					</div>
 				</td>
@@ -251,7 +275,7 @@
 			<tr class="j_productList">
 				<td class="j_pInfo">
 					<div>
-						<img src="<%=request.getContextPath() %>/img/eventTest.PNG" style="width:100px;height:150px"/> <!-- 상품이미지 -->
+						<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
 						<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
 					</div>
 				</td>
@@ -340,7 +364,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="v-h">주소</td>
+						<td>주소</td>
 						<td id="j_addr">
 							<input type="text" name="arrzipcode" id="j_arrzipcode" size="15" placeholder="우편번호" readonly/>
 							<input type="button" value="우편번호 검색" class="clientSubBtn" onclick='daum_address()'><br/>
@@ -380,7 +404,7 @@
 					<tr>
 						<td>배송시 요청사항</td>
 						<td>
-							<select id="j_request" name="request">
+							<select name="request" id="j_request">
 								<option value="none">배송 시 요청사항을 선택해 주세요.</option>
 								<option value="문앞">부재시 문앞에 놓아주세요.</option>
 								<option value="경비실">부재시 경비실에 맡겨 주세요.</option>
@@ -395,8 +419,8 @@
 					<tr>
 						<td></td>
 						<td>
-							<p>- 도서산간 지역의 경우 추후 수령 시 추가 배송비가 발생할 수 있으며, 해외배송은 불가합니다.</p>
-							<p>- 배송지 불분명 및 수신불가 연락처 기입으로 반송되는 왕복 택배 비용은 구매자 부담으로 정확한 주소 및 통화 가능한 연락처 필수 기입.</p>
+							<p>- 특정 상품 및 도서산간 지역의 경우 추후 수령 시 추가 배송비가 발생할 수 있습니다.</p>
+							<p>- 배송지 불분명 및 수신불가 연락처 기입으로 반송되는 왕복 택배 비용은 구매자 부담으로 정확한 주소 및 연락처를 필수 기입해 주시기 바랍니다.</p>
 						</td>
 					</tr>
 				</table>
@@ -411,14 +435,15 @@
 					<tr>
 						<td>적립금 사용</td>
 						<td>
-							<input type="text" name="usePoint" id="j_usePoint" placeholder="0"/>
-							<input type="button" class="clientSubBtn" id="j_allPoint" value="모두 사용"/><span>보유 적립금 ${pointVo.point}p</span>
+							<input type="text" name="usepoint" id="j_usePoint" placeholder="0"/>
+							<input type="button" class="clientSubBtn" id="j_allPoint" value="모두 사용"/>
+							<span>보유 적립금 <c:if test="${pointVo.point!=null }">${pointVo.point}</c:if><c:if test="${pointVo.point==null }">0</c:if>p</span>
 						</td>
 					</tr>
 					<tr>
 						<td>쿠폰 사용</td>
 						<td>
-							<select>
+							<select name="usecoupon">
 								<option>사용가능 쿠폰 ${cpnCount }장</option>
 								<c:if test="${cpnCount>0}">
 									<c:forEach var="cpnVo" items="${list }">
@@ -432,8 +457,6 @@
 						<td></td>
 						<td>
 							<p>- 할인쿠폰 제외 상품이 포함되어 있는 경우, 해당 제품을 제외하고 할인이 적용됩니다.</p>
-							<p>- 브랜드쿠폰과 보너스쿠폰은 중복사용이 불가능합니다.</p>
-							<p>- 일부 상품(할인쿠폰제외상품)에는 보너스쿠폰이 적용되지 않습니다.</p>
 							<p>- 쿠폰에 따라 최대 쿠폰 사용 금액이 제한될 수 있습니다.</p>
 						</td>
 					</tr>
@@ -450,8 +473,8 @@
 						<td>결제수단</td>
 						<td>
 							<span><input type="radio" name="payType" id="j_creditCard"/>신용카드</span>
-							<span><input type="radio" name="payType" id="j_naverPay"/>네이버페이</span>
-							<span><input type="radio" name="payType" id="j_kakaoPay"/>카카오페이</span>
+							<!-- <span><input type="radio" name="payType" id="j_naverPay"/>네이버페이</span>
+							<span><input type="radio" name="payType" id="j_kakaoPay"/>카카오페이</span> -->
 						</td>
 					</tr>
 				</table>
@@ -490,7 +513,12 @@
 					<div id="j_totalPrice">
 						<p>총 결제예정금액</p>
 						<p><span>2,202,900</span>원</p>
+						<input type="hidden" name="totalprice"/>
 					</div>
+					<div id="j_plusPoint">
+						<p>적립예정금액<span>23,500</span>원</p>
+						<input type="hidden" name="pluspoint"/>
+					</div>					
 				</div>
 				<div id="j_orderRegulation">
 					<p><b>주문동의</b></p>
@@ -503,27 +531,4 @@
 			</div>		
 		</div>	<!-- 센터 오른쪽div -->
 	</div>	<!-- 센터div -->
-	
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
