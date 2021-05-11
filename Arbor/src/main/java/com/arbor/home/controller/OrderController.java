@@ -35,26 +35,16 @@ public class OrderController {
 		return mav;
 	}
 	
-	@RequestMapping("/order2")
-	public ModelAndView orderPage2(MemberVO memberVo, OrderTblVO orderVo, HttpSession session) {
+	@RequestMapping("/orderOk")
+	public ModelAndView orderOk(String applyNum, String paidAt) {
 		ModelAndView mav = new ModelAndView();
-		String userid = (String)session.getAttribute("logId");
-		System.out.println("userid==>"+userid);
-		if(userid == null || userid.equals("")) {
-			mav.setViewName("admin/member/login");
-		}else {
-			orderVo.setUserid(userid);
-			System.out.println("userid->"+userid + ", getUserid()->"+orderVo.getUserid());
-			mav.addObject("memberVo", orderService.getMemberInfo(userid));
-			mav.addObject("pointVo", orderService.getUserPoint(userid));
-			mav.addObject("list", orderService.getUserCoupon(userid));
-			mav.addObject("cpnCount", orderService.getCouponCount(userid));			
-			mav.setViewName("client/order/order2");
-		}
+		mav.addObject("applyNum", applyNum);
+		mav.addObject("paidAt", paidAt);
+		System.out.println("넘어온 승인번호->"+applyNum);
+		System.out.println("넘어온 승인시각->"+paidAt);
+		mav.setViewName("client/order/orderOk");
 		return mav;
 	}
-	
-	
 	
 	
 }
