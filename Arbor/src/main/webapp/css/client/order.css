@@ -1,5 +1,56 @@
 @charset "UTF-8";
 
+/* 주문페이지 상단 */
+#j_order_wrap>div:nth-child(1) h1{
+    text-align: center;
+    height: 100px;
+    line-height: 100px;
+    margin-bottom: 20px;
+}
+#j_order_wrap>div:nth-child(1) div{
+    width: 600px;
+    margin: 50px auto;
+}
+#j_order_wrap>div:nth-child(1) div ul:first-child li:nth-child(odd){
+    width: 45px;
+    float: left;
+    text-align: center;
+    border-radius: 100px;
+    background: #eee;
+    padding: 40px;
+    color: #aaa;
+}
+#j_order_wrap>div:nth-child(1) div ul:first-child li:nth-child(even){
+    float: left;
+    width: 50px;
+    border-top: 5px dotted #eee;
+    margin: 65px 30px 0 30px;
+}
+#j_order_wrap>div:nth-child(1) div ul:first-child li:nth-child(3){
+    background: rgb(93,121,115);
+    color: #fff;
+}
+#j_order_wrap>div:nth-child(1) div ul:last-child{
+    margin-top: 5px;
+}
+#j_order_wrap>div:nth-child(1) div ul:last-child li{
+    float: left;
+    text-align: center;
+    width: 125px;
+    margin-right: 110px;
+    color:#aaa;
+    font-weight: bold;
+}
+#j_order_wrap>div:nth-child(1) div ul:last-child li:nth-child(2){
+    color: rgb(93,121,115);
+}
+#j_order_wrap>div:nth-child(1) div ul:last-child li:last-child{
+    margin: 0;
+}
+
+/*-----------------
+	주문/결제 페이지
+------------------*/
 /* class */
 .j_orderTitle{
  	margin: 25px 0 0 5px;
@@ -34,7 +85,6 @@
 }
 
 #orderCenterDiv{
-	/* display: flex; */
 	height: 1000px;
 }
 #orderCenterDiv>div{
@@ -68,6 +118,10 @@
 .j_pInfo>div{
 	display: flex;
 	align-items: center;
+}
+.j_pInfo>div>img{
+	width:150px;
+	height:150px
 }
 .j_pInfo>div>div{
 	display: flex;
