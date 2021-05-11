@@ -1,6 +1,7 @@
 package com.arbor.home.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,7 @@ public class CartController {
 	CartServiceImp cartService;
 	
 	@RequestMapping("/cartList")
-	public ModelAndView cartList(int pno, int optno, 
-			@RequestParam(value="price") int price) {
+	public ModelAndView cartList() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("client/cart/cartList");
 		return mav;
@@ -28,25 +28,35 @@ public class CartController {
 	
 	@RequestMapping(value="/cartInsert", method=RequestMethod.POST)
 	@ResponseBody
-	public int cartInsert(int pno,
-			@RequestParam(value="optnameArr[]", required=true) String[] optnameArr,
+	public int cartInsert(
 			@RequestParam(value="priceArr[]", required=true) String[] priceArr,
 			@RequestParam(value="quantityArr[]", required=true) String[] quantityArr,
+			@RequestParam(value="pno", required=true) String pnoStr,
+			HttpServletRequest req,
 			HttpSession ses
 			) {
-		String userid = (String)ses.getAttribute("logId");
-		CartVO vo = new CartVO();
+		String[] optnameArr = req.getParameterValues("optnameArr");
+System.out.println("priceArr?"+priceArr.length);
+System.out.println("quantityArr?"+quantityArr.length);
 		int result = 0;
-		for(int i=0; i<optnameArr.length; i++) {
-			vo.setUserid(userid);
-			vo.setOptionvalue(optnameArr[i]);
-			vo.setPno(pno);
+		for(int i=0; i<priceArr.length; i++) {
+			CartVO vo = new CartVO();
+			vo.setUserid((String)ses.getAttribute("logId"));
+			if(optnameArr==null) {
+				vo.setOptionvalue(null);
+			} else {
+				vo.setOptionvalue(optnameArr[i]);
+			}
+			vo.setPno(Integer.parseInt(pnoStr));
 			vo.setPrice(Integer.parseInt(priceArr[i]));
 			vo.setQuantity(Integer.parseInt(quantityArr[i]));
-			if(cartService.cartInsert(vo)>0) {
-				result += 1;
+System.out.println(vo.getPno()+","+vo.getUserid()+","+vo.getOptionvalue()+","+vo.getPrice());
+			int res = cartService.cartInsert(vo);
+			if(res>0) {
+				result++;
 			}
 		}
-		return 0;
+System.out.println("결과?"+result);
+		return result;
 	}
 }

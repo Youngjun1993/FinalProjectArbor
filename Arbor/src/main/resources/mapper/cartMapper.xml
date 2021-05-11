@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.arbor.home.dao.CartDAOImp">
-	<insert id="cartInsert" parameterType="com.arbor.home.CartVO">
-		insert into cart(cartno, pno, userid, quantity, optionvalue, price)
-		values(CARTSQ.nextval, ${pno}, #{userid}, ${quantity}, #{optionvalue}, ${price})
+	<insert id="cartInsert" parameterType="com.arbor.home.vo.CartVO">
+		insert into cart(cartno, pno, userid, quantity<if test="optionvalue!=null">, optionvalue</if>, price)
+		values(cartsq.nextval, ${pno}, #{userid}, ${quantity}<if test="optionvalue!=null">, #{optionvalue}</if>, ${price})
 	</insert>
 </mapper>

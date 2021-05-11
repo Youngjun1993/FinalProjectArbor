@@ -58,7 +58,7 @@
 			<div id="p_totalDiv">
 				총 상품금액 <span id="p_totalprice">0 원</span><br/>
 				<input type="submit" value="찜하기" formaction="/cart" class="clientSubBtn"/>
-				<input type="submit" value="장바구니" formaction="javascript:cartInsert()" class="clientSubBtn"/>
+				<button type="button" onclick="javascript:cartInsert(${vo.pno})" class="clientSubBtn">장바구니</button>
 				<input type="submit" value="바로구매" formaction="order" class="clientMainBtn"/>
 			</div>
 			<span id="p_detailMenu_up"></span>
@@ -437,11 +437,13 @@
 	});
 	
 	<!-- 장바구니 클릭시 -->
-	function cartInsert() {
+	function cartInsert(pno) {
+		console.log("들어옴?")
 		var optnameArr = [];
 		var priceArr = [];
 		var quantityArr = [];
 		var pnameLength = '${vo.pname}'.length+4;
+		var pno = pno;
 		console.log(pnameLength);
 		var cnt = 0;
 		$(".p_detailSelect_ul").each(function(idx, ul){
@@ -451,17 +453,24 @@
 			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
 			priceArr.push($(ul).children().eq(2).children().val());
 		});
-		$.jax({
+		$.ajax({
 			url : 'cartInsert',
 			dataType : 'json',
 			type: "POST",
 			data : { 
-				pno : ${vo.pno},
 				optnameArr : optnameArr,
 				priceArr : priceArr,
-				quantityArr : quantityArr
+				quantityArr : quantityArr,
+				pno : pno
 			}, success : function(result) {
-				console.log(result);
+console.log("ajax실행완료?"+result);
+				if(result>0) {
+					if(confirm("장바구니에 등록되었습니다. 장바구니로 이동하시겠습니까?")) {
+						location.href="cartList";
+					} else {
+						location.href="productView?pno=${vo.pno}";
+					}
+				}
 			}, error : function(e) {
 				
 			}
