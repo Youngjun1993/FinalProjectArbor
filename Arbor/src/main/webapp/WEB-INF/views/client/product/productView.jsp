@@ -59,7 +59,7 @@
 				총 상품금액 <span id="p_totalprice">0 원</span><br/>
 				<button type="button" onclick="javascript:dibsInsert(${vo.pno})" class="clientSubBtn">찜하기</button>
 				<button type="button" onclick="javascript:cartInsert(${vo.pno})" class="clientSubBtn">장바구니</button>
-				<input type="submit" value="바로구매" formaction="order" class="clientMainBtn"/>
+				<button type="button" onclick="javascript:orderInsert(${vo.pno})" class="clientSubBtn">바로구매</button>
 			</div>
 			<span id="p_detailMenu_up"></span>
 		</div>
@@ -473,6 +473,44 @@
 	}
 	
 	<!-- 찜하기 클릭시 -->
+	function dibsInsert(pno) {
+		var optnameArr = [];
+		var priceArr = [];
+		var quantityArr = [];
+		var pno = pno;
+		var cnt = 0;
+		$(".p_detailSelect_ul").each(function(idx, ul){
+			var txt = $(ul).children().eq(0).text();
+			var txtStart = txt.indexOf("(");
+			var txtEnd = txt.indexOf(")")-3;
+			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
+			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
+			priceArr.push($(ul).children().eq(2).children().val());
+		});
+		$.ajax({
+			url : 'dibsInsert',
+			dataType : 'json',
+			type: "POST",
+			data : {
+				optnameArr : optnameArr,
+				priceArr : priceArr,
+				quantityArr : quantityArr,
+				pno : pno
+			}, success : function(result) {
+				if(result>0) {
+					if(confirm("찜목록에 등록되었습니다. 찜목록으로 이동하시겠습니까?")) {
+						location.href="dibsList";
+					} else {
+						location.href="productView?pno=${vo.pno}";
+					}
+				}
+			}, error : function(e) {
+				
+			}
+		});
+	}
+	
+	<!-- 바로구매 클릭시 -->
 	function dibsInsert(pno) {
 		var optnameArr = [];
 		var priceArr = [];
