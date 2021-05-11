@@ -57,9 +57,9 @@
 			</div>
 			<div id="p_totalDiv">
 				총 상품금액 <span id="p_totalprice">0 원</span><br/>
-				<input type="submit" value="찜하기" formaction="/cart" class="clientSubBtn"/>
+				<button type="button" onclick="javascript:dibsInsert(${vo.pno})" class="clientSubBtn">찜하기</button>
 				<button type="button" onclick="javascript:cartInsert(${vo.pno})" class="clientSubBtn">장바구니</button>
-				<input type="submit" value="바로구매" formaction="order" class="clientMainBtn"/>
+				<button type="button" onclick="javascript:orderInsert(${vo.pno})" class="clientSubBtn">바로구매</button>
 			</div>
 			<span id="p_detailMenu_up"></span>
 		</div>
@@ -355,12 +355,10 @@
 					cnt++;
 				}
 			});
-			console.log("cnt?"+cnt);
 			if(cnt==${optName.size()}) {
 				$("select[name=optname] option:selected").each(function(idx, select){
 					optnoStr.push($(select).val());
 				});
-				console.log("data?"+optnoStr);
 				$.ajax({
 					url : 'productOptionView',
 					dataType : 'json',
@@ -438,18 +436,16 @@
 	
 	<!-- 장바구니 클릭시 -->
 	function cartInsert(pno) {
-		console.log("들어옴?")
 		var optnameArr = [];
 		var priceArr = [];
 		var quantityArr = [];
-		var pnameLength = '${vo.pname}'.length+4;
 		var pno = pno;
-		console.log(pnameLength);
 		var cnt = 0;
 		$(".p_detailSelect_ul").each(function(idx, ul){
 			var txt = $(ul).children().eq(0).text();
-			var txtLength = txt.length-18;
-			optnameArr.push(txt.substr(pnameLength, txtLength));
+			var txtStart = txt.indexOf("(");
+			var txtEnd = txt.indexOf(")")-3;
+			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
 			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
 			priceArr.push($(ul).children().eq(2).children().val());
 		});
@@ -463,10 +459,85 @@
 				quantityArr : quantityArr,
 				pno : pno
 			}, success : function(result) {
-console.log("ajax실행완료?"+result);
 				if(result>0) {
 					if(confirm("장바구니에 등록되었습니다. 장바구니로 이동하시겠습니까?")) {
 						location.href="cartList";
+					} else {
+						location.href="productView?pno=${vo.pno}";
+					}
+				}
+			}, error : function(e) {
+				
+			}
+		});
+	}
+	
+	<!-- 찜하기 클릭시 -->
+	function dibsInsert(pno) {
+		var optnameArr = [];
+		var priceArr = [];
+		var quantityArr = [];
+		var pno = pno;
+		var cnt = 0;
+		$(".p_detailSelect_ul").each(function(idx, ul){
+			var txt = $(ul).children().eq(0).text();
+			var txtStart = txt.indexOf("(");
+			var txtEnd = txt.indexOf(")")-3;
+			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
+			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
+			priceArr.push($(ul).children().eq(2).children().val());
+		});
+		$.ajax({
+			url : 'dibsInsert',
+			dataType : 'json',
+			type: "POST",
+			data : {
+				optnameArr : optnameArr,
+				priceArr : priceArr,
+				quantityArr : quantityArr,
+				pno : pno
+			}, success : function(result) {
+				if(result>0) {
+					if(confirm("찜목록에 등록되었습니다. 찜목록으로 이동하시겠습니까?")) {
+						location.href="dibsList";
+					} else {
+						location.href="productView?pno=${vo.pno}";
+					}
+				}
+			}, error : function(e) {
+				
+			}
+		});
+	}
+	
+	<!-- 바로구매 클릭시 -->
+	function dibsInsert(pno) {
+		var optnameArr = [];
+		var priceArr = [];
+		var quantityArr = [];
+		var pno = pno;
+		var cnt = 0;
+		$(".p_detailSelect_ul").each(function(idx, ul){
+			var txt = $(ul).children().eq(0).text();
+			var txtStart = txt.indexOf("(");
+			var txtEnd = txt.indexOf(")")-3;
+			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
+			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
+			priceArr.push($(ul).children().eq(2).children().val());
+		});
+		$.ajax({
+			url : 'dibsInsert',
+			dataType : 'json',
+			type: "POST",
+			data : {
+				optnameArr : optnameArr,
+				priceArr : priceArr,
+				quantityArr : quantityArr,
+				pno : pno
+			}, success : function(result) {
+				if(result>0) {
+					if(confirm("찜목록에 등록되었습니다. 찜목록으로 이동하시겠습니까?")) {
+						location.href="dibsList";
 					} else {
 						location.href="productView?pno=${vo.pno}";
 					}
