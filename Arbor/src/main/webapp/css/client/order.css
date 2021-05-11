@@ -183,7 +183,7 @@
 	float: right;
 	border: 1px solid #ddd;
 	position: sticky;
-	top: 160px;
+	top: 30px;
 }
 #j_paymentDetail div:first-child{
 	padding: 0 25px;
@@ -211,23 +211,23 @@
 #j_paymentDetail td:nth-child(2n+2){
 	text-align: right;
 }
-#j_totalPrice{
+#j_paymentDetail>div>div:nth-of-type(1){
 	margin-top: 20px;
 	text-align: right;
 	color: #555;
 	font-weight:bold;
 }
-#j_totalPrice>p:first-child{
+#j_paymentDetail>div>div:nth-of-type(1)>p:nth-child(1){
 	font-size: 13px;
 }
-#j_totalPrice>p:last-child{
+#j_paymentDetail>div>div:nth-of-type(1)>p:nth-child(2){
 	margin-top: 5px;
 	font-size: 18px;
 }
-#j_totalPrice span{
+#j_paymentDetail>div>div:nth-of-type(1) span{
 	color: rgb(191,43,53);
 }
-#j_plusPoint{
+#j_paymentDetail>div>div:nth-of-type(2){
 	font-size: 12px;
 	color: gray;
 	text-align: right;

@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.arbor.home.dao.OrderDAOImp;
 import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.MemberVO;
+import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.PointVO;
+import com.arbor.home.vo.SubOrderVO;
 
 @Service
 public class OrderService implements OrderServiceImp {
@@ -34,6 +36,31 @@ public class OrderService implements OrderServiceImp {
 	@Override
 	public int getCouponCount(String userid) {
 		return orderDAO.getCouponCount(userid);
+	}
+
+	@Override
+	public int orderComplete(OrderTblVO orderVo) {
+		return orderDAO.orderComplete(orderVo);
+	}
+
+	@Override
+	public int createSubOrderList(SubOrderVO subVo) {
+		return orderDAO.createSubOrderList(subVo);
+	}
+
+	@Override
+	public int getOrderSeq() {
+		return orderDAO.getOrderSeq();
+	}
+
+	@Override
+	public List<SubOrderVO> getSubOrderList(String orderNo) {
+		return orderDAO.getSubOrderList(orderNo);
+	}
+
+	@Override
+	public OrderTblVO getOrderInfo(String orderNo) {
+		return orderDAO.getOrderInfo(orderNo);
 	}
 	
 }
