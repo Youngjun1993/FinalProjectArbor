@@ -1,10 +1,14 @@
 package com.arbor.home.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.OrderServiceImp;
@@ -16,8 +20,21 @@ public class OrderController {
 	@Inject
 	OrderServiceImp orderService;
 	
-	@RequestMapping("/order")
-	public ModelAndView orderPage(MemberVO memberVo, OrderTblVO orderVo, HttpSession session) {
+	@RequestMapping(value="/order", method = RequestMethod.POST)
+	public ModelAndView orderPage(@Nullable
+			@RequestParam(value="optnameArr", required=true) String[] optInfoArr,
+			@RequestParam(value="priceArr", required=true) String[] priceArr,
+			@RequestParam(value="pnoStr", required=true) String pnoStr,
+			@RequestParam(value="quantityArr", required=true) String[] quantityArr,
+			MemberVO memberVo, OrderTblVO orderVo, HttpSession session
+			) {
+		// 여긴 출력값 이런식으로 확인해서 쓰면 된다는 예시를 남긴고얌 지워도 댐!!! 
+		for(int i=0; i<priceArr.length; i++) {
+			System.out.println("optInfoArr?"+optInfoArr[i]);
+			System.out.println("priceArr?"+priceArr[i]);
+			System.out.println("quantityArr?"+quantityArr[i]);
+		}
+		
 		ModelAndView mav = new ModelAndView();
 		String userid = (String)session.getAttribute("logId");
 		System.out.println("userid==>"+userid);
