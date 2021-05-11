@@ -486,6 +486,7 @@
 			var txt = $(ul).children().eq(0).text();
 			var txtLength = txt.length-18;
 			optnameArr.push(txt.substr(pnameLength, txtLength));
+console.log(optnameArr[idx]);
 			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
 			priceArr.push($(ul).children().eq(2).children().val());
 		});
@@ -494,9 +495,9 @@
 			dataType : 'json',
 			type: "POST",
 			data : { 
-				if(optnameArr) {
+				
 					optnameArr : optnameArr,
-				}
+				
 				priceArr : priceArr,
 				quantityArr : quantityArr,
 				pno : pno
