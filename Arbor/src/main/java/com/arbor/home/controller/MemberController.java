@@ -419,5 +419,18 @@ public class MemberController {
 		return mav;
 	}
 	
+	//탈퇴회원 검색창 이동
+	@RequestMapping("/memberAdminQuit")
+	public String memberAdminQuit() {
+		
+		return "admin/member/memberAdminQuit";
+	}
+	
+	//휴면회원 검색창 이동
+	@RequestMapping("/memberAdminDormant")
+	public String memberAdminDormant() {
+		
+		return "admin/member/memberAdminDormant";
+	}
 	
 }
