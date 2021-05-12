@@ -20,8 +20,11 @@ public class CartController {
 	CartServiceImp cartService;
 	
 	@RequestMapping("/cartList")
-	public ModelAndView cartList() {
+	public ModelAndView cartList(HttpSession ses) {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", cartService.cartCount((String)ses.getAttribute("logId")));
+		mav.addObject("optList", cartService.cartList((String)ses.getAttribute("logId")));
+		
 		mav.setViewName("client/cart/cartList");
 		return mav;
 	}
