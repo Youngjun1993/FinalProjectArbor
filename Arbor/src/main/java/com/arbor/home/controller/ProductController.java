@@ -97,13 +97,78 @@ public class ProductController {
 	
 	
 	/* 관리자 */
+	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
+	@RequestMapping("/productSearch")
+	public ModelAndView productSearch(PageSearchVO vo, HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr != null) {
+			vo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		vo.setTotalRecord(productService.totalRecord());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("subCate", productService.subCateList(1));
+		mav.addObject("mainCate", productService.mainCateList());
+		mav.addObject("productList", productService.productList(vo));
+		mav.addObject("pageVO", vo);
+		mav.setViewName("/admin/product/productSearch");
+		return mav;
+	}
+	
+	// Admin - 카테고리 관리
+	@RequestMapping("/manageCate")
+	public ModelAndView manageCate(PageSearchVO vo, HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr != null) {
+			vo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		vo.setTotalRecord(productService.subcate_totalRecord());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("subCate", productService.subCateList(1));
+		mav.addObject("mainCate", productService.mainCateList());
+		mav.addObject("cateList", productService.subCateListAll(vo));
+		mav.addObject("pageVO", vo);
+		mav.setViewName("admin/product/manageCate");
+		
+		return mav;
+	}
+	
 	// Admin - 상품문의 목록
 	@RequestMapping("/pqnaList")
-	public ModelAndView pqnaList() {
+	public ModelAndView pqnaList(PageSearchVO vo, HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr != null) {
+			vo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		vo.setTotalRecord(productService.pqna_totalRecord());
+		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("vo", productService.pqnaList());
+		mav.addObject("vo", productService.pqnaList(vo));
 		mav.addObject("cnt", productService.pqnaNoAnswerCnt());
+		mav.addObject("pageVO", vo);
 		mav.setViewName("admin/product/productQna");
+		return mav;
+	}
+	
+	// Admin - 상품문의 미답변 목록
+	@RequestMapping("/pqnaNoAnswerList")
+	public ModelAndView pqnaNoAnswerList(PageSearchVO vo, HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr != null) {
+			vo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		vo.setTotalRecord(productService.pqnaNoAnswerCnt());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vo", productService.pqnaNoAnswerList(vo));
+		mav.addObject("cnt", productService.pqna_totalRecord());
+		mav.addObject("pageVO", vo);
+		mav.setViewName("admin/product/productQnaNoAnswer");
 		return mav;
 	}
 	
@@ -488,37 +553,6 @@ public class ProductController {
 		productService.productDelete(pno);
 		productService.optionAllDelete(pno);
 		return "redirect:productSearch";
-	}
-	
-	@RequestMapping("/manageCate")
-	public ModelAndView manageCate() {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("subCate", productService.subCateList(1));
-		mav.addObject("mainCate", productService.mainCateList());
-		mav.addObject("cateList", productService.subCateListAll());
-		mav.setViewName("admin/product/manageCate");
-		
-		return mav;
-	}
-	
-	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
-	@RequestMapping("/productSearch")
-	public ModelAndView productSearch(PageSearchVO vo, HttpServletRequest req) {
-		String pageNumStr = req.getParameter("pageNum");
-		if(pageNumStr != null) {
-			vo.setPageNum(Integer.parseInt(pageNumStr));
-		}
-		
-		vo.setTotalRecord(productService.totalRecord(vo));
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("subCate", productService.subCateList(1));
-		mav.addObject("mainCate", productService.mainCateList());
-		mav.addObject("productList", productService.productList(vo));
-		mav.addObject("pageVO", vo);
-		mav.setViewName("/admin/product/productSearch");
-		return mav;
 	}
 	
 	// SummerNote upload

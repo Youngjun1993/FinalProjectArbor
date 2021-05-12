@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div class="w1400_container font_ng">
-		<%@include file="/WEB-INF/inc/adminMenu.jspf"%>>
+		<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 		<div id="centerfrm">
 			<p id="pageTitle"><span>카테고리 관리</span></p>
 			<div id="insertInfo">
@@ -29,6 +29,7 @@
 				<div id="insertCategoryDiv">
 					<span class="pContent">카테고리</span>
 					<select name="mainno" id="maincate">
+						<option value="" selected disabled hidden>==선택하세요==</option>
 						<c:forEach var="mainCate" items="${mainCate }">
 							<c:if test="${mainCate.mainno!=null && mainCate.mainno!='' }">
 								<option value=${mainCate.mainno }>${mainCate.mainname }</option>
@@ -36,6 +37,7 @@
 						</c:forEach>
 					</select>
 					<select name="subno" id="subcate">
+						<option value="" selected disabled hidden>==선택하세요==</option>
 						<c:forEach var="subCate" items="${subCate }">
 							<option value=${subCate.subno }>${subCate.subname }</option>
 						</c:forEach>
@@ -71,6 +73,26 @@
 					</form>
 				</div>
 			</div>
+			<div id="pagingDiv">
+				 <ul class="adPaging" class="clearfix">
+	            	<c:if test="${pageVO.pageNum>1 }">
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="manageCate?pageNum=${pageVO.pageNum-1}">＜</a></li>
+	                </c:if>
+	                <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+	                	<c:if test="${p<=pageVO.totalPage }">
+		                	<c:if test="${p==pageVO.pageNum }">
+		                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="manageCate?pageNum=${p}">${p }</a></li>
+		                	</c:if>
+		                	<c:if test="${p!=pageVO.pageNum }">
+		                		<li><a href="manageCate?pageNum=${p}">${p }</a></li>
+		                	</c:if>
+	                	</c:if>
+	                </c:forEach>
+	                <c:if test="${pageVO.pageNum<pageVO.totalPage }">
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="manageCate?pageNum=${pageVO.pageNum+1}">＞</a></li>
+	                </c:if>
+	            </ul>
+            </div>
 		</div>
 	</div>
 </body>

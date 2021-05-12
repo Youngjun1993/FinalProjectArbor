@@ -20,9 +20,14 @@ public interface ProductDAOImp {
 	
 	/* paging */
 	
-	// 전체 레코드 수 구하기
-	public int totalRecord(PageSearchVO vo);
-	
+	// 전체 레코드 수 구하기(productSearch)
+	public int totalRecord();
+	// (manageCate)
+	public int subcate_totalRecord();
+	// (pqna)
+	public int pqna_totalRecord();
+	// (pqnaNoAnswer)
+	public int pqnaNoAnswerCnt();
 	
 	/* 사용자 */
 	
@@ -48,7 +53,7 @@ public interface ProductDAOImp {
 	/* 관리자 */
 	
 	// 중분류 불러오기 전체 (관리자 - 카테고리관리)
-	public List<SubCateVO> subCateListAll();
+	public List<SubCateVO> subCateListAll(PageSearchVO pageVo);
 	// 상품등록
 	public int productInsert(ProductVO vo);
 	// 옵션테이블 등록 (상품등록하면서 옵션테이블 같이 등록)
@@ -74,11 +79,11 @@ public interface ProductDAOImp {
 	// 옵션테이블에 해당 상품번호에 해당하는 옵션 모두 삭제 (상품 삭제시 관련 옵션도 지워야 함 - 관리자/상품관리/삭제)
 	public int optionAllDelete(int pno);
 	// 상품문의 목록 불러오기
-	public List<ProductQnaVO> pqnaList();
+	public List<ProductQnaVO> pqnaList(PageSearchVO pageVo);
 	// 상품문의 번호에 따라 내용 불러오기
 	public ProductQnaVO pqnaAnswer(int pqnano);
-	// 미답변글 갯수 받아오기
-	public int pqnaNoAnswerCnt();
+	// 미답변글 리스트 받아오기
+	public int pqnaNoAnswerList(PageSearchVO pageVo);
 	// 상품문의 답변 등록하기
 	public int pqnaAnswerInsert(ProductQnaVO vo);
 	// 상품문의 답변 삭제하기

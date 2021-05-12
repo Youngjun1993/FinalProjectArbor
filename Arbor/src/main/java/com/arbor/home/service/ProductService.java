@@ -87,8 +87,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public List<SubCateVO> subCateListAll() {
-		return productDAO.subCateListAll();
+	public List<SubCateVO> subCateListAll(PageSearchVO pageVo) {
+		return productDAO.subCateListAll(pageVo);
 	}
 
 	@Override
@@ -122,8 +122,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public List<ProductQnaVO> pqnaList() {
-		return productDAO.pqnaList();
+	public List<ProductQnaVO> pqnaList(PageSearchVO pageVo) {
+		return productDAO.pqnaList(pageVo);
 	}
 
 	@Override
@@ -162,13 +162,28 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int totalRecord(PageSearchVO vo) {
-		return productDAO.totalRecord(vo);
+	public int totalRecord() {
+		return productDAO.totalRecord();
 	}
 
 	@Override
 	public List<ProductVO> productListDate(PageSearchVO pageVo) {
 		return productDAO.productListDate(pageVo);
+	}
+
+	@Override
+	public int subcate_totalRecord() {
+		return productDAO.subcate_totalRecord();
+	}
+
+	@Override
+	public int pqna_totalRecord() {
+		return productDAO.pqna_totalRecord();
+	}
+
+	@Override
+	public int pqnaNoAnswerList(PageSearchVO pageVo) {
+		return productDAO.pqnaNoAnswerList(pageVo);
 	}
 	
 	

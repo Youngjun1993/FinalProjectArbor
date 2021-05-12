@@ -158,16 +158,26 @@
 	width: 15%;
 }
 #productList>li:nth-of-type(8n+4):not(#productList>li:nth-of-type(4)) {
-	text-align: left; padding-left:2%; width: 28%;
+	text-align: left; padding-left:2%; width: 23%;
 }
 #productList>li:nth-of-type(8n+4) {
-	width: 30%;
+	width: 25%;
+}
+#productList>li:nth-of-type(8n+8) {
+	width: 15%; text-align:center;
 }
 #productList>li>input[type=checkbox] {
 	width: 15px; height: 15px; margin: 0 auto;
 }
 #productList>li>input[type=submit]{
-	width: 100px; height: 30px;
+	width: 120px; height: 30px;
+	margin:auto;
+}
+#productList>li>button[type=button] {
+	width: 50px; height: 25px;
+}
+#productList>li>button[type=button]:first-child {
+	margin-right:3px;
 }
 
 /* product Edit */
@@ -274,13 +284,15 @@ h1{
 }
 select {
 	width: 150px; height: 30px;
-	font-size:1.2em;
+	font-size:1.1em;
 	margin:5px 10px 5px 0;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 input {
 	width: 306px; height: 26px;
 	margin:5px 20px 5px 0;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 p>img {
@@ -332,4 +344,17 @@ p>img {
 	margin-bottom: 50px;
 	overflow:auto;
 	display:inline-block;	
+}
+
+/* product Qna */
+.answerNo {
+	display:inline-block; width:100px; height:30px; line-height: 30px;
+	margin-top:4px; 
+	border:1px solid rgb(191,43,53); background-color:rgb(191,43,53);
+	color:#fff;
+}
+.answerOk {
+	display:inline-block;
+	width:100px; height:30px; line-height: 30px; margin-top:5px;
+	border:1px solid #ddd;
 }
