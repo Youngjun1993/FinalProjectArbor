@@ -7,14 +7,42 @@
  		select mainno, mainname from maincate
  	</select>
  	
+ 	<insert id="insertMainCate">
+ 		insert into maincate(mainno, mainname) values(maincatesq.nextval, #{param1})
+ 	</insert>
+ 	
+ 	<delete id="deleteMainCate" parameterType="int">
+ 		delete from maincate where mainno=${param1}
+ 	</delete>
+ 	
+ 	<select id="selectMainno" resultType="int">
+ 		select mainno from maincate where mainname=#{param1}
+ 	</select>
+ 	
  	<select id="subCateList" parameterType="int" resultType="com.arbor.home.vo.SubCateVO">
  		select mainno, subno, subname from subcate where mainno=${param1}
  	</select>
  	
- 	<select id="subCateListAll" resultType="com.arbor.home.vo.SubCateVO">
+ 	<insert id="insertSubCate">
+ 		insert into subcate(subno, mainno, subname) values(subcatesq.nextval, ${param1}, #{param2})
+ 	</insert>
+ 	
+ 	<delete id="deleteSubCate" parameterType="int">
+ 		delete from subcate where subno=${param1}
+ 	</delete>
+ 	
+ 	<select id="subCateListAll" resultType="com.arbor.home.vo.SubCateVO" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(
  		select subno, s.mainno, mainname, subname from subcate s join maincate m
- 		on s.mainno=m.mainno order by subno 
+ 		on s.mainno=m.mainno order by subno desc)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by subno asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by subno desc
  	</select>
+ 	
+ 	<select id="subcate_totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(subno) as totalRecord from subcate
+	</select>
  	
  	<insert id="productInsert" parameterType="com.arbor.home.vo.ProductVO">
  		insert into product(pno, subno, pname, stock, allstock, pprice, saleprice, img1,
@@ -44,6 +72,14 @@
  		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
  		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pno desc
  	</select>
+ 	
+ 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from(select * from (select * from
+		(select count(pno) as totalRecord from product)
+		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="subno!=null and subno!=''">where subno=${subno}</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pdate between #{startdate} and #{enddate}</if>
+	</select>
  	
  	<select id="productSelect" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
  		select pno, mainno, s.subno, pname, stock, pprice, saleprice, img1, img2, description
@@ -103,16 +139,44 @@
  		values(pqnasq.nextval, ${pno}, #{userid}, #{pqnasubject}, #{pqnacontent}, #{pqnaopen})
  	</insert>
  	
- 	<select id="pqnaList" resultType="com.arbor.home.vo.ProductQnaVO">
- 		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate from productqna q join product p on q.pno=p.pno order by pqnano desc
+ 	<select id="pqnaList" resultType="com.arbor.home.vo.ProductQnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(select * from(select * from(
+ 		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
+ 		from productqna q join product p on q.pno=p.pno order by pqnano desc)
+ 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pqnano asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pqnano desc
+ 	</select>
+ 	
+ 	<select id="pqna_totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(
+ 		select count(pqnano) from productqna)
+ 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>
+ 	</select>
+ 	
+ 	<select id="pqnaNoAnswerList" resultType="com.arbor.home.vo.ProductQnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(select * from(select * from(
+ 		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
+ 		from productqna q join product p on q.pno=p.pno where panswercontent is null order by pqnano desc)
+ 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pqnano asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pqnano desc
  	</select>
  	
  	<select id="pqnaAnswer" resultType="com.arbor.home.vo.ProductQnaVO">
  		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate from productqna q join product p on q.pno=p.pno where pqnano=${param1}
  	</select>
  	
- 	<select id="pqnaNoAnswerCnt" resultType="int">
- 		select count(pqnano) from productqna where panswercontent is null
+ 	<select id="pqnaNoAnswerCnt" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(
+ 		select count(pqnano) from productqna where panswercontent is null)
+ 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>
  	</select>
  	
  	<update id="pqnaAnswerInsert" parameterType="com.arbor.home.vo.ProductQnaVO">
@@ -138,8 +202,4 @@
  	<select id="productOptionView" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
  		select optno, pno, optname, optvalue, optprice from optiontbl where optno=${param1}
  	</select>
- 	
- 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
-		select count(pno) as totalRecord from product <if test="searchWord != null"> where ${searchKey} like '%${searchWord}%'</if>
-	</select>
  </mapper>
