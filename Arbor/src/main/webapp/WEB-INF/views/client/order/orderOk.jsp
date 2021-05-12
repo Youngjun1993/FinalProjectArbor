@@ -26,7 +26,7 @@
 	</div>
 	<div class="j_orderOkDiv">
 		<div class="j_orderOkTitle">상품정보</div>
-		<table class="j_tableForm" id="abc">
+		<table class="j_tableForm" id="j_pInfo">
 		<colgroup>
 			<col width="600px">
 			<col width="150px">
@@ -44,9 +44,9 @@
 				<td>주문금액</td>
 			</tr>
 			<c:forEach var="pVo" items="${pList }">
-				<tr> <!-- 상품 갯수 만큼 반복 -->
+				<tr id="j_pList"> <!-- 상품 갯수 만큼 반복 -->
 					<td>${pVo.pname }</td>
-					<td>${pVo.quantity }</td>
+					<td id="abc">${pVo.quantity }</td>
 					<td>${pVo.pprice }</td>
 					<td>${pVo.saleprice }</td>
 					<td>${pVo.deliveryprice }</td>

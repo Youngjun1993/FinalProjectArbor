@@ -72,7 +72,7 @@ $(function(){
 			processData: false,
 			success: function(data) {
 				console.log(data);
-				$(editor).summernote('insertImage', data.url);
+				$(editor).summernote('insertImage', data);
 			}
 		});
 	}

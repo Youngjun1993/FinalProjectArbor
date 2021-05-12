@@ -101,13 +101,16 @@
 	border: 1px solid #ccc;
 	padding: 10px;
 }
-.j_tableForm td:nth-child(2n+1):not(#abc){
+.j_tableForm:not(#j_pInfo) td:nth-child(2n+1),
+#j_pInfo tr:first-of-type{
 	text-align: center;
 	background: #eee;
 }
-.j_orderOkDiv:first-child td{
+#j_pList>td:nth-child(6n+2){
 	text-align: center;
-	background: #eee;
+}
+#j_pList td:nth-child(n+3):nth-child(-n+6){
+	text-align: right;
 }
 .j_orderOkDiv:first-child td{
 	text-align: left;
