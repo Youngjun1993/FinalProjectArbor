@@ -7,4 +7,11 @@
 		insert into cart(cartno, pno, userid, quantity<if test='#{optionvalue}!=null and #{optionvalue}!=""'>, optionvalue</if>, price)
 		values(cartsq.nextval, ${pno}, #{userid}, ${quantity}<if test='#{optionvalue}!=null and #{optionvalue}!=""'>, #{optionvalue}</if>, ${price})
 	</insert>
+	<select id="cartCount" resultType="com.arbor.home.vo.CartVO">
+		select DISTINCT c.pno, c.userid, p.pname, p.stock, p.img1 from cart c join product p on c.pno=p.pno where c.userid=#{param1}
+	</select>
+	<select id="cartList" resultType="com.arbor.home.vo.CartVO">
+		select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, c.cartdate, p.pname, p.stock, p.img1 from (select * from cart where userid=#{param1} order by pno) c join product p on c.pno=p.pno
+	</select>
+	
 </mapper>

@@ -512,29 +512,36 @@
 	
 	<!-- 바로구매 클릭시 -->
 	function orderInsert(pno) {
-		var form = document.createElement('form');
-		var optnameArr = document.createElement('input');
-		optnameArr.setAttribute('type', 'hidden');
-		optnameArr.setAttribute('name', 'optnameArr');
-		var priceArr = document.createElement('input');
-		priceArr.setAttribute('type', 'hidden');
-		priceArr.setAttribute('name', 'priceArr');
-		var quantityArr = document.createElement('input');
-		quantityArr.setAttribute('type', 'hidden');
-		quantityArr.setAttribute('name', 'quantityArr');
-		var pnoStr = document.createElement('input');
-		pnoStr.setAttribute('type', 'hidden');
-		pnoStr.setAttribute('name', 'pnoStr');
-		pnoStr.setAttribute('value', pno);
+		var optname = [];
+		var price = [];
+		var quantity = [];
+		
 		$(".p_detailSelect_ul").each(function(idx, ul){
 			var txt = $(ul).children().eq(0).text();
 			var txtStart = txt.indexOf("(");
 			var txtEnd = txt.indexOf(")")-3;
-			optnameArr.setAttribute('value', txt.substr(txtStart+3, txtEnd-txtStart));
-			priceArr.setAttribute('value', $(ul).children().eq(2).children().val());
-			quantityArr.setAttribute('value', $(ul).children().eq(1).children('.p_selectNum').text());
-console.log($(ul).children().eq(1).children('.p_selectNum').text())
+			optname.push(txt.substr(txtStart+3, txtEnd-txtStart));
+			price.push($(ul).children().eq(2).children().val());
+			quantity.push($(ul).children().eq(1).children('.p_selectNum').text());
 		});
+		
+		var form = document.createElement('form');
+		var optnameArr = document.createElement('input');
+		optnameArr.setAttribute('type', 'hidden');
+		optnameArr.setAttribute('name', 'optnameArr');
+		optnameArr.setAttribute('value', optname);
+		var priceArr = document.createElement('input');
+		priceArr.setAttribute('type', 'hidden');
+		priceArr.setAttribute('name', 'priceArr');
+		priceArr.setAttribute('value', price);
+		var quantityArr = document.createElement('input');
+		quantityArr.setAttribute('type', 'hidden');
+		quantityArr.setAttribute('name', 'quantityArr');
+		quantityArr.setAttribute('value', quantity);
+		var pnoStr = document.createElement('input');
+		pnoStr.setAttribute('type', 'hidden');
+		pnoStr.setAttribute('name', 'pnoStr');
+		pnoStr.setAttribute('value', pno);
 		form.appendChild(optnameArr);
 		form.appendChild(priceArr);
 		form.appendChild(quantityArr);
