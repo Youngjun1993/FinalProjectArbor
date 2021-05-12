@@ -4,6 +4,7 @@ package com.arbor.home.vo;
 public class OrderTblVO {
 	private String orderno;
 	private String orderdate;
+	
 	private String userid;
 	private String arr;
 	
@@ -27,6 +28,9 @@ public class OrderTblVO {
 	
 	private String status;
 	private String pname;
+	
+	private String username;
+	private String tel;
 	
 	
 	public String getPname() {
@@ -148,6 +152,18 @@ public class OrderTblVO {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	
 }

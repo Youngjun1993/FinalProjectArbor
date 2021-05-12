@@ -62,5 +62,15 @@ public class OrderService implements OrderServiceImp {
 	public OrderTblVO getOrderInfo(String orderNo) {
 		return orderDAO.getOrderInfo(orderNo);
 	}
+
+	@Override
+	public List<OrderTblVO> allOrderList() {
+		return orderDAO.allOrderList();
+	}
+
+	@Override
+	public int updateOrderStatus(String orderno, String status) {
+		return orderDAO.updateOrderStatus(orderno, status);
+	}
 	
 }

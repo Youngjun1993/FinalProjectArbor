@@ -29,7 +29,7 @@
                     <a class="h_menu_link" href="#">주문관리</a>
                 </li>
                 <ul class="h_menu_submenu accordion-content">
-                    <li><a class="head" href="#">주문</a></li>
+                    <li><a class="head" href="orderAdmin">주문</a></li>
                     <li><a class="head" href="#">매출관리</a></li>
                 </ul>
                 <!-- 관리자 4번 메뉴 -->

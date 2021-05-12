@@ -32,4 +32,10 @@
 	<select id="getOrderInfo" resultType="com.arbor.home.vo.OrderTblVO">
 		select * from orderTbl where orderno=#{param1}
 	</select>
+	<select id="allOrderList" resultType="com.arbor.home.vo.OrderTblVO">
+		select to_char(orderdate, 'yyyy-mm-dd hh24:mi') orderdate, o.orderno, status, m.username, m.tel, arr, arrtel, request from orderTbl o join member m on o.userid=m.userid order by orderdate desc
+	</select>
+	<update id="updateOrderStatus">
+		update orderTbl set status=#{param2} where orderno=#{param1}
+	</update>
   </mapper>

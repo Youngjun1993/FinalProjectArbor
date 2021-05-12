@@ -48,9 +48,9 @@ public class OrderController {
 			pInfo[0] = optInfoArr[i];
 			pInfo[1] = priceArr[i];
 			pInfo[2] = quantityArr[i];
+			System.out.println("넘겨받은 상품 정보(배열) "+i+"번째->"+Arrays.toString(pInfo));
 			
 		}
-		System.out.println("넘겨받은 상품 정보(배열)->"+Arrays.toString(pInfo));
 		
 		ModelAndView mav = new ModelAndView();
 		String userid = (String)session.getAttribute("logId");
@@ -68,7 +68,7 @@ public class OrderController {
 		return mav;
 	}
 	
-	@RequestMapping("/orderOk")
+	@RequestMapping(value="/orderOk", method=RequestMethod.POST)
 	public ModelAndView orderOk(
 			OrderTblVO orderVo, String applyNum, HttpSession session,
 			@RequestParam(value="pno",required=true) int[] pnoArr,
@@ -111,8 +111,32 @@ public class OrderController {
 	//////////////////////////////////////////////////////////	
 	
 	/* admin */
+	@RequestMapping("/orderAdmin")
+	public ModelAndView orderManagement() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", orderService.allOrderList());
+		System.out.println("orderList->"+orderService.allOrderList().size());
+		mav.setViewName("admin/order/orderAdmin");
+		return mav;
+	}
 	
-	
+	@RequestMapping(value="/changeStatus", method=RequestMethod.POST)
+	public ModelAndView changeOrderStatus(
+			@RequestParam(value="orderno",required=true) String[] ordernoArr,
+			String status) {
+		ModelAndView mav = new ModelAndView();
+
+		for(int i=0; i<ordernoArr.length; i++) {
+			System.out.println("ordernoArr["+i+"]->"+ordernoArr[i]+" / "+status);
+			
+			orderService.updateOrderStatus(ordernoArr[i], status);
+		}
+		mav.addObject("list", orderService.allOrderList());
+		System.out.println("***orderList***->"+orderService.allOrderList().size());
+		mav.setViewName("admin/order/orderAdmin");
+		
+		return mav;
+	}
 	
 	
 	

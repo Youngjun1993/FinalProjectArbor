@@ -9,6 +9,7 @@ import com.arbor.home.vo.PointVO;
 import com.arbor.home.vo.SubOrderVO;
 
 public interface OrderServiceImp {
+	/* client */
 	public MemberVO getMemberInfo(String userid);			//로그인 회원정보
 	public PointVO getUserPoint(String userid);				//로그인 회원의 보유 포인트
 	public List<CouponVO> getUserCoupon(String userid);		//로그인 회원의 보유 쿠폰 리스트
@@ -18,4 +19,9 @@ public interface OrderServiceImp {
 	public int createSubOrderList(SubOrderVO subVo);		//주문한 상품정보 DB insert(subOrder)
 	public List<SubOrderVO> getSubOrderList(String orderNo);//주문한 상품정보 리스트(subOrder) - 주문완료 뷰페이지
 	public OrderTblVO getOrderInfo(String orderNo);			//주문정보 select
+	
+	/* admin */
+	public List<OrderTblVO> allOrderList();					//주문 리스트
+	public int updateOrderStatus(String orderno, String status);//주문상태 변경
+	
 }
