@@ -33,6 +33,7 @@ public class OrderController {
 			MemberVO memberVo, OrderTblVO orderVo, HttpSession session
 			) {
 		// 여긴 출력값 이런식으로 확인해서 쓰면 된다는 예시를 남긴고얌 지워도 댐!!! 
+		System.out.println("Arr몇개?"+priceArr.length);
 		for(int i=0; i<priceArr.length; i++) {
 			System.out.println("optInfoArr?"+optInfoArr[i]);
 			System.out.println("priceArr?"+priceArr[i]);
