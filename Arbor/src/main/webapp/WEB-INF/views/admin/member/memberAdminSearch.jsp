@@ -27,12 +27,13 @@
 		</td>
 		<td>
 		<div class = "search_area">
+		<!-- 검색옵션 태그 부분 -->
 		<select name="type" id="h_type" class="h_searchSelect">
 			<option value="" selected>   </option>
 			<option value="userid">아이디</option>
 			<option value="username">성명</option>
 			<option value="email">이메일</option>
-<%-- 			<option value="" <c:out value="${pageMaker.cri.type == null?'selected':'' }"/>>   </option>
+	<%--	<option value="" <c:out value="${pageMaker.cri.type == null?'selected':'' }"/>>   </option>
 			<option value="userid" <c:out value="${pageMaker.cri.type eq 'userid'?'selected':'' }"/>>아이디</option>
 			<option value="username" <c:out value="${pageMaker.cri.type eq 'username'?'selected':'' }"/>>성명</option>
 			<option value="email" <c:out value="${pageMaker.cri.type eq 'email'?'selected':'' }"/>>이메일</option> --%>
@@ -197,25 +198,20 @@
 				location.href="memDel?userid="+clickid.value;
 			}
 		};
-		
 		/* 페이지 버튼*/
 		
 		$('.paging a').on("click", function(e){
 			e. preventDefault();
-			
 			var pageBtn = $('#pageBtn_form');
 			pageBtn.find('input[name="pageNum"]').val($(this).attr('href'));
 			pageBtn.submit();
-			
 		});
 		
 		$('#testBtn').on('click', function(e){
 			/* 인풋이 왜 Y만찍히냐 */
 			let emailok = $('.search_area_email input[name="emailok"]:checked').val();
 	        console.log(emailok);
-	        
 		});
-		
 		
 		$('.adminMainBtn').on('click', function(e){
 			
@@ -239,6 +235,7 @@
 	            return false;
 	        }   
 	        
+	        /* 페이징이동시 검색어 옵션추가 부분 */
 			pageBtn.find('input[name="type"]').val(type);
 			pageBtn.find('input[name="searchWord"]').val(searchWord);
 			pageBtn.find('input[name="emailok"]').val(emailok);
