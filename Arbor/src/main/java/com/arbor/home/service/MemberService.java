@@ -93,9 +93,9 @@ public class MemberService implements MemberServiceImp {
 	}
 
 	@Override
-	public int memCount() {
+	public int memCount(MemPagingCri cri) {
 		
-		return memberDAO.memCount();
+		return memberDAO.memCount(cri);
 	}
 	
 }

@@ -59,7 +59,6 @@ public class MemberController {
 			mav.setViewName("redirect:/");
 			System.out.println("로그아이디 = " + logVO.getUserid());
 			System.out.println("사용자이름 = " + logVO.getUsername());
-		
 		}
 		
 		return mav;
@@ -148,10 +147,15 @@ public class MemberController {
 		
 		System.out.println("테스트페이지 값 = " + cri.getPageNum());
 		
-		int cnt= memberService.memCount();
+		int cnt= memberService.memCount(cri);
 		MemPagingDTO pageMaker = new MemPagingDTO(cri, cnt);
 		
 		mav.addObject("list", memberService.memSearchPaging(cri));
+		
+		System.out.println("카테고리 ="+cri.getType());
+		System.out.println("검색어 ="+cri.getSearchWord());
+		
+		
 		
 		mav.addObject("pageMaker", pageMaker);//전체데이터가 담긴 memberVO 객체
 		
@@ -184,6 +188,8 @@ public class MemberController {
     	ModelAndView mav = new ModelAndView();
     	
     	int cnt = memberService.memDel(userid);
+    	memberService.insertByeMemberMulti(userid, "관리자삭제");
+    	
     	
 		if (cnt>0) {//삭제
 			mav.setViewName("redirect:memberSearch");
@@ -205,7 +211,13 @@ public class MemberController {
     	///////수정중
 		  for (int i=0; i<chArr.size(); i++) {
 			 memberService.memMultiDel(chArr.get(i));
-			 memberService.insertByeMemberMulti(chArr.get(i), "관리자삭제");
+			 int cnt = memberService.insertByeMemberMulti(chArr.get(i), "관리자삭제");
+			 if(cnt>0) {
+				System.out.println("다중삭제 완료");
+			 }else {
+				 System.out.println("다중삭제 실패");
+				 System.out.println(cnt);
+			 }
 		  }
 		  result = 1;
 		return result;

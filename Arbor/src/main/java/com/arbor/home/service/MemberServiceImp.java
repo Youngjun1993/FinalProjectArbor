@@ -49,6 +49,6 @@ public interface MemberServiceImp {
 	public List<MemberVO> memSearchPaging(MemPagingCri cri);
 	
 	//총회원수 카운트(활성, 휴면 만)
-	public int memCount();
+	public int memCount(MemPagingCri cri);
 	
 }

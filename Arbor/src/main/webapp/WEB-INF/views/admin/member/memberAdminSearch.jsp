@@ -26,31 +26,47 @@
 		<label for="userid">검색어</label>
 		</td>
 		<td>
-		<select name="searchCate" id="searchCate" class="h_searchSelect">
+		<div class = "search_area">
+		<select name="type" id="h_type" class="h_searchSelect">
+			<option value="" selected>   </option>
 			<option value="userid">아이디</option>
 			<option value="username">성명</option>
 			<option value="email">이메일</option>
+<%-- 			<option value="" <c:out value="${pageMaker.cri.type == null?'selected':'' }"/>>   </option>
+			<option value="userid" <c:out value="${pageMaker.cri.type eq 'userid'?'selected':'' }"/>>아이디</option>
+			<option value="username" <c:out value="${pageMaker.cri.type eq 'username'?'selected':'' }"/>>성명</option>
+			<option value="email" <c:out value="${pageMaker.cri.type eq 'email'?'selected':'' }"/>>이메일</option> --%>
+			<!-- <option value="userid">아이디</option>
+			<option value="username">성명</option>
+			<option value="email">이메일</option> -->
 		</select>
-		<input type="text" name="searchWord" id="memSearchWord" size="20px" class="h_ipt">
+			<input type="text" name="searchWord" id="memSearchWord" size="20px" class="h_ipt" value="${pageMaker.cri.searchWord}"/>
+		</div>
 		</td>
+		
 	<!-- 이메일수신여부 -->
 		<tr>
 		<td>
 		<label for="emailok">이메일 수신 여부</label>
 		</td>
 	 	<td>
-	 	<input type="radio" name="emailok" class="h_radiochk" value="All" checked>전체
-		<input type="radio" name="emailok" class="h_radiochk" value="Y">예
-		<input type="radio" name="emailok" class="h_radiochk" value="N">아니오
+	 	<div class = "search_area_email">
+	 	<%-- <input type="radio" name="emailok" class="h_radiochk" value="Y+N" <c:out value="${pageMaker.cri.emailok eq 'Y' && 'N' ?'checked':'' }"/>>전체 --%>
+		<%-- <input type="radio" name="emailok" class="h_radiochk" value="Y" <c:if test="${pageMaker.cri.emailok eq 'Y'}"> checked </c:if> />예 --%>
+		<input type="radio" name="emailok" class="h_radiochk" value="" checked/>전체
+		<input type="radio" name="emailok" class="h_radiochk" value="Y"/>예
+		<input type="radio" name="emailok" class="h_radiochk" value="N"/> 아니오
+		</div>
 		</td>
 		</tr>
+		
 	<!-- 문자수신여부 -->
 		<tr>
 		<td>
 		<label for="userid">문자수신여부</label>
 		</td>
 		<td class="h_last_td">
-		<select name="smsok" id="smsok" class="h_searchSelect">
+		<select name="smsok" id="h_smsok" class="h_searchSelect">
 			<option value=""></option>
 			<option value="Y">예</option>
 			<option value="N">아니오</option>
@@ -58,13 +74,14 @@
 		</td>
 	</tr>
 	</table>
-	<div class="h_searchBtnBox"><input type="submit" id="memSearchBtn" value="검색" class="adminMainBtn"></div>	
+	<div class="h_searchBtnBox"><input type="button" id="memSearchBtn" value="검색" class="adminMainBtn"></div>	
 	</form>
+
 	<hr/>
 	<!-- 폼 가운데 버튼 -->
 		<div class= "h_searchMultiBtn">
 			<input type="button" id="" value="문자발송" class="adminSubBtn">
-			<input type="button" id="" value="엑셀다운" class="adminSubBtn">
+			<input type="button" id="testBtn" value="test버튼" class="adminSubBtn">
 			<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn">
 		</div>
 	<!-- 회원목록 -->
@@ -91,7 +108,7 @@
 				<li>${vo.username}</li>
 				<li class="wordcut">${vo.email}</li>
 				<li>${vo.tel}</li>
-				<li>${vo.regdate}</li>
+				<li>${vo.regdate} / ${vo.emailok} / ${vo.smsok}</li>
 				<li>${vo.lastdate}</li>
 				<li>
 					<input type="button" name="memberDelBtn" value="탈퇴" class="h_memberDel" onclick="memDel(clickid${status.index})"/>
@@ -105,99 +122,131 @@
 		</ul>
 	</form>
 		<div class="h_paging_wrap clearfix">
+			<!-- 페이징 이동 버튼 폼  moveForm  -->
 		<form id = "pageBtn_form" action="memberSearch" method="get">
 			<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum}"/>
 			<input type="hidden" name="amount" value = "${pageMaker.cri.amount}"/>
+			<input type="hidden" name="searchWord" value = "${pageMaker.cri.searchWord}"/>
+			<input type="hidden" name="type" value = "${pageMaker.cri.type}"/>
+			<input type="hidden" name="emailok" value = "${pageMaker.cri.emailok}"/>
+			<input type="hidden" name="smsok" value = "${pageMaker.cri.smsok}"/>
+			<!-- 이메일 sms 추가 -->
 		</form>
-		<ul class="paging">
-		<c:if test = "${pageMaker.prev }">
-			<li><a class="pagingLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
-		</c:if>
-		
-		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-			<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
-			<!-- 페이징 이동 버튼 폼  -->
-		</c:forEach>
-		
-		<c:if test = "${pageMaker.next }">
-			<li><a class="pagingLR_a " href="${pageMaker.endPage + 1 }">＞</a></li>
-		</c:if>
-		</ul>
+			<ul class="paging">
+			<c:if test = "${pageMaker.prev }">
+				<li><a class="pagingLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
+			</c:if>
+			<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+				<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
+			</c:forEach>
+			<c:if test = "${pageMaker.next }">
+				<li><a class="pagingLR_a " href="${pageMaker.endPage + 1 }">＞</a></li>
+			</c:if>
+			</ul>
 		</div>
 	</div>
 	</div>
 </div>
+
 </body>
 <script>
-
-$(()=>{
-	$('#delMulti').click(()=> {
-		var confirm_val = confirm("선택한 회원을 삭제하시겠습니까?");
-		  
-		  if(confirm_val) {
-		   var checkArr = new Array();
-		   
-		   $(".memberChk:checked").each(function(){
-		    checkArr.push($(this).val());
-		   });
-		    
-		   console.log(checkArr);
-		   
-		   $.ajax({
-			    url : 'memMultiDel',
-			    type : 'get',
-			    dataType: 'json',
-			    data : { memberChk : checkArr },
-			    success : function(result){
-				   if(result == 1){
-				     location.href = 'memberSearch';
-				   } else {
-				   	alert("회원삭제가 실패하였습니다");
-				   }
-				}, error:function() {
-					alert("삭제할 회원을 먼저 선택해주세요");
-				}
-		    
-			});
-		} 
-	});
-});
-
-	function memDormant(clickid) {
-		//var clickid = document.getElementById('h_userid').value;
-		
-		if(confirm("휴면 처리 하시겠습니까?")) {
-			location.href="memDormant?userid="+clickid.value;
-		}
-	};
 	
-	function memDel(clickid) {
-		console.log(clickid.value)
-		if(confirm("탈퇴 처리 하시겠습니까?")) {
-			location.href="memDel?userid="+clickid.value;
-		}
-	};
-	
-	/* 페이지 버튼*/
-	var pageBtn = $('#pageBtn_form');
-	$('.paging a').on("click", function(e){
-		e. preventDefault();
-		
-		console.log('페이지 버튼 click');
-		
-		pageBtn.find('input[name="pageNum"]').val($(this).attr('href'));
-		pageBtn.submit();
-		
-		
+	$(()=>{
+		$('#delMulti').click(()=> {
+			var confirm_val = confirm("선택한 회원을 삭제하시겠습니까?");
+			  
+			  if(confirm_val) {
+			   var checkArr = new Array();
+			   
+			   $(".memberChk:checked").each(function(){
+			    checkArr.push($(this).val());
+			   });
+			    
+			   console.log(checkArr);
+			   
+			   $.ajax({
+				    url : 'memMultiDel',
+				    type : 'get',
+				    dataType: 'json',
+				    data : { memberChk : checkArr },
+				    success : function(result){
+					   if(result == 1){
+					     location.href = 'memberSearch';
+					   } else {
+					   	alert("회원삭제가 실패하였습니다");
+					   }
+					}, error:function() {
+						alert("삭제할 회원을 먼저 선택해주세요");
+					}
+			    
+				});
+			} 
+		});
 	});
 	
+		function memDormant(clickid) {
+			//var clickid = document.getElementById('h_userid').value;
+			if(confirm("휴면 처리 하시겠습니까?")) {
+				location.href="memDormant?userid="+clickid.value;
+			}
+		};
+		
+		function memDel(clickid) {
+			console.log(clickid.value)
+			if(confirm("탈퇴 처리 하시겠습니까?")) {
+				location.href="memDel?userid="+clickid.value;
+			}
+		};
+		
+		/* 페이지 버튼*/
+		
+		$('.paging a').on("click", function(e){
+			e. preventDefault();
+			
+			var pageBtn = $('#pageBtn_form');
+			pageBtn.find('input[name="pageNum"]').val($(this).attr('href'));
+			pageBtn.submit();
+			
+		});
+		
+		$('#testBtn').on('click', function(e){
+			/* 인풋이 왜 Y만찍히냐 */
+			let emailok = $('.search_area_email input[name="emailok"]:checked').val();
+	        console.log(emailok);
+	        
+		});
+		
+		
+		$('.adminMainBtn').on('click', function(e){
+			
+			e.preventDefault();
+			
+			var pageBtn = $('#pageBtn_form');
+			
+			let emailok = $('.search_area_email input[name="emailok"]:checked').val();
+			let smsok = $('#h_smsok option:selected').val();
+			let type = $('#h_type option:selected').val();
+			/* let type = $('.search_area select').val(); */
+			let searchWord = $('.search_area input[name="searchWord"]').val();
+			
+			if(!type){
+	            alert("검색 종류를 선택하세요.");
+	            return false;
+	        }
+	        
+	        if(!searchWord){
+	            alert("검색어를 입력하세요.");
+	            return false;
+	        }   
+	        
+			pageBtn.find('input[name="type"]').val(type);
+			pageBtn.find('input[name="searchWord"]').val(searchWord);
+			pageBtn.find('input[name="emailok"]').val(emailok);
+			pageBtn.find('input[name="smsok"]').val(smsok);
+			pageBtn.find('input[name="pageNum"]').val(1);
+			pageBtn.submit();
+			
+		});
+		
 </script>
 </html>
-
-
-
-
-	
-
-
-
