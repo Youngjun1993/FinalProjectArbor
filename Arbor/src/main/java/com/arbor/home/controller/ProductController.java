@@ -504,24 +504,19 @@ public class ProductController {
 	
 	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
 	@RequestMapping("/productSearch")
-	public ModelAndView productSearch(HttpServletRequest req) {
+	public ModelAndView productSearch(PageSearchVO vo, HttpServletRequest req) {
 		String pageNumStr = req.getParameter("pageNum");
-		PageSearchVO pageVo = new PageSearchVO();
-		
 		if(pageNumStr != null) {
-			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+			vo.setPageNum(Integer.parseInt(pageNumStr));
 		}
 		
-		pageVo.setSearchKey(req.getParameter("searchKey"));
-		pageVo.setSearchWord(req.getParameter("searchWord"));
-		
-		pageVo.setTotalRecord(productService.totalRecord(pageVo));
+		vo.setTotalRecord(productService.totalRecord(vo));
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("subCate", productService.subCateList(1));
 		mav.addObject("mainCate", productService.mainCateList());
-		mav.addObject("productList", productService.productList(pageVo));
-		mav.addObject("pageVO", pageVo);
+		mav.addObject("productList", productService.productList(vo));
+		mav.addObject("pageVO", vo);
 		mav.setViewName("/admin/product/productSearch");
 		return mav;
 	}
