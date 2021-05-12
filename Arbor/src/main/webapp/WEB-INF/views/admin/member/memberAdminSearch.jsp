@@ -12,6 +12,7 @@
 </head>
 <body>
 <div class="w1400_container clearfix">
+ 
 	<!-- 관리자메뉴 -->
 	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<!-- 회원검색 컨테이너-->
@@ -69,7 +70,7 @@
 	<!-- 회원목록 -->
 	<div class="h_memTableLi">
 	<form method="get" id="delMultiForm" action="memMultiDel">
-		<ul class="clearfix">
+		<ul class="h_memList clearfix">
 			<li class="h_listHeader">선택</li>
 			<li class="h_listHeader">아이디</li>
 			<li class="h_listHeader">성명</li>
@@ -103,6 +104,26 @@
 		</c:forEach>
 		</ul>
 	</form>
+		<div class="h_paging_wrap clearfix">
+		<form id = "pageBtn_form" action="memberSearch" method="get">
+			<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum}"/>
+			<input type="hidden" name="amount" value = "${pageMaker.cri.amount}"/>
+		</form>
+		<ul class="paging">
+		<c:if test = "${pageMaker.prev }">
+			<li><a class="pagingLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
+		</c:if>
+		
+		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+			<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
+			<!-- 페이징 이동 버튼 폼  -->
+		</c:forEach>
+		
+		<c:if test = "${pageMaker.next }">
+			<li><a class="pagingLR_a " href="${pageMaker.endPage + 1 }">＞</a></li>
+		</c:if>
+		</ul>
+		</div>
 	</div>
 	</div>
 </div>
@@ -156,6 +177,19 @@ $(()=>{
 			location.href="memDel?userid="+clickid.value;
 		}
 	};
+	
+	/* 페이지 버튼*/
+	var pageBtn = $('#pageBtn_form');
+	$('.paging a').on("click", function(e){
+		e. preventDefault();
+		
+		console.log('페이지 버튼 click');
+		
+		pageBtn.find('input[name="pageNum"]').val($(this).attr('href'));
+		pageBtn.submit();
+		
+		
+	});
 	
 </script>
 </html>

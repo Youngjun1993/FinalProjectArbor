@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +32,7 @@ public class CartController {
 	
 	@RequestMapping(value="/cartInsert", method=RequestMethod.POST)
 	@ResponseBody
-	public int cartInsert(
+	public int cartInsert(@Nullable
 			@RequestParam(value="optnameArr[]", required=true) String[] optnameArr,
 			@RequestParam(value="priceArr[]", required=true) String[] priceArr,
 			@RequestParam(value="quantityArr[]", required=true) String[] quantityArr,

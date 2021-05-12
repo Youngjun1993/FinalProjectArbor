@@ -29,7 +29,7 @@ nav{width:100%; height:102px; background-color:#fff;position:absolute;z-index:10
 nav>ul{width:100%; height:100%; text-align:center; position:relative;}
 nav>ul>li{float:left; margin:60px 15px; display:inline-block;}
 nav>ul>li:nth-child(n+5){float:right;}
-nav>ul>li>a {margin-left:30px;position:relative; display:block; width:110px; height:40px; line-height:40px; font-size:20px;font-weight:bold;}
+nav>ul>li>a {margin-left:25px;position:relative; display:block; height:40px; line-height:40px; font-size:20px;font-weight:bold;}
 /*마우스호버효과*/
 nav>ul>li>a:after {content:""; position:absolute; left:50%; bottom:-2px; width:0%; height:4px; 
 background:rgb(90,120,114); transition: all 0.5s;}
@@ -638,7 +638,7 @@ footer{
 }
 #d_footerBottom div{float:left;}
 #d_footerBottom>div:first-of-type{
-	width:12%;
+	width:11%;
 	height:180px;
 
 }
@@ -649,7 +649,7 @@ footer{
 	height:100px;
 }
 #d_footerBottom>div:last-of-type{
-	width:88%;
+	width:89%;
 	height:100%;
 }
 #d_footerBottom>div:last-of-type ul{
