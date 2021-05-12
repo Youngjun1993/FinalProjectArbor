@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script>
+	$(function(){
+	});
+</script>
 <div id="y_cart_wrap" class="w1400_container">
     <div>
         <h1>장바구니</h1>
@@ -24,39 +29,56 @@
             <li><input type="checkbox" id="y_cartAllChck" name="y_cartAllChck"></li>
             <li>상품정보</li>
             <li>적립예정 금액</li>
-            <li>할인금액</li>
+            <li>총수량</li>
             <li>결제금액</li>
             <li>선택</li>
         </ul>
-        <div><!--테이블 내용-->
-            <ul class="clearfix">
-                <li>
-                    <input type="checkbox" class="y_cartChck" name="y_cartChck">
-                </li>
-                <li class="clearfix">
-                    <img src="argian.jpg" alt="">
-                    <span>ㅇㅇㅇㅇㅇ가구</span>
-                </li>
-                <li>-</li>
-                <li>-</li>
-                <li>-</li>
-                <li>
-                    <button class="clientMainBtn">바로구매</button><br/>
-                    <button class="clientSubBtn">삭제</button>
-                </li>
-            </ul>
-            <!--옵션-->
-            <p class="clearfix">
-                <button>✕</button>
-                옵션1) --/--- 
-                <span><button>-</button> 0 <button>+</button></span>
-            </p>
-            <p class="clearfix">
-                <button>✕</button>
-                옵션2) --/--- 
-                <span><button>-</button> 0 <button>+</button></span>
-            </p>
-        </div>
+        <c:forEach var="cartData" items="${list }">
+	        <div><!--테이블 내용-->
+	            <ul class="clearfix">
+	                <li>
+	                    <input type="checkbox" class="y_cartChck" name="y_cartChck">
+	                </li>
+	                <li class="clearfix">
+	                    <img src="argian.jpg" alt="">
+	                    <span>${cartData.pname }</span>
+	                </li>
+	                <li>2%적립</li>
+	                <li>-</li>
+	                <li>-</li>
+	                <li>
+	                    <button class="clientMainBtn">바로구매</button><br/>
+	                    <button class="clientSubBtn">삭제</button>
+	                </li>
+	            </ul>
+	            <!--옵션-->
+	            <c:forEach var="cartOptData" items="${optList }" varStatus="status">
+	            	<c:if test="${cartData.pno eq cartOptData.pno }">
+			            <c:if test="${cartOptData.optionvalue == null }">
+				            <p class="clearfix" style="background:#fff;border:none;">
+				                <span><fmt:formatNumber value="${cartOptData.price*cartOptData.quantity }"/> 원</span>
+				                <span><button>-</button> ${cartOptData.quantity } <button>+</button></span>
+				                <span>수량</span>  
+				            </p>
+			            </c:if>
+			            <c:if test="${cartOptData.optionvalue != null }">
+				            <p class="clearfix">
+				                <button>✕</button>
+				                옵션${status.index+1 }) ${cartOptData.optionvalue }
+				                <span><fmt:formatNumber value="${cartOptData.price*cartOptData.quantity }"/> 원</span> 
+				                <span><button>-</button> ${cartOptData.quantity } <button>+</button></span>
+				            </p>
+			            </c:if>  
+			            <script>
+			            	var dibs = [];
+				        	var countSum = [];
+				        	var totalPrice = [];
+				        	countSum.push(${cartOptData.quantity})
+			            </script>
+		            </c:if>
+	            </c:forEach>
+	        </div>
+        </c:forEach>
         <button class="clientSubBtn">선택삭제</button>
     </div>
     <div class="clearfix">
