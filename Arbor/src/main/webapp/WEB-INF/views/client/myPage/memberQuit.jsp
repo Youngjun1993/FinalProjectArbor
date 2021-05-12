@@ -88,9 +88,7 @@ $('#h_quitBtn').click(function (){
 		
 	});
 	
-	
 });
-
 
 //select의 option 밸류값을ㅏㅏㅏ앙ㅇ
 
