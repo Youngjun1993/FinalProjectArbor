@@ -148,8 +148,9 @@ public class MemberController {
 		System.out.println("테스트페이지 값 = " + cri.getPageNum());
 		
 		int cnt= memberService.memCount(cri);
+		//페이징용 VO 객체생성
 		MemPagingDTO pageMaker = new MemPagingDTO(cri, cnt);
-		
+		//modelandview에 list변수로 페이징 데이터 넣어주기
 		mav.addObject("list", memberService.memSearchPaging(cri));
 		
 		System.out.println("카테고리 ="+cri.getType());
