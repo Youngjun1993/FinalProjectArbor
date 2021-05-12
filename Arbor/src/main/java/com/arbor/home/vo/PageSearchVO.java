@@ -13,6 +13,9 @@ public class PageSearchVO {
 	private String userid;
 	
 	/* Admin - productController */
+	private String startdate;
+	private String enddate;
+	private int subno;
 	
 	public String getUserid() {
 		return userid;
@@ -22,6 +25,24 @@ public class PageSearchVO {
 	}
 	public int getOnePageRecord() {
 		return onePageRecord;
+	}
+	public String getStartdate() {
+		return startdate;
+	}
+	public void setStartdate(String startdate) {
+		this.startdate = startdate;
+	}
+	public String getEnddate() {
+		return enddate;
+	}
+	public void setEnddate(String enddate) {
+		this.enddate = enddate;
+	}
+	public int getSubno() {
+		return subno;
+	}
+	public void setSubno(int subno) {
+		this.subno = subno;
 	}
 	public void setOnePageRecord(int onePageRecord) {
 		this.onePageRecord = onePageRecord;
