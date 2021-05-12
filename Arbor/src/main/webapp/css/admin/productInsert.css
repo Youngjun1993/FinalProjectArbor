@@ -210,6 +210,9 @@
 #insertCategoryDiv {
 	margin-top: 15px;
 }
+#insertCategoryDiv>form>.pContent:first-child {
+	margin-top:10px;
+}
 
 #insertCategoryDiv>hr {
 	margin: 30px 0 80px;

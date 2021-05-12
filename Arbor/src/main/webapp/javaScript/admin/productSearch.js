@@ -50,7 +50,7 @@ $(function(){
 	
 	$("#pqnaNoAnswerList").click(function() {
 		location.href="pqnaNoAnswerList";
-	}).
+	});
 	
 	// Datepicker
 	$("#startdate").datepicker({
@@ -125,4 +125,10 @@ function formatDate(date) {
 	if (month.length < 2) month = '0' + month;
 	if (day.length < 2) day = '0' + day;
 	return [year, month, day].join('-');
+}
+
+function subcateDelete(mainno, subno) {
+	if(confirm("정말 삭제 하시겠습니까?")) {
+		location.href="deleteCate?mainno="+mainno+"&subno="+subno;
+	}
 }

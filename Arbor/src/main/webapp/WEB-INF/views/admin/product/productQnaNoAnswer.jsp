@@ -75,32 +75,27 @@
 						<li class="wordcut"><a href="pqnaAnswer?pqnano=${vo.pqnano }">${vo.pqnasubject }</a></li>
 						<li>${vo.userid }</li>
 						<li>${vo.pqnadate }</li>
-						<c:if test="${vo.panswercontent=='' || vo.panswercontent==null }">
-							<li><span class="answerNo">답변대기중</span></li>
-						</c:if>
-						<c:if test="${vo.panswercontent!='' && vo.panswercontent!=null }">
-							<li><span class="answerOk">답변완료</span></li>
-						</c:if>
+						<li><span class="answerNo">답변대기중</span></li>						
 					</c:forEach>
 				</ul>
 			</div>
 			<div id="pagingDiv">
 				 <ul class="adPaging" class="clearfix">
 	            	<c:if test="${pageVO.pageNum>1 }">
-	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="pqnaList?pageNum=${pageVO.pageNum-1}">＜</a></li>
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="pqnaNoAnswerList?pageNum=${pageVO.pageNum-1}">＜</a></li>
 	                </c:if>
 	                <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
 	                	<c:if test="${p<=pageVO.totalPage }">
 		                	<c:if test="${p==pageVO.pageNum }">
-		                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="pqnaList?pageNum=${p}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
+		                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="pqnaNoAnswerList?pageNum=${p}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
 		                	</c:if>
 		                	<c:if test="${p!=pageVO.pageNum }">
-		                		<li><a href="pqnaList?pageNum=${p}">${p }</a></li>
+		                		<li><a href="pqnaNoAnswerList?pageNum=${p}">${p }</a></li>
 		                	</c:if>
 	                	</c:if>
 	                </c:forEach>
 	                <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="pqnaList?pageNum=${pageVO.pageNum+1}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">＞</a></li>
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="pqnaNoAnswerList?pageNum=${pageVO.pageNum+1}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">＞</a></li>
 	                </c:if>
 	            </ul>
             </div>

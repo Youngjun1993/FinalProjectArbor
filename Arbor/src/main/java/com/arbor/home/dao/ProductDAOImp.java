@@ -83,9 +83,19 @@ public interface ProductDAOImp {
 	// 상품문의 번호에 따라 내용 불러오기
 	public ProductQnaVO pqnaAnswer(int pqnano);
 	// 미답변글 리스트 받아오기
-	public int pqnaNoAnswerList(PageSearchVO pageVo);
+	public List<ProductQnaVO> pqnaNoAnswerList(PageSearchVO pageVo);
 	// 상품문의 답변 등록하기
 	public int pqnaAnswerInsert(ProductQnaVO vo);
 	// 상품문의 답변 삭제하기
 	public int pqnaAnswerDelete(int pqnano);
+	// 대분류 등록하기
+	public int insertMainCate(String editWord);
+	// 중분류 등록하기
+	public int insertSubCate(int mainno, String editWord);
+	// 대분류 name으로 no 찾기
+	public int selectMainno(String editWord);
+	// 대분류 삭제하기
+	public int deleteMainCate(int mainno);
+	// 중분류 삭제하기
+	public int deleteSubCate(int subno);
 }

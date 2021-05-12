@@ -182,8 +182,33 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int pqnaNoAnswerList(PageSearchVO pageVo) {
+	public List<ProductQnaVO> pqnaNoAnswerList(PageSearchVO pageVo) {
 		return productDAO.pqnaNoAnswerList(pageVo);
+	}
+
+	@Override
+	public int insertMainCate(String editWord) {
+		return productDAO.insertMainCate(editWord);
+	}
+
+	@Override
+	public int insertSubCate(int mainno, String editWord) {
+		return productDAO.insertSubCate(mainno, editWord);
+	}
+
+	@Override
+	public int selectMainno(String editWord) {
+		return productDAO.selectMainno(editWord);
+	}
+
+	@Override
+	public int deleteMainCate(int mainno) {
+		return productDAO.deleteMainCate(mainno);
+	}
+
+	@Override
+	public int deleteSubCate(int subno) {
+		return productDAO.deleteSubCate(subno);
 	}
 	
 	

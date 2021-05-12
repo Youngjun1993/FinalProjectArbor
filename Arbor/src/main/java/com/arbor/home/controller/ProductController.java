@@ -136,6 +136,39 @@ public class ProductController {
 		return mav;
 	}
 	
+	// Admin - 카테고리 등록
+	@RequestMapping(value="/insertCate", method=RequestMethod.POST)
+	public String insertCate(HttpServletRequest req) {
+		String mainnoStr = req.getParameter("mainno");
+		
+		if(mainnoStr!=null && !mainnoStr.equals("")) {
+			// 중분류 등록
+			String editWord = req.getParameter("subEdit");
+			int mainno = Integer.parseInt(mainnoStr);
+			productService.insertSubCate(mainno, editWord);
+		} else {
+			// 대분류등록
+			String editWord = req.getParameter("mainEdit");
+			productService.insertMainCate(editWord);
+			int mainnum = productService.selectMainno(editWord);
+			productService.insertSubCate(mainnum, " ");
+		}
+		
+		return "/";
+	}
+	
+	@RequestMapping(value="/deleteCate")
+	public String deleteCate(int mainno, int subno) {
+		productService.deleteSubCate(subno);
+		List<SubCateVO> list = productService.subCateList(mainno);
+		if(list.size()==0) {
+			productService.deleteMainCate(mainno);
+		}
+		
+		return "/";
+		
+	}
+	
 	// Admin - 상품문의 목록
 	@RequestMapping("/pqnaList")
 	public ModelAndView pqnaList(PageSearchVO vo, HttpServletRequest req) {
