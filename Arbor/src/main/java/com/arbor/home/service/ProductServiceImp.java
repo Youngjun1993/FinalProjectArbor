@@ -98,4 +98,10 @@ public interface ProductServiceImp {
 	public int deleteMainCate(int mainno);
 	// 중분류 삭제하기
 	public int deleteSubCate(int subno);
+	// subno로 mainno 구하기
+	public int selectSubno(int subno);
+	// 대분류 수정하기
+	public int updateMainCate(MainCateVO vo);
+	// 중분류 수정하기
+	public int updateSubCate(SubCateVO vo);
 }

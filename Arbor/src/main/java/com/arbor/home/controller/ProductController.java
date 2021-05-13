@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.ProductServiceImp;
+import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
@@ -154,19 +155,49 @@ public class ProductController {
 			productService.insertSubCate(mainnum, " ");
 		}
 		
-		return "/";
+		return "redirect:manageCate";
 	}
 	
-	@RequestMapping(value="/deleteCate")
-	public String deleteCate(int mainno, int subno) {
-		productService.deleteSubCate(subno);
-		List<SubCateVO> list = productService.subCateList(mainno);
+	// Admin - 카테고리 삭제
+	@RequestMapping("/deleteCate")
+	@ResponseBody
+	public int deleteCate(SubCateVO vo) {
+		int cnt = 0;
+		int result = productService.deleteSubCate(vo.getSubno());
+		cnt += result;
+		List<SubCateVO> list = productService.subCateList(vo.getMainno());
 		if(list.size()==0) {
-			productService.deleteMainCate(mainno);
+			productService.deleteMainCate(vo.getMainno());
 		}
+		return cnt;
+	}
+	
+	// Admin - 카테고리 삭제
+	@RequestMapping(value="/deleteCateMany", method=RequestMethod.POST)
+	@ResponseBody
+	public int deleteCateMany(
+			@RequestParam(value="checked[]", required=true) String subnoArr[]) {
+		int cnt = 0;
+		for(int i=0; i<subnoArr.length; i++) {
+			int subno = Integer.parseInt(subnoArr[i]);
+			int mainno = productService.selectSubno(subno);
+			int result = productService.deleteSubCate(subno);
+			cnt += result;
+			List<SubCateVO> list = productService.subCateList(mainno);
+			if(list.size()==0) {
+				productService.deleteMainCate(mainno);
+			}
+		}
+		return cnt;
+	}
+	
+	// Admin - 카테고리 수정
+	@RequestMapping(value="/cateEdit", method=RequestMethod.POST)
+	public String updateCate(MainCateVO mvo, SubCateVO svo) {
+		productService.updateMainCate(mvo);
+		productService.updateSubCate(svo);
 		
-		return "/";
-		
+		return "redirect:manageCate";
 	}
 	
 	// Admin - 상품문의 목록
@@ -586,6 +617,30 @@ public class ProductController {
 		productService.productDelete(pno);
 		productService.optionAllDelete(pno);
 		return "redirect:productSearch";
+	}
+	
+	@RequestMapping("/productDeleteMany")
+	@ResponseBody
+	public int productDeleteMany(HttpServletRequest req,
+			@RequestParam(value="checked", required=true) String pnoArr[]) {
+		int cnt=0;
+		for(int i=0; i<pnoArr.length; i++) {
+			// 원래 DB 파일명 가져오기
+			int pno = Integer.parseInt(pnoArr[i]);
+			ProductVO dbFilename = productService.productSelect(pno);
+			String path = req.getSession().getServletContext().getRealPath("/upload");
+			File f = new File(path, dbFilename.getImg1());
+			f.delete();
+			if(dbFilename.getImg2()!=null && !dbFilename.getImg2().equals("")) {
+				File f2 = new File(path, dbFilename.getImg2());
+				f2.delete();
+			}
+			int result = productService.productDelete(pno);
+			cnt += result;
+			productService.optionAllDelete(pno);
+		}
+		
+		return cnt;
 	}
 	
 	// SummerNote upload

@@ -63,14 +63,14 @@
 				</p><br/>
 				<button type="button" class="adminSubBtn" id="pqnaNoAnswerList">미답변글(${cnt })</button>
 				<ul id="productQnaList_ul" class="clearfix">
-					<li class="tableHeader"><input type="checkbox" value="전체선택" id="listCheckAll"/></li>
+					<li class="tableHeader">글번호</li>
 					<li class="tableHeader wordcut">상품명</li>
 					<li class="tableHeader wordcut">문의제목</li>
 					<li class="tableHeader">작성자</li>
 					<li class="tableHeader">작성일</li>
 					<li class="tableHeader">답변상태</li>
 					<c:forEach var="vo" items="${vo }">
-						<li><input type="checkbox" value="${vo.pqnano }"/></li>
+						<li>${vo.pqnano }</li>
 						<li class="wordcut">${vo.pname }</li>
 						<li class="wordcut"><a href="pqnaAnswer?pqnano=${vo.pqnano }">${vo.pqnasubject }</a></li>
 						<li>${vo.userid }</li>

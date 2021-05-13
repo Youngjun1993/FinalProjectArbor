@@ -99,7 +99,7 @@
 #insertInfo>div {
 	overflow: auto;
 }
-#insertInfo>div>form>input[type=submit] {
+#insertInfo>div>form>input[type=submit]:not(#UpdateCateFrmInput) {
 	float:right; width: 150px; height: 35px;
 	margin-right: 50px;
 }
@@ -169,14 +169,14 @@
 #productList>li>input[type=checkbox] {
 	width: 15px; height: 15px; margin: 0 auto;
 }
-#productList>li>input[type=submit]{
+#productList>li.tableHeader>input[type=submit]{
 	width: 120px; height: 30px;
-	margin:auto;
+	margin:0 auto;
 }
-#productList>li>button[type=button] {
-	width: 50px; height: 25px;
+#productList>li:not(.tableHeader)>input[type=submit] {
+	width: 50px; height: 25px; margin:0 auto;
 }
-#productList>li>button[type=button]:first-child {
+#productList>li:not(.tableHeader)>input[value=수정] {
 	margin-right:3px;
 }
 
@@ -203,10 +203,13 @@
 	width: 15px; height: 15px;
 }
 #categoryList>li.tableHeader>input[type=submit] {
-	width: 130px; height: 30px;
+	width: 140px; height: 30px;
 	margin: 0 auto;
 }
-
+#categoryList>li:not(.tableHeader)>input[type=submit] {
+	width: 50px; height: 25px;
+	margin: 0 auto;
+}
 #insertCategoryDiv {
 	margin-top: 15px;
 }
@@ -216,6 +219,21 @@
 
 #insertCategoryDiv>hr {
 	margin: 30px 0 80px;
+}
+
+#UpdateCateFrm {
+	width: 430px; height: 130px;
+	border:1px solid; background-color:#fff;
+	position:absolute; overflow:auto;
+	top:600px; left:1000px; padding:10px;
+}
+#UpdateCateFrmInput {
+	float:right;
+	width: 80px; height: 30px; margin:5px 22px 5px 5px;
+}
+#UpdateCateFrm>button {
+	margin-right: 0px; float:right;
+	width: 80px; height: 30px; margin:5px;
 }
 
 /* product qna */
@@ -242,11 +260,14 @@
 #productQnaList_ul>li:nth-of-type(6n+1) {
 	width: 5%;
 }
+#productQnaList_ul>li:nth-of-type(6n+2) {
+	width: 20%;
+}
 #productQnaList_ul>li:nth-of-type(6n+3) {
-	width: 33%; padding-left: 2%; text-align: left;
+	width: 28%; padding-left: 2%; text-align: left;
 }
 #productQnaList_ul>li:nth-of-type(3) {
-	width: 35%; padding-left: 0%; text-align: center;
+	width: 30%; padding-left: 0%; text-align: center;
 }
 #productQnaList_ul>li>input[type=checkbox] {
 	margin: 0; padding: 0;

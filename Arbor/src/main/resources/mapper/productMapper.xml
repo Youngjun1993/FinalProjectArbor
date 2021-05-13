@@ -19,6 +19,14 @@
  		select mainno from maincate where mainname=#{param1}
  	</select>
  	
+ 	<update id="updateMainCate" parameterType="com.arbor.home.vo.MainCateVO">
+ 		update maincate set mainname=#{mainname} where mainno=${mainno}
+ 	</update>
+ 	
+ 	<select id="selectSubno" resultType="int" parameterType="int">
+ 		select mainno from subcate where subno=${param1}
+ 	</select>
+ 	
  	<select id="subCateList" parameterType="int" resultType="com.arbor.home.vo.SubCateVO">
  		select mainno, subno, subname from subcate where mainno=${param1}
  	</select>
@@ -30,6 +38,10 @@
  	<delete id="deleteSubCate" parameterType="int">
  		delete from subcate where subno=${param1}
  	</delete>
+ 	
+ 	<update id="updateSubCate" parameterType="com.arbor.home.vo.SubCateVO">
+ 		update subcate set subname=#{subname} where subno=${subno}
+ 	</update>
  	
  	<select id="subCateListAll" resultType="com.arbor.home.vo.SubCateVO" parameterType="com.arbor.home.vo.PageSearchVO">
  		select * from(select * from(

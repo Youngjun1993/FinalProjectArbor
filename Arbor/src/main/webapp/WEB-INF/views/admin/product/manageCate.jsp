@@ -12,9 +12,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/productSearch.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
-<script>
-
-</script>
 </head>
 <body>
 	<div class="w1400_container font_ng">
@@ -54,28 +51,39 @@
 								</c:if>
 							</c:forEach>
 						</select>
-						<input type="text" name="subEdit" id="searchWord" />
+						<input type="text" name="subEdit" id="searchWord" autocomplete='off'/>
 						<input type="submit" value="등록" class="adminMainBtn"/>
 					</form>
 					<hr/>
-					<ul id="categoryList">
-						<li class="tableHeader"><input type="checkbox" value="전체선택" id="listCheckAll"/></li>
-						<li class="tableHeader">대분류번호</li>
-						<li class="tableHeader">중분류번호</li>
-						<li class="tableHeader">대분류</li>
-						<li class="tableHeader">중분류</li>
-						<li class="tableHeader"><input type="submit" value="선택삭제" class="adminMainBtn"/></li>
-						
-						<c:forEach var="vo" items="${cateList }">
-							<li><input type="checkbox" value="${vo.subno }"/></li>
-							<li>${vo.mainno }</li>
-							<li>${vo.subno }</li>
-							<li>${vo.mainname }</li>
-							<li>${vo.subname }</li>
-							<li><button type="button" class="adminSubBtn">수정</button>
-							<button type="button" class="adminSubBtn" onclick="javascript?subcateDelete(${vo.mainno }, ${vo.subno })">삭제</button></li>
-						</c:forEach>
-					</ul>
+					<form method="post" id="deleteCate" action="">
+						<ul id="categoryList">
+							<li class="tableHeader"><input type="checkbox" value="전체선택" id="listCheckAll"/></li>
+							<li class="tableHeader">대분류번호</li>
+							<li class="tableHeader">중분류번호</li>
+							<li class="tableHeader">대분류</li>
+							<li class="tableHeader">중분류</li>
+							<li class="tableHeader"><input type="submit" value="선택삭제" class="adminMainBtn" formaction="javascript:deleteCate()"/></li>
+							
+							<c:forEach var="vo" items="${cateList }">
+								<li><input type="checkbox" value="${vo.subno }"/></li>
+								<li><input type="hidden" name="mainno" value="${vo.mainno }"/>${vo.mainno }</li>
+								<li><input type="hidden" name="subno" value="${vo.subno }"/>${vo.subno }</li>
+								<li><input type="hidden" name="mainname" value="${vo.mainname }"/>${vo.mainname }</li>
+								<li><input type="hidden" name="subname" value="${vo.subname }"/>${vo.subname }</li>
+								<li><input type="submit" class="adminSubBtn" value="수정" formaction="javascript:cateEditBtn(${vo.mainno }, '${vo.mainname }', ${vo.subno }, '${vo.subname }')"/>
+								<input type="submit" class="adminSubBtn" value="삭제" formaction="javascript:cateDeleteBtn()"/></li>
+							</c:forEach>
+						</ul>
+					</form>
+					<form method="post" id="UpdateCateFrm" class="clearfix" action="cateEdit">
+						<span class="pContent">대분류</span>
+						<input type="hidden" name="mainno" value=""/>
+						<input type="text" name="mainname" value=""/><br/>
+						<span class="pContent">중분류</span>
+						<input type="hidden" name="subno" value="" />
+						<input type="text" name="subname" value="" /><br/>
+						<input type="submit" class="adminMainBtn" id="UpdateCateFrmInput" value="수정" />	<button type="button" class="adminSubBtn" onclick="javascript:cancelCateFrm">닫기</button>
+					</form>
 				</div>
 			</div>
 			<div id="pagingDiv">

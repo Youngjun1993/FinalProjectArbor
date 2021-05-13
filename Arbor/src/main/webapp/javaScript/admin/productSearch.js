@@ -14,6 +14,8 @@ $(function(){
 		$(this).prev().show();
 	});
 	
+	$("#UpdateCateFrm").hide();
+	
 	// mainCate, subCate 셀렉트 박스 변환
 	$("#maincate").change(function() {
 		var url="subCateList";
@@ -84,6 +86,95 @@ $(function(){
 	
 });
 
+<!-- 카테고리 수정창 띄우기 -->
+function cateEditBtn(mainno, mainname, subno, subname){
+	$("#UpdateCateFrm").show();
+	console.log(mainno+","+mainname+","+subno+","+subname);
+	$("#UpdateCateFrm").children("input[name=mainno]").val(mainno);
+	$("#UpdateCateFrm").children("input[name=mainname]").val(mainname);
+	$("#UpdateCateFrm").children("input[name=subno]").val(subno);
+	$("#UpdateCateFrm").children("input[name=subname]").val(subname);
+}
+
+<!-- 카테고리 수정창에서 닫기 클릭 -->
+function cancelCateFrm(){
+	$("#UpdateCateFrm").hide();
+}
+
+<!-- 카테고리 한개 삭제 -->
+function cateDeleteBtn(){
+	if(confirm("진짜 삭제 하시겠습니까?")){
+		var data = $("#deleteCate").serialize();
+		
+		$.ajax({
+			url : "deleteCate",
+			data : data,
+			success : function(result){
+				if(result>0){
+					alert("삭제가 완료되었습니다.")
+					location.href="manageCate"
+				}
+			}, error : function(){
+			
+			}
+		});
+	}
+}
+
+<!-- 카테고리 체크박스 여러개 삭제 -->
+function deleteCate(){
+	if(confirm("진짜 삭제 하시겠습니까?")){
+		var checked = [];
+		 $('input[type="checkbox"]:checked').each(function (index, check) {
+		 	checked.push($(check).val());
+		 });
+		 
+		 $.ajax({
+			url : "deleteCateMany",
+			dataType : 'json',
+			type: 'POST',
+			data : { 
+				checked : checked,
+			},
+			success : function(result){
+				if(result>0){
+					alert("삭제가 완료되었습니다.")
+					location.href="manageCate"
+				}
+			}, error : function(){
+			
+			}
+		});
+	}
+}
+
+<!-- 상품 여러개 동시삭제 -->
+function productDeleteCheck(){
+	if(confirm("진짜 삭제 하시겠습니까?")){
+		var checked = [];
+		 $('input[type="checkbox"]:checked').each(function (index, check) {
+		 	checked.push($(check).val());
+		 });
+		 
+		 $.ajax({
+			url : "produectDeleteMany",
+			dataType : 'json',
+			type: 'POST',
+			data : { 
+				checked : checked,
+			},
+			success : function(result){
+				if(result>0){
+					alert("삭제가 완료되었습니다.")
+					location.href="productSearch"
+				}
+			}, error : function(){
+			
+			}
+		});
+	}
+}
+
 function productdel(pno){
 	if(confirm(pno+"번 상품을 삭제하시겠습니까?")) {
 		location.href="productDelete?pno="+pno;
@@ -125,10 +216,4 @@ function formatDate(date) {
 	if (month.length < 2) month = '0' + month;
 	if (day.length < 2) day = '0' + day;
 	return [year, month, day].join('-');
-}
-
-function subcateDelete(mainno, subno) {
-	if(confirm("정말 삭제 하시겠습니까?")) {
-		location.href="deleteCate?mainno="+mainno+"&subno="+subno;
-	}
 }

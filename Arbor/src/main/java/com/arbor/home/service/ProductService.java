@@ -210,6 +210,21 @@ public class ProductService implements ProductServiceImp {
 	public int deleteSubCate(int subno) {
 		return productDAO.deleteSubCate(subno);
 	}
+
+	@Override
+	public int selectSubno(int subno) {
+		return productDAO.selectSubno(subno);
+	}
+
+	@Override
+	public int updateMainCate(MainCateVO vo) {
+		return productDAO.updateMainCate(vo);
+	}
+
+	@Override
+	public int updateSubCate(SubCateVO vo) {
+		return productDAO.updateSubCate(vo);
+	}
 	
 	
 }
