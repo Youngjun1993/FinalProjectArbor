@@ -38,7 +38,8 @@
                 </li>
                 <ul class="h_menu_submenu accordion-content">
                     <li><a class="head" href="qnaAdList">1:1문의관리</a></li>
-                    <li><a class="head" href="d">QnA관리</a></li>
+                    <li><a class="head" href="">공지사항</a></li>
+                    <li><a class="head" href="faqAdList">자주묻는질문<br/>(FAQ)</a></li>
                 </ul>
                 <!-- 관리자 5번 메뉴 -->
                 <li id="nav1" class="toggle accordion-toggle"> 

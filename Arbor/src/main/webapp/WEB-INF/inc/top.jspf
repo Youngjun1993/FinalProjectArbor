@@ -179,7 +179,7 @@ $(function(){
 			<ul>
 				<li>COMMUNITY</li>
 				<li><a href="noticeList">공지사항</a></li>
-				<li><a href="">자주묻는 질문</a></li>
+				<li><a href="faqList">자주묻는 질문</a></li>
 			</ul>
 		</div>
 		<div class="d_col">
