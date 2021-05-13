@@ -126,8 +126,15 @@
  		delete from optiontbl where pno=${param1}
  	</delete>
  	
- 	<select id="productListClient" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
- 		select pno, subno, pname, pprice, saleprice, img1, img2 from product where subno=${param1}
+ 	<select id="productListClient" parameterType="com.arbor.home.vo.ProductArrayVO" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from (select * from (select * from (select * from (select * from (
+ 		select pno, subno, pname, pprice, saleprice, img1, img2 from product where subno=${param1} order by pno desc)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pno asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pno desc)
+ 		<if test=""></if>)
+ 		<if test=""></if>)
+ 		<if test=""></if>
  	</select>
  	
  	<select id="productListRGB" parameterType="int" resultType="com.arbor.home.vo.OptionVO">

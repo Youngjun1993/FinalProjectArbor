@@ -5,6 +5,7 @@ import java.util.List;
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.PageSearchVO;
+import com.arbor.home.vo.ProductArrayVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.QnaVO;
@@ -32,7 +33,7 @@ public interface ProductServiceImp {
 	/* 사용자 */
 	
 	//상품목록 불러오기
-	public List<ProductVO> productListClient(int subno);
+	public List<ProductVO> productListClient(ProductArrayVO vo);
 	// 목록에 사용할 rgb컬러 불러오기
 	public List<OptionVO> productListRGB(int subno);
 	// mainname 가져오기

@@ -16,7 +16,7 @@
 			</c:forEach>
 		</ul>
 		<ul id="p_rightTitle" class="clearfix">
-			<li><a href="#">최신순</a></li>
+			<li><a href="productList?subno=${avo.subno }&msg=">최신순</a></li>
 			<li>|</li>
 			<li><a href="#">낮은가격순</a></li>
 			<li>|</li>
@@ -43,6 +43,26 @@
 					<p class="p_listdetail3"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/></p>
 				</li>
 			</c:forEach>
+		</ul>
+	</div>
+	<div id="pagingDiv">
+		 <ul class="adPaging" class="clearfix">
+           	<c:if test="${pageVO.pageNum>1 }">
+               	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="productSearch?pageNum=${pageVO.pageNum-1}">＜</a></li>
+			</c:if>
+			<c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+               	<c:if test="${p<=pageVO.totalPage }">
+                	<c:if test="${p==pageVO.pageNum }">
+                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="productSearch?pageNum=${p}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
+                	</c:if>
+                	<c:if test="${p!=pageVO.pageNum }">
+                		<li><a href="productSearch?pageNum=${p}">${p }</a></li>
+                	</c:if>
+               	</c:if>
+			</c:forEach>
+			<c:if test="${pageVO.pageNum<pageVO.totalPage }">
+				<li style="border-bottom:none;"><a class="pagingAdLR_a" href="productSearch?pageNum=${pageVO.pageNum+1}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">＞</a></li>
+			</c:if>
 		</ul>
 	</div>
 </div>
