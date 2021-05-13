@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arbor.home.service.MemberServiceImp;
 import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemPagingDTO;
+import com.arbor.home.vo.MemberDormantVO;
 import com.arbor.home.vo.MemberVO;
 
 @Controller
@@ -139,92 +140,8 @@ public class MemberController {
 		return "home";
 	}
 	
-	//회원 전체검색 및 페이징
-	@RequestMapping("/memberSearch")
-	public ModelAndView memberSearchList(MemPagingCri cri) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		System.out.println("테스트페이지 값 = " + cri.getPageNum());
-		
-		int cnt= memberService.memCount(cri);
-		//페이징용 VO 객체생성
-		MemPagingDTO pageMaker = new MemPagingDTO(cri, cnt);
-		//modelandview에 list변수로 페이징 데이터 넣어주기
-		mav.addObject("list", memberService.memSearchPaging(cri));
-		
-		System.out.println("카테고리 ="+cri.getType());
-		System.out.println("검색어 ="+cri.getSearchWord());
-		
-		
-		
-		mav.addObject("pageMaker", pageMaker);//전체데이터가 담긴 memberVO 객체
-		
-		mav.setViewName("admin/member/memberAdminSearch");
-		
-		return mav;
-	}
-	
-	//휴면회원 처리
-    @RequestMapping("/memDormant")
-    public ModelAndView memDormant(String userid) {
-    	ModelAndView mav = new ModelAndView();
-    	
-    	int cnt = memberService.memDormant(userid);
-    	
-    	if(cnt>0) {
-			System.out.println("휴면처리 완료");
-			mav.setViewName("redirect:memberSearch");
-		}else {
-			System.out.println("휴면처리 실패");
-			mav.setViewName("redirect:memberSearch");
-		}
-    	
-    	return mav;
-    }
     
-    //회원삭제
-    @RequestMapping("/memDel")
-	public ModelAndView memDel(String userid) {
-    	ModelAndView mav = new ModelAndView();
-    	
-    	int cnt = memberService.memDel(userid);
-    	memberService.insertByeMemberMulti(userid, "관리자삭제");
-    	
-    	
-		if (cnt>0) {//삭제
-			mav.setViewName("redirect:memberSearch");
-		}else {//삭제 실패
-			System.out.println("삭제실패");
-			mav.setViewName("redirect:memberSearch");
-		}
-		
-		return mav;
-	}
-    
-    //다중삭제
-    @ResponseBody
-    @RequestMapping("/memMultiDel")
-	public int memMultiDel(@RequestParam(value = "memberChk[]") List<String> chArr) {
-    	int result = 0;
-    	
-    	System.out.println(chArr.size());
-    	///////수정중
-		  for (int i=0; i<chArr.size(); i++) {
-			 memberService.memMultiDel(chArr.get(i));
-			 int cnt = memberService.insertByeMemberMulti(chArr.get(i), "관리자삭제");
-			 if(cnt>0) {
-				System.out.println("다중삭제 완료");
-			 }else {
-				 System.out.println("다중삭제 실패");
-				 System.out.println(cnt);
-			 }
-		  }
-		  result = 1;
-		return result;
-	}
-    
-	
+	//////////////////////////////////로그인 영역 //////////////////////////////////////////
 	//중복아이디 체크
 	@RequestMapping("/idcheck")
 	public String asdfasdf(HttpServletRequest req) {
@@ -338,7 +255,6 @@ public class MemberController {
     		System.out.println("비밀번호 불일치");
     		result = 0;
     	}
-    	
 		return result;
 	}
     
@@ -350,7 +266,98 @@ public class MemberController {
 	}
 	
 	
+	///////////////////////////////////회원 검색 영역 ////////////////////////////////////////////
+	//회원 전체검색 및 페이징
+	@RequestMapping("/memberSearch")
+	public ModelAndView memberSearchList(MemPagingCri cri) {
 	
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("테스트페이지 값 = " + cri.getPageNum());
+		
+		int cnt= memberService.memCount(cri);
+		//페이징용 VO 객체생성
+		MemPagingDTO pageMaker = new MemPagingDTO(cri, cnt);
+		//modelandview에 list변수로 페이징 데이터 넣어주기 
+		mav.addObject("list", memberService.memSearchPaging(cri));
+		
+		System.out.println("카테고리 ="+cri.getType());
+		System.out.println("검색어 ="+cri.getSearchWord());
+		
+		
+		
+		mav.addObject("pageMaker", pageMaker);//전체데이터가 담긴 memberVO 객체
+		
+		mav.setViewName("admin/member/memberAdminSearch");
+		
+	return mav;
+	}
+	
+	//휴면회원 처리
+	@RequestMapping("/memDormant")
+	public ModelAndView memDormant(String userid) {
+		ModelAndView mav = new ModelAndView();
+		
+		int cnt = memberService.memDormant(userid);
+		
+		//휴면테이블에 휴면계정데이터 삽입
+		memberService.insertDormantMember(userid, "관리자");
+		
+		
+		if(cnt>0) {
+			System.out.println("휴면처리 완료");
+			mav.setViewName("redirect:memberSearch");
+		}else {
+			System.out.println("휴면처리 실패");
+			mav.setViewName("redirect:memberSearch");
+		}
+		
+		return mav;
+	}
+	
+	//회원삭제
+	@RequestMapping("/memDel")
+	public ModelAndView memDel(String userid) {
+		ModelAndView mav = new ModelAndView();
+		
+		int cnt = memberService.memDel(userid);
+		memberService.insertByeMemberMulti(userid, "관리자삭제");
+		
+		
+		if (cnt>0) {//삭제
+		mav.setViewName("redirect:memberSearch");
+		}else {//삭제 실패
+		System.out.println("삭제실패");
+		mav.setViewName("redirect:memberSearch");
+		}
+		
+		return mav;
+	}
+	
+	//다중삭제
+	@ResponseBody
+	@RequestMapping("/memMultiDel")
+	public int memMultiDel(@RequestParam(value = "memberChk[]") List<String> chArr) {
+		int result = 0;
+		
+		System.out.println(chArr.size());
+		///////수정중
+		for (int i=0; i<chArr.size(); i++) {
+			memberService.memMultiDel(chArr.get(i));
+			int cnt = memberService.insertByeMemberMulti(chArr.get(i), "관리자삭제");
+		if(cnt>0) {
+			System.out.println("다중삭제 완료");
+			}else {
+			System.out.println("다중삭제 실패");
+			System.out.println(cnt);
+			}
+		}
+		result = 1;
+		
+		return result;
+	}
+	
+	//////////////////////////////////////마이페이지 수정 탈퇴기능///////////////////////////////////
 	//회원탈퇴확인
 	@ResponseBody
 	@RequestMapping("/memberGoodbye")
@@ -426,11 +433,83 @@ public class MemberController {
 		return "admin/member/memberAdminQuit";
 	}
 	
+	//////////////////////////// 휴면 회원 영역 ////////////////////////////////
 	//휴면회원 검색창 이동
 	@RequestMapping("/memberAdminDormant")
-	public String memberAdminDormant() {
+	public ModelAndView memberAdminDormant(MemPagingCri cri) {
 		
-		return "admin/member/memberAdminDormant";
+		ModelAndView mav = new ModelAndView();
+		int cnt= memberService.memDormantCount(cri);
+		
+		System.out.println(cnt);
+		//페이징용 VO 객체생성
+		MemPagingDTO pageMaker = new MemPagingDTO(cri, cnt);
+		
+		List<MemberDormantVO> vo = memberService.memDormantPaging(cri);
+		
+		mav.addObject("list", vo);
+		mav.addObject("pageMaker", pageMaker);//전체데이터가 담긴 memberVO 객체
+		mav.setViewName("admin/member/memberAdminDormant");
+	
+		
+		return mav;
 	}
+	
+	@RequestMapping("/sendDormantMail")
+	public ModelAndView sendDormantMail(String email, String userid){//나중에 반환타입 String
+        
+        /* 뷰로부터 넘어온 데이터 확인 */
+       System.out.println("이메일 데이터 전송 확인");
+       System.out.println("뷰에서 넘어온 이메일 값 : " + email);
+       
+       ModelAndView mav = new ModelAndView();
+       
+       
+       //인증번호 생성
+       /*
+       Random random = new Random();
+       int checkNum = random.nextInt(888888) + 111111;
+       
+       System.out.println("인증번호 = " + checkNum);
+       */
+       //이메일 보내기
+       String sender = "emailarbor@gmail.com";//메일을 보낼 관리자계정
+       String toMail = email;//뷰에서 가져온 인증번호 받을 이메일 값
+       String title = "Arbor 휴면계정 알림 메일입니다";
+       String content = 
+    		   "귀하의 계정이 휴면상태가 되었습니다." +
+    				   "<br/>" +
+    				   "다시 <span style =\"color:green;\"> <i>Arbor</i> </span> 의 회원으로 돌아오시길 원하시면" + 
+    				   "<br/>" + 
+    				   "<a href=\"http://localhost:9090/home/\">이쪽</a> 의 링크로 접속해주시면 됩니다. 다시뵙길 기대하겠습니다. 감사합니다.";
+       
+       try {
+           
+           MimeMessage message = mailSender.createMimeMessage();
+           MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+           helper.setFrom(sender);
+           helper.setTo(toMail);
+           helper.setSubject(title);
+           helper.setText(content,true);
+           mailSender.send(message);
+           
+       }catch(Exception e) {
+           e.printStackTrace();
+       }
+      
+       //여기서 쿼리문으로 메일발송여부를 Y로 바꿔버려
+       int cnt = memberService.dormantmailsend(userid);
+       
+       if(cnt>0) {
+    	   System.out.println("휴면메일 발송 처리 완료");
+    	   mav.setViewName("redirect:memberAdminDormant");
+       }else {
+    	   System.out.println("휴면메일 발송 처리 실패");
+    	   mav.setViewName("redirect:memberAdminDormant");
+       }
+      
+      return mav;
+      
+    }
 	
 }

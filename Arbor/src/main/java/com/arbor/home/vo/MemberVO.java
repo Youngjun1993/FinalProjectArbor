@@ -29,7 +29,7 @@ public class MemberVO {
 	
 	//다중선택
 	private String[] userList;
-
+	
 	
 	public String[] getUserList() {
 		return userList;

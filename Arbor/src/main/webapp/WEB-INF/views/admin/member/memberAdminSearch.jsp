@@ -37,9 +37,6 @@
 			<option value="userid" <c:out value="${pageMaker.cri.type eq 'userid'?'selected':'' }"/>>아이디</option>
 			<option value="username" <c:out value="${pageMaker.cri.type eq 'username'?'selected':'' }"/>>성명</option>
 			<option value="email" <c:out value="${pageMaker.cri.type eq 'email'?'selected':'' }"/>>이메일</option> --%>
-			<!-- <option value="userid">아이디</option>
-			<option value="username">성명</option>
-			<option value="email">이메일</option> -->
 		</select>
 			<input type="text" name="searchWord" id="memSearchWord" size="20px" class="h_ipt" value="${pageMaker.cri.searchWord}"/>
 		</div>
@@ -77,7 +74,8 @@
 	</table>
 	<div class="h_searchBtnBox"><input type="button" id="memSearchBtn" value="검색" class="adminMainBtn"></div>	
 	</form>
-
+	
+	<!-- member tbl 데이터 영역 -->
 	<hr/>
 	<!-- 폼 가운데 버튼 -->
 		<div class= "h_searchMultiBtn">
@@ -86,7 +84,7 @@
 			<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn">
 		</div>
 	<!-- 회원목록 -->
-	<div class="h_memTableLi">
+	<div class="h_memTableLi"><!--  -->
 	<form method="get" id="delMultiForm" action="memMultiDel">
 		<ul class="h_memList clearfix">
 			<li class="h_listHeader">선택</li>
@@ -122,6 +120,7 @@
 		</c:forEach>
 		</ul>
 	</form>
+	
 		<div class="h_paging_wrap clearfix">
 			<!-- 페이징 이동 버튼 폼  moveForm  -->
 		<form id = "pageBtn_form" action="memberSearch" method="get">
@@ -198,6 +197,8 @@
 				location.href="memDel?userid="+clickid.value;
 			}
 		};
+		
+		
 		/* 페이지 버튼*/
 		
 		$('.paging a').on("click", function(e){
@@ -213,6 +214,8 @@
 	        console.log(emailok);
 		});
 		
+		
+		/* 검색버튼 */
 		$('.adminMainBtn').on('click', function(e){
 			
 			e.preventDefault();

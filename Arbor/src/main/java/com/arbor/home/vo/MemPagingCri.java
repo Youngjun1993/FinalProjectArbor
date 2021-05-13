@@ -16,6 +16,7 @@ public class MemPagingCri {
 	
 	private String emailok;
 	private String smsok;
+	private String dormailok;
 	
 	public MemPagingCri() {
         this(1,10);
@@ -91,11 +92,11 @@ public class MemPagingCri {
 		this.skip = skip;
 	}
 	
-	/*
-	 * @Override public String toString() { return "MemPagingCri [pageNum=" +
-	 * pageNum + ", amount=" + amount + ", searchWord=" + searchWord + ", type=" +
-	 * type + ", typeArr=" + Arrays.toString(typeArr) + "]"; }
-	 */
-
+	public String getDormailok() {
+		return dormailok;
+	}
+	public void setDormailok(String dormailok) {
+		this.dormailok = dormailok;
+	}
 	
 }
