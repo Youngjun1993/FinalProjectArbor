@@ -10,7 +10,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
 <script>
-/* 	$(function(){
+	$(function(){
 		var sEndDate = new Array();
 		timeSaleAjax();
 		
@@ -135,7 +135,7 @@
 		});
 		return true;
 		
-	}); */
+	});
 </script>
 </head>
 <body>
