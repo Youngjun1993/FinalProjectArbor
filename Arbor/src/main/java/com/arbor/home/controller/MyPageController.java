@@ -3,6 +3,7 @@ package com.arbor.home.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.lang.model.element.ModuleElement;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.arbor.home.service.MemberServiceImp;
 import com.arbor.home.service.MyPageServiceImp;
+import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
 
@@ -20,7 +23,8 @@ public class MyPageController {
 
 	@Inject
 	MyPageServiceImp mypageService;
-	
+	@Inject
+	MemberServiceImp memberService;
 	//마이페이지 구매내역
 	@RequestMapping("/purchaseList")
 	public ModelAndView purchaseList(HttpServletRequest req, HttpSession session) {
@@ -247,4 +251,44 @@ public class MyPageController {
 		return mav;
 	}
 
+	////////////회원 업데이트 이동
+	@RequestMapping("/memberUpdate")
+	public ModelAndView memberUpdate (HttpSession session) {
+		//셀렉트문으로 세션유저의 정보 가져오기
+		String nowId = (String)session.getAttribute("logId");
+		
+		ModelAndView mav = new ModelAndView();
+		MemberVO vo = memberService.memUpdateSelect(nowId);
+		
+		mav.addObject("vo", vo);
+		mav.addObject("username", (String)session.getAttribute("logName"));
+		mav.addObject("pointVO", mypageService.pointSum(nowId));
+		mav.addObject("couponVO", mypageService.couponCount(nowId));
+		mav.addObject("reviewVO", mypageService.reviewCount(nowId));
+		mav.addObject("qnaVO", mypageService.qnaCount(nowId));
+
+		mav.setViewName("client/myPage/memberUpdate");
+		
+		return mav;
+	}
+	
+	///////////////회원탈퇴
+	@RequestMapping("/memberQuit")
+	public ModelAndView memberQuit(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		String nowId = (String)session.getAttribute("logId");
+		
+		
+		mav.addObject("username", (String)session.getAttribute("logName"));
+		mav.addObject("pointVO", mypageService.pointSum(nowId));
+		mav.addObject("couponVO", mypageService.couponCount(nowId));
+		mav.addObject("reviewVO", mypageService.reviewCount(nowId));
+		mav.addObject("qnaVO", mypageService.qnaCount(nowId));
+		
+		mav.setViewName("client/myPage/memberQuit");
+		
+	return mav;
+	}
+	
 }

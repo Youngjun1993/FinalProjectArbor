@@ -257,14 +257,6 @@ public class MemberController {
     	}
 		return result;
 	}
-    
-	///////////////회원탈퇴
-	@RequestMapping("/memberQuit")
-	public String memberQuit() {
-	
-		return "client/myPage/memberQuit";
-	}
-	
 	
 	///////////////////////////////////회원 검색 영역 ////////////////////////////////////////////
 	//회원 전체검색 및 페이징
@@ -283,8 +275,6 @@ public class MemberController {
 		
 		System.out.println("카테고리 ="+cri.getType());
 		System.out.println("검색어 ="+cri.getSearchWord());
-		
-		
 		
 		mav.addObject("pageMaker", pageMaker);//전체데이터가 담긴 memberVO 객체
 		
@@ -381,29 +371,7 @@ public class MemberController {
 		}
 	//새로운 페이지 반환
 	}
-	
-	//탈퇴인사
-	@RequestMapping("/memberGoodbye2")
-	public String byebye() {
-		
-		return "client/myPage/memberGoodbye2";
-	}
     
-	//회원 업데이트 이동
-	@RequestMapping("/memberUpdate")
-	public ModelAndView memberUpdate (HttpSession session) {
-		//셀렉트문으로 세션유저의 정보 가져오기
-		String nowId = (String)session.getAttribute("logId");
-		
-		ModelAndView mav = new ModelAndView();
-		MemberVO vo = memberService.memUpdateSelect(nowId);
-		
-		mav.addObject("vo", vo);
-		mav.setViewName("client/myPage/memberUpdate");
-		
-		return mav;
-	}
-	
 	//회원정보 수정
 	@RequestMapping("/memberUpdateOk")
 	public ModelAndView memberUpdateOk (MemberVO vo, HttpSession session) {
@@ -532,8 +500,24 @@ public class MemberController {
 
 	//탈퇴회원 검색창 이동
 	@RequestMapping("/memberAdminQuit")
-	public String memberAdminQuit() {
+	public ModelAndView memberAdminQuit(MemPagingCri cri) {
+	
+		ModelAndView mav = new ModelAndView();
 		
-		return "admin/member/memberAdminQuit";
+		System.out.println("테스트페이지 값 = " + cri.getPageNum());
+		
+		int cnt= memberService.memQuitCount(cri);
+		//페이징용 VO 객체생성
+		MemPagingDTO pageMaker = new MemPagingDTO(cri, cnt);
+		//modelandview에 list변수로 페이징 데이터 넣어주기 
+		mav.addObject("list", memberService.memQuitPaging(cri));
+		
+		System.out.println("카테고리 ="+cri.getType());
+		System.out.println("검색어 ="+cri.getSearchWord());
+		
+		mav.addObject("pageMaker", pageMaker);//전체데이터가 담긴 memberVO 객체*/		
+		mav.setViewName("admin/member/memberAdminQuit");
+		
+	return mav;
 	}
 }

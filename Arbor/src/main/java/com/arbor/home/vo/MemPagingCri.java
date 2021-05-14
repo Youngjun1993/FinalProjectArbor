@@ -23,7 +23,6 @@ public class MemPagingCri {
 	
 	//삭제페이지 탈퇴기간과 탈퇴일 검색
 	
-	
 	public MemPagingCri() {
         this(1,10);
         this.setSkip(0);
