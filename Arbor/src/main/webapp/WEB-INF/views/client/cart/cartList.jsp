@@ -357,7 +357,7 @@
 	                    <input type="checkbox" class="y_cartChck" name="y_cartChck" checked>
 	                </li>
 	                <li class="clearfix">
-	                    <img src="argian.jpg" alt="">
+	                    <img src="<%=request.getContextPath()%>/upload/${cartData.img1}" alt="">
 	                    <span>${cartData.pname }</span>
 	                </li>
 	                <li>-</li>
