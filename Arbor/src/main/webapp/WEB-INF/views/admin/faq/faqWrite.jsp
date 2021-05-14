@@ -21,32 +21,26 @@
 	<div class="w1400_container font_ng">
 		<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 		<div id="centerfrm">
-			<p id="pageTitle"><span>상담문의답변</span></p>
+			<p id="pageTitle"><span>자주하는질문</span></p>
 			<div id="insertInfo">
-				<div id="pqnaAnswerOk">
+				<div id="faqWrite">
 					<form method="post">
-						<p><span class=pTitle>질문내용</span>
+						<p><span class=pTitle>FAQ관리</span>
 							<img src="<%=request.getContextPath() %>/img/downpage.png"/>
 							<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 						</p><br/>
-						<span>상품명</span><input type="text" name="pname" value="${ans.pname }" disabled/><br/>
-						<span>작성자</span><input type="text" name="userid" value="${ans.userid }" disabled/><br/>
+						<span id="selectCateSpan">카테고리</span>
+						<select name="faqcate">
+							<option value="" selected disabled hidden>==카테고리==</option>
+							<option value="결제관련">결제관련</option>
+							<option value="교환반품">교환반품</option>
+							<option value="배송문의">배송문의</option>
+						</select><br/>
 						<input type="hidden" name="pno" value="${ans.pno }" />
 						<input type="hidden" name="pqnano" value="${ans.pqnano }" />
-						<span>제목</span><input type="text" name="pqnasubject" value="${ans.pqnasubject }" disabled/><br/>
-						<span>내용</span><textarea name="pqnacontent" disabled>${ans.pqnacontent }</textarea>
-						<p><span class=pTitle>답변하기</span>
-							<img src="<%=request.getContextPath() %>/img/downpage.png"/>
-							<img src="<%=request.getContextPath() %>/img/uppage.png"/>
-						</p><br/>
-						<c:if test="${ans.panswercontent==null || ans.panswercontent=='' }">
-						<textarea name="panswercontent" placeholder="답변내용을 기재해 주세요"></textarea><br/>
-						<input type="submit" value="글삭제" formaction="javascript:pqnaAnswerDelete(${ans.pqnano })" class="adminSubBtn"><input type="submit" value="답변등록" class="adminMainBtn" formaction="pqnaAnswerInsert"/>
-						</c:if>
-						<c:if test="${ans.panswercontent!=null && ans.panswercontent!='' }">
-						<textarea name="panswercontent">${ans.panswercontent }</textarea><br/>
-						<input type="submit" value="글삭제" formaction="javascript:pqnaAnswerDelete(${ans.pqnano })" class="adminSubBtn"><input type="submit" value="수정" formaction="pqnaAnswerEdit" class="adminMainBtn">
-						</c:if>
+						<span>제목</span><input type="text" name="pqnasubject" value="${ans.pqnasubject }"/><br/>
+						<span>내용</span><textarea name="pqnacontent">${ans.pqnacontent }</textarea>
+						<input type="submit" value="글등록" formaction="" class="adminMainBtn"><input type="reset" value="다시쓰기" class="adminSubBtn"/>
 					</form>
 				</div>
 			</div>

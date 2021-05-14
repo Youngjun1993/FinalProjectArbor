@@ -285,16 +285,46 @@
 	margin-bottom: 10px; 
 }
 #pqnaAnswerOk>form>textarea {
-	margin-left: 5%; padding-left:2%; padding-top:2%;
-	width: 88%; height: 100px; resize:none; margin-bottom: 20px;
-	
+	margin: 0 0 20px 111px; padding-left:22px; padding-top:2%;
+	width: 882px; height: 100px; resize:none;
+
 }
 #pqnaAnswerOk>form>textarea[name=pqnacontent] {
-	margin-bottom: 50px; width: 80%; margin-left: 0;
+	margin: 0 auto 50px; width: 882px; 
 }
 #pqnaAnswerOk>form>p {
 	margin-bottom: 20px; height: 50px; line-height: 50px;
 	border-bottom : 2px solid;
+}
+
+/* faq */
+#faqWrite {
+	width: 100%; margin-top: 30px;
+}
+#faqWrite>form>span{
+	display:inline-block; width: 60px; height: 40px; line-height: 40px;
+	text-align: center; margin-right: 40px; margin-left: 2%;
+}
+#faqWrite>form>select {
+	margin: 0; padding: 0;
+}
+#faqWrite>form>input[type=text] {
+	padding-left:2%; width: 80%; height: 40px;
+	margin-bottom: 10px; margin-left:3px;
+}
+#faqWrite>form>textarea {
+	margin: 0 0 20px 3px; padding-left:22px; padding-top:2%;
+	width: 882px; height: 100px; resize:none;
+}
+#faqWrite>form>span:nth-of-type(3){
+	vertical-align: top; margin-top: 40px;
+}
+#faqWrite>form>p {
+	margin-bottom: 20px; height: 50px; line-height: 50px;
+	border-bottom : 2px solid;
+}
+#faqWrite>form>input[type=submit], #faqWrite>form>input[type=reset] {
+	float:right; width: 150px; height: 35px;
 }
 
 

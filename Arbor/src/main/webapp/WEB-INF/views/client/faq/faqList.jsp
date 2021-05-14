@@ -3,7 +3,7 @@
 
 <div class="w1400_container clearfix">
 	<div id="d_board_top">
-		<img src="<%=request.getContextPath()%>/img/d_boardimg.png"/>
+		<img src="<%=request.getContextPath()%>/img/p_boardimg.png"/>
 		<div>
 			<p>CUMMUNITY</p>
 			<p>커뮤니티</p>
