@@ -1,5 +1,8 @@
 package com.arbor.home.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,7 +28,6 @@ public class CartController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", cartService.cartCount((String)ses.getAttribute("logId")));
 		mav.addObject("optList", cartService.cartList((String)ses.getAttribute("logId")));
-		
 		mav.setViewName("client/cart/cartList");
 		return mav;
 	}
@@ -59,5 +61,82 @@ public class CartController {
 		}
 		return result;
 	}
-
+	
+	@RequestMapping(value="/cartStart", method=RequestMethod.POST)
+	@ResponseBody
+	public List<CartVO> cartStart(
+			@RequestParam(value="finalpno[]", required = true) String finalpno[],
+			HttpSession ses
+			){
+		List<CartVO> list = new ArrayList<CartVO>();
+		System.out.println(finalpno.length);
+		for(int i=0; i<finalpno.length; i++) {
+			int pno = Integer.parseInt(finalpno[i]);
+			String userid = (String)ses.getAttribute("logId");	
+			CartVO vo = new CartVO();
+			vo.setOptsumprice(cartService.cartPrice(pno, userid));
+			vo.setOptquantity(cartService.cartOptQuantity(pno, userid));
+			vo.setPoint(cartService.cartPoint(pno, userid));
+			list.add(vo);
+		}
+		return list;
+ 	}
+	
+	@RequestMapping(value="/cartUpdate", method=RequestMethod.POST)
+	@ResponseBody
+	public CartVO cartUpdate(
+			@RequestParam(value="cartno", required=true) int cartno, 
+			@RequestParam(value="pno", required=true) int pno, 
+			@RequestParam(value="temp", required=true) String temp, 
+			HttpSession ses
+			){
+		CartVO vo = new CartVO();
+		String userid = (String)ses.getAttribute("logId");
+		
+		if(temp.equals("minus")) {
+			int res = cartService.cartQuantityMinus(cartno);
+			if(res>0) {
+				vo.setQuantity(cartService.cartQuantity(cartno, userid));
+				vo.setOptsumprice(cartService.cartPrice(pno, userid));
+				vo.setOptquantity(cartService.cartOptQuantity(pno, userid));
+				vo.setPoint(cartService.cartPoint(pno, userid));
+				vo.setTotalquantity(cartService.cartTotalQuantity(userid));
+				vo.setTotaldeliv(cartService.cartTotalDeliv(userid));
+				vo.setTotalpoint(cartService.cartTotalPoint(userid));
+				vo.setTotalprice(cartService.cartTotalPrice(userid));
+			}
+		}else if(temp.equals("plus")) {
+			int res = cartService.cartQuantityPlus(cartno);
+			if(res>0) {
+				vo.setQuantity(cartService.cartQuantity(cartno, userid));
+				vo.setOptsumprice(cartService.cartPrice(pno, userid));
+				vo.setOptquantity(cartService.cartOptQuantity(pno, userid));
+				vo.setPoint(cartService.cartPoint(pno, userid));
+				vo.setTotalquantity(cartService.cartTotalQuantity(userid));
+				vo.setTotaldeliv(cartService.cartTotalDeliv(userid));
+				vo.setTotalpoint(cartService.cartTotalPoint(userid));
+				vo.setTotalprice(cartService.cartTotalPrice(userid));
+			}
+		}else if(temp.equals("del")) {
+			int res = cartService.cartOptDel(cartno);
+			if(res>0) {
+				vo.setOptsumprice(cartService.cartPrice(pno, userid));
+				vo.setOptquantity(cartService.cartOptQuantity(pno, userid));
+				vo.setPoint(cartService.cartPoint(pno, userid));
+				vo.setTotalquantity(cartService.cartTotalQuantity(userid));
+				vo.setTotaldeliv(cartService.cartTotalDeliv(userid));
+				vo.setTotalpoint(cartService.cartTotalPoint(userid));
+				vo.setTotalprice(cartService.cartTotalPrice(userid));
+			}
+		}else if(temp.equals("maindel")) {
+			int res = cartService.cartDel(pno);
+			if(res>0) {
+				vo.setTotalquantity(cartService.cartTotalQuantity(userid));
+				vo.setTotaldeliv(cartService.cartTotalDeliv(userid));
+				vo.setTotalpoint(cartService.cartTotalPoint(userid));
+				vo.setTotalprice(cartService.cartTotalPrice(userid));
+			}
+		}	
+		return vo;
+	}
 }
