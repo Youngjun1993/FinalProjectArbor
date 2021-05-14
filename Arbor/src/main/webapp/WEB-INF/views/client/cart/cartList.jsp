@@ -6,6 +6,13 @@
 	$(function() {
 		var pTag = $(".y_cartCnt");
 		var pnoGet = [];
+		// 총 주문금액 변수
+		var chckTotalquantity = 0; //주문상품 수
+		var chckSumprice = 0; // 주문금액
+		var chckTotaldeliv = 0; // 배송비
+		var chckTotalPoint = 0; // 적립금
+		var chckTotalPrice = 0; // 최종 결제금액
+		
 		for(var i=0; i<pTag.length; i++){
 			pnoGet[i] = $(pTag).eq(i).children('span').children('input[name=pno]').val();
 		}
@@ -28,7 +35,7 @@
 				var totalPrice = 0;
 				$result.each(function(idx, data) {
 					$(".y_optionList").eq(idx).children().children("li:nth-child(3)").text((data.point).toLocaleString()+"원");
-					$(".y_optionList").eq(idx).children().children("li:nth-child(4)").text(data.optquantity);
+					$(".y_optionList").eq(idx).children().children("li:nth-child(4)").text(data.optquantity+"개");
 					$(".y_optionList").eq(idx).children().children("li:nth-child(5)").text((data.optsumprice).toLocaleString()+"원");
 					
 					optCnt += data.optquantity;
@@ -44,6 +51,11 @@
 				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text(point.toLocaleString());
 				$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text(totalPrice.toLocaleString());
 				
+				chckTotalquantity = optCnt;
+				chckSumprice = price;
+				chckTotaldeliv = delivSum;
+				chckTotalPoint = point;
+				chckTotalPrice = totalPrice;
 			}, error : function(){
 				console.log("장바구니 시작 에러~")
 			}
@@ -53,63 +65,98 @@
 			var cartno = $(this).next().val();
 			var pno = $(this).next().next().val();
 			var price = $(this).parent().parent().children(".getPrice").val();
+			var pointBefore = $(this).parent().parent().parent().children('ul').children('li').eq(2).text(); //적립금 담는 용도
 			var tag = $(this);
-			$.ajax({
-				url : "cartUpdate",
-				dataType : 'json',
-				type: "POST",
-				data : { 
-					cartno : cartno,
-					pno : pno,
-					temp : 'minus'
-				},success : function(result){
-					$(tag).parent().children("b").text(result.quantity); // 옵션갯수
-					$(tag).parent().parent().children('span').eq(0).text((price*result.quantity).toLocaleString()+"원") // 옵션별 가격
-					$(tag).parent().parent().parent().children('ul').children('li').eq(2).text((result.point).toLocaleString()+"원") // 적립금
-					$(tag).parent().parent().parent().children('ul').children('li').eq(3).text(result.optquantity+"개") // 총수량
-					$(tag).parent().parent().parent().children('ul').children('li').eq(4).text((result.optsumprice).toLocaleString()+"원") // 총수량
-					
-					$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(result.totalquantity);
-					$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((result.totalprice).toLocaleString());
-					$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text((result.totaldeliv).toLocaleString());
-					$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text((result.totalpoint).toLocaleString());
-					$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text((result.totalprice+result.totaldeliv).toLocaleString());
-					
-				}, error : function(){
-					console.log('장바구니 ajax 업뎃 실패~');
+				if($(tag).parent().parent().parent().children('ul').children('li').eq(0).children('input[name=y_cartChck]').is(':checked')){
+					$.ajax({
+						url : "cartUpdate",
+						dataType : 'json',
+						type: "POST",
+						data : { 
+							cartno : cartno,
+							pno : pno,
+							temp : 'minus'
+						},success : function(result){
+							pointBefore = pointBefore.replace("원","");
+							pointBefore = parseInt(pointBefore.replace(/,/g, ''));
+							
+							$(tag).parent().children("b").text(result.quantity); // 옵션갯수
+							$(tag).parent().parent().children('span').eq(0).text((price*result.quantity).toLocaleString()+"원") // 옵션별 가격
+							$(tag).parent().parent().parent().children('ul').children('li').eq(2).text((result.point).toLocaleString()+"원") // 적립금
+							$(tag).parent().parent().parent().children('ul').children('li').eq(3).text(result.optquantity+"개") // 총수량
+							$(tag).parent().parent().parent().children('ul').children('li').eq(4).text((result.optsumprice).toLocaleString()+"원") // 총수량
+							
+							chckTotalPoint = chckTotalPoint - (pointBefore-result.point);
+							console.log(chckTotalPrice)
+							
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(chckTotalquantity - 1);
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((chckSumprice - parseInt(price)).toLocaleString());
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text((chckTotaldeliv - 30000).toLocaleString());
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text((chckTotalPoint).toLocaleString());
+							$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text((chckTotalPrice - (parseInt(price) + 30000)).toLocaleString());
+							
+							chckTotalquantity = chckTotalquantity - 1
+							chckSumprice = chckSumprice - parseInt(price)
+							chckTotaldeliv = chckTotaldeliv - 30000
+							chckTotalPrice = chckTotalPrice - (parseInt(price) + 30000)
+							
+							pointBefore = result.point;
+							
+						}, error : function(){
+							console.log('장바구니 ajax 업뎃 실패~');
+						}
+	
+					});
+				}else{
+					alert('체크를 하신 후 수량변경하셔야 총 주문내역에 반영됩니다.')	
 				}
-			});
 		});
 		// 옵션 + 버튼
 		$(".y_cartOptPlus").click(function(){
 			var cartno = $(this).prev().prev().prev().val();
 			var pno = $(this).prev().prev().val();
 			var price = $(this).parent().parent().children(".getPrice").val();
+			var pointBefore = $(this).parent().parent().parent().children('ul').children('li').eq(2).text(); //적립금 담는 용도
 			var tag = $(this);
-			$.ajax({
-				url : "cartUpdate",
-				dataType : 'json',
-				type: "POST",
-				data : { 
-					cartno : cartno,
-					pno : pno,
-					temp : 'plus'
-				},success : function(result){
-					$(tag).parent().children("b").text(result.quantity);
-					$(tag).parent().parent().children('span').eq(0).text((price*result.quantity).toLocaleString()+"원") // 옵션별 가격
-					$(tag).parent().parent().parent().children('ul').children('li').eq(2).text((result.point).toLocaleString()+"원") // 적립금
-					$(tag).parent().parent().parent().children('ul').children('li').eq(3).text(result.optquantity+"개") // 총수량
-					$(tag).parent().parent().parent().children('ul').children('li').eq(4).text((result.optsumprice).toLocaleString()+"원") // 총수량
-					
-					$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(result.totalquantity);
-					$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((result.totalprice).toLocaleString());
-					$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text((result.totaldeliv).toLocaleString());
-					$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text((result.totalpoint).toLocaleString());
-					$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text((result.totalprice+result.totaldeliv).toLocaleString());
-				}, error : function(){
-					console.log('장바구니 ajax 업뎃 실패~');
-				}
-			});
+			if($(tag).parent().parent().parent().children('ul').children('li').eq(0).children('input[name=y_cartChck]').is(':checked')){
+				$.ajax({
+					url : "cartUpdate",
+					dataType : 'json',
+					type: "POST",
+					data : { 
+						cartno : cartno,
+						pno : pno,
+						temp : 'plus'
+					},success : function(result){
+						pointBefore = pointBefore.replace("원","");
+						pointBefore = parseInt(pointBefore.replace(/,/g, ''));
+						
+						$(tag).parent().children("b").text(result.quantity);
+						$(tag).parent().parent().children('span').eq(0).text((price*result.quantity).toLocaleString()+"원") // 옵션별 가격
+						$(tag).parent().parent().parent().children('ul').children('li').eq(2).text((result.point).toLocaleString()+"원") // 적립금
+						$(tag).parent().parent().parent().children('ul').children('li').eq(3).text(result.optquantity+"개") // 총수량
+						$(tag).parent().parent().parent().children('ul').children('li').eq(4).text((result.optsumprice).toLocaleString()+"원") // 총금액
+						
+						chckTotalPoint = chckTotalPoint + (result.point-pointBefore);
+						
+						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(chckTotalquantity + 1);
+						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((chckSumprice + parseInt(price)).toLocaleString());
+						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text((chckTotaldeliv + 30000).toLocaleString());
+						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text((chckTotalPoint).toLocaleString());
+						$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text((chckTotalPrice + parseInt(price) + 30000).toLocaleString());
+						
+						chckTotalquantity = chckTotalquantity + 1
+						chckSumprice = chckSumprice + parseInt(price)
+						chckTotaldeliv = chckTotaldeliv + 30000
+						chckTotalPrice = chckTotalPrice + parseInt(price) + 30000
+						console.log(chckTotalPrice)
+					}, error : function(){
+						console.log('장바구니 ajax 업뎃 실패~');
+					}
+				});
+			}else{
+				alert('체크를 하신 후 수량변경하셔야 총 주문내역에 반영됩니다.')
+			}
 		});
 		// 옵션 삭제 버튼
 		$(".y_cartDelBtn").click(function(){
@@ -149,8 +196,8 @@
 		$(".cartMainDelBtn").click(function(){
 			var tag = $(this);
 			var pname = $(this).parent().prev().prev().prev().prev().text();
-			var pno = $(this).parent().parent().parent().children().children('input[name=pno]').val();
-			console.log(pno);
+			var pno = $(this).parent().parent().parent().children().children().children('input[name=pno]').val();
+			
 			if(confirm(pname.trim()+"\n상품을 삭제하시겠습니까?")){
 				$.ajax({
 					url : "cartUpdate",
@@ -171,6 +218,107 @@
 						console.log('장바구니 메인 삭제버튼 에러');
 					}
 				});	
+			}
+		});
+		// 전체선택 이벤트
+		$("#y_cartAllChck").change(function() {
+			if($(this).is(":checked")){
+				$("input[type=checkbox]").prop("checked", true);
+				$.ajax({
+					url : "cartStart",
+					dataType : 'json',
+					type: "POST",
+					data : { 
+						finalpno : finalpno
+					},success : function(result){
+						var $result = $(result);
+						var optCnt = 0;
+						var point = 0;
+						var delivSum = 0;
+						var price = 0;
+						var totalPrice = 0;
+						$result.each(function(idx, data) {
+							optCnt += data.optquantity;
+							price += data.optsumprice;
+							point += data.point;
+						});
+						delivSum = 30000*optCnt;
+						totalPrice = price+delivSum;
+						
+						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(optCnt);
+						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text(price.toLocaleString());
+						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text(delivSum.toLocaleString());
+						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text(point.toLocaleString());
+						$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text(totalPrice.toLocaleString());
+						
+						chckTotalquantity = optCnt;
+						chckSumprice = price;
+						chckTotaldeliv = delivSum;
+						chckTotalPoint = point;
+						chckTotalPrice = totalPrice;
+					}, error : function(){
+						console.log("장바구니 전체선택 에러~")
+					}
+				});
+			}else{
+				$("input[type=checkbox]").prop("checked", false);
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text("-");
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text("-");
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text("-");
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text("-");
+				$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text("-");
+			}
+		});
+		// 개별선택 이벤트
+		$(".y_cartChck").change(function() {
+			var tag = $(this)
+			var chckpointStr = $(this).parent().parent().parent().children('ul').children('li').eq(2).text();
+			var chckquantityStr = $(this).parent().parent().parent().children('ul').children('li').eq(3).text();
+			var chckpriceStr = $(this).parent().parent().parent().children('ul').children('li').eq(4).text();
+			
+			var chckpoint = chckpointStr.replace("원", ""); // 적립금 숫자 형변환
+			chckpoint = parseInt(chckpoint.replace(/,/g, ''))
+			
+			var chckquantity = parseInt(chckquantityStr.replace("개", "")); // 갯수 숫자 형변환
+			
+			var chckprice = chckpriceStr.replace("원", ""); // 금액 숫자 형변환
+			chckprice = parseInt(chckprice.replace(/,/g, ''))
+			
+			var chckdeliv = chckquantity*30000;
+
+			var onechckTotalquantity = $("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text();
+			onechckTotalquantity = parseInt(onechckTotalquantity.replace(/,/g, ''));
+			var onechcksumprice = $("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text();
+			onechcksumprice = parseInt(onechcksumprice.replace(/,/g, ''));
+			var onechckTotaldeliv = $("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text();
+			onechckTotaldeliv = parseInt(onechckTotaldeliv.replace(/,/g, ''));
+			var onechckTotalPoint = $("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text();
+			onechckTotalPoint = parseInt(onechckTotalPoint.replace(/,/g, ''));
+			var onechckTotalprice = $("#y_cartTotal>ul:nth-child(2)>li:last-child span").text();
+			onechckTotalprice = parseInt(onechckTotalprice.replace(/,/g, ''));
+			
+			if($(this).is(":checked")){
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(onechckTotalquantity + chckquantity);
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((onechcksumprice + chckprice).toLocaleString());
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text((onechckTotaldeliv + chckdeliv).toLocaleString());
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text((onechckTotalPoint + chckpoint).toLocaleString());
+				$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text((onechckTotalprice + (chckprice + chckdeliv)).toLocaleString());
+				chckTotalquantity = onechckTotalquantity + chckquantity
+				chckSumprice = onechcksumprice + chckprice;
+				chckTotaldeliv = onechckTotaldeliv + chckdeliv;
+				chckTotalPoint = onechckTotalPoint + chckpoint;
+				chckTotalPrice = onechckTotalprice + (chckprice + chckdeliv);
+			}else{
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(onechckTotalquantity - chckquantity);
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((onechcksumprice - chckprice).toLocaleString());
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text((onechckTotaldeliv - chckdeliv).toLocaleString());
+				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text((onechckTotalPoint - chckpoint).toLocaleString());
+				$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text((onechckTotalprice - (chckprice + chckdeliv)).toLocaleString());
+				chckTotalquantity = onechckTotalquantity - chckquantity
+				chckSumprice = onechcksumprice - chckprice;
+				chckTotaldeliv = onechckTotaldeliv - chckdeliv;
+				chckTotalPoint = onechckTotalPoint - chckpoint;
+				chckTotalPrice = onechckTotalprice - (chckprice + chckdeliv);
 			}
 		});
 	});
@@ -195,7 +343,7 @@
     </div>
     <div>
         <ul class="clearfix">
-            <li><input type="checkbox" id="y_cartAllChck" name="y_cartAllChck"></li>
+            <li><input type="checkbox" id="y_cartAllChck" name="y_cartAllChck" checked></li>
             <li>상품정보</li>
             <li>적립예정 금액</li>
             <li>총수량</li>
@@ -206,7 +354,7 @@
 	        <div class="y_optionList"><!--테이블 내용-->
 	            <ul class="clearfix">
 	                <li>
-	                    <input type="checkbox" class="y_cartChck" name="y_cartChck">
+	                    <input type="checkbox" class="y_cartChck" name="y_cartChck" checked>
 	                </li>
 	                <li class="clearfix">
 	                    <img src="argian.jpg" alt="">

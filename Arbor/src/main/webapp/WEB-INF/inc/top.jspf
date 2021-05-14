@@ -147,7 +147,7 @@ $(function(){
 			<li><a href="joinform">JOIN</a></li>
 			</c:if>
 			<c:if test="${logName!=null && logName!='' }">
-			<li><a href="">MyPage</a></li>
+			<li><a href="purchaseList">MyPage</a></li>
 			</c:if>
 			<c:if test="${logName==null || logName=='' }">
 				<li><a href="login">LOGIN</a></li>
