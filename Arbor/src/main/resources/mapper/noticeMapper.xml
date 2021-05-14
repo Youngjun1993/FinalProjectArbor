@@ -10,4 +10,7 @@
 	<select id="noticeView" resultType="com.arbor.home.vo.NoticeVO">
 		select * from notice where noticeno=#{param1}
 	</select>
+	<insert id="noticeInsert" parameterType="com.arbor.home.vo.NoticeVO">
+  		insert into notice(noticeno, noticesubject, noticecontent, noticedate) values(noticesq.nextval, #{noticesubject}, #{noticecontent}, sysdate)
+  	</insert>
 </mapper>
