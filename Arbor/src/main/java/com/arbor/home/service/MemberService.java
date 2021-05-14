@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.MemberDAOImp;
 import com.arbor.home.vo.MemPagingCri;
+import com.arbor.home.vo.MemberDormantVO;
 import com.arbor.home.vo.MemberVO;
 
 @Service
@@ -93,9 +94,31 @@ public class MemberService implements MemberServiceImp {
 	}
 
 	@Override
-	public int memCount() {
+	public int memCount(MemPagingCri cri) {
 		
-		return memberDAO.memCount();
+		return memberDAO.memCount(cri);
+	}
+
+	@Override
+	public int insertDormantMember(String userid, String reason) {
+		return memberDAO.insertDormantMember(userid, reason);
+	}
+
+	@Override
+	public List<MemberDormantVO> memDormantPaging(MemPagingCri cri) {
+		return memberDAO.memDormantPaging(cri);
+	}
+
+	@Override
+	public int memDormantCount(MemPagingCri cri) {
+		
+		return memberDAO.memDormantCount(cri);
+	}
+
+	@Override
+	public int dormantmailsend(String userid) {
+		
+		return memberDAO.dormantmailsend(userid);
 	}
 	
 }
