@@ -112,7 +112,6 @@
 				<li class="h_listHeader">휴면전환일</li>
 				<li class="h_listHeader">관리</li>
 				<c:forEach var="vo" items="${list}" varStatus="status">
-				<c:if test = "${vo.dortype ne '탈퇴'}">
 						<li><input type="checkbox" name="memberChk" class="memberChk" value="${vo.userid}"/></li>
 						<li>
 						<%--	<input type="button" class="h_memdormant" value="휴면"/> --%>
@@ -145,7 +144,6 @@
 						</c:if>
 							<input type="hidden" id="h_userid" name="clickid${status.index}" value="${vo.userid}"/>  --%>	
 						</li>
-				</c:if>
 				</c:forEach>
 			</ul>
 		</form>
