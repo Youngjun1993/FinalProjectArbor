@@ -117,17 +117,17 @@
 				</c:forEach>
 			</ul>
 		</form>
-			<%-- <!-- 페이징영역 -->
+			<!-- 페이징영역 -->
 			<div class="h_paging_wrap clearfix">
 				<!-- 페이징 이동 버튼 폼  moveForm  -->
 			<form id = "pageBtn_form" action=memberAdminDormant method="get">
 				<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum}"/>
 				<input type="hidden" name="amount" value = "${pageMaker.cri.amount}"/>
-				<input type="hidden" name="searchWord" value = "${pageMaker.cri.searchWord}"/>
+				<%-- <input type="hidden" name="searchWord" value = "${pageMaker.cri.searchWord}"/>
 				<input type="hidden" name="type" value = "${pageMaker.cri.type}"/>
 				<input type="hidden" name="emailok" value = "${pageMaker.cri.emailok}"/>
 				<input type="hidden" name="smsok" value = "${pageMaker.cri.smsok}"/>
-				<input type="hidden" name="dormailok" value = "${pageMaker.cri.dormailok}"/>
+				<input type="hidden" name="dormailok" value = "${pageMaker.cri.dormailok}"/> --%>
 				<!-- 이메일 sms 추가 -->
 			</form>
 				<ul class="paging">
@@ -141,14 +141,19 @@
 					<li><a class="pagingLR_a " href="${pageMaker.endPage + 1 }">＞</a></li>
 				</c:if>
 				</ul>
-			</div> --%>
+			</div>
 		</div>
 	
 	</div>
 </div>
 
 <script>
-
+$('.paging a').on("click", function(e){
+	e. preventDefault();
+	var pageBtn = $('#pageBtn_form');
+	pageBtn.find('input[name="pageNum"]').val($(this).attr('href'));
+	pageBtn.submit();
+});
 </script>
 </body>
 </html>

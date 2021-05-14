@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemberDormantVO;
+import com.arbor.home.vo.MemberQuitVO;
 import com.arbor.home.vo.MemberVO;
 
 public interface MemberDAOImp {
@@ -66,5 +67,11 @@ public interface MemberDAOImp {
 	
 	//휴면회원 다중삭제
 	public int dormantMultiDel(String userid);
+	
+	//탈퇴회워 리스트 + 페이징
+	public List<MemberQuitVO> memQuitPaging(MemPagingCri cri);
+	
+	//탈퇴회원수 카운트
+	public int memQuitCount(MemPagingCri cri);
 	
 }
