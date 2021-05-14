@@ -44,7 +44,6 @@ public class ProductController {
 	@RequestMapping("/productList")
 	public ModelAndView productList(PageSearchVO vo, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-System.out.println("뭘로정렬?"+vo.getMsg());
 		String pageNumStr = req.getParameter("pageNum");
 		if(pageNumStr != null) {
 			vo.setPageNum(Integer.parseInt(pageNumStr));
@@ -55,10 +54,7 @@ System.out.println("뭘로정렬?"+vo.getMsg());
 		vo.setMainno(mainno);
 		List<ProductVO> list = new ArrayList<ProductVO>();
 		list = productService.productListClient(vo);
-		for (int i=0; i<list.size(); i++) {
-			ProductVO pro = list.get(i);
-System.out.println("가격순맞니?"+pro.getSaleprice());
-		}
+		
 		mav.addObject("topList", productService.productTopList(vo.getMainno()));
 		mav.addObject("list", list);
 		mav.addObject("subCate", productService.subCateList(vo.getMainno()));
