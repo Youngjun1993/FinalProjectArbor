@@ -3,6 +3,7 @@ package com.arbor.home.service;
 import java.util.List;
 
 import com.arbor.home.vo.MemPagingCri;
+import com.arbor.home.vo.MemberDormantVO;
 import com.arbor.home.vo.MemberVO;
 
 public interface MemberServiceImp {
@@ -20,6 +21,18 @@ public interface MemberServiceImp {
 	
 	//휴면계정 전환 업데이트
 	public int memDormant(String userid);
+	
+	//회원탈퇴 테이블 이동
+	public int insertDormantMember(String userid, String reason);
+	
+	//휴면테이블 //휴면회원 검색 전체선택 +  페이징
+	public List<MemberDormantVO> memDormantPaging(MemPagingCri cri);
+	
+	//휴면테이블 //총회원수 카운트(활성, 휴면 만)
+	public int memDormantCount(MemPagingCri cri);
+	
+	//휴면메일 발송 업데이트
+	public int dormantmailsend(String userid);
 	
 	//삭제이벤트
 	public int memDel(String userid);
@@ -49,6 +62,6 @@ public interface MemberServiceImp {
 	public List<MemberVO> memSearchPaging(MemPagingCri cri);
 	
 	//총회원수 카운트(활성, 휴면 만)
-	public int memCount();
+	public int memCount(MemPagingCri cri);
 	
 }

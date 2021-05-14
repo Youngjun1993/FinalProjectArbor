@@ -87,8 +87,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public List<SubCateVO> subCateListAll() {
-		return productDAO.subCateListAll();
+	public List<SubCateVO> subCateListAll(PageSearchVO pageVo) {
+		return productDAO.subCateListAll(pageVo);
 	}
 
 	@Override
@@ -122,8 +122,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public List<ProductQnaVO> pqnaList() {
-		return productDAO.pqnaList();
+	public List<ProductQnaVO> pqnaList(PageSearchVO pageVo) {
+		return productDAO.pqnaList(pageVo);
 	}
 
 	@Override
@@ -162,13 +162,68 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int totalRecord(PageSearchVO vo) {
-		return productDAO.totalRecord(vo);
+	public int totalRecord() {
+		return productDAO.totalRecord();
 	}
 
 	@Override
 	public List<ProductVO> productListDate(PageSearchVO pageVo) {
 		return productDAO.productListDate(pageVo);
+	}
+
+	@Override
+	public int subcate_totalRecord() {
+		return productDAO.subcate_totalRecord();
+	}
+
+	@Override
+	public int pqna_totalRecord() {
+		return productDAO.pqna_totalRecord();
+	}
+
+	@Override
+	public List<ProductQnaVO> pqnaNoAnswerList(PageSearchVO pageVo) {
+		return productDAO.pqnaNoAnswerList(pageVo);
+	}
+
+	@Override
+	public int insertMainCate(String editWord) {
+		return productDAO.insertMainCate(editWord);
+	}
+
+	@Override
+	public int insertSubCate(int mainno, String editWord) {
+		return productDAO.insertSubCate(mainno, editWord);
+	}
+
+	@Override
+	public int selectMainno(String editWord) {
+		return productDAO.selectMainno(editWord);
+	}
+
+	@Override
+	public int deleteMainCate(int mainno) {
+		return productDAO.deleteMainCate(mainno);
+	}
+
+	@Override
+	public int deleteSubCate(int subno) {
+		return productDAO.deleteSubCate(subno);
+	}
+
+	@Override
+	public int selectSubno(int subno) {
+		return productDAO.selectSubno(subno);
+	}
+
+	@Override
+	public int updateMainCate(MainCateVO vo) {
+		return productDAO.updateMainCate(vo);
+	}
+
+	@Override
+	public int updateSubCate(SubCateVO vo) {
+		return productDAO.updateSubCate(vo);
 	}
 	
 	

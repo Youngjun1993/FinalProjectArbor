@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.ProductServiceImp;
+import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
@@ -97,13 +98,141 @@ public class ProductController {
 	
 	
 	/* 관리자 */
+	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
+	@RequestMapping("/productSearch")
+	public ModelAndView productSearch(PageSearchVO vo, HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr != null) {
+			vo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		vo.setTotalRecord(productService.totalRecord());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("subCate", productService.subCateList(1));
+		mav.addObject("mainCate", productService.mainCateList());
+		mav.addObject("productList", productService.productList(vo));
+		mav.addObject("pageVO", vo);
+		mav.setViewName("/admin/product/productSearch");
+		return mav;
+	}
+	
+	// Admin - 카테고리 관리
+	@RequestMapping("/manageCate")
+	public ModelAndView manageCate(PageSearchVO vo, HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr != null) {
+			vo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		vo.setTotalRecord(productService.subcate_totalRecord());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("subCate", productService.subCateList(1));
+		mav.addObject("mainCate", productService.mainCateList());
+		mav.addObject("cateList", productService.subCateListAll(vo));
+		mav.addObject("pageVO", vo);
+		mav.setViewName("admin/product/manageCate");
+		
+		return mav;
+	}
+	
+	// Admin - 카테고리 등록
+	@RequestMapping(value="/insertCate", method=RequestMethod.POST)
+	public String insertCate(HttpServletRequest req) {
+		String mainnoStr = req.getParameter("mainno");
+		
+		if(mainnoStr!=null && !mainnoStr.equals("")) {
+			// 중분류 등록
+			String editWord = req.getParameter("subEdit");
+			int mainno = Integer.parseInt(mainnoStr);
+			productService.insertSubCate(mainno, editWord);
+		} else {
+			// 대분류등록
+			String editWord = req.getParameter("mainEdit");
+			productService.insertMainCate(editWord);
+			int mainnum = productService.selectMainno(editWord);
+			productService.insertSubCate(mainnum, " ");
+		}
+		
+		return "redirect:manageCate";
+	}
+	
+	// Admin - 카테고리 삭제
+	@RequestMapping("/deleteCate")
+	@ResponseBody
+	public int deleteCate(SubCateVO vo) {
+		int cnt = 0;
+		int result = productService.deleteSubCate(vo.getSubno());
+		cnt += result;
+		List<SubCateVO> list = productService.subCateList(vo.getMainno());
+		if(list.size()==0) {
+			productService.deleteMainCate(vo.getMainno());
+		}
+		return cnt;
+	}
+	
+	// Admin - 카테고리 삭제
+	@RequestMapping(value="/deleteCateMany", method=RequestMethod.POST)
+	@ResponseBody
+	public int deleteCateMany(
+			@RequestParam(value="checked[]", required=true) String subnoArr[]) {
+		int cnt = 0;
+		for(int i=0; i<subnoArr.length; i++) {
+			int subno = Integer.parseInt(subnoArr[i]);
+			int mainno = productService.selectSubno(subno);
+			int result = productService.deleteSubCate(subno);
+			cnt += result;
+			List<SubCateVO> list = productService.subCateList(mainno);
+			if(list.size()==0) {
+				productService.deleteMainCate(mainno);
+			}
+		}
+		return cnt;
+	}
+	
+	// Admin - 카테고리 수정
+	@RequestMapping(value="/cateEdit", method=RequestMethod.POST)
+	public String updateCate(MainCateVO mvo, SubCateVO svo) {
+		productService.updateMainCate(mvo);
+		productService.updateSubCate(svo);
+		
+		return "redirect:manageCate";
+	}
+	
 	// Admin - 상품문의 목록
 	@RequestMapping("/pqnaList")
-	public ModelAndView pqnaList() {
+	public ModelAndView pqnaList(PageSearchVO vo, HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr != null) {
+			vo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		vo.setTotalRecord(productService.pqna_totalRecord());
+		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("vo", productService.pqnaList());
+		mav.addObject("vo", productService.pqnaList(vo));
 		mav.addObject("cnt", productService.pqnaNoAnswerCnt());
+		mav.addObject("pageVO", vo);
 		mav.setViewName("admin/product/productQna");
+		return mav;
+	}
+	
+	// Admin - 상품문의 미답변 목록
+	@RequestMapping("/pqnaNoAnswerList")
+	public ModelAndView pqnaNoAnswerList(PageSearchVO vo, HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr != null) {
+			vo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		vo.setTotalRecord(productService.pqnaNoAnswerCnt());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vo", productService.pqnaNoAnswerList(vo));
+		mav.addObject("cnt", productService.pqna_totalRecord());
+		mav.addObject("pageVO", vo);
+		mav.setViewName("admin/product/productQnaNoAnswer");
 		return mav;
 	}
 	
@@ -490,35 +619,28 @@ public class ProductController {
 		return "redirect:productSearch";
 	}
 	
-	@RequestMapping("/manageCate")
-	public ModelAndView manageCate() {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("subCate", productService.subCateList(1));
-		mav.addObject("mainCate", productService.mainCateList());
-		mav.addObject("cateList", productService.subCateListAll());
-		mav.setViewName("admin/product/manageCate");
-		
-		return mav;
-	}
-	
-	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
-	@RequestMapping("/productSearch")
-	public ModelAndView productSearch(PageSearchVO vo, HttpServletRequest req) {
-		String pageNumStr = req.getParameter("pageNum");
-		if(pageNumStr != null) {
-			vo.setPageNum(Integer.parseInt(pageNumStr));
+	@RequestMapping("/productDeleteMany")
+	@ResponseBody
+	public int productDeleteMany(HttpServletRequest req,
+			@RequestParam(value="checked", required=true) String pnoArr[]) {
+		int cnt=0;
+		for(int i=0; i<pnoArr.length; i++) {
+			// 원래 DB 파일명 가져오기
+			int pno = Integer.parseInt(pnoArr[i]);
+			ProductVO dbFilename = productService.productSelect(pno);
+			String path = req.getSession().getServletContext().getRealPath("/upload");
+			File f = new File(path, dbFilename.getImg1());
+			f.delete();
+			if(dbFilename.getImg2()!=null && !dbFilename.getImg2().equals("")) {
+				File f2 = new File(path, dbFilename.getImg2());
+				f2.delete();
+			}
+			int result = productService.productDelete(pno);
+			cnt += result;
+			productService.optionAllDelete(pno);
 		}
 		
-		vo.setTotalRecord(productService.totalRecord(vo));
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("subCate", productService.subCateList(1));
-		mav.addObject("mainCate", productService.mainCateList());
-		mav.addObject("productList", productService.productList(vo));
-		mav.addObject("pageVO", vo);
-		mav.setViewName("/admin/product/productSearch");
-		return mav;
+		return cnt;
 	}
 	
 	// SummerNote upload
