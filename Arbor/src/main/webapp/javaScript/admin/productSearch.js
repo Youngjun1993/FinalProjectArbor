@@ -198,16 +198,16 @@ function pDateClick(no) {
 		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+1))));
 	} else if(no==2) {
 		$("#startdate").val(formatDate(new Date(today.setDate(today.getDate()-7))));
-		$("#enddate").val(formatDate(new Date()));
+		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+1))));
 	} else if(no==3) {
 		$("#startdate").val(formatDate(new Date(today.setDate(today.getDate()-30))));
-		$("#enddate").val(formatDate(new Date()));
+		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+1))));
 	} else if(no==4) {
 		$("#startdate").val(formatDate(new Date(today.setDate(today.getDate()-90))));
-		$("#enddate").val(formatDate(new Date()));
+		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+1))));
 	} else if(no==5) {
 		$("#startdate").val(formatDate(new Date(today.setDate(today.getDate()-365))));
-		$("#enddate").val(formatDate(new Date()));
+		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+1))));
 	}
 }
 

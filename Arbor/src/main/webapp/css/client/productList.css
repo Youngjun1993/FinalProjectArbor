@@ -95,7 +95,7 @@
 #pagingDiv {
 	text-align: center;
 }
-#pagingDiv>ul.adPaging {
+#pagingDiv>ul.paging {
 	margin-bottom: 50px;
 	overflow:auto;
 	display:inline-block;	

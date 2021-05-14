@@ -126,7 +126,7 @@
  		delete from optiontbl where pno=${param1}
  	</delete>
  	
- 	<select id="productListClient" parameterType="com.arbor.home.vo.PageSearchVO" resultType="com.arbor.home.vo.ProductVO">
+ 	<select id="productListClient" parameterType="com.arbor.home.vo.PageProductVO" resultType="com.arbor.home.vo.ProductVO">
  		select * from (select * from (select * from (
  		select pno, subno, pname, pprice, saleprice, img1, img2, pdate from product where subno=${subno} 
  		<if test="msg=='newArray'"> order by pdate desc </if><if test="msg=='lowpriceArray'"> order by saleprice asc </if><if test="msg=='highpriceArray'"> order by saleprice desc </if>
@@ -139,7 +139,7 @@
  		<if test="msg=='orderArray'"></if><if test="msg==null"> order by pno desc </if>
  	</select>
  	
- 	<select id="productClientTotalRecord" parameterType="com.arbor.home.vo.PageSearchVO" resultType="int">
+ 	<select id="productClientTotalRecord" parameterType="com.arbor.home.vo.PageProductVO" resultType="int">
  		(select count(pno) from product where subno=${subno})
  	</select>
  	
