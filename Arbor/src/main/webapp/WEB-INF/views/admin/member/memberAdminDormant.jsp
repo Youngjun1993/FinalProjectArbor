@@ -23,7 +23,7 @@
 	<!-- 검색어 -->
 	<tr>
 		<td>
-		<label for="userid">휴면회원 검색</label>
+		<label for="userid">휴면회원 관리</label>
 		</td>
 		<td>
 		<div class = "search_area">
@@ -88,90 +88,130 @@
 		</td>
 		</tr>
 	</table>
-	<div class="h_searchBtnBox"><input type="button" id="memSearchBtn" value="검색" class="adminMainBtn"></div>	
+	<div class="h_searchBtnBox"><input type="button" id="memSearchBtn" value="검색" class="adminMainBtn search"></div>	
 	</form>
 	
-	<!-- 휴면 tbl 데이터 영역 -->
-	<hr/>
-	<!-- 폼 가운데 버튼 -->
-		<div class= "h_searchMultiBtn">
-			<input type="button" id="" value="test1" class="adminSubBtn">
-			<input type="button" id="testBtn" value="test버튼" class="adminSubBtn">
-			<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn">
-		</div>
-	<!-- 회원목록 -->
-	<div class="h_memTableLi">
-	<form method="get" id="delMultiForm" action="memMultiDel">
-		<ul class="h_memList clearfix">
-			<li class="h_listHeader">선택</li>
-			<li class="h_listHeader">아이디</li>
-			<li class="h_listHeader">성명</li>
-			<li class="h_listHeader">이메일</li>
-			<li class="h_listHeader">연락처</li>
-			<li class="h_listHeader">가입일</li>
-			<li class="h_listHeader">휴면전환일</li>
-			<li class="h_listHeader">관리</li>
-		<c:forEach var="vo" items="${list}" varStatus="status">
-				<li><input type="checkbox" name="memberChk" class="memberChk" value="${vo.userid}"/></li>
-				<li>
-				<%--	<input type="button" class="h_memdormant" value="휴면"/> --%>
-				${vo.userid}
-				</li>
-				<li>${vo.username}</li>
-				<li class="wordcut">${vo.email}</li>
-				<li>${vo.tel}</li>
-				<li>${vo.regdate}</li>
-				<li>${vo.dordate} ${vo.emailok}/${vo.smsok }/${vo.dormailok }</li>
-				<li>
-				<c:if test = "${vo.dormailok == 'N'}">
-				<input type="button" name="memberDelBtn" value="휴면메일발송" class="h_memberDel" onclick="sendmail(clickid${status.index}, clickuserid${status.index})"/>
-				</c:if>
-				<c:if test = "${vo.dormailok == 'Y'}">
-				<input type="button" name="memberDelBtn" value="발송완료" style="pointer-events: none;" class="h_memberDel"/>
-				</c:if>
-				<input type="hidden" id="h_userid" name="clickid${status.index}" value="${vo.email}"/>
-				<input type="hidden" id="h_userid" name="clickuserid${status.index}" value="${vo.userid}"/>
-				<%-- if 휴면메일발송여부 == N value값 미발송 아니면 발송완료 -->
-				<!-- <input type="button" name="memberDelBtn" value="휴면메일발송" class="h_memberDel" onclick="memDel(clickid${status.index})"/>
-				<c:if test = "${vo.memstat == 0}">
-					<input type="button" name="memberSleepBtn" class="h_memDormant" value="휴면전환" onclick="memDormant(clickid${status.index})"/>
-				</c:if>
-					<input type="hidden" id="h_userid" name="clickid${status.index}" value="${vo.userid}"/>  --%>	
-				</li>
-		</c:forEach>
-		</ul>
-	</form>
-		<!-- 페이징영역 -->
-		<div class="h_paging_wrap clearfix">
-			<!-- 페이징 이동 버튼 폼  moveForm  -->
-		<form id = "pageBtn_form" action=memberAdminDormant method="get">
-			<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum}"/>
-			<input type="hidden" name="amount" value = "${pageMaker.cri.amount}"/>
-			<input type="hidden" name="searchWord" value = "${pageMaker.cri.searchWord}"/>
-			<input type="hidden" name="type" value = "${pageMaker.cri.type}"/>
-			<input type="hidden" name="emailok" value = "${pageMaker.cri.emailok}"/>
-			<input type="hidden" name="smsok" value = "${pageMaker.cri.smsok}"/>
-			<input type="hidden" name="dormailok" value = "${pageMaker.cri.dormailok}"/>
-			<!-- 이메일 sms 추가 -->
-		</form>
-			<ul class="paging">
-			<c:if test = "${pageMaker.prev }">
-				<li><a class="pagingLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
-			</c:if>
-			<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-				<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
-			</c:forEach>
-			<c:if test = "${pageMaker.next }">
-				<li><a class="pagingLR_a " href="${pageMaker.endPage + 1 }">＞</a></li>
-			</c:if>
+		<!-- 휴면 tbl 데이터 영역 -->
+		<hr/>
+		<!-- 폼 가운데 버튼 -->
+			<div class= "h_searchMultiBtn">
+				<input type="button" id="" value="test1" class="adminSubBtn">
+				<input type="button" id="testBtn" value="test버튼" class="adminSubBtn">
+				<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn">
+			</div>
+		<!-- 회원목록 -->
+		<div class="h_memTableLi">
+		<form method="get" id="delMultiForm" action="memMultiDel">
+			<ul class="h_memList clearfix">
+				<li class="h_listHeader">선택</li>
+				<li class="h_listHeader">아이디</li>
+				<li class="h_listHeader">성명</li>
+				<li class="h_listHeader">이메일</li>
+				<li class="h_listHeader">연락처</li>
+				<li class="h_listHeader">가입일</li>
+				<li class="h_listHeader">휴면전환일</li>
+				<li class="h_listHeader">관리</li>
+				<c:forEach var="vo" items="${list}" varStatus="status">
+						<li><input type="checkbox" name="memberChk" class="memberChk" value="${vo.userid}"/></li>
+						<li>
+						<%--	<input type="button" class="h_memdormant" value="휴면"/> --%>
+						${vo.userid}
+						</li>
+						<li>${vo.username}</li>
+						<li class="wordcut">${vo.email}</li>
+						<li>${vo.tel}</li>
+						<li>${vo.regdate}</li>
+						<li>${vo.dordate} ${vo.emailok}/${vo.smsok }/${vo.dormailok }</li>
+						<li>
+						<c:choose>
+						<c:when test = "${vo.emailok == 'N'}">
+						<input type="button" name="memberDelBtn" value="메일수신거부" style="pointer-events: none;" class="adminMainBtn"/>
+						</c:when>
+						<c:when test = "${vo.dormailok == 'N'}">
+						<input type="button" name="memberDelBtn" value="휴면메일발송" class="adminSubBtn" onclick="sendmail(clickid${status.index}, clickuserid${status.index})"/>
+						</c:when>
+						<c:when test = "${vo.dormailok == 'Y'}">
+						<input type="button" name="memberDelBtn" value="발송완료" style="pointer-events: none;" class="adminMainBtn"/>
+						</c:when>
+						</c:choose>
+						
+						<input type="hidden" id="h_userid" name="clickid${status.index}" value="${vo.email}"/>
+						<input type="hidden" id="h_userid" name="clickuserid${status.index}" value="${vo.userid}"/>
+						<%-- if 휴면메일발송여부 == N value값 미발송 아니면 발송완료 -->
+						<!-- <input type="button" name="memberDelBtn" value="휴면메일발송" class="h_memberDel" onclick="memDel(clickid${status.index})"/>
+						<c:if test = "${vo.memstat == 0}">
+							<input type="button" name="memberSleepBtn" class="h_memDormant" value="휴면전환" onclick="memDormant(clickid${status.index})"/>
+						</c:if>
+							<input type="hidden" id="h_userid" name="clickid${status.index}" value="${vo.userid}"/>  --%>	
+						</li>
+				</c:forEach>
 			</ul>
+		</form>
+			<!-- 페이징영역 -->
+			<div class="h_paging_wrap clearfix">
+				<!-- 페이징 이동 버튼 폼  moveForm  -->
+			<form id = "pageBtn_form" action=memberAdminDormant method="get">
+				<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum}"/>
+				<input type="hidden" name="amount" value = "${pageMaker.cri.amount}"/>
+				<input type="hidden" name="searchWord" value = "${pageMaker.cri.searchWord}"/>
+				<input type="hidden" name="type" value = "${pageMaker.cri.type}"/>
+				<input type="hidden" name="emailok" value = "${pageMaker.cri.emailok}"/>
+				<input type="hidden" name="smsok" value = "${pageMaker.cri.smsok}"/>
+				<input type="hidden" name="dormailok" value = "${pageMaker.cri.dormailok}"/>
+				<!-- 이메일 sms 추가 -->
+			</form>
+				<ul class="paging">
+				<c:if test = "${pageMaker.prev }">
+					<li><a class="pagingLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
+				</c:if>
+				<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+					<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
+				</c:forEach>
+				<c:if test = "${pageMaker.next }">
+					<li><a class="pagingLR_a " href="${pageMaker.endPage + 1 }">＞</a></li>
+				</c:if>
+				</ul>
+			</div>
 		</div>
-	</div>
 	</div>
 </div>
 <script>
 	
+	//////////////////// 선택 전체삭제기능
+	$(()=>{
+		$('#delMulti').click(()=> {
+			var confirm_val = confirm("선택한 회원을 탈퇴처리 하시겠습니까?");
+			  
+			  if(confirm_val) {
+			   var checkArr = new Array();
+			   
+			   $(".memberChk:checked").each(function(){
+			    checkArr.push($(this).val());
+			   });
+			    
+			   console.log(checkArr);
+			   
+			   $.ajax({
+				    url : 'dormantMultiDel',
+				    type : 'get',
+				    dataType: 'json',
+				    data : { memberChk : checkArr },
+				    success : function(result){
+					   if(result == 1){
+					     location.href = 'memberAdminDormant';
+					   } else {
+					   	alert("회원삭제가 실패하였습니다");
+					   }
+					}, error:function() {
+						alert("삭제할 회원을 먼저 선택해주세요");
+					}
+			    
+				});
+			} 
+		});
+	});
 	
+	//////////////////// 휴면메일 보내기 기능
 	function sendmail(clickid, clickuserid, pagenum, amount) {
 		//var clickid = document.getElementById('h_userid').value;
 		var emailcode = ""; 
@@ -189,14 +229,10 @@
 			var smsok = pageBtn.find('input[name="smsok"]').val();
 			var dormailok = pageBtn.find('input[name="dormailok"]').val();
 			
-			
-			
 			console.log(smsok);
 			console.log(searchWord);
 			console.log(pagenum);
 			console.log(amount);
-			
-			
 			
 			$.ajax({
 		        	
@@ -219,8 +255,8 @@
 		pageBtn.submit();
 	});
 	
-	/* 검색버튼 */
-	$('.adminMainBtn').on('click', function(e){
+	////////////////////////////////////// 검색버튼 기능
+	$('.adminMainBtn.search').on('click', function(e){
 		
 		e.preventDefault();
 		var pageBtn = $('#pageBtn_form');

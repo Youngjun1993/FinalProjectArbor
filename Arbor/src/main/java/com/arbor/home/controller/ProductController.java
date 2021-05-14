@@ -25,11 +25,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arbor.home.service.ProductServiceImp;
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.PageProductVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
-import com.google.gson.JsonObject;
 
 
 @Controller
@@ -43,12 +43,25 @@ public class ProductController {
 	
 	// View - 상품목록
 	@RequestMapping("/productList")
-	public ModelAndView productList(int mainno, int subno) {
+	public ModelAndView productList(PageProductVO vo, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", productService.productListClient(subno));
-		mav.addObject("subCate", productService.subCateList(mainno));
-		mav.addObject("mainname", productService.mainnameSelect(mainno));
-		mav.addObject("opt", productService.productListRGB(subno));
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr != null) {
+			vo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		vo.setTotalRecord(productService.productClientTotalRecord(vo));
+		int mainno = productService.selectSubno(vo.getSubno());
+		vo.setMainno(mainno);
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		list = productService.productListClient(vo);
+		
+		mav.addObject("topList", productService.productTopList(vo.getMainno()));
+		mav.addObject("list", list);
+		mav.addObject("subCate", productService.subCateList(vo.getMainno()));
+		mav.addObject("mainname", productService.mainnameSelect(vo.getMainno()));
+		mav.addObject("opt", productService.productListRGB(vo.getSubno()));
+		mav.addObject("pageVO", vo);
 		mav.setViewName("client/product/productList");
 		return mav;
 	}

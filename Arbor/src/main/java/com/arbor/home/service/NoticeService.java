@@ -26,4 +26,10 @@ public class NoticeService implements NoticeServiceImp {
 		return noticeDAO.noticeView(no);
 	}
 
+	@Override
+	public int noticeInsert(NoticeVO vo) {
+		
+		return noticeDAO.noticeInsert(vo);
+	}
+
 }

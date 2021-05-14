@@ -7,6 +7,16 @@ public class CartVO {
 	private int quantity;
 	private String optionvalue;
 	private int price;
+	private int quantitySum;
+	private int totalPrice;
+	//장바구니 추가
+	private int optsumprice;
+	private int optquantity;
+	private int point;
+	private int totalquantity;
+	private int totaldeliv;
+	private int totalpoint;
+	private int totalprice;
 	
 	//product테이블 조인
 	private String pname;
@@ -14,6 +24,78 @@ public class CartVO {
 	private String img1;
 	
 	
+	public int getOptsumprice() {
+		return optsumprice;
+	}
+
+	public void setOptsumprice(int optsumprice) {
+		this.optsumprice = optsumprice;
+	}
+
+	public int getOptquantity() {
+		return optquantity;
+	}
+
+	public void setOptquantity(int optquantity) {
+		this.optquantity = optquantity;
+	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+
+	public int getTotalquantity() {
+		return totalquantity;
+	}
+
+	public void setTotalquantity(int totalquantity) {
+		this.totalquantity = totalquantity;
+	}
+
+	public int getTotaldeliv() {
+		return totaldeliv;
+	}
+
+	public void setTotaldeliv(int totaldeliv) {
+		this.totaldeliv = totaldeliv;
+	}
+
+	public int getTotalpoint() {
+		return totalpoint;
+	}
+
+	public void setTotalpoint(int totalpoint) {
+		this.totalpoint = totalpoint;
+	}
+
+	public int getTotalprice() {
+		return totalprice;
+	}
+
+	public void setTotalprice(int totalprice) {
+		this.totalprice = totalprice;
+	}
+
+	public int getQuantitySum() {
+		return quantitySum;
+	}
+
+	public void setQuantitySum(int quantitySum) {
+		this.quantitySum = quantitySum;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
 	public String getPname() {
 		return pname;
 	}

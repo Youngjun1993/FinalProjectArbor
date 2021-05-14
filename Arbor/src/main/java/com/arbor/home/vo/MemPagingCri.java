@@ -14,9 +14,14 @@ public class MemPagingCri {
 	//검색타입 배열
 	private String[] typeArr;
 	
+	//회원검색페이지
 	private String emailok;
 	private String smsok;
+	
+	//휴면페이지
 	private String dormailok;
+	
+	//삭제페이지 탈퇴기간과 탈퇴일 검색
 	
 	public MemPagingCri() {
         this(1,10);

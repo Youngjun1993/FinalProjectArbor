@@ -4,9 +4,9 @@
 <div class="w1400_container font_ng">
 	<div id="p_center">
 		<h1 id="p_listTitle">${mainname }'s New Item</h1>
-		<img src="<%=request.getContextPath()%>/img/sofa1.png"/>
-		<img src="<%=request.getContextPath()%>/img/sofa2.jpg"/>
-		<img src="<%=request.getContextPath()%>/img/sofa3.jpg"/>
+		<c:forEach var="top" items="${topList }">
+			<img src="<%=request.getContextPath()%>/upload/${top.img1}"/>
+		</c:forEach>
 	</div>
 	<div id="p_header" class="clearfix">
 		<ul id="p_leftTitle" class="clearfix">
@@ -16,13 +16,13 @@
 			</c:forEach>
 		</ul>
 		<ul id="p_rightTitle" class="clearfix">
-			<li><a href="#">최신순</a></li>
+			<li><a href="productList?subno=${pageVO.subno }&msg=newArray">최신순</a></li>
 			<li>|</li>
-			<li><a href="#">낮은가격순</a></li>
+			<li><a href="productList?subno=${pageVO.subno }&msg=lowpriceArray">낮은가격순</a></li>
 			<li>|</li>
-			<li><a href="#">높은가격순</a></li>
+			<li><a href="productList?subno=${pageVO.subno }&msg=highpriceArray">높은가격순</a></li>
 			<li>|</li>
-			<li><a href="#">판매순위순</a></li>
+			<li><a href="productList?subno=${pageVO.subno }&msg=orderArray">판매순위순</a></li>
 		</ul>
 	</div>
 	<hr/>
@@ -44,5 +44,25 @@
 				</li>
 			</c:forEach>
 		</ul>
+	</div>
+	<div id="pagingDiv">
+		 <ul class="paging" class="clearfix">
+          	<c:if test="${pageVO.pageNum>1 }">
+              	<li style="border-bottom:none;"><a class="pagingLR_a"  href="couponList?pageNum=${pageVO.pageNum-1}">＜</a></li>
+            </c:if>
+            <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+              	<c:if test="${p<=pageVO.totalPage }">
+	               	<c:if test="${p==pageVO.pageNum }">
+	               		<li style="border-bottom:3px solid rgb(93, 121, 115);"><a href="couponList?pageNum=${p}">${p }</a></li>
+	               	</c:if>
+	               	<c:if test="${p!=pageVO.pageNum }">
+	               		<li><a href="couponList?pageNum=${p}">${p }</a></li>
+	               	</c:if>
+              	</c:if>
+            </c:forEach>
+            <c:if test="${pageVO.pageNum<pageVO.totalPage }">
+            	<li style="border-bottom:none;"><a class="pagingLR_a"  href="couponList?pageNum=${pageVO.pageNum+1}">＞</a></li>
+            </c:if>
+         </ul>
 	</div>
 </div>

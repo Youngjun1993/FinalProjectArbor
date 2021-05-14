@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script>
 	var printno = 0; //orderno 받아오기
 	function subPopupList(orderno){//상세 팝업
@@ -148,7 +149,7 @@
                 <c:forEach var="data" items="${list }">
 	                <li>${data.orderdate }</li>
 	                <li class="wordcut"><a class="y_pnameList" id="y_pnameList" href="javascript:subPopupList(${data.orderno })">${data.pname }</a></li>
-	                <li>${data.totalprice }</li>
+	                <li><fmt:formatNumber value="${data.totalprice }" /> 원</li>
 	                <li>
 	                    <a href="#" class="statusBtn">배송준비</a> 
 	                    <a href="#" class="statusBtn">배송완료</a> 

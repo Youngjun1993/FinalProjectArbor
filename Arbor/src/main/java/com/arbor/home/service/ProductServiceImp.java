@@ -2,6 +2,7 @@ package com.arbor.home.service;
 
 import java.util.List;
 
+import com.arbor.home.vo.PageProductVO;
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.PageSearchVO;
@@ -28,11 +29,13 @@ public interface ProductServiceImp {
 	public int pqna_totalRecord();
 	// (pqnaNoAnswer)
 	public int pqnaNoAnswerCnt();
+	// (productList)
+	public int productClientTotalRecord(PageProductVO vo);
 	
 	/* 사용자 */
 	
 	//상품목록 불러오기
-	public List<ProductVO> productListClient(int subno);
+		public List<ProductVO> productListClient(PageProductVO pageVo);
 	// 목록에 사용할 rgb컬러 불러오기
 	public List<OptionVO> productListRGB(int subno);
 	// mainname 가져오기
@@ -49,6 +52,8 @@ public interface ProductServiceImp {
 	public List<QnaVO> qnaViewList(int pno);
 	// 옵션번호로 정보 끌어오기
 	public OptionVO productOptionView(int optno);
+	// 리스트 탑3 정보 끌어오기
+	public List<ProductVO> productTopList(int subno);
 	
 	/* 관리자 */
 	

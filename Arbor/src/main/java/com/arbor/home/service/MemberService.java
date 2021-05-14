@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.arbor.home.dao.MemberDAOImp;
 import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemberDormantVO;
+import com.arbor.home.vo.MemberQuitVO;
 import com.arbor.home.vo.MemberVO;
 
 @Service
@@ -120,5 +121,24 @@ public class MemberService implements MemberServiceImp {
 		
 		return memberDAO.dormantmailsend(userid);
 	}
+
+	@Override
+	public int dormantMultiDel(String userid) {
+		
+		return memberDAO.dormantMultiDel(userid);
+	}
+
+	@Override
+	public List<MemberQuitVO> memQuitPaging(MemPagingCri cri) {
+		
+		return memberDAO.memQuitPaging(cri);
+	}
+
+	@Override
+	public int memQuitCount(MemPagingCri cri) {
+
+		return memberDAO.memQuitCount(cri);
+	}
+	
 	
 }
