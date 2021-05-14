@@ -125,10 +125,7 @@ public class OrderController {
 		PageSearchVO pageVo = new PageSearchVO();
 		if(pageNumStr!=null) {
 			pageVo.setPageNum(Integer.parseInt(pageNumStr));
-		}
-		
-		pageVo.setOnePageRecord(2);
-		
+		}	
 		
 		pageVo.setTotalRecord(orderService.totalRecord(pageVo));
 		
