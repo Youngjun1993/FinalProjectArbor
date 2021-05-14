@@ -22,6 +22,9 @@ public class MemPagingCri {
 	private String dormailok;
 	
 	//삭제페이지 탈퇴기간과 탈퇴일 검색
+	private String byetype;
+	private String byedate;
+	private int quitperiod;
 	
 	public MemPagingCri() {
         this(1,10);
@@ -103,5 +106,25 @@ public class MemPagingCri {
 	public void setDormailok(String dormailok) {
 		this.dormailok = dormailok;
 	}
+	public String getByetype() {
+		return byetype;
+	}
+	public void setByetype(String byetype) {
+		this.byetype = byetype;
+	}
+	public String getByedate() {
+		return byedate;
+	}
+	public void setByedate(String byedate) {
+		this.byedate = byedate;
+	}
+	public int getQuitperiod() {
+		return quitperiod;
+	}
+	public void setQuitperiod(int quitperiod) {
+		this.quitperiod = quitperiod;
+	}
+	
+	
 	
 }

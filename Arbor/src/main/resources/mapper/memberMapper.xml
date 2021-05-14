@@ -214,7 +214,6 @@
             where rn > (#{pageNum} - 1) * #{amount}
 		]]>
 	</select>
-	
 	<!-- 휴면회원 총 레코드수 -->
 	<select id="memDormantCount" resultType="int">
 		<![CDATA[
@@ -259,18 +258,54 @@
 	</update>
 	
 	<!--////////////////// 탈퇴회원 리스트와 페이징 /////////////////////-->
-	<select id="memQuitPaging" resultType="com.arbor.home.vo.MemberDormantVO">
+	<select id="memQuitPaging" resultType="com.arbor.home.vo.MemberQuitVO">
 		<![CDATA[
 			select * from
-			(select userid, byetype, byereason, regdate, byedate, ceil(sysdate-byedate) Quitperiod, rownum as rn from byemember where rownum <= #{pageNum} * #{amount}
-			order by quitperiod asc) where rn > (#{pageNum} - 1) * #{amount}
+			(select * from 
+			(select userid, byetype, byereason, to_char(regdate, 'YY-MM-DD HH24:MI') regdate, to_char(byedate, 'YY-MM-DD HH24:MI') byedate, ceil(sysdate-byedate) quitperiod, rownum as rn from byemember)
+			where rn <= #{pageNum}*#{amount}
 		]]>
+			<if test="searchWord!=null">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test='byetype=="사용자"'>
+                and byetype = '사용자'
+            </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='quitperiod >= 0'>
+            <![CDATA[
+                and to_number(quitperiod) >= #{quitperiod}
+            ]]>
+            </if>
+		<![CDATA[
+			order by quitperiod asc)
+			where rn > (#{pageNum}-1) * #{amount}
+		]]>
+		
 	</select>
 	
 	<!-- 탈퇴회원 총 레코드수 -->
 	<select id="memQuitCount" resultType="int">
 		<![CDATA[
-		select count(*) from byemember where rownum > 0
+		select count(*) from (select userid, byetype, byereason, regdate, byedate, ceil(sysdate-byedate) quitperiod from byemember) where rownum > 0
 		]]>
+			<if test="searchWord!=null">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test='byetype=="사용자"'>
+                and byetype = '사용자'
+            </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='quitperiod >= 0'>
+            <![CDATA[
+                and to_number(quitperiod) >= #{quitperiod}
+            ]]>
+            </if>
 	</select>
 </mapper>
+
+			

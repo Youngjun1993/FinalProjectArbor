@@ -515,9 +515,33 @@ public class MemberController {
 		System.out.println("카테고리 ="+cri.getType());
 		System.out.println("검색어 ="+cri.getSearchWord());
 		
-		mav.addObject("pageMaker", pageMaker);//전체데이터가 담긴 memberVO 객체*/		
+		mav.addObject("pageMaker", pageMaker);//
 		mav.setViewName("admin/member/memberAdminQuit");
 		
-	return mav;
+		return mav;
+	
+	}
+	
+	//탈퇴 페이지 다중삭제
+	@ResponseBody
+	@RequestMapping("/permanantDel")
+	public int permanantDel(@RequestParam(value = "memberChk[]") List<String> chArr) {
+		int result = 0;
+		
+		System.out.println(chArr.size());
+		///////수정중
+		for (int i=0; i<chArr.size(); i++) {
+			memberService.memMultiDel(chArr.get(i));
+			int cnt = memberService.insertByeMemberMulti(chArr.get(i), "관리자삭제");
+		if(cnt>0) {
+			System.out.println("다중삭제 완료");
+			}else {
+			System.out.println("다중삭제 실패");
+			System.out.println(cnt);
+			}
+		}
+		result = 1;
+		
+		return result;
 	}
 }
