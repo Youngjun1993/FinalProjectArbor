@@ -72,7 +72,7 @@
 		</td>
 	</tr>
 	</table>
-	<div class="h_searchBtnBox"><input type="button" id="memSearchBtn" value="검색" class="adminMainBtn"></div>	
+	<div class="h_searchBtnBox"><input type="button" id="memSearchBtn" value="검색" class="adminMainBtn search"></div>	
 	</form>
 	
 	<!-- member tbl 데이터 영역 -->
@@ -216,7 +216,7 @@
 		
 		
 		/* 검색버튼 */
-		$('.adminMainBtn').on('click', function(e){
+		$('.adminMainBtn.search').on('click', function(e){
 			
 			e.preventDefault();
 			

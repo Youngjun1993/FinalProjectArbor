@@ -120,5 +120,11 @@ public class MemberService implements MemberServiceImp {
 		
 		return memberDAO.dormantmailsend(userid);
 	}
+
+	@Override
+	public int dormantMultiDel(String userid) {
+		
+		return memberDAO.dormantMultiDel(userid);
+	}
 	
 }

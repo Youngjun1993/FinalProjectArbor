@@ -64,4 +64,7 @@ public interface MemberDAOImp {
 	//총회원수 카운트(활성, 휴면 만)
 	public int memCount(MemPagingCri cri);
 	
+	//휴면회원 다중삭제
+	public int dormantMultiDel(String userid);
+	
 }
