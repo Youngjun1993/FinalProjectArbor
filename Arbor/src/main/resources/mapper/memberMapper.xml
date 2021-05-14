@@ -139,7 +139,7 @@
 	<!-- 총레코드수(활성,휴면) -->
 	<select id="memCount" resultType="int">
 		select count(*) from member where memstat in(0,1)
-		<if test="searchWord!=null and type == 'userid'">
+			<if test="searchWord!=null and type == 'userid'">
             	and userid like '%'||#{searchWord}||'%'
             </if>
             <if test="searchWord!=null and type == 'username'">
@@ -160,7 +160,6 @@
             <if test='smsok=="N"'>
                 and smsok = 'N'
             </if>
-            
 	</select>
 	
 	<!-- 휴면계정전환처리 -->
@@ -258,4 +257,20 @@
 	<update id = "dormantMultiDel">
 		update dormantmember set dortype = '탈퇴' where userid = #{userid}
 	</update>
+	
+	<!--////////////////// 탈퇴회원 리스트와 페이징 /////////////////////-->
+	<select id="memQuitPaging" resultType="com.arbor.home.vo.MemberDormantVO">
+		<![CDATA[
+			select * from
+			(select userid, byetype, byereason, regdate, byedate, ceil(sysdate-byedate) Quitperiod, rownum as rn from byemember where rownum <= #{pageNum} * #{amount}
+			order by quitperiod asc) where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 탈퇴회원 총 레코드수 -->
+	<select id="memQuitCount" resultType="int">
+		<![CDATA[
+		select count(*) from byemember where rownum > 0
+		]]>
+	</select>
 </mapper>
