@@ -2,7 +2,7 @@ package com.arbor.home.vo;
 
 public class SubOrderVO {
 	private int suborderno;
-	private String orderno;
+	private int orderno;
 	private int pno;
 	private int optno;
 	private int quantity;
@@ -20,10 +20,10 @@ public class SubOrderVO {
 	public void setSuborderno(int suborderno) {
 		this.suborderno = suborderno;
 	}
-	public String getOrderno() {
+	public int getOrderno() {
 		return orderno;
 	}
-	public void setOrderno(String orderno) {
+	public void setOrderno(int orderno) {
 		this.orderno = orderno;
 	}
 	public int getPno() {

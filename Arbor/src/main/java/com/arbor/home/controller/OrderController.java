@@ -3,6 +3,7 @@ package com.arbor.home.controller;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +50,6 @@ public class OrderController {
 			pInfo[1] = priceArr[i];
 			pInfo[2] = quantityArr[i];
 			System.out.println("넘겨받은 상품 정보(배열) "+i+"번째->"+Arrays.toString(pInfo));
-			
 		}
 		
 		ModelAndView mav = new ModelAndView();
@@ -83,7 +83,8 @@ public class OrderController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
 		String today = sdf.format(now);
 		String orderSeq = String.valueOf(orderService.getOrderSeq());
-		orderVo.setOrderno(today+"-"+orderSeq); //당일날짜+시퀀스 형식으로 주문번호 생성 (ex.210511-03)
+		int orderno = Integer.parseInt(today+orderSeq);
+		orderVo.setOrderno(orderno); //당일날짜+시퀀스 형식으로 주문번호 생성 (ex.210511-03)
 		
 		if(orderService.orderComplete(orderVo)>0) {	//주문완료 db 생성
 			for(int i=0; i<pnoArr.length; i++) {
@@ -112,32 +113,39 @@ public class OrderController {
 	
 	/* admin */
 	@RequestMapping("/orderAdmin")
-	public ModelAndView orderManagement() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", orderService.allOrderList());
-		System.out.println("orderList->"+orderService.allOrderList().size());
-		mav.setViewName("admin/order/orderAdmin");
-		return mav;
-	}
-	
-	@RequestMapping(value="/changeStatus", method=RequestMethod.POST)
-	public ModelAndView changeOrderStatus(
-			@RequestParam(value="orderno",required=true) String[] ordernoArr,
-			String status) {
-		ModelAndView mav = new ModelAndView();
+	public ModelAndView orderManagement(
+			@Nullable
+			@RequestParam(value="orderno",required=false) int[] ordernoArr,
+			OrderTblVO orderVo
+			) {
 
-		for(int i=0; i<ordernoArr.length; i++) {
-			System.out.println("ordernoArr["+i+"]->"+ordernoArr[i]+" / "+status);
-			
-			orderService.updateOrderStatus(ordernoArr[i], status);
-		}
-		mav.addObject("list", orderService.allOrderList());
-		System.out.println("***orderList***->"+orderService.allOrderList().size());
-		mav.setViewName("admin/order/orderAdmin");
+		ModelAndView mav = new ModelAndView();
 		
+		//달력 선택하여 검색시, 날짜 유형 변경
+		if(orderVo.getPeriod()!=null || orderVo.getOrderSearch_from()!=null || orderVo.getSearchWord()!=null) {
+			String sf = orderVo.getOrderSearch_from();
+			String st = orderVo.getOrderSearch_to();
+			if((sf!=null || !sf.equals("")) && (st!=null || !st.equals(""))) {
+				sf = sf.replace("-", "/");
+				st = st.replace("-", "/");
+				orderVo.setOrderSearch_from(sf);
+				orderVo.setOrderSearch_to(st);
+			}
+		}
+		//주문상태 변경
+		if(orderVo.getStatus()!=null && ordernoArr!=null) {
+			for(int i=0; i<ordernoArr.length; i++) {
+			System.out.println("ordernoArr["+i+"]->"+ordernoArr[i]+" / "+orderVo.getStatus());
+				
+			orderService.updateOrderStatus(ordernoArr[i], orderVo.getStatus());
+			}
+		}
+		mav.addObject("cnt", orderService.countOfOrderStatus(orderVo));
+		mav.addObject("list", orderService.selectOrderList(orderVo));
+		System.out.println("orderList->"+orderService.selectOrderList(orderVo).size());
+		mav.setViewName("admin/order/orderAdmin");
 		return mav;
 	}
-	
 	
 	
 	

@@ -120,6 +120,9 @@
 			}
 		});
 		
+		//선택한 쿠폰의 사용 금액 데이터 입력
+		$('')
+		
 		
 		
 	});
@@ -451,6 +454,7 @@
 										<c:if test="${cpnCount>0}">
 											<c:forEach var="cpnVo" items="${list }">
 												<option>${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
+												<input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/>
 											</c:forEach>
 										</c:if>
 									</select>
