@@ -142,7 +142,7 @@ $(function(){
 			<li><a href="">FUNITURE</a></li>
 			<li><a href="">COMMUNITY</a></li>
 			<li><a href="event">EVENT</a></li>
-			<li><a href="">ABOUT US</a></li>
+			<li><a href="aboutUs">ABOUT US</a></li>
 			<c:if test="${logName==null || logName=='' }">
 			<li><a href="joinform">JOIN</a></li>
 			</c:if>

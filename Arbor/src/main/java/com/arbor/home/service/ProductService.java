@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.arbor.home.dao.ProductDAOImp;
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.PageProductVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
@@ -92,7 +93,7 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public List<ProductVO> productListClient(PageSearchVO pageVo) {
+	public List<ProductVO> productListClient(PageProductVO pageVo) {
 		return productDAO.productListClient(pageVo);
 	}
 
@@ -227,7 +228,7 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int productClientTotalRecord(PageSearchVO vo) {
+	public int productClientTotalRecord(PageProductVO vo) {
 		return productDAO.productClientTotalRecord(vo);
 	}
 

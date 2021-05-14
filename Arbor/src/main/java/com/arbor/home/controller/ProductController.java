@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arbor.home.service.ProductServiceImp;
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.PageProductVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
@@ -42,7 +43,7 @@ public class ProductController {
 	
 	// View - 상품목록
 	@RequestMapping("/productList")
-	public ModelAndView productList(PageSearchVO vo, HttpServletRequest req) {
+	public ModelAndView productList(PageProductVO vo, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		String pageNumStr = req.getParameter("pageNum");
 		if(pageNumStr != null) {
