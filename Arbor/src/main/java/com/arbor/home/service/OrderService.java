@@ -10,6 +10,7 @@ import com.arbor.home.dao.OrderDAOImp;
 import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
+import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PointVO;
 import com.arbor.home.vo.SubOrderVO;
 
@@ -76,6 +77,11 @@ public class OrderService implements OrderServiceImp {
 	@Override
 	public int updateOrderStatus(int orderno, String status) {
 		return orderDAO.updateOrderStatus(orderno, status);
+	}
+
+	@Override
+	public int totalRecord(PageSearchVO vo) {
+		return orderDAO.totalRecord(vo);
 	}
 	
 }

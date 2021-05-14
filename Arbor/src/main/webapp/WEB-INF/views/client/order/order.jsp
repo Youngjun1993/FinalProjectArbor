@@ -99,7 +99,7 @@
 				alert("주문동의란을 확인하여 주시기 바랍니다.")
 				return false;
 			}
-			$("#j_checkoutFrm").submit();
+			checkout();
 		});
 		
 		//요청사항 직접입력
@@ -240,58 +240,30 @@
 		<form method="post" id="j_checkoutFrm" action="orderOk">
 			<div class="j_orderTable" id="j_productInfo">	<!-- 상품정보 -->
 				<div class="j_orderTitle">상품정보</div>
-				<table>
-					<colgroup>
-						<col width="630px">
-						<col width="150px">
-						<col width="165px">
-						<col width="165px">
-						<col width="120px">
-						<col width="170px">
-					</colgroup>
-					<tr>
-						<td>상품정보</td>
-						<td>상품금액</td>
-						<td>할인금액</td>
-						<td>수량</td>
-						<td>배송비</td>
-						<td>주문금액</td>
-					</tr>
-					<tr class="j_productList">
-						<td class="j_pInfo">
-							<div>
-								<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
-								<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
-								<input type="hidden" name="pno" value="17"/>
-								<input type="hidden" name="pname" value="침대 옆에 두기 좋은 미니협탁"/>
-								<input type="hidden" name="quantity" value="1"/>
-								<input type="hidden" name="subprice" value="42000"/>
-							</div>
-						</td>
-						<td>1,500,000</td>
-						<td>1,000,000</td>
-						<td>1</td>
-						<td>30,000</td>
-						<td>1,000,000</td>
-					</tr>
-					<tr class="j_productList">
-						<td class="j_pInfo">
-							<div>
-								<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
-								<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
-								<input type="hidden" name="pno" value="20"/>
-								<input type="hidden" name="pname" value="카펜 H형 화장대"/>
-								<input type="hidden" name="quantity" value="2"/>
-								<input type="hidden" name="subprice" value="65000"/>
-							</div>
-						</td>
-						<td>1,500,000</td>
-						<td>1,000,000</td>
-						<td>1</td>
-						<td>30,000</td>
-						<td>1,000,000</td>
-					</tr>
-				</table>
+				<ul>
+					<li>상품정보</li>
+					<li>상품금액</li>
+					<li>할인금액</li>
+					<li>수량</li>
+					<li>배송비</li>
+					<li>주문금액</li>
+					
+					<li>
+						<div>
+							<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
+							<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
+							<input type="hidden" name="pno" value="17"/>
+							<input type="hidden" name="pname" value="침대 옆에 두기 좋은 미니협탁"/>
+							<input type="hidden" name="quantity" value="1"/>
+							<input type="hidden" name="subprice" value="42000"/>
+						</div>
+					</li>
+					<li>1,500,000</li>
+					<li>1,000,000</li>
+					<li>1</li>
+					<li>30,000</li>
+					<li>1,000,000</li>
+				</ul>
 			</div>
 			<div class="clearfix" id="orderCenterDiv"> <!-- 센터div -->
 				<div id="orderFrm_left"> <!-- 센터 왼쪽div -->

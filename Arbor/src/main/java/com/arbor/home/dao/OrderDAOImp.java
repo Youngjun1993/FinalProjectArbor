@@ -5,6 +5,7 @@ import java.util.List;
 import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
+import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PointVO;
 import com.arbor.home.vo.SubOrderVO;
 
@@ -24,5 +25,6 @@ public interface OrderDAOImp {
 	public List<OrderTblVO> selectOrderList(OrderTblVO orderVo);//주문리스트 검색
 	public OrderTblVO countOfOrderStatus(OrderTblVO orderVo);	//주문상태에 따른 건수
 	public int updateOrderStatus(int orderno, String status);	//주문상태 변경
+	public int totalRecord(PageSearchVO vo);					//총 레코드 수
 	
 }

@@ -80,4 +80,7 @@
 			</otherwise>
 		</choose>
 	</select>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(orderno) as totalRecord from orderTbl
+	</select>
   </mapper>

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arbor.home.service.OrderServiceImp;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
+import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.SubOrderVO;
 
 @Controller
@@ -27,30 +28,32 @@ public class OrderController {
 	OrderServiceImp orderService;
 	
 	/* client */
-	@RequestMapping(value="/order", method = RequestMethod.POST)
+	@RequestMapping("/order")
+//	@RequestMapping(value="/order", method = RequestMethod.POST)
 	public ModelAndView orderPage(@Nullable
-			@RequestParam(value="optnameArr", required=true) String[] optInfoArr,
-			@RequestParam(value="priceArr", required=true) String[] priceArr,
-			@RequestParam(value="pnoStr", required=true) String pnoStr,
-			@RequestParam(value="quantityArr", required=true) String[] quantityArr,
+	/*@RequestParam(value="optnameArr", required=true) String[] optInfoArr,
+	@RequestParam(value="priceArr", required=true) String[] priceArr,
+	@RequestParam(value="pnoStr", required=true) String pnoStr,
+	@RequestParam(value="quantityArr", required=true) String[] quantityArr,*/
 			MemberVO memberVo, OrderTblVO orderVo, HttpSession session
 			) {
 		
-		System.out.println("옵션갯수->"+optInfoArr.length);
-		
-		String[] pInfo = new String[3];
-		// 여긴 출력값 이런식으로 확인해서 쓰면 된다는 예시를 남긴고얌 지워도 댐!!! 
-		System.out.println("Arr몇개?"+priceArr.length);
-		for(int i=0; i<priceArr.length; i++) {
-			System.out.println("optInfoArr?"+optInfoArr[i]);
-			System.out.println("priceArr?"+priceArr[i]);
-			System.out.println("quantityArr?"+quantityArr[i]);
-			
-			pInfo[0] = optInfoArr[i];
-			pInfo[1] = priceArr[i];
-			pInfo[2] = quantityArr[i];
-			System.out.println("넘겨받은 상품 정보(배열) "+i+"번째->"+Arrays.toString(pInfo));
-		}
+				/*	System.out.println("옵션갯수->"+optInfoArr.length);
+					
+					String[] pInfo = new String[3];
+					// 여긴 출력값 이런식으로 확인해서 쓰면 된다는 예시를 남긴고얌 지워도 댐!!! 
+					System.out.println("Arr몇개?"+priceArr.length);
+					for(int i=0; i<priceArr.length; i++) {
+						System.out.println("optInfoArr?"+optInfoArr[i]);
+						System.out.println("priceArr?"+priceArr[i]);
+						System.out.println("quantityArr?"+quantityArr[i]);
+						
+						pInfo[0] = optInfoArr[i];
+						pInfo[1] = priceArr[i];
+						pInfo[2] = quantityArr[i];
+						System.out.println("넘겨받은 상품 정보(배열) "+i+"번째->"+Arrays.toString(pInfo));
+						
+					}*/
 		
 		ModelAndView mav = new ModelAndView();
 		String userid = (String)session.getAttribute("logId");
@@ -116,10 +119,23 @@ public class OrderController {
 	public ModelAndView orderManagement(
 			@Nullable
 			@RequestParam(value="orderno",required=false) int[] ordernoArr,
-			OrderTblVO orderVo
-			) {
+			OrderTblVO orderVo, HttpServletRequest req) {
 
-		ModelAndView mav = new ModelAndView();
+		String pageNumStr = req.getParameter("pageNum");
+		PageSearchVO pageVo = new PageSearchVO();
+		if(pageNumStr!=null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		pageVo.setOnePageRecord(2);
+		
+		
+		pageVo.setTotalRecord(orderService.totalRecord(pageVo));
+		
+		System.out.println("pageNum->"+pageVo.getPageNum());
+		System.out.println("startPageNum->"+pageVo.getStartPageNum());
+		System.out.println("onePageNum->"+pageVo.getOnePageNum());
+		
 		
 		//달력 선택하여 검색시, 날짜 유형 변경
 		if(orderVo.getPeriod()!=null || orderVo.getOrderSearch_from()!=null || orderVo.getSearchWord()!=null) {
@@ -140,8 +156,12 @@ public class OrderController {
 			orderService.updateOrderStatus(ordernoArr[i], orderVo.getStatus());
 			}
 		}
+		
+		
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("cnt", orderService.countOfOrderStatus(orderVo));
 		mav.addObject("list", orderService.selectOrderList(orderVo));
+		mav.addObject("pageVO", pageVo);
 		System.out.println("orderList->"+orderService.selectOrderList(orderVo).size());
 		mav.setViewName("admin/order/orderAdmin");
 		return mav;
