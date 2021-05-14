@@ -10,7 +10,7 @@
                 </li>
                 <ul class="h_menu_submenu accordion-content">
                     <li><a class="head" href="memberSearch">회원검색</a></li>
-                    <li><a class="head" href="memberAdminDormant">휴면회원검색</a></li>
+                    <li><a class="head" href="memberAdminDormant">휴면관리</a></li>
                     <li><a class="head" href="memberAdminQuit">탈퇴회원검색</a></li>
                 </ul>
                 <!-- 관리자 2번 메뉴 -->

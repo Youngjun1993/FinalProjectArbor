@@ -60,7 +60,6 @@
 		values((SELECT userid FROM member where userid=#{param1}),(SELECT regdate FROM member where userid=#{param1}),'사용자',#{param2},sysdate)
 	</insert>
 	
-	
 	<!-- 수정 회원 선택 -->
 	<select id="memUpdateSelect"  resultType="com.arbor.home.vo.MemberVO">
 		select userid, username, zipcode, addr, detailaddr, tel, email from member where userid=#{param1}
@@ -253,5 +252,10 @@
 	<!-- 휴면메일발송 Y로 변경 -->
 	<update id="dormantmailsend">
 		update dormantmember set dormailok='Y' where userid = #{param1}
+	</update>
+	
+	<!-- 휴면회원다중삭제 -->
+	<update id = "dormantMultiDel">
+		update dormantmember set dortype = '탈퇴' where userid = #{userid}
 	</update>
 </mapper>

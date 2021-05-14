@@ -512,4 +512,27 @@ public class MemberController {
       
     }
 	
+	//휴면 다중삭제
+	@ResponseBody
+	@RequestMapping("/dormantMultiDel")
+	public int dormantMultiDel(@RequestParam(value = "memberChk[]") List<String> chArr) {
+		int result = 0;
+		System.out.println("체크박스 체크 개수" +chArr.size());
+		
+		
+		for (int i=0; i<chArr.size(); i++) {
+			memberService.dormantMultiDel(chArr.get(i));
+			int cnt = memberService.insertByeMemberMulti(chArr.get(i), "관리자삭제");
+		if(cnt>0) {
+			System.out.println("다중삭제 완료");
+			}else {
+			System.out.println("다중삭제 실패");
+			System.out.println(cnt);
+			}
+		}
+		result = 1;
+		
+		return result;
+	}
+	
 }
