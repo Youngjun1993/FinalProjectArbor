@@ -5,7 +5,7 @@
 <title>arbor > event</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/event.css" type="text/css"/>
-<script src="<%=request.getContextPath() %>/javaScript/client/event.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/javaScript/client/event.js"></script> --%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
@@ -20,6 +20,7 @@
 			$(".j_eventMenu").text(title);
 			
 			if(title=="TIME SALE"){
+				console.log("타임세일ㄹㄹㄹㄹ")
 				runSlider();
 				runTimer(sEndDate[0]);
 			}
@@ -28,6 +29,9 @@
 		var title = "${title}";
 		if(title=="timeSale"){	//타임세일 tab -> 타임세일 이미지, 시간 불러오기 **
 			$("#j_tab1").prop("checked",true);
+			console.log("헤더->타임세일ㄹㄹㄹㄹ")
+			runSlider();
+			runTimer(sEndDate[0]);
 		}
 		else if(title=="nowEvent"){
 			$("#j_tab2").prop("checked",true);
@@ -59,7 +63,6 @@
 					}
 			});
 		}
-
 		//타임세일 tab - 타이머 구현
 		var timer;
 		function runTimer(saleEndDate){
@@ -85,7 +88,6 @@
 				var hours = Math.floor((interval % _day) / _hour);
 				var minutes = Math.floor((interval % _hour) / _minute);
 				var seconds = Math.floor((interval % _minute) / _second);
-
 				var setTimer = "<span class='d-day'>D-"+days+" </span>";
 				setTimer += hours+"시간 ";
 				setTimer += minutes+"분 ";
