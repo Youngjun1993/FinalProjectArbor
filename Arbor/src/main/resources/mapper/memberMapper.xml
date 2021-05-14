@@ -178,7 +178,7 @@
 		<![CDATA[
 		select * from 
 		(select userid, username, email, tel, to_char(regdate, 'YY-MM-DD HH24:MI') regdate, to_char(dordate, 'YY-MM-DD HH24:MI') dordate, dormailok, dortype, emailok, smsok, rownum as rn
-			from dormantmember where rownum <=#{pageNum} * #{amount}
+			from dormantmember where rownum <=#{pageNum} * #{amount} and dortype != '탈퇴'
 			]]>
 			<if test="searchWord!=null and type == 'userid'">
             	and userid like '%'||#{searchWord}||'%'

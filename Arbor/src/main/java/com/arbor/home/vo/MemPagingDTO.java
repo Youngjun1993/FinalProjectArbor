@@ -60,7 +60,6 @@ public class MemPagingDTO {
 		this.endPage = endPage;
 	}
 
-
 	public boolean isPrev() {
 		return prev;
 	}
