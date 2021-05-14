@@ -22,10 +22,14 @@
 	<update id="lastDateUpdate">
 		update member set lastdate = TO_DATE(#{param1},'YYYYMMDDHH24miss') where userid = #{param2}
 	</update>
-	<!-- 휴면계정전환처리 -->
-	<update id="memDormant">
-		update member set memstat = 1 where userid=#{param1}
-	</update>
+	
+	
+	<!-- 비밀번호 체크 #{userid}는 view페이지에서 전달되는 name속성이 userid인 요소의 값 -->
+	<select id="pwdCheck" resultType="com.arbor.home.vo.MemberVO">
+		select userid, userpwd from member where userid=#{param1} and memstat in(0,1)
+	</select>
+	
+	<!-- /////////////////////////////////////////회원검색 페이지//////////////////////////////////////////// -->
 	
 	<!-- 회원삭제(관리자에의해) -->
 	<update id = "memDel">
@@ -45,13 +49,6 @@
 		INSERT INTO byemember (userid, regdate, byetype, byereason, byedate)
 		values((SELECT userid FROM member where userid=#{param1}),(SELECT regdate FROM member where userid=#{param1}),'관리자',#{param2},sysdate)
 	</insert>
-	
-	<!-- 비밀번호 체크 #{userid}는 view페이지에서 전달되는 name속성이 userid인 요소의 값 -->
-	<select id="pwdCheck" resultType="com.arbor.home.vo.MemberVO">
-		select userid, userpwd from member where userid=#{param1} and memstat in(0,1)
-	</select>
-	
-	
 	
 	<!-- 탈퇴시 memstat 변경(스스로) -->
 	<update id="memberQuit">
@@ -74,7 +71,7 @@
 	</update>
 
 	<!-- 회원검색 리스트 -->
-	<select id="memberAllselect" resultType="com.arbor.home.vo.MemberVO">
+	<!-- <select id="memberAllselect" resultType="com.arbor.home.vo.MemberVO">
 	 	select userid, username, email, tel, to_char(regdate, 'YY-MM-DD HH:MI') regdate, to_char(lastdate, 'YY-MM-DD HH:MI') lastdate, smsok, emailok, memstat from member
                 <if test="searchWord!=null">
                   where ${searchCate} like '%${searchWord}%'
@@ -95,20 +92,166 @@
                     and smsok = 'N'
                 </if>
 		 order by userid desc
-	</select>
+	</select> -->
 	
-	<!-- 회원검색 페이징 -->
+	<!-- 회원검색 리스트 페이징 -->
 	<select id="memSearchPaging" resultType="com.arbor.home.vo.MemberVO">
 		<![CDATA[
 			select * from
-			(select /*+ INDEX_asc(member pk_member) */ userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, to_char(regdate, 'YY-MM-DD HH:MI') regdate, to_char(lastdate, 'YY-MM-DD HH:MI') lastdate, memstat, rownum as rn
+			(select /*+ INDEX_asc(member pk_member) */ userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, to_char(regdate, 'YY-MM-DD HH24:MI') regdate, to_char(lastdate, 'YY-MM-DD HH24:MI') lastdate, memstat, rownum as rn
 			from member where rownum <= #{pageNum} * #{amount} and memstat in (0,1)
+		]]>
+			<if test="searchWord!=null and type == 'userid'">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'username'">
+            	and username like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'email'">
+            	and email like '%'||#{searchWord}||'%'
+            </if>
+            <!-- <if test='emailok=="Y" || "N"' >
+            	and emailok in ('Y','N')
+            </if> -->
+            <if test='emailok=="Y"'>
+                and emailok = 'Y'
+            </if>
+            <if test='emailok=="N"'>
+                and emailok = 'N'
+            </if>
+            <if test='smsok=="Y"'>
+                and smsok = 'Y'
+            </if>
+            <if test='smsok=="N"'>
+                and smsok = 'N'
+            </if>
+            <if test='dormailok=="Y"'>
+                and dormailok = 'Y'
+            </if>
+            <if test='dormailok=="N"'>
+                and dormailok = 'N'
+            </if>
+		<![CDATA[	
 			)
 			where rn > (#{pageNum} - 1) * #{amount}
 		]]>
 	</select>
 	
+	<!-- 총레코드수(활성,휴면) -->
 	<select id="memCount" resultType="int">
 		select count(*) from member where memstat in(0,1)
+		<if test="searchWord!=null and type == 'userid'">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'username'">
+            	and username like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'email'">
+            	and email like '%'||#{searchWord}||'%'
+            </if>
+            <if test='emailok=="Y"'>
+                and emailok = 'Y'
+            </if>
+            <if test='emailok=="N"'>
+                and emailok = 'N'
+            </if>
+            <if test='smsok=="Y"'>
+                and smsok = 'Y'
+            </if>
+            <if test='smsok=="N"'>
+                and smsok = 'N'
+            </if>
+            
 	</select>
+	
+	<!-- 휴면계정전환처리 -->
+	<update id="memDormant">
+		update member set memstat = 1 where userid=#{param1}
+	</update>
+	<!-- 휴면테이블에 휴면계정데이터 넣기(관리자가 처리)-->
+	<insert id="insertDormantMember">
+		INSERT INTO dormantmember (userid, username, tel, email, regdate, emailok, smsok, dormailok, dortype, dordate)
+		values((SELECT userid FROM member where userid=#{param1}),(SELECT username FROM member where userid=#{param1}),(SELECT tel FROM member where userid=#{param1}),(SELECT email FROM member where userid=#{param1}),(SELECT regdate FROM member where userid=#{param1}), (SELECT emailok FROM member where userid=#{param1}), (SELECT smsok FROM member where userid=#{param1}),'N',#{param2}, sysdate)
+	</insert>
+	
+	<!-- ////////////////////////////////// 휴면회원검색 페이지 //////////////////////////////////////  -->
+	<select id="memDormantPaging" resultType="com.arbor.home.vo.MemberDormantVO">
+		<![CDATA[
+		select * from 
+		(select userid, username, email, tel, to_char(regdate, 'YY-MM-DD HH24:MI') regdate, to_char(dordate, 'YY-MM-DD HH24:MI') dordate, dormailok, dortype, emailok, smsok, rownum as rn
+			from dormantmember where rownum <=#{pageNum} * #{amount}
+			]]>
+			<if test="searchWord!=null and type == 'userid'">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'username'">
+            	and username like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'email'">
+            	and email like '%'||#{searchWord}||'%'
+            </if>
+            <!-- <if test='emailok=="Y" || "N"' >
+            	and emailok in ('Y','N')
+            </if> -->
+            <if test='emailok=="Y"'>
+                and emailok = 'Y'
+            </if>
+            <if test='emailok=="N"'>
+                and emailok = 'N'
+            </if>
+            <if test='smsok=="Y"'>
+                and smsok = 'Y'
+            </if>
+            <if test='smsok=="N"'>
+                and smsok = 'N'
+            </if>
+            <if test='dormailok=="Y"'>
+                and dormailok = 'Y'
+            </if>
+            <if test='dormailok=="N"'>
+                and dormailok = 'N'
+            </if>
+		<![CDATA[	
+			order by userid asc)
+            where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 휴면회원 총 레코드수 -->
+	<select id="memDormantCount" resultType="int">
+		<![CDATA[
+		select count(*) from dormantmember where rownum > 0
+		]]>
+		<if test="searchWord!=null and type == 'userid'">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'username'">
+            	and username like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'email'">
+            	and email like '%'||#{searchWord}||'%'
+            </if>
+            <if test='emailok=="Y"'>
+                and emailok = 'Y'
+            </if>
+            <if test='emailok=="N"'>
+                and emailok = 'N'
+            </if>
+            <if test='smsok=="Y"'>
+                and smsok = 'Y'
+            </if>
+            <if test='smsok=="N"'>
+                and smsok = 'N'
+            </if>
+            <if test='dormailok=="Y"'>
+                and dormailok = 'Y'
+            </if>
+            <if test='dormailok=="N"'>
+                and dormailok = 'N'
+            </if>
+	</select>
+	<!-- 휴면메일발송 Y로 변경 -->
+	<update id="dormantmailsend">
+		update dormantmember set dormailok='Y' where userid = #{param1}
+	</update>
 </mapper>
