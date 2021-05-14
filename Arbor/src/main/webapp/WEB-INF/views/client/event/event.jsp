@@ -5,12 +5,12 @@
 <title>arbor > event</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/event.css" type="text/css"/>
-<script src="<%=request.getContextPath() %>/javaScript/client/event.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/javaScript/client/event.js"></script> --%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
 <script>
-/* 	$(function(){
+	$(function(){
 		var sEndDate = new Array();
 		timeSaleAjax();
 		
@@ -135,7 +135,7 @@
 		});
 		return true;
 		
-	}); */
+	});
 </script>
 </head>
 <body>
