@@ -48,7 +48,13 @@
                     <li><a class="head" href="eventList">이벤트</a></li>
                     <li><a class="head" href="timeSaleList">타임세일</a></li>
                 </ul>
-                
+                <!-- 관리자 6번 메뉴 -->
+                <li id="nav1" class="toggle accordion-toggle"> 
+                    <a class="h_menu_link" href="#">공지사항관리</a>
+                </li>
+                <ul class="h_menu_submenu accordion-content">
+                    <li><a class="head" href="noticeAdminList">공지사항</a></li>
+                </ul>
             </ul>
             <!-- menu-list accordion-->
 		</div>
