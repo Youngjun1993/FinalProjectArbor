@@ -126,15 +126,29 @@
  		delete from optiontbl where pno=${param1}
  	</delete>
  	
- 	<select id="productListClient" parameterType="com.arbor.home.vo.ProductArrayVO" resultType="com.arbor.home.vo.ProductVO">
- 		select * from (select * from (select * from (select * from (select * from (
- 		select pno, subno, pname, pprice, saleprice, img1, img2 from product where subno=${param1} order by pno desc)
- 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pno asc)
- 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
- 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pno desc)
- 		<if test=""></if>)
- 		<if test=""></if>)
- 		<if test=""></if>
+ 	<select id="productListClient" parameterType="com.arbor.home.vo.PageSearchVO" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from (select * from (select * from (
+ 		select pno, subno, pname, pprice, saleprice, img1, img2, pdate from product where subno=${subno} 
+ 		<if test="msg=='newArray'"> order by pdate desc </if><if test="msg=='lowpriceArray'"> order by saleprice asc </if><if test="msg=='highpriceArray'"> order by saleprice desc </if>
+ 		<if test="msg=='orderArray'"></if><if test="msg==null"> order by pno desc </if>)
+ 		<![CDATA[where rownum <= ]]>${pageNum} * ${onePageRecord}
+ 		<if test="msg=='newArray'"> order by pdate asc </if><if test="msg=='lowpriceArray'"> order by saleprice desc </if><if test="msg=='highpriceArray'"> order by saleprice asc </if>
+ 		<if test="msg=='orderArray'"></if><if test="msg==null"> order by pno asc </if>)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">${lastPageRecord}</if><if test="pageNum!=totalPage">${onePageRecord}</if>)
+ 		<if test="msg=='newArray'"> order by pdate desc </if><if test="msg=='lowpriceArray'"> order by saleprice asc </if><if test="msg=='highpriceArray'"> order by saleprice desc </if>
+ 		<if test="msg=='orderArray'"></if><if test="msg==null"> order by pno desc </if>
+ 	</select>
+ 	
+ 	<select id="productClientTotalRecord" parameterType="com.arbor.home.vo.PageSearchVO" resultType="int">
+ 		(select count(pno) from product where subno=${subno})
+ 	</select>
+ 	
+ 	<select id="productTopList" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from        
+		(select p.pno, s.subno, s.mainname, s.subname, p.pname, p.saleprice, p.stock, p.pdate, img1
+		from product p join (select s.subno, s.subname, m.mainname from subcate s
+		join maincate m on s.mainno=m.mainno where s.mainno=${mainno}) s on p.subno=s.subno order by pdate desc)
+		<![CDATA[where rownum <= ]]>3
  	</select>
  	
  	<select id="productListRGB" parameterType="int" resultType="com.arbor.home.vo.OptionVO">

@@ -10,7 +10,6 @@ import com.arbor.home.dao.ProductDAOImp;
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.PageSearchVO;
-import com.arbor.home.vo.ProductArrayVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.QnaVO;
@@ -93,8 +92,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public List<ProductVO> productListClient(ProductArrayVO vo) {
-		return productDAO.productListClient(vo);
+	public List<ProductVO> productListClient(PageSearchVO pageVo) {
+		return productDAO.productListClient(pageVo);
 	}
 
 	@Override
@@ -225,6 +224,16 @@ public class ProductService implements ProductServiceImp {
 	@Override
 	public int updateSubCate(SubCateVO vo) {
 		return productDAO.updateSubCate(vo);
+	}
+
+	@Override
+	public int productClientTotalRecord(PageSearchVO vo) {
+		return productDAO.productClientTotalRecord(vo);
+	}
+
+	@Override
+	public List<ProductVO> productTopList(int subno) {
+		return productDAO.productTopList(subno);
 	}
 	
 	

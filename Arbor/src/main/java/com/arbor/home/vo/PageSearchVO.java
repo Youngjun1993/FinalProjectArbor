@@ -17,6 +17,22 @@ public class PageSearchVO {
 	private String enddate;
 	private int subno;
 	
+	/* View - productList*/
+	private int mainno;
+	private String msg;
+	
+	public int getMainno() {
+		return mainno;
+	}
+	public void setMainno(int mainno) {
+		this.mainno = mainno;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 	public String getUserid() {
 		return userid;
 	}

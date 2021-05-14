@@ -92,5 +92,14 @@
 	font-size: 1.2em;
 }
 
+#pagingDiv {
+	text-align: center;
+}
+#pagingDiv>ul.adPaging {
+	margin-bottom: 50px;
+	overflow:auto;
+	display:inline-block;	
+}
+
 /* tag css */
 
