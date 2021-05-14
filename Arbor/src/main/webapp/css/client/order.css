@@ -99,6 +99,59 @@
 }
 
 /* 상품정보 */
+#j_productInfo{
+	margin-bottom: 40px;
+}
+#j_productInfo li{
+	float: left;
+	width: 150px;
+	height: 150px;
+	line-height: 150px;
+	text-align: center;
+	border-top: 1px solid #ddd;
+	padding: 5px 0;
+}
+#j_productInfo li:nth-child(-n+6){
+	height: 40px;
+	line-height: 40px;
+	border-top: none;
+	border-bottom: 1px solid #333;
+	font-weight: bold;
+}
+#j_productInfo li:nth-child(6n+1){
+	width: 650px;
+}
+#j_productInfo li:nth-child(6n+1):not(#j_productInfo li:first-child){
+	text-align: left;
+	line-height: 15px;
+}
+#j_productInfo li:nth-child(6n+1):not(#j_productInfo li:first-child)>div{
+	display: flex;
+	align-items: center;
+}
+#j_productInfo li:nth-child(6n+1):not(#j_productInfo li:first-child)>div>div{
+	display: flex;
+	flex-direction: column;
+	text-align: top;
+	height: 150px;
+}
+#j_productInfo li img{
+	width: 150px;
+	height: 150px
+}
+#j_productInfo li:nth-child(6n+1):not(#j_productInfo li:first-child)>div span:first-child{
+	margin: 10px 0 0 10px;
+	font-size: 15px;
+	font-weight: bold;
+}
+#j_productInfo li:nth-child(6n+1):not(#j_productInfo li:first-child)>div span:last-child{
+	margin: 5px 0 0 10px;
+	color: gray;
+	font-size: 12px;
+}
+
+
+/* 
 #j_productInfo table{
 	border-collapse: collapse;
 }
@@ -119,10 +172,6 @@
 	display: flex;
 	align-items: center;
 }
-.j_pInfo>div>img{
-	width:150px;
-	height:150px
-}
 .j_pInfo>div>div{
 	display: flex;
 	flex-direction: column;
@@ -139,7 +188,9 @@
 	color: gray;
 	font-size: 12px;
 }
-
+ */
+ 
+ 
 /* 주문자 정보 */
 #j_tel{
 	width:70px;

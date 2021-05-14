@@ -2,7 +2,7 @@ package com.arbor.home.vo;
 
 
 public class OrderTblVO {
-	private String orderno;
+	private int orderno;
 	private String orderdate;
 	
 	private String userid;
@@ -26,11 +26,24 @@ public class OrderTblVO {
 	private int deliveryprice;
 	private int totalprice;
 	
-	private String status;
+	private String status="";
 	private String pname;
 	
 	private String username;
 	private String tel;
+	
+	/* 주문관리 페이지 변수 */
+	private int neworder;	//신규주문
+	private int ready;		//배송준비
+	private int delivery;	//배송중
+	private int complete;	//배송완료
+	
+	/* 주문 리스트 검색 변수 */
+	private String period="";
+	private String orderSearch_from="";
+	private String orderSearch_to="";
+	private String searchKey;
+	private String searchWord="";	
 	
 	
 	public String getPname() {
@@ -39,10 +52,10 @@ public class OrderTblVO {
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-	public String getOrderno() {
+	public int getOrderno() {
 		return orderno;
 	}
-	public void setOrderno(String orderno) {
+	public void setOrderno(int orderno) {
 		this.orderno = orderno;
 	}
 	public String getOrderdate() {
@@ -164,6 +177,66 @@ public class OrderTblVO {
 	}
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+	public int getNeworder() {
+		return neworder;
+	}
+	public void setNeworder(int neworder) {
+		this.neworder = neworder;
+	}
+	public int getReady() {
+		return ready;
+	}
+	public void setReady(int ready) {
+		this.ready = ready;
+	}
+	public int getDelivery() {
+		return delivery;
+	}
+	public void setDelivery(int delivery) {
+		this.delivery = delivery;
+	}
+	public int getComplete() {
+		return complete;
+	}
+	public void setComplete(int complete) {
+		this.complete = complete;
+	}
+	public String getPeriod() {
+		return period;
+	}
+	public void setPeriod(String period) {
+		this.period = period;
+	}
+	public String getOrderSearch_from() {
+		return orderSearch_from;
+	}
+	public void setOrderSearch_from(String orderSearch_from) {
+		this.orderSearch_from = orderSearch_from;
+	}
+	public String getOrderSearch_to() {
+		return orderSearch_to;
+	}
+	public void setOrderSearch_to(String orderSearch_to) {
+		this.orderSearch_to = orderSearch_to;
+	}
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
+	public String getSearchWord() {
+		return searchWord;
+	}
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
+	@Override
+	public String toString() {
+		return "OrderTblVO [period=" + period
+				+ ", orderSearch_from=" + orderSearch_from + ", orderSearch_to=" + orderSearch_to + ", searchKey="
+				+ searchKey + ", searchWord=" + searchWord + "]";
 	}
 	
 }
