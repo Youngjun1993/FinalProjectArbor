@@ -76,5 +76,9 @@ public interface MemberDAOImp {
 	
 	//탈퇴회원 영구삭제
 	public int permanantDel(String userid);
+	//탈퇴회원 영구삭제(휴면)
+	public int permanantDel2(String userid);
+	//탈퇴회원 영구삭제(member테이블)
+	public int permanantDel3(String userid);
 	
 }

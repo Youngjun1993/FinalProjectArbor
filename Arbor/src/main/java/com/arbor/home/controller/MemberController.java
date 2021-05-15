@@ -548,20 +548,40 @@ public class MemberController {
 	}
 	
 	//탈퇴 페이지 개별삭제
-		@RequestMapping("/quitDel")
-		public ModelAndView quitDel(String userid) {
-			ModelAndView mav = new ModelAndView();
-			
-			int cnt = memberService.memDel(userid);
-			memberService.permanantDel(userid);
-			
-			if (cnt>0) {//삭제
-			mav.setViewName("redirect:memberAdminQuit");
-			}else {//삭제 실패
-			System.out.println("삭제실패");
-			mav.setViewName("redirect:memberAdminQuit");
-			}
-			
-			return mav;
+	@RequestMapping("/quitDel")
+	public ModelAndView quitDel(String userid) {
+		ModelAndView mav = new ModelAndView();
+		
+		int cnt = memberService.permanantDel(userid);
+		memberService.permanantDel2(userid);
+		memberService.permanantDel3(userid);
+		
+		
+		
+		if (cnt>0) {//삭제
+		mav.setViewName("redirect:memberAdminQuit");
+		}else {//삭제 실패
+		System.out.println("삭제실패");
+		mav.setViewName("redirect:memberAdminQuit");
 		}
+		
+		return mav;
+	}
+	
+	
+	/////////////////////// sms전송 ///////////////////////
+	@RequestMapping("/sendSms")
+	public String sendSms() {
+		
+		return "admin/member/smsTest";
+	}
+	
+	@RequestMapping("/smsOk")
+	public String smsOk() {
+		
+		return "admin/member/smsgo";
+	}
+	
+	
+	
 }

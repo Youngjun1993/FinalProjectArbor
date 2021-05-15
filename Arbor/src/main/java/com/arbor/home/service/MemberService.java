@@ -145,5 +145,16 @@ public class MemberService implements MemberServiceImp {
 		
 		return memberDAO.permanantDel(userid);
 	}
+
+	@Override
+	public int permanantDel2(String userid) {
+		return memberDAO.permanantDel2(userid);
+	}
+
+	@Override
+	public int permanantDel3(String userid) {
+		return memberDAO.permanantDel3(userid);
+	}
+	
 	
 }

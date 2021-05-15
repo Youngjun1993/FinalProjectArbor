@@ -293,11 +293,18 @@
             </if>
 	</select>
 	
-	<!-- 탈퇴회원 영구 삭제 -->
+	<!-- 탈퇴회원 영구 삭제(삭제테이블) -->
 	<delete id = "permanantDel">
 		delete from byemember where userid = #{userid}
 	</delete>
-	
+	<!-- 탈퇴회원 영구 삭제 -->
+	<delete id = "permanantDel2">
+		delete from dormantmember where userid = #{userid}
+	</delete>
+	<!-- 탈퇴회원 영구 삭제 -->
+	<delete id = "permanantDel3">
+		delete from member where userid = #{userid}
+	</delete>
 	
 </mapper>
 
