@@ -124,7 +124,8 @@
 				<input type="hidden" name="amount" value = "${pageMaker.cri.amount}"/>
 				<input type="hidden" name="searchWord" value = "${pageMaker.cri.searchWord}"/>
 				<input type="hidden" name="byetype" value = "${pageMaker.cri.byetype}"/>
-				<input type="hidden" name="byedate" value = "${pageMaker.cri.byedate}"/>
+				<input type="hidden" name="byedate1" value = "${pageMaker.cri.byedate1}"/>
+				<input type="hidden" name="byedate2" value = "${pageMaker.cri.byedate2}"/>
 				<input type="hidden" name="quitperiod" value = "${pageMaker.cri.quitperiod}"/>
 				<!-- 이메일 sms 추가 -->
 			</form>
@@ -146,8 +147,49 @@
 </div>
 
 <script>
-
-///페이징 영역
+	
+	//개별 삭제
+	function delforever(clickid) {
+			console.log(clickid.value)
+			if(confirm("영구 삭제 하시겠습니까?(복구불가능)")) {
+				location.href="quitDel?userid="+clickid.value;
+			}
+		};
+	
+	//선택삭제부분
+	$(()=>{
+		$('#delMulti').click(()=> {
+			var confirm_val = confirm("탈퇴회원 삭제는 복구 되지않습니다. 삭제하시겠습니까?");
+			  
+			  if(confirm_val) {
+			   var checkArr = new Array();
+			   
+			   $(".memberChk:checked").each(function(){
+			    checkArr.push($(this).val());
+			   });
+			    
+			   console.log(checkArr);
+			   
+			   $.ajax({
+				    url : 'permanantDel',
+				    type : 'get',
+				    dataType: 'json',
+				    data : { memberChk : checkArr },
+				    success : function(result){
+					   if(result == 1){
+					     location.href = 'memberAdminQuit';
+					   } else {
+					   	alert("영구삭제가 실패하였습니다");
+					   }
+					}, error:function() {
+						alert("삭제할 회원을 먼저 선택해주세요");
+					}
+				});
+			} 
+		});
+	});
+	
+	///페이징 영역
 	$('.paging a').on("click", function(e){
 		e. preventDefault();
 		var pageBtn = $('#pageBtn_form');
@@ -162,7 +204,8 @@
 		var pageBtn = $('#pageBtn_form');
 		/* let type = $('.search_area select').val(); */
 		
-		let byedate = $('.search_area_quitday input[name="byedate"]').val();
+		let byedate1 = $('.search_area_quitday input[name="byedate1"]').val();
+		let byedate2 = $('.search_area_quitday input[name="byedate2"]').val();
 		let byetype = $('.search_area_quittype input[name="byetype"]:checked').val();
 		let quitperiod = $('.search_area_period input[name="quitperiod"]').val();
 		let searchWord = $('.search_area input[name="searchWord"]').val();
@@ -170,6 +213,23 @@
         if(!searchWord){
             alert("아이디를 입력하세요.");
             return false;
+        }
+        
+        //검색기간 유효성
+        if(isNaN(byedate1)){
+       		alert("검색기간은 숫자만 입력가능합니다.");
+            return false;
+        }else if(byedate1.length!=6){
+       		alert("6자리의 숫자만 입력가능합니다.");
+       		return false;
+        }
+        
+        if(isNaN(byedate2)){
+       		alert("검색기간은 숫자만 입력가능합니다.");
+            return false;
+        }else if(byedate2.length!=6){
+       		alert("6자리의 숫자만 입력가능합니다.");
+       		return false;
         }
         
         if(!quitperiod){
@@ -182,6 +242,8 @@
 		pageBtn.find('input[name="quitperiod"]').val(quitperiod);
 		/* pageBtn.find('input[name="byedate"]').val(byedate); */
 		pageBtn.find('input[name="byetype"]').val(byetype);
+		pageBtn.find('input[name="byedate1"]').val(byedate1);
+		pageBtn.find('input[name="byedate2"]').val(byedate2);
 		pageBtn.find('input[name="pageNum"]').val(1);
 		pageBtn.submit();
 		

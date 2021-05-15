@@ -34,6 +34,11 @@
 </div>
 </div>
 <script>
+	 var result = '${msg}';
+	 
+	 if(result == 'failed'){
+		alert('아이디 또는 비밀번호가 정확하지 않습니다');
+	 }
 	 
 </script>
 </body>

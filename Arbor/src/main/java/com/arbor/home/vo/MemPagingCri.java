@@ -23,7 +23,8 @@ public class MemPagingCri {
 	
 	//삭제페이지 탈퇴기간과 탈퇴일 검색
 	private String byetype;
-	private String byedate;
+	private int byedate1;
+	private int byedate2;
 	private int quitperiod;
 	
 	public MemPagingCri() {
@@ -112,19 +113,24 @@ public class MemPagingCri {
 	public void setByetype(String byetype) {
 		this.byetype = byetype;
 	}
-	public String getByedate() {
-		return byedate;
-	}
-	public void setByedate(String byedate) {
-		this.byedate = byedate;
-	}
 	public int getQuitperiod() {
 		return quitperiod;
 	}
 	public void setQuitperiod(int quitperiod) {
 		this.quitperiod = quitperiod;
 	}
-	
+	public int getByedate1() {
+		return byedate1;
+	}
+	public void setByedate1(int byedate1) {
+		this.byedate1 = byedate1;
+	}
+	public int getByedate2() {
+		return byedate2;
+	}
+	public void setByedate2(int byedate2) {
+		this.byedate2 = byedate2;
+	}
 	
 	
 }

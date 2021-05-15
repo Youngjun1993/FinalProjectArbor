@@ -68,30 +68,6 @@
 	<update id="memberUpdateOk" parameterType="com.arbor.home.vo.MemberVO">
 		update member set userpwd = #{userpwd}, zipcode = #{zipcode}, addr=#{addr}, detailaddr=#{detailaddr}, tel=#{tel}, email=#{email} where userid = #{userid}
 	</update>
-
-	<!-- 회원검색 리스트 -->
-	<!-- <select id="memberAllselect" resultType="com.arbor.home.vo.MemberVO">
-	 	select userid, username, email, tel, to_char(regdate, 'YY-MM-DD HH:MI') regdate, to_char(lastdate, 'YY-MM-DD HH:MI') lastdate, smsok, emailok, memstat from member
-                <if test="searchWord!=null">
-                  where ${searchCate} like '%${searchWord}%'
-                </if>
-                <if test='emailok=="All"' >
-                	and emailok in ('Y','N')
-                </if>
-                <if test='emailok=="Y"'>
-                    and emailok = 'Y'
-                </if>
-                <if test='emailok=="N"'>
-                    and emailok = 'N'
-                </if>
-                <if test='smsok=="Y"'>
-                    and smsok = 'Y'
-                </if>
-                <if test='smsok=="N"'>
-                    and smsok = 'N'
-                </if>
-		 order by userid desc
-	</select> -->
 	
 	<!-- 회원검색 리스트 페이징 -->
 	<select id="memSearchPaging" resultType="com.arbor.home.vo.MemberVO">
@@ -262,7 +238,7 @@
 		<![CDATA[
 			select * from
 			(select * from 
-			(select userid, byetype, byereason, to_char(regdate, 'YY-MM-DD HH24:MI') regdate, to_char(byedate, 'YY-MM-DD HH24:MI') byedate, ceil(sysdate-byedate) quitperiod, rownum as rn from byemember)
+			(select userid, byetype, byereason, to_char(regdate, 'YY-MM-DD') regdate, to_char(byedate, 'YY-MM-DD') byedate, ceil(sysdate-byedate) quitperiod, rownum as rn from byemember)
 			where rn <= #{pageNum}*#{amount}
 		]]>
 			<if test="searchWord!=null">
@@ -274,6 +250,17 @@
             <if test='byetype=="관리자"'>
                 and byetype = '관리자'
             </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='byedate1 > 0 and byedate2 > 0'>
+                 <![CDATA[
+                and byedate between to_date(#{byedate1},'YY-MM-DD') and to_date(#{byedate2},'YY-MM-DD')
+            	]]>
+            </if>
             <if test='quitperiod >= 0'>
             <![CDATA[
                 and to_number(quitperiod) >= #{quitperiod}
@@ -283,7 +270,6 @@
 			order by quitperiod asc)
 			where rn > (#{pageNum}-1) * #{amount}
 		]]>
-		
 	</select>
 	
 	<!-- 탈퇴회원 총 레코드수 -->
@@ -306,6 +292,13 @@
             ]]>
             </if>
 	</select>
+	
+	<!-- 탈퇴회원 영구 삭제 -->
+	<delete id = "permanantDel">
+		delete from byemember where userid = #{userid}
+	</delete>
+	
+	
 </mapper>
 
 			

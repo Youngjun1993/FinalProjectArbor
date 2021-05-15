@@ -150,7 +150,13 @@
 
 </body>
 <script>
+	var result = '${msg}';
 	
+	if(result == 'admin'){
+		alert('관리자 로그인 환영합니다');
+	}
+	
+	//선택삭제부분
 	$(()=>{
 		$('#delMulti').click(()=> {
 			var confirm_val = confirm("선택한 회원을 삭제하시겠습니까?");
