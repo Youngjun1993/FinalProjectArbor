@@ -83,4 +83,12 @@
 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(orderno) as totalRecord from orderTbl
 	</select>
+	<!-- 장바구니에서 구매버튼 클릭 시  -->
+	<select id="cartAppendList" resultType="com.arbor.home.vo.CartVO">
+		select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1 from (select * from cart where pno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2}
+	</select>
+	<!-- 장바구니에서 선택구매버튼 클릭 시  -->
+	<select id="cartAppendChckList" resultType="com.arbor.home.vo.CartVO">
+		select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1 from (select * from cart where cartno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2}
+	</select>
   </mapper>

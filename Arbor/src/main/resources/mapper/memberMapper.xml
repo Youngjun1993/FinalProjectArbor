@@ -293,12 +293,22 @@
             </if>
 	</select>
 	
-	<!-- 탈퇴회원 영구 삭제 -->
+	<!-- 탈퇴회원 영구 삭제(삭제테이블) -->
 	<delete id = "permanantDel">
 		delete from byemember where userid = #{userid}
 	</delete>
-	
-	
+	<!-- 탈퇴회원 영구 삭제 -->
+	<delete id = "permanantDel2">
+		delete from dormantmember where userid = #{userid}
+	</delete>
+	<!-- 탈퇴회원 영구 삭제 -->
+	<delete id = "permanantDel3">
+		delete from member where userid = #{userid}
+	</delete>
+	<!-- 회원검색 엑셀 다운로드용 -->
+	<select id="memberExcelDownload" resultType="com.arbor.home.vo.MemberVO">
+		select userid, username, email, tel, to_char(regdate, 'YYYY-MM-DD') regdate from member
+	</select>
 </mapper>
 
 			

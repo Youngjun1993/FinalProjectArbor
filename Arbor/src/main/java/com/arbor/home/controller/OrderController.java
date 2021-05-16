@@ -1,7 +1,7 @@
 package com.arbor.home.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.OrderServiceImp;
+import com.arbor.home.vo.CartVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.PageSearchVO;
@@ -164,7 +165,28 @@ public class OrderController {
 		return mav;
 	}
 	
-	
-	
-	
+	@RequestMapping(value="/orderAppendCart", method = RequestMethod.POST)
+	public ModelAndView orderAppendCartList(int pno, HttpSession ses) {
+		ModelAndView mav = new ModelAndView();
+		
+		String userid = (String)ses.getAttribute("logId");
+		mav.addObject("list", orderService.cartAppendList(pno, userid));
+		mav.setViewName("client/cart/test");
+		return mav;
+	}
+	@RequestMapping(value="/orderAppendCartList", method = RequestMethod.POST)
+	public ModelAndView orderAppendCart(@RequestParam(value="cartpno", required=true) String[] cartpno, HttpSession ses) {
+		ModelAndView mav = new ModelAndView();
+		List<CartVO> list = new ArrayList<CartVO>();
+		for(int i=0; i<cartpno.length; i++) {
+			int cartno = Integer.parseInt(cartpno[i]);
+			String userid = (String)ses.getAttribute("logId");
+			CartVO vo = new CartVO();
+			vo = orderService.cartAppendChckList(cartno, userid);
+			list.add(vo);
+		}
+		mav.addObject("list", list);
+		mav.setViewName("client/cart/test");
+		return mav;
+	}
 }
