@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/orderAdmin.css" type="text/css"/>
@@ -87,10 +93,10 @@
 		<p class="j_adminMemu"><span>주문관리</span></p>
 		<div id="j_orderCnt" class="clearfix">	<!-- 주문현황 -->
 			<ul>
-				<li><span class="oStatus">신규주문</span> <span class="oCount"><span>${cnt.neworder }</span>건</span></li>
-				<li><span class="oStatus">배송준비</span> <span class="oCount"><span>${cnt.ready }</span>건</span></li>
-				<li><span class="oStatus">배송중</span> <span class="oCount"><span>${cnt.delivery }</span>건</span></li>
-				<li><span class="oStatus">배송완료</span> <span class="oCount"><span>${cnt.complete }</span>건</span></li>
+				<li><span class="oStatus">신규주문</span> <span class="oCount"><span><a href="">${cnt.neworder }</a></span>건</span></li>
+				<li><span class="oStatus">배송준비</span> <span class="oCount"><span><a href="">${cnt.ready }</a></span>건</span></li>
+				<li><span class="oStatus">배송중</span> <span class="oCount"><span><a href="">${cnt.delivery }</a></span>건</span></li>
+				<li><span class="oStatus">배송완료</span> <span class="oCount"><span><a href="">${cnt.complete }</a></span>건</span></li>
 			</ul>
 		</div>
 		<div id="j_orderSearch" class="clearfix">	<!-- 주문 검색창 -->
@@ -140,7 +146,6 @@
 				<input type="submit" class="adminSubBtn" id="changeStatusBtn" value="변경"/>
 				<ul>
 					<li><input type="checkbox" id="j_selectAll"/></li>
-					<li>주문일시</li>
 					<li>주문번호</li>
 					<li>주문상태</li>
 					<li>주문자명</li>
@@ -148,17 +153,18 @@
 					<li>수령자명</li>
 					<li>수령자연락처</li>
 					<li>요청사항</li>
+					<li>주문일시</li>
 					
 					<c:forEach var="orderVo" items="${list }">
 						<li><input type="checkbox" name="orderno" value="${orderVo.orderno }"/></li>
-						<li>${orderVo.orderdate }</li>
-						<li><a href="#">${orderVo.orderno }</a></li>
+						<li><a href="orderDetail?orderno=${orderVo.orderno }">${orderVo.orderno }</a></li>
 						<li>${orderVo.status }</li>
 						<li>${orderVo.username }</li>
 						<li>${orderVo.tel }</li>
 						<li>${orderVo.arr }</li>
 						<li>${orderVo.arrtel }</li>
 						<li>${orderVo.request }</li>
+						<li>${orderVo.orderdate }</li>
 					</c:forEach>
 				</ul>
 			</form>
@@ -185,3 +191,5 @@
 	 	</div>
 	</div> <!-- centerFrm -->	
 </div>
+</body>
+</html>

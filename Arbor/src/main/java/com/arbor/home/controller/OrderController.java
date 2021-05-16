@@ -31,10 +31,10 @@ public class OrderController {
 	@RequestMapping("/order")
 //	@RequestMapping(value="/order", method = RequestMethod.POST)
 	public ModelAndView orderPage(@Nullable
-	/*@RequestParam(value="optnameArr", required=true) String[] optInfoArr,
+	@RequestParam(value="optnameArr", required=true) String[] optInfoArr,
 	@RequestParam(value="priceArr", required=true) String[] priceArr,
 	@RequestParam(value="pnoStr", required=true) String pnoStr,
-	@RequestParam(value="quantityArr", required=true) String[] quantityArr,*/
+	@RequestParam(value="quantityArr", required=true) String[] quantityArr,
 			MemberVO memberVo, OrderTblVO orderVo, HttpSession session
 			) {
 		
@@ -154,13 +154,22 @@ public class OrderController {
 			}
 		}
 		
-		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("cnt", orderService.countOfOrderStatus(orderVo));
 		mav.addObject("list", orderService.selectOrderList(orderVo));
 		mav.addObject("pageVO", pageVo);
 		System.out.println("orderList->"+orderService.selectOrderList(orderVo).size());
 		mav.setViewName("admin/order/orderAdmin");
+		return mav;
+	}
+	
+	@RequestMapping("/orderDetail")
+	public ModelAndView orderDetail(int orderno) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("pList", orderService.getSubOrderList(orderno));
+		mav.addObject("memberVo", orderService.getUserInfo(orderno));
+		mav.addObject("orderVo", orderService.getOrderInfo(orderno));
+		mav.setViewName("admin/order/orderDetail");
 		return mav;
 	}
 	

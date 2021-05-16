@@ -78,17 +78,17 @@
 	font-family:BMHANNAAir;
 }
 #timeSaleContent{
+	display: block;
 	margin: 0 300px;
 	padding: 0 auto;
 
 }
-#timeSaleContent .bx-wrapper{
+/* #timeSaleContent .bx-wrapper{
 	box-shadow: 0 0 0 0;
 	-webkit-box-shadow: 0 0 0 0;
-}
-#timeSaleContent .bx-viewport{
-	
-}
+} */
+
+
 /*---------------------
 	진행중인 이벤트 tab
 ----------------------*/

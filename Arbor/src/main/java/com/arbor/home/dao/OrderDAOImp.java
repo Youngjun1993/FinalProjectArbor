@@ -18,7 +18,7 @@ public interface OrderDAOImp {
 	public int getOrderSeq();								//주문번호 시퀀스
 	public int orderComplete(OrderTblVO orderVo);			//주문정보 insert
 	public int createSubOrderList(SubOrderVO subVo);		//주문한 상품정보 DB insert(subOrder)
-	public List<SubOrderVO> getSubOrderList(int orderNo);//주문한 상품정보 리스트(subOrder) - 주문완료 뷰페이지
+	public List<SubOrderVO> getSubOrderList(int orderNo);	//주문한 상품정보 리스트(subOrder) - 주문완료 뷰페이지
 	public OrderTblVO getOrderInfo(int orderNo);			//주문정보 select
 	
 	/* admin */
@@ -26,5 +26,6 @@ public interface OrderDAOImp {
 	public OrderTblVO countOfOrderStatus(OrderTblVO orderVo);	//주문상태에 따른 건수
 	public int updateOrderStatus(int orderno, String status);	//주문상태 변경
 	public int totalRecord(PageSearchVO vo);					//총 레코드 수
+	public MemberVO getUserInfo(int orderno);					//주문상세 - 회원정보
 	
 }

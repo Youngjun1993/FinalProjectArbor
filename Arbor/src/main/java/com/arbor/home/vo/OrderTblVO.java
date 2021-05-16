@@ -25,6 +25,7 @@ public class OrderTblVO {
 	
 	private int deliveryprice;
 	private int totalprice;
+	private int applynum;
 	
 	private String status="";
 	private String pname;
@@ -159,6 +160,13 @@ public class OrderTblVO {
 	}
 	public void setTotalprice(int totalprice) {
 		this.totalprice = totalprice;
+	}
+	
+	public int getApplynum() {
+		return applynum;
+	}
+	public void setApplynum(int applynum) {
+		this.applynum = applynum;
 	}
 	public String getStatus() {
 		return status;

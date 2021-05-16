@@ -26,4 +26,5 @@ public interface OrderServiceImp {
 	public OrderTblVO countOfOrderStatus(OrderTblVO orderVo);	//주문상태에 따른 건수
 	public int updateOrderStatus(int orderno, String status);	//주문상태 변경
 	public int totalRecord(PageSearchVO vo);					//총 레코드 수
+	public MemberVO getUserInfo(int orderno);					//주문상세 - 회원정보
 }
