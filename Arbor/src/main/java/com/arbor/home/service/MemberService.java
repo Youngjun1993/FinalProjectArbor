@@ -155,6 +155,12 @@ public class MemberService implements MemberServiceImp {
 	public int permanantDel3(String userid) {
 		return memberDAO.permanantDel3(userid);
 	}
+
+	@Override
+	public List<MemberVO> memberExcelDownload(MemberVO vo) {
+		
+		return memberDAO.memberExcelDownload(vo);
+	}
 	
 	
 }

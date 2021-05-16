@@ -1,5 +1,6 @@
 package com.arbor.home.controller;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -8,8 +9,14 @@ import java.util.Random;
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -556,8 +563,6 @@ public class MemberController {
 		memberService.permanantDel2(userid);
 		memberService.permanantDel3(userid);
 		
-		
-		
 		if (cnt>0) {//삭제
 		mav.setViewName("redirect:memberAdminQuit");
 		}else {//삭제 실패
@@ -568,13 +573,21 @@ public class MemberController {
 		return mav;
 	}
 	
-	
 	/////////////////////// sms전송 ///////////////////////
 	@RequestMapping("/sendSms")
-	public String sendSms() {
+	public ModelAndView sendSms(String tel) {
+		//매개변수는 ajax의 배열리스트
+		//여기서 ModelAndView에 담아서 ajax에서 가져온 데이터 addObject
 		
-		return "admin/member/smsTest";
+		System.out.println(tel + "view에서 get방식으로 넘어온번호");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("receiver", tel);
+		mav.setViewName("admin/member/smsTest");
+		
+		return mav;
 	}
+	
 	
 	@RequestMapping("/smsOk")
 	public String smsOk() {
@@ -582,6 +595,56 @@ public class MemberController {
 		return "admin/member/smsgo";
 	}
 	
+	//////////////////////// 엑셀 다운로드 ////////////////////////
+	@RequestMapping("/excelDownload")
+	public void excel(HttpServletResponse response, MemberVO vo) throws IOException {
+		
+		List<MemberVO> list = memberService.memberExcelDownload(vo);
+		
+		//xlsx 파일
+		Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+		
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("사용자아이디");
+        cell = row.createCell(1);
+        cell.setCellValue("사용자이름");
+        cell = row.createCell(2);
+        cell.setCellValue("이메일");
+        cell = row.createCell(3);
+        cell.setCellValue("전화번호");
+        cell = row.createCell(4);
+        cell.setCellValue("가입일");
+        
+     // Body
+    for (int i = 0 ; i < list.size(); i++) {
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue(list.get(i).getUserid());
+        cell = row.createCell(1);
+        cell.setCellValue(list.get(i).getUsername());
+        cell = row.createCell(2);
+        cell.setCellValue(list.get(i).getEmail());
+        cell = row.createCell(3);
+        cell.setCellValue(list.get(i).getTel());
+        cell = row.createCell(4);
+        cell.setCellValue(list.get(i).getRegdate());
+    }
+        
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=MEMBERLIST.xlsx");
+        
+        //Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+        
+	}
 	
 	
 }

@@ -81,4 +81,7 @@ public interface MemberDAOImp {
 	//탈퇴회원 영구삭제(member테이블)
 	public int permanantDel3(String userid);
 	
+	//전체 회원 엑셀 다운로드
+	public List<MemberVO> memberExcelDownload(MemberVO vo);
+	
 }
