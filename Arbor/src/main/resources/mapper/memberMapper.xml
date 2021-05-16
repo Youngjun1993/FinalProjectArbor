@@ -68,30 +68,6 @@
 	<update id="memberUpdateOk" parameterType="com.arbor.home.vo.MemberVO">
 		update member set userpwd = #{userpwd}, zipcode = #{zipcode}, addr=#{addr}, detailaddr=#{detailaddr}, tel=#{tel}, email=#{email} where userid = #{userid}
 	</update>
-
-	<!-- 회원검색 리스트 -->
-	<!-- <select id="memberAllselect" resultType="com.arbor.home.vo.MemberVO">
-	 	select userid, username, email, tel, to_char(regdate, 'YY-MM-DD HH:MI') regdate, to_char(lastdate, 'YY-MM-DD HH:MI') lastdate, smsok, emailok, memstat from member
-                <if test="searchWord!=null">
-                  where ${searchCate} like '%${searchWord}%'
-                </if>
-                <if test='emailok=="All"' >
-                	and emailok in ('Y','N')
-                </if>
-                <if test='emailok=="Y"'>
-                    and emailok = 'Y'
-                </if>
-                <if test='emailok=="N"'>
-                    and emailok = 'N'
-                </if>
-                <if test='smsok=="Y"'>
-                    and smsok = 'Y'
-                </if>
-                <if test='smsok=="N"'>
-                    and smsok = 'N'
-                </if>
-		 order by userid desc
-	</select> -->
 	
 	<!-- 회원검색 리스트 페이징 -->
 	<select id="memSearchPaging" resultType="com.arbor.home.vo.MemberVO">
@@ -214,7 +190,6 @@
             where rn > (#{pageNum} - 1) * #{amount}
 		]]>
 	</select>
-	
 	<!-- 휴면회원 총 레코드수 -->
 	<select id="memDormantCount" resultType="int">
 		<![CDATA[
@@ -259,18 +234,81 @@
 	</update>
 	
 	<!--////////////////// 탈퇴회원 리스트와 페이징 /////////////////////-->
-	<select id="memQuitPaging" resultType="com.arbor.home.vo.MemberDormantVO">
+	<select id="memQuitPaging" resultType="com.arbor.home.vo.MemberQuitVO">
 		<![CDATA[
 			select * from
-			(select userid, byetype, byereason, regdate, byedate, ceil(sysdate-byedate) Quitperiod, rownum as rn from byemember where rownum <= #{pageNum} * #{amount}
-			order by quitperiod asc) where rn > (#{pageNum} - 1) * #{amount}
+			(select * from 
+			(select userid, byetype, byereason, to_char(regdate, 'YY-MM-DD') regdate, to_char(byedate, 'YY-MM-DD') byedate, ceil(sysdate-byedate) quitperiod, rownum as rn from byemember)
+			where rn <= #{pageNum}*#{amount}
+		]]>
+			<if test="searchWord!=null">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test='byetype=="사용자"'>
+                and byetype = '사용자'
+            </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='byedate1 > 0 and byedate2 > 0'>
+                 <![CDATA[
+                and byedate between to_date(#{byedate1},'YY-MM-DD') and to_date(#{byedate2},'YY-MM-DD')
+            	]]>
+            </if>
+            <if test='quitperiod >= 0'>
+            <![CDATA[
+                and to_number(quitperiod) >= #{quitperiod}
+            ]]>
+            </if>
+		<![CDATA[
+			order by quitperiod asc)
+			where rn > (#{pageNum}-1) * #{amount}
 		]]>
 	</select>
 	
 	<!-- 탈퇴회원 총 레코드수 -->
 	<select id="memQuitCount" resultType="int">
 		<![CDATA[
-		select count(*) from byemember where rownum > 0
+		select count(*) from (select userid, byetype, byereason, regdate, byedate, ceil(sysdate-byedate) quitperiod from byemember) where rownum > 0
 		]]>
+			<if test="searchWord!=null">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test='byetype=="사용자"'>
+                and byetype = '사용자'
+            </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='quitperiod >= 0'>
+            <![CDATA[
+                and to_number(quitperiod) >= #{quitperiod}
+            ]]>
+            </if>
+	</select>
+	
+	<!-- 탈퇴회원 영구 삭제(삭제테이블) -->
+	<delete id = "permanantDel">
+		delete from byemember where userid = #{userid}
+	</delete>
+	<!-- 탈퇴회원 영구 삭제 -->
+	<delete id = "permanantDel2">
+		delete from dormantmember where userid = #{userid}
+	</delete>
+	<!-- 탈퇴회원 영구 삭제 -->
+	<delete id = "permanantDel3">
+		delete from member where userid = #{userid}
+	</delete>
+	<!-- 회원검색 엑셀 다운로드용 -->
+	<select id="memberExcelDownload" resultType="com.arbor.home.vo.MemberVO">
+		select userid, username, email, tel, to_char(regdate, 'YYYY-MM-DD') regdate from member
 	</select>
 </mapper>
+
+			

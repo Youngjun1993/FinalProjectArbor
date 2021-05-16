@@ -95,7 +95,9 @@
 		<hr/>
 		<!-- 폼 가운데 버튼 -->
 			<div class= "h_searchMultiBtn">
-				<input type="button" id="" value="test1" class="adminSubBtn">
+				<form id = "h_sms_form" action = "sendSms">
+				<input type="button" id="sendSms" value="sms발송 " class="adminSubBtn">
+				</form>
 				<input type="button" id="testBtn" value="test버튼" class="adminSubBtn">
 				<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn">
 			</div>
@@ -112,7 +114,7 @@
 				<li class="h_listHeader">휴면전환일</li>
 				<li class="h_listHeader">관리</li>
 				<c:forEach var="vo" items="${list}" varStatus="status">
-						<li><input type="checkbox" name="memberChk" class="memberChk" value="${vo.userid}"/></li>
+						<li><input type="checkbox" name="memberChk" class="memberChk" value1="${vo.userid}" value2="${vo.tel}"/></li>
 						<li>
 						<%--	<input type="button" class="h_memdormant" value="휴면"/> --%>
 						${vo.userid}
@@ -150,7 +152,7 @@
 			<!-- 페이징영역 -->
 			<div class="h_paging_wrap clearfix">
 				<!-- 페이징 이동 버튼 폼  moveForm  -->
-			<form id = "pageBtn_form" action=memberAdminDormant method="get">
+			<form id = "pageBtn_form" action="memberAdminDormant" method="get">
 				<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum}"/>
 				<input type="hidden" name="amount" value = "${pageMaker.cri.amount}"/>
 				<input type="hidden" name="searchWord" value = "${pageMaker.cri.searchWord}"/>
@@ -179,14 +181,51 @@
 	
 	//////////////////// 선택 전체삭제기능
 	$(()=>{
+		$('#sendSms').click(()=> {
+			
+			var chktel = $(".memberChk:checked").attr("value2");
+			
+			var checkArr = new Array();
+			
+			$(".memberChk:checked").each(function(idx, item){
+			    checkArr.push($(this).attr("value2"));
+			   });
+			
+			if(checkArr.length > 1){
+				alert("문자전송은 1회 1건만 가능합니다. \n체크는 한번만 해주세요");
+				return false;
+			}else if(checkArr.length == 0){
+				alert("문자를 보낼 회원을 체크해주세요");
+			}else {
+				location.href="sendSms?tel=" + chktel;
+			}
+			
+			 /* $.ajax({
+				    url : 'sendSms',
+				    type : 'get',
+				    dataType: 'json',
+				    data : { memberChk : checkArr },
+				    success : function(){
+					   	console.log(memberChk);
+					   	location.href="sendSms"
+					}, error:function() {
+						alert("문자전송할 회원을 먼저 선택해주세요");
+					}
+			}); */
+			 
+		});
+		
+		
 		$('#delMulti').click(()=> {
+			
 			var confirm_val = confirm("선택한 회원을 탈퇴처리 하시겠습니까?");
 			  
+			
 			  if(confirm_val) {
 			   var checkArr = new Array();
 			   
-			   $(".memberChk:checked").each(function(){
-			    checkArr.push($(this).val());
+			   $(".memberChk:checked").each(function(idx, item){
+			    checkArr.push($(this).attr("value1"));
 			   });
 			    
 			   console.log(checkArr);

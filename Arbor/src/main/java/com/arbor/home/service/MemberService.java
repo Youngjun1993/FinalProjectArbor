@@ -139,6 +139,28 @@ public class MemberService implements MemberServiceImp {
 
 		return memberDAO.memQuitCount(cri);
 	}
+
+	@Override
+	public int permanantDel(String userid) {
+		
+		return memberDAO.permanantDel(userid);
+	}
+
+	@Override
+	public int permanantDel2(String userid) {
+		return memberDAO.permanantDel2(userid);
+	}
+
+	@Override
+	public int permanantDel3(String userid) {
+		return memberDAO.permanantDel3(userid);
+	}
+
+	@Override
+	public List<MemberVO> memberExcelDownload(MemberVO vo) {
+		
+		return memberDAO.memberExcelDownload(vo);
+	}
 	
 	
 }

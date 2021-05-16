@@ -1,5 +1,6 @@
 package com.arbor.home.controller;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -8,8 +9,14 @@ import java.util.Random;
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -18,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.arbor.home.service.MemberServiceImp;
 import com.arbor.home.vo.MemPagingCri;
@@ -42,18 +50,20 @@ public class MemberController {
 	
 	//로그인확인버튼
 	@RequestMapping(value="/loginOk", method=RequestMethod.POST)
-	public ModelAndView loginCheck(MemberVO vo, HttpSession session) {
-		
-		MemberVO logVO = memberService.loginCheck(vo);
+	public ModelAndView loginCheck(MemberVO vo, HttpSession session, RedirectAttributes rttr) {
 		
 		ModelAndView mav = new ModelAndView();
-		if(logVO==null && vo.getMemstat()!=0) {//로그인실패
+		MemberVO logVO = memberService.loginCheck(vo);
+		
+		if(logVO==null || vo.getMemstat()!=0) {//로그인실패
 			System.out.println("로그인 실패");
+			rttr.addFlashAttribute("msg", "failed");
 			mav.setViewName("redirect:login");
 		}else if(logVO.getUserid().equals("admin")){//관리자 로그인성공
 			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
 			session.setAttribute("logName", logVO.getUsername());
-			mav.setViewName("redirect:/memberSearch");
+			rttr.addFlashAttribute("msg", "admin");
+			mav.setViewName("redirect:memberSearch");
 		}else {//사용자로그인성공
 			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
 			session.setAttribute("logName", logVO.getUsername());
@@ -515,9 +525,126 @@ public class MemberController {
 		System.out.println("카테고리 ="+cri.getType());
 		System.out.println("검색어 ="+cri.getSearchWord());
 		
-		mav.addObject("pageMaker", pageMaker);//전체데이터가 담긴 memberVO 객체*/		
+		mav.addObject("pageMaker", pageMaker);//
 		mav.setViewName("admin/member/memberAdminQuit");
 		
-	return mav;
+		return mav;
+	
 	}
+	
+	//탈퇴 페이지 다중삭제
+	@ResponseBody
+	@RequestMapping("/permanantDel")
+	public int permanantDel(@RequestParam(value = "memberChk[]") List<String> chArr) {
+		int result = 0;
+		
+		System.out.println(chArr.size());
+		
+		for (int i=0; i<chArr.size(); i++) {
+			int cnt = memberService.permanantDel(chArr.get(i));
+		if(cnt>0) {
+			System.out.println("다중삭제 완료");
+			}else {
+			System.out.println("다중삭제 실패");
+			System.out.println(cnt);
+			}
+		}
+		result = 1;
+		
+		return result;
+	}
+	
+	//탈퇴 페이지 개별삭제
+	@RequestMapping("/quitDel")
+	public ModelAndView quitDel(String userid) {
+		ModelAndView mav = new ModelAndView();
+		
+		int cnt = memberService.permanantDel(userid);
+		memberService.permanantDel2(userid);
+		memberService.permanantDel3(userid);
+		
+		if (cnt>0) {//삭제
+		mav.setViewName("redirect:memberAdminQuit");
+		}else {//삭제 실패
+		System.out.println("삭제실패");
+		mav.setViewName("redirect:memberAdminQuit");
+		}
+		
+		return mav;
+	}
+	
+	/////////////////////// sms전송 ///////////////////////
+	@RequestMapping("/sendSms")
+	public ModelAndView sendSms(String tel) {
+		//매개변수는 ajax의 배열리스트
+		//여기서 ModelAndView에 담아서 ajax에서 가져온 데이터 addObject
+		
+		System.out.println(tel + "view에서 get방식으로 넘어온번호");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("receiver", tel);
+		mav.setViewName("admin/member/smsTest");
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping("/smsOk")
+	public String smsOk() {
+		
+		return "admin/member/smsgo";
+	}
+	
+	//////////////////////// 엑셀 다운로드 ////////////////////////
+	@RequestMapping("/excelDownload")
+	public void excel(HttpServletResponse response, MemberVO vo) throws IOException {
+		
+		List<MemberVO> list = memberService.memberExcelDownload(vo);
+		
+		//xlsx 파일
+		Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+		
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("사용자아이디");
+        cell = row.createCell(1);
+        cell.setCellValue("사용자이름");
+        cell = row.createCell(2);
+        cell.setCellValue("이메일");
+        cell = row.createCell(3);
+        cell.setCellValue("전화번호");
+        cell = row.createCell(4);
+        cell.setCellValue("가입일");
+        
+     // Body
+    for (int i = 0 ; i < list.size(); i++) {
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue(list.get(i).getUserid());
+        cell = row.createCell(1);
+        cell.setCellValue(list.get(i).getUsername());
+        cell = row.createCell(2);
+        cell.setCellValue(list.get(i).getEmail());
+        cell = row.createCell(3);
+        cell.setCellValue(list.get(i).getTel());
+        cell = row.createCell(4);
+        cell.setCellValue(list.get(i).getRegdate());
+    }
+        
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=MEMBERLIST.xlsx");
+        
+        //Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+        
+	}
+	
+	
 }

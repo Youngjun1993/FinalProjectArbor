@@ -29,7 +29,7 @@
 		<td>
 		<div class = "search_area">
 		<!-- select 박스 name값 type 삭제 -->
-			<input type="text" name="userid" id="userid" size="20px" class="h_ipt" value=""/>
+			<input type="text" name="searchWord" id="userid" size="20px" class="h_ipt" required/>
 		</div>
 		</td>
 		
@@ -43,7 +43,7 @@
 	 	<%-- <input type="radio" name="emailok" class="h_radiochk" value="Y+N" <c:out value="${pageMaker.cri.emailok eq 'Y' && 'N' ?'checked':'' }"/>>전체 --%>
 		<%-- <input type="radio" name="emailok" class="h_radiochk" value="Y" <c:if test="${pageMaker.cri.emailok eq 'Y'}"> checked </c:if> />예 --%>
 		<input type="radio" name="byetype" class="h_radiochk" value="" checked/>전체
-		<input type="radio" name="byetype" class="h_radiochk" value="회원"/>회원
+		<input type="radio" name="byetype" class="h_radiochk" value="사용자"/>사용자
 		<input type="radio" name="byetype" class="h_radiochk" value="관리자"/>관리자
 		</div>
 		</td>
@@ -68,7 +68,9 @@
 		<label for="quitperiod">탈퇴 기간</label>
 		</td>
 		<td class="h_last_td">
-		<input type="text" name="quitperiod" id="" size="20px" class="h_ipt" value=""/> 일 이상
+		<div class = "search_area_period">
+		<input type="number" name="quitperiod" id="" size="20px" class="h_ipt" required/>&nbsp;일 이상
+		</div>
 		</td>
 		</tr>
 	
@@ -98,36 +100,33 @@
 				<li class="h_listHeader">가입일</li>
 				<li class="h_listHeader">관리</li>
 				<c:forEach var="vo" items="${list}" varStatus="status">
-				<%-- <c:if test = "${vo.삭제된회원}"> if 조건문 걸때 --%>
 						<li><input type="checkbox" name="memberChk" class="memberChk" value="${vo.userid}"/></li>
 						<li>
-						<%--	<input type="button" class="h_memdormant" value="휴면"/> --%>
 						${vo.userid}
 						</li>
 						<li>${vo.byetype}</li>
 						<li class="wordcut">${vo.byereason}</li>
 						<li>${vo.byedate}</li>
-						<li>${vo.quitperiod}</li>
+						<li>${vo.quitperiod}&nbsp;일 째</li>
 						<li>${vo.regdate}</li>
 						<li>
 							<input type="button" name="memberDelBtn" value="삭제" class="adminSubBtn" onclick="delforever(clickid${status.index})"/>
 							<input type="hidden" id="h_userid" name="clickid${status.index}" value="${vo.userid}"/>
 						</li>
-				<%-- </c:if> --%>
 				</c:forEach>
 			</ul>
 		</form>
 			<!-- 페이징영역 -->
 			<div class="h_paging_wrap clearfix">
 				<!-- 페이징 이동 버튼 폼  moveForm  -->
-			<form id = "pageBtn_form" action=memberAdminDormant method="get">
+			<form id = "pageBtn_form" action=memberAdminQuit method="get">
 				<input type="hidden" name="pageNum" value = "${pageMaker.cri.pageNum}"/>
 				<input type="hidden" name="amount" value = "${pageMaker.cri.amount}"/>
-				<%-- <input type="hidden" name="searchWord" value = "${pageMaker.cri.searchWord}"/>
-				<input type="hidden" name="type" value = "${pageMaker.cri.type}"/>
-				<input type="hidden" name="emailok" value = "${pageMaker.cri.emailok}"/>
-				<input type="hidden" name="smsok" value = "${pageMaker.cri.smsok}"/>
-				<input type="hidden" name="dormailok" value = "${pageMaker.cri.dormailok}"/> --%>
+				<input type="hidden" name="searchWord" value = "${pageMaker.cri.searchWord}"/>
+				<input type="hidden" name="byetype" value = "${pageMaker.cri.byetype}"/>
+				<input type="hidden" name="byedate1" value = "${pageMaker.cri.byedate1}"/>
+				<input type="hidden" name="byedate2" value = "${pageMaker.cri.byedate2}"/>
+				<input type="hidden" name="quitperiod" value = "${pageMaker.cri.quitperiod}"/>
 				<!-- 이메일 sms 추가 -->
 			</form>
 				<ul class="paging">
@@ -148,12 +147,108 @@
 </div>
 
 <script>
-$('.paging a').on("click", function(e){
-	e. preventDefault();
-	var pageBtn = $('#pageBtn_form');
-	pageBtn.find('input[name="pageNum"]').val($(this).attr('href'));
-	pageBtn.submit();
-});
+	
+	//개별 삭제
+	function delforever(clickid) {
+			console.log(clickid.value)
+			if(confirm("영구 삭제 하시겠습니까?(복구불가능)")) {
+				location.href="quitDel?userid="+clickid.value;
+			}
+		};
+	
+	//선택삭제부분
+	$(()=>{
+		$('#delMulti').click(()=> {
+			var confirm_val = confirm("탈퇴회원 삭제는 복구 되지않습니다. 삭제하시겠습니까?");
+			  
+			  if(confirm_val) {
+			   var checkArr = new Array();
+			   
+			   $(".memberChk:checked").each(function(){
+			    checkArr.push($(this).val());
+			   });
+			    
+			   console.log(checkArr);
+			   
+			   $.ajax({
+				    url : 'permanantDel',
+				    type : 'get',
+				    dataType: 'json',
+				    data : { memberChk : checkArr },
+				    success : function(result){
+					   if(result == 1){
+					     location.href = 'memberAdminQuit';
+					   } else {
+					   	alert("영구삭제가 실패하였습니다");
+					   }
+					}, error:function() {
+						alert("삭제할 회원을 먼저 선택해주세요");
+					}
+				});
+			} 
+		});
+	});
+	
+	///페이징 영역
+	$('.paging a').on("click", function(e){
+		e. preventDefault();
+		var pageBtn = $('#pageBtn_form');
+		pageBtn.find('input[name="pageNum"]').val($(this).attr('href'));
+		pageBtn.submit();
+	});
+
+	//페이징 값 넘기기
+	$('.adminMainBtn.search').on('click', function(e){
+		
+		e.preventDefault();
+		var pageBtn = $('#pageBtn_form');
+		/* let type = $('.search_area select').val(); */
+		
+		let byedate1 = $('.search_area_quitday input[name="byedate1"]').val();
+		let byedate2 = $('.search_area_quitday input[name="byedate2"]').val();
+		let byetype = $('.search_area_quittype input[name="byetype"]:checked').val();
+		let quitperiod = $('.search_area_period input[name="quitperiod"]').val();
+		let searchWord = $('.search_area input[name="searchWord"]').val();
+		
+        if(!searchWord){
+            alert("아이디를 입력하세요.");
+            return false;
+        }
+        
+        //검색기간 유효성
+        if(isNaN(byedate1)){
+       		alert("검색기간은 숫자만 입력가능합니다.");
+            return false;
+        }else if(byedate1.length!=6){
+       		alert("6자리의 숫자만 입력가능합니다.");
+       		return false;
+        }
+        
+        if(isNaN(byedate2)){
+       		alert("검색기간은 숫자만 입력가능합니다.");
+            return false;
+        }else if(byedate2.length!=6){
+       		alert("6자리의 숫자만 입력가능합니다.");
+       		return false;
+        }
+        
+        if(!quitperiod){
+            alert("탈퇴기간에 숫자를 입력하세요.");
+            return false;
+        }
+        
+        /* 페이징이동시 검색어 옵션추가 부분 */
+		pageBtn.find('input[name="searchWord"]').val(searchWord);
+		pageBtn.find('input[name="quitperiod"]').val(quitperiod);
+		/* pageBtn.find('input[name="byedate"]').val(byedate); */
+		pageBtn.find('input[name="byetype"]').val(byetype);
+		pageBtn.find('input[name="byedate1"]').val(byedate1);
+		pageBtn.find('input[name="byedate2"]').val(byedate2);
+		pageBtn.find('input[name="pageNum"]').val(1);
+		pageBtn.submit();
+		
+	});
+
 </script>
 </body>
 </html>

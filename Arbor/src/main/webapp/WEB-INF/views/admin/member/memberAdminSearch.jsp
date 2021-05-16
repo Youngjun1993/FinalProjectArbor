@@ -76,13 +76,15 @@
 	</form>
 	
 	<!-- member tbl 데이터 영역 -->
-	<hr/>
 	<!-- 폼 가운데 버튼 -->
 		<div class= "h_searchMultiBtn">
-			<input type="button" id="" value="문자발송" class="adminSubBtn">
-			<input type="button" id="testBtn" value="test버튼" class="adminSubBtn">
-			<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn">
+			<input type="button" value="문자발송" class="adminSubBtn semiBtn">
+			<form action="excelDownload" id="excelDown" method="get">
+				<input type="button" id="excelBtn" value="엑셀다운로드" class="adminSubBtn semiBtn">
+			</form>
+			<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn semiBtn">
 		</div>
+		<br/>
 	<!-- 회원목록 -->
 	<div class="h_memTableLi"><!--  -->
 	<form method="get" id="delMultiForm" action="memMultiDel">
@@ -150,7 +152,13 @@
 
 </body>
 <script>
+	var result = '${msg}';
 	
+	if(result == 'admin'){
+		alert('관리자 로그인 환영합니다');
+	}
+	
+	//선택삭제부분
 	$(()=>{
 		$('#delMulti').click(()=> {
 			var confirm_val = confirm("선택한 회원을 삭제하시겠습니까?");
@@ -198,7 +206,6 @@
 			}
 		};
 		
-		
 		/* 페이지 버튼*/
 		
 		$('.paging a').on("click", function(e){
@@ -208,12 +215,12 @@
 			pageBtn.submit();
 		});
 		
-		$('#testBtn').on('click', function(e){
-			/* 인풋이 왜 Y만찍히냐 */
-			let emailok = $('.search_area_email input[name="emailok"]:checked').val();
-	        console.log(emailok);
+		/* 엑셀 다운로드 */
+		$('#excelBtn').on('click', function(){
+			if(confirm("전체 회원 엑셀파일을 다운로드 하시겠습니까?")) {
+				$('#excelDown').submit();
+			}
 		});
-		
 		
 		/* 검색버튼 */
 		$('.adminMainBtn.search').on('click', function(e){

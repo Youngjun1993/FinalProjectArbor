@@ -58,4 +58,12 @@
 	<delete id="cartDel">
 		delete from cart where pno=#{param1}
 	</delete>
+	<!-- 중복체크 위한 리스트 -->
+	<select id="cartMiniList" parameterType="com.arbor.home.vo.CartVO" resultType="int">
+		select count(pno) from cart where userid=#{userid} and pno=${pno} and optionvalue like '%${optionvalue}%'
+	</select>
+	<!-- 카트넘버 구하기 -->
+	<select id="cartNoSelect" parameterType="com.arbor.home.vo.CartVO" resultType="int">
+		select cartno from cart where userid=#{userid} and pno=${pno} and optionvalue like '%${optionvalue}%'
+	</select>
 </mapper>

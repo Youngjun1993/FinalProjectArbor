@@ -197,17 +197,25 @@ function pDateClick(no) {
 		$("#startdate").val(formatDate(new Date()));
 		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+1))));
 	} else if(no==2) {
+		today = new Date();
+		date = today.getDate();
 		$("#startdate").val(formatDate(new Date(today.setDate(today.getDate()-7))));
-		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+1))));
+		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+8))));
 	} else if(no==3) {
+		today = new Date();
+		date = today.getDate();
 		$("#startdate").val(formatDate(new Date(today.setDate(today.getDate()-30))));
-		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+1))));
+		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+31))));
 	} else if(no==4) {
+		today = new Date();
+		date = today.getDate();
 		$("#startdate").val(formatDate(new Date(today.setDate(today.getDate()-90))));
-		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+1))));
+		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+91))));
 	} else if(no==5) {
+		today = new Date();
+		date = today.getDate();
 		$("#startdate").val(formatDate(new Date(today.setDate(today.getDate()-365))));
-		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+1))));
+		$("#enddate").val(formatDate(new Date(today.setDate(today.getDate()+366))));
 	}
 }
 

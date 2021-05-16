@@ -35,4 +35,8 @@ public interface CartDAOImp {
 	public int cartTotalPrice(String userid);
 	// 장바구니 상품 삭제
 	public int cartDel(int pno);
+	// 장바구니 insert 전 중복체크
+	public int cartMiniList(CartVO vo);
+	// 카트넘버 구해오기
+	public int cartNoSelect(CartVO vo);
 }

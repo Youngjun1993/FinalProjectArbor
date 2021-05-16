@@ -54,9 +54,15 @@ public class CartController {
 			vo.setPno(Integer.parseInt(pnoStr));
 			vo.setPrice(Integer.parseInt(priceArr[i]));
 			vo.setQuantity(Integer.parseInt(quantityArr[i]));
-			int res = cartService.cartInsert(vo);
-			if(res>0) {
+			if(cartService.cartMiniList(vo)>0) {
+				int cartno = cartService.cartNoSelect(vo);
+				cartService.cartQuantityPlus(cartno);
 				result++;
+			} else {
+				int res = cartService.cartInsert(vo);
+				if(res>0) {
+					result++;
+				}
 			}
 		}
 		return result;
@@ -136,7 +142,7 @@ public class CartController {
 				vo.setTotalpoint(cartService.cartTotalPoint(userid));
 				vo.setTotalprice(cartService.cartTotalPrice(userid));
 			}
-		}	
+		}
 		return vo;
 	}
 }

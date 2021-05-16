@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script>
 	$(function() {
@@ -13,13 +14,24 @@
 		var chckTotalPoint = 0; // 적립금
 		var chckTotalPrice = 0; // 최종 결제금액
 		
+		$("input[type=checkbox]").prop("checked", true);
+		
 		for(var i=0; i<pTag.length; i++){
 			pnoGet[i] = $(pTag).eq(i).children('span').children('input[name=pno]').val();
 		}
+		
+		for(var i=0; i<$(".y_optionList").length; i++){
+			if($(".y_optionList").eq(i).children("input[name=pcount]").val() == "1"){
+				$(".y_optionList").eq(i).children('p').children('.y_cartDelBtn').css("cursor","not-allowed")
+				$(".y_optionList").eq(i).children('p').children('.y_cartDelBtn').attr('disabled', true);
+    		}
+		}
+		
 		var finalpno = [];
 		$.each(pnoGet,function(i,value){
 			if(finalpno.indexOf(value) == -1) finalpno.push(value);
 		});
+		
 		$.ajax({
 			url : "cartStart",
 			dataType : 'json',
@@ -108,7 +120,7 @@
 	
 					});
 				}else{
-					alert('체크를 하신 후 수량변경하셔야 총 주문내역에 반영됩니다.')	
+					alert('상품을 체크를 하신 후 수량을 변경하셔야 총 주문내역에 반영됩니다.')	
 				}
 		});
 		// 옵션 + 버튼
@@ -155,7 +167,7 @@
 					}
 				});
 			}else{
-				alert('체크를 하신 후 수량변경하셔야 총 주문내역에 반영됩니다.')
+				alert('상품을 체크를 하신 후 수량을 변경하셔야 총 주문내역에 반영됩니다.')
 			}
 		});
 		// 옵션 삭제 버튼
@@ -163,33 +175,69 @@
 			var tag = $(this);
 			var cartno = $(this).parent().children().children('input[name=cartno]').val();
 			var pno = $(this).parent().children().children('input[name=pno]').val();
-			var price = $(this).parent().parent().children(".getPrice").val();
+			var price = $(this).parent().children(".getPrice").val();
+			price = parseInt(price);
 			var pname = $(this).parent().children("label").text();
+			var quantity = $(this).parent().children("span").children("b").text();
+			quantity = parseInt(quantity.replace("개", ""));
 			
-			if(confirm(pname+"\n 옵션을 삭제하시겠습니까?")){
-				$.ajax({
-					url : "cartUpdate",
-					dataType : 'json',
-					type: "POST",
-					data : { 
-						cartno : cartno,
-						pno : pno,
-						temp : 'del'
-					},success : function(result){
-						$(tag).parent().css("display","none");
-						$(tag).parent().parent().children('ul').children('li').eq(2).text((result.point).toLocaleString()+"원"); // 적립금
-						$(tag).parent().parent().children('ul').children('li').eq(3).text(result.optquantity+"개"); // 총수량
-						$(tag).parent().parent().children('ul').children('li').eq(4).text((result.optsumprice).toLocaleString()+"원"); // 총수량
-						
-						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(result.totalquantity);
-						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((result.totalprice).toLocaleString());
-						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text((result.totaldeliv).toLocaleString());
-						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text((result.totalpoint).toLocaleString());
-						$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text((result.totalprice+result.totaldeliv).toLocaleString());
-					},error : function(){
-						console.log('장바구니 옵션삭제 에러')
-					}
-				});
+			if($(tag).parent().parent().children('ul').children('li').eq(0).children('input[name=y_cartChck]').is(':checked')){
+				if(confirm(pname+"\n 옵션을 삭제하시겠습니까?")){
+					var delpointBefore = $(this).parent().parent().children('ul').children('li').eq(2).text();
+					delpointBefore = delpointBefore.replace("원", "");
+					delpointBefore = parseInt(delpointBefore.replace(/,/g, ''));
+					$.ajax({
+						url : "cartUpdate",
+						dataType : 'json',
+						type: "POST",
+						data : { 
+							cartno : cartno,
+							pno : pno,
+							temp : 'del'
+						},success : function(result){
+							$(tag).parent().parent().children('ul').children('li').eq(2).text((result.point).toLocaleString()+"원") // 적립금
+							$(tag).parent().parent().children('ul').children('li').eq(3).text(result.optquantity+"개") // 총수량
+							$(tag).parent().parent().children('ul').children('li').eq(4).text((result.optsumprice).toLocaleString()+"원") // 총금액
+							
+							console.log(chckTotalquantity)
+							console.log(chckSumprice)
+							console.log(chckTotaldeliv)
+							console.log(chckTotalPoint)
+							console.log(chckTotalPrice)
+							
+							var delTotalquantity = chckTotalquantity - quantity;
+							var delkSumprice = chckSumprice - price;
+							var delTotaldeliv = chckTotaldeliv - (quantity*30000);
+							var delTotalPoint = chckTotalPoint - (delpointBefore - result.point);
+							var pricesum = price+(quantity*30000)
+							var delTotalPrice = chckTotalPrice - pricesum;
+							$(tag).parent().css("display","none");
+							
+							console.log("--"+pricesum)
+							console.log(delTotalquantity)
+							console.log(delkSumprice)
+							console.log(delTotaldeliv)
+							console.log(delTotalPoint)
+							console.log(delTotalPrice)
+							
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(delTotalquantity);
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text(delkSumprice.toLocaleString());
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text(delTotaldeliv.toLocaleString());
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text(delTotalPoint.toLocaleString());
+							$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text(delTotalPrice.toLocaleString());
+							
+							chckTotalquantity = delTotalquantity; //주문상품 수
+							chckSumprice = delkSumprice; // 주문금액
+							chckTotaldeliv = delTotaldeliv; // 배송비
+							chckTotalPoint = delTotalPoint; // 적립금
+							chckTotalPrice = delTotalPrice; // 최종 결제금액
+						},error : function(){
+							console.log('장바구니 옵션삭제 에러')
+						}
+					});
+				}
+			}else{
+				alert('상품을 체크를 하신 후 옵션을 삭제하셔야합니다.')
 			}
 		});
 		// 장바구니 메인 삭제버튼
@@ -197,6 +245,7 @@
 			var tag = $(this);
 			var pname = $(this).parent().prev().prev().prev().prev().text();
 			var pno = $(this).parent().parent().parent().children().children().children('input[name=pno]').val();
+			var cartno = $(this).parent().parent().parent().children().children().children('input[name=cartno]').val();
 			
 			if(confirm(pname.trim()+"\n상품을 삭제하시겠습니까?")){
 				$.ajax({
@@ -209,6 +258,7 @@
 						temp : 'maindel'
 					},success : function(result){
 						$(tag).parent().parent().parent().css("display","none");
+						$("input[type=checkbox]").prop("checked",true);
 						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(result.totalquantity);
 						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((result.totalprice).toLocaleString());
 						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text((result.totaldeliv).toLocaleString());
@@ -272,6 +322,7 @@
 		// 개별선택 이벤트
 		$(".y_cartChck").change(function() {
 			var tag = $(this)
+
 			var chckpointStr = $(this).parent().parent().parent().children('ul').children('li').eq(2).text();
 			var chckquantityStr = $(this).parent().parent().parent().children('ul').children('li').eq(3).text();
 			var chckpriceStr = $(this).parent().parent().parent().children('ul').children('li').eq(4).text();
@@ -285,7 +336,8 @@
 			chckprice = parseInt(chckprice.replace(/,/g, ''))
 			
 			var chckdeliv = chckquantity*30000;
-
+			
+			
 			var onechckTotalquantity = $("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text();
 			onechckTotalquantity = parseInt(onechckTotalquantity.replace(/,/g, ''));
 			var onechcksumprice = $("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text();
@@ -298,16 +350,32 @@
 			onechckTotalprice = parseInt(onechckTotalprice.replace(/,/g, ''));
 			
 			if($(this).is(":checked")){
+				if($("input:checkbox[name=y_cartChck]:checked").length == 1){
+					chckTotalquantity = chckquantity;
+					chckSumprice = chckprice;
+					chckTotaldeliv = chckdeliv;
+					chckTotalPoint = chckpoint;
+					chckTotalPrice = chckprice + chckdeliv; 
+				}
+				
+				if(isNaN(onechckTotalquantity)){
+					onechckTotalquantity = 0;
+					onechcksumprice = 0;
+					onechckTotaldeliv = 0;
+					onechckTotalPoint = 0;
+					onechckTotalprice = 0;
+				}else{
+					chckTotalquantity = onechckTotalquantity + chckquantity
+					chckSumprice = onechcksumprice + chckprice;
+					chckTotaldeliv = onechckTotaldeliv + chckdeliv;
+					chckTotalPoint = onechckTotalPoint + chckpoint;
+					chckTotalPrice = onechckTotalprice + (chckprice + chckdeliv);
+				}
 				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(onechckTotalquantity + chckquantity);
 				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((onechcksumprice + chckprice).toLocaleString());
 				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text((onechckTotaldeliv + chckdeliv).toLocaleString());
 				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text((onechckTotalPoint + chckpoint).toLocaleString());
 				$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text((onechckTotalprice + (chckprice + chckdeliv)).toLocaleString());
-				chckTotalquantity = onechckTotalquantity + chckquantity
-				chckSumprice = onechcksumprice + chckprice;
-				chckTotaldeliv = onechckTotaldeliv + chckdeliv;
-				chckTotalPoint = onechckTotalPoint + chckpoint;
-				chckTotalPrice = onechckTotalprice + (chckprice + chckdeliv);
 			}else{
 				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(onechckTotalquantity - chckquantity);
 				$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((onechcksumprice - chckprice).toLocaleString());
@@ -321,6 +389,63 @@
 				chckTotalPrice = onechckTotalprice - (chckprice + chckdeliv);
 			}
 		});
+		// 선택삭제
+		$("#y_checkedDel").click(function(){
+			if(confirm("선택하신 상품을 삭제하시겠습니까?")){
+				$(".y_optionList>ul li:nth-child(1) input:checkbox[name=y_cartChck]:checked").each(function(i, e) {
+					var tag = $(this)
+					var chckDelPno = $(this).parent().parent().parent().children('p').children('span:nth-of-type(2)').children('input[name=pno]').val();
+					var chckDelCartno = $(this).parent().parent().parent().children('p').children('span:nth-of-type(2)').children('input[name=cartno]').val();
+					
+					$.ajax({
+						url : "cartUpdate",
+						dataType : 'json',
+						type: "POST",
+						data : {
+							cartno : chckDelCartno,
+							pno : chckDelPno,
+							temp : 'maindel'
+						},success : function(result){
+							$(tag).parent().parent().parent().css("display","none")
+							
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text("-");
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text("-");
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text("-");
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text("-");
+							$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text("-");
+						}, error : function(){
+							console.log("장바구니 선택삭제 에러~")
+							
+						}
+					});
+				});
+				alert('선택하신 상품이 삭제되었습니다.')
+			}
+		});
+		// 선택구매 버튼 클릭시
+		$("#y_cartChckOrder").click(function(){
+			var cartnoArr = [];
+			var form = document.createElement('form');
+			var optCartnoArr = document.createElement('input');
+			optCartnoArr.setAttribute('type', 'hidden');
+			optCartnoArr.setAttribute('name', 'cartpno');
+			
+			$("input:checkbox[name=y_cartChck]:checked").parent().parent().parent().children('p').each(function(i, e) {
+				cartnoArr.push('value', $(e).children('span:nth-of-type(2)').children('input[name=cartno]').val());
+				
+			});
+			
+			optCartnoArr.setAttribute('value', cartnoArr);
+			form.appendChild(optCartnoArr);
+			
+			form.setAttribute('method', 'post');
+			form.setAttribute('action', "orderAppendCartList");
+			document.body.appendChild(form);
+		
+			//form.submit();
+		});
+		
+		// 전체구매 버튼 클릭시
 	});
 </script>
 <div id="y_cart_wrap" class="w1400_container">
@@ -343,7 +468,7 @@
     </div>
     <div>
         <ul class="clearfix">
-            <li><input type="checkbox" id="y_cartAllChck" name="y_cartAllChck" checked></li>
+            <li><input type="checkbox" id="y_cartAllChck" name="y_cartAllChck"></li>
             <li>상품정보</li>
             <li>적립예정 금액</li>
             <li>총수량</li>
@@ -351,21 +476,25 @@
             <li>선택</li>
         </ul>
         <c:forEach var="cartData" items="${list }">
+        	<% int cnt = 0; %>
 	        <div class="y_optionList"><!--테이블 내용-->
 	            <ul class="clearfix">
 	                <li>
-	                    <input type="checkbox" class="y_cartChck" name="y_cartChck" checked>
+	                    <input type="checkbox" class="y_cartChck" name="y_cartChck">
 	                </li>
 	                <li class="clearfix">
-	                    <img src="argian.jpg" alt="">
+	                    <img src="<%=request.getContextPath()%>/upload/${cartData.img1}" alt="">
 	                    <span>${cartData.pname }</span>
 	                </li>
 	                <li>-</li>
 	                <li>-</li>
 	                <li>-</li>
 	                <li>
-	                    <button class="clientMainBtn">바로구매</button><br/>
-	                    <button class="clientSubBtn cartMainDelBtn">삭제</button>
+	                	<form action="orderAppendCart" method="post">
+	                		<input type="hidden" name="pno" value="${cartData.pno }" />
+	                    	<input type="submit" value="바로구매" class="clientMainBtn cartOneOrderBtn"><br/>
+	                    </form>
+	                   <button class="clientSubBtn cartMainDelBtn">삭제</button>
 	                </li>
 	            </ul>
 	            <!--옵션-->
@@ -373,26 +502,29 @@
 	            	<c:if test="${cartData.pno eq cartOptData.pno }">
 			            <c:if test="${cartOptData.optionvalue == null }">
 				            <p class="clearfix y_cartCnt">
-				                옵션이 없는 상품입니다.
+				                <label>옵션이 없는 상품입니다.</label>
 				                <input type="hidden" class="getPrice" name="price" value="${cartOptData.price }">
 				                <span style="margin-right:50px;"><fmt:formatNumber value="${cartOptData.price*cartOptData.quantity }"/> 원</span> 
 				                <span><button class="y_cartOptMinus">-</button><input type="hidden" name="cartno" value="${cartOptData.cartno }"><input type="hidden" name="pno" value="${cartOptData.pno }"> <b>${cartOptData.quantity }</b> <button class="y_cartOptPlus">+</button></span>
 				            </p>
 			            </c:if>
 			            <c:if test="${cartOptData.optionvalue != null }">
-				            <p class="clearfix y_cartCnt">
+			            	<p class="clearfix y_cartCnt">
 				                <button class="y_cartDelBtn">✕</button>
 				                <small style="color:#aaa; float:left; margin-left:0; font-weight:normal;background: none;border:none;line-height: 25px; margin-right:10px;">선택된 옵션 ) </small><label> ${cartOptData.optionvalue }</label>
 				                <input type="hidden" class="getPrice" name="price" value="${cartOptData.price }">
 				                <span><fmt:formatNumber value="${cartOptData.price*cartOptData.quantity }"/> 원</span> 
 				                <span><button class="y_cartOptMinus">-</button><input type="hidden" name="cartno" value="${cartOptData.cartno }"><input type="hidden" name="pno" value="${cartOptData.pno }"> <b>${cartOptData.quantity }</b> <button class="y_cartOptPlus">+</button></span>
 				            </p>
+			            	<% cnt += 1;  %>
+			            	<c:set var="pcount" value="<%=cnt%>"/>
 			            </c:if>
 		            </c:if>
 	            </c:forEach>
+	            <input type="hidden" name="pcount" value="<%=cnt%>">
 	        </div>
         </c:forEach>
-        <button class="clientSubBtn">선택삭제</button>
+        <button class="clientSubBtn" id="y_checkedDel">선택삭제</button>
     </div>
     <div class="clearfix">
         <div>
@@ -424,9 +556,13 @@
         </div>
     </div>
     <div>
+    	<form action="">
+			        	
+        </form>
         <span class="clearfix">
+        	
             <a href="#" class="clientSubBtn">쇼핑목록 가기</a>
-            <a href="#" class="clientSubBtn">선택상품구매</a>
+            <a href="#" id="y_cartChckOrder" class="clientSubBtn">선택상품구매</a>
             <a href="#" class="clientMainBtn">전체상품구매</a>
         </span>
     </div>
