@@ -7,7 +7,7 @@
 	text-align: center;
 	margin-top: 40px;
 }
-#p_center>img {
+#p_center>a>img {
 	width: 350px; height: 250px;
 	margin:10px 20px;
 }
@@ -66,6 +66,23 @@
 
 #p_list>ul>li>a>img {
 	width: 300px; height: 250px;
+}
+
+/* fixed */
+#p_fixedTop {
+	position:fixed;
+	bottom:30px; right:100px;
+	z-index:10;
+}
+
+#p_fixedHeader>img {
+	width: 50px; height: 50px;
+}
+#p_fixedDiv {
+	position:fixed;
+	bottom:1px;
+	width:100%; margin:0 auto;
+	background-color: #fff;
 }
 
 /* class css */

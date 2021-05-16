@@ -145,7 +145,7 @@
  	
  	<select id="productTopList" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
  		select * from        
-		(select p.pno, s.subno, s.mainname, s.subname, p.pname, p.saleprice, p.stock, p.pdate, img1
+		(select p.pno, s.subno, s.mainname, s.subname, p.pname, p.saleprice, p.stock, p.pdate, img1, img2
 		from product p join (select s.subno, s.subname, m.mainname from subcate s
 		join maincate m on s.mainno=m.mainno where s.mainno=${mainno}) s on p.subno=s.subno order by pdate desc)
 		<![CDATA[where rownum <= ]]>3

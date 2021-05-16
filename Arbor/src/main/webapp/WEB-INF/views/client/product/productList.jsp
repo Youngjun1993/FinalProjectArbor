@@ -5,7 +5,9 @@
 	<div id="p_center">
 		<h1 id="p_listTitle">${mainname }'s New Item</h1>
 		<c:forEach var="top" items="${topList }">
-			<img src="<%=request.getContextPath()%>/upload/${top.img1}"/>
+			<a href="productView?pno=${top.pno }">
+			<img src="<%=request.getContextPath()%>/upload/${top.img1}" class="p_HoverImg1"/>
+			<img src="<%=request.getContextPath()%>/upload/${top.img2}" class="p_HoverImg2"/></a>
 		</c:forEach>
 	</div>
 	<div id="p_header" class="clearfix">
@@ -30,7 +32,8 @@
 		<ul class="clearfix">
 			<c:forEach var="vo" items="${list }">
 				<li>
-					<a href="productView?pno=${vo.pno }"><img src="<%=request.getContextPath()%>/upload/${vo.img1}"/></a><br/>
+					<a href="productView?pno=${vo.pno }"><img src="<%=request.getContextPath()%>/upload/${vo.img1}" class="p_HoverImg1"/>
+					<img src="<%=request.getContextPath()%>/upload/${vo.img2}" class="p_HoverImg2"/></a><br/>
 					<div class="p_color" class="clearfix">
 						<c:forEach var="opt" items="${opt }">
 							<c:if test="${opt.rgbvalue!=null && vo.pno==opt.pno }">
