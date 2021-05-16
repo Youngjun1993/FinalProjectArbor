@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.arbor.home.service.MemberServiceImp;
 import com.arbor.home.vo.MemPagingCri;
@@ -42,18 +43,20 @@ public class MemberController {
 	
 	//로그인확인버튼
 	@RequestMapping(value="/loginOk", method=RequestMethod.POST)
-	public ModelAndView loginCheck(MemberVO vo, HttpSession session) {
-		
-		MemberVO logVO = memberService.loginCheck(vo);
+	public ModelAndView loginCheck(MemberVO vo, HttpSession session, RedirectAttributes rttr) {
 		
 		ModelAndView mav = new ModelAndView();
-		if(logVO==null && vo.getMemstat()!=0) {//로그인실패
+		MemberVO logVO = memberService.loginCheck(vo);
+		
+		if(logVO==null || vo.getMemstat()!=0) {//로그인실패
 			System.out.println("로그인 실패");
+			rttr.addFlashAttribute("msg", "failed");
 			mav.setViewName("redirect:login");
 		}else if(logVO.getUserid().equals("admin")){//관리자 로그인성공
 			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
 			session.setAttribute("logName", logVO.getUsername());
-			mav.setViewName("redirect:/memberSearch");
+			rttr.addFlashAttribute("msg", "admin");
+			mav.setViewName("redirect:memberSearch");
 		}else {//사용자로그인성공
 			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
 			session.setAttribute("logName", logVO.getUsername());
@@ -515,9 +518,50 @@ public class MemberController {
 		System.out.println("카테고리 ="+cri.getType());
 		System.out.println("검색어 ="+cri.getSearchWord());
 		
-		mav.addObject("pageMaker", pageMaker);//전체데이터가 담긴 memberVO 객체*/		
+		mav.addObject("pageMaker", pageMaker);//
 		mav.setViewName("admin/member/memberAdminQuit");
 		
-	return mav;
+		return mav;
+	
 	}
+	
+	//탈퇴 페이지 다중삭제
+	@ResponseBody
+	@RequestMapping("/permanantDel")
+	public int permanantDel(@RequestParam(value = "memberChk[]") List<String> chArr) {
+		int result = 0;
+		
+		System.out.println(chArr.size());
+		
+		for (int i=0; i<chArr.size(); i++) {
+			int cnt = memberService.permanantDel(chArr.get(i));
+		if(cnt>0) {
+			System.out.println("다중삭제 완료");
+			}else {
+			System.out.println("다중삭제 실패");
+			System.out.println(cnt);
+			}
+		}
+		result = 1;
+		
+		return result;
+	}
+	
+	//탈퇴 페이지 개별삭제
+		@RequestMapping("/quitDel")
+		public ModelAndView quitDel(String userid) {
+			ModelAndView mav = new ModelAndView();
+			
+			int cnt = memberService.memDel(userid);
+			memberService.permanantDel(userid);
+			
+			if (cnt>0) {//삭제
+			mav.setViewName("redirect:memberAdminQuit");
+			}else {//삭제 실패
+			System.out.println("삭제실패");
+			mav.setViewName("redirect:memberAdminQuit");
+			}
+			
+			return mav;
+		}
 }
