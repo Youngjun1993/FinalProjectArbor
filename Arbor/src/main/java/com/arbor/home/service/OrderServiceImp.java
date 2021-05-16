@@ -29,10 +29,9 @@ public interface OrderServiceImp {
 	public int totalRecord(PageSearchVO vo);					//총 레코드 수
 
 	public List<SubOrderVO> getSubOrderList(String orderNo);//주문한 상품정보 리스트(subOrder) - 주문완료 뷰페이지
-	public OrderTblVO getOrderInfo(String orderNo);	
-	public List<CartVO> cartAppendList(int pno, String userid); //장바구니 -> 구매버튼//주문정보 select
+	public OrderTblVO getOrderInfo(String orderNo);			//주문정보 select
+	public List<CartVO> cartAppendList(int pno, String userid); //장바구니 -> 구매버튼
 	public CartVO cartAppendChckList(int cartno, String userid); //장바구니 -> 선택구매버튼
-
 	public MemberVO getUserInfo(int orderno);					//주문상세 - 회원정보
-
+	public List<CartVO> cartAllList(String userid);			//장바구니 -> 전체구매버튼	
 }
