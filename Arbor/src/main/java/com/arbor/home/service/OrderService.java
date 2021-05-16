@@ -84,6 +84,11 @@ public class OrderService implements OrderServiceImp {
 	public int totalRecord(PageSearchVO vo) {
 		return orderDAO.totalRecord(vo);
 	}
+
+	@Override
+	public MemberVO getUserInfo(int orderno) {
+		return orderDAO.getUserInfo(orderno);
+	}
 	
 	public List<CartVO> cartAppendList(int pno, String userid) {
 		return orderDAO.cartAppendList(pno, userid);

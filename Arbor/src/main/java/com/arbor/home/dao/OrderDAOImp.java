@@ -19,7 +19,7 @@ public interface OrderDAOImp {
 	public int getOrderSeq();								//주문번호 시퀀스
 	public int orderComplete(OrderTblVO orderVo);			//주문정보 insert
 	public int createSubOrderList(SubOrderVO subVo);		//주문한 상품정보 DB insert(subOrder)
-	public List<SubOrderVO> getSubOrderList(int orderNo);//주문한 상품정보 리스트(subOrder) - 주문완료 뷰페이지
+	public List<SubOrderVO> getSubOrderList(int orderNo);	//주문한 상품정보 리스트(subOrder) - 주문완료 뷰페이지
 	public OrderTblVO getOrderInfo(int orderNo);			//주문정보 select
 	
 	/* admin */
@@ -32,4 +32,8 @@ public interface OrderDAOImp {
 	public OrderTblVO getOrderInfo(String orderNo);			//주문정보 select
 	public List<CartVO> cartAppendList(int pno, String userid); //장바구니 -> 구매버튼
 	public CartVO cartAppendChckList(int cartno, String userid); //장바구니 -> 선택구매버튼
+
+	public MemberVO getUserInfo(int orderno);					//주문상세 - 회원정보
+	
+
 }

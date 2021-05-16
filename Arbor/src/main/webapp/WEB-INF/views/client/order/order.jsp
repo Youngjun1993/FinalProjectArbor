@@ -3,7 +3,7 @@
 <!-- 다음 주소록 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- jQuery -->
-<!--   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <!-- iamport 결제 API -->
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
@@ -37,7 +37,7 @@
 			$('#j_usePoint').val('${pointVo.point}');
 		});
 		
-		//주문,결제페이지 유효성 검자
+		//주문,결제페이지 유효성 검사
 		$('#checkoutBtn').on('click', function(){
 			
 			var totalPrice = $('#tPrice').text();
@@ -122,8 +122,6 @@
 		
 		//선택한 쿠폰의 사용 금액 데이터 입력
 		$('')
-		
-		
 		
 	});
 	
@@ -254,6 +252,7 @@
 							<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
 							<input type="hidden" name="pno" value="17"/>
 							<input type="hidden" name="pname" value="침대 옆에 두기 좋은 미니협탁"/>
+							<!-- <input type="hidden" name="optinfo" value="색상:그레이"/> -->
 							<input type="hidden" name="quantity" value="1"/>
 							<input type="hidden" name="subprice" value="42000"/>
 						</div>

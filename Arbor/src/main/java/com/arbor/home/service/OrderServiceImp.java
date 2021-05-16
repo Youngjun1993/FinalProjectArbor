@@ -27,8 +27,12 @@ public interface OrderServiceImp {
 	public OrderTblVO countOfOrderStatus(OrderTblVO orderVo);	//주문상태에 따른 건수
 	public int updateOrderStatus(int orderno, String status);	//주문상태 변경
 	public int totalRecord(PageSearchVO vo);					//총 레코드 수
+
 	public List<SubOrderVO> getSubOrderList(String orderNo);//주문한 상품정보 리스트(subOrder) - 주문완료 뷰페이지
 	public OrderTblVO getOrderInfo(String orderNo);	
 	public List<CartVO> cartAppendList(int pno, String userid); //장바구니 -> 구매버튼//주문정보 select
 	public CartVO cartAppendChckList(int cartno, String userid); //장바구니 -> 선택구매버튼
+
+	public MemberVO getUserInfo(int orderno);					//주문상세 - 회원정보
+
 }

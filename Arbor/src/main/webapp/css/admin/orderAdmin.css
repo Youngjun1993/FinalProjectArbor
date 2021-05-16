@@ -115,20 +115,15 @@
 #j_orderList li:nth-child(9n+1){
 	width: 5%;
 }
-#j_orderList li:nth-child(9n+6),
-#j_orderList li:nth-child(9n+8){
-	width: 11%;
-}
-#j_orderList li:nth-child(9n+2),
-#j_orderList li:nth-child(9n+9){
-	width: 16%;
-}
+#j_orderList li:nth-child(9n+8){width: 19%;}
+#j_orderList li:nth-child(9n+9){width: 15%;}
 #j_orderList li:nth-child(-n+9){
 	border-top: 1px solid #333;
 	border-bottom: 1px solid #aaa;
 	font-weight: bold;
 }
 
+/******************************/
 #orderManagement{
 	margin-bottom: 50px;
 }
@@ -140,11 +135,72 @@
 	margin-top: 30px;
 }
 
+/*---------------
+	주문상세페이지
+----------------*/
+.j_orderOkDiv{
+	margin-top: 10px;
+}
+#j_orderDetail_wrap>div:nth-of-type(1){
+	border-bottom: 1px dotted #ccc;
+	height: 35px;
+	line-height: 35px;
+	text-align: right;
+	font-weight: bold;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+.j_orderOkTitle{
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	float: left;
+}
 
-
-
-
-
+.j_tableFormAd{
+	width: 1200px;
+	height: 30px;
+	border-spacing: 0px 0px;
+	border-collapse: collapse;
+	font-size: 13px;
+}
+.j_tableFormAd td{
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+.j_tableFormAd:not(#j_pInfoAd) td:nth-child(2n+1){
+	text-align: center;
+	background: #eee;
+}
+#j_pInfoAd tr:first-of-type td{
+	text-align: center;
+	background: #eee;
+}
+#j_pListAd>td:not(#j_pListAd>td:nth-child(6n+1)){
+	text-align: center;
+}
+#j_pListAd td:nth-child(6n+1)>div{
+	display: flex;
+	flex-direction: column;
+	text-align: top;
+	height: 50px;
+}
+#j_pListAd td:nth-child(6n+1)>div span:first-child{
+	margin: 10px 0 0 10px;
+	font-weight: bold;
+}
+#j_pListAd td:nth-child(6n+1)>div span:last-child{
+	margin: 5px 0 0 10px;
+	color: gray;
+	font-size: 12px;
+}
+.j_orderOkDiv:last-child>input[type='button']{
+	width: 100px;
+	height: 40px;
+	float: right;
+}
 
 
 
