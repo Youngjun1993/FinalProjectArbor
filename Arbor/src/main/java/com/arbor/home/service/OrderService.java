@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.OrderDAOImp;
+import com.arbor.home.vo.CartVO;
 import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
@@ -61,6 +62,16 @@ public class OrderService implements OrderServiceImp {
 	@Override
 	public OrderTblVO getOrderInfo(String orderNo) {
 		return orderDAO.getOrderInfo(orderNo);
+	}
+
+	@Override
+	public List<CartVO> cartAppendList(int pno, String userid) {
+		return orderDAO.cartAppendList(pno, userid);
+	}
+
+	@Override
+	public CartVO cartAppendChckList(int cartno, String userid) {
+		return orderDAO.cartAppendChckList(cartno, userid);
 	}
 	
 }

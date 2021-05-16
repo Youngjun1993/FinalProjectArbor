@@ -245,6 +245,7 @@
 			var tag = $(this);
 			var pname = $(this).parent().prev().prev().prev().prev().text();
 			var pno = $(this).parent().parent().parent().children().children().children('input[name=pno]').val();
+			var cartno = $(this).parent().parent().parent().children().children().children('input[name=cartno]').val();
 			
 			if(confirm(pname.trim()+"\n상품을 삭제하시겠습니까?")){
 				$.ajax({
@@ -257,6 +258,7 @@
 						temp : 'maindel'
 					},success : function(result){
 						$(tag).parent().parent().parent().css("display","none");
+						$("input[type=checkbox]").prop("checked",true);
 						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(result.totalquantity);
 						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((result.totalprice).toLocaleString());
 						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text((result.totaldeliv).toLocaleString());
@@ -385,6 +387,63 @@
 				chckTotalPrice = onechckTotalprice - (chckprice + chckdeliv);
 			}
 		});
+		// 선택삭제
+		$("#y_checkedDel").click(function(){
+			if(confirm("선택하신 상품을 삭제하시겠습니까?")){
+				$(".y_optionList>ul li:nth-child(1) input:checkbox[name=y_cartChck]:checked").each(function(i, e) {
+					var tag = $(this)
+					var chckDelPno = $(this).parent().parent().parent().children('p').children('span:nth-of-type(2)').children('input[name=pno]').val();
+					var chckDelCartno = $(this).parent().parent().parent().children('p').children('span:nth-of-type(2)').children('input[name=cartno]').val();
+					
+					$.ajax({
+						url : "cartUpdate",
+						dataType : 'json',
+						type: "POST",
+						data : {
+							cartno : chckDelCartno,
+							pno : chckDelPno,
+							temp : 'maindel'
+						},success : function(result){
+							$(tag).parent().parent().parent().css("display","none")
+							
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text("-");
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text("-");
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text("-");
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text("-");
+							$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text("-");
+						}, error : function(){
+							console.log("장바구니 선택삭제 에러~")
+							
+						}
+					});
+				});
+				alert('선택하신 상품이 삭제되었습니다.')
+			}
+		});
+		// 선택구매 버튼 클릭시
+		$("#y_cartChckOrder").click(function(){
+			var cartnoArr = [];
+			var form = document.createElement('form');
+			var optCartnoArr = document.createElement('input');
+			optCartnoArr.setAttribute('type', 'hidden');
+			optCartnoArr.setAttribute('name', 'cartpno');
+			
+			$("input:checkbox[name=y_cartChck]:checked").parent().parent().parent().children('p').each(function(i, e) {
+				cartnoArr.push('value', $(e).children('span:nth-of-type(2)').children('input[name=cartno]').val());
+				
+			});
+			
+			optCartnoArr.setAttribute('value', cartnoArr);
+			form.appendChild(optCartnoArr);
+			
+			form.setAttribute('method', 'post');
+			form.setAttribute('action', "orderAppendCartList");
+			document.body.appendChild(form);
+		
+			//form.submit();
+		});
+		
+		// 전체구매 버튼 클릭시
 	});
 </script>
 <div id="y_cart_wrap" class="w1400_container">
@@ -429,8 +488,11 @@
 	                <li>-</li>
 	                <li>-</li>
 	                <li>
-	                    <button class="clientMainBtn">바로구매</button><br/>
-	                    <button class="clientSubBtn cartMainDelBtn">삭제</button>
+	                	<form action="orderAppendCart" method="post">
+	                		<input type="hidden" name="pno" value="${cartData.pno }" />
+	                    	<input type="submit" value="바로구매" class="clientMainBtn cartOneOrderBtn"><br/>
+	                    </form>
+	                   <button class="clientSubBtn cartMainDelBtn">삭제</button>
 	                </li>
 	            </ul>
 	            <!--옵션-->
@@ -438,7 +500,7 @@
 	            	<c:if test="${cartData.pno eq cartOptData.pno }">
 			            <c:if test="${cartOptData.optionvalue == null }">
 				            <p class="clearfix y_cartCnt">
-				                옵션이 없는 상품입니다.
+				                <label>옵션이 없는 상품입니다.</label>
 				                <input type="hidden" class="getPrice" name="price" value="${cartOptData.price }">
 				                <span style="margin-right:50px;"><fmt:formatNumber value="${cartOptData.price*cartOptData.quantity }"/> 원</span> 
 				                <span><button class="y_cartOptMinus">-</button><input type="hidden" name="cartno" value="${cartOptData.cartno }"><input type="hidden" name="pno" value="${cartOptData.pno }"> <b>${cartOptData.quantity }</b> <button class="y_cartOptPlus">+</button></span>
@@ -460,7 +522,7 @@
 	            <input type="hidden" name="pcount" value="<%=cnt%>">
 	        </div>
         </c:forEach>
-        <button class="clientSubBtn">선택삭제</button>
+        <button class="clientSubBtn" id="y_checkedDel">선택삭제</button>
     </div>
     <div class="clearfix">
         <div>
@@ -492,9 +554,13 @@
         </div>
     </div>
     <div>
+    	<form action="">
+			        	
+        </form>
         <span class="clearfix">
+        	
             <a href="#" class="clientSubBtn">쇼핑목록 가기</a>
-            <a href="#" class="clientSubBtn">선택상품구매</a>
+            <a href="#" id="y_cartChckOrder" class="clientSubBtn">선택상품구매</a>
             <a href="#" class="clientMainBtn">전체상품구매</a>
         </span>
     </div>

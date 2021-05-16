@@ -2,6 +2,7 @@ package com.arbor.home.service;
 
 import java.util.List;
 
+import com.arbor.home.vo.CartVO;
 import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
@@ -17,5 +18,7 @@ public interface OrderServiceImp {
 	public int orderComplete(OrderTblVO orderVo);			//주문정보 insert
 	public int createSubOrderList(SubOrderVO subVo);		//주문한 상품정보 DB insert(subOrder)
 	public List<SubOrderVO> getSubOrderList(String orderNo);//주문한 상품정보 리스트(subOrder) - 주문완료 뷰페이지
-	public OrderTblVO getOrderInfo(String orderNo);			//주문정보 select
+	public OrderTblVO getOrderInfo(String orderNo);	
+	public List<CartVO> cartAppendList(int pno, String userid); //장바구니 -> 구매버튼//주문정보 select
+	public CartVO cartAppendChckList(int cartno, String userid); //장바구니 -> 선택구매버튼
 }
