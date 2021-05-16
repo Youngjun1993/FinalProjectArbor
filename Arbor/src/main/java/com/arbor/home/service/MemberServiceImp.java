@@ -74,4 +74,6 @@ public interface MemberServiceImp {
 	//탈퇴회원수 카운트
 	public int memQuitCount(MemPagingCri cri);
 	
+	//탈퇴회원 영구삭제
+	public int permanantDel(String userid);
 }

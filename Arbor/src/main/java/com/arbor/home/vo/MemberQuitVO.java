@@ -1,11 +1,12 @@
 package com.arbor.home.vo;
 
 public class MemberQuitVO {
+	
 	private String userid;
 	private String byetype;
 	private String byereason;
-	private int regdate;
-	private int byedate;
+	private String regdate;
+	private String byedate;
 	private int quitperiod;
 	
 	public String getUserid() {
@@ -26,16 +27,16 @@ public class MemberQuitVO {
 	public void setByereason(String byereason) {
 		this.byereason = byereason;
 	}
-	public int getRegdate() {
+	public String getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(int regdate) {
+	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	public int getByedate() {
+	public String getByedate() {
 		return byedate;
 	}
-	public void setByedate(int byedate) {
+	public void setByedate(String byedate) {
 		this.byedate = byedate;
 	}
 	public int getQuitperiod() {
