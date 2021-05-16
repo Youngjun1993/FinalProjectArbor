@@ -176,8 +176,4 @@ public class CartVO {
 		this.price = price;
 	}
 
-	public CartVO() {
-		// TODO Auto-generated constructor stub
-	}
-
 }

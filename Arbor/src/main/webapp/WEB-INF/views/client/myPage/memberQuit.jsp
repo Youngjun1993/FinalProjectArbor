@@ -69,34 +69,33 @@ $('#pwdCheck').blur(function(){
 //버튼을 선택하면
 $('#h_quitBtn').click(function (){
 	var quitReason = $('.h_quitReason').val();
-	console.log(quitReason);
-	$.ajax({
-		url:'memberGoodbye',
-		type:'POST',
-		data:{ reason : quitReason },
-		success : function(result) {
-			if(result == 1) {
-				confirm('정말 탈퇴하시겠습니까?');
-				alert('탈퇴처리가 완료되었습니다.');
-				location.href = "/home"
-			}else{
-				alert('탈퇴가 실패하였습니다.');
-			}
-		},error:function() {
-			console.log('ajax에러');
-		}
-		
-	});
 	
+	if(confirm('정말 탈퇴하시겠습니까?')) {
+		$.ajax({
+			url:'memberGoodbye',
+			type:'POST',
+			data:{ reason : quitReason },
+			success : function(result) {
+				if(result == 1) {
+					alert('탈퇴처리가 완료되었습니다.');
+					location.href = "/home"	
+				}else{
+					alert('탈퇴가 실패하였습니다.');
+				}
+			},error:function() {
+				console.log('ajax에러');
+			}
+			
+		});
+	}else {
+		return false;
+	};
 	
 });
-
 
 //select의 option 밸류값을ㅏㅏㅏ앙ㅇ
 
 //memberOutOk로 1.겟방식 2.ajax? 로 컨트롤러로 넘겨준다.
-		
-
 
 //마지막은 /home으로 뷰페이지 반환
 	

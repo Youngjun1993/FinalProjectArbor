@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/timeSale.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script>
 	$(function(){
 		$("#j_tsEditBtn").click(function(){
@@ -35,7 +37,8 @@
 </head>
 <body>
 <div class="w1400_container font_ng">
-	<div class="j_sideMenu">사이드메뉴</div>
+	<!-- 관리자메뉴 -->
+	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="j_centerFrm">
 		<p class="j_adminMemu"><span>타임세일</span></p>
 		<div>

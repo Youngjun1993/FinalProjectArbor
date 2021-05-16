@@ -17,8 +17,8 @@
 	<div class="h_half">
 		<div class="h_content">
 				<form action="loginOk" method="post">
-					<input type="text" name="userid" id="userid" class="h_input" required="required" placeholder="아이디를 입력하세요" value="test">
-					<input type="password" name="userpwd" id="userpwd" class="h_input" required="required" placeholder="비밀번호를 입력하세요" value="1234">
+					<input type="text" name="userid" id="userid" class="h_input" required="required" placeholder="아이디를 입력하세요" value="admin">
+					<input type="password" name="userpwd" id="userpwd" class="h_input" required="required" placeholder="비밀번호를 입력하세요" value="admin1234">
 					<input type="checkbox" id="remember" class="h_checkbox">
 					<label for="remember">Remember me</label>
 					<div class="h_submit_wrap">
@@ -34,6 +34,11 @@
 </div>
 </div>
 <script>
+	 var result = '${msg}';
+	 
+	 if(result == 'failed'){
+		alert('아이디 또는 비밀번호가 정확하지 않습니다');
+	 }
 	 
 </script>
 </body>

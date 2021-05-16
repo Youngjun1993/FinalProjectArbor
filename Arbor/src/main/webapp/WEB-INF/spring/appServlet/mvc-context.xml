@@ -14,26 +14,33 @@
 		
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/pqnaInsert"/>
+			<mvc:mapping path="/pqnaInsert"/> <!-- 상품문의등록 -->
 			<mvc:mapping path="/dibsList"/> <!-- 찜목록 -->
 			<mvc:mapping path="/cartList"/> <!-- 장바구니 -->
 			<mvc:mapping path="/cartInsert"/>
+			<mvc:mapping path="/order"/>
 			<bean class="com.arbor.home.interceptor.Logininterceptor_Client"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/pqnaList"/>
-			<mvc:mapping path="/pqnaAnswer"/>
-			<mvc:mapping path="/pqnaAnswerInsert"/>
-			<mvc:mapping path="/pqnaAnswerEdit"/>
-			<mvc:mapping path="/pqnaAnswerDelete"/>
-			<mvc:mapping path="/productInsert"/>
-			<mvc:mapping path="/productInsertOk"/>
-			<mvc:mapping path="/productEdit"/>
-			<mvc:mapping path="/productEditOk"/>
-			<mvc:mapping path="/productDelete"/>
-			<mvc:mapping path="/manageCate"/>
-			<mvc:mapping path="/productSearch"/>
-			<mvc:mapping path="/memberSearch"/>
+			<mvc:mapping path="/pqnaList"/> <!-- 상품문의 -->
+			<mvc:mapping path="/pqnaAnswer"/> <!-- 답변창 -->
+			<mvc:mapping path="/pqnaAnswerInsert"/> <!-- 답변하기 -->
+			<mvc:mapping path="/pqnaAnswerEdit"/> <!-- 수정 -->
+			<mvc:mapping path="/pqnaAnswerDelete"/> <!-- 삭제 -->
+			<mvc:mapping path="/productInsert"/> <!-- 상품등록폼 -->
+			<mvc:mapping path="/productInsertOk"/> <!-- 실제등록 -->
+			<mvc:mapping path="/productEdit"/> <!-- 수정 -->
+			<mvc:mapping path="/productEditOk"/> <!-- 수정완료 -->
+			<mvc:mapping path="/productDelete"/> <!-- 삭제 -->
+			<mvc:mapping path="/productDeleteMany"/> <!-- 여러개삭제 -->
+			<mvc:mapping path="/manageCate"/> <!-- 카테고리관리 -->
+			<mvc:mapping path="/productSearch"/> <!-- 검색 -->
+			<mvc:mapping path="/memberSearch"/> <!-- member목록 -->
+			<mvc:mapping path="/insertCate"/> <!-- 카테고리등록 -->
+			<mvc:mapping path="/deleteCate"/> <!-- 삭제 -->
+			<mvc:mapping path="/deleteCateMany"/> <!-- 여러개삭제 -->
+			<mvc:mapping path="/cateEdit"/> <!-- 수정 -->
+			<mvc:mapping path="/pqnaNoAnswerList"/> <!-- 미답변글목록 -->
 			<bean class="com.arbor.home.interceptor.Logininterceptor_Admin"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

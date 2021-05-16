@@ -369,15 +369,33 @@
 					success : function(result){
 						var $result = $(result);
 						var price = ${vo.saleprice }
-						var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname} (&nbsp&nbsp";
+						var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname} (&nbsp&nbsp ";
 						$result.each(function(idx, val) {
-							tag += val.optname+" : "+val.optvalue+"&nbsp&nbsp";
+							tag += val.optname+" : "+val.optvalue+" &nbsp&nbsp";
 							price += val.optprice;
 						});
 						tag += ") <input type='hidden' name='pno' value='${vo.pno }'/></li>";
 						tag += "<li><button class='optMinus'>-</button><span class='p_selectNum'>1</span><button class='optPlus'>+</button></li>";
 						tag += "<li class='p_bigPrice'>"+price.toLocaleString()+"원<input type='hidden' name='price' value='"+price+"'/></li>";
 						tag += "<li><img src='./img/cancel.png' style='cursor:pointer;' class='cancelimg'/></li></ul>";
+						
+						var txt2 = "";
+						$result.each(function(idx, val) {
+							txt2 = val.optname+" : "+val.optvalue ;
+						});	
+						$(".p_detailSelect_ul").each(function(idx, ul){
+							var txt = $(ul).children().eq(0).text();
+							var txtStart = txt.indexOf("(");
+							var txtEnd = txt.indexOf(")")-3;
+							var txtOpt = txt.substr(txtStart+3, txtEnd-txtStart);
+							
+							if(txtOpt.indexOf(txt2)>-1) {
+								alert("중복 옵션이 존재합니다. 다시 확인해주세요");
+								tag = "";
+								totalPrice -= price;
+								return false;
+							}
+						});
 						
 						totalPrice += price;
 						
@@ -445,7 +463,8 @@
 			var txt = $(ul).children().eq(0).text();
 			var txtStart = txt.indexOf("(");
 			var txtEnd = txt.indexOf(")")-3;
-			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
+			var optname = txt.substr(txtStart+3, txtEnd-txtStart);
+			optnameArr.push(optname);
 			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
 			priceArr.push($(ul).children().eq(2).children().val());
 		});
@@ -459,6 +478,7 @@
 				quantityArr : quantityArr,
 				pno : pno
 			}, success : function(result) {
+				console.log(result);
 				if(result>0) {
 					if(confirm("장바구니에 등록되었습니다. 장바구니로 이동하시겠습니까?")) {
 						location.href="cartList";
@@ -512,29 +532,36 @@
 	
 	<!-- 바로구매 클릭시 -->
 	function orderInsert(pno) {
-		var form = document.createElement('form');
-		var optnameArr = document.createElement('input');
-		optnameArr.setAttribute('type', 'hidden');
-		optnameArr.setAttribute('name', 'optnameArr');
-		var priceArr = document.createElement('input');
-		priceArr.setAttribute('type', 'hidden');
-		priceArr.setAttribute('name', 'priceArr');
-		var quantityArr = document.createElement('input');
-		quantityArr.setAttribute('type', 'hidden');
-		quantityArr.setAttribute('name', 'quantityArr');
-		var pnoStr = document.createElement('input');
-		pnoStr.setAttribute('type', 'hidden');
-		pnoStr.setAttribute('name', 'pnoStr');
-		pnoStr.setAttribute('value', pno);
+		var optname = [];
+		var price = [];
+		var quantity = [];
+		
 		$(".p_detailSelect_ul").each(function(idx, ul){
 			var txt = $(ul).children().eq(0).text();
 			var txtStart = txt.indexOf("(");
 			var txtEnd = txt.indexOf(")")-3;
-			optnameArr.setAttribute('value', txt.substr(txtStart+3, txtEnd-txtStart));
-			priceArr.setAttribute('value', $(ul).children().eq(2).children().val());
-			quantityArr.setAttribute('value', $(ul).children().eq(1).children('.p_selectNum').text());
-console.log($(ul).children().eq(1).children('.p_selectNum').text())
+			optname.push(txt.substr(txtStart+3, txtEnd-txtStart));
+			price.push($(ul).children().eq(2).children().val());
+			quantity.push($(ul).children().eq(1).children('.p_selectNum').text());
 		});
+		
+		var form = document.createElement('form');
+		var optnameArr = document.createElement('input');
+		optnameArr.setAttribute('type', 'hidden');
+		optnameArr.setAttribute('name', 'optnameArr');
+		optnameArr.setAttribute('value', optname);
+		var priceArr = document.createElement('input');
+		priceArr.setAttribute('type', 'hidden');
+		priceArr.setAttribute('name', 'priceArr');
+		priceArr.setAttribute('value', price);
+		var quantityArr = document.createElement('input');
+		quantityArr.setAttribute('type', 'hidden');
+		quantityArr.setAttribute('name', 'quantityArr');
+		quantityArr.setAttribute('value', quantity);
+		var pnoStr = document.createElement('input');
+		pnoStr.setAttribute('type', 'hidden');
+		pnoStr.setAttribute('name', 'pnoStr');
+		pnoStr.setAttribute('value', pno);
 		form.appendChild(optnameArr);
 		form.appendChild(priceArr);
 		form.appendChild(quantityArr);

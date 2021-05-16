@@ -10,7 +10,9 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/timeSale.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/summernote/summernote-lite.css" />
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <!-- Air datepicker -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="<%=request.getContextPath()%>/javaScript/datepicker/datepicker.min.css" rel="stylesheet" type="text/css"/>
@@ -73,7 +75,7 @@
 				contentType: false,
 				processData: false,
 				success: function(data){
-					$(editor).summernote('insertImage', data.url);
+					$(editor).summernote('insertImage', data);
 				}
 			});
 		}
@@ -131,7 +133,8 @@
 </head>
 <body>
 <div class="w1400_container font_ng">
-	<div class="j_sideMenu">사이드메뉴</div>
+	<!-- 관리자메뉴 -->
+	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="j_centerFrm">
 		<p class="j_adminMemu"><span>타임세일 등록</span></p>
 		<form method="post" id="j_timeSaleInsertFrm" action="timeSaleInsertOk">

@@ -57,16 +57,16 @@
 						<br/><br/>
 						<ul id="pDateCate">
 							<li><span class="pContent">등록일자</span></li>
-							<li><a href="productSearch?startDate=sysdate&endDate=sysdate+1">당일</a></li>
-							<li><a href="productSearch?startDate=sysdate-7&endDate=sysdate+1">일주일</a></li>
-							<li><a href="productSearch?startDate=sysdate-30&endDate=sysdate+1">1개월</a></li>
-							<li><a href="productSearch?startDate=sysdate-90&endDate=sysdate+1">3개월</a></li>
-							<li><a href="productSearch?startDate=sysdate-365&endDate=sysdate+1">1년</a></li>
+							<li><a href="javascript:pDateClick(1)">당일</a></li>
+							<li><a href="javascript:pDateClick(2)">일주일</a></li>
+							<li><a href="javascript:pDateClick(3)">1개월</a></li>
+							<li><a href="javascript:pDateClick(4)">3개월</a></li>
+							<li><a href="javascript:pDateClick(5)">1년</a></li>
 						</ul>
 						<span class="pContent"></span>
-						<input type="text" name="startDate" placeholder="시작일 직접 선택" />
+						<input type="text" name="startdate" id="startdate" placeholder="시작일 직접 선택" autocomplete="off"/>
 						<span class="centertxt">~</span>
-						<input type="text" name="endDate" placeholder="종료일 직접 선택" />
+						<input type="text" name="enddate" id="enddate" placeholder="종료일 직접 선택" autocomplete="off"/>
 						<input type="submit" value="Search" class="adminMainBtn"/>
 						<br/>
 					</form>
@@ -78,7 +78,7 @@
 					<img src="<%=request.getContextPath() %>/img/downpage.png"/>
 					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 				</p><br/>
-				<form method="post" action="ProductDeleteCheck">
+				<form method="post" action="">
 					<ul id="productList">
 						<li class="tableHeader"><input type="checkbox" value="전체선택" id="listCheckAll"/></li>
 						<li class="tableHeader">상품코드</li>
@@ -86,8 +86,8 @@
 						<li class="tableHeader">상품명</li>
 						<li class="tableHeader">판매가</li>
 						<li class="tableHeader">재고</li>
-						<li class="tableHeader">둥록일</li>
-						<li class="tableHeader"><input type="submit" value="선택삭제" class="adminSubBtn"/></li>
+						<li class="tableHeader">등록일</li>
+						<li class="tableHeader"><input type="submit" value="선택삭제" formaction="javascript:productDeleteCheck()" class="adminMainBtn"/></li>
 						<c:forEach var="vo" items="${productList }">
 							<li><input type="checkbox" value=${vo.pno }/></li>
 							<li>${vo.pno }</li>
@@ -96,7 +96,8 @@
 							<li>${vo.saleprice }</li>
 							<li>${vo.stock }</li>
 							<li>${vo.pdate }</li>
-							<li><a href="productEdit?pno=${vo.pno }">수정</a> | <a href="javascript:productdel(${vo.pno })">삭제</a></li>
+							<li><input type="submit" class="adminSubBtn" value="수정" formaction="productEdit?pno=${vo.pno }"/>
+							<input type="submit" class="adminSubBtn" value="삭제" formaction="javascript:productdel(${vo.pno })"/></li>
 						</c:forEach>
 					</ul>
 				</form>

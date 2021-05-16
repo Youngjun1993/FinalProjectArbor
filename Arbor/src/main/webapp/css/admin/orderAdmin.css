@@ -1,0 +1,158 @@
+@charset "UTF-8";
+
+/* class */
+
+/* 주문현황 */
+#j_orderCnt li{
+	float: left;
+	width: 24.8%;
+	height: 60px;
+	line-height: 60px;
+	border: 1px solid #ccc;
+	margin-right: -1px;
+	background: #eee;
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+}
+.oStatus{
+	display: inline;
+	margin-left: 30px;
+}
+.oCount{
+	display: inline;
+	margin-left: 130px;
+}
+.oCount>span{
+	color: rgb(191,43,53);
+}
+
+/* 주문검색 */
+#j_orderSearch{
+	width: 100%;
+	margin-top: 30px;
+	border: 1px solid #ccc;
+}
+#j_orderSearch form{
+	margin-block-end: 0;
+}
+#j_orderSearch div{
+	display: flex;
+	margin-bottom: 15px;
+	width: 1200px;
+}
+#j_orderSearch>div{
+	margin: 30px 0;
+}
+#j_orderSearch span{
+	width: 100px;
+	margin-left: 30px;
+	text-align: left;
+	line-height: 32px;
+	font-weight: bold;
+	font-size: 15px;
+}
+#j_orderSearch ul{
+	margin-right: 20px;
+}
+#j_orderSearch li{
+	float: left;
+	width: 70px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border: 1px solid rgb(191,43,53);
+	margin-right: -1px;
+	color: rgb(191,43,53);
+}
+#j_orderSearch li:not(.oSelected) a{
+	color: rgb(191,43,53);
+}
+.oSelected{
+	background: rgb(191,43,53);
+}
+.oSelected>a{
+	color: #fff;
+}
+.j_centerFrm input, .j_centerFrm select{
+	height: 32px;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+#j_orderSearch select{
+	margin-right: 10px;
+}
+#j_orderSearch input[name=searchWord]:last-child{
+	width: 350px;
+}
+#j_orderSearch>div div:last-of-type{
+	margin: 0;
+	justify-content: center;
+}
+#j_orderSearch input[type=submit]{
+	margin-top: 25px;
+	text-align: center;
+	height: 40px;
+	width: 120px;
+	font-size: 15px;
+}
+
+/* 주문리스트 */
+#j_orderList{
+	margin-top: 30px;
+}
+#j_orderList ul{
+	margin-top: 10px;
+}
+#j_orderList li{
+	float: left;
+	width: 10%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-bottom: 1px solid #eee;
+}
+#j_orderList li:nth-child(9n+1){
+	width: 5%;
+}
+#j_orderList li:nth-child(9n+6),
+#j_orderList li:nth-child(9n+8){
+	width: 11%;
+}
+#j_orderList li:nth-child(9n+2),
+#j_orderList li:nth-child(9n+9){
+	width: 16%;
+}
+#j_orderList li:nth-child(-n+9){
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #aaa;
+	font-weight: bold;
+}
+
+#orderManagement{
+	margin-bottom: 50px;
+}
+#orderManagement>div:nth-child{
+	width: 1200px;
+	text-align: center;
+}
+#orderManagement>ul li{
+	margin-top: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

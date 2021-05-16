@@ -11,6 +11,7 @@ import com.arbor.home.vo.CartVO;
 import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
+import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PointVO;
 import com.arbor.home.vo.SubOrderVO;
 
@@ -55,16 +56,35 @@ public class OrderService implements OrderServiceImp {
 	}
 
 	@Override
-	public List<SubOrderVO> getSubOrderList(String orderNo) {
+	public List<SubOrderVO> getSubOrderList(int orderNo) {
 		return orderDAO.getSubOrderList(orderNo);
 	}
 
 	@Override
-	public OrderTblVO getOrderInfo(String orderNo) {
+	public OrderTblVO getOrderInfo(int orderNo) {
 		return orderDAO.getOrderInfo(orderNo);
 	}
 
 	@Override
+	public List<OrderTblVO> selectOrderList(OrderTblVO orderVo) {
+		return orderDAO.selectOrderList(orderVo);
+	}
+
+	@Override
+	public OrderTblVO countOfOrderStatus(OrderTblVO orderVo) {
+		return orderDAO.countOfOrderStatus(orderVo);
+	}
+
+	@Override
+	public int updateOrderStatus(int orderno, String status) {
+		return orderDAO.updateOrderStatus(orderno, status);
+	}
+
+	@Override
+	public int totalRecord(PageSearchVO vo) {
+		return orderDAO.totalRecord(vo);
+	}
+	
 	public List<CartVO> cartAppendList(int pno, String userid) {
 		return orderDAO.cartAppendList(pno, userid);
 	}
@@ -77,6 +97,14 @@ public class OrderService implements OrderServiceImp {
 	@Override
 	public List<CartVO> cartAllList(String userid) {
 		return orderDAO.cartAllList(userid);
+	}
+	public List<SubOrderVO> getSubOrderList(String orderNo) {
+		return getSubOrderList(orderNo);
+	}
+
+	@Override
+	public OrderTblVO getOrderInfo(String orderNo) {
+		return getOrderInfo(orderNo);
 	}
 	
 }

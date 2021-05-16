@@ -321,6 +321,8 @@
 		});
 		// 개별선택 이벤트
 		$(".y_cartChck").change(function() {
+			var tag = $(this)
+
 			var chckpointStr = $(this).parent().parent().parent().children('ul').children('li').eq(2).text();
 			var chckquantityStr = $(this).parent().parent().parent().children('ul').children('li').eq(3).text();
 			var chckpriceStr = $(this).parent().parent().parent().children('ul').children('li').eq(4).text();
@@ -423,26 +425,25 @@
 		// 선택구매 버튼 클릭시
 		$("#y_cartChckOrder").click(function(){
 			var form = document.createElement('form');
+			if($("input:checkbox[name=y_cartChck]:checked").length == 0){
+				alert('선택된 상품이 없습니다.')
+			}else{
+				$("input:checkbox[name=y_cartChck]:checked").parent().parent().parent().children('p').each(function(i, e) {
+					var optCartnoArr = document.createElement('input');
+					optCartnoArr.setAttribute('type', 'hidden');
+					optCartnoArr.setAttribute('name', 'cartpno');
+					optCartnoArr.setAttribute('value', $(e).children('span:nth-of-type(2)').children('input[name=cartno]').val());
+					form.appendChild(optCartnoArr);
+				});
+				
+				form.setAttribute('method', 'post');
+				form.setAttribute('action', "orderAppendCartList");
+				document.body.appendChild(form);
 			
-			$("input:checkbox[name=y_cartChck]:checked").parent().parent().parent().children('p').each(function(i, e) {
-				var optCartnoArr = document.createElement('input');
-				optCartnoArr.setAttribute('type', 'hidden');
-				optCartnoArr.setAttribute('name', 'cartpno');
-				optCartnoArr.setAttribute('value', $(e).children('span:nth-of-type(2)').children('input[name=cartno]').val());
-				form.appendChild(optCartnoArr);
-			});
-			
-			form.setAttribute('method', 'post');
-			form.setAttribute('action', "orderAppendCartList");
-			document.body.appendChild(form);
-		
-			form.submit();
+				form.submit();
+			}
 		});
 		
-		// 전체구매 버튼 클릭시
-		$("#y_cartAllOrder").click(function(){
-			
-		});
 	});
 </script>
 <div id="y_cart_wrap" class="w1400_container">
@@ -480,7 +481,7 @@
 	                    <input type="checkbox" class="y_cartChck" name="y_cartChck">
 	                </li>
 	                <li class="clearfix">
-	                    <img src="argian.jpg" alt="">
+	                    <img src="<%=request.getContextPath()%>/upload/${cartData.img1}" alt="">
 	                    <span>${cartData.pname }</span>
 	                </li>
 	                <li>-</li>
