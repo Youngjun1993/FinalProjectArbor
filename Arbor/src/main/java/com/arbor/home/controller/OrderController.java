@@ -126,4 +126,16 @@ public class OrderController {
 		mav.setViewName("client/cart/test");
 		return mav;
 	}
+	@RequestMapping("orderAllCartList")
+	public ModelAndView orderAllCartList(HttpSession ses) {
+		ModelAndView mav = new ModelAndView();
+		String userid = (String)ses.getAttribute("logId");
+		if(userid.equals("") || userid == null) {
+			mav.setViewName("admin/member/login");
+		}else {
+			mav.addObject("list",orderService.cartAllList(userid));
+			mav.setViewName("client/cart/test");
+		}
+		return mav;
+	}
 }

@@ -73,5 +73,10 @@ public class OrderService implements OrderServiceImp {
 	public CartVO cartAppendChckList(int cartno, String userid) {
 		return orderDAO.cartAppendChckList(cartno, userid);
 	}
+
+	@Override
+	public List<CartVO> cartAllList(String userid) {
+		return orderDAO.cartAllList(userid);
+	}
 	
 }

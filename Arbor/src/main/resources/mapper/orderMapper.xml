@@ -40,4 +40,8 @@
 	<select id="cartAppendChckList" resultType="com.arbor.home.vo.CartVO">
 		select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1 from (select * from cart where cartno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2}
 	</select>
+	<!-- 장바구니에서 전체구매버튼 클릭 시  -->
+	<select id="cartAllList" resultType="com.arbor.home.vo.CartVO">
+		select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1 from cart c join product p on c.pno=p.pno where userid=#{param1}
+	</select>
   </mapper>
