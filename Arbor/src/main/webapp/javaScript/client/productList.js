@@ -1,4 +1,34 @@
+$(function(){
+	$(".p_HoverImg2").hide();
+	
+	$(".p_HoverImg1").mouseover(function(){
+		$(this).hide();
+		$(this).next().show();
+	});
+	
+	$(".p_HoverImg2").mouseout(function(){
+		$(this).hide();
+		$(this).prev().show();
+	});
+	
+	
+	$(window).scroll(function(){
+      if($(window).scrollTop()>1300) {
+      	$('#p_fixedTop').fadeIn('fast');
+      	$('#p_fixedDiv').fadeIn('fast');
+      } else {
+      	$('#p_fixedTop').fadeOut('fast');
+      	$('#p_fixedDiv').fadeOut('fast');
+      }
+    });
 
+    $('p_fixedTop').click(function () {
+      $('html, body').animate({ scrollTop:0 }, 'slow');
+      return false;
+    });
+
+
+});
 
 <!-- 상품문의 글작성 폼 띄우기 -->
 function hiddenOpen() {
