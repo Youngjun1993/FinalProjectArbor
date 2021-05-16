@@ -23,7 +23,6 @@ public class CartVO {
 	private int stock;
 	private String img1;
 	
-	
 	public int getOptsumprice() {
 		return optsumprice;
 	}
@@ -166,10 +165,6 @@ public class CartVO {
 
 	public void setPrice(int price) {
 		this.price = price;
-	}
-
-	public CartVO() {
-		// TODO Auto-generated constructor stub
 	}
 
 }
