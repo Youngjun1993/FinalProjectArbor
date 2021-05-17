@@ -160,16 +160,6 @@ public class OrderController {
 		mav.setViewName("client/cart/test");
 		return mav;
 	}
-
-	@RequestMapping("/orderDetail")
-	public ModelAndView orderDetail(int orderno) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("pList", orderService.getSubOrderList(orderno));
-		mav.addObject("memberVo", orderService.getUserInfo(orderno));
-		mav.addObject("orderVo", orderService.getOrderInfo(orderno));
-		mav.setViewName("admin/order/orderDetail");
-		return mav;
-	}
 	
 	@RequestMapping("orderAllCartList")
 	public ModelAndView orderAllCartList(HttpSession ses) {
@@ -246,8 +236,6 @@ public class OrderController {
 		mav.setViewName("admin/order/orderDetail");
 		return mav;
 	}
-	
-	
 	
 
 }
