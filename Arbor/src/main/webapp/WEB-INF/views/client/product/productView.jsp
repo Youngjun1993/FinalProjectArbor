@@ -38,7 +38,7 @@
 						<c:forEach var="val" items="${optValue }">
 							<c:if test="${val.optname==name.optname }">
 								<option value="${val.optno }">${val.optvalue }
-									<c:if test="${val.optprice!=0 }">(+${val.optprice })</c:if>
+									<c:if test="${val.optprice!=0 }">(<c:if test="${fn:substring(val.optprice,0,1)!='-' }">+</c:if>${val.optprice })</c:if>
 								</option>
 							</c:if>
 						</c:forEach>
