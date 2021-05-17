@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.DibsServiceImp;
 import com.arbor.home.vo.DibsVO;
+import com.arbor.home.vo.PageSearchVO;
 
 @Controller
 public class DibsController {
@@ -20,8 +22,27 @@ public class DibsController {
 	DibsServiceImp dibsService;
 	
 	@RequestMapping("/dibsList")
-	public String dibsList() {
-		return "client/dibs/dibsList";
+	public ModelAndView dibsList(HttpSession ses, HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		String userid = (String)ses.getAttribute("logId");
+		String pageNumStr = req.getParameter("pageNum");
+		PageSearchVO pageVo = new PageSearchVO();
+		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		if(userid == null || userid.equals("")) {
+			mav.setViewName("admin/member/login");
+		}else {
+			pageVo.setUserid(userid);
+			pageVo.setTotalRecord(dibsService.totalRecord(pageVo));
+			mav.addObject("list", dibsService.onePageRecordSelect(pageVo));
+			mav.addObject("optList", dibsService.dibsList(userid));
+			mav.addObject("pageVO", pageVo);
+			mav.setViewName("client/dibs/dibsList");
+		}
+		return mav;
 	}
 	
 	@RequestMapping(value="/dibsInsert", method= RequestMethod.POST)

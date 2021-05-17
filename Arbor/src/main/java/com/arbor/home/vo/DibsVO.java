@@ -9,6 +9,55 @@ public class DibsVO {
 	private int price;
 	private String dibsdate;
 	
+	// product 조인
+	private String pname;
+	private int stock;
+	private String img1;
+	private int pprice;
+	private int saleprice;
+	
+	
+	
+	public int getPprice() {
+		return pprice;
+	}
+
+	public void setPprice(int pprice) {
+		this.pprice = pprice;
+	}
+
+	public int getSaleprice() {
+		return saleprice;
+	}
+
+	public void setSaleprice(int saleprice) {
+		this.saleprice = saleprice;
+	}
+
+	public String getImg1() {
+		return img1;
+	}
+
+	public void setImg1(String img1) {
+		this.img1 = img1;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
 	public int getDibsno() {
 		return dibsno;
 	}
