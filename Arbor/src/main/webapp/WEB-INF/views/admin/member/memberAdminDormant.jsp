@@ -79,8 +79,6 @@
 		</td>
 	 	<td>
 	 	<div class = "search_area_dormail">
-	 	<%-- <input type="radio" name="emailok" class="h_radiochk" value="Y+N" <c:out value="${pageMaker.cri.emailok eq 'Y' && 'N' ?'checked':'' }"/>>전체 --%>
-		<%-- <input type="radio" name="emailok" class="h_radiochk" value="Y" <c:if test="${pageMaker.cri.emailok eq 'Y'}"> checked </c:if> />예 --%>
 		<input type="radio" name="dormailok" class="h_radiochk" value="" checked/>전체
 		<input type="radio" name="dormailok" class="h_radiochk" value="Y"/>예
 		<input type="radio" name="dormailok" class="h_radiochk" value="N"/> 아니오
@@ -92,17 +90,16 @@
 	</form>
 	
 		<!-- 휴면 tbl 데이터 영역 -->
-		<hr/>
 		<!-- 폼 가운데 버튼 -->
 			<div class= "h_searchMultiBtn">
-				<form id = "h_sms_form" action = "sendSms">
-				<input type="button" id="sendSms" value="sms발송 " class="adminSubBtn">
+				<form name="sms" id = "h_sms_form" action = "sendSms">
 				</form>
-				<input type="button" id="testBtn" value="test버튼" class="adminSubBtn">
-				<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn">
+					<input type="button" id="sendSms" value="SMS발송 " class="adminSubBtn semiBtn">
+				<input type="button" id="excelBtn" value="엑셀(전체)다운" class="adminSubBtn semiBtn">
+				<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn semiBtn">
 			</div>
 		<!-- 회원목록 -->
-		<div class="h_memTableLi">
+		<div class="h_memTableLi dormant">
 		<form method="get" id="delMultiForm" action="memMultiDel">
 			<ul class="h_memList clearfix">
 				<li class="h_listHeader">선택</li>
@@ -179,11 +176,38 @@
 </div>
 <script>
 	
-	//////////////////// 선택 전체삭제기능
-	$(()=>{
-		$('#sendSms').click(()=> {
+		/////////////// 선택 SMS전송기능
+		$('#sendSms').on("click", function(){
+			////체크박스 전체 전송
+			var checkArr = new Array();
 			
-			var chktel = $(".memberChk:checked").attr("value2");
+			$(".memberChk:checked").each(function(idx, item){
+			    checkArr.push($(this).attr("value2"));
+			   });
+			
+			if(checkArr.length == 0) {
+				alert("문자 보낼 회원을 선택해주세요")
+				return false;
+			}
+			
+			console.log(checkArr.length);
+			
+			$('#h_sms_form *').remove();
+				
+			// smsform에 배열길이만큼 append
+			for(var i = 0; i < checkArr.length; i++){
+				$('#h_sms_form').append("<input type = 'hidden' name = 'smstel' value='" + checkArr[i] + "'>");
+			};
+			
+			window.open('','smsSender','width=500,height=350');
+		    var frm =document.sms;
+		    frm.action = 'sendSms';
+		    frm.target ="smsSender";
+		    frm.method ="post";
+		    frm.submit();
+			
+			//////////////////////// 한개 클릭 코드
+			/* var chktel = $(".memberChk:checked").attr("value2");
 			
 			var checkArr = new Array();
 			
@@ -198,7 +222,7 @@
 				alert("문자를 보낼 회원을 체크해주세요");
 			}else {
 				location.href="sendSms?tel=" + chktel;
-			}
+			} */
 			
 			 /* $.ajax({
 				    url : 'sendSms',
@@ -214,39 +238,49 @@
 			}); */
 			 
 		});
+	
+		//전체 엑셀다운로드
+		$('#excelBtn').on('click', function(){
+			if(confirm("전체 회원 엑셀파일을 다운로드 하시겠습니까?")) {
+				location.href = "excelDownload?member=N&dormant=Y";
+			}
+		});
 		
+	
+	$(()=>{
 		
 		$('#delMulti').click(()=> {
 			
-			var confirm_val = confirm("선택한 회원을 탈퇴처리 하시겠습니까?");
-			  
+			var checkArr = new Array();
+		   
+			$(".memberChk:checked").each(function(idx, item){
+				checkArr.push($(this).attr("value1"));
+			});
 			
-			  if(confirm_val) {
-			   var checkArr = new Array();
-			   
-			   $(".memberChk:checked").each(function(idx, item){
-			    checkArr.push($(this).attr("value1"));
-			   });
-			    
-			   console.log(checkArr);
-			   
-			   $.ajax({
-				    url : 'dormantMultiDel',
-				    type : 'get',
-				    dataType: 'json',
-				    data : { memberChk : checkArr },
-				    success : function(result){
-					   if(result == 1){
-					     location.href = 'memberAdminDormant';
-					   } else {
-					   	alert("회원삭제가 실패하였습니다");
-					   }
-					}, error:function() {
-						alert("삭제할 회원을 먼저 선택해주세요");
-					}
-			    
-				});
-			} 
+			    if(checkArr == 0) {
+			    	alert("탈퇴처리할 회원을 선택해주세요");
+			    	return false;
+			    }else {
+			    	if(confirm("선택한 회원을 탈퇴처리 하시겠습니까?")) {
+					  	 	console.log(checkArr);
+					   $.ajax({
+						    url : 'dormantMultiDel',
+						    type : 'get',
+						    dataType: 'json',
+						    data : { memberChk : checkArr },
+						    success : function(result){
+							   if(result == 1){
+							     location.href = 'memberAdminDormant';
+							   } else {
+							   	alert("회원탈퇴가 실패하였습니다");
+							   }
+							}, error:function() {
+								alert("회원탈퇴 실패");
+							}
+					    
+						});
+					} 
+			    }
 		});
 	});
 	
@@ -254,7 +288,7 @@
 	function sendmail(clickid, clickuserid, pagenum, amount) {
 		//var clickid = document.getElementById('h_userid').value;
 		var emailcode = ""; 
-		if(confirm("메일보내시겠습니까 하시겠습니까?")) {
+		if(confirm("메일을 보내시겠습니까?")) {
 		
 			var email = clickid.value;//전달받은 이메일
 			var userid = clickuserid.value;//자바로 보낼 아이디
@@ -287,6 +321,10 @@
 		}
 	};
 	
+	
+	
+	
+	//
 	$('.paging a').on("click", function(e){
 		e. preventDefault();
 		var pageBtn = $('#pageBtn_form');

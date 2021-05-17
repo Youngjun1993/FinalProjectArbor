@@ -207,8 +207,7 @@
             out.println("<script>alert('" + alert + "')</script>");
         }
 
-
-        out.println("<script>location.href='"+returnurl+"';</script>");
+        out.println("<script>self.close();</script>");
     }
     %>
                 

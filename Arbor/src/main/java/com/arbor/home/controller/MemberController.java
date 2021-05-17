@@ -3,6 +3,8 @@ package com.arbor.home.controller;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -20,6 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -117,6 +120,27 @@ public class MemberController {
 	public String idSearch() {
 		
 		return "admin/member/memberIdSearch";
+	}
+	
+	//비밀번호 찾기 로직
+	@ResponseBody
+	@RequestMapping("/memberIdSearchOk")
+	public String memberIdSearchOk(@RequestParam(value = "idCheck[]") List<String> arr) {
+		//넘어온값을 셀렉트로 아이디구하기
+		String username = arr.get(0);
+		String email = arr.get(1);
+		
+		
+		//매개변수가 VO타입이아니면 param1,param2로...
+		List<MemberVO> vo = memberService.memberIdSearchOk(username, email);
+		
+		String result = vo.get(0).getUserid();
+		
+		//휴면계정? 탈퇴계정 구분?
+		
+		//리턴은??
+		
+		return result;
 	}
 	
 	@RequestMapping("/joinok")
@@ -588,14 +612,22 @@ public class MemberController {
 	
 	
 	@RequestMapping("/sendSms")
-	public ModelAndView sendSms(String tel) {
+	public ModelAndView sendSms(HttpServletRequest request, ModelMap model) {
 		//매개변수는 ajax의 배열리스트
 		//여기서 ModelAndView에 담아서 ajax에서 가져온 데이터 addObject
-		
-		System.out.println(tel + "view에서 get방식으로 넘어온번호");
 		ModelAndView mav = new ModelAndView();
+		String[] list = request.getParameterValues("smstel");
 		
-		mav.addObject("receiver", tel);
+		//System.out.println(Arrays.toString(list));
+		
+		//String에 담긴 배열데이터는 List<String>타입으로 변경해줘야 한다.
+		List<String> result = new ArrayList<String>();
+		for(int i = 0 ; i<list.length ; i++) {
+			//result.add("\""+list[i]+"\"");
+			result.add(list[i]);
+		}
+		
+		mav.addObject("list", result);
 		mav.setViewName("admin/member/smsTest");
 		
 		return mav;
@@ -610,52 +642,102 @@ public class MemberController {
 	
 	//////////////////////// 엑셀 다운로드 ////////////////////////
 	@RequestMapping("/excelDownload")
-	public void excel(HttpServletResponse response, MemberVO vo) throws IOException {
+	public void excel(HttpServletResponse response, HttpServletRequest request,MemberVO vo) throws IOException {
 		
-		List<MemberVO> list = memberService.memberExcelDownload(vo);
+		String param = request.getParameter("member");
+		String param1 = request.getParameter("dormant");
+		String param2 = request.getParameter("quit");
 		
 		//xlsx 파일
 		Workbook wb = new XSSFWorkbook();
-        Sheet sheet = wb.createSheet("첫번째 시트");
-        Row row = null;
-        Cell cell = null;
-        int rowNum = 0;
+		Sheet sheet = wb.createSheet("첫번째 시트");
+		Row row = null;
+		Cell cell = null;
+		int rowNum = 0;
+			
 		
-        // Header
-        row = sheet.createRow(rowNum++);
-        cell = row.createCell(0);
-        cell.setCellValue("사용자아이디");
-        cell = row.createCell(1);
-        cell.setCellValue("사용자이름");
-        cell = row.createCell(2);
-        cell.setCellValue("이메일");
-        cell = row.createCell(3);
-        cell.setCellValue("전화번호");
-        cell = row.createCell(4);
-        cell.setCellValue("가입일");
-        
-     // Body
-    for (int i = 0 ; i < list.size(); i++) {
-        row = sheet.createRow(rowNum++);
-        cell = row.createCell(0);
-        cell.setCellValue(list.get(i).getUserid());
-        cell = row.createCell(1);
-        cell.setCellValue(list.get(i).getUsername());
-        cell = row.createCell(2);
-        cell.setCellValue(list.get(i).getEmail());
-        cell = row.createCell(3);
-        cell.setCellValue(list.get(i).getTel());
-        cell = row.createCell(4);
-        cell.setCellValue(list.get(i).getRegdate());
-    }
-        
-        // 컨텐츠 타입과 파일명 지정
-        response.setContentType("ms-vnd/excel");
-        response.setHeader("Content-Disposition", "attachment;filename=MEMBERLIST.xlsx");
-        
-        //Excel File Output
-        wb.write(response.getOutputStream());
-        wb.close();
+		if(param.equals("Y")) {
+			List<MemberVO> list = memberService.memberExcelDownload(vo);
+			// Header
+			row = sheet.createRow(rowNum++);
+			cell = row.createCell(0);
+			cell.setCellValue("사용자아이디");
+			cell = row.createCell(1);
+			cell.setCellValue("사용자이름");
+			cell = row.createCell(2);
+			cell.setCellValue("이메일");
+			cell = row.createCell(3);
+			cell.setCellValue("전화번호");
+			cell = row.createCell(4);
+			cell.setCellValue("가입일");
+			
+			// Body
+			for (int i = 0 ; i < list.size(); i++) {
+				row = sheet.createRow(rowNum++);
+				cell = row.createCell(0);
+				cell.setCellValue(list.get(i).getUserid());
+				cell = row.createCell(1);
+				cell.setCellValue(list.get(i).getUsername());
+				cell = row.createCell(2);
+				cell.setCellValue(list.get(i).getEmail());
+				cell = row.createCell(3);
+				cell.setCellValue(list.get(i).getTel());
+				cell = row.createCell(4);
+				cell.setCellValue(list.get(i).getRegdate());
+				
+			}
+			
+			// 컨텐츠 타입과 파일명 지정
+	        response.setContentType("ms-vnd/excel");
+	        response.setHeader("Content-Disposition", "attachment;filename=MEMBERLIST.xlsx");
+	        
+	        //Excel File Output
+	        wb.write(response.getOutputStream());
+	        wb.close();
+			
+		}else if(param1.equals("Y")) {
+			List<MemberVO> list = memberService.dormantExcelDownload(vo);
+			// Header
+			row = sheet.createRow(rowNum++);
+			cell = row.createCell(0);
+			cell.setCellValue("사용자아이디");
+			cell = row.createCell(1);
+			cell.setCellValue("사용자이름");
+			cell = row.createCell(2);
+			cell.setCellValue("이메일");
+			cell = row.createCell(3);
+			cell.setCellValue("전화번호");
+			cell = row.createCell(4);
+			cell.setCellValue("가입일");
+			cell = row.createCell(5);
+			cell.setCellValue("휴면일");
+			
+			 // Body
+		    for (int i = 0 ; i < list.size(); i++) {
+		        row = sheet.createRow(rowNum++);
+		        cell = row.createCell(0);
+		        cell.setCellValue(list.get(i).getUserid());
+		        cell = row.createCell(1);
+		        cell.setCellValue(list.get(i).getUsername());
+		        cell = row.createCell(2);
+		        cell.setCellValue(list.get(i).getEmail());
+		        cell = row.createCell(3);
+		        cell.setCellValue(list.get(i).getTel());
+		        cell = row.createCell(4);
+		        cell.setCellValue(list.get(i).getRegdate());
+		        cell = row.createCell(5);
+		        cell.setCellValue(list.get(i).getDordate());
+		    }
+		    
+		    // 컨텐츠 타입과 파일명 지정
+	        response.setContentType("ms-vnd/excel");
+	        response.setHeader("Content-Disposition", "attachment;filename=DORMANTLIST.xlsx");
+	        
+	        //Excel File Output
+	        wb.write(response.getOutputStream());
+	        wb.close();
+	        
+		}
         
 	}
 	
