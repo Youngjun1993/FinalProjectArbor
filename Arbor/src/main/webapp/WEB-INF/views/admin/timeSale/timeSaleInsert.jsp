@@ -81,6 +81,8 @@
 		}
 		//상품번호에 따른 상품명, 상품가격 불러오기
 		$("#j_pSearchBtn").click(function(){
+			var pNo = $("#j_pNo").val();
+			console.log(pNo);
 			$.ajax(
 				{
 					data: {
@@ -89,13 +91,13 @@
 					type: 'POST',
 					url: 'pInfoSearch',
 					dataType: 'json',
-					success: function(result){
-						$("#j_pName").val(result.pname);
-						$("#j_pPrice").val(result.pprice);
+					success: function(pVo){
+						$("#j_pName").val(pVo.pname);
+						$("#j_pPrice").val(pVo.pprice);
 					},error: function(error){
 						alert("유효하지 않은 상품번호 입니다.");
 						$("#j_pNo").val("");
-						$("#j_pNo").focus();						
+						$("#j_pNo").focus();
 					}
 				}
 			)

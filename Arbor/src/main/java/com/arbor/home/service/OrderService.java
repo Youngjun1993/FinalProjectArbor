@@ -13,12 +13,18 @@ import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PointVO;
+import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubOrderVO;
 
 @Service
 public class OrderService implements OrderServiceImp {
 	@Inject
 	OrderDAOImp orderDAO;
+	
+	@Override
+	public SubOrderVO getProductInfo(int pno) {
+		return orderDAO.getProductInfo(pno);
+	}
 	
 	@Override
 	public MemberVO getMemberInfo(String userid) {
@@ -111,5 +117,6 @@ public class OrderService implements OrderServiceImp {
 	public OrderTblVO getOrderInfo(String orderNo) {
 		return getOrderInfo(orderNo);
 	}
+
 	
 }

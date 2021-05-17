@@ -2,15 +2,14 @@ package com.arbor.home.vo;
 
 public class TimeSaleVO {
 	private int saleNo;
+	private int pNo;
 	private int pPrice;
 	private String saleContent;
 	private String saleStart;
 	private String saleEnd;
 	private String salePrice;
-	
-	private int pNo;
 	private String pName;
-
+	
 	
 	public int getSaleNo() {
 		return saleNo;
@@ -48,18 +47,17 @@ public class TimeSaleVO {
 	public void setSalePrice(String salePrice) {
 		this.salePrice = salePrice;
 	}
-	
-	public String getpName() {
-		return pName;
-	}
-	public void setpName(String pName) {
-		this.pName = pName;
-	}	
 	public int getpPrice() {
 		return pPrice;
 	}
 	public void setpPrice(int pPrice) {
 		this.pPrice = pPrice;
+	}
+	public String getpName() {
+		return pName;
+	}
+	public void setpName(String pName) {
+		this.pName = pName;
 	}
 	
 }

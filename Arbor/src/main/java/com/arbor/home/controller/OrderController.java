@@ -39,33 +39,58 @@ public class OrderController {
 			MemberVO memberVo, OrderTblVO orderVo, HttpSession session
 			) {
 		
-				/*	System.out.println("옵션갯수->"+optInfoArr.length);
-					
-					String[] pInfo = new String[3];
-					// 여긴 출력값 이런식으로 확인해서 쓰면 된다는 예시를 남긴고얌 지워도 댐!!! 
-					System.out.println("Arr몇개?"+priceArr.length);
-					for(int i=0; i<priceArr.length; i++) {
-						System.out.println("optInfoArr?"+optInfoArr[i]);
-						System.out.println("priceArr?"+priceArr[i]);
-						System.out.println("quantityArr?"+quantityArr[i]);
-						
-						pInfo[0] = optInfoArr[i];
-						pInfo[1] = priceArr[i];
-						pInfo[2] = quantityArr[i];
-						System.out.println("넘겨받은 상품 정보(배열) "+i+"번째->"+Arrays.toString(pInfo));
-						
-					}*/
+		System.out.println("옵션갯수->"+optInfoArr.length);
+		// 여긴 출력값 이런식으로 확인해서 쓰면 된다는 예시를 남긴고얌 지워도 댐!!! 
+		System.out.println("Arr몇개?"+priceArr.length);
 		
+		System.out.println("pnoStr->"+pnoStr);
+		
+		List<SubOrderVO> subOrderList = new ArrayList<SubOrderVO>();
 		ModelAndView mav = new ModelAndView();
+		
 		String userid = (String)session.getAttribute("logId");
 		if(userid == null || userid.equals("")) {
 			mav.setViewName("admin/member/login");
 		}else {
 			orderVo.setUserid(userid);
 			System.out.println("userid->"+userid + ", getUserid()->"+orderVo.getUserid());
+			
+			for(int i=0; i<priceArr.length; i++) {
+				SubOrderVO subVo = new SubOrderVO();
+				
+				System.out.println(" optInfoArr->"+optInfoArr[i]);
+				System.out.println(" priceArr->"+priceArr[i]);
+				System.out.println(" quantityArr->"+quantityArr[i]);
+
+				if(optInfoArr.length>0) {
+					System.out.println("gma,,");
+					subVo.setOptinfo(optInfoArr[i]);
+				}
+				System.out.println("!!!");
+				
+				subVo = orderService.getProductInfo(Integer.parseInt(pnoStr));
+				subVo.setQuantity(Integer.parseInt(quantityArr[i]));
+				subVo.setSubprice(Integer.parseInt(priceArr[i]));
+				
+				System.out.println("1."+subVo.getOptinfo());
+				System.out.println("2."+subVo.getQuantity());
+				System.out.println("3."+subVo.getSubprice());
+				System.out.println("4."+subVo.getPname());
+				System.out.println("5."+subVo.getImg1());
+				System.out.println("6."+subVo.getPprice());
+				System.out.println("7."+subVo.getSaleprice());
+				System.out.println("8."+subVo.getDeliveryprice());
+				
+				System.out.println("subList->"+subOrderList);
+				System.out.println("size()->"+subOrderList.size());
+				
+				subOrderList.add(subVo);
+			}
+			mav.addObject("subOrderList", subOrderList);
+			
 			mav.addObject("memberVo", orderService.getMemberInfo(userid));
 			mav.addObject("pointVo", orderService.getUserPoint(userid));
-			mav.addObject("list", orderService.getUserCoupon(userid));
+			mav.addObject("couponList", orderService.getUserCoupon(userid));
 			mav.addObject("cpnCount", orderService.getCouponCount(userid));			
 			mav.setViewName("client/order/order");
 		}
@@ -111,6 +136,53 @@ public class OrderController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/orderAppendCart", method = RequestMethod.POST)
+	public ModelAndView orderAppendCartList(int pno, HttpSession ses) {
+		ModelAndView mav = new ModelAndView();
+		
+		String userid = (String)ses.getAttribute("logId");
+		mav.addObject("list", orderService.cartAppendList(pno, userid));
+		mav.setViewName("client/cart/test");
+		return mav;
+	}
+	@RequestMapping(value="/orderAppendCartList", method = RequestMethod.POST)
+	public ModelAndView orderAppendCart(@RequestParam(value="cartpno", required=true) String[] cartpno, HttpSession ses) {
+		ModelAndView mav = new ModelAndView();
+		List<CartVO> list = new ArrayList<CartVO>();
+		for(int i=0; i<cartpno.length; i++) {
+			int cartno = Integer.parseInt(cartpno[i]);
+			String userid = (String)ses.getAttribute("logId");
+			CartVO vo = new CartVO();
+			vo = orderService.cartAppendChckList(cartno, userid);
+			list.add(vo);
+		}
+		mav.addObject("list", list);
+		mav.setViewName("client/cart/test");
+		return mav;
+	}
+
+	@RequestMapping("/orderDetail")
+	public ModelAndView orderDetail(int orderno) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("pList", orderService.getSubOrderList(orderno));
+		mav.addObject("memberVo", orderService.getUserInfo(orderno));
+		mav.addObject("orderVo", orderService.getOrderInfo(orderno));
+		mav.setViewName("admin/order/orderDetail");
+		return mav;
+	}
+	
+	@RequestMapping("orderAllCartList")
+	public ModelAndView orderAllCartList(HttpSession ses) {
+		ModelAndView mav = new ModelAndView();
+		String userid = (String)ses.getAttribute("logId");
+		if(userid.equals("") || userid == null) {
+			mav.setViewName("admin/member/login");
+		}else {
+			mav.addObject("list",orderService.cartAllList(userid));
+			mav.setViewName("client/cart/test");
+		}
+		return mav;
+	}
 	
 	//////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////	
@@ -164,30 +236,6 @@ public class OrderController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/orderAppendCart", method = RequestMethod.POST)
-	public ModelAndView orderAppendCartList(int pno, HttpSession ses) {
-		ModelAndView mav = new ModelAndView();
-		
-		String userid = (String)ses.getAttribute("logId");
-		mav.addObject("list", orderService.cartAppendList(pno, userid));
-		mav.setViewName("client/cart/test");
-		return mav;
-	}
-	@RequestMapping(value="/orderAppendCartList", method = RequestMethod.POST)
-	public ModelAndView orderAppendCart(@RequestParam(value="cartpno", required=true) String[] cartpno, HttpSession ses) {
-		ModelAndView mav = new ModelAndView();
-		List<CartVO> list = new ArrayList<CartVO>();
-		for(int i=0; i<cartpno.length; i++) {
-			int cartno = Integer.parseInt(cartpno[i]);
-			String userid = (String)ses.getAttribute("logId");
-			CartVO vo = new CartVO();
-			vo = orderService.cartAppendChckList(cartno, userid);
-			list.add(vo);
-		}
-		mav.addObject("list", list);
-		mav.setViewName("client/cart/test");
-		return mav;
-	}
 
 	@RequestMapping("/orderDetail")
 	public ModelAndView orderDetail(int orderno) {
@@ -199,16 +247,8 @@ public class OrderController {
 		return mav;
 	}
 	
-	@RequestMapping("orderAllCartList")
-	public ModelAndView orderAllCartList(HttpSession ses) {
-		ModelAndView mav = new ModelAndView();
-		String userid = (String)ses.getAttribute("logId");
-		if(userid.equals("") || userid == null) {
-			mav.setViewName("admin/member/login");
-		}else {
-			mav.addObject("list",orderService.cartAllList(userid));
-			mav.setViewName("client/cart/test");
-		}
-		return mav;
-	}
+	
+	
+
 }
+

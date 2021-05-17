@@ -120,8 +120,18 @@
 			}
 		});
 		
-		//선택한 쿠폰의 사용 금액 데이터 입력
-		$('')
+/* 		//선택한 쿠폰의 사용 금액 데이터 입력
+		$('') */
+		
+		
+		//주문금액
+		console.log("주문상품금액???????");
+		var amount=0;
+		for(var i=0; i<${subVo.pprice}.length; i++){
+			amount = amount+${subVo.pprice * subVo.quantity};
+			console.log("주문상품금액 : "+amount);
+		}
+		
 		
 	});
 	
@@ -168,12 +178,6 @@
 		});
 	}
 	
-	
-	function inputEmail(){
-		console.log("직접입력 선택");
-		$(this).parent().after('<input type="text" name="emaildomain"/>');
-	}
-	
 	function daum_address(){
 		new daum.Postcode({	//주소 검색 팝업창 실행
 			oncomplete: function(data){	//data : 사용자가 선택한 주소 정보를 담고 있는 객체
@@ -215,7 +219,6 @@
 </script>
 </head>
 <body>
-
 <div class="w1400_container font_ng" id="j_order_wrap">
 	<div>
 		<!-- <h1>주문/결제</h1> -->
@@ -246,22 +249,25 @@
 					<li>배송비</li>
 					<li>주문금액</li>
 					
-					<li>
-						<div>
-							<img src="<%=request.getContextPath() %>/img/eventTest.PNG"/> <!-- 상품이미지 -->
-							<div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div>
-							<input type="hidden" name="pno" value="17"/>
-							<input type="hidden" name="pname" value="침대 옆에 두기 좋은 미니협탁"/>
-							<!-- <input type="hidden" name="optinfo" value="색상:그레이"/> -->
-							<input type="hidden" name="quantity" value="1"/>
-							<input type="hidden" name="subprice" value="42000"/>
-						</div>
-					</li>
-					<li>1,500,000</li>
-					<li>1,000,000</li>
-					<li>1</li>
-					<li>30,000</li>
-					<li>1,000,000</li>
+					<c:forEach var="subVo" items="${subOrderList }"  varStatus="i">
+						<li>
+							<div>
+								<img src="<%=request.getContextPath() %>/img/${subVo.img1 }"/> <!-- 상품이미지 -->
+								<!-- <div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div> -->
+								<div><span>${subVo.pname }</span><span>${subVo.optinfo }</span></div>
+								<input type="hidden" name="pno" value="${subVo.pno} }"/>
+								<input type="hidden" name="pname" value="${subVo.pname }"/>
+								<input type="hidden" name="optinfo" value="${subVo.optinfo }"/>
+								<input type="hidden" name="quantity" value="${subVo.quantity }"/>
+								<input type="hidden" name="subprice" value="${subVo.subprice }"/>
+							</div>
+						</li>
+						<li>${subVo.pprice }</li>
+						<li>${subVo.saleprice }</li>
+						<li>${subVo.quantity }</li>
+						<li>${subVo.deliveryprice }</li>
+						<li>${subVo.quantity*subVo.subprice }</li>
+					</c:forEach>
 				</ul>
 			</div>
 			<div class="clearfix" id="orderCenterDiv"> <!-- 센터div -->
@@ -423,7 +429,7 @@
 									<select name="usecoupon">
 										<option value="-">사용가능 쿠폰 ${cpnCount }장</option>
 										<c:if test="${cpnCount>0}">
-											<c:forEach var="cpnVo" items="${list }">
+											<c:forEach var="cpnVo" items="${couponList }">
 												<option>${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
 												<input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/>
 											</c:forEach>
