@@ -130,13 +130,22 @@
  		select * from (select * from (select * from (
  		select pno, subno, pname, pprice, saleprice, img1, img2, pdate from product where subno=${subno} 
  		<if test="msg=='newArray'"> order by pdate desc </if><if test="msg=='lowpriceArray'"> order by saleprice asc </if><if test="msg=='highpriceArray'"> order by saleprice desc </if>
- 		<if test="msg=='orderArray'"></if><if test="msg==null"> order by pno desc </if>)
+ 		<if test="msg==null"> order by pno desc </if>)
  		<![CDATA[where rownum <= ]]>${pageNum} * ${onePageRecord}
  		<if test="msg=='newArray'"> order by pdate asc </if><if test="msg=='lowpriceArray'"> order by saleprice desc </if><if test="msg=='highpriceArray'"> order by saleprice asc </if>
- 		<if test="msg=='orderArray'"></if><if test="msg==null"> order by pno asc </if>)
+ 		<if test="msg==null"> order by pno asc </if>)
  		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">${lastPageRecord}</if><if test="pageNum!=totalPage">${onePageRecord}</if>)
  		<if test="msg=='newArray'"> order by pdate desc </if><if test="msg=='lowpriceArray'"> order by saleprice asc </if><if test="msg=='highpriceArray'"> order by saleprice desc </if>
- 		<if test="msg=='orderArray'"></if><if test="msg==null"> order by pno desc </if>
+ 		<if test="msg==null"> order by pno desc </if>
+ 	</select>
+ 	
+ 	<select id="productListClientOrder" parameterType="com.arbor.home.vo.PageProductVO" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from (select * from(
+ 		select p.pno, nvl(s.cnt, 0) as cnt, subno, pname, pprice, saleprice, img1, img2, pdate from product p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
+ 		where subno=${subno} order by cnt desc)
+ 		<![CDATA[where rownum <= ]]>${pageNum} * ${onePageRecord} order by cnt asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">${lastPageRecord}</if><if test="pageNum!=totalPage">${onePageRecord}</if>
+ 		order by cnt desc
  	</select>
  	
  	<select id="productClientTotalRecord" parameterType="com.arbor.home.vo.PageProductVO" resultType="int">

@@ -236,6 +236,11 @@ public class ProductService implements ProductServiceImp {
 	public List<ProductVO> productTopList(int subno) {
 		return productDAO.productTopList(subno);
 	}
+
+	@Override
+	public List<ProductVO> productListClientOrder(PageProductVO pageVo) {
+		return productDAO.productListClientOrder(pageVo);
+	}
 	
 	
 }
