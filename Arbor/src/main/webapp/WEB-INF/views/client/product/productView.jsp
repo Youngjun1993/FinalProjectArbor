@@ -309,22 +309,6 @@
 <div id="p_fixedTop" >
 	<a href="#" id="p_fixedHeader"><img src="<%=request.getContextPath() %>/img/top.png"/></a>
 </div>
-<div id="p_fixedDiv">
-	<form name="optionDiv" id="optionDiv">
-		<div id="p_detailSelect" class="clearfix">
-			<div id="p_detailSelect_Div" class="clearfix">
-				
-			</div>
-			<div id="p_totalDiv">
-				총 상품금액 <span id="p_totalprice">0 원</span><br/>
-				<button type="button" onclick="javascript:dibsInsert(${vo.pno})" class="clientSubBtn">찜하기</button>
-				<button type="button" onclick="javascript:cartInsert(${vo.pno})" class="clientSubBtn">장바구니</button>
-				<button type="button" onclick="javascript:orderInsert(${vo.pno})" class="clientMainBtn">바로구매</button>
-			</div>
-			<span id="p_detailMenu_up"></span>
-		</div>
-	</form>
-</div>
 <script>
 	$(function(){
 		<!-- 총금액 넣을 변수 -->
@@ -359,7 +343,6 @@
 		<!-- 지정된 상품 x 누르면 한 줄 지우면서 총금액 재계산 -->
 		$(document).on('click', '.cancelimg', function(){
 			var selectPrice = $(this).parent().prev().children().val();
-			console.log("selectPrice?"+selectPrice);
 			totalPrice -= selectPrice;
 			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
 			$(this).parent().parent().remove();
