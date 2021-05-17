@@ -21,4 +21,7 @@ public interface DibsServiceImp {
 	public int dibsInsertInCart(int pno, String userid);
 	// 찜목록 삭제
 	public int dibsDelete(int pno, String userid);
+	// 찜목록 insert 전 중복체크
+	public int dibsMiniList(DibsVO vo);
+
 }

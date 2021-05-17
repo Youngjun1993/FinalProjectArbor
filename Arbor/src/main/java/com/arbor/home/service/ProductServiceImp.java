@@ -22,13 +22,13 @@ public interface ProductServiceImp {
 	/* paging */
 	
 	// 전체 레코드 수 구하기(productSearch)
-	public int totalRecord();
+	public int totalRecord(PageSearchVO vo);
 	// (manageCate)
 	public int subcate_totalRecord();
 	// (pqna)
-	public int pqna_totalRecord();
+	public int pqna_totalRecord(PageSearchVO vo);
 	// (pqnaNoAnswer)
-	public int pqnaNoAnswerCnt();
+	public int pqnaNoAnswerCnt(PageSearchVO vo);
 	// (productList)
 	public int productClientTotalRecord(PageProductVO vo);
 	

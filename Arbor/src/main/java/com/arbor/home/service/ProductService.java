@@ -133,8 +133,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int pqnaNoAnswerCnt() {
-		return productDAO.pqnaNoAnswerCnt();
+	public int pqnaNoAnswerCnt(PageSearchVO pageVo) {
+		return productDAO.pqnaNoAnswerCnt(pageVo);
 	}
 
 	@Override
@@ -163,8 +163,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int totalRecord() {
-		return productDAO.totalRecord();
+	public int totalRecord(PageSearchVO pageVo) {
+		return productDAO.totalRecord(pageVo);
 	}
 
 	@Override
@@ -178,8 +178,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int pqna_totalRecord() {
-		return productDAO.pqna_totalRecord();
+	public int pqna_totalRecord(PageSearchVO pageVo) {
+		return productDAO.pqna_totalRecord(pageVo);
 	}
 
 	@Override

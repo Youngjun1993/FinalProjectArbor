@@ -7,12 +7,13 @@ public class SubOrderVO {
 	private int optno;
 	private int quantity;
 	private int subprice;
-	private String pname;
 	
+	private String pname;
+	private String img1;
 	private int pprice;
 	private int saleprice;
 	private int deliveryprice;
-	
+	private String optinfo;
 	
 	public int getSuborderno() {
 		return suborderno;
@@ -56,6 +57,13 @@ public class SubOrderVO {
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
+	
+	public String getImg1() {
+		return img1;
+	}
+	public void setImg1(String img1) {
+		this.img1 = img1;
+	}
 	public int getPprice() {
 		return pprice;
 	}
@@ -73,6 +81,19 @@ public class SubOrderVO {
 	}
 	public void setDeliveryprice(int deliveryprice) {
 		this.deliveryprice = deliveryprice;
+	}
+	public String getOptinfo() {
+		return optinfo;
+	}
+	public void setOptinfo(String optinfo) {
+		this.optinfo = optinfo;
+	}
+	@Override
+	public String toString() {
+		return "SubOrderVO [suborderno=" + suborderno + ", orderno=" + orderno + ", pno=" + pno + ", optno=" + optno
+				+ ", quantity=" + quantity + ", subprice=" + subprice + ", pname=" + pname + ", img1=" + img1
+				+ ", pprice=" + pprice + ", saleprice=" + saleprice + ", deliveryprice=" + deliveryprice + ", optinfo="
+				+ optinfo + "]";
 	}
 	
 }

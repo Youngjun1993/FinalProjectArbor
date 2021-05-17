@@ -119,7 +119,8 @@ public class ProductController {
 			vo.setPageNum(Integer.parseInt(pageNumStr));
 		}
 		
-		vo.setTotalRecord(productService.totalRecord());
+		vo.setTotalRecord(productService.totalRecord(vo));
+System.out.println("totalRecord?"+vo.getTotalRecord());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("subCate", productService.subCateList(1));
@@ -221,11 +222,11 @@ public class ProductController {
 			vo.setPageNum(Integer.parseInt(pageNumStr));
 		}
 		
-		vo.setTotalRecord(productService.pqna_totalRecord());
+		vo.setTotalRecord(productService.pqna_totalRecord(vo));
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("vo", productService.pqnaList(vo));
-		mav.addObject("cnt", productService.pqnaNoAnswerCnt());
+		mav.addObject("cnt", productService.pqnaNoAnswerCnt(vo));
 		mav.addObject("pageVO", vo);
 		mav.setViewName("admin/product/productQna");
 		return mav;
@@ -239,11 +240,11 @@ public class ProductController {
 			vo.setPageNum(Integer.parseInt(pageNumStr));
 		}
 		
-		vo.setTotalRecord(productService.pqnaNoAnswerCnt());
+		vo.setTotalRecord(productService.pqnaNoAnswerCnt(vo));
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("vo", productService.pqnaNoAnswerList(vo));
-		mav.addObject("cnt", productService.pqna_totalRecord());
+		mav.addObject("cnt", productService.pqna_totalRecord(vo));
 		mav.addObject("pageVO", vo);
 		mav.setViewName("admin/product/productQnaNoAnswer");
 		return mav;

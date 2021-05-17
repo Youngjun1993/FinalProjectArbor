@@ -39,10 +39,13 @@ $(function(){
          readURL(this);
     });
     $("#img2").on('change', function(){
+         readURL2(this);
+    });
+    $("#img1").children("input[name=filename]").on('change', function(){
          readURL(this);
     });
-    $("input[name=filename]").on('change', function(){
-         readURL(this);
+    $("#img2").children("input[name=filename]").on('change', function(){
+         readURL2(this);
     });
 	
     function readURL(input) {
@@ -51,6 +54,18 @@ $(function(){
 	
 	         reader.onload = function (e) {
 	            $('#imgPrint').children().attr('src', e.target.result);
+	         }
+	
+	         reader.readAsDataURL(input.files[0]);
+	      }
+	};
+	
+	function readURL2(input) {
+	      if (input.files && input.files[0]) {
+	         var reader = new FileReader();
+	
+	         reader.onload = function (e) {
+	            $('#imgPrint2').children().attr('src', e.target.result);
 	         }
 	
 	         reader.readAsDataURL(input.files[0]);

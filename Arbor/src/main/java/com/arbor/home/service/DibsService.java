@@ -50,4 +50,8 @@ public class DibsService implements DibsServiceImp {
 	public int dibsDelete(int pno, String userid) {
 		return dibsDAO.dibsDelete(pno, userid);
 	}
+	public int dibsMiniList(DibsVO vo) {
+		return dibsDAO.dibsMiniList(vo);
+
+	}
 }

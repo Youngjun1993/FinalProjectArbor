@@ -18,7 +18,7 @@
 .j_search select, .j_search input{height:25px;line-height:25px;vertical-align:middle;} /* 높이 통일화 필요 */
 .j_search input[type=text]{padding:0;box-sizing:border-box;}
 
-/*관리자 메뉴 상단 타이틀*/
+/* 관리자 메뉴 상단 타이틀 */
 .j_adminMemu{
 	/* height:100px;
 	line-height:100px; */
@@ -38,12 +38,13 @@
 	margin:20px auto;
 }
 
-/*버튼 css*/
+/* 버튼 css */
 .j_eventSetBtn input[type=button]{
 	height:25px;width:40px;
 }
 .j_eventSetBtn{
-	text-align:right;
+	margin-top: 10px;
+	text-align: right;
 }
 #j_insertBtn{
 	height:25px;width:85px;

@@ -72,9 +72,16 @@ public class DibsController {
 			vo.setPno(Integer.parseInt(pnoStr));
 			vo.setPrice(Integer.parseInt(priceArr[i]));
 			vo.setQuantity(Integer.parseInt(quantityArr[i]));
-			int res = dibsService.dibsInsert(vo);
-			if(res>0) {
-				result++;
+			int resul = dibsService.dibsMiniList(vo);
+System.out.println("찾아져?"+resul);
+			if(resul>0) {
+				result = 0;
+				break;
+			} else {
+				int res = dibsService.dibsInsert(vo);
+				if(res>0) {
+					result++;
+				}
 			}
 		}
 		return result;

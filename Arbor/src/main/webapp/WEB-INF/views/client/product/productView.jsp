@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<span id="p_top"></span>
 <div class="w1400_container font_ng">
 	<h1 id="p_detailTitle">《 ${vo.pname } 》</h1>
 	<hr />
@@ -38,7 +38,7 @@
 						<c:forEach var="val" items="${optValue }">
 							<c:if test="${val.optname==name.optname }">
 								<option value="${val.optno }">${val.optvalue }
-									<c:if test="${val.optprice!=0 }">(+${val.optprice })</c:if>
+									<c:if test="${val.optprice!=0 }">(<c:if test="${fn:substring(val.optprice,0,1)!='-' }">+</c:if>${val.optprice })</c:if>
 								</option>
 							</c:if>
 						</c:forEach>
@@ -306,7 +306,9 @@
 		</ul>
 	</div>
 </div>
-
+<div id="p_fixedTop" >
+	<a href="#" id="p_fixedHeader"><img src="<%=request.getContextPath() %>/img/top.png"/></a>
+</div>
 <script>
 	$(function(){
 		<!-- 총금액 넣을 변수 -->
@@ -341,7 +343,6 @@
 		<!-- 지정된 상품 x 누르면 한 줄 지우면서 총금액 재계산 -->
 		$(document).on('click', '.cancelimg', function(){
 			var selectPrice = $(this).parent().prev().children().val();
-			console.log("selectPrice?"+selectPrice);
 			totalPrice -= selectPrice;
 			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
 			$(this).parent().parent().remove();
@@ -369,9 +370,9 @@
 					success : function(result){
 						var $result = $(result);
 						var price = ${vo.saleprice }
-						var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname} (&nbsp&nbsp ";
+						var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname} (&nbsp&nbsp";
 						$result.each(function(idx, val) {
-							tag += val.optname+" : "+val.optvalue+" &nbsp&nbsp";
+							tag +=val.optname+" : "+val.optvalue+"&nbsp&nbsp";
 							price += val.optprice;
 						});
 						tag += ") <input type='hidden' name='pno' value='${vo.pno }'/></li>";
@@ -519,6 +520,12 @@
 			}, success : function(result) {
 				if(result>0) {
 					if(confirm("찜목록에 등록되었습니다. 찜목록으로 이동하시겠습니까?")) {
+						location.href="dibsList";
+					} else {
+						location.href="productView?pno=${vo.pno}";
+					}
+				} else {
+					if(confirm("찜목록에 동일한 상품이 존재합니다. 찜목록으로 이동하시겠습니까?")) {
 						location.href="dibsList";
 					} else {
 						location.href="productView?pno=${vo.pno}";

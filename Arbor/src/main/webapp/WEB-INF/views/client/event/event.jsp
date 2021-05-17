@@ -5,29 +5,60 @@
 <title>arbor > event</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/event.css" type="text/css"/>
-<script src="<%=request.getContextPath() %>/javaScript/client/event.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/javaScript/client/event.js"></script> --%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.14/jquery.bxslider.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.14/jquery.bxslider.min.js"></script>
 <script>
 	$(function(){
 		var sEndDate = new Array();
-		timeSaleAjax();
+		//타임세일 데이터 가져오기
+		$.ajax({
+			url: 'getTimeSale',
+			dataType: 'json',
+			async: false,
+			success: function(list){
+				console.log(list);
+				var tag = "";
+				$.each(list, function(idx, vo){
+					tag += "<li><a href=\"#\">";
+					tag += vo.saleContent;
+					tag += "</a></li>";
+					sEndDate[idx] = vo.saleEnd;
+				});
+				$("#timeSaleSlider").html(tag);
+			},
+			error: function(){alert('error');}
+		});
 		
-		//EVENT 메뉴 내에서 탭 클릭시 view 변경
-		$(".j_tabLbl").click(function(){
-			var title = $(this).text();
-			$(".j_eventMenu").text(title);
-			
-			if(title=="TIME SALE"){
-				runSlider();
-				runTimer(sEndDate[0]);
+		runTimer(sEndDate[0]);
+		//타임세일 슬라이드
+		var mys = $("#timeSaleSlider").bxSlider({
+			mode: 'horizontal',
+			slideWidth: 800,
+			slideHeight: 500,
+			auto: true,
+			infiniteLoop: true,
+			//responsive:true,
+			onSlideNext:function(){
+				index = mys.getCurrentSlide();
+			 	runTimer(sEndDate[index]);
 			}
-		});		
+		});
+		
 		//header-EVENT 서브메뉴 클릭시 이벤트 탭 이동
 		var title = "${title}";
 		if(title=="timeSale"){	//타임세일 tab -> 타임세일 이미지, 시간 불러오기 **
 			$("#j_tab1").prop("checked",true);
+			console.log("##헤더->타임세일ㄹㄹㄹㄹ")
+			runTimer(sEndDate[0]);
+			mys.reloadSlider({
+				auto: true,
+				onSlideNext:function(){
+					index = mys.getCurrentSlide();
+				 	runTimer(sEndDate[index]);
+				}
+			});
 		}
 		else if(title=="nowEvent"){
 			$("#j_tab2").prop("checked",true);
@@ -38,28 +69,22 @@
 		let chkr = $(".j_tab-wrap [name='tabs']:checked").next().text();
 		$(".j_eventMenu").text(chkr);
 		
+		//EVENT 메뉴 내에서 탭 클릭시 view 변경
+		$(document).on("click",".j_tabLbl", function(e){
+			var title = $(this).text();
+			$(".j_eventMenu").text(title);
+			
+			if(title=="TIME SALE"){
+				location.href="event?title=timeSale";
+			}else if(title=="진행중인 이벤트"){
+				location.href="event?title=nowEvent";
+			}else if(title=="지난 이벤트"){
+				location.href="event?title=endEvent";				
+			}
+			
+		});
 		
 		//==================== TIME SALE ====================
-		//타임세일 데이터 가져오기
-		function timeSaleAjax(){
-			$.ajax({
-					url: 'getTimeSale',
-					dataType: 'json',
-					success: function(list){
-						console.log(list);
-						var tag = "";
-						$.each(list, function(idx, vo){
-							tag += "<li><a href=\"#\">";
-							tag += vo.saleContent;
-							tag += "</a></li>";
-							sEndDate[idx] = vo.saleEnd;
-						});
-						console.log(tag);
-						$("#timeSaleSlider").html(tag);
-					}
-			});
-		}
-
 		//타임세일 tab - 타이머 구현
 		var timer;
 		function runTimer(saleEndDate){
@@ -69,7 +94,7 @@
 			var _minute = _second*60;
 			var _hour = _minute*60;
 			var _day = _hour*24;
-			
+
 			function showCountDown(){
 				var now = new Date();
 				var interval = saleEnd - now;
@@ -82,38 +107,18 @@
 				
 				//남은 시간 계산
 				var days = Math.floor(interval / _day);
+				console.log(_day +','+days);
 				var hours = Math.floor((interval % _day) / _hour);
 				var minutes = Math.floor((interval % _hour) / _minute);
 				var seconds = Math.floor((interval % _minute) / _second);
-
 				var setTimer = "<span class='d-day'>D-"+days+" </span>";
 				setTimer += hours+"시간 ";
 				setTimer += minutes+"분 ";
 				setTimer += seconds+"초";
 				$("#timer").html(setTimer);
 			}
-			timer = setInterval(showCountDown, 1000);
+			timer = setInterval(showCountDown, 500);
 		}
-		
-		//타임세일 슬라이드
-		function runSlider(){
-			var mys = $("#timeSaleSlider").bxSlider({
-				mode: 'horizontal',
-				slideWidth: 800,
-				slideHeight: 500,
-				auto: true,
-				infiniteLoop: true,
-				onSlideBefore:function(){
-				//onSlideAfter:function(){
-				//onSliderLoad:function(){
-					//console.log("@@ 타임세일 슬라이드 실행 @@");
-					index = mys.getCurrentSlide();
-				 	console.log(index);
-				 	console.log(sEndDate[index]);
-				 	runTimer(sEndDate[index]);
-				}
-			});
-		};
 		
 		//페이징 li만큼 갯수
 		var liCnt = $(".paging>li").length;
@@ -122,9 +127,6 @@
 			"margin" : "30px auto"
 		});	
 		
-		
-		//===================================================
-		
 		//EVENT 게시물 검색
 		$(".searchFrm").submit(function(){
 			if(!$(".j_searchWord").val()){
@@ -132,8 +134,8 @@
 				$(".j_searchWord").focus();
 				return false;
 			}
+			return true;
 		});
-		return true;
 		
 	});
 </script>
@@ -158,7 +160,11 @@
 			<div>
 				<div id="timer"></div>
 				<div id="timeSaleContent">
-					<ul id="timeSaleSlider"></ul>
+					<ul id="timeSaleSlider">
+<!-- 						<a href="#"><p><img src="/home/summernote/timesale.JPG" style="width: 984px;"><br></p></a>
+						<a href="#"><p><img src="/home/summernote/timesale2.jpg" style="width: 984px;"><br></p></a>
+ -->					
+					</ul>
 				</div>			
 			</div>
 		</div>

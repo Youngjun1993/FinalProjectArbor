@@ -28,4 +28,8 @@
 	<delete id="dibsDelete">
 		delete from dibs where pno=#{param1} and userid=#{param2}
 	</delete>
+	<!-- 중복체크 위한 리스트 -->
+	<select id="dibsMiniList" parameterType="com.arbor.home.vo.DibsVO" resultType="int">
+		select count(pno) from dibs where userid=#{userid} and pno=${pno} and optionvalue like '%${optionvalue}%'
+	</select>
 </mapper>
