@@ -273,6 +273,18 @@
 #p_delivery>ul>li:nth-last-of-type(2) {
 	line-height: 280px;
 }
+
+/* fixed */
+#p_fixedTop {
+	position:fixed;
+	bottom:50px; right:100px;
+	z-index:10;
+}
+#p_fixedHeader>img {
+	width: 50px; height: 50px;
+}
+
+
 /* class */
 
 /* 상단 */
