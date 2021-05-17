@@ -55,7 +55,7 @@ public interface ProductDAOImp {
 	// 옵션번호로 정보 끌어오기
 	public OptionVO productOptionView(int optno);
 	// 리스트 탑3 정보 끌어오기
-	public List<ProductVO> productTopList(int subno);
+	public List<ProductVO> productTopList(int mainno);
 	
 	/* 관리자 */
 	

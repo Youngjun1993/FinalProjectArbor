@@ -41,6 +41,28 @@ public class ProductController {
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
 	
+	// View - 상품전체목록 페이지 생성
+	@RequestMapping("/productTotalList")
+	public ModelAndView productTotalList() {
+		ModelAndView mav = new ModelAndView();
+		List<MainCateVO> list = productService.mainCateList();
+		List<ProductVO> productList = new ArrayList<ProductVO>();
+		for(int i=0; i<list.size(); i++) {
+			MainCateVO vo = list.get(i);
+			int mainno = vo.getMainno();
+			List<ProductVO> list2 = productService.productTopList(mainno);
+			for(int l=0; l<list2.size(); l++) {
+				ProductVO vo2 = list2.get(l);
+				productList.add(vo2);
+			}
+		}
+		
+		mav.addObject("list", productList);
+		mav.addObject("maincate", list);
+		mav.setViewName("client/product/productTotalList");
+		return mav;
+	}
+	
 	// View - 상품목록
 	@RequestMapping("/productList")
 	public ModelAndView productList(PageProductVO vo, HttpServletRequest req) {
