@@ -53,7 +53,7 @@
 	                </c:forEach>
             </ul>
             <a href="qnaWrite" class="clientMainBtn" id="y_qnaGo">문의하기</a>
-            <ul class="paging" class="clearfix">
+            <ul class="paging clearfix">
             	<c:if test="${pageVO.pageNum>1 }">
                 	<li style="border-bottom:none;"><a class="pagingLR_a" href="qnaList?pageNum=${pageVO.pageNum-1}">＜</a></li>
                 </c:if>
