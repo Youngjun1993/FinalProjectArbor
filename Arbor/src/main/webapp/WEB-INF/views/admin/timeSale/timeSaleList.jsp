@@ -13,8 +13,11 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script>
-	$("#j_timeSaleInsertBtn").click(function(){
-		location.href="timeSaleInsert";
+	$(function(){
+		$("#j_timeSaleInsertBtn").click(function(){
+			location.href="timeSaleInsert";
+		});
+		
 	});
 </script>
 </head>

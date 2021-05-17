@@ -3,6 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.arbor.home.dao.OrderDAOImp">
+	<select id="getProductInfo" resultType="com.arbor.home.vo.SubOrderVO">
+		select pno, pname, img1, pprice, saleprice, deliveryprice from product where pno=#{param1}
+	</select>
 	<select id="getMemberInfo" resultType="com.arbor.home.vo.MemberVO">
 		select username, zipcode, addr, detailaddr, tel, email from member where userid=#{param1}
 	</select>
