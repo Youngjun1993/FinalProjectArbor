@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+.d_h1{
+	margin-left:calc(50% - 80px);
+	margin-bottom:3%;
+}
+.d_noticeEdit{
+	margin-top:10%;
+	width:1200px;
+	float:right;
+}
+
+#d_list li{
+	font-size:17px;
+	display: table-cell;
+    font-weight: bold;
+	border-top:2px solid rgb(90,120,114);
+	background-color:rgb(251,251,251);
+}
+#d_list li:not(.d_ff){
+	text-align:center;
+}
+.d_noticeList p{
+	margin-left:20px;
+}
+.d_noticeList li:nth-child(3n+2){
+	width:70%;
+}
+.d_noticeList li{
+	font-size:16px;
+	width:15%;
+	float:left;
+	border-bottom:1px solid #ddd;
+	height:40px;
+	line-height:40px;
+}
+
+
+/*==============================*/
+#d_viewBox{
+	margin-top:10%;
+	width:1200px;
+	float:right;
+}
+
+#d_viewBox div{
+	border-bottom: 1px solid #ddd;
+}
+#d_viewBox div span{
+	margin-left:20px;
+}
+#d_viewBox div:nth-of-type(1){
+	border-top:2px solid rgb(90,120,114);
+	height:50px;
+	line-height:50px;
+	background-color:rgb(251,251,251);
+}
+#d_viewBox div:nth-of-type(1) h5{
+	margin-left:20px;
+	height:50px;
+	line-height:50px;
+	
+}
+#d_viewBox div:nth-of-type(2){
+	height:30px;
+	line-height:30px;
+}
+#d_viewBox div:nth-of-type(3){
+	margin-top:30px;
+	font-size:17px;
+	height:500px;
+}
+
+.d_noticeSetBtn input[type=button]{
+	height:30px;
+}
+.d_noticeSetBtn{
+	text-align:right;
+}
+
+/*=====================공지사항 등록=================*/
+.d_editFont{
+	font-size: 20px;
+	font-weight:bold;
+}
+#d_noticeSubject{
+	width:50%;
+	height:30px;
+}
+.d_noticeInsertBtn input{
+	float:right;
+	width:60px;
+	height:30px;
+}

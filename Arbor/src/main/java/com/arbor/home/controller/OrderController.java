@@ -1,8 +1,9 @@
 package com.arbor.home.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.OrderServiceImp;
+import com.arbor.home.vo.CartVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
+import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.SubOrderVO;
 
 @Controller
@@ -26,31 +29,32 @@ public class OrderController {
 	OrderServiceImp orderService;
 	
 	/* client */
-	@RequestMapping(value="/order", method = RequestMethod.POST)
+	@RequestMapping("/order")
+//	@RequestMapping(value="/order", method = RequestMethod.POST)
 	public ModelAndView orderPage(@Nullable
-			@RequestParam(value="optnameArr", required=true) String[] optInfoArr,
-			@RequestParam(value="priceArr", required=true) String[] priceArr,
-			@RequestParam(value="pnoStr", required=true) String pnoStr,
-			@RequestParam(value="quantityArr", required=true) String[] quantityArr,
+	@RequestParam(value="optnameArr", required=true) String[] optInfoArr,
+	@RequestParam(value="priceArr", required=true) String[] priceArr,
+	@RequestParam(value="pnoStr", required=true) String pnoStr,
+	@RequestParam(value="quantityArr", required=true) String[] quantityArr,
 			MemberVO memberVo, OrderTblVO orderVo, HttpSession session
 			) {
 		
-		System.out.println("옵션갯수->"+optInfoArr.length);
-		
-		String[] pInfo = new String[3];
-		// 여긴 출력값 이런식으로 확인해서 쓰면 된다는 예시를 남긴고얌 지워도 댐!!! 
-		System.out.println("Arr몇개?"+priceArr.length);
-		for(int i=0; i<priceArr.length; i++) {
-			System.out.println("optInfoArr?"+optInfoArr[i]);
-			System.out.println("priceArr?"+priceArr[i]);
-			System.out.println("quantityArr?"+quantityArr[i]);
-			
-			pInfo[0] = optInfoArr[i];
-			pInfo[1] = priceArr[i];
-			pInfo[2] = quantityArr[i];
-			System.out.println("넘겨받은 상품 정보(배열) "+i+"번째->"+Arrays.toString(pInfo));
-			
-		}
+				/*	System.out.println("옵션갯수->"+optInfoArr.length);
+					
+					String[] pInfo = new String[3];
+					// 여긴 출력값 이런식으로 확인해서 쓰면 된다는 예시를 남긴고얌 지워도 댐!!! 
+					System.out.println("Arr몇개?"+priceArr.length);
+					for(int i=0; i<priceArr.length; i++) {
+						System.out.println("optInfoArr?"+optInfoArr[i]);
+						System.out.println("priceArr?"+priceArr[i]);
+						System.out.println("quantityArr?"+quantityArr[i]);
+						
+						pInfo[0] = optInfoArr[i];
+						pInfo[1] = priceArr[i];
+						pInfo[2] = quantityArr[i];
+						System.out.println("넘겨받은 상품 정보(배열) "+i+"번째->"+Arrays.toString(pInfo));
+						
+					}*/
 		
 		ModelAndView mav = new ModelAndView();
 		String userid = (String)session.getAttribute("logId");
@@ -83,7 +87,8 @@ public class OrderController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
 		String today = sdf.format(now);
 		String orderSeq = String.valueOf(orderService.getOrderSeq());
-		orderVo.setOrderno(today+"-"+orderSeq); //당일날짜+시퀀스 형식으로 주문번호 생성 (ex.210511-03)
+		int orderno = Integer.parseInt(today+orderSeq);
+		orderVo.setOrderno(orderno); //당일날짜+시퀀스 형식으로 주문번호 생성 (ex.210511-03)
 		
 		if(orderService.orderComplete(orderVo)>0) {	//주문완료 db 생성
 			for(int i=0; i<pnoArr.length; i++) {
@@ -112,34 +117,98 @@ public class OrderController {
 	
 	/* admin */
 	@RequestMapping("/orderAdmin")
-	public ModelAndView orderManagement() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", orderService.allOrderList());
-		System.out.println("orderList->"+orderService.allOrderList().size());
-		mav.setViewName("admin/order/orderAdmin");
-		return mav;
-	}
-	
-	@RequestMapping(value="/changeStatus", method=RequestMethod.POST)
-	public ModelAndView changeOrderStatus(
-			@RequestParam(value="orderno",required=true) String[] ordernoArr,
-			String status) {
-		ModelAndView mav = new ModelAndView();
+	public ModelAndView orderManagement(
+			@Nullable
+			@RequestParam(value="orderno",required=false) int[] ordernoArr,
+			OrderTblVO orderVo, HttpServletRequest req) {
 
-		for(int i=0; i<ordernoArr.length; i++) {
-			System.out.println("ordernoArr["+i+"]->"+ordernoArr[i]+" / "+status);
-			
-			orderService.updateOrderStatus(ordernoArr[i], status);
-		}
-		mav.addObject("list", orderService.allOrderList());
-		System.out.println("***orderList***->"+orderService.allOrderList().size());
-		mav.setViewName("admin/order/orderAdmin");
+		String pageNumStr = req.getParameter("pageNum");
+		PageSearchVO pageVo = new PageSearchVO();
+		if(pageNumStr!=null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}	
 		
+		pageVo.setTotalRecord(orderService.totalRecord(pageVo));
+		
+		System.out.println("pageNum->"+pageVo.getPageNum());
+		System.out.println("startPageNum->"+pageVo.getStartPageNum());
+		System.out.println("onePageNum->"+pageVo.getOnePageNum());
+		
+		
+		//달력 선택하여 검색시, 날짜 유형 변경
+		if(orderVo.getPeriod()!=null || orderVo.getOrderSearch_from()!=null || orderVo.getSearchWord()!=null) {
+			String sf = orderVo.getOrderSearch_from();
+			String st = orderVo.getOrderSearch_to();
+			if((sf!=null || !sf.equals("")) && (st!=null || !st.equals(""))) {
+				sf = sf.replace("-", "/");
+				st = st.replace("-", "/");
+				orderVo.setOrderSearch_from(sf);
+				orderVo.setOrderSearch_to(st);
+			}
+		}
+		//주문상태 변경
+		if(orderVo.getStatus()!=null && ordernoArr!=null) {
+			for(int i=0; i<ordernoArr.length; i++) {
+			System.out.println("ordernoArr["+i+"]->"+ordernoArr[i]+" / "+orderVo.getStatus());
+				
+			orderService.updateOrderStatus(ordernoArr[i], orderVo.getStatus());
+			}
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("cnt", orderService.countOfOrderStatus(orderVo));
+		mav.addObject("list", orderService.selectOrderList(orderVo));
+		mav.addObject("pageVO", pageVo);
+		System.out.println("orderList->"+orderService.selectOrderList(orderVo).size());
+		mav.setViewName("admin/order/orderAdmin");
 		return mav;
 	}
 	
+	@RequestMapping(value="/orderAppendCart", method = RequestMethod.POST)
+	public ModelAndView orderAppendCartList(int pno, HttpSession ses) {
+		ModelAndView mav = new ModelAndView();
+		
+		String userid = (String)ses.getAttribute("logId");
+		mav.addObject("list", orderService.cartAppendList(pno, userid));
+		mav.setViewName("client/cart/test");
+		return mav;
+	}
+	@RequestMapping(value="/orderAppendCartList", method = RequestMethod.POST)
+	public ModelAndView orderAppendCart(@RequestParam(value="cartpno", required=true) String[] cartpno, HttpSession ses) {
+		ModelAndView mav = new ModelAndView();
+		List<CartVO> list = new ArrayList<CartVO>();
+		for(int i=0; i<cartpno.length; i++) {
+			int cartno = Integer.parseInt(cartpno[i]);
+			String userid = (String)ses.getAttribute("logId");
+			CartVO vo = new CartVO();
+			vo = orderService.cartAppendChckList(cartno, userid);
+			list.add(vo);
+		}
+		mav.addObject("list", list);
+		mav.setViewName("client/cart/test");
+		return mav;
+	}
+
+	@RequestMapping("/orderDetail")
+	public ModelAndView orderDetail(int orderno) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("pList", orderService.getSubOrderList(orderno));
+		mav.addObject("memberVo", orderService.getUserInfo(orderno));
+		mav.addObject("orderVo", orderService.getOrderInfo(orderno));
+		mav.setViewName("admin/order/orderDetail");
+		return mav;
+	}
 	
-	
-	
-	
+	@RequestMapping("orderAllCartList")
+	public ModelAndView orderAllCartList(HttpSession ses) {
+		ModelAndView mav = new ModelAndView();
+		String userid = (String)ses.getAttribute("logId");
+		if(userid.equals("") || userid == null) {
+			mav.setViewName("admin/member/login");
+		}else {
+			mav.addObject("list",orderService.cartAllList(userid));
+			mav.setViewName("client/cart/test");
+		}
+		return mav;
+	}
 }

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<span id="p_top"></span>
 <div class="w1400_container font_ng">
 	<h1 id="p_detailTitle">《 ${vo.pname } 》</h1>
 	<hr />
@@ -306,7 +306,25 @@
 		</ul>
 	</div>
 </div>
-
+<div id="p_fixedTop" >
+	<a href="#" id="p_fixedHeader"><img src="<%=request.getContextPath() %>/img/top.png"/></a>
+</div>
+<div id="p_fixedDiv">
+	<form name="optionDiv" id="optionDiv">
+		<div id="p_detailSelect" class="clearfix">
+			<div id="p_detailSelect_Div" class="clearfix">
+				
+			</div>
+			<div id="p_totalDiv">
+				총 상품금액 <span id="p_totalprice">0 원</span><br/>
+				<button type="button" onclick="javascript:dibsInsert(${vo.pno})" class="clientSubBtn">찜하기</button>
+				<button type="button" onclick="javascript:cartInsert(${vo.pno})" class="clientSubBtn">장바구니</button>
+				<button type="button" onclick="javascript:orderInsert(${vo.pno})" class="clientMainBtn">바로구매</button>
+			</div>
+			<span id="p_detailMenu_up"></span>
+		</div>
+	</form>
+</div>
 <script>
 	$(function(){
 		<!-- 총금액 넣을 변수 -->
@@ -369,15 +387,33 @@
 					success : function(result){
 						var $result = $(result);
 						var price = ${vo.saleprice }
-						var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname} (&nbsp&nbsp";
+						var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname} (&nbsp&nbsp ";
 						$result.each(function(idx, val) {
-							tag += val.optname+" : "+val.optvalue+"&nbsp&nbsp";
+							tag += val.optname+" : "+val.optvalue+" &nbsp&nbsp";
 							price += val.optprice;
 						});
 						tag += ") <input type='hidden' name='pno' value='${vo.pno }'/></li>";
 						tag += "<li><button class='optMinus'>-</button><span class='p_selectNum'>1</span><button class='optPlus'>+</button></li>";
 						tag += "<li class='p_bigPrice'>"+price.toLocaleString()+"원<input type='hidden' name='price' value='"+price+"'/></li>";
 						tag += "<li><img src='./img/cancel.png' style='cursor:pointer;' class='cancelimg'/></li></ul>";
+						
+						var txt2 = "";
+						$result.each(function(idx, val) {
+							txt2 = val.optname+" : "+val.optvalue ;
+						});	
+						$(".p_detailSelect_ul").each(function(idx, ul){
+							var txt = $(ul).children().eq(0).text();
+							var txtStart = txt.indexOf("(");
+							var txtEnd = txt.indexOf(")")-3;
+							var txtOpt = txt.substr(txtStart+3, txtEnd-txtStart);
+							
+							if(txtOpt.indexOf(txt2)>-1) {
+								alert("중복 옵션이 존재합니다. 다시 확인해주세요");
+								tag = "";
+								totalPrice -= price;
+								return false;
+							}
+						});
 						
 						totalPrice += price;
 						
@@ -445,7 +481,8 @@
 			var txt = $(ul).children().eq(0).text();
 			var txtStart = txt.indexOf("(");
 			var txtEnd = txt.indexOf(")")-3;
-			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
+			var optname = txt.substr(txtStart+3, txtEnd-txtStart);
+			optnameArr.push(optname);
 			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
 			priceArr.push($(ul).children().eq(2).children().val());
 		});
@@ -459,6 +496,7 @@
 				quantityArr : quantityArr,
 				pno : pno
 			}, success : function(result) {
+				console.log(result);
 				if(result>0) {
 					if(confirm("장바구니에 등록되었습니다. 장바구니로 이동하시겠습니까?")) {
 						location.href="cartList";

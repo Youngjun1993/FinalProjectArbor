@@ -2,13 +2,14 @@ package com.arbor.home.vo;
 
 public class SubOrderVO {
 	private int suborderno;
-	private String orderno;
+	private int orderno;
 	private int pno;
 	private int optno;
 	private int quantity;
 	private int subprice;
-	private String pname;
 	
+	private String pname;
+	private String img1;
 	private int pprice;
 	private int saleprice;
 	private int deliveryprice;
@@ -20,10 +21,10 @@ public class SubOrderVO {
 	public void setSuborderno(int suborderno) {
 		this.suborderno = suborderno;
 	}
-	public String getOrderno() {
+	public int getOrderno() {
 		return orderno;
 	}
-	public void setOrderno(String orderno) {
+	public void setOrderno(int orderno) {
 		this.orderno = orderno;
 	}
 	public int getPno() {
@@ -55,6 +56,13 @@ public class SubOrderVO {
 	}
 	public void setPname(String pname) {
 		this.pname = pname;
+	}
+	
+	public String getImg1() {
+		return img1;
+	}
+	public void setImg1(String img1) {
+		this.img1 = img1;
 	}
 	public int getPprice() {
 		return pprice;

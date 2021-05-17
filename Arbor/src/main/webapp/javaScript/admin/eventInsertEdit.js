@@ -11,10 +11,9 @@ $(function(){
 		changeYear: true,			//콤보박스 연도 선택 가능
 		changeMonth: true,			//콤보박스 월 선택 가능
 		minDate: 0,					//금일 이전 선택 불가
-		showOn: "both",				//both:버튼을 누르거나 input을 클릭하면 달력 표시	
+		showOn: "focus"				//both:버튼을 누르거나 input을 클릭하면 달력 표시	
        	//buttonImage: "../../../img/calendar2.png",
        	//buttonImageOnly: true
-       	buttonText: '달력선택'
 	});
 	$("#j_eventStart").datepicker({
 		onClose : function(selectedDate){
@@ -29,9 +28,9 @@ $(function(){
 
 	//summernote
 	$("#j_eventContent").summernote({
-		height: 300,
+		height: 800,
 		minHeight: 300,
-		maxHeight: 300,
+		maxHeight: 800,
 		focus: false,
 		lang: "ko-KR",
 		callbacks: {

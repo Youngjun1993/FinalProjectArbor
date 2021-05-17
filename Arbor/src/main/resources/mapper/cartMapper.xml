@@ -13,5 +13,57 @@
 	<select id="cartList" resultType="com.arbor.home.vo.CartVO">
 		select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, c.cartdate, p.pname, p.stock, p.img1 from (select * from cart where userid=#{param1} order by pno) c join product p on c.pno=p.pno
 	</select>
-	
+	<update id="cartQuantityPlus">
+		update cart set quantity=quantity+1 where cartno=#{param1}
+	</update>
+	<update id="cartQuantityMinus">
+		update cart set quantity=quantity-1 where cartno=#{param1}
+	</update>
+	<delete id="cartOptDel">
+		delete from cart where cartno=#{param1}
+	</delete>
+	<!-- 개수  -->
+	<select id="cartQuantity" resultType="int">
+		select quantity from cart where cartno=#{param1} and userid=#{param2}
+	</select>
+	<!-- 상품별 결제금액  -->
+	<select id="cartPrice" resultType="int">
+		select sum(price*quantity) as optsumprice from cart where pno=#{param1} and userid=#{param2}
+	</select>
+	<!-- 상품별 수량  -->
+	<select id="cartOptQuantity" resultType="int">
+		select sum(quantity) as optquantity from cart where pno=#{param1} and userid=#{param2}
+	</select>
+	<!-- 상품별 적립금  -->
+	<select id="cartPoint" resultType="int">
+		select sum(price*quantity)*0.02 as point from cart where pno=#{param1} and userid=#{param2}
+	</select>
+	<!-- 총수량 -->
+	<select id="cartTotalQuantity" resultType="int">
+		select sum(quantity) as totalquantity from cart where userid=#{param1}
+	</select>
+	<!-- 총배송비  -->
+	<select id="cartTotalDeliv" resultType="int">
+		select sum(quantity)*30000 as totaldeliv from cart where userid=#{param1}
+	</select>
+	<!-- 총적립금 -->
+	<select id="cartTotalPoint" resultType="int">
+		select sum(price*quantity)*0.02 as totalpoint from cart where userid=#{param1}
+	</select>
+	<!-- 총결제금액  -->
+	<select id="cartTotalPrice" resultType="int">
+		select sum(price*quantity) as totalprice from cart where userid=#{param1}
+	</select>
+	<!-- 메인버튼 삭제 -->
+	<delete id="cartDel">
+		delete from cart where pno=#{param1}
+	</delete>
+	<!-- 중복체크 위한 리스트 -->
+	<select id="cartMiniList" parameterType="com.arbor.home.vo.CartVO" resultType="int">
+		select count(pno) from cart where userid=#{userid} and pno=${pno} and optionvalue like '%${optionvalue}%'
+	</select>
+	<!-- 카트넘버 구하기 -->
+	<select id="cartNoSelect" parameterType="com.arbor.home.vo.CartVO" resultType="int">
+		select cartno from cart where userid=#{userid} and pno=${pno} and optionvalue like '%${optionvalue}%'
+	</select>
 </mapper>
