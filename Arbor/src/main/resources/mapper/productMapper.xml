@@ -52,7 +52,7 @@
  		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by subno desc
  	</select>
  	
- 	<select id="subcate_totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+ 	<select id="subcate_totalRecord" resultType="int">
 		select count(subno) as totalRecord from subcate
 	</select>
  	
@@ -86,11 +86,11 @@
  	</select>
  	
  	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from(select * from (select * from
-		(select count(pno) as totalRecord from product)
+		select count(pno) from(select * from (select * from (select * from 
+		(select * from product)
 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
  		<if test="subno!=null and subno!=''">where subno=${subno}</if>)
- 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pdate between #{startdate} and #{enddate}</if>
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pdate between #{startdate} and #{enddate}</if>)
 	</select>
  	
  	<select id="productSelect" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
@@ -140,7 +140,7 @@
  	</select>
  	
  	<select id="productClientTotalRecord" parameterType="com.arbor.home.vo.PageProductVO" resultType="int">
- 		(select count(pno) from product where subno=${subno})
+ 		select count(pno) from product where subno=${subno}
  	</select>
  	
  	<select id="productTopList" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
@@ -184,10 +184,10 @@
  	</select>
  	
  	<select id="pqna_totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
- 		select * from(select * from(
- 		select count(pqnano) from productqna)
+ 		select count(pqnano) from (select * from(select * from
+ 		(select * from productqna)
  		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
- 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
  	</select>
  	
  	<select id="pqnaNoAnswerList" resultType="com.arbor.home.vo.ProductQnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
@@ -206,10 +206,11 @@
  	</select>
  	
  	<select id="pqnaNoAnswerCnt" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
- 		select * from(select * from(
- 		select count(pqnano) from productqna where panswercontent is null)
+ 		select count(pqnano) from (select * from(select * from 
+ 		(select * from productqna)
  		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
- 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
+ 		where panswercontent is null
  	</select>
  	
  	<update id="pqnaAnswerInsert" parameterType="com.arbor.home.vo.ProductQnaVO">
