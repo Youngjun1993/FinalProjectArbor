@@ -574,6 +574,19 @@ public class MemberController {
 	}
 	
 	/////////////////////// sms전송 ///////////////////////
+	/*
+	 * @RequestMapping("/sendSms") public ModelAndView sendSms(String tel) { //매개변수는
+	 * ajax의 배열리스트 //여기서 ModelAndView에 담아서 ajax에서 가져온 데이터 addObject
+	 * 
+	 * System.out.println(tel + "view에서 get방식으로 넘어온번호"); ModelAndView mav = new
+	 * ModelAndView();
+	 * 
+	 * mav.addObject("receiver", tel); mav.setViewName("admin/member/smsTest");
+	 * 
+	 * return mav; }
+	 */
+	
+	
 	@RequestMapping("/sendSms")
 	public ModelAndView sendSms(String tel) {
 		//매개변수는 ajax의 배열리스트
