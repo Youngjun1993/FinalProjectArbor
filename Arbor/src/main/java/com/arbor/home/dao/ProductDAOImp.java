@@ -36,6 +36,8 @@ public interface ProductDAOImp {
 	
 	//상품목록 불러오기
 	public List<ProductVO> productListClient(PageProductVO pageVo);
+	// order array 목록 불러오기
+	public List<ProductVO> productListClientOrder(PageProductVO pageVo);
 	// 목록에 사용할 rgb컬러 불러오기
 	public List<OptionVO> productListRGB(int subno);
 	// mainname 가져오기

@@ -54,7 +54,13 @@ public class ProductController {
 		int mainno = productService.selectSubno(vo.getSubno());
 		vo.setMainno(mainno);
 		List<ProductVO> list = new ArrayList<ProductVO>();
-		list = productService.productListClient(vo);
+		if(vo.getMsg()==null || vo.getMsg()=="") {
+			list = productService.productListClient(vo);
+		} else if(vo.getMsg().equals("orderArray")) {
+			list = productService.productListClientOrder(vo);
+		} else {
+			list = productService.productListClient(vo);
+		}
 		
 		mav.addObject("topList", productService.productTopList(vo.getMainno()));
 		mav.addObject("list", list);
@@ -120,7 +126,6 @@ public class ProductController {
 		}
 		
 		vo.setTotalRecord(productService.totalRecord(vo));
-System.out.println("totalRecord?"+vo.getTotalRecord());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("subCate", productService.subCateList(1));
