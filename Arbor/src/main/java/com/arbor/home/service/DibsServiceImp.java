@@ -14,4 +14,6 @@ public interface DibsServiceImp {
 	public List<DibsVO> dibsList(String userid);
 	//총 레코드 수
 	public int totalRecord(PageSearchVO vo);
+	// 찜목록 insert 전 중복체크
+	public int dibsMiniList(DibsVO vo);
 }

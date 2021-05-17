@@ -370,9 +370,9 @@
 					success : function(result){
 						var $result = $(result);
 						var price = ${vo.saleprice }
-						var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname} (&nbsp&nbsp ";
+						var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname} (&nbsp&nbsp";
 						$result.each(function(idx, val) {
-							tag += val.optname+" : "+val.optvalue+" &nbsp&nbsp";
+							tag +=val.optname+" : "+val.optvalue+"&nbsp&nbsp";
 							price += val.optprice;
 						});
 						tag += ") <input type='hidden' name='pno' value='${vo.pno }'/></li>";
@@ -520,6 +520,12 @@
 			}, success : function(result) {
 				if(result>0) {
 					if(confirm("찜목록에 등록되었습니다. 찜목록으로 이동하시겠습니까?")) {
+						location.href="dibsList";
+					} else {
+						location.href="productView?pno=${vo.pno}";
+					}
+				} else {
+					if(confirm("찜목록에 동일한 상품이 존재합니다. 찜목록으로 이동하시겠습니까?")) {
 						location.href="dibsList";
 					} else {
 						location.href="productView?pno=${vo.pno}";

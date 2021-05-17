@@ -34,4 +34,9 @@ public class DibsService implements DibsServiceImp {
 	public List<DibsVO> dibsList(String userid) {
 		return dibsDAO.dibsList(userid);
 	}
+
+	@Override
+	public int dibsMiniList(DibsVO vo) {
+		return dibsDAO.dibsMiniList(vo);
+	}
 }
