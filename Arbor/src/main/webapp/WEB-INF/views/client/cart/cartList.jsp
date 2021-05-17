@@ -424,28 +424,26 @@
 		});
 		// 선택구매 버튼 클릭시
 		$("#y_cartChckOrder").click(function(){
-			var cartnoArr = [];
 			var form = document.createElement('form');
-			var optCartnoArr = document.createElement('input');
-			optCartnoArr.setAttribute('type', 'hidden');
-			optCartnoArr.setAttribute('name', 'cartpno');
-			
-			$("input:checkbox[name=y_cartChck]:checked").parent().parent().parent().children('p').each(function(i, e) {
-				cartnoArr.push('value', $(e).children('span:nth-of-type(2)').children('input[name=cartno]').val());
+			if($("input:checkbox[name=y_cartChck]:checked").length == 0){
+				alert('선택된 상품이 없습니다.')
+			}else{
+				$("input:checkbox[name=y_cartChck]:checked").parent().parent().parent().children('p').each(function(i, e) {
+					var optCartnoArr = document.createElement('input');
+					optCartnoArr.setAttribute('type', 'hidden');
+					optCartnoArr.setAttribute('name', 'cartpno');
+					optCartnoArr.setAttribute('value', $(e).children('span:nth-of-type(2)').children('input[name=cartno]').val());
+					form.appendChild(optCartnoArr);
+				});
 				
-			});
+				form.setAttribute('method', 'post');
+				form.setAttribute('action', "orderAppendCartList");
+				document.body.appendChild(form);
 			
-			optCartnoArr.setAttribute('value', cartnoArr);
-			form.appendChild(optCartnoArr);
-			
-			form.setAttribute('method', 'post');
-			form.setAttribute('action', "orderAppendCartList");
-			document.body.appendChild(form);
-		
-			//form.submit();
+				form.submit();
+			}
 		});
 		
-		// 전체구매 버튼 클릭시
 	});
 </script>
 <div id="y_cart_wrap" class="w1400_container">
@@ -561,9 +559,9 @@
         </form>
         <span class="clearfix">
         	
-            <a href="#" class="clientSubBtn">쇼핑목록 가기</a>
-            <a href="#" id="y_cartChckOrder" class="clientSubBtn">선택상품구매</a>
-            <a href="#" class="clientMainBtn">전체상품구매</a>
+            <a href="productList" class="clientSubBtn">쇼핑목록 가기</a>
+            <button id="y_cartChckOrder" class="clientSubBtn">선택상품구매</button>
+            <a href="orderAllCartList" class="clientMainBtn">전체상품구매</a>
         </span>
     </div>
 </div>

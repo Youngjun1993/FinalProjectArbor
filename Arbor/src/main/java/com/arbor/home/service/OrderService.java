@@ -106,6 +106,9 @@ public class OrderService implements OrderServiceImp {
 	}
 
 	@Override
+	public List<CartVO> cartAllList(String userid) {
+		return orderDAO.cartAllList(userid);
+	}
 	public List<SubOrderVO> getSubOrderList(String orderNo) {
 		return getSubOrderList(orderNo);
 	}

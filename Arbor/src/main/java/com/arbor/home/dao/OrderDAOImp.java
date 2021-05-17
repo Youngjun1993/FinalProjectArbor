@@ -35,8 +35,9 @@ public interface OrderDAOImp {
 	public OrderTblVO getOrderInfo(String orderNo);				//주문정보 select
 	
 	public List<CartVO> cartAppendList(int pno, String userid); //장바구니 -> 구매버튼
-	public CartVO cartAppendChckList(int cartno, String userid);//장바구니 -> 선택구매버튼
-
+	public CartVO cartAppendChckList(int cartno, String userid); //장바구니 -> 선택구매버튼
+  public List<CartVO> cartAllList(String userid);			//장바구니 -> 전체구매버튼	
 	
 
 }
+

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<span id="p_top"></span>
 <div class="w1400_container font_ng">
 	<h1 id="p_detailTitle">《 ${vo.pname } 》</h1>
 	<hr />
@@ -306,7 +306,9 @@
 		</ul>
 	</div>
 </div>
-
+<div id="p_fixedTop" >
+	<a href="#" id="p_fixedHeader"><img src="<%=request.getContextPath() %>/img/top.png"/></a>
+</div>
 <script>
 	$(function(){
 		<!-- 총금액 넣을 변수 -->
@@ -341,7 +343,6 @@
 		<!-- 지정된 상품 x 누르면 한 줄 지우면서 총금액 재계산 -->
 		$(document).on('click', '.cancelimg', function(){
 			var selectPrice = $(this).parent().prev().children().val();
-			console.log("selectPrice?"+selectPrice);
 			totalPrice -= selectPrice;
 			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
 			$(this).parent().parent().remove();

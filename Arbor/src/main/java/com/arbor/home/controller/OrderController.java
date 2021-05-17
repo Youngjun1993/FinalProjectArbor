@@ -136,7 +136,7 @@ public class OrderController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/orderAppendCart", method = RequestMethod.POST) /*장바구니 구매*/
+	@RequestMapping(value="/orderAppendCart", method = RequestMethod.POST)
 	public ModelAndView orderAppendCartList(int pno, HttpSession ses) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -145,8 +145,7 @@ public class OrderController {
 		mav.setViewName("client/cart/test");
 		return mav;
 	}
-
-	@RequestMapping(value = "/orderAppendCartList", method = RequestMethod.POST) /*장바구니 선택구매*/
+	@RequestMapping(value="/orderAppendCartList", method = RequestMethod.POST)
 	public ModelAndView orderAppendCart(@RequestParam(value="cartpno", required=true) String[] cartpno, HttpSession ses) {
 		ModelAndView mav = new ModelAndView();
 		List<CartVO> list = new ArrayList<CartVO>();
@@ -159,6 +158,29 @@ public class OrderController {
 		}
 		mav.addObject("list", list);
 		mav.setViewName("client/cart/test");
+		return mav;
+	}
+
+	@RequestMapping("/orderDetail")
+	public ModelAndView orderDetail(int orderno) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("pList", orderService.getSubOrderList(orderno));
+		mav.addObject("memberVo", orderService.getUserInfo(orderno));
+		mav.addObject("orderVo", orderService.getOrderInfo(orderno));
+		mav.setViewName("admin/order/orderDetail");
+		return mav;
+	}
+	
+	@RequestMapping("orderAllCartList")
+	public ModelAndView orderAllCartList(HttpSession ses) {
+		ModelAndView mav = new ModelAndView();
+		String userid = (String)ses.getAttribute("logId");
+		if(userid.equals("") || userid == null) {
+			mav.setViewName("admin/member/login");
+		}else {
+			mav.addObject("list",orderService.cartAllList(userid));
+			mav.setViewName("client/cart/test");
+		}
 		return mav;
 	}
 	
@@ -229,3 +251,4 @@ public class OrderController {
 	
 
 }
+
