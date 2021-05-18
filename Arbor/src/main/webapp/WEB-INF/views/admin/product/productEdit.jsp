@@ -91,8 +91,10 @@
 						<input type="file" name="filename"/>
 					</c:if>
 					<br/>
-					<div id="imgPrint"><img src="<%=request.getContextPath() %>/upload/${vo.img1}"/></div>
-					<div id="imgPrint2"><img src="<%=request.getContextPath() %>/upload/${vo.img2}"/></div>
+					<span id="imgprintTitle">메인이미지</span>
+					<div id="imgPrint"><img src="<%=request.getContextPath() %>/upload/${vo.img1 }"/></div>
+					<span id="imgprintTitle2">서브이미지</span>
+					<div id="imgPrint2"><img src="<%=request.getContextPath() %>/upload/${vo.img2 }"/></div>
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					<h3>상세설명</h3><br/>
 					<textarea name="description" id="description">${vo.description }</textarea>
