@@ -161,7 +161,6 @@ public class OrderTblVO {
 	public void setTotalprice(int totalprice) {
 		this.totalprice = totalprice;
 	}
-	
 	public int getApplynum() {
 		return applynum;
 	}
