@@ -39,6 +39,4 @@ public class FaqVO {
 	public void setFaqdate(String faqdate) {
 		this.faqdate = faqdate;
 	}
-	
-	
 }

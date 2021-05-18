@@ -13,7 +13,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
-<%-- <script src="<%=request.getContextPath() %>/javaScript/admin/eventInsertEdit.js"></script> --%>
+<script src="<%=request.getContextPath() %>/javaScript/admin/eventInsertEdit.js"></script>
 <!-- datepicker -->
 <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -23,7 +23,7 @@
 <script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <script>
 $(function(){
-		//datepicker 옵션 설정
+<%-- 		//datepicker 옵션 설정
 		$.datepicker.setDefaults({
 			dateFormat: "yy-mm-dd",
 			dayNamesMin: ['일','월','화','수','목','금','토'],
@@ -124,7 +124,7 @@ $(function(){
 			location.href="eventList";
 		});
 		
-	});
+	}); --%>
 </script>
 </head>
 <body>

@@ -1,10 +1,10 @@
 package com.arbor.home.vo;
 
-import java.text.DecimalFormat;
 
 public class OrderTblVO {
 	private int orderno;
 	private String orderdate;
+	
 	private String userid;
 	private String arr;
 	
@@ -23,11 +23,28 @@ public class OrderTblVO {
 	private int usepoint;
 	private String usecoupon;
 	
-	private String deliveryprice;
-	private String totalprice;
+	private int deliveryprice;
+	private int totalprice;
+	private int applynum;
 	
-	private String status;
+	private String status="";
 	private String pname;
+	
+	private String username;
+	private String tel;
+	
+	/* 주문관리 페이지 변수 */
+	private int neworder;	//신규주문
+	private int ready;		//배송준비
+	private int delivery;	//배송중
+	private int complete;	//배송완료
+	
+	/* 주문 리스트 검색 변수 */
+	private String period="";
+	private String orderSearch_from="";
+	private String orderSearch_to="";
+	private String searchKey;
+	private String searchWord="";	
 	
 	
 	public String getPname() {
@@ -132,25 +149,102 @@ public class OrderTblVO {
 	public void setUsecoupon(String usecoupon) {
 		this.usecoupon = usecoupon;
 	}
-	public String getDeliveryprice() {
+	public int getDeliveryprice() {
 		return deliveryprice;
 	}
 	public void setDeliveryprice(int deliveryprice) {
-		DecimalFormat formatter = new DecimalFormat("###,###");
-		this.deliveryprice = formatter.format(deliveryprice);
+		this.deliveryprice = deliveryprice;
 	}
-	public String getTotalprice() {
+	public int getTotalprice() {
 		return totalprice;
 	}
 	public void setTotalprice(int totalprice) {
-		DecimalFormat formatter = new DecimalFormat("###,###");
-		this.totalprice = formatter.format(totalprice);
+		this.totalprice = totalprice;
+	}
+	
+	public int getApplynum() {
+		return applynum;
+	}
+	public void setApplynum(int applynum) {
+		this.applynum = applynum;
 	}
 	public String getStatus() {
 		return status;
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public int getNeworder() {
+		return neworder;
+	}
+	public void setNeworder(int neworder) {
+		this.neworder = neworder;
+	}
+	public int getReady() {
+		return ready;
+	}
+	public void setReady(int ready) {
+		this.ready = ready;
+	}
+	public int getDelivery() {
+		return delivery;
+	}
+	public void setDelivery(int delivery) {
+		this.delivery = delivery;
+	}
+	public int getComplete() {
+		return complete;
+	}
+	public void setComplete(int complete) {
+		this.complete = complete;
+	}
+	public String getPeriod() {
+		return period;
+	}
+	public void setPeriod(String period) {
+		this.period = period;
+	}
+	public String getOrderSearch_from() {
+		return orderSearch_from;
+	}
+	public void setOrderSearch_from(String orderSearch_from) {
+		this.orderSearch_from = orderSearch_from;
+	}
+	public String getOrderSearch_to() {
+		return orderSearch_to;
+	}
+	public void setOrderSearch_to(String orderSearch_to) {
+		this.orderSearch_to = orderSearch_to;
+	}
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
+	public String getSearchWord() {
+		return searchWord;
+	}
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
+	@Override
+	public String toString() {
+		return "OrderTblVO [period=" + period
+				+ ", orderSearch_from=" + orderSearch_from + ", orderSearch_to=" + orderSearch_to + ", searchKey="
+				+ searchKey + ", searchWord=" + searchWord + "]";
 	}
 	
 }

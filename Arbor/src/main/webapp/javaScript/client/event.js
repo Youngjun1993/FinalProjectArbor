@@ -14,22 +14,6 @@ $(function(){
 		}
 	});
 	
-	//header-EVENT 서브메뉴 클릭시 이벤트 탭 이동
-	var title = "${title}";
-	if(title=="timeSale"){	//타임세일 tab -> 타임세일 이미지, 시간 불러오기 **
-		location.href="event?title=timeSale";
-		$("#j_tab1").prop("checked",true);
-	}
-	else if(title=="nowEvent"){
-		location.href="event?title=nowEvent";
-		$("#j_tab2").prop("checked",true);
-	}		
-	else if(title=="endEvent"){
-		location.href="event?title=endEvnet";
-		$("#j_tab3").prop("checked",true);
-	}
-	let chkr = $(".j_tab-wrap [name='tabs']:checked").next().text();
-	$(".j_eventMenu").text(chkr);
 	//////////////////////////////////////////////////////////	
 	
 	/*--------------

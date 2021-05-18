@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
-<%-- <script src="<%=request.getContextPath() %>/javaScript/admin/eventInsertEdit.js"></script> --%>
+<script src="<%=request.getContextPath() %>/javaScript/admin/eventInsertEdit.js"></script>
 <!-- datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>

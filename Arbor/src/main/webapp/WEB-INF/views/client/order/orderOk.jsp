@@ -22,11 +22,11 @@
 	</div>
 	<div>
 		<p>감사합니다! <span>주문이 완료</span>되었습니다.</p>
-		<p>주문번호 : <span>20210510-00980021</span></p>
+		<p>주문번호 : <span>${orderVo.orderno }</span></p>
 	</div>
 	<div class="j_orderOkDiv">
 		<div class="j_orderOkTitle">상품정보</div>
-		<table class="j_tableForm" id="abc">
+		<table class="j_tableForm" id="j_pInfo">
 		<colgroup>
 			<col width="600px">
 			<col width="150px">
@@ -43,14 +43,16 @@
 				<td>배송비</td>
 				<td>주문금액</td>
 			</tr>
-			<tr> <!-- 상품 갯수 만큼 반복 -->
-				<td>6인용 식탁</td>
-				<td>1</td>
-				<td>1,500,000</td>
-				<td>1,000,000</td>
-				<td>30,000</td>
-				<td>1,000,000</td>
-			</tr>
+			<c:forEach var="pVo" items="${pList }">
+				<tr id="j_pList"> <!-- 상품 갯수 만큼 반복 -->
+					<td>${pVo.pname }</td>
+					<td id="abc">${pVo.quantity }</td>
+					<td>${pVo.pprice }</td>
+					<td>${pVo.saleprice }</td>
+					<td>${pVo.deliveryprice }</td>
+					<td>${pVo.subprice }</td>
+				</tr>
+			</c:forEach>
 		</table>
 	</div>
 	<div class="j_orderOkDiv">
@@ -83,19 +85,19 @@
 			</colgroup>
 			<tr>
 				<td>수령인</td>
-				<td>홍길동</td>
+				<td>${orderVo.arr }</td>
 			</tr>
 			<tr>
 				<td>주소</td>
-				<td id="j_addr">서울시 마포구 백범로</td>
+				<td>(${orderVo.arrzipcode }) ${orderVo.arraddr } ${orderVo.arrdetailaddr }</td>
 			</tr>
 			<tr>
 				<td>연락처</td>
-				<td>010-1234-5678</td>
+				<td>${orderVo.arrtel }</td>
 			</tr>
 			<tr>
 				<td>배송시 요청사항</td>
-				<td>부재시 문앞에 놓아주세요.</td>
+				<td>${orderVo.request }</td>
 			</tr>
 		</table>
 	</div>
@@ -108,11 +110,11 @@
 			</colgroup>
 			<tr>
 				<td>적립금 사용</td>
-				<td>2,000원</td>
+				<td>${orderVo.usepoint }원</td>
 			</tr>
 			<tr>
 				<td>쿠폰 사용</td>
-				<td>봄맞이 10% 할인 쿠폰</td>
+				<td>${orderVo.usecoupon }</td>
 			</tr>
 		</table>
 	</div>
@@ -125,15 +127,15 @@
 			</colgroup>
 			<tr>
 				<td>최종결제금액</td>
-				<td>2,543,500원</td>
+				<td>${orderVo.totalprice }원</td>
 			</tr>
 			<tr>
 				<td>결제수단</td>
 				<td>신용카드</td>
 			</tr>
 			<tr>
-				<td>승인일시</td>
-				<td>2021-05-10 13:27</td>
+				<td>승인번호</td>
+				<td>${applyNum }</td>
 			</tr>
 		</table>
 	</div>

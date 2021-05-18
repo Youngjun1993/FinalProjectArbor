@@ -174,15 +174,27 @@
 		
 	}
 	.h_searchMultiBtn {
-	
-		margin:10px 0;
 		width:1200px;
-		
 	}
+	
+	
+	/*////// 버튼 스타일 //////  */
+	.adminSubBtn.semiBtn {
+		float:left;
+		width:100px !important;
+		height:30px !important;
+		margin: 0 10px;
+	}
+	
+	.adminMainBtn.search{
+		width:100px !important;
+		height:30px !important;
+	}
+	
 	
 	/* 회원검색 ul li */
 	
-	.h_mainContainer li{
+	.h_memList li{
 		float:left;
 		width:12.5%;
 		height:40px;
@@ -202,22 +214,38 @@
 	.h_memdormant {
 		border: none;
 		background-color: rgb(191,43,53); color:#fff;
-		font-family: 'Nanum Gothic', sans-serif;
+		font-family: 'Nanum Gothic', Fsans-serif;
 		font-weight: bold; cursor:pointer;
 		pointer-events: none;
 	}
 	
-	.h_memTableLi{
-		margin:40px 0;
+	.h_memTableLi.search{
+		margin:25px 0;
 		
 	}
 	
-	
-	
-	
-	/* .h_mainContainer li:nth-child(9n+5) {
+	.h_memTableLi.dormant{
+		margin:50px 0;
 		
-	} */
+	}
+	
+	.h_memTableLi.quit{
+		margin:55px 0;
+		
+	}
+	
+	/* 페이징 버튼 스타일 */
+	
+	.h_paging_wrap {
+	    width: 300px;
+	    height: 40px;
+	    text-align: center;
+	    margin: 20px auto;
+	}
+	
+/* ///////////////////////////탈퇴회원 페이지/////////////////////////// */
+
+
 	
 	
 	

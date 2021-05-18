@@ -10,7 +10,9 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/timeSale.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/summernote/summernote-lite.css" />
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <!-- Air datepicker -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="<%=request.getContextPath()%>/javaScript/datepicker/datepicker.min.css" rel="stylesheet" type="text/css"/>
@@ -73,12 +75,14 @@
 				contentType: false,
 				processData: false,
 				success: function(data){
-					$(editor).summernote('insertImage', data.url);
+					$(editor).summernote('insertImage', data);
 				}
 			});
 		}
 		//상품번호에 따른 상품명, 상품가격 불러오기
 		$("#j_pSearchBtn").click(function(){
+			var pNo = $("#j_pNo").val();
+			console.log(pNo);
 			$.ajax(
 				{
 					data: {
@@ -87,13 +91,13 @@
 					type: 'POST',
 					url: 'pInfoSearch',
 					dataType: 'json',
-					success: function(result){
-						$("#j_pName").val(result.pname);
-						$("#j_pPrice").val(result.pprice);
+					success: function(pVo){
+						$("#j_pName").val(pVo.pname);
+						$("#j_pPrice").val(pVo.pprice);
 					},error: function(error){
 						alert("유효하지 않은 상품번호 입니다.");
 						$("#j_pNo").val("");
-						$("#j_pNo").focus();						
+						$("#j_pNo").focus();
 					}
 				}
 			)
@@ -131,7 +135,8 @@
 </head>
 <body>
 <div class="w1400_container font_ng">
-	<div class="j_sideMenu">사이드메뉴</div>
+	<!-- 관리자메뉴 -->
+	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="j_centerFrm">
 		<p class="j_adminMemu"><span>타임세일 등록</span></p>
 		<form method="post" id="j_timeSaleInsertFrm" action="timeSaleInsertOk">

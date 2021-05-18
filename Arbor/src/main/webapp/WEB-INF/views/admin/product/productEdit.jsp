@@ -71,7 +71,7 @@
 				<div id="editImg">
 					<h3>이미지</h3><br/>
 					<p id="p_insertImgDiv">* 목록에 띄워질 메인이미지</p>
-					<div>
+					<div id="img1">
 						<div>${vo.img1 } <img src="<%=request.getContextPath() %>/img/cancel.png" class="imgEdit"/></div>
 						<input type="hidden" name="" value="${vo.img1 }" />
 						<input type="hidden" name="filename" />
@@ -80,7 +80,7 @@
 					<p>* 마우스 이동에 따라 변환될 서브 이미지</p>
 					<c:if test="${vo.img2!='' && vo.img2!=null }">
 					<!-- 두번째 파일 있을 때 -->
-						<div>
+						<div id="img2">
 							<div>${vo.img2 } <img src="<%=request.getContextPath() %>/img/cancel.png" class="imgEdit"/></div>
 							<input type="hidden" name="" value="${vo.img2 }" />
 							<input type="hidden" name="filename"/>
@@ -91,7 +91,10 @@
 						<input type="file" name="filename"/>
 					</c:if>
 					<br/>
-					<div id="imgPrint"><img src="<%=request.getContextPath() %>/upload/${vo.img1}"/></div>
+					<span id="imgprintTitle">메인이미지</span>
+					<div id="imgPrint"><img src="<%=request.getContextPath() %>/upload/${vo.img1 }"/></div>
+					<span id="imgprintTitle2">서브이미지</span>
+					<div id="imgPrint2"><img src="<%=request.getContextPath() %>/upload/${vo.img2 }"/></div>
 					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 					<h3>상세설명</h3><br/>
 					<textarea name="description" id="description">${vo.description }</textarea>

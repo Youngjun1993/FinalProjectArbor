@@ -87,7 +87,6 @@
 		//이메일인증 인증번호 전송 // 인터셉션으로 mailcheck끊기
 		
 		var emailcode = ""; 
-		
 		$('.h_check_btn.emailchk').click(function() {
 			
 			var emailid = $(".h_ipt.emailid").val();// 입력한 이메일

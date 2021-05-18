@@ -63,7 +63,8 @@ public class EventController {
 	
 	/* admin */
 	@RequestMapping("/eventList")
-	public ModelAndView eventList(PageSearchVO pageVo, HttpServletRequest req){
+	public ModelAndView eventList(HttpServletRequest req){
+		PageSearchVO pageVo = new PageSearchVO();
 		String pageNumStr = req.getParameter("pageNum");
 		if(pageNumStr!=null) {
 			pageVo.setPageNum(Integer.parseInt(pageNumStr));

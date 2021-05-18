@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/productInsert.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css"/>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

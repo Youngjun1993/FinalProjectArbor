@@ -24,66 +24,53 @@
 		</ul>
 	</div> -->
 	<div class="h_pwdsearchhead">아이디찾기</div>
-	<div class="h_pwdtapbox">
-		<span class="h_tab emailsearch active"><a href="#">이메일로 찾기</a></span>
-		<span class="h_tab phonesearch"><a href="#">휴대폰번호로 찾기</a></span>
-	</div>
-	<form class="h_emailtab">
-	<table class="h_pwdformtable now">
-			<tr><!-- 공백 --></tr>
-			
-			<tr>
-			<td>
-			<label for="username">이름</label>
-			</td>
-			<td>
-			<input type="text" name="username" id="username" size="35px" class="h_pwdchangeipt">
-			</td>
-			</tr>
-			
-			<tr>
-			<td>
-			<label for="email">이메일</label>
-			</td>
-			<td>
-			<input type="text" name="email" id="email" size="35px" class="h_pwdchangeipt">
-			
-			</td>
-			</tr>
-			
-		</table>
+	
+		<div id="before_submit">
+		<div class="h_pwdtapbox">
+			<span class="h_tab emailsearch active"><a href="#">이메일로 찾기</a></span>
+			<span class="h_tab phonesearch"><a href="#">휴대폰번호로 찾기</a></span>
+		</div>
 		
-		<!-- 2번째 휴대폰 -->
-	<table class="h_pwd2formtable now">
-			<tr><!-- 공백 --></tr>
-			
-			<tr>
-			<td>
-			<label for="username">이름</label>
-			</td>
-			<td>
-			<input type="text" name="username" id="username" size="35px" class="h_pwdchangeipt">
-			</td>
-			</tr>
-					
-			<tr>
-			<td>
-			연락처
-			</td>
-			<td>
-			<select id="tel" name="tel" class="h_select">
-			<option value="010">010</option>
-		  	<option value="011">011</option>
-			<option value="02">02</option>
-			</select>
-			-<input type="text" name="tel1" size="7" class="h_pwdchangeipt">
-			-<input type="text" name="tel2" size="7" class="h_pwdchangeipt">
-			</td>
-			</tr>
-			
-		</table>
-				<input type="button" id="emailcheck" value="확인" class="h_check_btn search">
+		<form class="h_emailtab" action="memberIdSearchOk">
+			<ul class="h_pwdformtable now"> 
+			<li><label for="username">이름</label></li>
+			<li><input type="text" name="username" id="username" size="35px" class="h_pwdchangeipt"></li>
+			<li><label for="email">이메일</label></li>
+			<li>
+			<input type="text" name="email" id="email" size="35px" class="h_pwdchangeipt">
+			</li>
+			<li><input type="button" id="email_chk_btn" value="확인" class="h_check_btn search"></li>
+			</ul>
 		</form>
+			<!-- 2번째 휴대폰 -->
+		<form class="h_smstab">
+			<ul class="h_pwd2formtable now"> 
+			<li><label for="username">이름</label></li>
+			<li><input type="text" name="sms_username" id="sms_username" size="35px" class="h_pwdchangeipt"></li>
+			<li>연락처</li>
+			<li><select id="sms_tel" name="sms_tel" class="h_select">
+				<option value="010">010</option>
+			  	<option value="011">011</option>
+				<option value="02">02</option>
+				</select>
+				-<input type="text" name="tel1" size="7" class="h_pwdchangeipt">
+				-<input type="text" name="tel2" size="7" class="h_pwdchangeipt"></li>
+			<li><input type="button" id="sms_chk_btn" value="확인" class="h_check_btn search"></li>
+			<li>${list}</li>
+			</ul>
+		</form>
+		</div>
+		<!-- ///사라지는 div/// submit 이후 이벤트 // 여긴 ajax로 -->
+		<div id = "after_submit" style ="display:none;">
+			<b>인증번호 확인</b><br/>
+			등록하신 주소로 메일이 전송되었습니다. 메일을 확인해주세요<br/>
+			<div class="h_pwd_div">인증번호 :
+			<input type="text" id="validateChk" size="20" class="h_ipt" value=""/>
+			<input type="button" id="validateChkBtn" onlick="">
+			<input type="hidden" id="emailnum" value = "">
+			</div>
+			<span class="h_wrongPwd" style="display:none;">비밀번호를 다시 확인해 주세요</span>
+		</div>
 	</div>
 </div>
 
@@ -103,6 +90,60 @@ $('.h_pwdtapbox .h_tab').click(function(){
         $('.h_pwd2formtable').show();
     }
 });
+
+$('#email_chk_btn').on('click',function() {
+	var name = $('#username').val();
+	var email = $('#email').val();
+	
+	var idArr = new Array();
+	
+	idArr.push(name);//배열에 이름값
+	idArr.push(email);//배열에 이메일값
+	
+	console.log(idArr[0]);
+	console.log(idArr[1]);
+	
+		/* 서브밋방식으로 아이디 값을 입력했으면*/
+	if(name != "" && email != "") {
+		$('#before_submit').attr("style","display:none");//현재 입력창 모두 none
+		$('#after_submit').attr("style","display:block");//이메일값 확인
+		
+		var list = ${list}
+		
+		console.log(list);
+		console.log(list[0]);
+		
+		alert("정지정지 움직이면쏜다");
+		$('.h_emailtab').submit();
+	}else {
+		alert("이메일과 성함을 입력해주세요")
+	}
+		
+		/* $.ajax({
+			url:'memberIdSearchOk',
+			type:'POST',
+			data: { idCheck : idArr },
+			success : function(rtnList) {
+				console.log(rtnList);
+				if(rtnList != null) {//원래리턴타입은 아이디
+					$('#before_submit').attr("style","display:none");//현재 입력창 모두 none
+					$('#after_submit').append(rtnList);
+					$('#after_submit').attr("style","display:block");//임시비밀번호 메일전송 div보여주기
+				}else{//비밀번호 일치하지않을경우 java에서 1이외의 값
+					alert('아이디와 이메일이 일치하지않습니다. 다시 입력해주세요');
+				}
+			}, error:function() {
+				alert("아이디와 이메일이 일치하지 않습니다. 다시 입력해주세요");
+			}
+		}); */
+		
+
+	/* var list = request.getAttribute("list"); */
+	
+	
+});
+
+
 </script>
 
 </body>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.arbor.home.dao.ProductDAOImp;
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.PageProductVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
 import com.arbor.home.vo.ProductVO;
@@ -87,13 +88,13 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public List<SubCateVO> subCateListAll() {
-		return productDAO.subCateListAll();
+	public List<SubCateVO> subCateListAll(PageSearchVO pageVo) {
+		return productDAO.subCateListAll(pageVo);
 	}
 
 	@Override
-	public List<ProductVO> productListClient(int subno) {
-		return productDAO.productListClient(subno);
+	public List<ProductVO> productListClient(PageProductVO pageVo) {
+		return productDAO.productListClient(pageVo);
 	}
 
 	@Override
@@ -122,8 +123,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public List<ProductQnaVO> pqnaList() {
-		return productDAO.pqnaList();
+	public List<ProductQnaVO> pqnaList(PageSearchVO pageVo) {
+		return productDAO.pqnaList(pageVo);
 	}
 
 	@Override
@@ -132,8 +133,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int pqnaNoAnswerCnt() {
-		return productDAO.pqnaNoAnswerCnt();
+	public int pqnaNoAnswerCnt(PageSearchVO pageVo) {
+		return productDAO.pqnaNoAnswerCnt(pageVo);
 	}
 
 	@Override
@@ -162,14 +163,110 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int totalRecord(PageSearchVO vo) {
-		return productDAO.totalRecord(vo);
+	public int totalRecord(PageSearchVO pageVo) {
+		return productDAO.totalRecord(pageVo);
 	}
 
 	@Override
 	public List<ProductVO> productListDate(PageSearchVO pageVo) {
 		return productDAO.productListDate(pageVo);
 	}
+
+	@Override
+	public int subcate_totalRecord() {
+		return productDAO.subcate_totalRecord();
+	}
+
+	@Override
+	public int pqna_totalRecord(PageSearchVO pageVo) {
+		return productDAO.pqna_totalRecord(pageVo);
+	}
+
+	@Override
+	public List<ProductQnaVO> pqnaNoAnswerList(PageSearchVO pageVo) {
+		return productDAO.pqnaNoAnswerList(pageVo);
+	}
+
+	@Override
+	public int insertMainCate(String editWord) {
+		return productDAO.insertMainCate(editWord);
+	}
+
+	@Override
+	public int insertSubCate(int mainno, String editWord) {
+		return productDAO.insertSubCate(mainno, editWord);
+	}
+
+	@Override
+	public int selectMainno(String editWord) {
+		return productDAO.selectMainno(editWord);
+	}
+
+	@Override
+	public int deleteMainCate(int mainno) {
+		return productDAO.deleteMainCate(mainno);
+	}
+
+	@Override
+	public int deleteSubCate(int subno) {
+		return productDAO.deleteSubCate(subno);
+	}
+
+	@Override
+	public int selectSubno(int subno) {
+		return productDAO.selectSubno(subno);
+	}
+
+	@Override
+	public int updateMainCate(MainCateVO vo) {
+		return productDAO.updateMainCate(vo);
+	}
+
+	@Override
+	public int updateSubCate(SubCateVO vo) {
+		return productDAO.updateSubCate(vo);
+	}
+
+	@Override
+	public int productClientTotalRecord(PageProductVO vo) {
+		return productDAO.productClientTotalRecord(vo);
+	}
+
+	@Override
+	public List<ProductVO> productTopList(int subno) {
+		return productDAO.productTopList(subno);
+	}
+
+	@Override
+	public List<ProductVO> productListClientOrder(PageProductVO pageVo) {
+		return productDAO.productListClientOrder(pageVo);
+	}
+
+	@Override
+	public List<ProductVO> productTotalList(int mainno) {
+		return productDAO.productTotalList(mainno);
+	}
+
+	@Override
+	public ProductVO productCateImgSelect(int mainno) {
+		return productDAO.productCateImgSelect(mainno);
+	}
+
+	@Override
+	public List<ProductVO> productCateTop12() {
+		return productDAO.productCateTop12();
+	}
+
+	@Override
+	public ProductVO productSubCateImgSelect(int subno) {
+		return productDAO.productSubCateImgSelect(subno);
+	}
+
+	@Override
+	public String subnameSelect(int subno) {
+		return productDAO.subnameSelect(subno);
+	}
+
 	
 	
 }
