@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<div id="y_myPageBanner">
+	<div></div>
+	<p>M Y P A G E</p>
+</div>
 <div id="y_myPageTop">
         <ul class="clearfix">
             <li class="clearfix"><b>${username }</b>님 환영합니다.<br/><a href="cartList" class="cartDibsBtn clientMainBtn">장바구니</a> <a href="dibsList" class="cartDibsBtn clientMainBtn">찜목록</a></li >
