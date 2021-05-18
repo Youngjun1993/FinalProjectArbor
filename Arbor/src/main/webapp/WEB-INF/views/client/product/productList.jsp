@@ -3,8 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="w1400_container font_ng">
 	<div id="p_center">
-		<h1 id="p_listTitle">${mainname }'s New Item</h1>
-		<c:forEach var="top" items="${topList }">
+		<h1 id="p_listTitle">${subname } Best Item</h1>
+		<c:forEach var="top" items="${topList }" varStatus="status">
 			<a href="productView?pno=${top.pno }">
 			<img src="<%=request.getContextPath()%>/upload/${top.img1}" class="p_HoverImg1"/>
 			<img src="<%=request.getContextPath()%>/upload/${top.img2}" class="p_HoverImg2"/></a>
@@ -51,20 +51,20 @@
 	<div id="pagingDiv">
 		 <ul class="paging" class="clearfix">
           	<c:if test="${pageVO.pageNum>1 }">
-              	<li style="border-bottom:none;"><a class="pagingLR_a"  href="couponList?pageNum=${pageVO.pageNum-1}">＜</a></li>
+              	<li style="border-bottom:none;"><a class="pagingLR_a"  href="productList?mainno=${pageVO.mainno }&subno=${pageVO.subno }&pageNum=${pageVO.pageNum-1}">＜</a></li>
             </c:if>
             <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
               	<c:if test="${p<=pageVO.totalPage }">
 	               	<c:if test="${p==pageVO.pageNum }">
-	               		<li style="border-bottom:3px solid rgb(93, 121, 115);"><a href="couponList?pageNum=${p}">${p }</a></li>
+	               		<li style="border-bottom:3px solid rgb(93, 121, 115);"><a href="productList?mainno=${pageVO.mainno }&subno=${pageVO.subno }&pageNum=${p}">${p }</a></li>
 	               	</c:if>
 	               	<c:if test="${p!=pageVO.pageNum }">
-	               		<li><a href="couponList?pageNum=${p}">${p }</a></li>
+	               		<li><a href="productList?mainno=${pageVO.mainno }&subno=${pageVO.subno }&pageNum=${p}">${p }</a></li>
 	               	</c:if>
               	</c:if>
             </c:forEach>
             <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-            	<li style="border-bottom:none;"><a class="pagingLR_a"  href="couponList?pageNum=${pageVO.pageNum+1}">＞</a></li>
+            	<li style="border-bottom:none;"><a class="pagingLR_a"  href="productList?mainno=${pageVO.mainno }&subno=${pageVO.subno }&pageNum=${pageVO.pageNum+1}">＞</a></li>
             </c:if>
          </ul>
 	</div>

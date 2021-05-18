@@ -41,6 +41,45 @@ public class ProductController {
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
 	
+	// View - 상품전체목록 페이지 생성
+	@RequestMapping("/productTotalList")
+	public ModelAndView productTotalList() {
+		ModelAndView mav = new ModelAndView();
+		
+		List<MainCateVO> maincate = productService.mainCateList();
+		List<ProductVO> cateimg = new ArrayList<ProductVO>();
+		for(int i=0; i<maincate.size(); i++) {
+			MainCateVO mvo = maincate.get(i);
+			int mainno = mvo.getMainno();
+			cateimg.add(productService.productCateImgSelect(mainno));
+		}
+		
+		mav.addObject("topList", productService.productCateTop12());
+		mav.addObject("maincate", maincate);
+		mav.addObject("cate", cateimg);
+		mav.setViewName("client/product/productTotalList");
+		return mav;
+	}
+	// View - 상품 카테고리별 페이지 생성
+	@RequestMapping("/productCategoryList")
+	public ModelAndView productCategoryList(int mainno) {
+		ModelAndView mav = new ModelAndView();
+		List<SubCateVO> subcate = productService.subCateList(mainno);
+		List<ProductVO> cateimg = new ArrayList<ProductVO>();
+		for(int i=0; i<subcate.size(); i++) {
+			SubCateVO svo = subcate.get(i);
+			int subno = svo.getSubno();
+			cateimg.add(productService.productSubCateImgSelect(subno));
+		}
+		
+		mav.addObject("cate", cateimg);
+		mav.addObject("list", productService.productTotalList(mainno));
+		mav.addObject("subcate", subcate);
+		mav.addObject("mainname", productService.mainnameSelect(mainno));
+		mav.setViewName("client/product/productCategoryList");
+		return mav;
+	}
+	
 	// View - 상품목록
 	@RequestMapping("/productList")
 	public ModelAndView productList(PageProductVO vo, HttpServletRequest req) {
@@ -54,14 +93,20 @@ public class ProductController {
 		int mainno = productService.selectSubno(vo.getSubno());
 		vo.setMainno(mainno);
 		List<ProductVO> list = new ArrayList<ProductVO>();
-		list = productService.productListClient(vo);
+		if(vo.getMsg()==null || vo.getMsg()=="") {
+			list = productService.productListClient(vo);
+		} else if(vo.getMsg().equals("orderArray")) {
+			list = productService.productListClientOrder(vo);
+		} else {
+			list = productService.productListClient(vo);
+		}
 		
-		mav.addObject("topList", productService.productTopList(vo.getMainno()));
+		mav.addObject("topList", productService.productTopList(vo.getSubno()));
 		mav.addObject("list", list);
 		mav.addObject("subCate", productService.subCateList(vo.getMainno()));
-		mav.addObject("mainname", productService.mainnameSelect(vo.getMainno()));
 		mav.addObject("opt", productService.productListRGB(vo.getSubno()));
 		mav.addObject("pageVO", vo);
+		mav.addObject("subname", productService.subnameSelect(vo.getSubno()));
 		mav.setViewName("client/product/productList");
 		return mav;
 	}
@@ -119,7 +164,7 @@ public class ProductController {
 			vo.setPageNum(Integer.parseInt(pageNumStr));
 		}
 		
-		vo.setTotalRecord(productService.totalRecord());
+		vo.setTotalRecord(productService.totalRecord(vo));
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("subCate", productService.subCateList(1));
@@ -221,11 +266,11 @@ public class ProductController {
 			vo.setPageNum(Integer.parseInt(pageNumStr));
 		}
 		
-		vo.setTotalRecord(productService.pqna_totalRecord());
+		vo.setTotalRecord(productService.pqna_totalRecord(vo));
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("vo", productService.pqnaList(vo));
-		mav.addObject("cnt", productService.pqnaNoAnswerCnt());
+		mav.addObject("cnt", productService.pqnaNoAnswerCnt(vo));
 		mav.addObject("pageVO", vo);
 		mav.setViewName("admin/product/productQna");
 		return mav;
@@ -239,11 +284,11 @@ public class ProductController {
 			vo.setPageNum(Integer.parseInt(pageNumStr));
 		}
 		
-		vo.setTotalRecord(productService.pqnaNoAnswerCnt());
+		vo.setTotalRecord(productService.pqnaNoAnswerCnt(vo));
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("vo", productService.pqnaNoAnswerList(vo));
-		mav.addObject("cnt", productService.pqna_totalRecord());
+		mav.addObject("cnt", productService.pqna_totalRecord(vo));
 		mav.addObject("pageVO", vo);
 		mav.setViewName("admin/product/productQnaNoAnswer");
 		return mav;
@@ -402,9 +447,11 @@ public class ProductController {
 				// rgb코드는 색상 구분일 때만 받아옴
 				if(optNameArr[i].equals("색상")) {
 					vo.setRgbvalue(rgbValueArr[i]);
+				} else if(optNameArr[i]==null || optValueArr[i]==null) {
+					continue;
 				} else {
 					vo.setRgbvalue("");
-				}
+				} 
 				// 가격추가 없을시 0원으로 표기
 				if(optPriceArr[i].equals("") || optPriceArr[i]==null) {
 					vo.setOptprice(0);
@@ -573,7 +620,9 @@ public class ProductController {
 						}
 						if(optNoArr[i]==null || optNoArr[i].equals("")) {
 							// optno가 없으면 새로 추가된 옵션이란 소리임~ (insert)
-							productService.optionInsert(optvo);
+							if(optValueArr[i]!=null && optNameArr[i]!=null) {
+								productService.optionInsert(optvo);
+							}
 						} else {
 							// optno가 있으면 기존 옵션이란 소리임~ (update)
 							optvo.setOptno(Integer.parseInt(optNoArr[i]));

@@ -13,7 +13,7 @@ public class SubOrderVO {
 	private int pprice;
 	private int saleprice;
 	private int deliveryprice;
-	
+	private String optinfo;
 	
 	public int getSuborderno() {
 		return suborderno;
@@ -81,6 +81,19 @@ public class SubOrderVO {
 	}
 	public void setDeliveryprice(int deliveryprice) {
 		this.deliveryprice = deliveryprice;
+	}
+	public String getOptinfo() {
+		return optinfo;
+	}
+	public void setOptinfo(String optinfo) {
+		this.optinfo = optinfo;
+	}
+	@Override
+	public String toString() {
+		return "SubOrderVO [suborderno=" + suborderno + ", orderno=" + orderno + ", pno=" + pno + ", optno=" + optno
+				+ ", quantity=" + quantity + ", subprice=" + subprice + ", pname=" + pname + ", img1=" + img1
+				+ ", pprice=" + pprice + ", saleprice=" + saleprice + ", deliveryprice=" + deliveryprice + ", optinfo="
+				+ optinfo + "]";
 	}
 	
 }

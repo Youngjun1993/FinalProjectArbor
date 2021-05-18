@@ -133,8 +133,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int pqnaNoAnswerCnt() {
-		return productDAO.pqnaNoAnswerCnt();
+	public int pqnaNoAnswerCnt(PageSearchVO pageVo) {
+		return productDAO.pqnaNoAnswerCnt(pageVo);
 	}
 
 	@Override
@@ -163,8 +163,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int totalRecord() {
-		return productDAO.totalRecord();
+	public int totalRecord(PageSearchVO pageVo) {
+		return productDAO.totalRecord(pageVo);
 	}
 
 	@Override
@@ -178,8 +178,8 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public int pqna_totalRecord() {
-		return productDAO.pqna_totalRecord();
+	public int pqna_totalRecord(PageSearchVO pageVo) {
+		return productDAO.pqna_totalRecord(pageVo);
 	}
 
 	@Override
@@ -236,6 +236,37 @@ public class ProductService implements ProductServiceImp {
 	public List<ProductVO> productTopList(int subno) {
 		return productDAO.productTopList(subno);
 	}
+
+	@Override
+	public List<ProductVO> productListClientOrder(PageProductVO pageVo) {
+		return productDAO.productListClientOrder(pageVo);
+	}
+
+	@Override
+	public List<ProductVO> productTotalList(int mainno) {
+		return productDAO.productTotalList(mainno);
+	}
+
+	@Override
+	public ProductVO productCateImgSelect(int mainno) {
+		return productDAO.productCateImgSelect(mainno);
+	}
+
+	@Override
+	public List<ProductVO> productCateTop12() {
+		return productDAO.productCateTop12();
+	}
+
+	@Override
+	public ProductVO productSubCateImgSelect(int subno) {
+		return productDAO.productSubCateImgSelect(subno);
+	}
+
+	@Override
+	public String subnameSelect(int subno) {
+		return productDAO.subnameSelect(subno);
+	}
+
 	
 	
 }

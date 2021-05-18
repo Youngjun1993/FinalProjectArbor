@@ -38,7 +38,7 @@
 						<c:forEach var="val" items="${optValue }">
 							<c:if test="${val.optname==name.optname }">
 								<option value="${val.optno }">${val.optvalue }
-									<c:if test="${val.optprice!=0 }">(+${val.optprice })</c:if>
+									<c:if test="${val.optprice!=0 }">(<c:if test="${fn:substring(val.optprice,0,1)!='-' }">+</c:if>${val.optprice })</c:if>
 								</option>
 							</c:if>
 						</c:forEach>
@@ -309,22 +309,6 @@
 <div id="p_fixedTop" >
 	<a href="#" id="p_fixedHeader"><img src="<%=request.getContextPath() %>/img/top.png"/></a>
 </div>
-<div id="p_fixedDiv">
-	<form name="optionDiv" id="optionDiv">
-		<div id="p_detailSelect" class="clearfix">
-			<div id="p_detailSelect_Div" class="clearfix">
-				
-			</div>
-			<div id="p_totalDiv">
-				총 상품금액 <span id="p_totalprice">0 원</span><br/>
-				<button type="button" onclick="javascript:dibsInsert(${vo.pno})" class="clientSubBtn">찜하기</button>
-				<button type="button" onclick="javascript:cartInsert(${vo.pno})" class="clientSubBtn">장바구니</button>
-				<button type="button" onclick="javascript:orderInsert(${vo.pno})" class="clientMainBtn">바로구매</button>
-			</div>
-			<span id="p_detailMenu_up"></span>
-		</div>
-	</form>
-</div>
 <script>
 	$(function(){
 		<!-- 총금액 넣을 변수 -->
@@ -359,7 +343,6 @@
 		<!-- 지정된 상품 x 누르면 한 줄 지우면서 총금액 재계산 -->
 		$(document).on('click', '.cancelimg', function(){
 			var selectPrice = $(this).parent().prev().children().val();
-			console.log("selectPrice?"+selectPrice);
 			totalPrice -= selectPrice;
 			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
 			$(this).parent().parent().remove();
@@ -387,9 +370,9 @@
 					success : function(result){
 						var $result = $(result);
 						var price = ${vo.saleprice }
-						var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname} (&nbsp&nbsp ";
+						var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname} (&nbsp&nbsp";
 						$result.each(function(idx, val) {
-							tag += val.optname+" : "+val.optvalue+" &nbsp&nbsp";
+							tag +=val.optname+" : "+val.optvalue+"&nbsp&nbsp";
 							price += val.optprice;
 						});
 						tag += ") <input type='hidden' name='pno' value='${vo.pno }'/></li>";
@@ -537,6 +520,12 @@
 			}, success : function(result) {
 				if(result>0) {
 					if(confirm("찜목록에 등록되었습니다. 찜목록으로 이동하시겠습니까?")) {
+						location.href="dibsList";
+					} else {
+						location.href="productView?pno=${vo.pno}";
+					}
+				} else {
+					if(confirm("찜목록에 동일한 상품이 존재합니다. 찜목록으로 이동하시겠습니까?")) {
 						location.href="dibsList";
 					} else {
 						location.href="productView?pno=${vo.pno}";

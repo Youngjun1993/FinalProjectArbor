@@ -7,4 +7,29 @@
 		insert into dibs(dibsno, pno, userid, quantity<if test='#{optionvalue}!=null and #{optionvalue}!=""'>, optionvalue</if>, price)
 		values(dibssq.nextval, ${pno}, #{userid}, ${quantity}<if test='#{optionvalue}!=null and #{optionvalue}!=""'>, #{optionvalue}</if>, ${price})
 	</insert>
+	<select id="dibsList" resultType="com.arbor.home.vo.DibsVO">
+		select dibsno, pno, userid, optionvalue, dibsdate, quantity, price from dibs where userid=#{param1} order by dibsdate desc
+	</select>
+	<select id="onePageRecordSelect" resultType="com.arbor.home.vo.DibsVO" parameterType="com.arbor.home.vo.PageDibsVO">
+		select * from (select * from (select DISTINCT d.pno, d.userid, to_char(d.dibsdate, 'YYYY/MM/DD') as dibsdate, p.pname, p.img1, p.stock, p.pprice, p.saleprice from (select * from dibs where userid=#{userid} order by dibsdate) d join product p on d.pno=p.pno 
+		order by dibsdate desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by dibsdate asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by dibsdate desc
+	</select>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageDibsVO">
+		select count(pno) as totalRecord from (select distinct pno, userid from dibs) where userid = #{userid}
+	</select>
+	<!-- 상품별 결제금액  -->
+	<select id="dibsPrice" resultType="int">
+		select sum(price*quantity) as optsumprice from dibs where pno=#{param1} and userid=#{param2}
+	</select>
+	<!-- 장바구니에 추가 -->
+	<insert id="dibsInsertInCart">
+		insert into cart(cartno, pno, userid, quantity, optionvalue, price) select cartsq.nextval, pno, userid, quantity, optionvalue, price from dibs where pno=#{param1} and userid=#{param2}
+	</insert>
+	<delete id="dibsDelete">
+		delete from dibs where pno=#{param1} and userid=#{param2}
+	</delete>
+	<!-- 중복체크 위한 리스트 -->
+	<select id="dibsMiniList" parameterType="com.arbor.home.vo.DibsVO" resultType="int">
+		select count(pno) from dibs where userid=#{userid} and pno=${pno} and optionvalue like '%${optionvalue}%'
+	</select>
 </mapper>

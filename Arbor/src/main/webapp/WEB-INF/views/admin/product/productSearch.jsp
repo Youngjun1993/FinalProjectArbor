@@ -97,7 +97,8 @@
 							<li>${vo.stock }</li>
 							<li>${vo.pdate }</li>
 							<li><input type="submit" class="adminSubBtn" value="수정" formaction="productEdit?pno=${vo.pno }"/>
-							<input type="submit" class="adminSubBtn" value="삭제" formaction="javascript:productdel(${vo.pno })"/></li>
+							<input type="submit" class="adminSubBtn" value="삭제" formaction="javascript:productdel(${vo.pno })"/>
+							</li>
 						</c:forEach>
 					</ul>
 				</form>
