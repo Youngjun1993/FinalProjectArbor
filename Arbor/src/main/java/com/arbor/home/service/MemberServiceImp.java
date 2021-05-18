@@ -88,6 +88,6 @@ public interface MemberServiceImp {
 	public List<MemberVO> dormantExcelDownload(MemberVO vo);
 	
 	//아이디 찾기
-	public List<MemberVO> memberIdSearchOk(String username, String email);
+	public MemberVO memberIdSearchOk(String username, String email);
 	
 }

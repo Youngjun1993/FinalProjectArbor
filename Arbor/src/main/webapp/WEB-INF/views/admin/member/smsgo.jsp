@@ -1,8 +1,10 @@
-<%@ page language="java" import="java.util.*, java.security.*, java.io.*, java.net.*, java.util.Base64.Encoder, java.util.Base64.Decoder" %>
+<%@page import="java.util.Base64.Decoder"%>
+<%@page import="java.util.Base64.Encoder"%>
+<%@ page language="java" import="java.util.*, java.security.*, java.io.*, java.net.*, java.util.Base64" %>
 
     <%!
     /**==============================================================
-      Description        :  »ç¿ë ÇÔ¼ö ¼±¾ğ
+      Description        :  ì‚¬ìš© í•¨ìˆ˜ ì„ ì–¸
     ==============================================================**/
      /**
      * nullcheck
@@ -53,17 +55,17 @@
     %>
     <%
     /**==============================================================
-      Description        : Ä³¸¯ÅÍ¼Â Á¤ÀÇ
+      Description        : ìºë¦­í„°ì…‹ ì •ì˜
       EUC-KR: @ page contentType="text/html;charset=EUC-KR
       UTF-8: @ page contentType="text/html;charset=UTF-8
     ==============================================================**/
     %>
-    <%@ page contentType="text/html;charset=EUC-KR"%>
+    <%@ page contentType="text/html;charset=UTF-8"%>
     <%
     /**==============================================================
-      Description        :  »ç¿ëÀÚ »ùÇÃÄÚµå
+      Description        :  ì‚¬ìš©ì ìƒ˜í”Œì½”ë“œ
     ==============================================================**/
-    String charsetType = "EUC-KR"; //EUC-KR ¶Ç´Â UTF-8
+    String charsetType = "UTF-8"; //EUC-KR ë˜ëŠ” UTF-8
 
     request.setCharacterEncoding(charsetType);
     response.setCharacterEncoding(charsetType);
@@ -71,9 +73,9 @@
     if(action.equals("go")) {
 
         String sms_url = "";
-        sms_url = "https://sslsms.cafe24.com/sms_sender.php"; // SMS Àü¼Û¿äÃ» URL
-        String user_id = base64Encode("useryh"); // SMS¾ÆÀÌµğ
-        String secure = base64Encode("f3ae4a97278fb1e78bb83607f476e789");//ÀÎÁõÅ°
+        sms_url = "https://sslsms.cafe24.com/sms_sender.php"; // SMS ì „ì†¡ìš”ì²­ URL
+        String user_id = base64Encode("useryh"); // SMSì•„ì´ë””
+        String secure = base64Encode("f3ae4a97278fb1e78bb83607f476e789");//ì¸ì¦í‚¤
         String msg = base64Encode(nullcheck(request.getParameter("msg"), ""));
         String rphone = base64Encode(nullcheck(request.getParameter("rphone"), ""));
         String sphone1 = base64Encode(nullcheck(request.getParameter("sphone1"), ""));
@@ -91,7 +93,7 @@
         String repeatFlag = base64Encode(nullcheck(request.getParameter("repeatFlag"), ""));
         String repeatNum = base64Encode(nullcheck(request.getParameter("repeatNum"), ""));
         String repeatTime = base64Encode(nullcheck(request.getParameter("repeatTime"), ""));
-        String returnurl = nullcheck(request.getParameter("returnurl"), "");//¸®ÅÏurl
+        String returnurl = nullcheck(request.getParameter("returnurl"), "");//ë¦¬í„´url
         String nointeractive = nullcheck(request.getParameter("nointeractive"), "");
         String smsType = base64Encode(nullcheck(request.getParameter("smsType"), ""));
 
@@ -100,7 +102,7 @@
         String path = "/" + host_info[3];
         int port = 80;
 
-        // µ¥ÀÌÅÍ ¸ÊÇÎ º¯¼ö Á¤ÀÇ
+        // ë°ì´í„° ë§µí•‘ ë³€ìˆ˜ ì •ì˜
         String arrKey[]
             = new String[] {"user_id","secure","msg", "rphone","sphone1","sphone2","sphone3","rdate","rtime"
                         ,"mode","testflag","destination","repeatFlag","repeatNum", "repeatTime", "smsType", "subject"};
@@ -136,7 +138,7 @@
         }
         boundary = "---------------------"+boundary.substring(0,11);
 
-        // º»¹® »ı¼º
+        // ë³¸ë¬¸ ìƒì„±
         String data = "";
         String index = "";
         String value = "";
@@ -154,18 +156,18 @@
 
         InetAddress addr = InetAddress.getByName(host);
         Socket socket = new Socket(host, port);
-        // Çì´õ Àü¼Û
+        // í—¤ë” ì „ì†¡
         BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), charsetType));
         wr.write("POST "+path+" HTTP/1.0\r\n");
         wr.write("Content-Length: "+data.length()+"\r\n");
         wr.write("Content-type: multipart/form-data, boundary="+boundary+"\r\n");
         wr.write("\r\n");
 
-        // µ¥ÀÌÅÍ Àü¼Û
+        // ë°ì´í„° ì „ì†¡
         wr.write(data);
         wr.flush();
 
-        // °á°ú°ª ¾ò±â
+        // ê²°ê³¼ê°’ ì–»ê¸°
         BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream(),charsetType));
         String line;
         String alert = "";
@@ -178,21 +180,21 @@
 
         String tmpMsg = (String)tmpArr.get(tmpArr.size()-1);
         String[] rMsg = tmpMsg.split(",");
-        String Result= rMsg[0]; //¹ß¼Û°á°ú
-        String Count= ""; //ÀÜ¿©°Ç¼ö
+        String Result= rMsg[0]; //ë°œì†¡ê²°ê³¼
+        String Count= ""; //ì”ì—¬ê±´ìˆ˜
         if(rMsg.length>1) {Count= rMsg[1]; }
 
-                        //¹ß¼Û°á°ú ¾Ë¸²
+                        //ë°œì†¡ê²°ê³¼ ì•Œë¦¼
         if(Result.equals("success")) {
-            alert = "¼º°øÀûÀ¸·Î ¹ß¼ÛÇÏ¿´½À´Ï´Ù.";
-            alert += " ÀÜ¿©°Ç¼ö´Â "+ Count+"°Ç ÀÔ´Ï´Ù.";
+            alert = "ì„±ê³µì ìœ¼ë¡œ ë°œì†¡í•˜ì˜€ìŠµë‹ˆë‹¤.";
+            alert += " ì”ì—¬ê±´ìˆ˜ëŠ” "+ Count+"ê±´ ì…ë‹ˆë‹¤.";
         }
         else if(Result.equals("reserved")) {
-            alert = "¼º°øÀûÀ¸·Î ¿¹¾àµÇ¾ú½À´Ï´Ù";
-            alert += " ÀÜ¿©°Ç¼ö´Â "+ Count+"°Ç ÀÔ´Ï´Ù.";
+            alert = "ì„±ê³µì ìœ¼ë¡œ ì˜ˆì•½ë˜ì—ˆìŠµë‹ˆë‹¤";
+            alert += " ì”ì—¬ê±´ìˆ˜ëŠ” "+ Count+"ê±´ ì…ë‹ˆë‹¤.";
         }
         else if(Result.equals("3205")) {
-            alert = "Àß¸øµÈ ¹øÈ£Çü½ÄÀÔ´Ï´Ù.";
+            alert = "ì˜ëª»ëœ ë²ˆí˜¸í˜•ì‹ì…ë‹ˆë‹¤.";
         }
         else {
             alert = "[Error]"+Result;

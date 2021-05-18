@@ -169,7 +169,7 @@ public class MemberService implements MemberServiceImp {
 	}
 
 	@Override
-	public List<MemberVO> memberIdSearchOk(String username, String email) {
+	public MemberVO memberIdSearchOk(String username, String email) {
 		
 		return memberDAO.memberIdSearchOk(username, email);
 	}

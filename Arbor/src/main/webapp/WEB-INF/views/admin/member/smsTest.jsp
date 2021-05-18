@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>      
 <script type="text/javascript">
-	var list = ${list};
-	console.log(list[0]);
 	
 	function receiver() {
 		
@@ -16,7 +14,6 @@
 		$('#rphone').val(chknum);
 		
 	}
-	
 	
     function setPhoneNumber(val) {
         var numList = val.split("-");
@@ -83,10 +80,16 @@
     <span>
       <input type="radio" name="smsType" value="L">장문(LMS)</span>
     <br /> 제목 :
-    <input type="text" name="subject" value="Arbor 휴면 알림 문자"> 장문(LMS)인 경우(한글30자이내)
+    <input type="text" name="subject" value="Arbor 휴면 알림 문자"> 장문(LMS)인 경우 (한글30자이내)
     <br /> 전송메세지 <br/>
     <textarea name="msg" cols="30" rows="10" style="width:455px;">
-    Arbor 문자 테스트
+   	Ａ Ｒ B 0 Ｒ
+	▼ ▼ ▼
+	휴 복 삼
+	면 귀 만
+	메 회 쿠
+	일 원 폰
+	▲ ▲ ▲
     </textarea>
     <br />
     <!-- <p>단문(SMS) : 최대 90byte까지 전송할 수 있으며, 잔여건수 1건이 차감됩니다.

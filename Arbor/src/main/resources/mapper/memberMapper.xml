@@ -316,7 +316,7 @@
 	
 	<!-- 아이디 찾기 -->
 	<select id="memberIdSearchOk" resultType="com.arbor.home.vo.MemberVO">
-		select * from member where username = #{param1} and email = #{param2}
+		select userid, userpwd from member where username = #{param1} and email = #{param2}
 	</select>
 	
 </mapper>

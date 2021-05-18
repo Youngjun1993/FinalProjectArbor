@@ -22,6 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -116,32 +117,6 @@ public class MemberController {
 		return "admin/member/memberPwdSearch";
 	}
 	
-	@RequestMapping("/idsearch")
-	public String idSearch() {
-		
-		return "admin/member/memberIdSearch";
-	}
-	
-	//비밀번호 찾기 로직
-	@ResponseBody
-	@RequestMapping("/memberIdSearchOk")
-	public String memberIdSearchOk(@RequestParam(value = "idCheck[]") List<String> arr) {
-		//넘어온값을 셀렉트로 아이디구하기
-		String username = arr.get(0);
-		String email = arr.get(1);
-		
-		
-		//매개변수가 VO타입이아니면 param1,param2로...
-		List<MemberVO> vo = memberService.memberIdSearchOk(username, email);
-		
-		String result = vo.get(0).getUserid();
-		
-		//휴면계정? 탈퇴계정 구분?
-		
-		//리턴은??
-		
-		return result;
-	}
 	
 	@RequestMapping("/joinok")
 	public String joinOk() {
@@ -173,8 +148,78 @@ public class MemberController {
 		
 		return "home";
 	}
+	///////////////////////// 아이디 찾기
+	@RequestMapping("/idsearch")
+	public String idSearch() {
+		return "admin/member/memberIdSearch";
+	}
 	
-    
+	//아이디 찾기 로직
+	@RequestMapping("/memberIdSearchOk")
+	public ModelAndView memberIdSearchOk(String username, String email) {
+		
+		ModelAndView mav = new ModelAndView();
+		//넘어온값을 셀렉트로 아이디구하기
+		
+		//매개변수가 VO타입이아니면 param1,param2로...
+		MemberVO vo = memberService.memberIdSearchOk(username, email);
+		
+		Random random = new Random();
+		int checkNum = random.nextInt(888888) + 111111;
+       
+		System.out.println("인증번호 = " + checkNum);
+		
+		
+		/*
+       //이메일 보내기
+       String sender = "emailarbor@gmail.com";//메일을 보낼 관리자계정
+       String toMail = email;//뷰에서 가져온 인증번호 받을 이메일 값
+       String title = "Arbor 휴면계정 알림 메일입니다";
+       String content = 
+    		   "귀하의 계정이 휴면상태가 되었습니다." +
+    				   "<br/>" +
+    				   "다시 <span style =\"color:green;\"> <i>Arbor</i> </span> 의 회원으로 돌아오시길 원하시면" + 
+    				   "<br/>" + 
+    				   "<a href=\"http://localhost:9090/home/\">이쪽</a> 의 링크로 접속해주시면 됩니다. 다시뵙길 기대하겠습니다. 감사합니다.";
+       
+       try {
+          
+           MimeMessage message = mailSender.createMimeMessage();
+           MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+           helper.setFrom(sender);
+           helper.setTo(toMail);
+           helper.setSubject(title);
+           helper.setText(content,true);
+           mailSender.send(message);
+           
+           
+       }catch(Exception e) {
+           e.printStackTrace();
+       }
+		
+		*/
+		
+		//휴면계정? 탈퇴계정 구분?
+		
+		//리턴은?? 리턴할 아이디 값과 이메일 인증값을 List에 넣기
+       	String needId = vo.getUserid();
+       	System.out.println(needId);
+		String validateNum = checkNum + "";
+		
+		List<String> rtnList = new ArrayList<String>();
+		rtnList.add(0,"'" + needId + "'");
+		rtnList.add(1,"'" + validateNum + "'");
+       	
+		System.out.println(rtnList.get(0) + " ///////////확인번호 =" +rtnList.get(1));
+		
+		mav.addObject("list", rtnList);
+		
+		//ajax로 바꾸자
+		mav.setViewName("admin/member/memberIdSearch");
+		
+		return mav;
+	}
+	
 	//////////////////////////////////로그인 영역 //////////////////////////////////////////
 	//중복아이디 체크
 	@RequestMapping("/idcheck")
@@ -239,9 +284,9 @@ public class MemberController {
            e.printStackTrace();
        }
       
-      String num = Integer.toString(checkNum);
+      String result = "이메일 인증값을 확인하세요.";
       
-      return num;
+      return result;
       
     }
     
@@ -268,7 +313,6 @@ public class MemberController {
     @ResponseBody
     @RequestMapping("/pwdCheck")
     //매개변수 ajax param, session
-    //유저아이디가 
 	public int pwdCheck(@RequestParam(value = "pwdCheck[]") List<String> arr, HttpSession session) {
     	int result = 0;
     	
