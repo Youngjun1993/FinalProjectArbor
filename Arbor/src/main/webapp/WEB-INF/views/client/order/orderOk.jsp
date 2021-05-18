@@ -135,11 +135,11 @@
 			</tr>
 			<tr>
 				<td>승인번호</td>
-				<td>${applyNum }</td>
+				<td>${orderVo.applynum }</td>
 			</tr>
 		</table>
 	</div>
 	<div class="j_orderOkDiv">
-		<input type="button" class="clientMainBtn" onclick="<!-- 해당주문내역으로 이동. 주문번호 넘기기 -->" value="주문내역확인"/> <input type="button" class="clientSubBtn" onclick="location.href='/home'" value="쇼핑계속하기"/>
+		<input type="button" class="clientMainBtn" onclick="location.href='purchaseList'" value="주문내역확인"/> <input type="button" class="clientSubBtn" onclick="location.href='/home'" value="쇼핑계속하기"/>
 	</div>
 </div>

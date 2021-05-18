@@ -13,7 +13,6 @@ import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PointVO;
-import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubOrderVO;
 
 @Service
@@ -72,8 +71,8 @@ public class OrderService implements OrderServiceImp {
 	}
 
 	@Override
-	public List<OrderTblVO> selectOrderList(OrderTblVO orderVo) {
-		return orderDAO.selectOrderList(orderVo);
+	public List<OrderTblVO> selectOrderList(PageSearchVO pageVo) {
+		return orderDAO.selectOrderList(pageVo);
 	}
 
 	@Override
@@ -101,7 +100,7 @@ public class OrderService implements OrderServiceImp {
 	}
 
 	@Override
-	public CartVO cartAppendChckList(int cartno, String userid) {
+	public SubOrderVO cartAppendChckList(int cartno, String userid) {
 		return orderDAO.cartAppendChckList(cartno, userid);
 	}
 
@@ -109,13 +108,25 @@ public class OrderService implements OrderServiceImp {
 	public List<CartVO> cartAllList(String userid) {
 		return orderDAO.cartAllList(userid);
 	}
-	public List<SubOrderVO> getSubOrderList(String orderNo) {
-		return getSubOrderList(orderNo);
+	
+	/*	@Override
+		public List<SubOrderVO> getSubOrderList(String orderNo) {
+			return orderDAO.getSubOrderList(orderNo);
+		}
+	
+		@Override
+		public OrderTblVO getOrderInfo(String orderNo) {
+			return getOrderInfo(orderNo);
+		}*/
+
+	@Override
+	public int deleteCartList(int cartno, String userid) {
+		return orderDAO.deleteCartList(cartno, userid);
 	}
 
 	@Override
-	public OrderTblVO getOrderInfo(String orderNo) {
-		return getOrderInfo(orderNo);
+	public int updateProductStock(int pno) {
+		return orderDAO.updateProductStock(pno);
 	}
 
 	

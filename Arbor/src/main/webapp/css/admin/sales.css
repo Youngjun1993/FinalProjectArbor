@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+#salesDateSearch{
+	width: 1200px;
+	height: 30px;
+	borderspacing: 0px;
+	border-collapse: collapse;
+	margin-bottom: 30px;
+}
+#salesDateSearch td{
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+#salesDateSearch td:first-child{
+	text-align: center;
+	background: #eee;
+}
+#salesDateSearch td>input[type=text]{
+	width: 250px;
+}
+#salesDateSearch td>input[type=button]{
+	margin-left: 10px;
+	width: 60px;
+}
+#dailySales li{
+	float: left;
+	width: 20%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	/* margin: 0 -1px -1px 0; */
+}
+#dailySales li:nth-child(-n+5){
+	background: #eee;
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #aaa;
+	font-weight: bold;
+}
+#dailySales li:nth-child(5n+2):not(#dailySales li:nth-child(2)),
+#dailySales li:nth-child(5n+3):not(#dailySales li:nth-child(3)),
+#dailySales li:nth-child(5n+4):not(#dailySales li:nth-child(4)){
+	text-align: right;
+	padding-right: 15px;
+}
+#dailySales li:nth-child(5n+5){
+	border-right: none;
+}
+#dailySales li>input[type=button]{
+	height: 30px;
+	line-height: 25px;
+	border: none;
+	border-radius: 10px;
+	box-sizing: border-box;
+	background: rgb(191,43,53);
+	color: #fff;
+}
+
+/* 주문상세보기 팝업 */
+#j_salesPopup_Wrap{
+	width: 600px;
+	border: 1px solid #333;
+	position: absolute;
+	top: 27%;
+	left: 38%;
+	display: none;
+	background: #eee;
+}
+#j_salesPopup_Wrap>div{
+	width: 550px;
+	margin: 0 auto;
+	background: lightblue;
+}
+#j_salesPopup_Wrap p{
+	font-size: 15px;
+	font-weight: bold;
+}
+#j_salesPopup_Wrap>div li{
+	float: left;
+	width: 17.5%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;	
+}
+#j_salesPopup_Wrap>div li:nth-child(-n+5){
+	background: #eee;
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #aaa;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+

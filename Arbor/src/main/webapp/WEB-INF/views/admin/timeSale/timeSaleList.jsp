@@ -41,6 +41,7 @@
 		<ul class="clearfix" id="timeSaleList">
 			<li>NO</li>
 			<li>상품번호</li>
+			<li></li>
 			<li>상품명</li>
 			<li>상품가격</li>
 			<li>할인가격</li>
@@ -49,6 +50,7 @@
 			<c:forEach var="vo" items="${list }">
 				<li>${vo.saleNo }</li>
 				<li>${vo.pNo }</li>
+				<li></li>
 				<li class="wordcut"><a href="timeSaleView?saleNo=${vo.saleNo }">${vo.pName }</a></li>
 				<li>${vo.pPrice }</li>
 				<li>${vo.salePrice }</li>
