@@ -1,7 +1,11 @@
 @charset "UTF-8";
-
+#d_viewBox{
+	height:780px;
+	margin-bottom:100px;
+}
 #d_viewBox div{
 	border-bottom: 1px solid #ddd;
+
 }
 #d_viewBox div span{
 	margin-left:20px;
@@ -22,5 +26,7 @@
 #d_viewBox div:nth-of-type(3){
 	margin-top:30px;
 	font-size:17px;
-	height:500px;
+	height:700px;
+	overflow:scroll;
+	
 }

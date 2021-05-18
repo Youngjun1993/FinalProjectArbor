@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.NoticeServiceImp;
 import com.arbor.home.vo.NoticeVO;
+import com.arbor.home.vo.PageSearchVO;
 
 
 @Controller
@@ -20,11 +21,22 @@ public class NoticeController {
 	
 	//공지사항 게시판
 	@RequestMapping("/noticeList")
-	public ModelAndView noticeList() {
+	public ModelAndView noticeList(PageSearchVO pageVo, HttpServletRequest req) {
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr!=null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		pageVo.setSearchKey(req.getParameter("searchKey"));
+		pageVo.setSearchWord(req.getParameter("searchWord"));
+		
+		pageVo.setTotalRecord(NoticeService.totalRecord(pageVo));
+		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("noticeList",NoticeService.noticeList());
+		mav.addObject("noticeList",NoticeService.noticeList(pageVo));
+		mav.addObject("pageVO", pageVo);
 		mav.setViewName("client/notice/noticeList");
-		System.out.println(NoticeService.noticeList().size());
+		System.out.println(NoticeService.noticeList(pageVo).size());
 		return mav;
 	}
 	
@@ -41,11 +53,23 @@ public class NoticeController {
 	
 	//관리자 - 공지사항관리
 	@RequestMapping("/noticeAdminList")
-	public ModelAndView noticeEditList() {
+	public ModelAndView noticeEditList(PageSearchVO pageVo, HttpServletRequest req) {
+		
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr!=null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		pageVo.setSearchKey(req.getParameter("searchKey"));
+		pageVo.setSearchWord(req.getParameter("searchWord"));
+		
+		pageVo.setTotalRecord(NoticeService.totalRecord(pageVo));
+		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("noticeAdminList",NoticeService.noticeList());
+		mav.addObject("noticeAdminList",NoticeService.noticeList(pageVo));
+		mav.addObject("pageVO", pageVo);
 		mav.setViewName("admin/notice/noticeAdminList");
-		System.out.println(NoticeService.noticeList().size());
+		System.out.println(NoticeService.noticeList(pageVo).size());
 		return mav;
 	}
 	
@@ -74,6 +98,39 @@ public class NoticeController {
 			 mav.setViewName("redirect:noticeInsert");
 		 }
 		 return mav;
+	}
+	@RequestMapping("/noticeEdit")
+	public ModelAndView noticeEdit(int no) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("noticeEdit", NoticeService.noticeView(no));
+		mav.setViewName("admin/notice/noticeEdit");
+		
+		return mav;
+	}
+	@RequestMapping("/noticeEditOk")
+	public ModelAndView noticeEditOk(NoticeVO vo) {
+		ModelAndView mav = new ModelAndView();
+		if(NoticeService.noticeEditOk(vo)>0) {
+			mav.addObject("no", vo.getNoticeno());
+			mav.setViewName("redirect:noticeEditView");
+		}else {
+			mav.setViewName("redirect:noticeEdit");
+		}
+		return mav;
+	}
+	
+	@RequestMapping("/boardDelete")
+	public ModelAndView boardDelete(int no) {
+		ModelAndView mav = new ModelAndView();
+		
+		if(NoticeService.boardDelete(no)>0) {
+			mav.setViewName("redirect:noticeAdminList");
+		}else {
+			mav.addObject("no",no);
+			mav.setViewName("redirect:noticeEditView");
+		}
+		return mav;
 	}
 
 }

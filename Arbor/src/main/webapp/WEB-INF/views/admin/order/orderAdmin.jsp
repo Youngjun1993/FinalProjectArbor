@@ -28,10 +28,9 @@
 		showMonthAfterYear:true,	//년+월
 		changeYear: true,			//콤보박스 연도 선택 가능
 		changeMonth: true,			//콤보박스 월 선택 가능
-		showOn: "focus"				//both:버튼을 누르거나 input을 클릭하면 달력 표시	
+		showOn: "focus"				//both:버튼을 누르거나 input을 클릭하면 달력 표시
        	//buttonImage: "../../../img/calendar2.png",
        	//buttonImageOnly: true
-       	//buttonText: '달력선택'
 	});
 	$("#orderSearch_from").datepicker({
 		onClose : function(selectedDate){
@@ -130,7 +129,7 @@
 				</form>			
 			</div>
 		</div>
-		<div id="j_orderList">	<!-- 주문 리스트 -->
+		<div id="j_orderList" class="clearfix">	<!-- 주문 리스트 -->
 			<form method="post" id="j_orderListFrm" action="orderAdmin">
 				<select name="status">
 					<option value="">주문상태</option>
@@ -169,12 +168,14 @@
 				</ul>
 			</form>
 		</div>
- 		<div>
+ 		<div class="j_paging">
 			<ul class="adPaging clearfix">
 				<c:if test="${pageVO.pageNum>1 }">
 					<li style="border-bottom:none;"><a class="pagingAdLR_a" href="orderAdmin?pageNum=${pageVO.pageNum-1 }">＜</a></li>
 				</c:if>
+				
 				<c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+					
 					<c:if test="${p<=pageVO.totalPage }">
 						<c:if test="${p==pageVO.pageNum }">
 							<li style="border-bottom:3px solid rgb(191,43,53);"><a href="orderAdmin?pageNum=${p }">${p }</a></li>
@@ -183,7 +184,9 @@
 							<li><a href="orderAdmin?pageNum=${p }">${p }</a></li>
 						</c:if>
 					</c:if>
+					
 				</c:forEach>
+				
 				<c:if test="${pageVO.pageNum<pageVO.totalPage }">
 					<li style="border-bottom:none;"><a class="pagingAdLR_a" href="orderAdmin?pageNum=${pageVO.pageNum+1 }">＞</a></li>
 				</c:if>
