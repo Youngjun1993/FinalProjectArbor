@@ -45,21 +45,38 @@ public class ProductController {
 	@RequestMapping("/productTotalList")
 	public ModelAndView productTotalList() {
 		ModelAndView mav = new ModelAndView();
-		List<MainCateVO> list = productService.mainCateList();
-		List<ProductVO> productList = new ArrayList<ProductVO>();
-		for(int i=0; i<list.size(); i++) {
-			MainCateVO vo = list.get(i);
-			int mainno = vo.getMainno();
-			List<ProductVO> list2 = productService.productTopList(mainno);
-			for(int l=0; l<list2.size(); l++) {
-				ProductVO vo2 = list2.get(l);
-				productList.add(vo2);
-			}
+		
+		List<MainCateVO> maincate = productService.mainCateList();
+		List<ProductVO> cateimg = new ArrayList<ProductVO>();
+		for(int i=0; i<maincate.size(); i++) {
+			MainCateVO mvo = maincate.get(i);
+			int mainno = mvo.getMainno();
+			cateimg.add(productService.productCateImgSelect(mainno));
 		}
 		
-		mav.addObject("list", productList);
-		mav.addObject("maincate", list);
+		mav.addObject("topList", productService.productCateTop12());
+		mav.addObject("maincate", maincate);
+		mav.addObject("cate", cateimg);
 		mav.setViewName("client/product/productTotalList");
+		return mav;
+	}
+	// View - 상품 카테고리별 페이지 생성
+	@RequestMapping("/productCategoryList")
+	public ModelAndView productCategoryList(int mainno) {
+		ModelAndView mav = new ModelAndView();
+		List<SubCateVO> subcate = productService.subCateList(mainno);
+		List<ProductVO> cateimg = new ArrayList<ProductVO>();
+		for(int i=0; i<subcate.size(); i++) {
+			SubCateVO svo = subcate.get(i);
+			int subno = svo.getSubno();
+			cateimg.add(productService.productSubCateImgSelect(subno));
+		}
+		
+		mav.addObject("cate", cateimg);
+		mav.addObject("list", productService.productTotalList(mainno));
+		mav.addObject("subcate", subcate);
+		mav.addObject("mainname", productService.mainnameSelect(mainno));
+		mav.setViewName("client/product/productCategoryList");
 		return mav;
 	}
 	
@@ -84,12 +101,12 @@ public class ProductController {
 			list = productService.productListClient(vo);
 		}
 		
-		mav.addObject("topList", productService.productTopList(vo.getMainno()));
+		mav.addObject("topList", productService.productTopList(vo.getSubno()));
 		mav.addObject("list", list);
 		mav.addObject("subCate", productService.subCateList(vo.getMainno()));
-		mav.addObject("mainname", productService.mainnameSelect(vo.getMainno()));
 		mav.addObject("opt", productService.productListRGB(vo.getSubno()));
 		mav.addObject("pageVO", vo);
+		mav.addObject("subname", productService.subnameSelect(vo.getSubno()));
 		mav.setViewName("client/product/productList");
 		return mav;
 	}

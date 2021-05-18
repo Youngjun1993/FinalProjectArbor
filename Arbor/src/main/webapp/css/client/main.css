@@ -72,12 +72,12 @@ nav>ul ul{position:absolute;}
 /*서브메뉴스타일*/
 .d_sub_menu .d_col{width:12%; height:450px; letter-spacing:1px;}
 .d_sub_menu .d_col>ul{width:12%;padding-top:60px;}
-.d_sub_menu .d_col>ul>li:first-child{color:rgb(90,120,114);font-size:25px; font-weight:bold;}
-
+.d_sub_menu>div.d_col>ul>li:first-child{color:rgb(90,120,114);font-size:25px; font-weight:bold;}
+.d_sub_menu>div.d_col>ul>li:first-child>a.d_headerTitle {color:rgb(90,120,114);}
 .d_sub_menu .d_col ul li{margin-left:40px;width:150px;line-height:50px; font-size:18px; }
 .d_sub_menu .d_col ul li a{position:relative; padding-bottom:5px; transition:all 0.5s;}
-.d_sub_menu .d_col ul li a:hover{color:rgb(90,120,114);font-weight:bold;}
-.d_sub_menu .d_col ul li a:after{
+.d_sub_menu .d_col ul li a:not(.d_headerTitle):hover{color:rgb(90,120,114);font-weight:bold;}
+.d_sub_menu .d_col ul li a:not(.d_headerTitle):after{
 	content:""; 
 	position:absolute; 
 	left:50%; bottom:-1px; 

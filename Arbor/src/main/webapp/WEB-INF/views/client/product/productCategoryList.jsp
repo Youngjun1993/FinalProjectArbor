@@ -3,22 +3,22 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="w1400_container font_ng clearfix" id="p_totalList">
 	<div id="p_cateList">
-		<c:forEach var="maincate" items="${maincate }">
-			<a href="productCategoryList?mainno=${maincate.mainno }" class="clearfix">
+		<c:forEach var="subcate" items="${subcate }">
+			<a href="productList?mainno=${subcate.mainno }&subno=${subcate.subno }" class="clearfix">
 				<c:forEach var="img" items="${cate }">
-					<c:if test="${maincate.mainno==img.mainno }">
+					<c:if test="${subcate.subno==img.subno }">
 						<img src="<%=request.getContextPath()%>/upload/${img.img1}"/><br/>
-						<span>${maincate.mainname }</span>
+						<span>${subcate.subname }</span>
 					</c:if>
 				</c:forEach>
 			</a>
 		</c:forEach>
 	</div>
 	<hr/>
-	<p class="pageTitle"><span>Arbor's Best Item</span></p>
+	<p class="pageTitle"><span>${mainname }'s Best Item</span></p>
 	<div id="p_Totallist">
 		<ul class="clearfix">
-			<c:forEach var="vo" items="${topList }" varStatus="status">
+			<c:forEach var="vo" items="${list }" varStatus="status">
 				<li>
 					<c:choose>
 						<c:when test="${status.count<=4}">

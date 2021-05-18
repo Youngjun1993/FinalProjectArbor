@@ -56,6 +56,16 @@ public interface ProductServiceImp {
 	public OptionVO productOptionView(int optno);
 	// 리스트 탑3 정보 끌어오기
 	public List<ProductVO> productTopList(int mainno);
+	// TotalList에서 사용할 대분류기준 탑12
+	public List<ProductVO> productTotalList(int mainno);
+	// TotalList에서 사용할 카테고리 탑1이미지
+	public ProductVO productCateImgSelect(int mainno);
+	// TotalList에서 사용할 카테고리 탑1이미지
+	public ProductVO productSubCateImgSelect(int subno);
+	// TotalList에서 사용할 전체 탑12
+	public List<ProductVO> productCateTop12();
+	// subno로 subname구하기
+	public String subnameSelect(int subno);
 	
 	/* 관리자 */
 	

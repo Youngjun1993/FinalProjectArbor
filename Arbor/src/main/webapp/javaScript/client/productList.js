@@ -1,4 +1,5 @@
 $(function(){
+
 	$(".p_HoverImg2").hide();
 	$("#p_optionOpen").hide();
 	$('#p_fixedTop').fadeOut('fast');
@@ -18,10 +19,8 @@ $(function(){
 	$(window).scroll(function(){
       if($(window).scrollTop()>1300) {
       	$('#p_fixedTop').fadeIn('fast');
-      	$('#p_fixedDiv').fadeIn('fast');
       } else {
       	$('#p_fixedTop').fadeOut('fast');
-      	$('#p_fixedDiv').fadeOut('fast');
       }
     });
 

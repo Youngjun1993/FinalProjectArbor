@@ -241,6 +241,32 @@ public class ProductService implements ProductServiceImp {
 	public List<ProductVO> productListClientOrder(PageProductVO pageVo) {
 		return productDAO.productListClientOrder(pageVo);
 	}
+
+	@Override
+	public List<ProductVO> productTotalList(int mainno) {
+		return productDAO.productTotalList(mainno);
+	}
+
+	@Override
+	public ProductVO productCateImgSelect(int mainno) {
+		return productDAO.productCateImgSelect(mainno);
+	}
+
+	@Override
+	public List<ProductVO> productCateTop12() {
+		return productDAO.productCateTop12();
+	}
+
+	@Override
+	public ProductVO productSubCateImgSelect(int subno) {
+		return productDAO.productSubCateImgSelect(subno);
+	}
+
+	@Override
+	public String subnameSelect(int subno) {
+		return productDAO.subnameSelect(subno);
+	}
+
 	
 	
 }

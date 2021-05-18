@@ -168,7 +168,7 @@ $(function(){
 		<c:forEach var="main" items="${mainList}">
 		<div class="d_col">
 			<ul>
-				<li>${main.mainname}</li>
+				<li><a href="productCategoryList?mainno=${main.mainno }" class="d_headerTitle">${main.mainname}</a></li>
 				<c:forEach var="sub" items="${subList }">
 					<c:if test="${main.mainno == sub.mainno }">
 						<li><a href="productList?mainno=${main.mainno }&subno=${sub.subno}">${sub.subname}</a></li>
