@@ -447,9 +447,11 @@ public class ProductController {
 				// rgb코드는 색상 구분일 때만 받아옴
 				if(optNameArr[i].equals("색상")) {
 					vo.setRgbvalue(rgbValueArr[i]);
+				} else if(optNameArr[i]==null || optValueArr[i]==null) {
+					continue;
 				} else {
 					vo.setRgbvalue("");
-				}
+				} 
 				// 가격추가 없을시 0원으로 표기
 				if(optPriceArr[i].equals("") || optPriceArr[i]==null) {
 					vo.setOptprice(0);
@@ -618,7 +620,9 @@ public class ProductController {
 						}
 						if(optNoArr[i]==null || optNoArr[i].equals("")) {
 							// optno가 없으면 새로 추가된 옵션이란 소리임~ (insert)
-							productService.optionInsert(optvo);
+							if(optValueArr[i]!=null && optNameArr[i]!=null) {
+								productService.optionInsert(optvo);
+							}
 						} else {
 							// optno가 있으면 기존 옵션이란 소리임~ (update)
 							optvo.setOptno(Integer.parseInt(optNoArr[i]));

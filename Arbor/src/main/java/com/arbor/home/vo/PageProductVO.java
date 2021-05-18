@@ -6,7 +6,7 @@ public class PageProductVO {
 	private int startPageNum=1;
 	private int totalPage;
 	private int totalRecord;
-	private int onePageRecord=10;
+	private int onePageRecord=12;
 	private int lastPageRecord;
 	private String searchKey;
 	private String searchWord;
