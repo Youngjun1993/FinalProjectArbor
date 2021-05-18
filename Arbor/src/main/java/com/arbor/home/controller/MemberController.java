@@ -36,6 +36,7 @@ import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemPagingDTO;
 import com.arbor.home.vo.MemberDormantVO;
 import com.arbor.home.vo.MemberVO;
+import com.arbor.home.vo.PageSearchVO;
 
 @Controller
 public class MemberController {
@@ -67,6 +68,11 @@ public class MemberController {
 			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
 			session.setAttribute("logName", logVO.getUsername());
 			rttr.addFlashAttribute("msg", "admin");
+			
+			/* 휴면회원 테이블로 90일경과 회원 넘기기 */
+			
+			
+			
 			mav.setViewName("redirect:memberSearch");
 		}else {//사용자로그인성공
 			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
@@ -475,21 +481,17 @@ public class MemberController {
 	//////////////////////////// 휴면 회원 영역 ////////////////////////////////
 	//휴면회원 검색창 이동
 	@RequestMapping("/memberAdminDormant")
-	public ModelAndView memberAdminDormant(MemPagingCri cri) {
-		
+	public ModelAndView memberAdminDormant(PageSearchVO vo, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		int cnt= memberService.memDormantCount(cri);
 		
-		System.out.println(cnt);
-		//페이징용 VO 객체생성
-		MemPagingDTO pageMaker = new MemPagingDTO(cri, cnt);
-		
-		List<MemberDormantVO> vo = memberService.memDormantPaging(cri);
-		
-		mav.addObject("list", vo);
-		mav.addObject("pageMaker", pageMaker);//전체데이터가 담긴 memberVO 객체
+		String pageNumStr = req.getParameter("pageNum");
+		if(pageNumStr != null) {
+			vo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		vo.setTotalRecord(memberService.memDormantCount());
+		mav.addObject("list", memberService.memDormantPaging(vo));
+		mav.addObject("pageVO", vo);
 		mav.setViewName("admin/member/memberAdminDormant");
-	
 		
 		return mav;
 	}
