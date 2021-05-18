@@ -66,82 +66,119 @@
 			등록하신 주소로 메일이 전송되었습니다. 메일을 확인해주세요<br/>
 			<div class="h_pwd_div">인증번호 :
 			<input type="text" id="validateChk" size="20" class="h_ipt" value=""/>
-			<input type="button" id="validateChkBtn" onlick="">
-			<input type="hidden" id="emailnum" value = "">
+			<input type="button" id="validateChkBtn" value="메일인증">
 			</div>
-			<span class="h_wrongPwd" style="display:none;">비밀번호를 다시 확인해 주세요</span>
+			<span class="h_wrongChk" style="display:none;">비밀번호를 다시 확인해 주세요</span>
 		</div>
 	</div>
 </div>
 
 <script>
 
-$('.h_pwdtapbox .h_tab').click(function(){
-    if ($(this).hasClass('emailsearch')) {
-        $('.h_pwdtapbox .h_tab').removeClass('active');
-        $(this).addClass('active');
-        $('.now').hide();
-        $('.h_pwdformtable').show();
-    } 
-    if ($(this).hasClass('phonesearch')) {
-        $('.h_pwdtapbox .h_tab').removeClass('active');
-        $(this).addClass('active');
-        $('.now').hide();
-        $('.h_pwd2formtable').show();
-    }
-});
-
-$('#email_chk_btn').on('click',function() {
-	var name = $('#username').val();
-	var email = $('#email').val();
+	$('.h_pwdtapbox .h_tab').click(function(){
+	    if ($(this).hasClass('emailsearch')) {
+	        $('.h_pwdtapbox .h_tab').removeClass('active');
+	        $(this).addClass('active');
+	        $('.now').hide();
+	        $('.h_pwdformtable').show();
+	    } 
+	    if ($(this).hasClass('phonesearch')) {
+	        $('.h_pwdtapbox .h_tab').removeClass('active');
+	        $(this).addClass('active');
+	        $('.now').hide();
+	        $('.h_pwd2formtable').show();
+	    }
+	});
 	
-	var idArr = new Array();
-	
-	idArr.push(name);//배열에 이름값
-	idArr.push(email);//배열에 이메일값
-	
-	console.log(idArr[0]);
-	console.log(idArr[1]);
-	
+	$('#email_chk_btn').on('click',function() {
+		var name = $('#username').val();
+		var email = $('#email').val();
+		
+		var idArr = new Array();
+		
+		idArr.push(name);//배열에 이름값
+		idArr.push(email);//배열에 이메일값
+		
+		console.log(idArr[0]);
+		console.log(idArr[1]);
+		
 		/* 서브밋방식으로 아이디 값을 입력했으면*/
-	if(name != "" && email != "") {
-		$('#before_submit').attr("style","display:none");//현재 입력창 모두 none
-		$('#after_submit').attr("style","display:block");//이메일값 확인
-		
-		var list = ${list}
-		
-		console.log(list);
-		console.log(list[0]);
-		
-		alert("정지정지 움직이면쏜다");
-		$('.h_emailtab').submit();
-	}else {
-		alert("이메일과 성함을 입력해주세요")
-	}
-		
-		/* $.ajax({
-			url:'memberIdSearchOk',
-			type:'POST',
-			data: { idCheck : idArr },
-			success : function(rtnList) {
-				console.log(rtnList);
-				if(rtnList != null) {//원래리턴타입은 아이디
-					$('#before_submit').attr("style","display:none");//현재 입력창 모두 none
-					$('#after_submit').append(rtnList);
-					$('#after_submit').attr("style","display:block");//임시비밀번호 메일전송 div보여주기
-				}else{//비밀번호 일치하지않을경우 java에서 1이외의 값
-					alert('아이디와 이메일이 일치하지않습니다. 다시 입력해주세요');
+		/*
+		if(name != "" && email != "") {
+			$('#before_submit').attr("style","display:none");//현재 입력창 모두 none
+			$('#after_submit').attr("style","display:block");//이메일값 확인
+			
+			var list = ${list}
+			
+			console.log(list);
+			console.log(list[0]);
+			
+			$('.h_emailtab').submit();
+		}else {
+			alert("이메일과 성함을 입력해주세요")
+		}*/
+	
+		//${list}를 반환해야한다
+		if(name != "" && email != "") {
+			
+			$.ajax({
+				url:'memberIdSearchOk',
+				type:'POST',
+				data: { idCheck : idArr },
+				success : function(rtnList) {
+					var result = $(rtnList)
+					if(result != null) {
+						$('#before_submit').attr("style","display:none");//현재 입력창 모두 none
+						$('#after_submit').attr("style","display:block");//임시비밀번호 메일전송 div보여주기
+						
+							$('#validateChkBtn').on('click', function() {
+								var valchk = $('#validateChk').val();
+								if(result.get(1) == valchk) {
+									var userid = result.get(0);
+									var secretid = userid.replace(userid.substring(3,userid.length),'*'.repeat(userid.length-3));
+									
+									$('.h_wrongChk').attr("style","display:none");
+									$('.h_pwd_div').html("귀하의 아이디는 <b>" + secretid + " 입니다.</b>");
+								}else {
+									$('.h_wrongChk').attr("style","display:block");
+								}
+								
+							});
+						
+						console.log(result.get(1));//인증번호 
+					}else{//비밀번호 일치하지않을경우 java에서 1이외의 값
+						alert('아이디와 이메일이 일치하지않습니다. 다시 입력해주세요');
+					}
+				}, error:function() {
+					alert("아이디와 이메일이 일치하지 않습니다. 다시 입력해주세요");
 				}
-			}, error:function() {
-				alert("아이디와 이메일이 일치하지 않습니다. 다시 입력해주세요");
-			}
-		}); */
+			});
+			
+		}else{
+			alert("이메일과 성함을 입력해주세요");
+		}
+			
+			/* $.ajax({
+				url:'memberIdSearchOk',
+				type:'POST',
+				data: { idCheck : idArr },
+				success : function(rtnList) {
+					console.log(rtnList);
+					if(rtnList != null) {//원래리턴타입은 아이디
+						$('#before_submit').attr("style","display:none");//현재 입력창 모두 none
+						$('#after_submit').append(rtnList);
+						$('#after_submit').attr("style","display:block");//임시비밀번호 메일전송 div보여주기
+					}else{//비밀번호 일치하지않을경우 java에서 1이외의 값
+						alert('아이디와 이메일이 일치하지않습니다. 다시 입력해주세요');
+					}
+				}, error:function() {
+					alert("아이디와 이메일이 일치하지 않습니다. 다시 입력해주세요");
+				}
+			}); */
+	
+		/* var list = request.getAttribute("list"); */
 		
-
-	/* var list = request.getAttribute("list"); */
-	
-	
-});
+	});
 
 
 </script>
