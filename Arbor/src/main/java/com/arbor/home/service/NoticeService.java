@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.NoticeDAOImp;
 import com.arbor.home.vo.NoticeVO;
+import com.arbor.home.vo.PageSearchVO;
 
 @Service
 public class NoticeService implements NoticeServiceImp {
@@ -15,9 +16,9 @@ public class NoticeService implements NoticeServiceImp {
 	NoticeDAOImp noticeDAO;
 	
 	@Override
-	public List<NoticeVO> noticeList() {
+	public List<NoticeVO> noticeList(PageSearchVO pageVo) {
 		// TODO Auto-generated method stub
-		return noticeDAO.noticeList();
+		return noticeDAO.noticeList(pageVo);
 	}
 
 	@Override
@@ -31,5 +32,27 @@ public class NoticeService implements NoticeServiceImp {
 		
 		return noticeDAO.noticeInsert(vo);
 	}
+
+	@Override
+	public int noticeEditOk(NoticeVO vo) {
+		// TODO Auto-generated method stub
+		return noticeDAO.noticeEditOk(vo);
+	}
+
+	@Override
+	public int boardDelete(int no) {
+		// TODO Auto-generated method stub
+		return noticeDAO.boardDelete(no);
+	}
+
+	@Override
+	public int totalRecord(PageSearchVO vo) {
+		// TODO Auto-generated method stub
+		return noticeDAO.totalRecord(vo);
+	}
+
+
+
+	
 
 }

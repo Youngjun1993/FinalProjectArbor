@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/orderOk.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/noticeList.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/noticeView.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/faq.css" type="text/css" />
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/qna.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/myPage.css" type="text/css" />
@@ -179,7 +180,7 @@ $(function(){
 			<ul>
 				<li>COMMUNITY</li>
 				<li><a href="noticeList">공지사항</a></li>
-				<li><a href="">자주묻는 질문</a></li>
+				<li><a href="faqList">자주묻는 질문</a></li>
 			</ul>
 		</div>
 		<div class="d_col">

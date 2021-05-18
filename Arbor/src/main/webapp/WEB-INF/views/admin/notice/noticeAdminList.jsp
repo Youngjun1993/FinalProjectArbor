@@ -29,19 +29,53 @@
 	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="d_noticeEdit">
 		<h1 class="d_h1">공지사항</h1>
+		<div class="clearfix d_search">
+			<form method="post" class="d_searchFrm" action="noticeAdminList">
+				<select name="searchKey" id="d_searchKey">
+					<option value="noticesubject">제목</option>
+					<option value="noticecontent">내용</option>
+				</select>
+				<input type="text" name="searchWord" placeholder="검색어 입력"/>
+				<input type="submit" class="adminMainBtn" value="검색"/>
+			</form>
+		</div>
 		<ul id="d_list" class="d_noticeList">
 			<li class="d_ff"><p>번호</p></li>
 			<li>제목</li>
 			<li>등록일</li>
 		</ul>
-		<ul class="d_noticeList">
+	    <div id="d_listContent" class="d_noticeList">
+		<ul>
 			<c:forEach var="noticeList" items="${noticeAdminList}">
 			<li><p>${noticeList.noticeno }</p></li>
 			<li class="wordcut"><a href="noticeEditView?no=${noticeList.noticeno }">${noticeList.noticesubject }</a></li>
 			<li>${noticeList.noticedate }</li>
 			</c:forEach>
 		</ul>
+		</div>
 		<p class="d_noticeSetBtn"><input type="button" class="adminMainBtn" id="d_insertBtn" value="공지사항 등록"></p>
+		<!-- 페이징 -->
+		<ul id="d_paging" class="adPaging clearfix">
+			<c:if test="${pageVO.pageNum>1 }">
+				<li style="border-bottom:none;"><a class="pagingAdLR_a" href="noticeAdminList?pageNum=${pageVO.pageNum-1 }">＜</a></li>
+			</c:if>
+			<c:if test="${pageVO.pageNum==1 }">
+				<li style="border-bottom:none;">&nbsp</li>
+			</c:if>
+			<c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+				<c:if test="${p<=pageVO.totalPage }">
+					<c:if test="${p==pageVO.pageNum }">
+						<li style="border-bottom:3px solid rgb(191,43,53);"><a href="noticeAdminList?pageNum=${p }">${p }</a></li>
+					</c:if>
+					<c:if test="${p!=pageVO.pageNum }">
+						<li><a href="noticeAdminList?pageNum=${p }">${p }</a></li>
+					</c:if>
+				</c:if>
+			</c:forEach>
+			<c:if test="${pageVO.pageNum<pageVO.totalPage }">
+				<li style="border-bottom:none;"><a class="pagingAdLR_a" href="noticeAdminList?pageNum=${pageVO.pageNum+1 }">＞</a></li>
+			</c:if>
+		</ul>
 	</div>
 </div>
 </body>
