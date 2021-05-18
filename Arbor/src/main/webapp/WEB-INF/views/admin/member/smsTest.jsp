@@ -6,8 +6,14 @@
 <meta charset="UTF-8">
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>      
 <script type="text/javascript">
-	var list = "${list}"
-	console.log(list);
+	
+	function receiver() {
+		
+		var chknum = $('#smsSelect option:checked').val();
+		console.log(chknum);
+		$('#rphone').val(chknum);
+		
+	}
 	
     function setPhoneNumber(val) {
         var numList = val.split("-");
@@ -15,7 +21,7 @@
         document.smsForm.sphone2.value = numList[1];
     if(numList[2] != undefined){
             document.smsForm.sphone3.value = numList[2];
-}
+		}
     }
 
     function loadJSON() {
@@ -74,17 +80,30 @@
     <span>
       <input type="radio" name="smsType" value="L">장문(LMS)</span>
     <br /> 제목 :
-    <input type="text" name="subject" value="Arbor 휴면 알림 문자"> 장문(LMS)인 경우(한글30자이내)
+    <input type="text" name="subject" value="Arbor 휴면 알림 문자"> 장문(LMS)인 경우 (한글30자이내)
     <br /> 전송메세지 <br/>
     <textarea name="msg" cols="30" rows="10" style="width:455px;">
-    Arbor 문자 테스트
+   	Ａ Ｒ B 0 Ｒ
+	▼ ▼ ▼
+	휴 복 삼
+	면 귀 만
+	메 회 쿠
+	일 원 폰
+	▲ ▲ ▲
     </textarea>
     <br />
     <!-- <p>단문(SMS) : 최대 90byte까지 전송할 수 있으며, 잔여건수 1건이 차감됩니다.
         <br /> 장문(LMS) : 한번에 최대 2,000byte까지 전송할 수 있으며 1회 발송당 잔여건수 3건이 차감됩니다.
     </p> -->
+    <!--////////////////////////////받는번호 체크체크  -->
     <br />받는 번호
-    <input type="text" name="rphone" value="${receiver}">
+    <select id="smsSelect" onchange="receiver()">
+    	<option value=""></option>
+    <c:forEach var="vo" items="${list}"  varStatus="status">
+    	<option value="${status.current}">${status.current}</option>
+	</c:forEach>
+    </select>
+    <input type="text" name="rphone" id="rphone" value="">
     <!-- <br />이름삽입번호
     <input type="text" name="destination" value="" size=80> 예) 010-000-0000|홍길동 -->
     
@@ -97,7 +116,7 @@
     <br />예약 시간
     <input type="hidden" name="rtime" maxlength="6"> 예)173000 ,오후 5시 30분,예약시간은 최소 10분 이상으로 설정. -->
    	<!--  리턴 url -->
-    <input type="hidden" name="returnurl" maxlength="64" value="memberAdminDormant">
+    <input type="hidden" name="returnurl" maxlength="64" value="">
     <br /> test flag
     <input type="text" name="testflag" maxlength="1"> 예) 테스트시: Y
    <!--  <br />nointeractive

@@ -84,4 +84,10 @@ public interface MemberServiceImp {
 	//전체 회원 엑셀 다운로드
 	public List<MemberVO> memberExcelDownload(MemberVO vo);
 	
+	//휴면 회원 엑셀 다운로드
+	public List<MemberVO> dormantExcelDownload(MemberVO vo);
+	
+	//아이디 찾기
+	public MemberVO memberIdSearchOk(String username, String email);
+	
 }

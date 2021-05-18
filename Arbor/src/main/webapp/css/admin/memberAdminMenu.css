@@ -174,7 +174,6 @@
 		
 	}
 	.h_searchMultiBtn {
-		margin:10px 0;
 		width:1200px;
 	}
 	
@@ -215,13 +214,23 @@
 	.h_memdormant {
 		border: none;
 		background-color: rgb(191,43,53); color:#fff;
-		font-family: 'Nanum Gothic', sans-serif;
+		font-family: 'Nanum Gothic', Fsans-serif;
 		font-weight: bold; cursor:pointer;
 		pointer-events: none;
 	}
 	
-	.h_memTableLi{
-		margin:40px 0;
+	.h_memTableLi.search{
+		margin:25px 0;
+		
+	}
+	
+	.h_memTableLi.dormant{
+		margin:50px 0;
+		
+	}
+	
+	.h_memTableLi.quit{
+		margin:55px 0;
 		
 	}
 	

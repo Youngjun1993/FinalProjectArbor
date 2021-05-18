@@ -80,15 +80,12 @@
 	
 	<!--////////////// 탈퇴검색 영역 끝 //////////////-->
 		<!-- 휴면 tbl 데이터 영역 -->
-	<hr/>
 	<!-- 폼 가운데 버튼 -->
 		<div class= "h_searchMultiBtn">
-			<input type="button" id="" value="test1" class="adminSubBtn">
-			<input type="button" id="testBtn" value="test버튼" class="adminSubBtn">
-			<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn">
+			<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn semiBtn">
 		</div>
 	<!-- 회원목록 -->
-		<div class="h_memTableLi">
+		<div class="h_memTableLi quit">
 		<form method="get" id="delMultiForm" action="memMultiDel">
 			<ul class="h_memList clearfix">
 				<li class="h_listHeader">선택</li>
@@ -157,37 +154,40 @@
 		};
 	
 	//선택삭제부분
-	$(()=>{
-		$('#delMulti').click(()=> {
-			var confirm_val = confirm("탈퇴회원 삭제는 복구 되지않습니다. 삭제하시겠습니까?");
-			  
-			  if(confirm_val) {
-			   var checkArr = new Array();
-			   
-			   $(".memberChk:checked").each(function(){
-			    checkArr.push($(this).val());
-			   });
-			    
-			   console.log(checkArr);
-			   
-			   $.ajax({
-				    url : 'permanantDel',
-				    type : 'get',
-				    dataType: 'json',
-				    data : { memberChk : checkArr },
-				    success : function(result){
-					   if(result == 1){
-					     location.href = 'memberAdminQuit';
-					   } else {
-					   	alert("영구삭제가 실패하였습니다");
-					   }
-					}, error:function() {
-						alert("삭제할 회원을 먼저 선택해주세요");
-					}
-				});
-			} 
+	$('#delMulti').click(()=> {
+		var checkArr = new Array();
+		   
+		$(".memberChk:checked").each(function(idx, item){
+			checkArr.push($(this).attr("value1"));
 		});
+		
+		    if(checkArr == 0) {
+		    	alert("삭제처리할 회원을 선택해주세요");
+		    	return false;
+		    }else {
+		    	if(confirm("선택한 회원을 삭제처리 하시겠습니까?(복구되지않습니다)")) {
+				  	 	console.log(checkArr);
+				   $.ajax({
+					    url : 'permanantDel',
+					    type : 'get',
+					    dataType: 'json',
+					    data : { memberChk : checkArr },
+					    success : function(result){
+						   if(result == 1){
+						     location.href = 'memberAdminQuit';
+						   } else {
+						   	alert("영구삭제가 실패하였습니다");
+						   }
+						}, error:function() {
+							alert("삭제할 회원을 먼저 선택해주세요");
+						}
+				    
+					});
+				} 
+		    }  
+		
 	});
+	
 	
 	///페이징 영역
 	$('.paging a').on("click", function(e){

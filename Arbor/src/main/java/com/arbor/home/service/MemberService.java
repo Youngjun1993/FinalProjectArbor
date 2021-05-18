@@ -162,5 +162,16 @@ public class MemberService implements MemberServiceImp {
 		return memberDAO.memberExcelDownload(vo);
 	}
 	
+	@Override
+	public List<MemberVO> dormantExcelDownload(MemberVO vo) {
+		
+		return memberDAO.dormantExcelDownload(vo);
+	}
+
+	@Override
+	public MemberVO memberIdSearchOk(String username, String email) {
+		
+		return memberDAO.memberIdSearchOk(username, email);
+	}
 	
 }

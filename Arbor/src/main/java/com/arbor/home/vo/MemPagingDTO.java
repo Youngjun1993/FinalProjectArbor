@@ -37,19 +37,15 @@ public class MemPagingDTO {
         /* 마지막 페이지(endPage)값이 1보다 큰 경우 true */
         this.next = this.endPage < realEnd;
         
-        
     }
-
 
 	public int getStartPage() {
 		return startPage;
 	}
 
-
 	public void setStartPage(int startPage) {
 		this.startPage = startPage;
 	}
-
 
 	public int getEndPage() {
 		return endPage;

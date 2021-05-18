@@ -155,8 +155,8 @@
 	}
 	
 	.h_check_btn.search {
-	margin-top:20px;
-		
+		margin-top:20px;
+	    margin-bottom: 20px
 	}
 	
 	.h_2box {
@@ -255,10 +255,6 @@
 		margin:20px auto;
 	}
 	
-	.h_emailtab{
-		margin:30px auto;
-	}
-	
 	/* pwd테이블영역 */
 	.h_pwdformtable{
 		width:450px;
@@ -310,7 +306,6 @@
 	.h_pwd2formtable td:nth-child(2n):hover{
 		border-bottom:1px solid;
 	}
-	
 	
 	.h_pwd2formtable.now{
 		display:none;
