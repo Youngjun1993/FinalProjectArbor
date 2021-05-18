@@ -11,6 +11,7 @@ import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemberDormantVO;
 import com.arbor.home.vo.MemberQuitVO;
 import com.arbor.home.vo.MemberVO;
+import com.arbor.home.vo.PageSearchVO;
 
 @Service
 public class MemberService implements MemberServiceImp {
@@ -106,14 +107,13 @@ public class MemberService implements MemberServiceImp {
 	}
 
 	@Override
-	public List<MemberDormantVO> memDormantPaging(MemPagingCri cri) {
-		return memberDAO.memDormantPaging(cri);
+	public List<MemberDormantVO> memDormantPaging(PageSearchVO vo) {
+		return memberDAO.memDormantPaging(vo);
 	}
 
 	@Override
-	public int memDormantCount(MemPagingCri cri) {
-		
-		return memberDAO.memDormantCount(cri);
+	public int memDormantCount() {
+		return memberDAO.memDormantCount();
 	}
 
 	@Override

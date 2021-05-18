@@ -149,79 +149,16 @@
 	</insert>
 	
 	<!-- ////////////////////////////////// 휴면회원검색 페이지 //////////////////////////////////////  -->
-	<select id="memDormantPaging" resultType="com.arbor.home.vo.MemberDormantVO">
-		<![CDATA[
-		select * from 
-		(select userid, username, email, tel, to_char(regdate, 'YY-MM-DD HH24:MI') regdate, to_char(dordate, 'YY-MM-DD HH24:MI') dordate, dormailok, dortype, emailok, smsok, rownum as rn
-			from dormantmember where rownum <=#{pageNum} * #{amount} and dortype != '탈퇴'
-			]]>
-			<if test="searchWord!=null and type == 'userid'">
-            	and userid like '%'||#{searchWord}||'%'
-            </if>
-            <if test="searchWord!=null and type == 'username'">
-            	and username like '%'||#{searchWord}||'%'
-            </if>
-            <if test="searchWord!=null and type == 'email'">
-            	and email like '%'||#{searchWord}||'%'
-            </if>
-            <!-- <if test='emailok=="Y" || "N"' >
-            	and emailok in ('Y','N')
-            </if> -->
-            <if test='emailok=="Y"'>
-                and emailok = 'Y'
-            </if>
-            <if test='emailok=="N"'>
-                and emailok = 'N'
-            </if>
-            <if test='smsok=="Y"'>
-                and smsok = 'Y'
-            </if>
-            <if test='smsok=="N"'>
-                and smsok = 'N'
-            </if>
-            <if test='dormailok=="Y"'>
-                and dormailok = 'Y'
-            </if>
-            <if test='dormailok=="N"'>
-                and dormailok = 'N'
-            </if>
-		<![CDATA[	
-			order by userid asc)
-            where rn > (#{pageNum} - 1) * #{amount}
-		]]>
+	<select id="memDormantPaging" parameterType="com.arbor.home.vo.PageSearchVO" resultType="com.arbor.home.vo.MemberDormantVO">
+		select * from(select * from(
+		select d.userid, to_char(dordate, 'yyyy-mm-dd') as dordate, dormailok, username, email, tel, to_char(regdate, 'yyyy-mm-dd') as regdate, emailok, smsok from dormantmember d join member m on d.userid=m.userid order by dordate desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by dordate asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by dordate desc
 	</select>
 	<!-- 휴면회원 총 레코드수 -->
 	<select id="memDormantCount" resultType="int">
-		<![CDATA[
-		select count(*) from dormantmember where rownum > 0
-		]]>
-		<if test="searchWord!=null and type == 'userid'">
-            	and userid like '%'||#{searchWord}||'%'
-            </if>
-            <if test="searchWord!=null and type == 'username'">
-            	and username like '%'||#{searchWord}||'%'
-            </if>
-            <if test="searchWord!=null and type == 'email'">
-            	and email like '%'||#{searchWord}||'%'
-            </if>
-            <if test='emailok=="Y"'>
-                and emailok = 'Y'
-            </if>
-            <if test='emailok=="N"'>
-                and emailok = 'N'
-            </if>
-            <if test='smsok=="Y"'>
-                and smsok = 'Y'
-            </if>
-            <if test='smsok=="N"'>
-                and smsok = 'N'
-            </if>
-            <if test='dormailok=="Y"'>
-                and dormailok = 'Y'
-            </if>
-            <if test='dormailok=="N"'>
-                and dormailok = 'N'
-            </if>
+		select count(userid) from dormantmember
 	</select>
 	<!-- 휴면메일발송 Y로 변경 -->
 	<update id="dormantmailsend">
