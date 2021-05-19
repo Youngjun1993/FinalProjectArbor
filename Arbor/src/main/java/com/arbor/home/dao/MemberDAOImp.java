@@ -19,16 +19,19 @@ public interface MemberDAOImp {
 	public int idCheck(String userid);
 
 	//로그아웃 타임 업데이트
-	public int lastDateUpdate(String lastdate, String nowid);
+	public int lastDateUpdate(String userid);
 	
 	//휴면계정 전환 업데이트
 	public int memDormant(String userid);
 	
 	//회원탈퇴 테이블 이동
-	public int insertDormantMember(String userid, String reason);
+	public int insertDormantMember(String userid);
 	
 	//휴면회원 // 검색 전체선택 +  페이징
 	public List<MemberDormantVO> memDormantPaging(PageSearchVO vo);
+	
+	// 휴면회원 전체 목록
+	public List<MemberVO> dormantList();
 	
 	//휴면테이블 //총회원수 카운트(활성, 휴면 만)
 	public int memDormantCount();

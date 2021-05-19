@@ -70,13 +70,21 @@ public class MemberController {
 			rttr.addFlashAttribute("msg", "admin");
 			
 			/* 휴면회원 테이블로 90일경과 회원 넘기기 */
-			
-			
+			List<MemberVO> list90 = memberService.dormantList(); // 90일경과 목록(member)
+System.out.println("등록될 사람 몇명?"+list90.size());
+			for(int i=0; i<list90.size(); i++) {
+				MemberVO mvo = list90.get(i);
+				String userid=mvo.getUserid();
+				memberService.memDormant(userid); // memstat=1로 변경
+				memberService.insertDormantMember(userid);
+			}
 			
 			mav.setViewName("redirect:memberSearch");
 		}else {//사용자로그인성공
 			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
 			session.setAttribute("logName", logVO.getUsername());
+			memberService.lastDateUpdate(logVO.getUserid()); // lastdate 현재시각으로 update
+			
 			mav.setViewName("redirect:/");
 			System.out.println("로그아이디 = " + logVO.getUserid());
 			System.out.println("사용자이름 = " + logVO.getUsername());
@@ -132,7 +140,8 @@ public class MemberController {
 	
 	
 	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession ses) {
+		/*
 		//세션아웃 값을 넘겨줘야함 디비?
 		long logoutTime =session.getLastAccessedTime();
 
@@ -141,16 +150,18 @@ public class MemberController {
 		String nowId = (String)session.getAttribute("logId");
 		String lastDate = df.format(logoutTime);
 		
-		//세션 아이디에 lastDate 업데이트 해줌
-		int cnt = memberService.lastDateUpdate(lastDate, nowId);
 		
-		if(cnt>0) {
-			System.out.println(lastDate);
-			System.out.println("세션 아이디 = " + nowId);
-			System.out.println("세션타임 업데이트 완료");
-			session.removeAttribute("logId");
-			session.removeAttribute("logName");
-		}
+		 * //세션 아이디에 lastDate 업데이트 해줌 int cnt = memberService.lastDateUpdate(lastDate,
+		 * nowId);
+		 * 
+		 * if(cnt>0) { System.out.println(lastDate); System.out.println("세션 아이디 = " +
+		 * nowId); System.out.println("세션타임 업데이트 완료"); session.removeAttribute("logId");
+		 * session.removeAttribute("logName"); }
+		 */
+		
+		// 세션에서 아이디랑 네임 빼기
+		ses.removeAttribute("logId");
+		ses.removeAttribute("logName");
 		
 		return "home";
 	}
@@ -367,28 +378,6 @@ public class MemberController {
 	return mav;
 	}
 	
-	//휴면회원 처리
-	@RequestMapping("/memDormant")
-	public ModelAndView memDormant(String userid) {
-		ModelAndView mav = new ModelAndView();
-		
-		int cnt = memberService.memDormant(userid);
-		
-		//휴면테이블에 휴면계정데이터 삽입
-		memberService.insertDormantMember(userid, "관리자");
-		
-		
-		if(cnt>0) {
-			System.out.println("휴면처리 완료");
-			mav.setViewName("redirect:memberSearch");
-		}else {
-			System.out.println("휴면처리 실패");
-			mav.setViewName("redirect:memberSearch");
-		}
-		
-		return mav;
-	}
-	
 	//회원삭제
 	@RequestMapping("/memDel")
 	public ModelAndView memDel(String userid) {
@@ -489,6 +478,7 @@ public class MemberController {
 			vo.setPageNum(Integer.parseInt(pageNumStr));
 		}
 		vo.setTotalRecord(memberService.memDormantCount());
+		
 		mav.addObject("list", memberService.memDormantPaging(vo));
 		mav.addObject("pageVO", vo);
 		mav.setViewName("admin/member/memberAdminDormant");

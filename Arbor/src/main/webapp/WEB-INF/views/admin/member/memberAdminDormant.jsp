@@ -29,7 +29,7 @@
 		<div class = "search_area">
 		<!-- 검색옵션 태그 부분 -->
 		<select name="searchKey" id="h_type" class="h_searchSelect">
-			<option value="" selected>   </option>
+			<option value="" selected hidden>   </option>
 			<option value="userid">아이디</option>
 			<option value="username">성명</option>
 			<option value="email">이메일</option>
@@ -86,7 +86,7 @@
 		</td>
 		</tr>
 	</table>
-	<div class="h_searchBtnBox"><input type="button" id="memSearchBtn" value="검색" class="adminMainBtn"></div>	
+	<div class="h_searchBtnBox"><input type="submit" id="memSearchBtn" value="검색" class="adminMainBtn"></div>	
 	</form>
 	
 		<!-- 휴면 tbl 데이터 영역 -->
@@ -101,7 +101,7 @@
 		<!-- 회원목록 -->
 		<div class="h_memTableLi dormant">
 		<form method="get" id="delMultiForm" action="memMultiDel">
-			<ul class="h_memList clearfix">
+			<ul class="h_dormantList clearfix">
 				<li class="h_listHeader">선택</li>
 				<li class="h_listHeader">아이디</li>
 				<li class="h_listHeader">성명</li>

@@ -35,8 +35,8 @@ public class MemberService implements MemberServiceImp {
 	}
 
 	@Override
-	public int lastDateUpdate(String lastdate, String nowid) {
-		return memberDAO.lastDateUpdate(lastdate, nowid);
+	public int lastDateUpdate(String userid) {
+		return memberDAO.lastDateUpdate(userid);
 	}
 
 	@Override
@@ -102,8 +102,8 @@ public class MemberService implements MemberServiceImp {
 	}
 
 	@Override
-	public int insertDormantMember(String userid, String reason) {
-		return memberDAO.insertDormantMember(userid, reason);
+	public int insertDormantMember(String userid) {
+		return memberDAO.insertDormantMember(userid);
 	}
 
 	@Override
@@ -173,5 +173,9 @@ public class MemberService implements MemberServiceImp {
 		
 		return memberDAO.memberIdSearchOk(username, email);
 	}
-	
+
+	@Override
+	public List<MemberVO> dormantList() {
+		return memberDAO.dormantList();
+	}
 }

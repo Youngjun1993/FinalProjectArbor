@@ -22,7 +22,29 @@ public class PageSearchVO {
 	private String orderSearch_from="";
 	private String orderSearch_to="";
 	
+	/* Admin - memberDormant */
+	private String smsok;
+	private String emailok;
+	private String dormailok;
 	
+	public String getSmsok() {
+		return smsok;
+	}
+	public void setSmsok(String smsok) {
+		this.smsok = smsok;
+	}
+	public String getEmailok() {
+		return emailok;
+	}
+	public void setEmailok(String emailok) {
+		this.emailok = emailok;
+	}
+	public String getDormailok() {
+		return dormailok;
+	}
+	public void setDormailok(String dormailok) {
+		this.dormailok = dormailok;
+	}
 	public String getUserid() {
 		return userid;
 	}
