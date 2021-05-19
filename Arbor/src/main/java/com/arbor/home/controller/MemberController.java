@@ -60,7 +60,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		MemberVO logVO = memberService.loginCheck(vo);
 		
-		if(logVO==null || vo.getMemstat()!=0) {//로그인실패
+		if(logVO==null) {//로그인실패
 			System.out.println("로그인 실패");
 			rttr.addFlashAttribute("msg", "failed");
 			mav.setViewName("redirect:login");
@@ -84,6 +84,10 @@ System.out.println("등록될 사람 몇명?"+list90.size());
 			session.setAttribute("logId", logVO.getUserid());//로그아웃값으로 가져갈 logId
 			session.setAttribute("logName", logVO.getUsername());
 			memberService.lastDateUpdate(logVO.getUserid()); // lastdate 현재시각으로 update
+			if(memberService.loginDorCheck(logVO.getUserid())>0) {
+				memberService.loginDorDelete(logVO.getUserid());
+				memberService.loginDorUpdate(logVO.getUserid());
+			}
 			
 			mav.setViewName("redirect:/");
 			System.out.println("로그아이디 = " + logVO.getUserid());

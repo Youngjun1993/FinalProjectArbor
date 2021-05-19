@@ -17,6 +17,15 @@ public interface MemberDAOImp {
 	
 	//idCheck
 	public int idCheck(String userid);
+	
+	// 로그인시 휴면회원여부 확인하기
+	public int loginDorCheck(String userid);
+	
+	// 휴면회원 테이블에서 데이터 삭제
+	public int loginDorDelete(String userid);
+	
+	// memstat 다시 0으로 돌리기
+	public int loginDorUpdate(String userid);
 
 	//로그아웃 타임 업데이트
 	public int lastDateUpdate(String userid);

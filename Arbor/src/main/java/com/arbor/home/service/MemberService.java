@@ -178,4 +178,19 @@ public class MemberService implements MemberServiceImp {
 	public List<MemberVO> dormantList() {
 		return memberDAO.dormantList();
 	}
+
+	@Override
+	public int loginDorCheck(String userid) {
+		return memberDAO.loginDorCheck(userid);
+	}
+
+	@Override
+	public int loginDorDelete(String userid) {
+		return memberDAO.loginDorDelete(userid);
+	}
+
+	@Override
+	public int loginDorUpdate(String userid) {
+		return memberDAO.loginDorUpdate(userid);
+	}
 }

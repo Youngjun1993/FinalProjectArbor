@@ -12,7 +12,7 @@
 		values(#{userid}, #{userpwd}, #{username}, #{zipcode}, #{addr}, #{detailaddr}, #{tel}, #{smsok}, #{email}, #{emailok}, sysdate, sysdate, 0)
 	</insert>
 	<select id="loginCheck" resultType="com.arbor.home.vo.MemberVO">
-		select userid, username from member where userid=#{userid} and userpwd=#{userpwd} and memstat = 0
+		select userid, username from member where userid=#{userid} and userpwd=#{userpwd}
 	</select>
 	<select id="idCheck" resultType="int">
   		select count(*) from member where userid = #{userid}
@@ -140,12 +140,21 @@
 	
 	<!-- 휴면계정전환처리 -->
 	<update id="memDormant">
-		update member set memstat = 1 where userid=#{param1}
+		update member set memstat=1 where userid=#{param1}
 	</update>
 	<!-- 휴면테이블에 휴면계정데이터 넣기(관리자가 처리)-->
 	<insert id="insertDormantMember">
 		INSERT INTO dormantmember (userid, dormailok, dordate) values(#{param1}, 'N', sysdate)
 	</insert>
+	
+	<!-- 로그인시 휴면회원 여부 확인 -->
+	<select id="loginDorCheck" parameterType="String" resultType="int">
+		select count(userid) from dormantmember where userid=#{param1}
+	</select>
+	
+	<delete id="loginDorDelete" parameterType="String">
+		delete from dormantmember where userid=#{param1}
+	</delete>
 	
 	<!-- ////////////////////////////////// 휴면회원검색 페이지 //////////////////////////////////////  -->
 	<select id="memDormantPaging" parameterType="com.arbor.home.vo.PageSearchVO" resultType="com.arbor.home.vo.MemberDormantVO">
