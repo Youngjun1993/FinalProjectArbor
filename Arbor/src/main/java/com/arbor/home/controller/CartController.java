@@ -75,7 +75,7 @@ public class CartController {
 			HttpSession ses
 			){
 		List<CartVO> list = new ArrayList<CartVO>();
-		System.out.println(finalpno.length);
+		
 		for(int i=0; i<finalpno.length; i++) {
 			int pno = Integer.parseInt(finalpno[i]);
 			String userid = (String)ses.getAttribute("logId");	
