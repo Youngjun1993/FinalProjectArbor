@@ -607,7 +607,6 @@ public class MemberController {
 	@RequestMapping("/permanantDel")
 	public int permanantDel(@RequestParam(value = "memberChk[]") List<String> chArr) {
 		int result = 0;
-		
 		System.out.println(chArr.size());
 		
 		for (int i=0; i<chArr.size(); i++) {
