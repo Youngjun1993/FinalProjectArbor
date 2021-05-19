@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -176,11 +175,12 @@ System.out.println("등록될 사람 몇명?"+list90.size());
 	}
 	
 	//아이디 찾기 로직
+	@ResponseBody
 	@RequestMapping("/memberIdSearchOk")
-	public ModelAndView memberIdSearchOk(String username, String email) {
-		
-		ModelAndView mav = new ModelAndView();
+	public List<String> memberIdSearchOk(@RequestParam(value = "idCheck[]") List<String> arr, Model model) {
 		//넘어온값을 셀렉트로 아이디구하기
+		String username = arr.get(0);
+		String email = arr.get(1);
 		
 		//매개변수가 VO타입이아니면 param1,param2로...
 		MemberVO vo = memberService.memberIdSearchOk(username, email);
@@ -189,7 +189,6 @@ System.out.println("등록될 사람 몇명?"+list90.size());
 		int checkNum = random.nextInt(888888) + 111111;
        
 		System.out.println("인증번호 = " + checkNum);
-		
 		
 		/*
        //이메일 보내기
@@ -217,7 +216,6 @@ System.out.println("등록될 사람 몇명?"+list90.size());
        }catch(Exception e) {
            e.printStackTrace();
        }
-		
 		*/
 		
 		//휴면계정? 탈퇴계정 구분?
@@ -228,17 +226,17 @@ System.out.println("등록될 사람 몇명?"+list90.size());
 		String validateNum = checkNum + "";
 		
 		List<String> rtnList = new ArrayList<String>();
-		rtnList.add(0,"'" + needId + "'");
-		rtnList.add(1,"'" + validateNum + "'");
+		rtnList.add(0, needId);
+		rtnList.add(1, validateNum);
        	
 		System.out.println(rtnList.get(0) + " ///////////확인번호 =" +rtnList.get(1));
 		
-		mav.addObject("list", rtnList);
+		model.addAttribute("list", rtnList);
+		//json을 리턴...?
+		//json?????
 		
-		//ajax로 바꾸자
-		mav.setViewName("admin/member/memberIdSearch");
-		
-		return mav;
+		//ajax에서 리턴값을 활용해야할때는 json으로...?
+		return rtnList;
 	}
 	
 	//////////////////////////////////로그인 영역 //////////////////////////////////////////
@@ -659,7 +657,6 @@ System.out.println("등록될 사람 몇명?"+list90.size());
 		
 		//System.out.println(Arrays.toString(list));
 		
-		//String에 담긴 배열데이터는 List<String>타입으로 변경해줘야 한다.
 		List<String> result = new ArrayList<String>();
 		for(int i = 0 ; i<list.length ; i++) {
 			//result.add("\""+list[i]+"\"");
