@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
@@ -110,13 +111,6 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping("/pwdchange")
-	public String pwdcChange() {
-		
-		return "admin/member/memberPwdSearch";
-	}
-	
-	
 	@RequestMapping("/joinok")
 	public String joinOk() {
 		
@@ -210,13 +204,83 @@ public class MemberController {
        	
 		System.out.println(rtnList.get(0) + " ///////////확인번호 =" +rtnList.get(1));
 		
-		model.addAttribute("list", rtnList);
-		//json을 리턴...?
-		//json?????
-		
 		//ajax에서 리턴값을 활용해야할때는 json으로...?
 		return rtnList;
 	}
+
+	@RequestMapping("/pwdSearch")
+	public String pwdcChange() {
+		
+		return "admin/member/memberPwdSearch";
+	}
+	
+	//비밀번호 찾기
+	//아이디 찾기 로직
+	@ResponseBody
+	@RequestMapping("/memberPwdSearchOk")
+	public int memberPwdSearchOk(@RequestParam(value = "idCheck[]") List<String> arr, Model model) {
+		int result = 0;
+		
+		UUID uuid = UUID.randomUUID();
+		
+		//넘어온값을 셀렉트로 아이디구하기
+		
+		String userid = arr.get(0);
+		
+		//@가 안넘어옴 @이를 넘어오게 해야한다...
+		String email = arr.get(1);
+		String beforeSubstr = uuid.toString();
+		
+		String changepwd = beforeSubstr.substring(0,7);
+		
+		//update문 실행시 cnt증가
+		int cnt = memberService.memberPwdSearchOk(changepwd, userid, email);
+		
+		if(cnt>0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		
+		
+		System.out.println("넘어온 아이디 = " + userid);
+		System.out.println("넘어온 이메일 = " + email);
+		
+		System.out.println("인증번호 = " + changepwd);
+		
+		/*
+       //이메일 보내기
+       String sender = "emailarbor@gmail.com";//메일을 보낼 관리자계정
+       String toMail = email;//뷰에서 가져온 인증번호 받을 이메일 값
+       String title = "Arbor 휴면계정 알림 메일입니다";
+       String content = 
+    		   "귀하의 계정이 휴면상태가 되었습니다." +
+    				   "<br/>" +
+    				   "다시 <span style =\"color:green;\"> <i>Arbor</i> </span> 의 회원으로 돌아오시길 원하시면" + 
+    				   "<br/>" + 
+    				   "<a href=\"http://localhost:9090/home/\">이쪽</a> 의 링크로 접속해주시면 됩니다. 다시뵙길 기대하겠습니다. 감사합니다.";
+       
+       try {
+          
+           MimeMessage message = mailSender.createMimeMessage();
+           MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+           helper.setFrom(sender);
+           helper.setTo(toMail);
+           helper.setSubject(title);
+           helper.setText(content,true);
+           mailSender.send(message);
+           
+           
+       }catch(Exception e) {
+           e.printStackTrace();
+       }
+		*/
+		
+		//ajax에서 리턴값을 활용해야할때는 json으로...?
+		return result;
+	}
+	
+	
 	
 	//////////////////////////////////로그인 영역 //////////////////////////////////////////
 	//중복아이디 체크

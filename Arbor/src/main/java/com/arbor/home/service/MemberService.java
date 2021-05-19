@@ -173,5 +173,13 @@ public class MemberService implements MemberServiceImp {
 		
 		return memberDAO.memberIdSearchOk(username, email);
 	}
+
+	@Override
+	public int memberPwdSearchOk(String changepwd, String username, String email) {
+		
+		return memberDAO.memberPwdSearchOk(changepwd, username, email);
+	}
+	
+	
 	
 }

@@ -90,4 +90,6 @@ public interface MemberDAOImp {
 	//아이디 찾기
 	public MemberVO memberIdSearchOk(String username, String email);
 	
+	//비밀번호 찾기 +  변경
+	public int memberPwdSearchOk(String changepwd, String username, String email);
 }

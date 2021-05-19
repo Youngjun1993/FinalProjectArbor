@@ -34,10 +34,10 @@
 		<form class="h_emailtab" action="memberIdSearchOk">
 			<ul class="h_pwdformtable now"> 
 			<li><label for="username">이름</label></li>
-			<li><input type="text" name="username" id="username" size="35px" class="h_pwdchangeipt"></li>
+			<li><input type="text" name="username" id="username" size="40px" class="h_pwdchangeipt"></li>
 			<li><label for="email">이메일</label></li>
 			<li>
-			<input type="text" name="email" id="email" size="35px" class="h_pwdchangeipt">
+			<input type="text" name="email" id="email" size="40px" class="h_pwdchangeipt">
 			</li>
 			<li><input type="button" id="email_chk_btn" value="확인" class="h_check_btn search"></li>
 			</ul>
@@ -56,7 +56,6 @@
 				-<input type="text" name="tel1" size="7" class="h_pwdchangeipt">
 				-<input type="text" name="tel2" size="7" class="h_pwdchangeipt"></li>
 			<li><input type="button" id="sms_chk_btn" value="확인" class="h_check_btn search"></li>
-			<li>${list}</li>
 			</ul>
 		</form>
 		</div>
@@ -64,17 +63,22 @@
 		<div id = "after_submit" style ="display:none;">
 			<b>인증번호 확인</b><br/>
 			등록하신 주소로 메일이 전송되었습니다. 메일을 확인해주세요<br/>
-			<div class="h_pwd_div">인증번호 :
+			<div class="h_pwd_div">인증번호 : <!-- 마진값 주면 안됨 -->
 			<input type="text" id="validateChk" size="20" class="h_ipt" value=""/>
 			<input type="button" id="validateChkBtn" value="메일인증">
 			</div>
 			<span class="h_wrongChk" style="display:none;">비밀번호를 다시 확인해 주세요</span>
+			<div class="h_homeBtn" style="display:none;">
+			<form action="login">
+				<input type="submit" value="로그인" class="clientMainBtn"/>
+			</form>
+			</div>
 		</div>
 	</div>
 </div>
 
 <script>
-
+	//탭박스 이벤트
 	$('.h_pwdtapbox .h_tab').click(function(){
 	    if ($(this).hasClass('emailsearch')) {
 	        $('.h_pwdtapbox .h_tab').removeClass('active');
@@ -90,6 +94,7 @@
 	    }
 	});
 	
+	//이메일 전송이벤트
 	$('#email_chk_btn').on('click',function() {
 		var name = $('#username').val();
 		var email = $('#email').val();
@@ -136,13 +141,12 @@
 								if(result.get(1) == valchk) {
 									var userid = result.get(0);
 									var secretid = userid.replace(userid.substring(3,userid.length),'*'.repeat(userid.length-3));
-									
 									$('.h_wrongChk').attr("style","display:none");
 									$('.h_pwd_div').html("귀하의 아이디는 <b>" + secretid + " 입니다.</b>");
+									$('.h_homeBtn').attr("style","display:block");//임시비밀번호 메일전송 div보여주기
 								}else {
 									$('.h_wrongChk').attr("style","display:block");
 								}
-								
 							});
 						
 						console.log(result.get(1));//인증번호 
@@ -157,7 +161,6 @@
 		}else{
 			alert("이메일과 성함을 입력해주세요");
 		}
-			
 			/* $.ajax({
 				url:'memberIdSearchOk',
 				type:'POST',
@@ -177,7 +180,6 @@
 			}); */
 	
 		/* var list = request.getAttribute("list"); */
-		
 	});
 
 
