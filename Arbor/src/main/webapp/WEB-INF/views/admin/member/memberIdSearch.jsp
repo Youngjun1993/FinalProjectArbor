@@ -125,10 +125,10 @@
 	
 		//${list}를 반환해야한다
 		if(name != "" && email != "") {
-			
+			    
 			$.ajax({
 				url:'memberIdSearchOk',
-				type:'POST',
+				type:'POST', 
 				data: { idCheck : idArr },
 				success : function(rtnList) {
 					var result = $(rtnList)

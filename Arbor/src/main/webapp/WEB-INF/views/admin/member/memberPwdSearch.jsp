@@ -94,7 +94,7 @@
 		
 		console.log(idArr[0]);
 		console.log(idArr[1]);
-		
+		  
 		
 		if(userid != "" && email != "") {
 			alert("if문 통과");

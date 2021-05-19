@@ -247,7 +247,7 @@ public class MemberController {
 		System.out.println("넘어온 이메일 = " + email);
 		
 		System.out.println("인증번호 = " + changepwd);
-		
+		 
 		/*
        //이메일 보내기
        String sender = "emailarbor@gmail.com";//메일을 보낼 관리자계정
