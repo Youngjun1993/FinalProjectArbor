@@ -60,7 +60,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		MemberVO logVO = memberService.loginCheck(vo);
 		
-		if(logVO==null) {//로그인실패
+		if(logVO==null || logVO.getMemstat()==2) {//로그인실패
 			System.out.println("로그인 실패");
 			rttr.addFlashAttribute("msg", "failed");
 			mav.setViewName("redirect:login");

@@ -15,7 +15,7 @@
 		select userid, username from member where userid=#{userid} and userpwd=#{userpwd}
 	</select>
 	<select id="idCheck" resultType="int">
-  		select count(*) from member where userid = #{userid}
+  		select count(*) from member where userid = #{userid} and memstat!=2
   	</select>
   	
 	<!-- 로그아웃 시간기록 -->
