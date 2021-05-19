@@ -7,10 +7,56 @@ public class CouponVO {
 	private String userid;
 	private String cpnname;
 	private String apply;
-	private String available;
-	private int salerate;
+	private String salerate;
+	private int salerateInt;
 	private String cpnstart;
 	private String cpnend;
+	
+	/*maincate, subcate 데이터 끌고오기*/
+	private int mainno;
+	private String mainname;
+	private int subno;
+	private String subname;
+	/* couponad 추가 */
+	private int cpnadno;
+	
+	
+	public int getSalerateInt() {
+		return salerateInt;
+	}
+	public void setSalerateInt(String salerate) {
+		this.salerateInt = Integer.parseInt(salerate);
+	}
+	public int getCpnadno() {
+		return cpnadno;
+	}
+	public void setCpnadno(int cpnadno) {
+		this.cpnadno = cpnadno;
+	}
+	public int getMainno() {
+		return mainno;
+	}
+	public void setMainno(int mainno) {
+		this.mainno = mainno;
+	}
+	public String getMainname() {
+		return mainname;
+	}
+	public void setMainname(String mainname) {
+		this.mainname = mainname;
+	}
+	public int getSubno() {
+		return subno;
+	}
+	public void setSubno(int subno) {
+		this.subno = subno;
+	}
+	public String getSubname() {
+		return subname;
+	}
+	public void setSubname(String subname) {
+		this.subname = subname;
+	}
 	public int getCpnno() {
 		return cpnno;
 	}
@@ -35,18 +81,10 @@ public class CouponVO {
 	public void setApply(String apply) {
 		this.apply = apply;
 	}
-	public String getAvailable() {
-		return available;
-	}
-	public void setAvailable(String available) {
-		int availableInt = Integer.parseInt(available);
-		DecimalFormat formatter = new DecimalFormat("###,###");
-		this.available = formatter.format(availableInt);
-	}
-	public int getSalerate() {
+	public String getSalerate() {
 		return salerate;
 	}
-	public void setSalerate(int salerate) {
+	public void setSalerate(String salerate) {
 		this.salerate = salerate;
 	}
 	public String getCpnstart() {
