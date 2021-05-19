@@ -242,7 +242,6 @@ public class MemberController {
 			result = 0;
 		}
 		
-		
 		System.out.println("넘어온 아이디 = " + userid);
 		System.out.println("넘어온 이메일 = " + email);
 		
