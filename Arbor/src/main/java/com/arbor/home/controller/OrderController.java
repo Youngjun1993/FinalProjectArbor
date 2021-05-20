@@ -40,7 +40,7 @@ public class OrderController {
 		List<SubOrderVO> subOrderList = new ArrayList<SubOrderVO>();
 		ModelAndView mav = new ModelAndView();
 
-		String userid = (String) session.getAttribute("logId");
+		String userid = (String)session.getAttribute("logId");
 		orderVo.setUserid(userid);
 
 		for(int i = 0; i < priceArr.length; i++) {
@@ -69,6 +69,7 @@ public class OrderController {
 
 			subOrderList.add(subVo);
 		}
+		System.out.println("상품상세 바로구매 userid->"+userid);
 		mav.addObject("pInfoList", subOrderList);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));
@@ -82,6 +83,7 @@ public class OrderController {
 	public ModelAndView orderAppendCartList(int pno, HttpSession ses) {
 		ModelAndView mav = new ModelAndView();
 		String userid = (String) ses.getAttribute("logId");
+		System.out.println("장바구니 바로구매 userid->"+userid);
 		mav.addObject("pInfoList", orderService.cartAppendList(pno, userid));
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));
@@ -97,6 +99,7 @@ public class OrderController {
 		ModelAndView mav = new ModelAndView();
 		List<SubOrderVO> list = new ArrayList<SubOrderVO>();
 		String userid = (String) ses.getAttribute("logId");
+		System.out.println("장바구니 선택구매 userid->"+userid);
 		for (int i = 0; i < cartpno.length; i++) {
 			int cartno = Integer.parseInt(cartpno[i]);
 			SubOrderVO vo = new SubOrderVO();
@@ -120,8 +123,10 @@ public class OrderController {
 			mav.setViewName("admin/member/login");
 		} else {
 			System.out.println("전체선택구매");
+			System.out.println("포인트->"+orderService.getUserPoint(userid).getPoint());
 			mav.addObject("pInfoList", orderService.cartAllList(userid));
 			mav.addObject("memberVo", orderService.getMemberInfo(userid));
+			System.out.println("장바구니 전체구매 userid->"+userid);
 			mav.addObject("pointVo", orderService.getUserPoint(userid));
 			mav.addObject("couponList", orderService.getUserCoupon(userid));
 			mav.addObject("cpnCount", orderService.getCouponCount(userid));

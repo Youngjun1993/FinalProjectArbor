@@ -173,9 +173,7 @@
 				<c:if test="${pageVO.pageNum>1 }">
 					<li style="border-bottom:none;"><a class="pagingAdLR_a" href="orderAdmin?pageNum=${pageVO.pageNum-1 }">＜</a></li>
 				</c:if>
-				
 				<c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
-					
 					<c:if test="${p<=pageVO.totalPage }">
 						<c:if test="${p==pageVO.pageNum }">
 							<li style="border-bottom:3px solid rgb(191,43,53);"><a href="orderAdmin?pageNum=${p }">${p }</a></li>
@@ -184,9 +182,7 @@
 							<li><a href="orderAdmin?pageNum=${p }">${p }</a></li>
 						</c:if>
 					</c:if>
-					
 				</c:forEach>
-				
 				<c:if test="${pageVO.pageNum<pageVO.totalPage }">
 					<li style="border-bottom:none;"><a class="pagingAdLR_a" href="orderAdmin?pageNum=${pageVO.pageNum+1 }">＞</a></li>
 				</c:if>

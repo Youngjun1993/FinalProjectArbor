@@ -98,6 +98,9 @@
 }
 
 /* 주문리스트 */
+#orderManagement{
+	margin-bottom: 50px;
+}
 #j_orderList{
 	margin-top: 30px;
 }
@@ -123,17 +126,7 @@
 	font-weight: bold;
 }
 
-/******************************/
-#orderManagement{
-	margin-bottom: 50px;
-}
-#orderManagement>div:nth-child{
-	width: 1200px;
-	text-align: center;
-}
-#orderManagement>ul li{
-	margin-top: 30px;
-}
+
 
 /*---------------
 	주문상세페이지
