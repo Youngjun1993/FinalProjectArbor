@@ -16,6 +16,7 @@ public class PageSearchVO {
 	private String startdate;
 	private String enddate;
 	private int subno;
+	private int mainno;
 	
 	/* Admin - OrderController */
 	private String period="";
@@ -32,7 +33,12 @@ public class PageSearchVO {
 	private String sales_from="";
 	private String sales_to="";
 	
-	
+	public int getMainno() {
+		return mainno;
+	}
+	public void setMainno(int mainno) {
+		this.mainno = mainno;
+	}
 	public String getSmsok() {
 		return smsok;
 	}
