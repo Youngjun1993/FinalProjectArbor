@@ -203,7 +203,7 @@
 	<div id="y_adminCouponList_Wrap" class="w1400_container clearfix">
 		<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
         <div id="y_adminCouponList_rightcon" class="y_Adrightcon clearfix">
-            <h2>쿠폰 관리</h2>
+            <p id="pageTitle"><span>쿠폰 관리</span></p>
 	            <div id="y_cpnList" class="clearfix">
 		            <p class="clearfix"><button id="y_cpnAllDel" class="adminMainBtn">전체삭제</button></p>
 		            <c:forEach var="data" items="${list }">
@@ -228,11 +228,11 @@
 				                    <span></span>
 				                </div>
 				                <div>
-				                    <input type="number" name="salerate" value="${data.salerate }"><br/>
+				                    <input type="number" name="salerate" min="0" max="100" value="${data.salerate }"><br/>
 				                    DISCOUNT
 				                </div>
 				                <ul>
-				                    <li><input type="text" name="cpnname" max="100" value="${data.cpnname }"></li>
+				                    <li><input type="text" name="cpnname" maxlength="50" value="${data.cpnname }"></li>
 				                    <li>기간 <input type="text" name="cpnstart" value="${data.cpnstart }" class="y_cpnstart" onkeypress="onlyNum()">~<input type="text" name="cpnend" class="y_cpnend" value="${data.cpnend }" onkeypress="onlyNum()" ></li>
 				                    <li>적용품목 : 
 		                    			<select name="Mainapply" class="y_cpnMainApply">

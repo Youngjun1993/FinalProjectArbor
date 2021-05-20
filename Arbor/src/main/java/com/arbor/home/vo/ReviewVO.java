@@ -7,9 +7,48 @@ public class ReviewVO {
 	private int grade;
 	private String reviewcontent;
 	private String reviewdate;
-	
+
 	private String username;
 	
+	// product 조인
+	private String pname;
+	
+	//main,subcate 조인
+	private int mainno;
+	private String mainname;
+	private int subno;
+	private String subname;
+	
+	public int getMainno() {
+		return mainno;
+	}
+	public void setMainno(int mainno) {
+		this.mainno = mainno;
+	}
+	public String getMainname() {
+		return mainname;
+	}
+	public void setMainname(String mainname) {
+		this.mainname = mainname;
+	}
+	public int getSubno() {
+		return subno;
+	}
+	public void setSubno(int subno) {
+		this.subno = subno;
+	}
+	public String getSubname() {
+		return subname;
+	}
+	public void setSubname(String subname) {
+		this.subname = subname;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
 	public String getUsername() {
 		return username;
 	}

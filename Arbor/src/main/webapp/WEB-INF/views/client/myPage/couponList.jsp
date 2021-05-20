@@ -39,7 +39,7 @@
                 <li>쿠폰번호</li>
                 <li>쿠폰명</li>
                 <li>할인금액</li>
-                <li>사용가능금액</li>
+                <li>적용가능 품목</li>
                 <li>유효기간</li>
                 <li>　</li>
             </ul>
@@ -48,9 +48,9 @@
 	                <li>${cpnData.cpnno }</li>
 	                <li>${cpnData.cpnname }</li>
 	                <li>${cpnData.salerate }%</li>
-	                <li>${cpnData.available }</li>
+	                <li>${cpnData.subname }</li>
 	                <li>${cpnData.cpnstart }~${cpnData.cpnend }</li>
-	                <li><a href="#" class="couponSearchBtn">적용상품 보기</a></li>
+	                <li><a href="productList?mainno=${cpnData.mainno }&subno=${cpnData.subno}" class="couponSearchBtn">적용품목 보기</a></li>
                 </c:forEach>
             </ul>
         </div>

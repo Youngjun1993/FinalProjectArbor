@@ -7,6 +7,26 @@
     color: red;
     font-weight: bold;
 }
+.gradestar {
+	color:rgb(255,150,0);
+}
+.elsestar {
+	color:rgb(204,204,204);
+}
+/*공통*/
+#pageTitle {
+	margin: 40px auto; text-align: center;
+}
+#pageTitle>span {
+	display:inline-block; font-size: 30px; font-weight: bold; 
+}
+#pageTitle>span:after {
+	content: "";
+    display: block;
+    width: 80px;
+    border-bottom: 1px solid rgb(191,43,53);
+    margin: 20px auto;
+}
 /*리뷰관리 리스트*/
 #y_adminReviewList_rightcon h2{
     text-align: center;
@@ -14,10 +34,27 @@
     line-height: 100px;
 }
 #y_adminReviewList_rightcon>div:nth-of-type(1){
-    padding: 20px;
-    margin-bottom: 50px;
-    background: #eee;
+    padding: 30px 20px 10px 0;
+    margin-bottom: 20px;
 }
+#y_adminReviewList_rightcon>div:nth-of-type(1) ul li{
+	float: left;
+}
+#y_adminReviewList_rightcon>div:nth-of-type(1) ul li:first-child{
+	height: 30px;
+	line-height: 30px;
+	font-weight: bold;
+	width:100px;
+}
+#y_adminReviewList_rightcon>div:nth-of-type(1) ul li a{
+	display: block;
+	width:100px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	margin-left:10px;
+}
+
 #y_adminReviewList_rightcon>div:nth-of-type(1) form select{
     height: 30px;
     margin-left: 5px;
@@ -30,6 +67,11 @@
 #y_adminReviewList_rightcon>div:nth-of-type(1) form input[type="submit"]{
     width: 100px;
     height: 30px;
+}
+#y_adminReviewList_rightcon>div:nth-of-type(1) p{
+	margin-top:10px;
+	color: #aaa;
+    font-size: 13px;
 }
 #y_adminReviewList_rightcon>div:nth-of-type(2) div button{
     width: 70px;
@@ -49,14 +91,15 @@
     line-height: 30px;
 }
 #y_adminReviewList_rightcon>div:nth-of-type(2) ul li{
-    width: 12.5%;
+    width: 120px;
     text-align: center;
 }
-#y_adminReviewList_rightcon>div:nth-of-type(2) ul li:nth-child(5n+1){
-    width: 5%
+#y_adminReviewList_rightcon>div:nth-of-type(2) ul li:nth-child(6n+1){
+    width: 60px;
 }
-#y_adminReviewList_rightcon>div:nth-of-type(2) ul li:nth-child(5n+2),#y_adminReviewList_rightcon>div:nth-of-type(2) ul li:nth-child(5n+3){
-    width: 35%;
+#y_adminReviewList_rightcon>div:nth-of-type(2) ul li:nth-child(6n+2),#y_adminReviewList_rightcon>div:nth-of-type(2) ul li:nth-child(6n+3){
+    width: 370px;
+    padding-left:20px;
     text-align: left;
 }
 #y_adminReviewList_rightcon>div:nth-of-type(2) ul{

@@ -17,6 +17,23 @@ public class PageSearchVO {
 	private String enddate;
 	private int subno;
 	
+	/*Admin review 정렬*/
+	private String sort;
+	private int mainno;
+	
+	
+	public int getMainno() {
+		return mainno;
+	}
+	public void setMainno(int mainno) {
+		this.mainno = mainno;
+	}
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	public String getUserid() {
 		return userid;
 	}
