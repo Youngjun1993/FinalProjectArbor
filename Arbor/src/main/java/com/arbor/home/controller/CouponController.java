@@ -86,7 +86,7 @@ public class CouponController {
 	public ModelAndView cpnAdEdit(CouponVO vo) {
 		ModelAndView mav = new ModelAndView();
 		cpnService.cpnAdUpdate(vo);
-		
+		cpnService.cpnClientUpdate(vo);
 		mav.setViewName("redirect:couponAdList");
 		
 		return mav;

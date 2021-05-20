@@ -213,10 +213,20 @@
 }
 /*///////////////////////////////////////*/
 /* ADMIN List */
-#y_adminQnaList_rightcon>p{
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
+
+/*공통*/
+#pageTitle {
+	margin: 40px auto; text-align: center;
+}
+#pageTitle>span {
+	display:inline-block; font-size: 30px; font-weight: bold; 
+}
+#pageTitle>span:after {
+	content: "";
+    display: block;
+    width: 80px;
+    border-bottom: 1px solid rgb(191,43,53);
+    margin: 20px auto;
 }
 #y_adminQnaList_rightcon>div{
     height: 80px;

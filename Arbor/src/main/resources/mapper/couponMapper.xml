@@ -22,6 +22,9 @@
 	<update id="cpnAdUpdate" parameterType="com.arbor.home.vo.CouponVO">
 		update couponad set salerate=${salerate}, cpnstart=#{cpnstart}, cpnend=#{cpnend}, apply=${apply}, cpnname=#{cpnname} where cpnadno=${cpnadno}
 	</update>
+	<update id="cpnClientUpdate" parameterType="com.arbor.home.vo.CouponVO">
+		update coupon set salerate=${salerate}, cpnstart=#{cpnstart}, cpnend=#{cpnend}, apply=${apply}, cpnname=#{cpnname} where cpnadno=${cpnadno}
+	</update>
 	<delete id="cpnAdDelete">
 		delete from couponad where cpnadno=${param1}
 	</delete>

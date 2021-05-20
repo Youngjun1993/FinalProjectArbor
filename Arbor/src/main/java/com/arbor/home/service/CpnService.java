@@ -54,5 +54,10 @@ public class CpnService implements CpnServiceImp {
 	public int cpnAllDelete() {
 		return cpnDAO.cpnAllDelete();
 	}
+
+	@Override
+	public int cpnClientUpdate(CouponVO vo) {
+		return cpnDAO.cpnClientUpdate(vo);
+	}
 	
 }

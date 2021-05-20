@@ -57,6 +57,16 @@ public class PageSearchVO {
 	public void setDormailok(String dormailok) {
 		this.dormailok = dormailok;
 	}
+	
+	/*Admin review 정렬*/
+	private String sort;
+	
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	public String getUserid() {
 		return userid;
 	}

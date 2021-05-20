@@ -35,14 +35,14 @@
 	
 	<!-- coupon List 페이지 -->
 	<select id="cpnList" resultType="com.arbor.home.vo.CouponVO" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from (select * from (select cpnno, userid, cpnname, apply, available, salerate, to_char(cpnstart, 'YY/MM/DD') as cpnstart, to_char(cpnend, 'YY/MM/DD') as cpnend from coupon where userid=#{userid} order by cpnno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by cpnno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by cpnno desc
+		select * from (select * from (select c.cpnno, c.userid, c.cpnname, c.apply, s.mainno, s.subno, s.subname, c.salerate, to_char(cpnstart, 'YY/MM/DD') as cpnstart, to_char(cpnend, 'YY/MM/DD') as cpnend from coupon c join subcate s on c.apply=s.subno where userid=#{userid} order by cpnno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by cpnno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by cpnno desc
 	</select>
 	<select id="cpnTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(cpnno) as totalRecord from coupon where userid = #{userid}
 	</select>
 	<!-- coupon 할인율 정렬  -->
 	<select id="cpnSaleDesc" resultType="com.arbor.home.vo.CouponVO" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from (select * from (select cpnno, userid, cpnname, apply, available, salerate, to_char(cpnstart, 'YY/MM/DD') as cpnstart, to_char(cpnend, 'YY/MM/DD') as cpnend from coupon where userid=#{userid} order by cpnno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by cpnno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by salerate desc
+		select * from (select * from (select c.cpnno, c.userid, c.cpnname, c.apply, s.mainno, s.subno, s.subname, c.salerate, to_char(cpnstart, 'YY/MM/DD') as cpnstart, to_char(cpnend, 'YY/MM/DD') as cpnend from coupon c join subcate s on c.apply=s.subno where userid=#{userid} order by cpnno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by cpnno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by salerate desc
 	</select>
 	
 	<!-- point List 페이지 -->

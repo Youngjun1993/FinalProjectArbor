@@ -147,9 +147,22 @@ body{
 #y_myPageBanner>p{
 	position: absolute;
 	left: 42%;
-	top:30%;
-	font-size: 40px;
+	top:20%;
+}
+#myPageTitle {
+	text-align: center;
 	color:rgb(248,244,236);
+}
+#myPageTitle>span {
+	display:inline-block; 
+	font-size: 40px;
+}
+#myPageTitle>span:after {
+	content: "";
+    display: block;
+    width: 120px;
+    border-bottom:3px solid rgb(248,244,236);
+    margin: 20px auto;
 }
 #y_myPageTop ul{
     color:#333;
