@@ -267,18 +267,17 @@ System.out.println("등록될 사람 몇명?"+list90.size());
 		System.out.println("넘어온 이메일 = " + email);
 		
 		System.out.println("인증번호 = " + changepwd);
-		 
-		/*
+		
        //이메일 보내기
        String sender = "emailarbor@gmail.com";//메일을 보낼 관리자계정
        String toMail = email;//뷰에서 가져온 인증번호 받을 이메일 값
        String title = "Arbor 휴면계정 알림 메일입니다";
        String content = 
-    		   "귀하의 계정이 휴면상태가 되었습니다." +
+    		   "임시비밀번호가 발급되었습니다." +
     				   "<br/>" +
-    				   "다시 <span style =\"color:green;\"> <i>Arbor</i> </span> 의 회원으로 돌아오시길 원하시면" + 
+    				   "임시 비밀번호는 <span style =\"color:green;\"> <i>"+ changepwd + "</i> </span> 입니다." + 
     				   "<br/>" + 
-    				   "<a href=\"http://localhost:9090/home/\">이쪽</a> 의 링크로 접속해주시면 됩니다. 다시뵙길 기대하겠습니다. 감사합니다.";
+    				   "<a href=\"http://localhost:9090/home/login\">이쪽</a> 으로 로그인해서 접속후 새로운 비밀번호로 변경해주세요.";
        
        try {
           
@@ -294,7 +293,6 @@ System.out.println("등록될 사람 몇명?"+list90.size());
        }catch(Exception e) {
            e.printStackTrace();
        }
-		*/
 		
 		//ajax에서 리턴값을 활용해야할때는 json으로...?
 		return result;

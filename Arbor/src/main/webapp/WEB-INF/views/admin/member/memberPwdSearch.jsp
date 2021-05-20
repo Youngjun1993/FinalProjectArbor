@@ -97,13 +97,11 @@
 		  
 		
 		if(userid != "" && email != "") {
-			alert("if문 통과");
 			$.ajax({
 				url:'memberPwdSearchOk',
 				type:'POST',
 				data: { idCheck : idArr },
 				success : function(result) {
-						alert("임시비밀번호가 전송되었습니다.");
 					
 					if(result == 1) {
 						$('#before_submit').attr("style","display:none");//현재 입력창 모두 none
