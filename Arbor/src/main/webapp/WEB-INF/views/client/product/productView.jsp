@@ -282,12 +282,20 @@
 			<form action="javascript:pqnaInsert()" method="post" id="p_qna_hiddenFrm2">
 				<p>
 				문의글 공개여부선택 : 
-				<input type="radio" name="pqnaopen" value="Y" checked="checked">공개
-				<input type="radio" name="pqnaopen" value="N">비공개
+				<c:choose>
+					<c:when test="${vo.pqnaopen=='Y' }">
+						<input type="radio" name="pqnaopen" value="Y" checked="checked">공개
+						<input type="radio" name="pqnaopen" value="N">비공개
+					</c:when>
+					<c:otherwise>
+						<input type="radio" name="pqnaopen" value="Y">공개
+						<input type="radio" name="pqnaopen" value="N" checked="checked">비공개
+					</c:otherwise>
+				</c:choose>
 				</p>
 				<input type="hidden" name="pno" value="${vo.pno }" />
-				<input type="text" name="pqnasubject" id="pqnasubject2" placeholder="제목을 입력하세요"/><br />
-				<textarea name="pqnacontent" id="pqnacontent2" placeholder="문의내용을 입력하세요"></textarea><br/>
+				<input type="text" name="pqnasubject" id="pqnasubject2" value="${vo.pqnasubject }"/><br />
+				<textarea name="pqnacontent" id="pqnacontent2">${vo.pqnacontent }</textarea><br/>
 				<input type="submit" value="수정하기" class="clientMainBtn" /><button type="button" class="clientSubBtn p_hiddenCloseBtn">닫기</button>
 			</form>
 		</div>
