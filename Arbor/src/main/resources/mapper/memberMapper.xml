@@ -156,6 +156,10 @@
 		delete from dormantmember where userid=#{param1}
 	</delete>
 	
+	<update id="loginDorUpdate" parameterType="String">
+		update member set memstat=0 where userid=#{param1}
+	</update>
+	
 	<!-- ////////////////////////////////// 휴면회원검색 페이지 //////////////////////////////////////  -->
 	<select id="memDormantPaging" parameterType="com.arbor.home.vo.PageSearchVO" resultType="com.arbor.home.vo.MemberDormantVO">
 		select * from(select * from(select * from(select * from(select * from(select * from(
