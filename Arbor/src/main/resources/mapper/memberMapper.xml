@@ -288,6 +288,10 @@
 	<update id="memberPwdSearchOk">
 		update member set userpwd = #{param1}  where userid = #{param2} and email = #{param3}
 	</update>
+	<!-- 아이디 찾기(sms) -->
+	<select id="memberIdSearchOk2" resultType="com.arbor.home.vo.MemberVO">
+		select userid, userpwd from member where username = #{param1} and tel = #{param2}
+	</select>
 	
 </mapper>
 

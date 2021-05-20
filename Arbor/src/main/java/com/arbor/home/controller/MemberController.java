@@ -1,8 +1,6 @@
 package com.arbor.home.controller;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -34,7 +32,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.arbor.home.service.MemberServiceImp;
 import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemPagingDTO;
-import com.arbor.home.vo.MemberDormantVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.PageSearchVO;
 
@@ -71,7 +68,7 @@ public class MemberController {
          
          /* 휴면회원 테이블로 90일경과 회원 넘기기 */
          List<MemberVO> list90 = memberService.dormantList(); // 90일경과 목록(member)
-System.out.println("등록될 사람 몇명?"+list90.size());
+         System.out.println("등록될 사람 몇명?"+list90.size());
          for(int i=0; i<list90.size(); i++) {
             MemberVO mvo = list90.get(i);
             String userid=mvo.getUserid();
@@ -228,6 +225,51 @@ System.out.println("등록될 사람 몇명?"+list90.size());
       //ajax에서 리턴값을 활용해야할때는 json으로...?
       return rtnList;
    }
+   
+   //sms로 아이디 찾기
+   @ResponseBody
+   @RequestMapping("/memberIdSearchOk2")
+   public List<String> memberIdSearchOk2(@RequestParam(value = "idCheck[]") List<String> arr) {
+      
+	   /* 겟방식
+	   String username = req.getParameter("sms_username");
+      //겟파라미터로 바꾸자
+      String tel = req.getParameter("fulltel");
+      
+      System.out.println("겟방식 유저이름" + username);
+      System.out.println("전화번호" + tel);
+	   */
+	   //넘어온값을 셀렉트로 아이디구하기
+      String username = arr.get(0);
+      String tel = arr.get(1);
+      
+      //매개변수가 VO타입이아니면 param1,param2로...
+      MemberVO vo = memberService.memberIdSearchOk2(username, tel);
+      
+      //인증번호용
+      UUID uuid = UUID.randomUUID();
+      
+      //넘어온값을 셀렉트로 아이디구하기
+      
+      String beforeSubstr = uuid.toString();
+      String validateNum = beforeSubstr.substring(0,7);
+      
+      //휴면계정? 탈퇴계정 구분?
+      
+      //리턴은?? 리턴할 아이디 값과 이메일 인증값을 List에 넣기
+      String needId = vo.getUserid();
+      System.out.println(needId);
+      
+      List<String> rtnList = new ArrayList<String>();
+      rtnList.add(0, needId);
+      rtnList.add(1, validateNum);
+          
+      System.out.println(rtnList.get(0) + " ///////////확인번호 =" +rtnList.get(1));
+      
+      //ajax에서 리턴값을 활용해야할때는 json으로...?
+      return rtnList;
+      
+   }
 
    @RequestMapping("/pwdSearch")
    public String pwdcChange() {
@@ -236,7 +278,7 @@ System.out.println("등록될 사람 몇명?"+list90.size());
    }
    
    //비밀번호 찾기
-   //아이디 찾기 로직
+   //임시비번전송
    @ResponseBody
    @RequestMapping("/memberPwdSearchOk")
    public int memberPwdSearchOk(@RequestParam(value = "idCheck[]") List<String> arr, Model model) {
@@ -248,7 +290,6 @@ System.out.println("등록될 사람 몇명?"+list90.size());
       
       String userid = arr.get(0);
       
-      //@가 안넘어옴 @이를 넘어오게 해야한다...
       String email = arr.get(1);
       String beforeSubstr = uuid.toString();
       
@@ -271,7 +312,7 @@ System.out.println("등록될 사람 몇명?"+list90.size());
        //이메일 보내기
        String sender = "emailarbor@gmail.com";//메일을 보낼 관리자계정
        String toMail = email;//뷰에서 가져온 인증번호 받을 이메일 값
-       String title = "Arbor 휴면계정 알림 메일입니다";
+       String title = "Arbor 임시비밀번호 메일";
        String content = 
              "임시비밀번호가 발급되었습니다." +
                    "<br/>" +
@@ -730,11 +771,18 @@ System.out.println("등록될 사람 몇명?"+list90.size());
       return mav;
    }
    
-   
+   //get방식 문자api 로 보내기
    @RequestMapping("/smsOk")
    public String smsOk() {
       
       return "admin/member/smsgo";
+   }
+   
+   //비밀번호 찾기 인증번호 sms로 보내기
+   @RequestMapping("/sms_validate")
+   public String sms_validate() {
+	   
+	   return "admin/member/sms_val";
    }
    
    //////////////////////// 엑셀 다운로드 ////////////////////////

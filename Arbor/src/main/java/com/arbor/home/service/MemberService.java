@@ -199,4 +199,13 @@ public class MemberService implements MemberServiceImp {
 		
 		return memberDAO.memberPwdSearchOk(changepwd, username, email);
 	}
+
+	@Override
+	public MemberVO memberIdSearchOk2(String username, String tel) {
+		
+		return memberDAO.memberIdSearchOk2(username, tel);
+	}
+	
+	
+	
 }

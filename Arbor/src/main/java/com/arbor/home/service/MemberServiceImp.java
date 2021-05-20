@@ -105,4 +105,7 @@ public interface MemberServiceImp {
 	
 	//비밀번호 찾기 +  변경
 	public int memberPwdSearchOk(String changepwd, String username, String email);
+
+	//sms로 아이디 찾기
+	public MemberVO memberIdSearchOk2(String username, String tel);
 }

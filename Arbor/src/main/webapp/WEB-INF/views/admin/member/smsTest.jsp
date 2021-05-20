@@ -80,7 +80,7 @@
     <span>
       <input type="radio" name="smsType" value="L">장문(LMS)</span>
     <br /> 제목 :
-    <input type="text" name="subject" value="Arbor 휴면 알림 문자"> 장문(LMS)인 경우 (한글30자이내)
+    <input type="text" name="subject" value=""> 장문(LMS)인 경우 (한글30자이내)
     <br /> 전송메세지 <br/>
     <textarea name="msg" cols="30" rows="10" style="width:455px;">
    	Ａ Ｒ B 0 Ｒ
@@ -99,9 +99,9 @@
     <br />받는 번호
     <select id="smsSelect" onchange="receiver()">
     	<option value=""></option>
-    <c:forEach var="vo" items="${list}"  varStatus="status">
-    	<option value="${status.current}">${status.current}</option>
-	</c:forEach>
+	    <c:forEach var="vo" items="${list}"  varStatus="status">
+	    	<option value="${status.current}">${status.current}</option>
+		</c:forEach>
     </select>
     <input type="text" name="rphone" id="rphone" value="">
     <!-- <br />이름삽입번호
