@@ -228,6 +228,14 @@
  		values(pqnasq.nextval, ${pno}, #{userid}, #{pqnasubject}, #{pqnacontent}, #{pqnaopen})
  	</insert>
  	
+ 	<update id="pqnaUpdate" parameterType="com.arbor.home.vo.ProductQnaVO">
+ 		update productqna set pqnasubject=#{pqnasubject}, pqnacontent=#{pqnacontent}, pqnaopen=#{pqnaopen} where pqnano=${pqnano} and userid=#{userid}
+ 	</update>
+ 	
+ 	<delete id="pqnaDelete">
+ 		delete from productqna where pqnano=${param1} and userid=#{param2}
+ 	</delete>
+ 	
  	<select id="pqnaList" resultType="com.arbor.home.vo.ProductQnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
  		select * from(select * from(select * from(select * from(
  		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate

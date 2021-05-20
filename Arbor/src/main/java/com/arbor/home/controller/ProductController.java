@@ -147,6 +147,13 @@ public class ProductController {
 		return productService.pqnaInsert(vo);
 	}
 	
+	@RequestMapping("/pqnaUpdate")
+	@ResponseBody
+	public int pqnaUpdate(ProductQnaVO vo, HttpSession ses) {
+		vo.setUserid((String)ses.getAttribute("logId"));
+		return productService.pqnaUpdate(vo);
+	}
+	
 	// 상품문의 등록 후 목록 다시 불러오기
 	@RequestMapping("/pqnaView")
 	@ResponseBody
@@ -154,6 +161,12 @@ public class ProductController {
 		return productService.pqnaViewList(pno);
 	}
 	
+	// 상품문의 삭제
+	@RequestMapping("/pqnaDelete")
+	@ResponseBody
+	public int pqnaDelete(int pqnano, HttpSession ses) {
+		return productService.pqnaDelete(pqnano, (String)ses.getAttribute("logId"));
+	}
 	
 	/* 관리자 */
 	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)

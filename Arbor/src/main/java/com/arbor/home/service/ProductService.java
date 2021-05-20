@@ -267,6 +267,17 @@ public class ProductService implements ProductServiceImp {
 		return productDAO.subnameSelect(subno);
 	}
 
+	@Override
+	public int pqnaUpdate(ProductQnaVO vo) {
+		return productDAO.pqnaUpdate(vo);
+	}
+
+	@Override
+	public int pqnaDelete(int pqnano, String userid) {
+		return productDAO.pqnaDelete(pqnano, userid);
+	}
+	
+
 	
 	
 }
