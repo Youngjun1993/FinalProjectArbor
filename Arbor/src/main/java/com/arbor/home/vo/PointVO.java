@@ -6,7 +6,7 @@ public class PointVO {
 	private int pointno;
 	private String pointdate;
 	private String pointcontent;
-	private String point;
+	private int point;
 	private String userid;
 	private String beforePoint;
 	private String mfpoint;
@@ -37,17 +37,11 @@ public class PointVO {
 	public void setPointcontent(String pointcontent) {
 		this.pointcontent = pointcontent;
 	}
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
 	public void setPoint(int point) {
-		DecimalFormat formatter = new DecimalFormat("###,###");
-		String pointStr = Integer.toString(point);
-		if(pointStr == null || pointStr.equals("")) {
-			this.point = "0";
-		}else {
-			this.point = formatter.format(point);
-		}
+		this.point = point;
 	}
 	public String getUserid() {
 		return userid;

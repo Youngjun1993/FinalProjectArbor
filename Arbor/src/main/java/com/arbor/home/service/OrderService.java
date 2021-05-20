@@ -129,5 +129,15 @@ public class OrderService implements OrderServiceImp {
 		return orderDAO.updateProductStock(pno);
 	}
 
+	@Override
+	public int setUsedPoint(OrderTblVO orderVo) {
+		return orderDAO.setUsedPoint(orderVo);
+	}
+
+	@Override
+	public int setPlusPoint(OrderTblVO orderVo) {
+		return orderDAO.setPlusPoint(orderVo);
+	}
+
 	
 }
