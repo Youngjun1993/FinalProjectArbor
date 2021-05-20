@@ -10,7 +10,9 @@
 		select username, zipcode, addr, detailaddr, tel, email from member where userid=#{param1}
 	</select>
 	<select id="getUserPoint" resultType="com.arbor.home.vo.PointVO">
-		select * from point where userid=#{param1} and pointNo=(select max(pointNo) from point where userid=#{param1})
+		select * from point where pointno=(select max(pointno) from point where userid=#{param1})
+		
+	<!-- 	select * from point where userid=#{param1} and pointNo=(select max(pointNo) from point where userid=#{param1}) -->
 	</select>
 	<select id="getUserCoupon" resultType="com.arbor.home.vo.CouponVO">
 		select cpnname, apply, salerate, to_char(cpnstart, 'yyyy-mm-dd') cpnstart, to_char(cpnend, 'yyyy-mm-dd') cpnend from coupon where userid=#{param1} and cpnend>=sysdate-1
@@ -131,5 +133,15 @@
 	</delete>
 	<update id="updateProductStock">
 		update product set stock=stock-1 where pno=#{param1}
+	</update>
+	<update id="setUsedPoint">
+		insert into point(pointno, pointdate, pointcontent, point, userid) values(pointsq.nextval, sysdate, '상품 구매',
+		((select point from point where pointno=(select max(pointno) from point where userid=#{userid}))-#{usepoint}), #{userid})
+	</update>
+	<update id="setPlusPoint">
+		insert into point(pointno, pointdate, pointcontent, point, userid) values(pointsq.nextval, sysdate, '구매 적립금',
+		((select pluspoint from ordertbl where orderno=#{orderno})+(select point from point where pointno=(select max(pointno)
+		from point where userid=(select userid from ordertbl where orderno=#{orderno})))),
+		(select userid from ordertbl where orderno=#{orderno}))
 	</update>
   </mapper>

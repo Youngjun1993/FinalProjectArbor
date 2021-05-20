@@ -133,7 +133,6 @@
 			<form method="post" id="j_orderListFrm" action="orderAdmin">
 				<select name="status">
 					<option value="">주문상태</option>
-					<option value="신규주문">신규주문</option>
 					<option value="배송준비">배송준비</option>
 					<option value="배송중">배송중</option>
 					<option value="배송완료">배송완료</option>

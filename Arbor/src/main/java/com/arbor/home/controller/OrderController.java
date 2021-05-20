@@ -170,7 +170,6 @@ public class OrderController {
 				subVo.setOrderno(orderVo.getOrderno());
 				subVo.setPno(pnoArr[i]);
 				subVo.setPname(pnameArr[i]);
-				subVo.setOptinfo(optinfoArr[i]);
 				subVo.setQuantity(quantityArr[i]);
 				subVo.setSubprice(subpriceArr[i]);
 
@@ -182,9 +181,9 @@ public class OrderController {
 					orderService.deleteCartList(cartnoArr[i], userid);
 					System.out.println("cartnoArr["+i+"]->"+cartnoArr[i]+" 삭제 완료"); //장바구니 상품 주문시, 해당 상품 장바구니에서 삭제
 				}
-				
 				orderService.updateProductStock(pnoArr[i]);	//주문상품 재고량 수정
 			}
+			orderService.setUsedPoint(orderVo);	//사용적립금 db 반영
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
@@ -234,9 +233,11 @@ public class OrderController {
 
 				orderService.updateOrderStatus(ordernoArr[i], orderVo.getStatus());
 			}
+			if(orderVo.getStatus().equals("배송완료")) {
+				orderService.setPlusPoint(orderVo);
+				System.out.println("상품구매적립금 적립 완료");
+			}
 		}
-		
-		System.out.println(pageVo.toString());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("cnt", orderService.countOfOrderStatus(orderVo));
