@@ -194,7 +194,7 @@
 								<img src="<%=request.getContextPath() %>/img/lock.jpg"/>
 								</c:if>
 							</li>
-							<c:if test="${vo.pqnaopen=='Y' }">
+							<c:if test="${vo.pqnaopen=='Y' || vo.userid==logId }">
 							<li><a class="p_qna_answer" href="#s">${vo.pqnasubject }</a></li>
 							<li>
 								<div>
@@ -203,7 +203,7 @@
 								</div>
 							</li>
 							</c:if>
-							<c:if test="${vo.pqnaopen=='N' }">
+							<c:if test="${vo.pqnaopen=='N' && vo.userid!=logId }">
 							<li><a class="p_qna_answer" href="#s">사용자의 요청에 의해 비공개처리된 글입니다.</a></li>
 							<li>
 								<div>
@@ -213,7 +213,11 @@
 							</li>
 							</c:if>
 						</ul>
-						<div class="p_qna_sideDiv">${vo.userid } | ${vo.pqnadate }</div>
+						<div class="p_qna_sideDiv">${vo.userid } | ${vo.pqnadate }
+						<c:if test="${vo.userid==logId }">
+						<a href="javascript:hiddenEditOpen()">수정</a> | <a href="javascript:hiddenDelete()">삭제</a>
+						</c:if>
+						</div>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -244,19 +248,21 @@
 							<li><a class="p_qna_answer" href="#s">사용자의 요청에 의해 비공개처리된 글입니다.</a></li>
 							<li>
 								<div>
-								<p>Q. 사용자의 요청에 의해 비공개처리된 글입니다.</p>
-								<p>A. 사용자의 요청에 의해 비공개처리된 글입니다.</p>
+									<p>Q. 사용자의 요청에 의해 비공개처리된 글입니다.</p>
+									<p>A. 사용자의 요청에 의해 비공개처리된 글입니다.</p>
 								</div>
 							</li>
 							</c:if>
 						</ul>
-						<div class="p_qna_sideDiv">${vo.userid } | ${vo.pqnadate }</div>
+						<div class="p_qna_sideDiv">${vo.userid } | ${vo.pqnadate }<br/>
+						<c:if test="${vo.userid==logId }">
+						<a href="javascript:hiddenEditOpen()">수정</a> | <a href="javascript:hiddenDelete()">삭제</a>
+						</c:if>
+						</div>
 					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
-		</c:forEach>
-		<a href="javascript:hiddenOpen()"><button type="button" class="clientMainBtn">상품문의글 작성</button></a><br/>
 		<div id="p_qna_hidden">
 			<h1>상품문의글 작성</h1>
 			<form action="javascript:pqnaInsert()" method="post" id="p_qna_hiddenFrm">
@@ -268,9 +274,25 @@
 				<input type="hidden" name="pno" value="${vo.pno }" />
 				<input type="text" name="pqnasubject" id="pqnasubject" placeholder="제목을 입력하세요"/><br />
 				<textarea name="pqnacontent" id="pqnacontent" placeholder="문의내용을 입력하세요"></textarea><br/>
-				<input type="submit" value="등록하기" class="clientMainBtn" /><button type="button" class="clientSubBtn" onclick="location.href='javascript:hiddenClose()'">취소하기</button>
+				<input type="submit" value="등록하기" class="clientMainBtn" /><button type="button" class="clientSubBtn p_hiddenCloseBtn">닫기</button>
 			</form>
 		</div>
+		<div id="p_qna_hidden2">
+			<h1>상품문의글 수정</h1>
+			<form action="javascript:pqnaInsert()" method="post" id="p_qna_hiddenFrm2">
+				<p>
+				문의글 공개여부선택 : 
+				<input type="radio" name="pqnaopen" value="Y" checked="checked">공개
+				<input type="radio" name="pqnaopen" value="N">비공개
+				</p>
+				<input type="hidden" name="pno" value="${vo.pno }" />
+				<input type="text" name="pqnasubject" id="pqnasubject2" placeholder="제목을 입력하세요"/><br />
+				<textarea name="pqnacontent" id="pqnacontent2" placeholder="문의내용을 입력하세요"></textarea><br/>
+				<input type="submit" value="수정하기" class="clientMainBtn" /><button type="button" class="clientSubBtn p_hiddenCloseBtn">닫기</button>
+			</form>
+		</div>
+		</c:forEach>
+		<a href="javascript:hiddenOpen()"><button type="button" class="clientMainBtn">상품문의글 작성</button></a><br/>
 	</div>
 	
 	<span id="p_deliveryMenu_up"></span>
