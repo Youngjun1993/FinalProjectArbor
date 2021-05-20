@@ -42,6 +42,11 @@ $(function(){
 		$("#p_totalprice3").show();
 		$("#p_optionOpen").hide();
 	});
+	
+	<!-- 상품문의 취소시 폼 닫기 -->
+	$(document).on('click', '.p_hiddenCloseBtn', function() {
+		$("#p_qna_hidden").hide();
+	});
 
 });
 
@@ -50,8 +55,12 @@ function hiddenOpen() {
 	$("#p_qna_hidden").show();
 }
 
-<!-- 상품문의 취소시 폼 닫기 -->
-function hiddenClose() {
-	$("#p_qna_hidden").hide();
+<!-- 상품문의 수정 -->
+function hiddenEditOpen(){
+
 }
 
+<!-- 상품문의 삭제 -->
+function hiddenDelete() {
+
+}
