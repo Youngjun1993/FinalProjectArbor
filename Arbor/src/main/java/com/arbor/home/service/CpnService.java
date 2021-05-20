@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.CouponDAOImp;
 import com.arbor.home.vo.CouponVO;
+import com.arbor.home.vo.PageSearchVO;
 
 @Service
 public class CpnService implements CpnServiceImp {
@@ -27,6 +28,31 @@ public class CpnService implements CpnServiceImp {
 	@Override
 	public int cpnAdInsert(CouponVO vo) {
 		return cpnDAO.cpnAdInsert(vo);
+	}
+
+	@Override
+	public List<CouponVO> cpnAdList(PageSearchVO vo) {
+		return cpnDAO.cpnAdList(vo);
+	}
+
+	@Override
+	public int totalRecord(PageSearchVO vo) {
+		return cpnDAO.totalRecord(vo);
+	}
+
+	@Override
+	public int cpnAdUpdate(CouponVO vo) {
+		return cpnDAO.cpnAdUpdate(vo);
+	}
+
+	@Override
+	public int cpnAdDelete(int cpnadno) {
+		return cpnDAO.cpnAdDelete(cpnadno);
+	}
+
+	@Override
+	public int cpnAllDelete() {
+		return cpnDAO.cpnAllDelete();
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arbor.home.service.CpnService;
 import com.arbor.home.service.CpnServiceImp;
 import com.arbor.home.vo.CouponVO;
+import com.arbor.home.vo.PageSearchVO;
 
 @Controller
 public class CouponController {
@@ -22,9 +24,21 @@ public class CouponController {
 	CpnServiceImp cpnService;
 	
 	@RequestMapping("/couponAdList")
-	public ModelAndView couponAdList() {
+	public ModelAndView couponAdList(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
+		String pageNumStr = req.getParameter("pageNum");
+		PageSearchVO pageVo = new PageSearchVO();
+		
+		if(pageNumStr != null) {
+			pageVo.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		
+		pageVo.setTotalRecord(cpnService.totalRecord(pageVo));
+		
 		mav.addObject("maincate",cpnService.cpnGetMainCate());
+		mav.addObject("list", cpnService.cpnAdList(pageVo));
+		mav.addObject("pageVO", pageVo);
+		
 		mav.setViewName("admin/coupon/couponAdList");
 		return mav;
 	}
@@ -38,11 +52,6 @@ public class CouponController {
 		String salerateArr[] = vo.getSalerate().split(",");
 		String cpnstartArr[] = vo.getCpnstart().split(",");
 		String cpnendArr[] = vo.getCpnend().split(",");
-		
-		System.out.println("salerate vo="+vo.getSalerate());
-		System.out.println("salerate length="+vo.getSalerate());
-		System.out.println("salerate="+salerateArr.length);
-		
 		for(int i=0; i<cpnnameArr.length; i++) {
 			CouponVO cpnVo = new CouponVO();
 			
@@ -65,13 +74,36 @@ public class CouponController {
 			
 			result = cpnService.cpnAdInsert(cpnVo);
 		}
-		System.out.println(result);
 		return result;
 	}
 	
-	@RequestMapping("/cpnSelectCate")
+	@RequestMapping(value="/cpnSelectCate", method=RequestMethod.POST)
 	@ResponseBody
 	public List<CouponVO> cpnSelectCate(int mainno){
 		return cpnService.cpnGetSubCate(mainno);
+	}
+	@RequestMapping(value="/cpnAdEdit", method=RequestMethod.POST)
+	public ModelAndView cpnAdEdit(CouponVO vo) {
+		ModelAndView mav = new ModelAndView();
+		cpnService.cpnAdUpdate(vo);
+		
+		mav.setViewName("redirect:couponAdList");
+		
+		return mav;
+	}
+	@RequestMapping("/cpnAdDelete")
+	public ModelAndView cpnAdDelete(int cpnadno) {
+		ModelAndView mav = new ModelAndView();
+		
+		cpnService.cpnAdDelete(cpnadno);
+		mav.setViewName("redirect:couponAdList");
+		return mav;
+	}
+	@RequestMapping("/cpnAllDel")
+	public ModelAndView cpnAllDel() {
+		ModelAndView mav = new ModelAndView();
+		cpnService.cpnAllDelete();
+		mav.setViewName("redirect:couponAdList");
+		return mav;
 	}
 }
