@@ -10,10 +10,10 @@
 		select username, zipcode, addr, detailaddr, tel, email from member where userid=#{param1}
 	</select>
 	<select id="getUserPoint" resultType="com.arbor.home.vo.PointVO">
-		select * from point where userid=#{param1} and pointNo=(select max(pointNo) from point)
+		select * from point where userid=#{param1} and pointNo=(select max(pointNo) from point where userid=#{param1})
 	</select>
 	<select id="getUserCoupon" resultType="com.arbor.home.vo.CouponVO">
-		select cpnname, apply, available, salerate, to_char(cpnstart, 'yyyy-mm-dd') cpnstart, to_char(cpnend, 'yyyy-mm-dd') cpnend from coupon where userid=#{param1} and cpnend>=sysdate-1
+		select cpnname, apply, salerate, to_char(cpnstart, 'yyyy-mm-dd') cpnstart, to_char(cpnend, 'yyyy-mm-dd') cpnend from coupon where userid=#{param1} and cpnend>=sysdate-1
 	</select>
 	<select id="getCouponCount" resultType="int">
 		select count(cpnNo) from coupon where userid=#{param1} and cpnend>=sysdate-1
@@ -41,31 +41,6 @@
 	<update id="updateOrderStatus">
 		update orderTbl set status=#{param2} where orderno=#{param1}
 	</update>
-	
-<!-- 	
-	<select id="selectOrderList" resultType="com.arbor.home.vo.OrderTblVO">
-		select to_char(orderdate, 'yyyy-mm-dd hh24:mi') orderdate, o.orderno, status, m.username, m.tel, arr, arrtel, request
-		from orderTbl o join member m on o.userid=m.userid
-		where 1=1
-		<choose>
-			<when test="period!=''">
-				<if test='period=="당일"'>and to_char(orderdate, 'yyyy/mm/dd')=to_char(sysdate, 'yyyy/mm/dd')</if>
-				<if test='period=="일주일"'>and sysdate-6<![CDATA[ <= ]]>to_char(orderdate, 'yyyy/mm/dd') and to_char(orderdate, 'yyyy/mm/dd')<![CDATA[ <= ]]>to_char(sysdate, 'yyyy/mm/dd')</if>
-				<if test='period=="1개월"'>and add_months(sysdate, -1)<![CDATA[ <= ]]>to_char(orderdate, 'yyyy/mm/dd') and to_char(orderdate, 'yyyy/mm/dd')<![CDATA[ <= ]]>to_char(sysdate, 'yyyy/mm/dd')</if>
-				<if test='period=="3개월"'>and add_months(sysdate, -3)<![CDATA[ <= ]]>to_char(orderdate, 'yyyy/mm/dd') and to_char(orderdate, 'yyyy/mm/dd')<![CDATA[ <= ]]>to_char(sysdate, 'yyyy/mm/dd')</if>
-			</when>
-			<otherwise>
-				<if test="orderSearch_from!='' and orderSearch_to!=''">
-					and '${orderSearch_from}'<![CDATA[ <= ]]>to_char(orderdate, 'yyyy/mm/dd')
-					and to_char(orderdate, 'yyyy/mm/dd')<![CDATA[ <= ]]>'${orderSearch_to}'
-				</if>
-			</otherwise>
-		</choose>
-		<if test="searchWord!=''">and ${searchKey} like '%${searchWord}%'</if>
-		order by orderdate desc
-	</select>
--->
-	
 	<select id="selectOrderList" resultType="com.arbor.home.vo.OrderTblVO" parameterType="com.arbor.home.vo.PageSearchVO">
 		select * from (select * from (select to_char(orderdate, 'yyyy-mm-dd hh24:mi') orderdate, o.orderno, status, m.username, m.tel, arr, arrtel, request
 		from orderTbl o join member m on o.userid=m.userid

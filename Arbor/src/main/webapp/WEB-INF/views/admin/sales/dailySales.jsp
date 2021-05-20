@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/sales.css" type="text/css"/>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/orderAdmin.css" type="text/css"/>
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- datepicker -->
@@ -71,7 +73,7 @@
 		console.log("orderDate-->"+orderdate);
 		
 		var url = "dailySalesDetail";
-		var params = "orderDate="+orderdate;
+		var params = "orderdate="+orderdate;
 		$.ajax({
 			url: url,
 			data: params,
@@ -79,17 +81,18 @@
 				var $result = $(result);
 				var tag = "<li>주문번호</li><li>상품명</li><li>아이디</li><li>회원명</li><li>결제금액</li>";
 				$result.each(function(idx, vo){
-					tag += "<li>" + vo.orderno + "</li>";
-					tag += "<li>" + vo.orderno + "</li>";
-					tag += "<li>" + vo.userid + "</li>";
-					tag += "<li>" + vo.username + "</li>";
-					tag += "<li>" + vo.subprice + "</li>";
+					$("#j_salesPopup_Wrap>div>p").text(orderdate+" 매출")
+					tag += "<li>"+ vo.orderno +"</li>";
+					tag += "<li>"+ vo.orderno +"</li>";
+					tag += "<li>"+ vo.userid +"</li>";
+					tag += "<li>"+ vo.username +"</li>";
+					tag += "<li>"+ vo.subprice +"원</li>";
+					$("#j_salesDetailList").html(tag);
 				});
 			}, error: function(error){
 				console.log("주문상세보기 팝업 에러->"+error);
 			}
 		});
-		
 	}
 	
 	
@@ -99,7 +102,7 @@
 <div class="w1400_container font_ng">
 	<!-- 관리자메뉴 -->
 	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
-	<div class="j_centerFrm" id="orderManagement">
+	<div class="j_centerFrm">
 		<p class="j_adminMemu"><span>매출관리</span></p>
 		<div>
 			<form id="salesFrm" action="salesManagement">
@@ -125,30 +128,58 @@
 					<li>배송비</li>
 					<li>비고</li>
 					
+					<c:set var="t_sales" value="0"/>
+					<c:set var="t_ordercnt" value="0"/>
+					<c:set var="t_delivery" value="0"/>
 					<c:forEach var="salesVo" items="${salesList }">
 						<li>${salesVo.orderdate }</li>
-						<li>${salesVo.totalsales }원</li>
-						<li>${salesVo.ordercnt }건</li>
-						<li>${salesVo.totaldelivery }원</li>
+						<li><span><fmt:formatNumber value="${salesVo.totalsales }"/>원</span></li>
+						<li><span>${salesVo.ordercnt}건</span></li>
+						<li><span><fmt:formatNumber value="${salesVo.totaldelivery }"/>원</span></li>
 						<li><input type="button" value="상세보기" onclick="javascript:salesDetailPopup('${salesVo.orderdate }')"/></li>
+						
+						<c:set var="t_sales" value="${t_sales + salesVo.totalsales}"/>
+						<fmt:parseNumber var="n_ordercnt" value = "${fn:trim(salesVo.ordercnt)}" />
+						<c:set var="t_ordercnt" value="${t_ordercnt + n_ordercnt}"/>
+						<c:set var="t_delivery" value="${t_delivery + salesVo.totaldelivery}"/>
+						
 					</c:forEach>
+					
+					<li>합계</li>
+					<li><span><fmt:formatNumber value="${t_sales }"/>원</span></li>
+					<li><span><fmt:formatNumber value="${t_ordercnt }"/>건</span></li>
+					<li><span><fmt:formatNumber value="${t_delivery }"/>원</span></li>
+					<li>-</li>					
 				</ul>
 			</div>
-			<div>
-			 ~ 페이징 할 곳 ~
-			 ~ 페이징 해야겠지??????????????????? ~
-			</div>
+			<div class="j_paging">
+				<ul class="adPaging clearfix">
+					<c:if test="${pageVO.pageNum>1 }">
+						<li style="border-bottom:none;"><a class="pagingAdLR_a" href="dailySales?pageNum=${pageVO.pageNum-1 }">＜</a></li>
+					</c:if>
+					<c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+						<c:if test="${p<=pageVO.totalPage }">
+							<c:if test="${p==pageVO.pageNum }">
+								<li style="border-bottom:3px solid rgb(191,43,53);"><a href="dailySales?pageNum=${p }">${p }</a></li>
+							</c:if>
+							<c:if test="${p!=pageVO.pageNum }">
+								<li><a href="dailySales?pageNum=${p }">${p }</a></li>
+							</c:if>
+						</c:if>
+					</c:forEach>
+					<c:if test="${pageVO.pageNum<pageVO.totalPage }">
+						<li style="border-bottom:none;"><a class="pagingAdLR_a" href="dailySales?pageNum=${pageVO.pageNum+1 }">＞</a></li>
+					</c:if>
+				</ul>
+		 	</div>
 		</div>
 	</div>
 	<div id="j_salesPopup_Wrap">	<!-- 주문상세보기 팝업 -->
-		<div style="width:500px; margin:0 auto;">
-			<p>2021-02-17 매출</p>
+		<div>
+			<p></p>
 			<ul class="clearfix" id="j_salesDetailList"></ul>
 		</div>
 		<input type="button" class="adminMainBtn" id="j_salesPopupClose" value="닫기"/>
-		<div>
-			~ 페이징 ~
-		</div>
 	</div>
 </div>
 </body>
