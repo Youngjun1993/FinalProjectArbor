@@ -1,10 +1,10 @@
 package com.arbor.home.vo;
 
 public class NoticeVO {
-	public int noticeno;
-	public String noticesubject;
-	public String noticecontent;
-	public String noticedate;
+	private int noticeno;
+	private String noticesubject;
+	private String noticecontent;
+	private String noticedate;
 	
 	public int getNoticeno() {
 		return noticeno;

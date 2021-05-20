@@ -13,6 +13,19 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/noticeEdit.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
+<script>
+	$(function(){
+		$('#d_noticeListBtn').click(function(){
+			location.href="noticeAdminList";
+		});
+		
+		$("#d_bordDel").click(()=>{
+			if(confirm("삭제하시겠습니까?")){
+				location.href = "boardDelete?no=${noticeEditView.noticeno}";
+			}
+		});
+	});
+</script>
 </head>
 <body>
 <div class="w1400_container clearfix">
@@ -30,9 +43,9 @@
 			<span>${noticeEditView.noticecontent }</span>
 		</div>
 		<p class="d_noticeSetBtn">
-				<input type="button" class="adminMainBtn" onclick="location.href='eventEdit?eventNo=${vo.eventNo}'" id="j_eventEditBtn" value="수정"/> 
-				<input type="button" class="adminSubBtn" onclick="javascript:eventDel(${vo.eventNo})" value="삭제"/> 
-				<input type="button" class="adminSubBtn" id="j_eventListBtn" value="목록"/>
+			<input type="button" class="adminMainBtn" onclick="location.href='noticeEdit?no=${noticeEditView.noticeno}'" value="수정"/> 
+			<input type="button" class="adminSubBtn" id="d_bordDel" value="삭제"/> 
+			<input type="button" class="adminSubBtn" id="d_noticeListBtn" value="목록"/>
 		</p>
 	</div>
 </div>

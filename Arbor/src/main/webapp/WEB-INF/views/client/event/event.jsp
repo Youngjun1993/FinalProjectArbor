@@ -18,12 +18,12 @@
 			dataType: 'json',
 			async: false,
 			success: function(list){
-				console.log(list);
+				console.log("list:"+list);
 				var tag = "";
 				$.each(list, function(idx, vo){
-					tag += "<li><a href=\"#\">";
+					tag += '<li><a href="productView?pno=vo.pNo">';
 					tag += vo.saleContent;
-					tag += "</a></li>";
+					tag += '</a></li>';
 					sEndDate[idx] = vo.saleEnd;
 				});
 				$("#timeSaleSlider").html(tag);
@@ -39,7 +39,16 @@
 			slideHeight: 500,
 			auto: true,
 			infiniteLoop: true,
+			controls: false,
+			autoControls: false,
+			autoHover: true,
 			//responsive:true,
+			
+			nextSelector: '.bx-next-arrow',
+		  	prevSelector: '.bx-prev-arrow',
+			nextText: 'Onward →',
+			prevText: '← Go back',
+			
 			onSlideNext:function(){
 				index = mys.getCurrentSlide();
 			 	runTimer(sEndDate[index]);
@@ -81,7 +90,6 @@
 			}else if(title=="지난 이벤트"){
 				location.href="event?title=endEvent";				
 			}
-			
 		});
 		
 		//==================== TIME SALE ====================
@@ -111,11 +119,15 @@
 				var hours = Math.floor((interval % _day) / _hour);
 				var minutes = Math.floor((interval % _hour) / _minute);
 				var seconds = Math.floor((interval % _minute) / _second);
-				var setTimer = "<span class='d-day'>D-"+days+" </span>";
+				/* var setTimer = "<span class='d-day'>D-"+days+" </span>";
 				setTimer += hours+"시간 ";
 				setTimer += minutes+"분 ";
 				setTimer += seconds+"초";
-				$("#timer").html(setTimer);
+				$("#timer").html(setTimer); */
+				$("#timer>ul:first-child li:nth-child(1)").text(days);
+				$("#timer>ul:first-child li:nth-child(2)").text(hours);
+				$("#timer>ul:first-child li:nth-child(3)").text(minutes);
+				$("#timer>ul:first-child li:nth-child(4)").text(seconds);
 			}
 			timer = setInterval(showCountDown, 500);
 		}
@@ -158,14 +170,33 @@
 		<!-- 타임세일 -->
 		<div class="j_tab-content" id="j_tab1_content">
 			<div>
-				<div id="timer"></div>
+				<div id="timer" class="clearfix">
+					<ul class="clearfix">
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+			         <ul class="clearfix">
+			             <li>Days</li>
+			             <li>Hours</li>
+			             <li>Minutes</li>
+			             <li>Seconds</li>
+			         </ul>				
+				</div>
 				<div id="timeSaleContent">
 					<ul id="timeSaleSlider">
 <!-- 						<a href="#"><p><img src="/home/summernote/timesale.JPG" style="width: 984px;"><br></p></a>
 						<a href="#"><p><img src="/home/summernote/timesale2.jpg" style="width: 984px;"><br></p></a>
  -->					
 					</ul>
-				</div>			
+				</div>
+				<div class="outside">
+					<p>
+						<span id="slider-prev"></span>
+						<span id="slider-next"></span>
+					</p>
+				</div>
 			</div>
 		</div>
 		

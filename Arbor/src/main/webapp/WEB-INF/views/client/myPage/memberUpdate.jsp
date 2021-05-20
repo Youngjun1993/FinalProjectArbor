@@ -5,7 +5,7 @@
 <div id="h_memquit_container" class="clearfix w1400_container">
 	<%@include file="/WEB-INF/inc/mypageMenu.jspf"%>
 
-	<div class="h_memUpdate_header">회원정보 수정</div>
+	<div class="h_memUpdate_header pageTitle"><span>회원정보 수정</span></div>
 	<div class="h_memUpdate_container">
 		<div class="h_memPwdCheck_container">
 			<div class="h_password_checkbox">
@@ -18,32 +18,31 @@
 			</div>
 		</div>
 		
-		<div class="h_UpdateWriteForm">
+		<div class="h_UpdateWriteForm font_ng">
 		<form method="post" class="h_memUpdate_form" action="memberUpdateOk">
 			<ul class = "h_memUpdate_ul">	
 			<li>아이디</li>
 			<li>${vo.userid }</li>
 			<li>비밀번호</li>
-			<li><input type="text" name="userpwd" id="userpwd" class="h_ipt" size="20" value="" /></li>
+			<li><input type="text" name="userpwd" id="userpwd" class="h_ipt" size="58" value="" /></li>
 			<li>비밀번호 확인</li>
 			<li>
-			<input type="text" name="pwdCheck" id="update_pwdCheck" class="h_ipt" size="20" value="" />
+			<input type="text" name="pwdCheck" id="update_pwdCheck" class="h_ipt" size="58" value="" />
 			<span class="h_pwd_ok"></span>
 			</li>
 			<li>이름</li>
 			<li>${vo.username}</li>
 			<li>주소</li>
 			<li>
-			<input type="text" name="zipcode" class="h_ipt zipcode" size="20" value="${vo.zipcode }" />
-			<input type="button" size="14" class="h_check_btn" value="우편번호"  onclick="kakao_address()"/>
+			<input type="text" name="zipcode" class="h_ipt zipcode" size="36" value="${vo.zipcode }" /><input type="button" size="14" class="h_check_btn font_ng" value="우편번호"  onclick="kakao_address()"/>
 			</li>
 			<li></li>
 			<li>
-			<input type="text" name="addr" class="h_ipt addr" size="20" value="${vo.addr }" />
+			<input type="text" name="addr" class="h_ipt addr" size="58" value="${vo.addr }" />
 			</li>
 			<li></li>
 			<li>
-			<input type="text" name="detailaddr" class="h_ipt detailaddr" size="20" value="${vo.detailaddr }" />
+			<input type="text" name="detailaddr" class="h_ipt detailaddr" size="58" value="${vo.detailaddr }" />
 			</li>
 			<li>연락처</li>
 			<li>
@@ -69,13 +68,13 @@
 				<option value="063">063</option>
 				<option value="064">064</option>
 			</select>
-			-<input type="text" name="tel2" id="tel2" size="5" class="h_ipt" required="required" value="${vo.tel2}">
-			-<input type="text" name="tel3" id="tel3" size="5" class="h_ipt" required="required" value="${vo.tel3}">
+			<span class="p_telhipen">-</span><input type="text" name="tel2" id="tel2" size="10" class="h_ipt" required="required" value="${vo.tel2}">
+			<span class="p_telhipen">-</span><input type="text" name="tel3" id="tel3" size="10" class="h_ipt" required="required" value="${vo.tel3}">
 			</li>
 			<li>이메일</li>
 			<li>
-			<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid" required="required" value="${vo.emailid}"> @ 
-			<select name="emaildomain" id="emaildomain" class="h_select emaildomain" required="required" >
+			<input type="text" name="emailid" id="emailid" size="25" class="h_ipt emailid" required="required" value="${vo.emailid}">
+			<span class="p_mailhipen">@</span> <select name="emaildomain" id="emaildomain" class="h_select emaildomain" required="required" >
 				<option value=""></option>
 				<option value="gmail.com" <c:if test="${vo.emaildomain eq 'gmail.com' }">selected</c:if>>gmail.com</option>
 				<option value="naver.com" <c:if test="${vo.emaildomain eq 'naver.com' }">selected</c:if>>naver.com</option>
@@ -87,7 +86,7 @@
 			</ul>
 		</form>
 			<div class="h_memUpdate_submitbox">
-			<input type="button" class="clientSubBtn" value="정보수정" />
+				<input type="button" class="clientMainBtn" value="정보수정" />
 			</div>
 		</div>
 	</div>

@@ -1,11 +1,13 @@
 package com.arbor.home.vo;
 
 public class FaqVO {
+	//
 	private int faqno;
 	private String faqcate;
 	private String faqsubject;
 	private String faqcontent;
 	private String faqdate;
+	
 	
 	public int getFaqno() {
 		return faqno;

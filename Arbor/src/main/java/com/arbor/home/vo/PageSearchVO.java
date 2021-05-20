@@ -9,7 +9,7 @@ public class PageSearchVO {
 	private int onePageRecord=10;
 	private int lastPageRecord;
 	private String searchKey;
-	private String searchWord;
+	private String searchWord="";
 	private String userid;
 	
 	/* Admin - productController */
@@ -17,6 +17,34 @@ public class PageSearchVO {
 	private String enddate;
 	private int subno;
 	
+	/* Admin - OrderController */
+	private String period="";
+	private String orderSearch_from="";
+	private String orderSearch_to="";
+	
+	/* Admin - memberDormant */
+	private String smsok;
+	private String emailok;
+	private String dormailok;
+	
+	public String getSmsok() {
+		return smsok;
+	}
+	public void setSmsok(String smsok) {
+		this.smsok = smsok;
+	}
+	public String getEmailok() {
+		return emailok;
+	}
+	public void setEmailok(String emailok) {
+		this.emailok = emailok;
+	}
+	public String getDormailok() {
+		return dormailok;
+	}
+	public void setDormailok(String dormailok) {
+		this.dormailok = dormailok;
+	}
 	public String getUserid() {
 		return userid;
 	}
@@ -100,6 +128,33 @@ public class PageSearchVO {
 	}
 	public void setSearchWord(String searchWord) {
 		this.searchWord = searchWord;
+	}
+	public String getPeriod() {
+		return period;
+	}
+	public void setPeriod(String period) {
+		this.period = period;
+	}
+	public String getOrderSearch_from() {
+		return orderSearch_from;
+	}
+	public void setOrderSearch_from(String orderSearch_from) {
+		this.orderSearch_from = orderSearch_from;
+	}
+	public String getOrderSearch_to() {
+		return orderSearch_to;
+	}
+	public void setOrderSearch_to(String orderSearch_to) {
+		this.orderSearch_to = orderSearch_to;
+	}
+	@Override
+	public String toString() {
+		return "PageSearchVO [pageNum=" + pageNum + ", onePageNum=" + onePageNum + ", startPageNum=" + startPageNum
+				+ ", totalPage=" + totalPage + ", totalRecord=" + totalRecord + ", onePageRecord=" + onePageRecord
+				+ ", lastPageRecord=" + lastPageRecord + ", searchKey=" + searchKey + ", searchWord=" + searchWord
+				+ ", userid=" + userid + ", startdate=" + startdate + ", enddate=" + enddate + ", subno=" + subno
+				+ ", period=" + period + ", orderSearch_from=" + orderSearch_from + ", orderSearch_to=" + orderSearch_to
+				+ "]";
 	}
 	
 	

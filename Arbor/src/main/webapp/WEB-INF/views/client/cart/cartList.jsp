@@ -257,7 +257,7 @@
 						pno : pno,
 						temp : 'maindel'
 					},success : function(result){
-						$(tag).parent().parent().parent().css("display","none");
+						$(tag).parent().parent().parent().remove();
 						$("input[type=checkbox]").prop("checked",true);
 						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(result.totalquantity);
 						$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((result.totalprice).toLocaleString());
@@ -273,6 +273,19 @@
 		// 전체선택 이벤트
 		$("#y_cartAllChck").change(function() {
 			if($(this).is(":checked")){
+				pTag = $(".y_cartCnt");
+				pnoGet = [];
+				
+				$("input[type=checkbox]").prop("checked", true);
+				
+				for(var i=0; i<pTag.length; i++){
+					pnoGet[i] = $(pTag).eq(i).children('span').children('input[name=pno]').val();
+				}
+				finalpno = [];
+				$.each(pnoGet,function(i,value){
+					if(finalpno.indexOf(value) == -1) finalpno.push(value);
+				});
+				
 				$("input[type=checkbox]").prop("checked", true);
 				$.ajax({
 					url : "cartStart",
@@ -306,8 +319,9 @@
 						chckTotaldeliv = delivSum;
 						chckTotalPoint = point;
 						chckTotalPrice = totalPrice;
-					}, error : function(){
-						console.log("장바구니 전체선택 에러~")
+					}, error : function(request,status,error){
+						console.log('장바구니 전체선택 에러')
+						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 					}
 				});
 			}else{
@@ -406,16 +420,15 @@
 							pno : chckDelPno,
 							temp : 'maindel'
 						},success : function(result){
-							$(tag).parent().parent().parent().css("display","none")
-							
-							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text("-");
-							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text("-");
-							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text("-");
-							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text("-");
-							$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text("-");
+							$(tag).parent().parent().parent().remove();
+							$("input[type=checkbox]").prop("checked",true);
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(1) b").text(result.totalquantity);
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(2) b").text((result.totalprice).toLocaleString());
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(3) b").text((result.totaldeliv).toLocaleString());
+							$("#y_cartTotal>ul:nth-child(2)>li:nth-child(4) b").text((result.totalpoint).toLocaleString());
+							$("#y_cartTotal>ul:nth-child(2)>li:last-child span").text((result.totalprice+result.totaldeliv).toLocaleString());
 						}, error : function(){
 							console.log("장바구니 선택삭제 에러~")
-							
 						}
 					});
 				});
@@ -559,7 +572,7 @@
         </form>
         <span class="clearfix">
         	
-            <a href="productList" class="clientSubBtn">쇼핑목록 가기</a>
+            <a href="productTotalList" class="clientSubBtn">쇼핑목록 가기</a>
             <button id="y_cartChckOrder" class="clientSubBtn">선택상품구매</button>
             <a href="orderAllCartList" class="clientMainBtn">전체상품구매</a>
         </span>

@@ -9,6 +9,20 @@
 	width:1200px;
 	float:right;
 }
+/*검색*/
+.d_search{
+	margin-bottom:10px;
+}
+.d_searchFrm{
+	float:right;
+}
+#d_searchKey{
+	width: 55px;
+	height: 28px;
+}
+.d_searchFrm>input{
+	height:28px;
+}
 
 #d_list li{
 	font-size:17px;
@@ -19,6 +33,10 @@
 }
 #d_list li:not(.d_ff){
 	text-align:center;
+}
+#d_listContent{
+	width:100%;
+	height:440px;
 }
 .d_noticeList p{
 	margin-left:20px;
@@ -34,7 +52,11 @@
 	height:40px;
 	line-height:40px;
 }
+#d_paging {
+	width:200px;
+	margin:0 auto;
 
+}
 
 /*==============================*/
 #d_viewBox{
@@ -69,6 +91,7 @@
 	margin-top:30px;
 	font-size:17px;
 	height:500px;
+	overflow:scroll;
 }
 
 .d_noticeSetBtn input[type=button]{

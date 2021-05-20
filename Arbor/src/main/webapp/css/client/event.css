@@ -66,14 +66,14 @@
     font-weight: normal;
     font-style: normal;
 }
-#timer{
+/* #timer{
 	height:100px;
 	line-height:100px;
 	text-align:center;
 	font-size:4em;
 	font-family:LAB디지털;
 	color:#444;
-}
+} */
 .d-day{
 	font-family:BMHANNAAir;
 }
@@ -81,12 +81,83 @@
 	display: block;
 	margin: 0 300px;
 	padding: 0 auto;
-
 }
-/* #timeSaleContent .bx-wrapper{
-	box-shadow: 0 0 0 0;
-	-webkit-box-shadow: 0 0 0 0;
-} */
+#timeSaleContent .bx-wrapper{
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	border: 0;
+}
+#timeSaleContent .bx-wrapper .bx-next{
+	background: url(img/right_arrow.png) no-repeat 0 -32px;
+}
+/* 
+.bx-prev,
+.bx-next {
+  display: none;
+}
+.bx-prev-arrow,
+.bx-next-arrow {
+  border-radius: 50%;
+  background: rgb(0, 112, 255, .5);
+  width: 32px;
+  height: 28px;
+  display: inline-block;
+  padding-top: 4px;
+}
+ */
+#j_tab1_content>div{
+	margin: 0 auto;
+}
+#timer{
+	margin: 50px 0;
+ 	width: 100%;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+#timer>ul:first-child li{
+	width: 35px;
+	float: left;
+    border-radius: 100px;
+    margin: 0 5px;
+    padding: 35px;
+    background: #555;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+#timer>ul:last-child{
+	margin-top: 5px;
+}
+#timer>ul:last-child li{
+	float: left;
+    text-align: center;
+    width: 105px;
+    margin: 0 5px;
+    color: #aaa;
+    font-size: 15px;
+    font-weight: bold;
+}
+#timer ul{
+	display: inline-block;
+	margin: 0 auto;
+}
+
+
+#timeSaleContent{
+	background: lightblue;
+	border: 1px solid blue;
+	margin-bottom: 50px;
+}
+#j_tab1_content{
+	/* background: yellow; */
+/*  background-img: url("../../img/background_img2.jpg");
+	background-repeat: no-repeat;
+	background-size: cover; */
+}
+
 
 
 /*---------------------

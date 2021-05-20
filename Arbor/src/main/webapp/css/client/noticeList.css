@@ -27,6 +27,36 @@ h1{
 	margin:30px 0;
 }
 
+/*검색*/
+.d_search{
+	margin-bottom:10px;
+}
+.d_searchFrm{
+	float:right;
+}
+#d_searchKey{
+	width: 65px;
+	height: 34px;
+}
+.d_searchFrm input:first-of-type{
+	height:28px;
+}
+.d_searchFrm input:last-of-type{
+	width:42px;
+	height:34px;
+}
+#d_paging {
+	width:200px;
+	margin:30px auto;
+
+}
+
+#d_listContent{
+	width:100%;
+	height:440px;
+}
+/**/
+
 .d_noticeList li{
 	font-size:16px;
 	float:left;

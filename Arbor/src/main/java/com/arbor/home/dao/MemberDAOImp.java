@@ -6,6 +6,7 @@ import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemberDormantVO;
 import com.arbor.home.vo.MemberQuitVO;
 import com.arbor.home.vo.MemberVO;
+import com.arbor.home.vo.PageSearchVO;
 
 public interface MemberDAOImp {
 	//로그인
@@ -16,21 +17,33 @@ public interface MemberDAOImp {
 	
 	//idCheck
 	public int idCheck(String userid);
+	
+	// 로그인시 휴면회원여부 확인하기
+	public int loginDorCheck(String userid);
+	
+	// 휴면회원 테이블에서 데이터 삭제
+	public int loginDorDelete(String userid);
+	
+	// memstat 다시 0으로 돌리기
+	public int loginDorUpdate(String userid);
 
 	//로그아웃 타임 업데이트
-	public int lastDateUpdate(String lastdate, String nowid);
+	public int lastDateUpdate(String userid);
 	
 	//휴면계정 전환 업데이트
 	public int memDormant(String userid);
 	
 	//회원탈퇴 테이블 이동
-	public int insertDormantMember(String userid, String reason);
+	public int insertDormantMember(String userid);
 	
 	//휴면회원 // 검색 전체선택 +  페이징
-	public List<MemberDormantVO> memDormantPaging(MemPagingCri cri);
+	public List<MemberDormantVO> memDormantPaging(PageSearchVO vo);
+	
+	// 휴면회원 전체 목록
+	public List<MemberVO> dormantList();
 	
 	//휴면테이블 //총회원수 카운트(활성, 휴면 만)
-	public int memDormantCount(MemPagingCri cri);
+	public int memDormantCount();
 	
 	//휴면메일 발송 업데이트
 	public int dormantmailsend(String userid);

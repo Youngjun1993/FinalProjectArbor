@@ -201,8 +201,13 @@
 	height: 40px;
 	float: right;
 }
-
-
+.j_paging{
+	text-align: center;
+	margin-top: 20px;
+}
+.j_paging ul{
+	display: inline-block;
+}
 
 
 

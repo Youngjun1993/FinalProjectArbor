@@ -82,7 +82,7 @@
  		(select p.pno, s.subno, s.mainname, s.subname, p.pname, p.saleprice, p.stock, 
  		to_char(p.pdate, 'yyyy-mm-dd') as pdate from product p join (select s.subno, s.subname, m.mainname 
  		from subcate s join maincate m on s.mainno=m.mainno) s on p.subno=s.subno order by pno desc)
- 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
  		<if test="subno!=null and subno!=''">where subno=${subno}</if>)
  		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pdate between #{startdate} and #{enddate}</if>)
  		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pno asc)
@@ -93,7 +93,7 @@
  	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(pno) from(select * from (select * from (select * from 
 		(select * from product)
-		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
  		<if test="subno!=null and subno!=''">where subno=${subno}</if>)
  		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pdate between #{startdate} and #{enddate}</if>)
 	</select>
@@ -232,7 +232,7 @@
  		select * from(select * from(select * from(select * from(
  		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
  		from productqna q join product p on q.pno=p.pno order by pqnano desc)
- 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
  		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
  		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pqnano asc)
  		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
@@ -242,7 +242,7 @@
  	<select id="pqna_totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
  		select count(pqnano) from (select * from(select * from
  		(select * from productqna)
- 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
  		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
  	</select>
  	
@@ -250,7 +250,7 @@
  		select * from(select * from(select * from(select * from(
  		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
  		from productqna q join product p on q.pno=p.pno where panswercontent is null order by pqnano desc)
- 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
  		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
  		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pqnano asc)
  		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
@@ -264,7 +264,7 @@
  	<select id="pqnaNoAnswerCnt" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
  		select count(pqnano) from (select * from(select * from 
  		(select * from productqna)
- 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
  		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
  		where panswercontent is null
  	</select>

@@ -166,8 +166,14 @@ public class ProductController {
 		
 		vo.setTotalRecord(productService.totalRecord(vo));
 		
+		int mainno=0;
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("subCate", productService.subCateList(1));
+		if(vo.getSubno()>0) {
+			mainno = productService.selectSubno(vo.getSubno());
+			mav.addObject("mainno", mainno);
+		}
+		
+		mav.addObject("subCate", productService.subCateList(mainno));
 		mav.addObject("mainCate", productService.mainCateList());
 		mav.addObject("productList", productService.productList(vo));
 		mav.addObject("pageVO", vo);

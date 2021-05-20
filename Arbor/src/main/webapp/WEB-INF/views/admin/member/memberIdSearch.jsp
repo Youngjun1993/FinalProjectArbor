@@ -181,8 +181,7 @@
 	
 		/* var list = request.getAttribute("list"); */
 	});
-
-
+	
 </script>
 
 </body>

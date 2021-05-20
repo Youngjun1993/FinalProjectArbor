@@ -95,26 +95,39 @@
 }
 
 .h_memUpdate_ul li:nth-child(2n+1){
-	width:30%;
+	width:20%;
 }
 .h_memUpdate_ul li:nth-child(2n){
-	width:69%;
+	width:79%;
 }
 
 .h_memUpdate_submitbox {
 	text-align:center;
 }
+.h_memUpdate_submitbox>input {
+	width: 300px; height: 40px;
+	font-size:1.1em;
+}
 
 /* input 박스 버튼 셀렉트박스 등 */
 .h_ipt{
 	padding: 7px 40px 7px 12px;
-	
 	border: 1px solid #E8EAED;
 	border-radius: 1px;
     background: white;
     box-shadow: 0 1px 3px -2px #9098A9;
 	margin:10px 0;
-	}
+}
+.p_telhipen {
+	font-size:20px; font-weight: bold;
+	display: inline-block;
+	margin:0 6px 0 3px;
+}
+.p_mailhipen {
+	font-size:18px; font-weight: bold;
+	display: inline-block;
+	margin:0 6px 0 6px;
+}
 
 .h_check_btn {
 	font-size: 1.1em;
@@ -130,16 +143,29 @@
 	background: transparent;
 	border-radius: 1px;
 	text-align:center;
-		
+	margin: 0 0 3px 4px;	
 }
 
 .h_select {
-	    padding: 7px 40px 7px 12px;
-	    border: 1px solid #E8EAED;
-	    border-radius: 1px;
-	    background: white;
-	    box-shadow: 0 1px 3px -2px #9098A9;
-	    cursor: pointer;
-	    font-size: 16px;
-   
-     }
+    padding: 5px 82px 5px 12px;
+    border: 1px solid #E8EAED;
+    border-radius: 1px;
+    background: white;
+    box-shadow: 0 1px 3px -2px #9098A9;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.h_memUpdate_header.pageTitle {
+	margin: 50px auto 60px; text-align: center;
+}
+.h_memUpdate_header.pageTitle>span {
+	display:inline-block; font-size: 30px; font-weight: bold; 
+}
+.h_memUpdate_header.pageTitle>span:after {
+	content: "";
+    display: block;
+    width: 50px;
+    border-bottom: 1px solid rgb(93,121,115);
+    margin: 0 auto;
+}

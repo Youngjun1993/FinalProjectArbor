@@ -10,7 +10,7 @@
 	$(function(){
 		
 		//수령인 정보 - '주문자와 같음' 체크박스
-		$('#j_desCheckBox').change(function(){
+		$('#j_desCheckBox').click(function(){
 			if($('#j_desCheckBox').is(':checked')){
 				console.log("'주문자와 같음' 체크");
 				$('#j_arr').val($('#j_username').val());
@@ -125,12 +125,12 @@
 		
 		
 		//주문금액
-		console.log("주문상품금액???????");
+		/* console.log("주문상품금액???????");
 		var amount=0;
 		for(var i=0; i<${subVo.pprice}.length; i++){
 			amount = amount+${subVo.pprice * subVo.quantity};
 			console.log("주문상품금액 : "+amount);
-		}
+		} */
 		
 		
 	});
@@ -212,8 +212,6 @@
 				$("#j_arrdetailaddr").focus();
 			}			
 		}).open();
-		
-		
 	}
 
 </script>
@@ -249,24 +247,25 @@
 					<li>배송비</li>
 					<li>주문금액</li>
 					
-					<c:forEach var="subVo" items="${subOrderList }"  varStatus="i">
+					<c:forEach var="pInfoVo" items="${pInfoList }"  varStatus="i">
 						<li>
 							<div>
-								<img src="<%=request.getContextPath() %>/img/${subVo.img1 }"/> <!-- 상품이미지 -->
+								<img src="<%=request.getContextPath() %>/img/${pInfoVo.img1 }"/> <!-- 상품이미지 -->
 								<!-- <div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div> -->
-								<div><span>${subVo.pname }</span><span>${subVo.optinfo }</span></div>
-								<input type="hidden" name="pno" value="${subVo.pno} }"/>
-								<input type="hidden" name="pname" value="${subVo.pname }"/>
-								<input type="hidden" name="optinfo" value="${subVo.optinfo }"/>
-								<input type="hidden" name="quantity" value="${subVo.quantity }"/>
-								<input type="hidden" name="subprice" value="${subVo.subprice }"/>
+								<div><span>${pInfoVo.pname }</span><span>${pInfoVo.optinfo }</span></div>
+								<input type="hidden" name="pno" value="${pInfoVo.pno} "/>
+								<input type="hidden" name="pname" value="${pInfoVo.pname }"/>
+								<input type="hidden" name="optinfo" value="${pInfoVo.optinfo }"/>
+								<input type="hidden" name="quantity" value="${pInfoVo.quantity }"/>
+								<input type="hidden" name="subprice" value="${pInfoVo.subprice }"/>
+								<input type="hidden" name="cartno" value="${pInfoVo.cartno }"/>
 							</div>
 						</li>
-						<li>${subVo.pprice }</li>
-						<li>${subVo.saleprice }</li>
-						<li>${subVo.quantity }</li>
-						<li>${subVo.deliveryprice }</li>
-						<li>${subVo.quantity*subVo.subprice }</li>
+						<li>${pInfoVo.pprice }</li>
+						<li>${pInfoVo.saleprice }</li>
+						<li>${pInfoVo.quantity }</li>
+						<li>${pInfoVo.deliveryprice }</li>
+						<li>${pInfoVo.quantity*pInfoVo.subprice }</li>
 					</c:forEach>
 				</ul>
 			</div>

@@ -118,11 +118,7 @@
 								<li>${vo.lastdate}</li>
 								<li><input type="button" name="memberDelBtn" value="탈퇴"
 									class="h_memberDel" onclick="memDel(clickid${status.index})" />
-									<c:if test="${vo.memstat == 0}">
-										<input type="button" name="memberSleepBtn"
-											class="h_memDormant" value="휴면전환"
-											onclick="memDormant(clickid${status.index})" />
-									</c:if> <input type="hidden" id="h_userid"
+									<input type="hidden" id="h_userid"
 									name="clickid${status.index}" value="${vo.userid}" /></li>
 							</c:if>
 						</c:forEach>

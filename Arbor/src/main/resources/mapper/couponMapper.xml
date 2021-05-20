@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.arbor.home.dao.CouponDAOImp">
+	<select id="cpnGetMainCate" resultType="com.arbor.home.vo.CouponVO">
+		select mainno, mainname from maincate
+	</select>
+	<select id="cpnGetSubCate" resultType="com.arbor.home.vo.CouponVO">
+		select subno, subname from subcate where mainno=#{param1}
+	</select>
+	<insert id="cpnAdInsert" parameterType="com.arbor.home.vo.CouponVO">
+		insert into couponAd(cpnadno, cpnname, apply, salerate, cpnstart, cpnend) values (couponadsq.nextval, #{cpnname}, #{apply}, ${salerateInt}, #{cpnstart}, #{cpnend})
+	</insert>
+</mapper>
