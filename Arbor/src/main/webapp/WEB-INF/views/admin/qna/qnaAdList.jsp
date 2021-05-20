@@ -107,7 +107,7 @@
 	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="qnaNoAnswerList?pageNum=${pageVO.pageNum+1}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">＞</a></li>
 	                </c:if>
 	            </ul>
-            </c:if>
+            </c:if> 
             <c:if test="${ansBtnCheck eq 'N'}">
 	            <ul class="adPaging" class="clearfix">
 	            	<c:if test="${pageVO.pageNum>1 }">
