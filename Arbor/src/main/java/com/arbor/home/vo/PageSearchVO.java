@@ -22,10 +22,16 @@ public class PageSearchVO {
 	private String orderSearch_from="";
 	private String orderSearch_to="";
 	
+
 	/* Admin - memberDormant */
 	private String smsok;
 	private String emailok;
 	private String dormailok;
+
+	/* Admin - SalesController */
+	private String sales_from="";
+	private String sales_to="";
+	
 	
 	public String getSmsok() {
 		return smsok;
@@ -146,6 +152,18 @@ public class PageSearchVO {
 	}
 	public void setOrderSearch_to(String orderSearch_to) {
 		this.orderSearch_to = orderSearch_to;
+	}
+	public String getSales_from() {
+		return sales_from;
+	}
+	public void setSales_from(String sales_from) {
+		this.sales_from = sales_from;
+	}
+	public String getSales_to() {
+		return sales_to;
+	}
+	public void setSales_to(String sales_to) {
+		this.sales_to = sales_to;
 	}
 	@Override
 	public String toString() {

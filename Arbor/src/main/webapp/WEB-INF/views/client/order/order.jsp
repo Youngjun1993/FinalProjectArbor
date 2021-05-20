@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 다음 주소록 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- jQuery -->
@@ -247,6 +248,7 @@
 					<li>배송비</li>
 					<li>주문금액</li>
 					
+					<c:set var="totalpayment" value="0"/>
 					<c:forEach var="pInfoVo" items="${pInfoList }"  varStatus="i">
 						<li>
 							<div>
@@ -266,6 +268,7 @@
 						<li>${pInfoVo.quantity }</li>
 						<li>${pInfoVo.deliveryprice }</li>
 						<li>${pInfoVo.quantity*pInfoVo.subprice }</li>
+						<c:set var="totalpayment" value='${totalpayment + pInfoVo.quantity*pInfoVo.subprice }'/>
 					</c:forEach>
 				</ul>
 			</div>
@@ -474,7 +477,7 @@
 								</colgroup>
 								<tr>
 									<td>주문상품금액</td>
-									<td>2,434,600원</td>
+									<td><fmt:formatNumber value='${totalpayment }'/>원</td>
 								</tr>
 								<tr>
 									<td>할인금액</td>

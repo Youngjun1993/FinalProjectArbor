@@ -279,7 +279,7 @@
  	</update>
  	
  	<select id="pqnaViewList" parameterType="int" resultType="com.arbor.home.vo.ProductQnaVO">
- 		select pqnano, pno, substr(userid,1,3) || lpad('*',length(userid)-2,'*') as userid, pqnasubject, pqnacontent,  nvl(panswercontent, '답변 대기중 입니다.') as panswercontent,
+ 		select pqnano, pno, <!-- substr(userid,1,3) || lpad('*',length(userid)-2,'*') as  -->userid, pqnasubject, pqnacontent,  nvl(panswercontent, '답변 대기중 입니다.') as panswercontent,
  		to_char(pqnadate, 'yyyy-mm-dd') as pqnadate, pqnaopen from productqna where pno=${param1} order by pqnano desc
  	</select>
  	

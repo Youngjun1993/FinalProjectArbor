@@ -17,6 +17,12 @@
 </head>
 <script>
 	$(function(){
+		//페이징 li만큼 갯수 구하기
+		var liCnt = $(".adPaging>li").length;
+		$(".adPaging").css({
+			"width" : liCnt*40+"px",
+			"margin" : "0 auto"
+		});	
 		// 수정버튼 이벤트
 		$(".y_viewCoupon>ul li:last-child button").click(function(){
 			/* $(this).parent().parent().parent().css({
@@ -28,18 +34,32 @@
 			$(".y_viewCoupon>ul li:last-child button").addClass("y_disabledBtn");
 			$(this).parent().parent().parent().next().fadeIn()
 		});
-		// 완료버튼 이벤트
-		$(".y_inputCoupon>form").submit(function(){
-			$(this).parent().css("display","none")
-			$(".y_viewCoupon>ul li:last-child button").attr("disabled", false)
-			$(".y_viewCoupon>ul li:last-child button").removeClass("y_disabledBtn");
-			$(".y_viewCoupon>ul li:last-child button").addClass("adminSubBtn");
-			$(this).parent().prev().css("display","none")
+		// 수정완료 버튼 이벤트
+		$(".y_cpnAdEditFrm").submit(function(){
+			var inputSalerate = $('.y_cpnAdEditFrm>div:nth-of-type(2) input[name=salerate]').val();
+			var inputCpnname = $('.y_cpnAdEditFrm>ul li:nth-child(1) input[name=cpnname]').val();
+			var inputCpnStart = $('.y_cpnAdEditFrm>ul li:nth-child(2) input[name=cpnstart]').val();
+			var inputCpnEnd = $('.y_cpnAdEditFrm>ul li:nth-child(2) input[name=cpnend]').val();
+			if(inputSalerate==null || inputSalerate == ""){
+				alert("할인율을 입력해주세요.")
+				return false;
+			}else if(inputCpnname==null || inputCpnname == "") {
+				alert("쿠폰명을 입력해주세요.")
+				return false;
+			}else if(inputCpnStart==null || inputCpnStart =="") {
+				alert("시작기간을 입력해주세요.")
+				return false;
+			}else if(inputCpnEnd==null || inputCpnEnd=="") {
+				alert("종료기간을 입력해주세요.")
+				return false;
+			}
+			return true;
 		});
 		//쿠폰 등록
 		$('#y_insertCpn').click(function(){
 			$("#y_cpnList").css("display","none");
 			$("#y_insertCpn").css("display","none");
+			$("#y_pagingDiv").css("display","none");
 			$(".y_insertDiv").fadeIn();
 			$("#y_insertOkCpn").fadeIn();
 		});
@@ -51,7 +71,7 @@
 		$("#y_plusInsertCpn").click(function(){
 			var insertDiv = '<div class="y_insertDiv" style="display:block;">';
 				insertDiv += '<div><span></span><button type="button" onclick="javascript:cpnRemove(this)" class="y_removeInsDiv">✕</button></div>';
-				insertDiv += "<div><input type='text' name='salerate' placeholder='할인율'  onkeypress='javascript:checkInputNum();'><br/>DISCOUNT</div>";
+				insertDiv += "<div><input type='text' name='salerate' placeholder='할인율' class='y_cpnsalerate'><br/>DISCOUNT</div>";
 				insertDiv += '<ul>';
 				insertDiv += '<li><input type="text" name="cpnname" placeholder="쿠폰명 입력"></li>'; 
 				insertDiv += '<li><label for="cpnstart">기간 :</label><input type="text" name="cpnstart" class="y_cpnstart" placeholder="시작기간">~<input type="text" name="cpnend" class="y_cpnend" placeholder="끝나는 기간"></li>';
@@ -70,7 +90,8 @@
 			var changeItem;
 			$.ajax({
 				url : 'cpnSelectCate',
-				data : 'json',
+				dataType : 'json',
+				type: "POST",
 				data : {
 					mainno : mainno
 				}, success : function(result){
@@ -85,6 +106,7 @@
 				}
 			});
 		});
+		//시작기간 datepicker
 		$(document).on('mousedown','.y_cpnstart',function(){
 			$(".y_cpnstart").datepicker({
 				changeMonth: true, 
@@ -100,6 +122,7 @@
 			    }
 			});
 		});
+		//종료기간 datepicker
 		$(document).on('mousedown','.y_cpnend',function(){
 			$(".y_cpnend").datepicker({ 
 				changeMonth: true, 
@@ -117,127 +140,154 @@
 		});
 		//등록완료 버튼
 		$(document).on('click','#y_cpnInsertOk',function(){
-			$.ajax({
-				url : 'couponAdInsert',
-				type : "POST",
-				data : $("#y_couponAdInsert").serialize(),
-				success : function(result){
-					alert('ajax성공')
-				}, error : function(request,status,error){
-					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			var divLength = $("#y_couponAdInsert>div").length;
+			var bool = false;
+			for(var i=0; i<divLength; i++){
+				if($("#y_couponAdInsert>div").eq(i).find('input[name=salerate]').val()==null || $("#y_couponAdInsert>div").eq(i).find('input[name=salerate]').val()==""){
+					alert((i+1)+"번째 쿠폰의 할인율을 입력하세요.")
+					bool = false;
+				}else if($("#y_couponAdInsert>div").eq(i).find('input[name=cpnname]').val()==null || $("#y_couponAdInsert>div").eq(i).find('input[name=cpnname]').val()==""){
+					alert((i+1)+"번째 쿠폰의 쿠폰명을 입력하세요.")
+					bool = false;
+				}else if($("#y_couponAdInsert>div").eq(i).find('input[name=cpnstart]').val()==null || $("#y_couponAdInsert>div").eq(i).find('input[name=cpnstart]').val()==""){
+					alert((i+1)+"번째 쿠폰의 시작기간을 입력하세요.")
+					bool = false;
+				}else if($("#y_couponAdInsert>div").eq(i).find('input[name=cpnend]').val()==null || $("#y_couponAdInsert>div").eq(i).find('input[name=cpnend]').val()==""){
+					alert((i+1)+"번째 쿠폰의 종료기간을 입력하세요.")
+					bool = false;
+				}else if($("#y_couponAdInsert>div").eq(i).find('select[name=apply]').val()==null || $("#y_couponAdInsert>div").eq(i).find('select[name=apply]').val()==""){
+					alert((i+1)+"번째 쿠폰의 적용품목을 선택하세요.")
+					bool = false;
+				}else{
+					bool=true;
 				}
-			});
+			}
+			if(bool){
+				$.ajax({
+					url : 'couponAdInsert',
+					type : "POST",
+					data : $("#y_couponAdInsert").serialize(),
+					success : function(result){
+						alert('등록이 완료되었습니다.');
+						location.href="couponAdList";
+					}, error : function(request,status,error){
+						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
+				});		
+			}
+		});
+		// 쿠폰등록 할인율 숫자만 입력받기
+		$(document).on('keyup','.y_cpnsalerate',function(){
+			var inputval = $(this).val();
+			$(this).val(inputval.replace(/[^0-9]/gi, ''));
+		});
+		// 쿠폰 전체사제
+		$("#y_cpnAllDel").click(function() {
+			if(confirm("전체삭제 하시겠습니까?")){
+				location.href="cpnAllDel";	
+			}
 		});
 	});
-	// 숫자만 입력
-	function checkInputNum(){
-		if ((event.keyCode < 48) || (event.keyCode > 57)){
-		    event.returnValue = false;
-		}
-  	}
 	//추가등록 삭제
 	function cpnRemove(tag){
 		$(tag).parent().parent().remove();
+	}
+	//삭제
+	function cpnAdDelete(cpnadno){
+		if(confirm("삭제하시겠습니까?")){
+			location.href="cpnAdDelete?cpnadno="+cpnadno;	
+		}
 	}
 </script>
 <body>
 	<div id="y_adminCouponList_Wrap" class="w1400_container clearfix">
 		<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
-        <div id="y_adminCouponList_rightcon" class="y_Adrightcon">
+        <div id="y_adminCouponList_rightcon" class="y_Adrightcon clearfix">
             <h2>쿠폰 관리</h2>
-            <div id="y_cpnList" class="clearfix">
-	            <p class="clearfix"><button class="adminMainBtn">전체삭제</button></p>
-	            <div class="y_viewCoupon clearfix">
-	                <div>
-	                    <span></span>
-	                </div>
-	                <div>
-	                    20%<br/>
-	                    DISCOUNT
-	                </div>
-	                <ul>
-	                    <li>행사쿠폰</li>
-	                    <li>기간 : <b>2020/12/12 ~ 2020/12/12</b></li>
-	                    <li>적용품목 : <b>소파</b></li>
-	                    <li><button class="adminSubBtn">수정</button><a href="#" class="adminSubBtn">삭제</a></li>
-	                </ul>
+	            <div id="y_cpnList" class="clearfix">
+		            <p class="clearfix"><button id="y_cpnAllDel" class="adminMainBtn">전체삭제</button></p>
+		            <c:forEach var="data" items="${list }">
+			            <div class="y_viewCoupon clearfix">
+			                <div>
+			                    <span></span>
+			                </div>
+			                <div>
+			                    ${data.salerate }%<br/>
+			                    DISCOUNT
+			                </div>
+			                <ul>
+			                    <li class="wordcut">${data.cpnname }</li>
+			                    <li>기간 : <b>${data.cpnstart } ~ ${data.cpnend }</b></li>
+			                    <li>적용품목 : <b>${data.subname }</b></li>
+			                    <li><button class="adminSubBtn">수정</button><a href="javascript:cpnAdDelete(${data.cpnadno })" class="adminSubBtn">삭제</a></li>
+			                </ul>
+			            </div>
+			            <div class="y_inputCoupon">
+			            	<form action="cpnAdEdit" class="y_cpnAdEditFrm" method="post" class="clearfix" autocomplete='off'>
+			            		<div>
+				                    <span></span>
+				                </div>
+				                <div>
+				                    <input type="number" name="salerate" value="${data.salerate }"><br/>
+				                    DISCOUNT
+				                </div>
+				                <ul>
+				                    <li><input type="text" name="cpnname" max="100" value="${data.cpnname }"></li>
+				                    <li>기간 <input type="text" name="cpnstart" value="${data.cpnstart }" class="y_cpnstart" onkeypress="onlyNum()">~<input type="text" name="cpnend" class="y_cpnend" value="${data.cpnend }" onkeypress="onlyNum()" ></li>
+				                    <li>적용품목 : 
+		                    			<select name="Mainapply" class="y_cpnMainApply">
+		                    				<option value="${data.mainno }" selected hidden>${data.mainname }</option>
+		                    				<c:forEach var="mCate" items="${maincate }">
+		                    					<option value="${mCate.mainno }">${mCate.mainname }</option>
+		                    				</c:forEach>
+		                    			</select>
+		                    			<select name="apply" class="y_cpnSubApply">
+		                    				<option value="${data.subno }" selected>${data.subname }</option>
+		                    			</select>
+				                    </li>
+				                    <li><input type="submit" class="adminSubBtn" value="완료"></li>
+				                </ul>
+				                <input type="hidden" name="cpnadno" value="${data.cpnadno }">
+			            	</form>
+			            </div>
+           			</c:forEach>
 	            </div>
-	            <div class="y_inputCoupon">
-	            	<form action="">
-	            		<div>
-		                    <span></span>
-		                </div>
-		                <div>
-		                    <input type="number" value="20"><br/>
-		                    DISCOUNT
-		                </div>
-		                <ul>
-		                    <li><input type="text" value="행사쿠폰"></li>
-		                    <li>기간 <input type="text" value="2020/12/12" onkeypress="onlyNum()">~<input type="text" value="2020/12/12" onkeypress="onlyNum()"></b></li>
-		                    <li>적용품목 : 
-                    			<select name="apply" class="y_cpnMainApply">
-                    				<option value="" selected disabled hidden>대분류</option>
-                    				<c:forEach var="mCate" items="${maincate }">
-                    					<option value="${mCate.mainno }">${mCate.mainname }</option>
-                    				</c:forEach>
-                    			</select>
-                    			<select name="y_cpnSubApply" class="y_cpnSubApply">
-                    				<option value="none" selected disabled hidden>중분류</option>
-                    			</select>
-		                    </li>
-		                    <li><input type="submit" class="adminSubBtn" value="완료"></li>
-		                </ul>
-	            	</form>
-	            </div>
-	            <div class="y_viewCoupon clearfix">
-	                <div>
-	                    <span></span>
-	                </div>
-	                <div>
-	                    80%<br/>
-	                    DISCOUNT
-	                </div>
-	                <ul>
-	                    <li>사장님이 미첬어요 쿠폰</li>
-	                    <li>기간 : <b>2020/12/12 ~ 2020/12/12</b></li>
-	                    <li>적용품목 : <b>소파</b></li>
-	                    <li><button class="adminSubBtn">수정</button><a href="#" class="adminSubBtn">삭제</a></li>
-	                </ul>
-	            </div>
-	            <div class="y_inputCoupon">
-	            	<form action="">
-	            		<div>
-		                    <span></span>
-		                </div>
-		                <div>
-		                    <input type="text" value="20"><br/>
-		                    DISCOUNT
-		                </div>
-		                <ul>
-		                    <li><input type="text" value="행사쿠폰"></li>
-		                    <li>기간 <input type="text" value="2020/12/12">~<input type="text" value="2020/12/12"></b></li>
-		                    <li>적용품목 : <input type="text" value="소파"></li>
-		                    <li><input type="submit" class="adminSubBtn" value="완료"></li>
-		                </ul>
-	            	</form>
-	            </div>
+           <p id="y_insertCpn">
+           		<button class="adminMainBtn">쿠폰등록</button>
+           </p>
+	        <div id="y_pagingDiv">
+	            <ul class="adPaging" class="clearfix">
+	            	<c:if test="${pageVO.pageNum>1 }">
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="couponAdList?pageNum=${pageVO.pageNum-1}">＜</a></li>
+	                </c:if>
+	                <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="5">
+	                	<c:if test="${p<=pageVO.totalPage }">
+		                	<c:if test="${p==pageVO.pageNum }">
+		                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="couponAdList?pageNum=${p}">${p }</a></li>
+		                	</c:if>
+		                	<c:if test="${p!=pageVO.pageNum }">
+		                		<li><a href="couponAdList?pageNum=${p}">${p }</a></li>
+		                	</c:if>
+	                	</c:if>
+	                </c:forEach>
+	                <c:if test="${pageVO.pageNum<pageVO.totalPage }">
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="couponAdList?pageNum=${pageVO.pageNum+1}">＞</a></li>
+	                </c:if>
+	            </ul>
             </div>
-            <p id="y_insertCpn">
-            	<button class="adminMainBtn">쿠폰등록</button>
-            </p>
             <div id="y_cpnInsertList">
-	        	<form action="couponAdInsert" id="y_couponAdInsert" method="post" class="clearfix">
+	        	<form action="couponAdInsert" id="y_couponAdInsert" method="post" class="clearfix"autocomplete='off'>
 		            <div class="y_insertDiv">
 	            		<div>
 		                    <span></span>
 		                    <button type="button" onclick="javascript:cpnRemove(this);" class="y_removeInsDiv">✕</button>
 		                </div>
 		                <div>
-		                    <input type="text" name="salerate" placeholder="할인율" onkeypress="javascript:checkInputNum();"><br/>
+		                    <input type="text" name="salerate" placeholder="할인율" maxlength="3" class="y_cpnsalerate"><br/>
 		                    DISCOUNT
 		                </div>
 		                <ul>
-		                    <li><input type="text" name="cpnname" placeholder="쿠폰명 입력"></li>
+		                    <li><input type="text" name="cpnname" placeholder="쿠폰명 입력" maxlength="50"></li>
 		                    <li><label for="cpnstart">기간 :</label><input type="text" name="cpnstart" class="y_cpnstart" placeholder="시작기간">~<input type="text" name="cpnend" class="y_cpnend" placeholder="끝나는 기간"></li>
 		                    <li>
 		                    	<label for="apply">적용품목 :</label>
