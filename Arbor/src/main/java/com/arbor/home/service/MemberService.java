@@ -205,7 +205,12 @@ public class MemberService implements MemberServiceImp {
 		
 		return memberDAO.memberIdSearchOk2(username, tel);
 	}
-	
+
+	@Override
+	public int memberPwdSearchOk2(String changepwd, String username, String tel) {
+		
+		return memberDAO.memberPwdSearchOk2(changepwd, username, tel);
+	}
 	
 	
 }

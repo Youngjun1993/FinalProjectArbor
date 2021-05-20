@@ -118,7 +118,7 @@
 			<li><input type="button" id="sms_chk_btn" value="확인" class="h_check_btn search"></li>
 			</ul>
 		</form>
-		<form class= "h_smsSend" name= "smsForm" action = "sms_validate">
+		<form class= "h_smsSend" name= "smsform" action = "sms_validate" style="display:none;">
 			<input type="hidden" name="action" value="go">
 			<input type="hidden" name="rphone" id="rphone" value="">
 			<input type="hidden" name="smsType" value="S" checked>
@@ -126,9 +126,9 @@
   			<input type="hidden" name="sphone2" value ="6251">
     		<input type="hidden" name="sphone3" value ="6042">
     		<!--  리턴 url -->
-    		<input type="hidden" name="returnurl" maxlength="64" value="memberIdSearchOk2">
 			<textarea name='msg' id="msg" style='display:none;'></textarea>
 		</form>
+		<iframe width=0 height=0 name="smsSender" style="display:none;"></iframe>
 		</div>
 		<!-- ///사라지는 div/// submit 이후 이벤트 // 여긴 ajax로 -->
 		<div id = "after_submit" style ="display:none;">
@@ -294,8 +294,14 @@
 						
 						console.log("인증번호 값 = " + validation );
 						console.log("전송번호 값 = " + sendtel );
+							
+						//새창을 만들어서 보내고 클로즈시킴
+						window.open('','smsSender','width=0,height=1');
 						
-						$('.h_smsSend').submit();
+						var frm =document.smsform;
+						frm.target ="smsSender";
+						frm.method ="post";
+						frm.submit();
 						
 						///여기서 끊김
 						alert("문자 전송 완료");
@@ -324,7 +330,6 @@
 					alert("아이디와 이메일이 일치하지 않습니다. 다시 입력해주세요");
 				}
 			});
-		
 			
 		}else{
 			alert("이메일과 성함을 입력해주세요");
