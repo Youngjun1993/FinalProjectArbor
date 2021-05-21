@@ -122,11 +122,8 @@ public class OrderController {
 		if (userid.equals("") || userid == null) {
 			mav.setViewName("admin/member/login");
 		} else {
-			System.out.println("전체선택구매");
-			System.out.println("포인트->"+orderService.getUserPoint(userid).getPoint());
 			mav.addObject("pInfoList", orderService.cartAllList(userid));
 			mav.addObject("memberVo", orderService.getMemberInfo(userid));
-			System.out.println("장바구니 전체구매 userid->"+userid);
 			mav.addObject("pointVo", orderService.getUserPoint(userid));
 			mav.addObject("couponList", orderService.getUserCoupon(userid));
 			mav.addObject("cpnCount", orderService.getCouponCount(userid));
