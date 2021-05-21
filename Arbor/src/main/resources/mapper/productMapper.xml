@@ -204,7 +204,7 @@
 		from product p join (select s.subno, s.mainno, s.subname, m.mainname from subcate s
 		join maincate m on s.mainno=m.mainno) s on p.subno=s.subno) p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
 		where mainno=${param1} order by cnt desc)
-		<![CDATA[where rownum <= ]]>5
+		<![CDATA[where rownum <= ]]>12
  	</select>
  	
  	<select id="productListRGB" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
