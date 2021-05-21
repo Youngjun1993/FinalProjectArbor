@@ -71,8 +71,8 @@
 
 <body onload="loadJSON()">
 <div class="w1400_container">
-	<div class="h_formcontainer">
-	<div class="h_jointop"><img src="<%=request.getContextPath() %>/img/logo.png"/></div>
+	<div class="h_formcontainer idsrch">
+	<div class="h_jointop idsrch"><img src="<%=request.getContextPath() %>/img/logo.png"/></div>
 	<!-- <div class="h_pwdformbox">
 		<h1>비밀번호 찾기</h1>
 		<ul class="h_pwdsearch">

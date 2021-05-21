@@ -11,8 +11,8 @@
 </head>
 <body>
 <div class="w1400_container">
-	<div class="h_formcontainer">
-	<div class="h_jointop"><img src="<%=request.getContextPath() %>/img/logo.png"/></div>
+	<div class="h_formcontainer idsrch">
+	<div class="h_jointop idsrch"><img src="<%=request.getContextPath() %>/img/logo.png"/></div>
 	<div class="h_pwdsearchhead">비밀번호찾기</div>
 	<div id="before_submit">
 	<div class="h_pwdtapbox">

@@ -23,7 +23,7 @@
 					<label for="remember">Remember me</label>
 					<div class="h_submit_wrap">
 					<input type="submit" value="Join in" class="h_submit">
-					<a href="#">Join us | Find ID | Find Password </a>
+					<div class="h_anchor_wrap"><a href="joinform">Join us</a>&nbsp;Ι&nbsp;<a href="idsearch">Find ID</a>&nbsp;Ι&nbsp;<a href="pwdSearch">Find Password</a></div>
 					</div>
 				</form>
 		</div>
@@ -34,6 +34,7 @@
 </div>
 </div>
 <script>
+
 	 var result = '${msg}';
 	 
 	 if(result == 'failed'){
