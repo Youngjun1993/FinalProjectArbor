@@ -31,6 +31,11 @@
                     <li><a class="head" href="orderAdmin">주문</a></li>
                     <li><a class="head" href="salesManagement">매출관리</a></li>
                 </ul>
+                
+                <li id="nav1" class="y_couponAdBtnLi"> 
+                    <a class="head" href="couponAdList">쿠폰관리</a>
+                </li>
+                
                 <!-- 관리자 4번 메뉴 -->
                 <li id="nav1" class="toggle accordion-toggle"> 
                     <a class="h_menu_link" href="#">문의관리</a>
@@ -42,8 +47,8 @@
                 </ul>
                 
                 <!-- 관리자 5번 메뉴 -->
-                <li id="nav1" class="toggle accordion-toggle"> 
-                    <a class="h_menu_link" href="#">쿠폰관리</a>
+                <li id="nav1" class="y_reviewAdBtnLi"> 
+                    <a class="head" href="reviewAdList">리뷰관리</a>
                 </li>
                 <ul class="h_menu_submenu accordion-content">
                     <li><a class="head" href="#">쿠폰등록관리</a></li>
