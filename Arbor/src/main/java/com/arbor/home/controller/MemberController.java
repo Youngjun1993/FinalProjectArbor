@@ -414,7 +414,7 @@ public class MemberController {
    //이메일 인증
    @ResponseBody
     @RequestMapping("/mailcheck")
-    public String mailCheckGET(String email){//나중에 반환타입 String
+    public int mailCheckGET(String email){//나중에 반환타입 String
         
         /* 뷰로부터 넘어온 데이터 확인 */
        System.out.println("이메일 데이터 전송 확인");
@@ -451,9 +451,7 @@ public class MemberController {
            e.printStackTrace();
        }
       
-      String result = "이메일 인증값을 확인하세요.";
-      
-      return result;
+      return checkNum;
       
     }
     

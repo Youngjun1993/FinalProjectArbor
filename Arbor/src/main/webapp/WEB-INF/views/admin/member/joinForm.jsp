@@ -409,7 +409,7 @@
 		
 		<tr>
 		<td>
-		<label for="smsok">SMS수신 동의</label>
+		<label for="smsok">광고SMS 수신동의</label>
 		</td>
 	 	<td>
 		<input type="radio" name="smsok" value="Y" checked>예
@@ -448,7 +448,7 @@
 		
 		<tr>
 		<td>
-		<label for="emailok">이메일 수신동의</label>
+		<label for="emailok">광고성메일 수신동의</label>
 		</td>
 	 	<td>
 		<input type="radio" name="emailok" value="Y" checked>예

@@ -19,6 +19,7 @@
 			<mvc:mapping path="/cartList"/> <!-- 장바구니 -->
 			<mvc:mapping path="/cartInsert"/>
 			<mvc:mapping path="/order"/>
+			
 			<bean class="com.arbor.home.interceptor.Logininterceptor_Client"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
@@ -41,6 +42,7 @@
 			<mvc:mapping path="/deleteCateMany"/> <!-- 여러개삭제 -->
 			<mvc:mapping path="/cateEdit"/> <!-- 수정 -->
 			<mvc:mapping path="/pqnaNoAnswerList"/> <!-- 미답변글목록 -->
+			<mvc:mapping path="/mailcheck"/><!-- 가입인증 메일 체크 -->
 			<bean class="com.arbor.home.interceptor.Logininterceptor_Admin"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
