@@ -84,6 +84,5 @@ public class QnaService implements QnaServiceImp {
 		// TODO Auto-generated method stub
 		return qnaDAO.admintotalRecord(vo);
 	}
-	
 
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script>
 	$(function(){
 		//페이징 li만큼 갯수
@@ -32,20 +33,20 @@
 		            <li class="wordcut">${pointLst.pointcontent }</li>
 		            <li>
 		            	<c:choose>
-			            	<c:when test="${pointLst.mfpoint>0 }">${pointLst.mfpoint }</c:when>
+			            	<c:when test="${pointLst.mfpoint>0 }"><fmt:formatNumber type="number" value="${pointLst.mfpoint }"/></c:when>
 			            	<c:otherwise>-</c:otherwise>
 			            </c:choose>
 		            </li>
 		            <li>
 		            	<c:choose>
-			            	<c:when test="${pointLst.mfpoint<0 }">${pointLst.mfpoint }</c:when>
+			            	<c:when test="${pointLst.mfpoint<0 }"><fmt:formatNumber type="number" value="${pointLst.mfpoint }"/></c:when>
 			            	<c:otherwise>-</c:otherwise>
 			            </c:choose>
 		            </li>
 		            <c:choose>
-		            	<c:when test="${pointLst.mfpoint>0 }"><li style="color:red;font-weight:bold;">${pointLst.point }</li></c:when>
-		            	<c:when test="${pointLst.mfpoint<0 }"><li style="color:blue;font-weight:bold;">${pointLst.point }</li></c:when>
-		            	<c:otherwise><li style="font-weight:bold;">${pointLst.point }</li></c:otherwise>
+		            	<c:when test="${pointLst.mfpoint>0 }"><li style="color:red;font-weight:bold;"><fmt:formatNumber type="number" value="${pointLst.point }"/></li></c:when>
+		            	<c:when test="${pointLst.mfpoint<0 }"><li style="color:blue;font-weight:bold;"><fmt:formatNumber type="number" value="${pointLst.point }"/></li></c:when>
+		            	<c:otherwise><li style="font-weight:bold;"><fmt:formatNumber type="number" value="${pointLst.point }"/></li></c:otherwise>
 		            </c:choose>
 	            </c:forEach>
 	        </ul>
