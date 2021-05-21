@@ -26,7 +26,27 @@
 	background-color: #ffffff;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
 }
-
+	.h_jointop.idsrch{
+	width:600px;
+	text-align:center;
+	height:60px;
+	line-height:60px;
+	vertical-align:center;
+	margin:0;
+	padding:20px 0 0;
+}
+	.h_formcontainer.idsrch{
+	width:600px;
+	padding: 0;
+	margin: 30px auto;
+	text-align:center;
+	background-color:pink;
+	position: relative;
+	overflow: hidden;
+	background-color: #ffffff;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
+}
+	
 	.h_formbox {
 	margin:50px auto;
 	width:800px;
@@ -207,6 +227,8 @@
 	
 	.h_termcontent{
 		overflow:auto;
+	    text-align: justify;
+	   	margin: 10px;
 	}
 	
 	/* 로그인 확인 부분*/
