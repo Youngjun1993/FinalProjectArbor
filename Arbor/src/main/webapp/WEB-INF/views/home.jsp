@@ -296,7 +296,7 @@ $(function(){
 	<div class="d_linkBox">
 		<ul>
 			<li>
-				<a href="">
+				<a href="productList?mainno=1&subno=1">
 					<div class="screen" trigger-left>
 						<div class="s_top">소파를 봅시다</div>
 						<div class="s_bottom">소파리스트로 이동</div>
@@ -310,7 +310,7 @@ $(function(){
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="productList?mainno=2&subno=5">
 					<div class="screen" trigger-up>
 						<div class="s_top">침대를 봅시다</div>
 						<div class="s_bottom">침대리스트로 이동</div>
@@ -324,7 +324,7 @@ $(function(){
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="productTotalList">
 					<div class="screen" trigger-right >
 						<div class="s_top">가구를 봅시다.</div>
 						<div class="s_bottom">가구리스트로 이동</div>
