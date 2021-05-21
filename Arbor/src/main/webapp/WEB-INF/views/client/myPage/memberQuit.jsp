@@ -2,7 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="h_memquit_container" class="clearfix w1400_container">
 	<%@include file="/WEB-INF/inc/mypageMenu.jspf"%>
-	<div class="h_memberQuit_header">회원 탈퇴</div>
+	
+	<div class="h_memberQuit_header pageTitle"><span>회원 탈퇴</span></div>
 	<div class="h_memberQuit_Container">
 		<div class="h_password_checkbox">
 		<img src="<%=request.getContextPath() %>/img/password_lock.png"/>

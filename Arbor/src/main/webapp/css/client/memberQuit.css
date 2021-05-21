@@ -88,3 +88,18 @@
 	text-align:center;
 	
 }
+
+/* 타이틀 영역 */
+.h_memberQuit_header.pageTitle {
+	margin: 50px auto 60px; text-align: center;
+}
+.h_memberQuit_header.pageTitle>span {
+	display:inline-block; font-size: 30px; font-weight: bold; 
+}
+.h_memberQuit_header.pageTitle>span:after {
+	content: "";
+    display: block;
+    width: 50px;
+    border-bottom: 1px solid rgb(93,121,115);
+    margin: 0 auto;
+}

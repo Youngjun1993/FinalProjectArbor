@@ -287,7 +287,7 @@
 		
 		$('.paging a').on("click", function(e){
 			e. preventDefault();
-			var pageBtn = $('#pageBtn_form');
+			var pageBtn = $('#	');
 			pageBtn.find('input[name="pageNum"]').val($(this).attr('href'));
 			pageBtn.submit();
 		});
