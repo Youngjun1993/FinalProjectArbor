@@ -4,9 +4,9 @@
 <!-- 다음 주소록 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
 <!-- iamport 결제 API -->
-  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+ <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
 	$(function(){
 		//결제정보 setting
@@ -20,12 +20,14 @@
 		var tag = "<span>"+totalPayment+"</span>원";
 		$('#j_totalPayment').html(tag);	//결제예정금액
 		$('#j_totalPrice').val(total);
+		console.log("상품금액, 배송비 합계 반영 ok");
 		
 		var plus = parseInt(payment*0.02);
 	 	var plusPoint = plus.toLocaleString();
 		console.log("plus->"+plus+" / plusPoint->"+plusPoint);
 		$('#pPoint').text(plusPoint);	//적립예정금액
 		$('#j_plusPoint').val(plus);
+		console.log("적립예정금액 반영 ok");
 		
 		
 		//수령인 정보 - '주문자와 같음' 체크박스
@@ -80,12 +82,12 @@
 			}
 		});
 		
-		$('#j_selectCpn').on('change', function(){
+	/* 	$('#j_selectCpn').on('change', function(){
 			alert(this.value);
-		/* 	var cpnno = $('#j_selectCpn option:selected').val();
-			console.log("선택한 쿠폰"+cpnno); */
+		 	var cpnno = $('#j_selectCpn option:selected').val();
+			console.log("선택한 쿠폰"+cpnno);
 		});
-		
+		 */
 		
 		//주문,결제페이지 유효성 검사
 		$('#checkoutBtn').on('click', function(){
@@ -483,13 +485,13 @@
 							<tr>
 								<td>쿠폰 사용</td>
 								<td>
-									<select id="j_selectCpn">
+									<select id="j_selectCpn" name="usecoupon">
 										<option value="-">사용가능 쿠폰 ${cpnCount }장</option>
 										<c:if test="${cpnCount>0}">
 											<c:forEach var="cpnVo" items="${couponList }" varStatus="i">
 												<option value="${cpnVo.cpnno }">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
 											</c:forEach>
-											<input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/>
+											<%-- <input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/> --%>
 										</c:if>
 									</select>
 								</td>

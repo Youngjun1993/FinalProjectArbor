@@ -180,6 +180,9 @@ public class OrderController {
 				}
 				orderService.updateProductStock(pnoArr[i]);	//주문상품 재고량 수정
 			}
+		}
+		System.out.println("사용적립금->"+orderVo.getUsepoint());
+		if(orderVo.getUsepoint()>0) {
 			orderService.setUsedPoint(orderVo);	//사용적립금 db 반영
 		}
 		ModelAndView mav = new ModelAndView();
