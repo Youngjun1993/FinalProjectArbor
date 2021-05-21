@@ -55,8 +55,5 @@ public class PointVO {
 	public void setMfpoint(int mfpoint) {
 		DecimalFormat formatter = new DecimalFormat("###,###");
 		this.mfpoint = formatter.format(mfpoint);
-	}
-	
-	
-	
+	}	
 }

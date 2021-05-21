@@ -151,12 +151,13 @@
 	                <li class="wordcut"><a class="y_pnameList" id="y_pnameList" href="javascript:subPopupList(${data.orderno })">${data.pname }</a></li>
 	                <li><fmt:formatNumber value="${data.totalprice }" /> 원</li>
 	                <li>
-	                    <a href="#" class="statusBtn">배송준비</a> 
-	                    <a href="#" class="statusBtn">배송완료</a> 
+	                	<c:if test="${data.status=='배송준비' }">배송준비</c:if>
+	                	<c:if test="${data.status=='배송완료' }">배송완료</c:if>
+	                	<c:if test="${data.status=='배송중' }">배송중</c:if>
 	                    <a href="#" class="statusBtn">주문취소</a> 
 	                    <a href="#" class="statusBtn">리뷰작성</a> 
 	                    <a href="#" class="statusBtn">교환/환불</a> 
-	                    <a href="#">배송중입니다.</a> 
+	                    <a href="#">배송중입니다.</a>
 	                </li>
                 </c:forEach>
             </ul>

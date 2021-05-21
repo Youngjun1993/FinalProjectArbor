@@ -108,6 +108,16 @@ public class MyPageService implements MyPageServiceImp {
 		return mypageDAO.reviewGradeList(vo);
 	}
 
+	@Override
+	public List<QnaVO> qnaAnsDescList(PageSearchVO vo) {
+		return mypageDAO.qnaAnsDescList(vo);
+	}
+
+	@Override
+	public List<QnaVO> qnaAnsAscList(PageSearchVO vo) {
+		return mypageDAO.qnaAnsAscList(vo);
+	}
+
 	/*
 	 * @Override public HashMap<String, List<QnaVO>> qnaAnsDesc(PageSearchVO vo) {
 	 * return mypageDAO.qnaAnsDesc(vo); }
