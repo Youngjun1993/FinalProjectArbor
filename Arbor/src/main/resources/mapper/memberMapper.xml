@@ -292,7 +292,10 @@
 	<select id="memberIdSearchOk2" resultType="com.arbor.home.vo.MemberVO">
 		select userid, userpwd from member where username = #{param1} and tel = #{param2}
 	</select>
-	
+	<!-- 비밀번호 찾기 + 임시 비밀번호 변경(sms) -->
+	<update id="memberPwdSearchOk2">
+		update member set userpwd = #{param1}  where userid = #{param2} and tel = #{param3}
+	</update>
 </mapper>
 
 			

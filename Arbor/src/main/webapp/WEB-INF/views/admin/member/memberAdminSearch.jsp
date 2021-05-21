@@ -81,9 +81,9 @@
 			<!-- member tbl 데이터 영역 -->
 			<!-- 폼 가운데 버튼 -->
 			<div class="h_searchMultiBtn">
-				<form name="sms" id = "h_sms_form" action = "sendSms">
-				</form>
-					<input type="button" id="sendSms" value="문자발송 " class="adminSubBtn semiBtn">
+				<form name="sms" id="h_sms_form" action="sendSms"></form>
+				<input type="button" id="sendSms" value="문자발송 "
+					class="adminSubBtn semiBtn">
 				<form action="excelDownload" id="excelDown" method="get">
 					<input type="button" id="excelBtn" value="엑셀(전체)다운"
 						class="adminSubBtn semiBtn">
@@ -107,14 +107,15 @@
 						<li class="h_listHeader">관리</li>
 						<c:forEach var="vo" items="${list}" varStatus="status">
 							<c:if test="${vo.memstat != 2}">
-								<li><input type="checkbox" name="memberChk" class="memberChk" value1="${vo.userid}"  value2="${vo.tel}"/></li>
+								<li><input type="checkbox" name="memberChk"
+									class="memberChk" value1="${vo.userid}" value2="${vo.tel}" /></li>
 								<li><c:if test="${vo.memstat == 1}">
 										<input type="button" class="h_memdormant" value="휴면" />
 									</c:if> ${vo.userid}</li>
 								<li>${vo.username}</li>
 								<li class="wordcut">${vo.email}</li>
 								<li>${vo.tel}</li>
-								<li>${vo.regdate}/ ${vo.emailok} / ${vo.smsok}</li>
+								<li>${vo.regdate}/${vo.emailok}/ ${vo.smsok}</li>
 								<li>${vo.lastdate}</li>
 								<li><input type="button" name="memberDelBtn" value="탈퇴"
 									class="h_memberDel" onclick="memDel(clickid${status.index})" />
@@ -133,9 +134,9 @@
 							name="amount" value="${pageMaker.cri.amount}" /> <input
 							type="hidden" name="searchWord"
 							value="${pageMaker.cri.searchWord}" /> <input type="hidden"
-							name="type" value="${pageMaker.cri.type}" /> <input type="hidden"
-							name="emailok" value="${pageMaker.cri.emailok}" /> <input
-							type="hidden" name="smsok" value="${pageMaker.cri.smsok}" />
+							name="type" value="${pageMaker.cri.type}" /> <input
+							type="hidden" name="emailok" value="${pageMaker.cri.emailok}" />
+						<input type="hidden" name="smsok" value="${pageMaker.cri.smsok}" />
 						<!-- 이메일 sms 추가 -->
 					</form>
 					<ul class="paging">

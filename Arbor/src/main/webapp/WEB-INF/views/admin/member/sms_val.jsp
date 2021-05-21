@@ -185,7 +185,7 @@
         if(rMsg.length>1) {Count= rMsg[1]; }
 
                         //발송결과 알림
-        if(Result.equals("success")) {
+        /* if(Result.equals("success")) {
             alert = "인증문자가 발송되었습니다.";
         }
         else if(Result.equals("reserved")) {
@@ -197,7 +197,7 @@
         }
         else {
             alert = "[Error]"+Result;
-        }
+        } 
 
         out.println(nointeractive);
 
@@ -207,8 +207,8 @@
         else if(!(nointeractive.equals("1"))) {
             out.println("<script>alert('" + alert + "')</script>");
         }
-        
-        out.println("<script>location.href='"+returnurl+"';</script>");
+        */
+        out.println("<script>self.close();</script>");
     }
     %>
                 

@@ -226,6 +226,20 @@ public class MemberController {
       return rtnList;
    }
    
+   //get방식 문자api 로 보내기
+   @RequestMapping("/smsOk")
+   public String smsOk() {
+      
+      return "admin/member/smsgo";
+   }
+   
+   //비밀번호 찾기 인증번호 sms로 보내기
+   @RequestMapping("/sms_validate")
+   public String sms_validate() {
+	   
+	   return "admin/member/sms_val";
+   }
+   
    //sms로 아이디 찾기
    @ResponseBody
    @RequestMapping("/memberIdSearchOk2")
@@ -250,7 +264,6 @@ public class MemberController {
       UUID uuid = UUID.randomUUID();
       
       //넘어온값을 셀렉트로 아이디구하기
-      
       String beforeSubstr = uuid.toString();
       String validateNum = beforeSubstr.substring(0,7);
       
@@ -339,6 +352,39 @@ public class MemberController {
       return result;
    }
    
+   //sms로 비번 찾기
+   @ResponseBody
+   @RequestMapping("/memberPwdSearchOk2")
+   public String memberPwdSearchOk2(@RequestParam(value = "idCheck[]") List<String> arr) {
+	   String result = "";
+	   
+	  UUID uuid = UUID.randomUUID();
+      
+      //넘어온값을 셀렉트로 아이디구하기
+      
+      String userid = arr.get(0);
+      String tel = arr.get(1);
+      
+      String beforeSubstr = uuid.toString();
+      
+      String changepwd = beforeSubstr.substring(0,7);
+	   
+	   //넘어온값을 셀렉트로 아이디구하기
+      
+      //매개변수가 VO타입이아니면 param1,param2로...
+      int cnt = memberService.memberPwdSearchOk2(changepwd, userid, tel);
+      
+      //바뀐비번
+      System.out.println(cnt);
+      System.out.println("바뀐비번 = " + changepwd);
+      
+      if(cnt>0) {
+         result = changepwd;
+         System.out.println("업데이트문 실행");
+      }
+      
+      return result;
+   }
    
    
    //////////////////////////////////로그인 영역 //////////////////////////////////////////
@@ -769,20 +815,6 @@ public class MemberController {
       mav.setViewName("admin/member/smsTest");
       
       return mav;
-   }
-   
-   //get방식 문자api 로 보내기
-   @RequestMapping("/smsOk")
-   public String smsOk() {
-      
-      return "admin/member/smsgo";
-   }
-   
-   //비밀번호 찾기 인증번호 sms로 보내기
-   @RequestMapping("/sms_validate")
-   public String sms_validate() {
-	   
-	   return "admin/member/sms_val";
    }
    
    //////////////////////// 엑셀 다운로드 ////////////////////////
