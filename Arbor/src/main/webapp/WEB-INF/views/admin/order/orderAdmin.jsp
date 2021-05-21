@@ -42,6 +42,7 @@
 	    	$("#orderSearch_from").datepicker("option", "maxDate", selectedDate);
 	    }
 	});
+	/* 
 	$('#orderSearch_from').click(function(){
 		if($('#orderSearch_from').text()!=null){
 			$('#j_orderSearch li').removeClass("oSelected");
@@ -53,8 +54,7 @@
 			$('#j_orderSearch li').removeClass("oSelected");
 			$('#period').attr('value', '');
 		}
-	});
-	
+	}); */
 	
 	$('#j_orderSearch li').click(function(){
 		var period = $(this).text();
@@ -79,9 +79,41 @@
 		}		
 	});
 	
-	
-	  
   });
+  
+  function setSearchDate(period){
+	  console.log("주문 검색기간 선택");
+	  var now = new Date();
+	  var year = now.getFullYear();
+	  var month = now.getMonth()+1;
+	  var date = now.getDate();
+	  var today = formatDate(year+"-"+month+"-"+date);
+	  if(period==theday){
+		  $('#orderSearch_from').val(formatDate(new Date()));
+		  $('#orderSearch_to').val(formatDate())
+	  }else if(period==aWeek){
+		  now = new Date();
+		  date = now.getDate();
+		  $('#orderSearch_from').val(formatDate(new Date(now.setDate(now.getDate()-7))));
+		  $('#orderSearch_to').val(today);
+	  }else if(period==month1){
+		  now = new Date();
+		  date = now.getDate();
+		  $('#orderSearch_from').val(formatDate(new Date(now.setDate(now.getDate()-30))));
+		  $('#orderSearch_to').val(today);
+	  }else if(period==month3){
+		  now = new Date();
+		  date = now.getDate();
+		  $('#orderSearch_from').val(formatDate(new Date(now.setDate(now.getDate()-90))));
+		  $('#orderSearch_to').val(today);
+	  }
+	  
+  }
+  
+  
+  
+  
+  
 </script>
 </head>
 <body>
@@ -104,10 +136,10 @@
 					<div>
 						<span>주문일자</span>
 						<ul>
-							<li><a href="#">당일</a></li>
-							<li><a href="#">일주일</a></li>
-							<li><a href="#">1개월</a></li>
-							<li><a href="#">3개월</a></li>
+							<li><a href="javascript:setSearchDate(theday)">당일</a></li>
+							<li><a href="javascript:setSearchDate(aWeek)">일주일</a></li>
+							<li><a href="javascript:setSearchDate(month1)">1개월</a></li>
+							<li><a href="javascript:setSearchDate(month3)">3개월</a></li>
 						</ul>
 						<input type="hidden" name="period" id="period" value=""/>
 						<input type="text" name="orderSearch_from" id="orderSearch_from" placeholder="시작일"/>&nbsp;&nbsp;~&nbsp;&nbsp;
