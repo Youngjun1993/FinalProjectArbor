@@ -72,8 +72,7 @@
 			
 			if(mypoint<point){
 				alert("보유 적립금을 확인해 주시기 바랍니다.");
-				$('#j_usePoint').val('');
-				$('#j_usePoint').focus();
+				$('#j_usePoint').val('0');
 				return false;
 			}else{
 				$('#j_usedPoint').text(point+'원');
