@@ -28,7 +28,7 @@
 					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 				</p><br/>
 				<div>
-					<form method="post" action="" id="p_productSearchFrm">
+					<form method="post" action="pqnaList" id="p_productSearchFrm">
 						<span class="pContent">검색어</span>
 						<select name="searchKey" id="searchKey">
 							<c:choose>

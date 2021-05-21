@@ -249,7 +249,7 @@
  	
  	<select id="pqna_totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
  		select count(pqnano) from (select * from(select * from
- 		(select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, pqnadate
+ 		(select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
  		from productqna q join product p on q.pno=p.pno)
  		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
  		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
@@ -272,7 +272,8 @@
  	
  	<select id="pqnaNoAnswerCnt" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
  		select count(pqnano) from (select * from(select * from 
- 		(select * from productqna)
+ 		(select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
+ 		from productqna q join product p on q.pno=p.pno)
  		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
  		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
  		where panswercontent is null

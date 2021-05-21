@@ -28,15 +28,43 @@
 					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 				</p><br/>
 				<div>
-					<form method="post" action="">
+					<form method="post" action="pqnaNoAnswerList" id="p_productSearchFrm">
 						<span class="pContent">검색어</span>
 						<select name="searchKey" id="searchKey">
-							<option value="pname">상품명</option>
-							<option value="userid">작성자</option>
-							<option value="pqnasubject">제목</option>
-							<option value="pqnacontent">내용</option>
+							<c:choose>
+								<c:when test="${pageVO.searchKey==pname }">
+									<option value="pname" selected>상품명</option>
+									<option value="userid">작성자</option>
+									<option value="pqnasubject">제목</option>
+									<option value="pqnacontent">내용</option>
+								</c:when>
+								<c:when test="${pageVO.searchKey==userid }">
+									<option value="pname">상품명</option>
+									<option value="userid" selected>작성자</option>
+									<option value="pqnasubject">제목</option>
+									<option value="pqnacontent">내용</option>
+								</c:when>
+								<c:when test="${pageVO.searchKey==pqnasubject }">
+									<option value="pname">상품명</option>
+									<option value="userid">작성자</option>
+									<option value="pqnasubject" selected>제목</option>
+									<option value="pqnacontent">내용</option>
+								</c:when>
+								<c:when test="${pageVO.searchKey==pqnacontent }">
+									<option value="pname">상품명</option>
+									<option value="userid">작성자</option>
+									<option value="pqnasubject">제목</option>
+									<option value="pqnacontent" selected>내용</option>
+								</c:when>
+								<c:otherwise>
+									<option value="pname">상품명</option>
+									<option value="userid">작성자</option>
+									<option value="pqnasubject">제목</option>
+									<option value="pqnacontent">내용</option>
+								</c:otherwise>
+							</c:choose>
 						</select>
-						<input type="text" name="searchWord" id="searchWord" />
+						<input type="text" name="searchWord" id="searchWord" value="${pageVO.searchWord }" />
 						<br/><br/>
 						<ul id="pDateCate">
 							<li><span class="pContent">등록일자</span></li>
@@ -47,11 +75,12 @@
 							<li><a href="javascript:pDateClick(5)">1년</a></li>
 						</ul>
 						<span class="pContent"></span>
-						<input type="text" name="startdate" id="startdate" placeholder="시작일 직접 선택" autocomplete="off"/>
+						<input type="text" name="startdate" id="startdate" value="${pageVO.startdate }" placeholder="시작일 직접 선택" autocomplete="off"/>
 						<span class="centertxt">~</span>
-						<input type="text" name="enddate" id="enddate" placeholder="종료일 직접 선택" autocomplete="off"/>
+						<input type="text" name="enddate" id="enddate" value="${pageVO.enddate }" placeholder="종료일 직접 선택" autocomplete="off"/>
 						<input type="submit" value="Search" class="adminMainBtn"/>
 						<br/>
+						<input type="hidden" name="pageNum" id="p_pageNum" value="${pageVO.pageNum }"/>
 					</form>
 				</div>
 			</div>
@@ -82,20 +111,20 @@
 			<div id="pagingDiv">
 				 <ul class="adPaging" class="clearfix">
 	            	<c:if test="${pageVO.pageNum>1 }">
-	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="pqnaNoAnswerList?pageNum=${pageVO.pageNum-1}">＜</a></li>
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="javascript:p_pageChange(${pageVO.pageNum-1})">＜</a></li>
 	                </c:if>
 	                <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
 	                	<c:if test="${p<=pageVO.totalPage }">
 		                	<c:if test="${p==pageVO.pageNum }">
-		                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="pqnaNoAnswerList?pageNum=${p}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
+		                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="javascript:p_pageChange(${p})">${p }</a></li>
 		                	</c:if>
 		                	<c:if test="${p!=pageVO.pageNum }">
-		                		<li><a href="pqnaNoAnswerList?pageNum=${p}">${p }</a></li>
+		                		<li><a href="javascript:p_pageChange(${p})">${p }</a></li>
 		                	</c:if>
 	                	</c:if>
 	                </c:forEach>
 	                <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="pqnaNoAnswerList?pageNum=${pageVO.pageNum+1}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">＞</a></li>
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="javascript:p_pageChange(${pageVO.pageNum+1})">＞</a></li>
 	                </c:if>
 	            </ul>
             </div>
