@@ -33,7 +33,7 @@ public class HomeController {
 		System.out.println(vo);
 		//서브메뉴
 		mav.addObject("subList", homeService.subList());
-		
+		mav.addObject("top", homeService.productCateTop8());
 		mav.setViewName("home");//
 		return mav;
 	}

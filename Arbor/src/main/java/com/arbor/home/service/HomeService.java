@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.HomeDAOImp;
 import com.arbor.home.vo.MainCateVO;
+import com.arbor.home.vo.ProductVO;
 import com.arbor.home.vo.SubCateVO;
 
 @Service
@@ -26,6 +27,11 @@ public class HomeService implements HomeServiceImp {
 	public List<SubCateVO> subList() {
 		// TODO Auto-generated method stub
 		return homeDAO.subList();
+	}
+
+	@Override
+	public List<ProductVO> productCateTop8() {
+		return homeDAO.productCateTop8();
 	}
 
 

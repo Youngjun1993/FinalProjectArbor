@@ -333,7 +333,7 @@ nav>ul ul{position:absolute;}
 	float:left;
 	margin-right:30px;
 }
-.slides>ul>li>img{
+.slides>ul>li>img, .slides>ul>li>a>img{
 	width:400px;
 	height:400px;
 	display:block;

@@ -217,14 +217,9 @@ $(function(){
 		<div class="slide_wraper">
 			<div class="slides">
 				<ul>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed1.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed4.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed5.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed6.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed7.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed8.PNG"></li>
+					<c:forEach var="top" items="${top }">
+						<li><a href="productView?pno=${top.pno }"><img src="<%=request.getContextPath()%>/upload/${top.img1}"></a></li>
+					</c:forEach>
 				</ul>
 			</div>
 			<!-- "slides" -->
