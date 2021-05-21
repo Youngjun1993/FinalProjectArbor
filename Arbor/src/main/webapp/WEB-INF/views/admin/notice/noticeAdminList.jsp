@@ -28,7 +28,7 @@
 	<!-- 관리자메뉴 -->
 	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="d_noticeEdit">
-		<h1 class="d_h1">공지사항</h1>
+		<h3 class="d_h1">공지사항</h3>
 		<div class="clearfix d_search">
 			<form method="post" class="d_searchFrm" action="noticeAdminList">
 				<select name="searchKey" id="d_searchKey">

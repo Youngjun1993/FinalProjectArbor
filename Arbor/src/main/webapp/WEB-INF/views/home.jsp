@@ -280,7 +280,7 @@ $(function(){
 	
 	<!-- 동영상  -->
 	<div class="videoBox" trigger-up>
-		<div class="d_video">
+		<a href="#"><div class="d_video">
 			<video width="100%" height="800" autoplay loop muted preload="auto">
   				<source src="<%=request.getContextPath()%>/img/lookbook.mp4" type="video/mp4">
 			</video>
@@ -289,6 +289,7 @@ $(function(){
 			<p>Arbor's LOOKBOOK</p>
 			<button>GET INSFIRED</button>
 		</div>
+		</a>
 	</div>
 	<!-- videoBox -->
 	
