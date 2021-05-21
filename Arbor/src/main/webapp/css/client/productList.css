@@ -147,7 +147,7 @@
 }
 
 .p_listdetail1 {
-	font-size: 1.1em; font-weight: bold;
+	font-size: 1.3em; font-weight: bold;
 	margin:5px 0;
 }
 .p_listdetail2 {
@@ -164,6 +164,13 @@
 	margin-bottom: 50px;
 	overflow:auto;
 	display:inline-block;	
+}
+
+/* percent */
+.p_salepercent {
+	display:inline-block;
+	width: 40px; border:1px solid rgb(191,43,53); font-size:0.8em;
+	padding: 2px 3px; margin:1px 0 1px 10px;
 }
 
 /* tag css */

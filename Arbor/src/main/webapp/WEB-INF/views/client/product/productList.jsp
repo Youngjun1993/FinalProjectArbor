@@ -41,7 +41,7 @@
 							</c:if>
 						</c:forEach>
 					</div><br/>
-					<p class="p_listdetail1">${vo.pname }</p>
+					<p class="p_listdetail1">${vo.pname }<span class="p_salepercent">${vo.salepercent }% 할인</span></p>
 					<p class="p_listdetail2"><fmt:formatNumber value="${vo.pprice }" pattern="#,###"/></p>
 					<p class="p_listdetail3"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/></p>
 				</li>
