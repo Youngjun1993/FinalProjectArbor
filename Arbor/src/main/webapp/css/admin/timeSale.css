@@ -18,6 +18,7 @@
 	font-weight: bold;
 	font-size: 1em;
 	color: #333;
+	border-top: 1px solid #333;
 	border-bottom: 1px solid #aaa;
 }
 
