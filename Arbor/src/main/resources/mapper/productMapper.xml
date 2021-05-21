@@ -45,7 +45,7 @@
  	
  	<select id="subCateListAll" resultType="com.arbor.home.vo.SubCateVO" parameterType="com.arbor.home.vo.PageSearchVO">
  		select * from(select * from(
- 		select subno, s.mainno, mainname, subname from subcate s join maincate m
+ 		select subno, s.mainno, mainname, subname from subcate s full outer join maincate m
  		on s.mainno=m.mainno order by subno desc)
  		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by subno asc)
  		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>

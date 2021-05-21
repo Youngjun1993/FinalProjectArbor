@@ -228,8 +228,6 @@ public class ProductController {
 			// 대분류등록
 			String editWord = req.getParameter("mainEdit");
 			productService.insertMainCate(editWord);
-			int mainnum = productService.selectMainno(editWord);
-			productService.insertSubCate(mainnum, " ");
 		}
 		
 		return "redirect:manageCate";
