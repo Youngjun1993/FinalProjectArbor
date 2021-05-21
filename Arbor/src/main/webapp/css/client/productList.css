@@ -120,19 +120,26 @@
 #p_list {
 	margin-top: 60px;
 }
-#p_list li {
+#p_list>ul>li {
 	width: 25%; height: 500px;
 	float:left; text-align:center;
+	position:relative;
 }
 #p_list>ul>li>a {
 	display:block;
 	width: 100%; text-align: center;
 	height: 250px;
 }
-
 #p_list>ul>li>a>img {
 	width: 300px; height: 250px;
 }
+#p_list>ul>li>span.p_salepercent {
+	display:inline-block; position:absolute; text-align:center;
+	top:200px; left:20px; width: 70px; height: 40px; line-height: 40px;
+	font-size:1em; font-weight:bold; background-color:rgb(191,43,53);
+	color:#fff; opacity: 0.8;
+}
+
 /* class css */
 .p_color {
 	width: 50%; height: 20px;
