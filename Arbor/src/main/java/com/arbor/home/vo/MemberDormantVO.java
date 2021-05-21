@@ -136,7 +136,7 @@ public class MemberDormantVO {
 		return "MemberDormantVO [userid=" + userid + ", username=" + username + ", email=" + email + ", emailid="
 				+ emailid + ", emaildomain=" + emaildomain + ", tel=" + tel + ", tel1=" + tel1 + ", tel2=" + tel2
 				+ ", tel3=" + tel3 + ", dortype=" + dortype + ", dormailok=" + dormailok + ", regdate=" + regdate
-				+ ", dordate=" + dordate + ", emailok=" + emailok + ", smsok=" + smsok + "]";
+				+ ", dordate=" + dordate + ",]";
 	}
 	
 }

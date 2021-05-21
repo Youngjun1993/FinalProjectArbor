@@ -40,7 +40,17 @@
                     <li><a class="head" href="noticeAdminList">공지사항</a></li>
                     <li><a class="head" href="faqAdList">자주묻는질문<br/>(FAQ)</a></li>
                 </ul>
+                
                 <!-- 관리자 5번 메뉴 -->
+                <li id="nav1" class="toggle accordion-toggle"> 
+                    <a class="h_menu_link" href="#">쿠폰관리</a>
+                </li>
+                <ul class="h_menu_submenu accordion-content">
+                    <li><a class="head" href="qnaAdList">쿠폰등록관리</a></li>
+                    <li><a class="head" href="noticeAdminList">######</a></li>
+                </ul>
+                
+                <!-- 관리자6 번 메뉴 -->
                 <li id="nav1" class="toggle accordion-toggle"> 
                     <a class="h_menu_link" href="#">이벤트관리</a>
                 </li>

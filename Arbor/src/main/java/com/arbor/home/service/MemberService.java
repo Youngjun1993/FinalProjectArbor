@@ -11,6 +11,7 @@ import com.arbor.home.vo.MemPagingCri;
 import com.arbor.home.vo.MemberDormantVO;
 import com.arbor.home.vo.MemberQuitVO;
 import com.arbor.home.vo.MemberVO;
+import com.arbor.home.vo.PageSearchVO;
 
 @Service
 public class MemberService implements MemberServiceImp {
@@ -34,8 +35,8 @@ public class MemberService implements MemberServiceImp {
 	}
 
 	@Override
-	public int lastDateUpdate(String lastdate, String nowid) {
-		return memberDAO.lastDateUpdate(lastdate, nowid);
+	public int lastDateUpdate(String userid) {
+		return memberDAO.lastDateUpdate(userid);
 	}
 
 	@Override
@@ -101,19 +102,18 @@ public class MemberService implements MemberServiceImp {
 	}
 
 	@Override
-	public int insertDormantMember(String userid, String reason) {
-		return memberDAO.insertDormantMember(userid, reason);
+	public int insertDormantMember(String userid) {
+		return memberDAO.insertDormantMember(userid);
 	}
 
 	@Override
-	public List<MemberDormantVO> memDormantPaging(MemPagingCri cri) {
-		return memberDAO.memDormantPaging(cri);
+	public List<MemberDormantVO> memDormantPaging(PageSearchVO vo) {
+		return memberDAO.memDormantPaging(vo);
 	}
 
 	@Override
-	public int memDormantCount(MemPagingCri cri) {
-		
-		return memberDAO.memDormantCount(cri);
+	public int memDormantCount() {
+		return memberDAO.memDormantCount();
 	}
 
 	@Override
@@ -160,6 +160,56 @@ public class MemberService implements MemberServiceImp {
 	public List<MemberVO> memberExcelDownload(MemberVO vo) {
 		
 		return memberDAO.memberExcelDownload(vo);
+	}
+	
+	@Override
+	public List<MemberVO> dormantExcelDownload(MemberVO vo) {
+		
+		return memberDAO.dormantExcelDownload(vo);
+	}
+
+	@Override
+	public MemberVO memberIdSearchOk(String username, String email) {
+		
+		return memberDAO.memberIdSearchOk(username, email);
+	}
+
+	@Override
+	public List<MemberVO> dormantList() {
+		return memberDAO.dormantList();
+	}
+
+	@Override
+	public int loginDorCheck(String userid) {
+		return memberDAO.loginDorCheck(userid);
+	}
+
+	@Override
+	public int loginDorDelete(String userid) {
+		return memberDAO.loginDorDelete(userid);
+	}
+
+	@Override
+	public int loginDorUpdate(String userid) {
+		return memberDAO.loginDorUpdate(userid);
+	}
+
+	@Override
+	public int memberPwdSearchOk(String changepwd, String username, String email) {
+		
+		return memberDAO.memberPwdSearchOk(changepwd, username, email);
+	}
+
+	@Override
+	public MemberVO memberIdSearchOk2(String username, String tel) {
+		
+		return memberDAO.memberIdSearchOk2(username, tel);
+	}
+
+	@Override
+	public int memberPwdSearchOk2(String changepwd, String username, String tel) {
+		
+		return memberDAO.memberPwdSearchOk2(changepwd, username, tel);
 	}
 	
 	

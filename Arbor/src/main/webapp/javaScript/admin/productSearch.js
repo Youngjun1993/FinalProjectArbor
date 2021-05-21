@@ -175,6 +175,10 @@ function productDeleteCheck(){
 	}
 }
 
+function dibsDelete(pno, pname) {
+	console.log(pno, pname);
+}
+
 function productdel(pno){
 	if(confirm(pno+"번 상품을 삭제하시겠습니까?")) {
 		location.href="productDelete?pno="+pno;
@@ -224,4 +228,9 @@ function formatDate(date) {
 	if (month.length < 2) month = '0' + month;
 	if (day.length < 2) day = '0' + day;
 	return [year, month, day].join('-');
+}
+
+function p_pageChange(pageNum){
+	$("#p_pageNum").val(pageNum);
+	$("#p_productSearchFrm").submit();
 }

@@ -62,7 +62,10 @@
 					<input type="file" name="imgName1" id="img1" /><br/>
 					<p>* 마우스 이동에 따라 변환될 서브 이미지 선택</p>
 					<input type="file" name="imgName2" id="img2" /><br/>
+					<span id="imgprintTitle">메인이미지</span>
 					<div id="imgPrint"><img src="<%=request.getContextPath() %>/img/noimg.png"/></div>
+					<span id="imgprintTitle2">서브이미지</span>
+					<div id="imgPrint2"><img src="<%=request.getContextPath() %>/img/noimg.png"/></div>
 					<h3>상세설명</h3><br/>
 					<textarea name="description" id="description"></textarea>
 				</div>

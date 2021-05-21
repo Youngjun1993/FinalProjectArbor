@@ -174,8 +174,9 @@
 		
 	}
 	.h_searchMultiBtn {
-		margin:10px 0;
 		width:1200px;
+		margin-top:30px;
+		margin-bottom: 10px;
 	}
 	
 	
@@ -194,7 +195,6 @@
 	
 	
 	/* 회원검색 ul li */
-	
 	.h_memList li{
 		float:left;
 		width:12.5%;
@@ -206,32 +206,79 @@
 		text-align:center;
 		
 	}
+	#memSearchBtn {
+		width: 200px; height: 35px; margin-top:10px; margin-bottom:20px;
+	}
+	.h_dormantList {
+		margin-top:40px;
+	}
+	.h_dormantList>li{
+		float:left;
+		width:11%;
+		height:40px;
+		line-height:40px;
+		text-align:left;
+		border-bottom:1px solid #eee;
+		font-size:12px;
+		text-align:center;
+	}
+	.h_dormantList>li:nth-of-type(10n+1), .h_dormantList>li:nth-of-type(10n+8), .h_dormantList>li:nth-of-type(10n+9) {
+		width: 5%;
+	}
+	.h_dormantList>li:nth-of-type(10n+4) {
+		width: 15%;
+	}
+	.h_dormantList>li:nth-of-type(10n+10) {
+		width: 15%;
+	}
+	.h_dormantList>li>input[type=button] {
+		width: 100px; height: 30px;
+	}
 	
 	.h_listHeader {
-		border-top: 1px solid #ddd;
+		border-top: 1px solid #333;
 		border-bottom:1px solid #aaa !important;
 	}
 	
 	.h_memdormant {
 		border: none;
 		background-color: rgb(191,43,53); color:#fff;
-		font-family: 'Nanum Gothic', sans-serif;
+		font-family: 'Nanum Gothic', Fsans-serif;
 		font-weight: bold; cursor:pointer;
 		pointer-events: none;
 	}
 	
-	.h_memTableLi{
-		margin:40px 0;
+	.h_memTableLi.search{
+		margin:25px 0;
+		
+	}
+	
+	.h_memTableLi.dormant{
+		margin:50px 0;
+		
+	}
+	
+	.h_memTableLi.quit{
+		margin:55px 0;
 		
 	}
 	
 	/* 페이징 버튼 스타일 */
 	
 	.h_paging_wrap {
-	    width: 300px;
+	    width: 240px;
 	    height: 40px;
 	    text-align: center;
 	    margin: 20px auto;
+	}
+	
+	#pagingDiv {
+		text-align: center; margin-top:50px;
+	}
+	#pagingDiv>ul {
+		margin-bottom: 50px;
+		overflow:auto;
+		display:inline-block;	
 	}
 	
 /* ///////////////////////////탈퇴회원 페이지/////////////////////////// */

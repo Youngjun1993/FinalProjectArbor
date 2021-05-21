@@ -1,7 +1,36 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+
+#y_dibsTop{
+	background:url(../../img/tree2.jpg) center no-repeat;
+	background-size : cover;
+	width:100%;
+	height: 200px;
+	position: relative;
+}
+.y_dibsHeader{
+	background: #636363;
+	height: 100%;
+	opacity: 0.5;
+}
+#y_dibsTop>p{
+	color:#fff;
+	text-align: center;
+	font-size:40px;
+	font-weight: bold;
+}
+#y_dibsTop>p:nth-of-type(1){
+	font-family: 'Dancing Script', cursive;
+	color:rgb(248,244,236);
+	font-size:60px;
+	padding-top:50px;
+	position: absolute;
+	left:42%;
+	top:5%;
+}
 #y_dibs_wrap>div:nth-child(1) h1{
-    height: 100px;
-    line-height: 100px;
+    height: 80px;
+    line-height: 70px;
     margin-bottom: 20px;
 }
 #y_dibs_wrap>div:nth-child(1)>div ul{
@@ -16,7 +45,7 @@
     padding: 0 20px;
 }
 #y_dibs_wrap>div:nth-child(1)>div ul li:first-child{
-    background: rgb(248,244,236);
+    background: rgb(250,250,250);
     border-bottom: 1px solid #ddd;
     text-align: right;
     padding: 0 5px;
@@ -24,7 +53,7 @@
     line-height: 30px;
 }
 #y_dibs_wrap>div:nth-child(1)>div ul li:first-child button{
-    background: rgb(248,244,236);
+    background: rgb(250,250,250);
     border: none;
     cursor: pointer;
     font-size: bold;
@@ -59,6 +88,7 @@
     border: 1px solid #aaa;
     border-radius: 5px;
     font-size: 11px;
+    padding:0 5px;
     margin-right: 5px;
     margin-top: 5px;
 }
@@ -73,4 +103,8 @@
     height: 30px;
     line-height: 30px;
     margin-top: 10px;
+}
+/*paging 부분*/
+#y_dibs_wrap>div:nth-child(1)>div{
+	margin-bottom:30px;
 }

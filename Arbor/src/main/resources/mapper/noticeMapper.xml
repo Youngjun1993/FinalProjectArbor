@@ -4,8 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.arbor.home.dao.NoticeDAOImp">
-	<select id="noticeList" resultType="com.arbor.home.vo.NoticeVO">
-		select * from notice
+	<select id="noticeList" resultType="com.arbor.home.vo.NoticeVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select noticeno, noticesubject, noticecontent, noticedate from notice
+		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%' order by noticeno desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by noticeno asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by noticeno desc</if>
+		
+		<if test="searchWord==null">order by noticeno desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by noticeno asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by noticeno desc</if>
 	</select>
 	<select id="noticeView" resultType="com.arbor.home.vo.NoticeVO">
 		select * from notice where noticeno=#{param1}
@@ -13,4 +22,13 @@
 	<insert id="noticeInsert" parameterType="com.arbor.home.vo.NoticeVO">
   		insert into notice(noticeno, noticesubject, noticecontent, noticedate) values(noticesq.nextval, #{noticesubject}, #{noticecontent}, sysdate)
   	</insert>
+	<update id="noticeEditOk" parameterType="com.arbor.home.vo.NoticeVO">
+		update notice set noticesubject=#{noticesubject}, noticecontent=#{noticecontent} where noticeno=#{noticeno}
+	</update>
+	<delete id="boardDelete" parameterType="com.arbor.home.vo.NoticeVO">
+		delete from notice where noticeno=#{param1}
+	</delete>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(noticeno) as totalRecord from notice
+	</select>
 </mapper>

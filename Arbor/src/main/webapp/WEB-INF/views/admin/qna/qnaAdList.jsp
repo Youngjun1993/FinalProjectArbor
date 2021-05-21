@@ -41,7 +41,7 @@
 				alert("카테고리를 선택하세요.")
 				return false;
 			}
-			if($("#y_qnaSearchFrm input[type='text']").val()==""){
+			if($("#y_qnaSearchFrm input[type='text']").val()=="" || $("#y_qnaSearchFrm input[type='text']").val()=="ex) 교환/반품, 결제관련, 기타"){
 				alert("검색어를 입력하세요.")
 				return false;
 			}
@@ -53,11 +53,11 @@
     <div id="y_adminQnaList_Wrap" class="w1400_container clearfix">
         <%@include file="/WEB-INF/inc/adminMenu.jspf"%>
         <div id="y_adminQnaList_rightcon" class="y_Adrightcon">
-            <p class="y_title_fs25">1:1문의(Q&#38;A) 목록</p>
+        	<p id="pageTitle"><span>1:1문의(Q&#38;A) 목록</span></p>
             <div>
                 <form id="y_qnaSearchFrm" action="qnaAdList" method="get">
                     <select name="searchKey" id="searchKey">
-                    	<option value="">카테고리</option>
+                    	<option value="" selected disabled="disabled" hidden>카테고리</option>
                         <option value="qnacate">문의유형</option>
                         <option value="qnasubject">제목</option>
                     	<option value="userid">작성자</option>
@@ -107,11 +107,11 @@
 	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="qnaNoAnswerList?pageNum=${pageVO.pageNum+1}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">＞</a></li>
 	                </c:if>
 	            </ul>
-            </c:if>
+            </c:if> 
             <c:if test="${ansBtnCheck eq 'N'}">
 	            <ul class="adPaging" class="clearfix">
 	            	<c:if test="${pageVO.pageNum>1 }">
-	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="qnaAdList?pageNum=${pageVO.pageNum-1}">＜</a></li>
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="qnaAdList?pageNum=${pageVO.pageNum-1}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">＜</a></li>
 	                </c:if>
 	                <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
 	                	<c:if test="${p<=pageVO.totalPage }">
@@ -119,7 +119,7 @@
 		                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="qnaAdList?pageNum=${p}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
 		                	</c:if>
 		                	<c:if test="${p!=pageVO.pageNum }">
-		                		<li><a href="qnaAdList?pageNum=${p}">${p }</a></li>
+		                		<li><a href="qnaAdList?pageNum=${p}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
 		                	</c:if>
 	                	</c:if>
 	                </c:forEach>

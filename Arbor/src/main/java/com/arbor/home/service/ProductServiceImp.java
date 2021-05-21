@@ -22,20 +22,22 @@ public interface ProductServiceImp {
 	/* paging */
 	
 	// 전체 레코드 수 구하기(productSearch)
-	public int totalRecord();
+	public int totalRecord(PageSearchVO vo);
 	// (manageCate)
 	public int subcate_totalRecord();
 	// (pqna)
-	public int pqna_totalRecord();
+	public int pqna_totalRecord(PageSearchVO vo);
 	// (pqnaNoAnswer)
-	public int pqnaNoAnswerCnt();
+	public int pqnaNoAnswerCnt(PageSearchVO vo);
 	// (productList)
 	public int productClientTotalRecord(PageProductVO vo);
 	
 	/* 사용자 */
 	
 	//상품목록 불러오기
-		public List<ProductVO> productListClient(PageProductVO pageVo);
+	public List<ProductVO> productListClient(PageProductVO pageVo);
+	// order array 목록 불러오기
+	public List<ProductVO> productListClientOrder(PageProductVO pageVo);
 	// 목록에 사용할 rgb컬러 불러오기
 	public List<OptionVO> productListRGB(int subno);
 	// mainname 가져오기
@@ -46,6 +48,10 @@ public interface ProductServiceImp {
 	public List<OptionVO> optValueSelect(int pno);
 	// 상품문의 등록하기
 	public int pqnaInsert(ProductQnaVO vo);
+	// 상품문의 수정하기
+	public int pqnaUpdate(ProductQnaVO vo);
+	// 상품문의 삭제하기
+	public int pqnaDelete(int pqnano, String userid);
 	// 상품문의 확인을 위한 List
 	public List<ProductQnaVO> pqnaViewList(int pno);
 	// 해당 상품에 대한 리뷰목록 불러오기
@@ -53,7 +59,17 @@ public interface ProductServiceImp {
 	// 옵션번호로 정보 끌어오기
 	public OptionVO productOptionView(int optno);
 	// 리스트 탑3 정보 끌어오기
-	public List<ProductVO> productTopList(int subno);
+	public List<ProductVO> productTopList(int mainno);
+	// TotalList에서 사용할 대분류기준 탑12
+	public List<ProductVO> productTotalList(int mainno);
+	// TotalList에서 사용할 카테고리 탑1이미지
+	public ProductVO productCateImgSelect(int mainno);
+	// TotalList에서 사용할 카테고리 탑1이미지
+	public ProductVO productSubCateImgSelect(int subno);
+	// TotalList에서 사용할 전체 탑12
+	public List<ProductVO> productCateTop12();
+	// subno로 subname구하기
+	public String subnameSelect(int subno);
 	
 	/* 관리자 */
 	

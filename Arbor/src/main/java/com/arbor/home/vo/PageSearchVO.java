@@ -16,17 +16,57 @@ public class PageSearchVO {
 	private String startdate;
 	private String enddate;
 	private int subno;
+	private int mainno;
 	
 	/* Admin - OrderController */
 	private String period="";
 	private String orderSearch_from="";
 	private String orderSearch_to="";
 	
+
+	/* Admin - memberDormant */
+	private String smsok;
+	private String emailok;
+	private String dormailok;
+
 	/* Admin - SalesController */
 	private String sales_from="";
 	private String sales_to="";
 	
+	public int getMainno() {
+		return mainno;
+	}
+	public void setMainno(int mainno) {
+		this.mainno = mainno;
+	}
+	public String getSmsok() {
+		return smsok;
+	}
+	public void setSmsok(String smsok) {
+		this.smsok = smsok;
+	}
+	public String getEmailok() {
+		return emailok;
+	}
+	public void setEmailok(String emailok) {
+		this.emailok = emailok;
+	}
+	public String getDormailok() {
+		return dormailok;
+	}
+	public void setDormailok(String dormailok) {
+		this.dormailok = dormailok;
+	}
 	
+	/*Admin review 정렬*/
+	private String sort;
+	
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	public String getUserid() {
 		return userid;
 	}

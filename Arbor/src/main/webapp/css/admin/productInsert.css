@@ -61,9 +61,27 @@
 	border:1px solid;
 	top: 100px; left:500px;
 }
+#imgprintTitle {
+	position:absolute;
+	top: 80px; left:500px;
+}
 #imgPrint>img {
 	width: 248px; height: 248px;
 }
+#imgPrint2 {
+	position:absolute;
+	width: 250px; height: 250px;
+	border:1px solid;
+	top: 100px; left:800px;
+}
+#imgprintTitle2 {
+	position:absolute;
+	top: 80px; left:800px;
+}
+#imgPrint2>img {
+	width: 248px; height: 248px;
+}
+
 
 #lastP {
 	width:450px; margin: 0 auto 50px;

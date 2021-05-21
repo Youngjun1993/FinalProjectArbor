@@ -24,6 +24,7 @@ public class MemberVO {
 	
 	private String regdate;
 	private String lastdate;
+	private String dordate;
 	
 	private int memstat;
 	
@@ -163,5 +164,12 @@ public class MemberVO {
 	public void setMemstat(int memstat) {
 		this.memstat = memstat;
 	}
+	public String getDordate() {
+		return dordate;
+	}
+	public void setDordate(String dordate) {
+		this.dordate = dordate;
+	}
+	
 	
 }

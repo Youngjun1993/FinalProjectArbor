@@ -31,29 +31,64 @@
 					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 				</p><br/>
 				<div>
-					<form method="post" action="productSearch">
+					<form method="post" action="productSearch" id="p_productSearchFrm">
 						<span class="pContent">카테고리</span>
 						<select name="mainno" id="maincate">
+						<c:if test="${pageVO.mainno==null || pageVO.mainno=='' }">
 						<option value="" selected disabled hidden>==선택하세요==</option>
+						</c:if>
 							<c:forEach var="mainCate" items="${mainCate }">
-								<c:if test="${mainCate.mainno!=null && mainCate.mainno!='' }">
+								<c:choose>
+								<c:when test="${mainCate.mainno==pageVO.mainno }">
+									<option value=${mainCate.mainno } selected>${mainCate.mainname }</option>
+								</c:when>
+								<c:otherwise>
 									<option value=${mainCate.mainno }>${mainCate.mainname }</option>
-								</c:if>
+								</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</select>
 						<select name="subno" id="subcate">
+						<c:if test="${pageVO.subno==null || pageVO.subno==''}">
 						<option value="" selected disabled hidden>==선택하세요==</option>
+						</c:if>
 							<c:forEach var="subCate" items="${subCate }">
-								<option value=${subCate.subno }>${subCate.subname }</option>
+								<c:choose>
+								<c:when test="${subCate.subno==pageVO.subno }">
+									<option value=${subCate.subno } selected>${subCate.subname }</option>
+								</c:when>
+								<c:otherwise>
+									<option value=${subCate.subno }>${subCate.subname }</option>
+								</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</select>
 						<span id="searchContent">검색어</span>
 						<select name="searchKey" id="searchKey">
-							<option value="pname">상품명</option>
-							<option value="stock">재고량</option>
-							<option value="pprice">판매가격</option>
+							<c:choose>
+								<c:when test="${pageVO.searchKey == 'pname'}">
+									<option value="pname" selected>상품명</option>
+									<option value="stock">재고량</option>
+									<option value="saleprice">판매가격</option>
+								</c:when>
+								<c:when test="${pageVO.searchKey == 'stock'}">
+									<option value="pname">상품명</option>
+									<option value="stock" selected>재고량</option>
+									<option value="saleprice">판매가격</option>
+								</c:when>
+								<c:when test="${pageVO.searchKey == 'saleprice'}">
+									<option value="pname">상품명</option>
+									<option value="stock">재고량</option>
+									<option value="saleprice" selected>판매가격</option>
+								</c:when>
+								<c:otherwise>
+									<option value="pname">상품명</option>
+									<option value="stock">재고량</option>
+									<option value="saleprice">판매가격</option>
+								</c:otherwise>
+							</c:choose>
 						</select>
-						<input type="text" name="searchWord" id="searchWord" />
+						<input type="text" name="searchWord" id="searchWord" value="${pageVO.searchWord }"/>
 						<br/><br/>
 						<ul id="pDateCate">
 							<li><span class="pContent">등록일자</span></li>
@@ -64,11 +99,12 @@
 							<li><a href="javascript:pDateClick(5)">1년</a></li>
 						</ul>
 						<span class="pContent"></span>
-						<input type="text" name="startdate" id="startdate" placeholder="시작일 직접 선택" autocomplete="off"/>
+						<input type="text" name="startdate" id="startdate" placeholder="시작일 직접 선택" value="${pageVO.startdate }" autocomplete="off"/>
 						<span class="centertxt">~</span>
-						<input type="text" name="enddate" id="enddate" placeholder="종료일 직접 선택" autocomplete="off"/>
+						<input type="text" name="enddate" id="enddate" placeholder="종료일 직접 선택" value="${pageVO.enddate }" autocomplete="off"/>
 						<input type="submit" value="Search" class="adminMainBtn"/>
 						<br/>
+						<input type="hidden" name="pageNum" id="p_pageNum" value="${pageVO.pageNum }"/>
 					</form>
 				</div>
 			</div>
@@ -97,7 +133,8 @@
 							<li>${vo.stock }</li>
 							<li>${vo.pdate }</li>
 							<li><input type="submit" class="adminSubBtn" value="수정" formaction="productEdit?pno=${vo.pno }"/>
-							<input type="submit" class="adminSubBtn" value="삭제" formaction="javascript:productdel(${vo.pno })"/></li>
+							<input type="submit" class="adminSubBtn" value="삭제" formaction="javascript:productdel(${vo.pno })"/>
+							</li>
 						</c:forEach>
 					</ul>
 				</form>
@@ -105,20 +142,20 @@
 			<div id="pagingDiv">
 				 <ul class="adPaging" class="clearfix">
 	            	<c:if test="${pageVO.pageNum>1 }">
-	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="productSearch?pageNum=${pageVO.pageNum-1}">＜</a></li>
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="javascript:p_pageChange(${pageVO.pageNum-1})">＜</a></li>
 	                </c:if>
 	                <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
 	                	<c:if test="${p<=pageVO.totalPage }">
 		                	<c:if test="${p==pageVO.pageNum }">
-		                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="productSearch?pageNum=${p}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
+		                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="javascript:p_pageChange(${p})">${p }</a></li>
 		                	</c:if>
 		                	<c:if test="${p!=pageVO.pageNum }">
-		                		<li><a href="productSearch?pageNum=${p}">${p }</a></li>
+		                		<li><a href="javascript:p_pageChange(${p})">${p }</a></li>
 		                	</c:if>
 	                	</c:if>
 	                </c:forEach>
 	                <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="productSearch?pageNum=${pageVO.pageNum+1}<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">＞</a></li>
+	                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="javascript:p_pageChange(${pageVO.pageNum+1})">＞</a></li>
 	                </c:if>
 	            </ul>
             </div>
