@@ -305,7 +305,7 @@
 					<c:forEach var="pInfoVo" items="${pInfoList }"  varStatus="i">
 						<li>
 							<div>
-								<img src="<%=request.getContextPath() %>/img/${pInfoVo.img1 }"/> <!-- 상품이미지 -->
+								<img src="<%=request.getContextPath() %>/upload/${pInfoVo.img1 }"/> <!-- 상품이미지 -->
 								<div><span>${pInfoVo.pname }</span><span>${pInfoVo.optinfo }</span></div>
 								<input type="hidden" name="pno" value="${pInfoVo.pno} "/>
 								<input type="hidden" name="pname" value="${pInfoVo.pname }"/>
