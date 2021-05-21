@@ -34,5 +34,10 @@ public class HomeService implements HomeServiceImp {
 		return homeDAO.productCateTop8();
 	}
 
+	@Override
+	public List<ProductVO> productNewTop8() {
+		return homeDAO.productNewTop8();
+	}
+
 
 }

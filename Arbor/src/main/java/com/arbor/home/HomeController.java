@@ -34,6 +34,7 @@ public class HomeController {
 		//서브메뉴
 		mav.addObject("subList", homeService.subList());
 		mav.addObject("top", homeService.productCateTop8());
+		mav.addObject("newlst", homeService.productNewTop8());
 		mav.setViewName("home");//
 		return mav;
 	}

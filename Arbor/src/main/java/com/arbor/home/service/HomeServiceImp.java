@@ -15,4 +15,6 @@ public interface HomeServiceImp {
 	public List<SubCateVO> subList();
 	// main에서 사용할 판매순 top8
 	public List<ProductVO> productCateTop8();
+	// main에서 사용할 인기순 top8
+	public List<ProductVO> productNewTop8();
 }

@@ -248,7 +248,7 @@ $(function(){
 	<!-- 두번째리스트 -->
 	<!-- 인기상품 -->
 	<div class="slideBox2" trigger-up>
-		<p>Arbor's 추천상품</p>
+		<p>Arbor's 신상품</p>
 		<div class="controlls2">
 			<img class="prev2" src="<%=request.getContextPath()%>/img/prev2.png">
 			<img class="next2" src="<%=request.getContextPath()%>/img/next2.png">
@@ -256,14 +256,9 @@ $(function(){
 		<div class="slide_wraper2">
 			<div class="slides2">
 				<ul>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed11.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed12.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed13.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed14.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed15.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed16.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed1.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></li>
+					<c:forEach var="newlst" items="${newlst }">
+						<li><a href="productView?pno=${newlst.pno }"><img src="<%=request.getContextPath()%>/upload/${newlst.img1 }"></a></li>
+					</c:forEach>
 				</ul>
 			</div>
 			<!-- "slides" -->
