@@ -10,3 +10,8 @@ $(function() {
     });
     
 });
+
+function p_pageChange(pageNum){
+	$("#p_pageNum").val(pageNum);
+	$("#p_productSearchFrm").submit();
+}
