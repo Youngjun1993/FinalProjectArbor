@@ -13,10 +13,10 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/sales.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/orderAdmin.css" type="text/css"/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- datepicker -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script>
 	$(function(){
@@ -83,7 +83,7 @@
 				$result.each(function(idx, vo){
 					$("#j_salesPopup_Wrap>div>p").text(orderdate+" 매출")
 					tag += "<li>"+ vo.orderno +"</li>";
-					tag += "<li>"+ vo.orderno +"</li>";
+					tag += "<li>"+ "'상품명'" +"</li>";
 					tag += "<li>"+ vo.userid +"</li>";
 					tag += "<li>"+ vo.username +"</li>";
 					tag += "<li>"+ vo.subprice +"원</li>";
@@ -109,6 +109,7 @@
 	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="j_centerFrm">
 		<p class="j_adminMemu"><span>매출관리</span></p>
+		<p class="j_adSubTitle"><span>매출통계</span></p>
 		<div>
 			<form id="j_salesFrm" action="salesManagement">
 				<table id="salesDateSearch">
