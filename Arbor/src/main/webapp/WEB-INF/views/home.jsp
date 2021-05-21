@@ -217,14 +217,9 @@ $(function(){
 		<div class="slide_wraper">
 			<div class="slides">
 				<ul>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed1.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed4.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed5.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed6.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed7.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed8.PNG"></li>
+					<c:forEach var="top" items="${top }">
+						<li><a href="productView?pno=${top.pno }"><img src="<%=request.getContextPath()%>/upload/${top.img1}"></a></li>
+					</c:forEach>
 				</ul>
 			</div>
 			<!-- "slides" -->
@@ -297,7 +292,7 @@ $(function(){
 	<div class="d_linkBox">
 		<ul>
 			<li>
-				<a href="">
+				<a href="productList?mainno=1&subno=1">
 					<div class="screen" trigger-left>
 						<div class="s_top">소파를 봅시다</div>
 						<div class="s_bottom">소파리스트로 이동</div>
@@ -311,7 +306,7 @@ $(function(){
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="productList?mainno=2&subno=5">
 					<div class="screen" trigger-up>
 						<div class="s_top">침대를 봅시다</div>
 						<div class="s_bottom">침대리스트로 이동</div>
@@ -325,7 +320,7 @@ $(function(){
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="productTotalList">
 					<div class="screen" trigger-right >
 						<div class="s_top">가구를 봅시다.</div>
 						<div class="s_bottom">가구리스트로 이동</div>
