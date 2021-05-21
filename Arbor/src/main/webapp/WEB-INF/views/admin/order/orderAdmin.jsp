@@ -118,8 +118,8 @@
 						<select name="searchKey">
 							<option value="orderno">주문번호</option>
 							<option value="username">주문자</option>
-							<option value="pno">상품번호</option>
-							<option value="pname">상품명</option>
+						<!-- 	<option value="pno">상품번호</option>
+							<option value="pname">상품명</option> -->
 						</select>
 						<input type="text" name="searchWord"/>
 					</div>
