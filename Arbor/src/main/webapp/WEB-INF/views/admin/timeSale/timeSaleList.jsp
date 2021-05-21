@@ -28,7 +28,7 @@
 	<div class="j_centerFrm">
 		<p class="j_adminMemu"><span>타임세일 목록</span></p>
 		<div class="clearfix j_search">
-			<form method="post" class="searchFrm" action="eventList">
+			<form method="post" class="j_searchFrm" action="timeSaleList">
 				<select id="j_searchKey" name="searchKey">
 					<option value="pNo">상품번호</option>
 					<option value="pName">상품명</option>

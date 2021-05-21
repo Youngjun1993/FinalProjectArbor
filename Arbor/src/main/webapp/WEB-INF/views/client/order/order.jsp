@@ -79,26 +79,17 @@
 				$('#j_usedPoint').text(point+'원');
 				cal_totalpayment();
 			}
-			
-			
+		});
+		
+		$('#j_selectCpn').on('change', function(){
+			alert(this.value);
+		/* 	var cpnno = $('#j_selectCpn option:selected').val();
+			console.log("선택한 쿠폰"+cpnno); */
 		});
 		
 		
 		//주문,결제페이지 유효성 검사
 		$('#checkoutBtn').on('click', function(){
-			
-/* 			var totalPrice = $('#tPrice').text();
-			console.log("** totalPrice->"+totalPrice);
-			$('#j_totalPrice').attr('value', totalPrice);
-			var aaa = $('#j_totalPrice').val();
-			console.log('aaa->'+aaa);
-			
-			var plusPoint = $('#pPoint').text();
-			console.log("** plusPoint->"+plusPoint);
-			$('#j_plusPoint').attr('value', plusPoint);
-			var bbb = $('#j_plusPoint').val();
-			console.log('bbb->'+bbb)
-*/
 			if($('#j_username').val()=='' || $('#j_username').val()==null){
 				alert("주문자는 필수 입력 항목입니다.");
 				$('#j_username').focus();
@@ -272,9 +263,9 @@
 	 	console.log("plus->"+plus+" / plusPoint->"+plusPoint);
 		$('#pPoint').text(plusPoint);
 		$('#j_plusPoint').val(plus);
-		
-		
 	}
+	
+	
 
 </script>
 </head>
@@ -314,7 +305,7 @@
 					<c:forEach var="pInfoVo" items="${pInfoList }"  varStatus="i">
 						<li>
 							<div>
-								<img src="<%=request.getContextPath() %>/img/${pInfoVo.img1 }"/> <!-- 상품이미지 -->
+								<img src="<%=request.getContextPath() %>/upload/${pInfoVo.img1 }"/> <!-- 상품이미지 -->
 								<div><span>${pInfoVo.pname }</span><span>${pInfoVo.optinfo }</span></div>
 								<input type="hidden" name="pno" value="${pInfoVo.pno} "/>
 								<input type="hidden" name="pname" value="${pInfoVo.pname }"/>
@@ -486,7 +477,6 @@
 								<td>
 									<input type="text" name="usepoint" id="j_usePoint" value="0" onkeyup=""/>
 									<input type="button" class="clientSubBtn" id="j_allPoint" value="모두 사용"/>
-									
 									<span>보유 적립금 <c:if test="${pointVo.point!=null }"><fmt:formatNumber value='${pointVo.point }'/>원</c:if>
 										<c:if test="${pointVo.point==null }">0</c:if>p</span>
 								</td>
@@ -494,13 +484,13 @@
 							<tr>
 								<td>쿠폰 사용</td>
 								<td>
-									<select name="usecoupon">
+									<select id="j_selectCpn">
 										<option value="-">사용가능 쿠폰 ${cpnCount }장</option>
 										<c:if test="${cpnCount>0}">
-											<c:forEach var="cpnVo" items="${couponList }">
-												<option>${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
-												<input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/>
+											<c:forEach var="cpnVo" items="${couponList }" varStatus="i">
+												<option value="${cpnVo.cpnno }">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
 											</c:forEach>
+											<input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/>
 										</c:if>
 									</select>
 								</td>
