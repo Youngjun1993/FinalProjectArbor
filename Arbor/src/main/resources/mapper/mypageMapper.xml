@@ -32,6 +32,12 @@
 	<select id="qnaTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(qnano) as totalRecord from qna where userid = #{userid} <if test="searchWord != null"> and ${searchKey} like '%${searchWord}%'</if>
 	</select>
+	<select id="qnaAnsDescList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where answercontent is null and userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
+	</select>
+	<select id="qnaAnsAscList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where answercontent is not null and userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
+	</select>
 	
 	<!-- coupon List 페이지 -->
 	<select id="cpnList" resultType="com.arbor.home.vo.CouponVO" parameterType="com.arbor.home.vo.PageSearchVO">
