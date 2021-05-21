@@ -45,6 +45,7 @@
 					<p class="p_listdetail2"><fmt:formatNumber value="${vo.pprice }" pattern="#,###"/></p>
 					<p class="p_listdetail3"><fmt:formatNumber value="${vo.saleprice }" pattern="#,###"/></p>
 					<span class="p_salepercent">${vo.salepercent }% 할인</span>
+					
 				</li>
 			</c:forEach>
 		</ul>

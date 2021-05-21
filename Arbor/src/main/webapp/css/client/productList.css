@@ -135,7 +135,7 @@
 }
 #p_list>ul>li>span.p_salepercent {
 	display:inline-block; position:absolute; text-align:center;
-	top:200px; left:20px; width: 70px; height: 40px; line-height: 40px;
+	top:210px; left:25px; width: 70px; height: 40px; line-height: 40px;
 	font-size:1em; font-weight:bold; background-color:rgb(191,43,53);
 	color:#fff; opacity: 0.8;
 }
@@ -154,8 +154,9 @@
 }
 
 .p_listdetail1 {
-	font-size: 1.3em; font-weight: bold;
-	margin:5px 0;
+	width: 300px; font-size: 1.3em; font-weight: bold;
+	margin:5px 0 5px 25px; text-align:center;
+	white-space:normal; word-break:keep-all;
 }
 .p_listdetail2 {
 	color:red; text-decoration:line-through;
@@ -174,11 +175,11 @@
 }
 
 /* percent */
-.p_salepercent {
+/* .p_salepercent {
 	display:inline-block;
 	width: 40px; border:1px solid rgb(191,43,53); font-size:0.8em;
 	padding: 2px 3px; margin:1px 0 1px 10px;
-}
+} */
 
 /* tag css */
 
