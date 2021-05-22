@@ -288,15 +288,31 @@
  		pqnacontent='해당 문의글은 블라인드 처리 되었습니다.', panswercontent='해당 문의글은 블라인드 처리 되었습니다.' where pqnano=${param1}
  	</update>
  	
- 	<select id="pqnaViewList" parameterType="int" resultType="com.arbor.home.vo.ProductQnaVO">
+ 	<select id="pqnaViewList" parameterType="com.arbor.home.vo.PageProductQnaVO" resultType="com.arbor.home.vo.ProductQnaVO">
+ 		select * from( select * from(
  		select pqnano, pno, <!-- substr(userid,1,3) || lpad('*',length(userid)-2,'*') as  -->userid, pqnasubject, pqnacontent,  nvl(panswercontent, '답변 대기중 입니다.') as panswercontent,
- 		to_char(pqnadate, 'yyyy-mm-dd') as pqnadate, pqnaopen from productqna where pno=${param1} order by pqnano desc
+ 		to_char(pqnadate, 'yyyy-mm-dd') as pqnadate, pqnaopen from productqna where pno=${pno} order by pqnano desc)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pqnano asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pqnano desc
  	</select>
  	
- 	<select id="qnaViewList" parameterType="int" resultType="com.arbor.home.vo.ReviewVO">
+ 	<select id="pqnaViewListCnt" parameterType="int" resultType="int">
+ 		select count(pqnano) from productqna where pno=${param1}
+ 	</select>
+ 	
+ 	<select id="qnaViewList" parameterType="com.arbor.home.vo.PageProductQnaVO" resultType="com.arbor.home.vo.ReviewVO">
+ 		select * from( select * from(
  		select reviewno, pno, substr(r.userid,1,3) || lpad('*',length(r.userid)-2,'*') as userid,
  		substr(username,1,1) || lpad('*',length(username)-1,'*') as username, grade, reviewcontent, to_char(reviewdate, 'yyyy-mm-dd') as reviewdate
- 		from review r join member m on r.userid=m.userid where pno=${param1} order by reviewno desc
+ 		from review r join member m on r.userid=m.userid where pno=${pno} order by reviewdate desc)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by reviewdate asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by reviewdate desc
+ 	</select>
+ 	
+ 	<select id="qnaViewListCnt" parameterType="int" resultType="int">
+ 		select count(reviewno) from review where pno=${param1}
  	</select>
  	
  	<select id="productOptionView" parameterType="int" resultType="com.arbor.home.vo.OptionVO">

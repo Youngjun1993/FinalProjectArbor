@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.PageProductQnaVO;
+import com.arbor.home.vo.PageProductReviewVO;
 import com.arbor.home.vo.PageProductVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
@@ -53,9 +55,13 @@ public interface ProductDAOImp {
 	// 상품문의 삭제하기
 	public int pqnaDelete(int pqnano, String userid);
 	// 상품문의 확인을 위한 List
-	public List<ProductQnaVO> pqnaViewList(int pno);
+	public List<ProductQnaVO> pqnaViewList(PageProductQnaVO pageVO);
+	// 해당 상품에 대한 상품문의 총 갯수
+	public int pqnaViewListCnt(int pno);
 	// 해당 상품에 대한 리뷰목록 불러오기
-	public List<QnaVO> qnaViewList(int pno);
+	public List<QnaVO> qnaViewList(PageProductReviewVO pageVO);
+	// 해당 상품에 대한 리뷰 총 갯수 불러오기
+	public int qnaViewListCnt(int pno);
 	// 옵션번호로 정보 끌어오기
 	public OptionVO productOptionView(int optno);
 	// 리스트 탑3 정보 끌어오기

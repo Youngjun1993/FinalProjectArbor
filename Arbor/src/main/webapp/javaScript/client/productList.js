@@ -28,30 +28,18 @@ $(function(){
       $('html, body').animate({ scrollTop:0 }, 'slow');
       return false;
     });
-	
-	$("#p_optionClose").click(function(){
-		$("#p_optionClose").hide();
-		$("#p_fixedDetailDiv").hide();
-		$("#p_totalprice3").hide();
-		$("#p_optionOpen").show();
-	});
-	
-	$("#p_optionOpen").click(function(){
-		$("#p_optionClose").show();
-		$("#p_fixedDetailDiv").show();
-		$("#p_totalprice3").show();
-		$("#p_optionOpen").hide();
-	});
 
 });
 
 <!-- 상품문의 글작성 폼 띄우기 -->
 function hiddenOpen() {
+	$("#p_pqna").css('overflow', 'visible');
 	$("#p_qna_hidden").show();
 }
 
 <!-- 상품문의 취소시 폼 닫기 -->
 function hiddenClose() {
+	$("#p_pqna").css('overflow', 'auto');
 	$("#p_qna_hidden").hide();
 }
 

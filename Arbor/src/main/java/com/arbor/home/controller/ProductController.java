@@ -25,6 +25,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arbor.home.service.ProductServiceImp;
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.PageProductQnaVO;
+import com.arbor.home.vo.PageProductReviewVO;
 import com.arbor.home.vo.PageProductVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
@@ -113,17 +115,40 @@ public class ProductController {
 	
 	// View - 상품상세페이지
 	@RequestMapping("/productView")
-	public ModelAndView productView(int pno) {
+	public ModelAndView productView(PageProductQnaVO pageVO, PageProductReviewVO pageVO2, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		ProductVO vo = productService.productSelect(pno);
+		ProductVO vo = productService.productSelect(pageVO.getPno());
+		String pageNumStr = req.getParameter("pageNum");
+		String pageNumStr2 = req.getParameter("pageNum2");
+		if(pageNumStr != null) {
+			pageVO.setPageNum(Integer.parseInt(pageNumStr));
+		}
+		if(pageNumStr2 != null) {
+			pageVO2.setPageNum(Integer.parseInt(pageNumStr2));
+		}
+		pageVO2.setTotalRecord(productService.qnaViewListCnt(pageVO2.getPno()));
+		mav.addObject("qnaList", productService.qnaViewList(pageVO2));
+		
+		pageVO.setTotalRecord(productService.pqnaViewListCnt(pageVO.getPno()));
+		mav.addObject("pqnalst", productService.pqnaViewList(pageVO));
+		
 		mav.addObject("vo", vo);
 		mav.addObject("opt", productService.productListRGB(vo.getSubno()));
-		mav.addObject("optName", productService.optNameSelect(pno));
-		mav.addObject("optValue", productService.optValueSelect(pno));
-		mav.addObject("pqnalst", productService.pqnaViewList(pno));
-		mav.addObject("qnaList", productService.qnaViewList(pno));
+		mav.addObject("optName", productService.optNameSelect(pageVO.getPno()));
+		mav.addObject("optValue", productService.optValueSelect(pageVO.getPno()));
+		mav.addObject("pageVO", pageVO);
+		mav.addObject("pageVO2", pageVO2);
 		mav.setViewName("client/product/productView");
 		return mav;
+	}
+	
+	@RequestMapping("/pqnaView")
+	@ResponseBody
+	public List<ProductQnaVO> pqnaView(int pno) {
+		PageProductQnaVO pageVO = new PageProductQnaVO();
+		pageVO.setPno(pno);
+		pageVO.setTotalRecord(productService.pqnaViewListCnt(pageVO.getPno()));
+		return productService.pqnaViewList(pageVO);
 	}
 	
 	// View - 상품상세, 옵션 셀렉트박스 변경시 Div추가
@@ -152,13 +177,6 @@ public class ProductController {
 	public int pqnaUpdate(ProductQnaVO vo, HttpSession ses) {
 		vo.setUserid((String)ses.getAttribute("logId"));
 		return productService.pqnaUpdate(vo);
-	}
-	
-	// 상품문의 등록 후 목록 다시 불러오기
-	@RequestMapping("/pqnaView")
-	@ResponseBody
-	public List<ProductQnaVO> pqnaView(int pno) {
-		return productService.pqnaViewList(pno);
 	}
 	
 	// 상품문의 삭제
