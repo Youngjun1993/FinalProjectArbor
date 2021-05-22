@@ -180,7 +180,7 @@
 		주문, 결제, 배송, 반품/교환 문의는 1:1문의를 이용해주세요.</h3>
 		<a href="qnaList"><button type="button" class="clientSubBtn">1:1문의 바로가기</button></a><br/>
 		<c:if test="${fn:length(pqnalst)==0}">
-			<span class="p_noContentSpan">아직 등록된 문의가 없습니다.</span>
+			<span class="p_noContentSpan">아직 등록된 문의가 없습니다.</span><br/>
 		</c:if>
 		<hr/>
 			<c:forEach var="vo" items="${pqnalst }">
@@ -374,7 +374,7 @@
 			var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname}</li>";
 			tag += "<li><button class='optMinus'>-</button><span class='p_selectNum'>1</span><button class='optPlus'>+</button></li>";
 			tag += "<li class='p_bigPrice'>"+totalPrice.toLocaleString()+" 원<input type='hidden' name='price' value='"+totalPrice+"'/></li>";
-			tag += "</ul>";
+			tag += "<li></li></ul>";
 			
 			$("#p_detailSelect_Div").append(tag);
 			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
@@ -633,7 +633,11 @@
 					}
 				}
 			}, error : function(e) {
-				location.href="login";
+				if("${logName==null || logName==''}") {
+					location.href="login";
+				} else {
+					alert("선택하신 상품이 없습니다");
+				}
 			}
 		});
 	}
@@ -649,7 +653,8 @@
 			var txt = $(ul).children().eq(0).text();
 			var txtStart = txt.indexOf("(");
 			var txtEnd = txt.indexOf(")")-3;
-			optnameArr.push(txt.substr(txtStart+3, txtEnd-txtStart));
+			var optname = txt.substr(txtStart+3, txtEnd-txtStart);
+			optnameArr.push(optname);
 			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
 			priceArr.push($(ul).children().eq(2).children().val());
 		});
@@ -677,7 +682,7 @@
 					}
 				}
 			}, error : function(e) {
-				location.href="login";
+				
 			}
 		});
 	}
