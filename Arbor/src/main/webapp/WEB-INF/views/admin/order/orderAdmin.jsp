@@ -12,8 +12,117 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
+<script>
+  $(function(){
+	 
+	//datepicker 옵션 설정
+	$.datepicker.setDefaults({
+		dateFormat: "yy-mm-dd",
+		dayNamesMin: ['일','월','화','수','목','금','토'],
+		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+		yearSuffix: "년",
+		showOtherMonths: true,		//빈 공간에 앞뒤월의 날짜 표시
+		showMonthAfterYear:true,	//년+월
+		changeYear: true,			//콤보박스 연도 선택 가능
+		changeMonth: true,			//콤보박스 월 선택 가능
+		showOn: "focus"				//both:버튼을 누르거나 input을 클릭하면 달력 표시
+       	//buttonImage: "../../../img/calendar2.png",
+       	//buttonImageOnly: true
+	});
+	$("#orderSearch_from").datepicker({
+		onClose : function(selectedDate){
+	    	$("#orderSearch_to").datepicker("option", "minDate", selectedDate);
+	    }
+	});
+	$("#orderSearch_to").datepicker({
+		onClose : function(selectedDate){
+	    	$("#orderSearch_from").datepicker("option", "maxDate", selectedDate);
+	    }
+	});
+	/* 
+	$('#orderSearch_from').click(function(){
+		if($('#orderSearch_from').text()!=null){
+			$('#j_orderSearch li').removeClass("oSelected");
+			$('#period').attr('value', '');
+		}
+	});
+	$('#orderSearch_to').click(function(){
+		if($('#orderSearch_from').text()!=null){
+			$('#j_orderSearch li').removeClass("oSelected");
+			$('#period').attr('value', '');
+		}
+	}); */
+	
+ 	$('#j_orderSearch li').click(function(){
+		var period = $(this).text();
+		$(this).addClass("oSelected");
+		/* $('#period').attr('value', period); */
+		/* $('#orderSearch_from').val('');
+		$('#orderSearch_to').val('');	 */
+		$(this).siblings().removeClass("oSelected");
+	});
+	
+	$('#j_selectAll').click(function(){
+		if($('#j_selectAll').prop('checked')){
+			console.log("전체선택 체크!")
+			$('#j_orderList input[type=checkbox]').prop('checked', true);
+		}else{
+			$('#j_orderList input[type=checkbox]').prop('checked', false);
+		}
+	})
+	$('#j_orderList input[type=checkbox]:not(#j_selectAll)').click(function(){
+		if($('#j_selectAll').prop('checked')){
+			$('#j_selectAll').prop('checked', false)
+		}		
+	});
+	
+  });
+  
+  function setSearchDate(no){
+	  console.log("주문 검색기간 선택->"+no);
+	  var now = new Date();
+	  var year = now.getFullYear();
+	  var month = now.getMonth()+1;
+	  var date = now.getDate();
+	  var today = formatDate(year+"-"+month+"-"+date);
+	  if(no==1){
+		  $('#orderSearch_from').val(formatDate(new Date()));
+		  $('#orderSearch_to').val(today);
+	  }else if(no==2){
+		  now = new Date();
+		  date = now.getDate();
+		  $('#orderSearch_from').val(formatDate(new Date(now.setDate(now.getDate()-6))));
+		  $('#orderSearch_to').val(today);
+	  }else if(no==3){
+		  now = new Date();
+		  date = now.getDate();
+		  $('#orderSearch_from').val(formatDate(new Date(now.setDate(now.getDate()-30))));
+		  $('#orderSearch_to').val(today);
+	  }else if(no==4){
+		  now = new Date();
+		  date = now.getDate();
+		  $('#orderSearch_from').val(formatDate(new Date(now.setDate(now.getDate()-90))));
+		  $('#orderSearch_to').val(today);
+	  } 
+  }
+  
+  function formatDate(date) {
+		var d = new Date(date), month = ''+(d.getMonth()+1), day = ''+d.getDate(), year = d.getFullYear();
+		if (month.length<2) month = '0'+month;
+		if (day.length<2) day = '0'+day;
+		return [year, month, day].join('-');
+	}
+  
+  
+  
+  
+  
+</script>
+>>>>>>> refs/remotes/origin/kje2
 </head>
 <body>
 <div class="w1400_container font_ng">
@@ -34,12 +143,12 @@
 					<div>
 						<span>주문일자</span>
 						<ul>
-							<li><a href="#">당일</a></li>
-							<li><a href="#">일주일</a></li>
-							<li><a href="#">1개월</a></li>
-							<li><a href="#">3개월</a></li>
+							<li><a href="javascript:setSearchDate(1)">당일</a></li>
+							<li><a href="javascript:setSearchDate(2)">일주일</a></li>
+							<li><a href="javascript:setSearchDate(3)">1개월</a></li>
+							<li><a href="javascript:setSearchDate(4)">3개월</a></li>
 						</ul>
-						<input type="hidden" name="period" id="period" value=""/>
+						<!-- <input type="hidden" name="period" id="period" value=""/> -->
 						<input type="text" name="orderSearch_from" id="orderSearch_from" placeholder="시작일"/>&nbsp;&nbsp;~&nbsp;&nbsp;
 						<input type="text" name="orderSearch_to" id="orderSearch_to" placeholder="종료일"/>				
 					</div>

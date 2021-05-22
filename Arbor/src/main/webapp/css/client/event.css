@@ -167,7 +167,7 @@
 #j_eventList{padding-top:15px;}
 #j_eventList>li{
 	float:left;
-	margin:10px 15px;
+	margin:10px 15px 20px 15px;
 	padding:0 10px;
 	text-align:center;
 }

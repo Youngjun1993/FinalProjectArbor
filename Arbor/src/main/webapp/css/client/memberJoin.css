@@ -98,6 +98,13 @@
 		margin:10px 0;
 	}
 	
+	.h_trans{
+		padding: 7px 40px 7px 12px;
+		margin:10px 0;
+		background:transparent;
+		opacity:0.01;
+	}
+	
 	/* 비번 이메일 인증 체크박스 */
 	.h_pwdchk{
 	background-color:#ebebe4;
@@ -145,7 +152,7 @@
 	.h_check_btn {
 	font-size: 1.1em;
 	line-height: 32px;
-	width: 150px;
+	width: 110px;
 	height: 32px;
 	cursor: pointer;
 	vertical-align: middle;

@@ -326,7 +326,7 @@
 		</td>
 		<td>
 		<input type="text" name="userid" id="userid" size="58" class="h_ipt" required="required" value="">
-		<input type="button" value="중복확인" class="h_check_btn h_idchk">
+		&nbsp;&nbsp;&nbsp;<input type="button" value="중복확인" class="h_check_btn h_idchk">
 		<!-- 입력검사 확인용 -->				
 		<input type="hidden" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
 		</td>
@@ -337,7 +337,7 @@
 		<label for="pwd">비밀번호 *</label>
 		</td>
 		<td>
-		<input type="password" name="userpwd" id="userpwd" size="58" class="h_ipt" required="required" value="">(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
+		<input type="password" name="userpwd" id="userpwd" size="58" class="h_ipt" required="required" value=""><br/>(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
 		</td>
 		</tr>
 		
@@ -366,12 +366,12 @@
 		<label for="addr">주 소</label>
 		</td>
 		<td>
-		<input type="text" name="zipcode" id="zipcode" size="36" class="h_ipt zipcode" readonly="readonly">
-		<input type="button" id="zipcode_btn" value="우편번호 찾기" class="h_check_btn" onclick="kakao_address()"/>
+		<input type="text" name="zipcode" id="zipcode" size="58" class="h_ipt zipcode" readonly="readonly">
+		&nbsp;&nbsp;&nbsp;<input type="button" id="zipcode_btn" value="우편번호찾기" class="h_check_btn" onclick="kakao_address()"/>
 		
-	  	<input type="text" name="addr" id="addr" size="58" class="h_ipt addr" readonly="readonly"> 기본주소
+	  	<input type="text" name="addr" id="addr" size="58" class="h_ipt addr" readonly="readonly">&nbsp;&nbsp;&nbsp;기본주소
 		
-		<input type="text" name="detailaddr" id="detailaddr" size="58" class="h_ipt detailaddr" required="required"> 나머지 주소
+		<input type="text" name="detailaddr" id="detailaddr" size="58" class="h_ipt detailaddr" required="required">&nbsp;&nbsp;&nbsp;나머지 주소
 		</td>
 		</tr>
 		
@@ -380,7 +380,7 @@
 		연락처
 		</td>
 		<td>
-		<select id="tel" name="tel1" class="h_select">
+		<select id="tel" name="tel1" class="h_select" style="width:110px">
 			<option value="010">010</option>
 		  	<option value="011">011</option>
 			<option value="070">070</option>
@@ -402,8 +402,8 @@
 			<option value="063">063</option>
 			<option value="064">064</option>
 		</select>
-		-<input type="text" name="tel2" id="tel2" size="5" class="h_ipt" required="required" value="">
-		-<input type="text" name="tel3" id="tel3" size="5" class="h_ipt" required="required" value="">
+		&nbsp;-&nbsp;<input type="text" name="tel2" id="tel2" size="11" class="h_ipt" required="required" value="">
+		&nbsp;-&nbsp;<input type="text" name="tel3" id="tel3" size="11" class="h_ipt" required="required" value="">
 		</td>
 		</tr>
 		
@@ -414,6 +414,7 @@
 	 	<td>
 		<input type="radio" name="smsok" value="Y" checked>예
 		<input type="radio" name="smsok" value="N">아니오
+		<input type="text" class="h_trans"  disabled="disabled">
 		</td>
 		</tr>
 		
@@ -422,8 +423,8 @@
 		<label for="email">이메일</label>
 		</td>
 		<td>
-		<input type="text" name="emailid" id="emailid" size="10px" class="h_ipt emailid" required="required" value=""> @ 
-		<select name="emaildomain" id="emaildomain" class="h_select emaildomain" required="required">
+		<input type="text" name="emailid" id="emailid" size="22" class="h_ipt emailid" required="required" value=""> @ 
+		<select name="emaildomain" id="emaildomain" class="h_select emaildomain" required="required" style="width:210px">
 			<option value=""></option>
 			<option value="gmail.com">gmail.com</option>
 			<option value="naver.com">naver.com</option>
@@ -440,8 +441,8 @@
 		<label for="emailvalid">인증번호</label>
 		</td>
 	 	<td>
-	 	<input type="text" name="emailvalid" id="emailvalid" size="20px" class="h_emailvalid" required="required" disabled="disabled">
-		<input type="button" id="emailcheck" value="인증 요청" class="h_check_btn emailchk">
+	 	<input type="text" name="emailvalid" id="emailvalid" size="58" class="h_emailvalid" required="required" disabled="disabled">
+		&nbsp;&nbsp;&nbsp;<input type="button" id="emailcheck" value="인증 요청" class="h_check_btn emailchk">
 		<span class="h_email_warning"></span>
 		</td>
 		</tr>
@@ -453,6 +454,7 @@
 	 	<td>
 		<input type="radio" name="emailok" value="Y" checked>예
 		<input type="radio" name="emailok" value="N">아니오
+		<input type="text" class="h_trans"  disabled="disabled">
 		</td>
 		</tr>
 		</table>
