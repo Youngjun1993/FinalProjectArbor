@@ -139,17 +139,15 @@
 						<input type="hidden" name="smsok" value="${pageMaker.cri.smsok}" />
 						<!-- 이메일 sms 추가 -->
 					</form>
-					<ul class="paging">
+					<ul class="h_paging" id="adPaging">
 						<c:if test="${pageMaker.prev }">
-							<li><a class="pagingLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
+							<li><a class="pagingAdLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
 						</c:if>
-						<c:forEach var="num" begin="${pageMaker.startPage }"
-							end="${pageMaker.endPage }">
-							<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a
-								href="${num }">${num }</a></li>
+						<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+							<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
 						</c:forEach>
 						<c:if test="${pageMaker.next }">
-							<li><a class="pagingLR_a " href="${pageMaker.endPage + 1 }">＞</a></li>
+							<li><a class="pagingAdLR_a" href="${pageMaker.endPage + 1 }">＞</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -285,9 +283,9 @@
 		
 		/* 페이지 버튼*/
 		
-		$('.paging a').on("click", function(e){
+		$('.h_paging a').on("click", function(e){
 			e. preventDefault();
-			var pageBtn = $('#	');
+			var pageBtn = $('#pageBtn_form');
 			pageBtn.find('input[name="pageNum"]').val($(this).attr('href'));
 			pageBtn.submit();
 		});
