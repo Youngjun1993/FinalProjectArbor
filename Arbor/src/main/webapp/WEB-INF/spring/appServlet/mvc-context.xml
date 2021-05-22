@@ -17,7 +17,7 @@
 			<mvc:mapping path="/pqnaInsert"/> <!-- 상품문의등록 -->
 			<mvc:mapping path="/dibsList"/> <!-- 찜목록 -->
 			<mvc:mapping path="/dibsInsert"/>
-			<mvc:mapping path="/dibsAppendCart"/>
+			<mvc:mapping path="/cartStart"/>
 			<mvc:mapping path="/cartList"/> <!-- 장바구니 -->
 			<mvc:mapping path="/cartInsert"/>
 			<mvc:mapping path="/cartStart"/>
