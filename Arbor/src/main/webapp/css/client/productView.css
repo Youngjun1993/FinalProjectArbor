@@ -190,11 +190,19 @@
 	width: 100%; overflow : auto;
 	padding-bottom:30px;
 }
+#p_reviewInsertBtn {
+	display:inline-block;
+	margin-top: 10px; margin-bottom:10px; padding:10px 30px;
+	font-size:1.2em;
+}
 
 /* 상품문의 */
 #p_pqna {
-	width: 1300px; margin: 0 auto;
+	width: 1300px; margin: 30px auto; overflow : auto;
 	text-align: center; position:relative;
+}
+#p_pqna>h1 {
+	margin-top:50px;
 }
 #p_pqna>div:not(#p_qna_hidden) {
 	overflow: auto;
@@ -326,6 +334,7 @@
 }
 
 /* 리뷰 */
+
 .p_review_leftDiv {
 	float:left; width: 15%; text-align: center;
 }
@@ -344,6 +353,9 @@
 }
 .elsestar {
 	font-size:1.4em; color:rgb(204,204,204);
+}
+.p_noContentSpan {
+	display:inline-block; font-size:1.1em; margin:70px 0 50px;
 }
 
 /* 상품문의 */

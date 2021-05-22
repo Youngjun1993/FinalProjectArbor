@@ -160,6 +160,10 @@
 		</div>
 		<hr/>
 		</c:forEach>
+		<c:if test="${fn:length(qnaList)==0}">
+			<span class="p_noContentSpan">아직 등록된 리뷰가 없습니다.</span><br/>
+			<a href="purchaseList" id="p_reviewInsertBtn" class="clientSubBtn">리뷰등록하러가기</a>
+		</c:if>
 	</div>
 	<span id="p_pqnaMenu_up"></span>
 	<div id="p_pqnaMenu">
@@ -175,6 +179,9 @@
 		<h3>해당 상품에 대한 문의만 답변이 가능하며 답변완료까지 1~5일이 소요될 수 있습니다.<br/>
 		주문, 결제, 배송, 반품/교환 문의는 1:1문의를 이용해주세요.</h3>
 		<a href="qnaList"><button type="button" class="clientSubBtn">1:1문의 바로가기</button></a><br/>
+		<c:if test="${fn:length(pqnalst)==0}">
+			<span class="p_noContentSpan">아직 등록된 문의가 없습니다.</span>
+		</c:if>
 		<hr/>
 			<c:forEach var="vo" items="${pqnalst }">
 		<div>
@@ -367,7 +374,7 @@
 			var tag = "<ul class='p_detailSelect_ul'><li>${vo.pname}</li>";
 			tag += "<li><button class='optMinus'>-</button><span class='p_selectNum'>1</span><button class='optPlus'>+</button></li>";
 			tag += "<li class='p_bigPrice'>"+totalPrice.toLocaleString()+" 원<input type='hidden' name='price' value='"+totalPrice+"'/></li>";
-			tag += "<li><img src='./img/cancel.png' class='cancelimg' style='cursor:pointer;'/></li></ul>";
+			tag += "</ul>";
 			
 			$("#p_detailSelect_Div").append(tag);
 			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
@@ -626,7 +633,7 @@
 					}
 				}
 			}, error : function(e) {
-				
+				location.href="login";
 			}
 		});
 	}
@@ -670,7 +677,7 @@
 					}
 				}
 			}, error : function(e) {
-				
+				location.href="login";
 			}
 		});
 	}
@@ -805,7 +812,7 @@
 							
 							$("#p_pqna").html(tag);
 						}, error : function(e) {
-							
+							location.href="login";
 						}
 					});
 				}
@@ -906,7 +913,7 @@
 						});
 					}
 				}, error : (e)=>{
-				
+					location.href="login";
 				}
 			});
 		}

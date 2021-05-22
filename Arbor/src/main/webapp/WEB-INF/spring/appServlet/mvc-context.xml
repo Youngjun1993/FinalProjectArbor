@@ -18,6 +18,8 @@
 			<mvc:mapping path="/dibsList"/> <!-- 찜목록 -->
 			<mvc:mapping path="/cartList"/> <!-- 장바구니 -->
 			<mvc:mapping path="/cartInsert"/>
+			<mvc:mapping path="/cartStart"/>
+			<mvc:mapping path="/cartUpdate"/>
 			<mvc:mapping path="/order"/>
 			
 			<bean class="com.arbor.home.interceptor.Logininterceptor_Client"></bean>
@@ -43,6 +45,12 @@
 			<mvc:mapping path="/cateEdit"/> <!-- 수정 -->
 			<mvc:mapping path="/pqnaNoAnswerList"/> <!-- 미답변글목록 -->
 			<mvc:mapping path="/mailcheck"/><!-- 가입인증 메일 체크 -->
+			<mvc:mapping path="/couponAdList"/>
+			<mvc:mapping path="/dibsList"/>
+			<mvc:mapping path="/dibsInsert"/>
+			<mvc:mapping path="/dibsAppendCart"/>
+			<mvc:mapping path="/dibsDelete"/>
+			
 			<bean class="com.arbor.home.interceptor.Logininterceptor_Admin"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
