@@ -17,8 +17,7 @@
 }
 
 .h_menu_list .h_menu_submenu li a:hover {
-    background:rgb(191,43,53);
-    color:#fff;
+	background: #eee;
 }
 
 /* 메뉴 전체 스타일 */
@@ -83,45 +82,23 @@
 }
 /* 아코디언 toggle 이벤트 발생시 */
 .accordion-toggle.active-tab {
-<<<<<<< HEAD
-  background: #eee;
-  transition: all 0.3s ease;
-  
-=======
 	background: rgb(191, 43, 53);
 	transition: all 0.3s ease;
->>>>>>> refs/remotes/origin/YH_formCheck
 }
-<<<<<<< HEAD
-.accordion-toggle.active-tab a{
-  color:#333 !important;
-=======
 
 .accordion-toggle.active-tab a {
 	color: white !important;
->>>>>>> refs/remotes/origin/YH_formCheck
 }
 
 .accordion-toggle a.active:before {
-<<<<<<< HEAD
-    transform: rotate(0deg);
-    background: #333;
-=======
 	transform: rotate(0deg);
 	background: #fff;
->>>>>>> refs/remotes/origin/YH_formCheck
 }
 
 .accordion-toggle a.active:after {
-<<<<<<< HEAD
-    transform: rotate(180deg);
-    background: #333;
-    opacity: 0;
-=======
 	transform: rotate(180deg);
 	background: #fff;
 	opacity: 0;
->>>>>>> refs/remotes/origin/YH_formCheck
 }
 /* 관리자 공통메뉴 끝 */
 .h_mainContainer {
@@ -322,13 +299,11 @@
 	letter-spacing: 1px; 
 }
 /* ///////////////////////////탈퇴회원 페이지/////////////////////////// */
-=======
 	} */
 .h_paging_wrap {
 	text-align: center;
 	margin-top: 50px;
 }
->>>>>>> refs/remotes/origin/YH_formCheck
 
 .h_paging_wrap>ul {
 	margin-bottom: 50px;
