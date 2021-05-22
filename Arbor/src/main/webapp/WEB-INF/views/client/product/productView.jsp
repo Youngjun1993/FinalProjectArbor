@@ -682,7 +682,11 @@
 					}
 				}
 			}, error : function(e) {
-				
+				if("${logName==null || logName==''}"==true) {
+					location.href="login";
+				} else {
+					alert("선택하신 상품이 없습니다");
+				}
 			}
 		});
 	}

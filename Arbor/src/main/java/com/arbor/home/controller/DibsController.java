@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.DibsServiceImp;
-import com.arbor.home.vo.CartVO;
 import com.arbor.home.vo.DibsVO;
 import com.arbor.home.vo.PageDibsVO;
-import com.arbor.home.vo.PageSearchVO;
 
 @Controller
 public class DibsController {
