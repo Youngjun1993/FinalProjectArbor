@@ -26,6 +26,8 @@ public class OrderTblVO {
 	private int deliveryprice;
 	private int totalprice;
 	private int applynum;
+	private String imp_uid;	//취소할 거래의 아임포트 고유번호
+	private String merchant_uid;	//가맹점에서 전달한 거래 고유번호
 	
 	private String status="";
 	private String pname;
@@ -40,7 +42,7 @@ public class OrderTblVO {
 	private int complete;	//배송완료
 	
 	/* 주문 리스트 검색 변수 */
-	private String period="";
+	/*private String period="";*/
 	private String orderSearch_from="";
 	private String orderSearch_to="";
 	private String searchKey;
@@ -167,6 +169,18 @@ public class OrderTblVO {
 	public void setApplynum(int applynum) {
 		this.applynum = applynum;
 	}
+	public String getImp_uid() {
+		return imp_uid;
+	}
+	public void setImp_uid(String imp_uid) {
+		this.imp_uid = imp_uid;
+	}
+	public String getMerchant_uid() {
+		return merchant_uid;
+	}
+	public void setMerchant_uid(String merchant_uid) {
+		this.merchant_uid = merchant_uid;
+	}
 	public String getStatus() {
 		return status;
 	}
@@ -209,12 +223,12 @@ public class OrderTblVO {
 	public void setComplete(int complete) {
 		this.complete = complete;
 	}
-	public String getPeriod() {
-		return period;
-	}
-	public void setPeriod(String period) {
-		this.period = period;
-	}
+	/*	public String getPeriod() {
+			return period;
+		}
+		public void setPeriod(String period) {
+			this.period = period;
+		}*/
 	public String getOrderSearch_from() {
 		return orderSearch_from;
 	}
@@ -241,8 +255,7 @@ public class OrderTblVO {
 	}
 	@Override
 	public String toString() {
-		return "OrderTblVO [period=" + period
-				+ ", orderSearch_from=" + orderSearch_from + ", orderSearch_to=" + orderSearch_to + ", searchKey="
+		return "OrderTblVO [orderSearch_from=" + orderSearch_from + ", orderSearch_to=" + orderSearch_to + ", searchKey="
 				+ searchKey + ", searchWord=" + searchWord + "]";
 	}
 	

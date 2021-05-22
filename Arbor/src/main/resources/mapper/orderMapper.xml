@@ -23,8 +23,8 @@
 		select lpad(ordersq.nextval, 3, '0') orderSq from dual
 	</select>
 	<insert id="orderComplete" parameterType="com.arbor.home.vo.OrderTblVO">
-		insert into orderTbl(orderno, orderdate, userid, arr, arrtel, arrzipcode, arraddr, arrdetailaddr, request, pluspoint, usepoint, usecoupon, totalprice, applyNum)
-		values(#{orderno}, sysdate, #{userid}, #{arr}, #{arrtel}, #{arrzipcode}, #{arraddr}, #{arrdetailaddr}, #{request}, #{pluspoint}, #{usepoint}, #{usecoupon}, #{totalprice}, #{applynum})
+		insert into orderTbl(orderno, orderdate, userid, arr, arrtel, arrzipcode, arraddr, arrdetailaddr, request, pluspoint, usepoint, usecoupon, totalprice, applyNum, imp_uid, merchant_uid)
+		values(#{orderno}, sysdate, #{userid}, #{arr}, #{arrtel}, #{arrzipcode}, #{arraddr}, #{arrdetailaddr}, #{request}, #{pluspoint}, #{usepoint}, #{usecoupon}, #{totalprice}, #{applynum}, #{imp_uid}, #{merchant_uid})
 	</insert>
 	<insert id="createSubOrderList" parameterType="com.arbor.home.vo.SubOrderVO">
 		insert into suborder(suborderno, orderno, pno, pname, optinfo, quantity, subprice)
@@ -43,7 +43,7 @@
 		update orderTbl set status=#{param2} where orderno=#{param1}
 	</update>
 	<select id="selectOrderList" resultType="com.arbor.home.vo.OrderTblVO" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from (select * from (select to_char(orderdate, 'yyyy-mm-dd hh24:mi') orderdate, o.orderno, status, m.username, m.tel, arr, arrtel, request
+		<!-- select * from (select * from (select to_char(orderdate, 'yyyy-mm-dd hh24:mi') orderdate, o.orderno, status, m.username, m.tel, arr, arrtel, request
 		from orderTbl o join member m on o.userid=m.userid
 		where 1=1
 		<choose>
@@ -64,11 +64,33 @@
 		order by orderno desc)
 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by orderno asc)
 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderno desc -->
+		
+		select *
+		from (select * 
+				from (select to_char(orderdate, 'yyyy/mm/dd hh24:mi') orderdate, 
+						o.orderno, status, m.username, m.tel, arr, arrtel, request
+						from orderTbl o join member m on o.userid=m.userid
+						where 1=1
+<!-- 		<choose>
+			<when test="orderSearch_from!='' and orderSearch_to!=''">
+				and '${orderSearch_from}'<![CDATA[ <= ]]>to_char(orderdate, 'yyyy/mm/dd')
+				and to_char(orderdate, 'yyyy/mm/dd')<![CDATA[ <= ]]>'${orderSearch_to}'
+			</when>
+		</choose> -->
+		<if test="(orderSearch_from!='' and orderSearch_from!=null) and (orderSearch_to!='' and orderSearch_to!=null)">
+			and to_char(orderdate, 'yyyy/mm/dd') between #{orderSearch_from} and #{orderSearch_to}</if>
+		<if test="searchWord!='' and searchWord!=null">
+			and ${searchKey} like '%${searchWord}%'
+		</if>
+			order by orderno desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by orderno asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderno desc
 	</select>
 	
 	<select id="countOfOrderStatus" resultType="com.arbor.home.vo.OrderTblVO">
-		select count(case when to_char(orderdate, 'yyyy/mm/dd')=to_char(sysdate, 'yyyy/mm/dd') then 1 end) as neworder,
+<!-- 		select count(case when to_char(orderdate, 'yyyy/mm/dd')=to_char(sysdate, 'yyyy/mm/dd') then 1 end) as neworder,
 		count(case when status='배송준비' then 1 end) as ready,
 		count(case when status='배송중' then 1 end) as delivery,
 		count(case when status='배송완료' then 1 end) as complete from orderTbl
@@ -86,10 +108,18 @@
 					and to_char(orderdate, 'yyyy/mm/dd')<![CDATA[ <= ]]>'${orderSearch_to}'
 				</if>
 			</otherwise>
-		</choose>
+		</choose> -->
+		select count(case when to_char(orderdate, 'yyyy/mm/dd')=to_char(sysdate, 'yyyy/mm/dd') then 1 end) as neworder,
+		count(case when status='배송준비' then 1 end) as ready,
+		count(case when status='배송중' then 1 end) as delivery,
+		count(case when status='배송완료' then 1 end) as complete from orderTbl
+		where 1=1
+		<if test="orderSearch_from!='' and orderSearch_from!=null and orderSearch_to!='' and orderSearch_to!=null">and to_char(orderdate, 'yyyy-mm-dd') between #{orderSearch_from} and #{orderSearch_to}</if>
+		<if test="searchWord!='' and searchWord!=null">and ${searchKey} like '%${searchWord}%'</if>	
 	</select>
+	
 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
-		select count(orderno) as totalRecord from orderTbl
+<!-- 		select count(orderno) as totalRecord from orderTbl
 		where 1=1
 		<choose>
 			<when test="period!=''">
@@ -105,7 +135,11 @@
 				</if>
 			</otherwise>
 		</choose>
-		<if test="searchWord!=''">and ${searchKey} like '%${searchWord}%'</if>
+		<if test="searchWord!=''">and ${searchKey} like '%${searchWord}%'</if> -->
+		select count(orderno) as totalRecord from orderTbl
+		where 1=1
+		<if test="orderSearch_from!='' and orderSearch_from!=null and orderSearch_to!='' and orderSearch_to!=null">and to_char(orderdate, 'yyyy-mm-dd') between #{orderSearch_from} and #{orderSearch_to}</if>
+		<if test="searchWord!='' and searchWord!=null">and ${searchKey} like '%${searchWord}%'</if>
 	</select>
 	
 	<!-- 장바구니에서 전체구매버튼 클릭 시  -->
