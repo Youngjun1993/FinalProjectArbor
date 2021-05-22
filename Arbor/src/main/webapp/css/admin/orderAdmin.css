@@ -61,18 +61,22 @@
 	height: 30px;
 	line-height: 30px;
 	text-align: center;
-	border: 1px solid rgb(191,43,53);
+/* 	border: 1px solid rgb(191,43,53); */
+	border: 1px solid #ddd;
 	margin-right: -1px;
-	color: rgb(191,43,53);
+	background: #eee;
 }
 #j_orderSearch li:not(.oSelected) a{
-	color: rgb(191,43,53);
+	/* color: rgb(191,43,53); */
+	color: #333;
+	/* background: #eee; */
 }
-.oSelected{
+#j_orderSearch .oSelected{
 	background: rgb(191,43,53);
 }
-.oSelected>a{
+#j_orderSearch .oSelected>a{
 	color: #fff;
+	background: rgb(191,43,53);
 }
 .j_centerFrm input, .j_centerFrm select{
 	height: 32px;

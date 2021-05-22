@@ -6,14 +6,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/orderAdmin.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
-<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <!-- datepicker -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script>
   $(function(){
@@ -56,12 +57,12 @@
 		}
 	}); */
 	
-	$('#j_orderSearch li').click(function(){
+ 	$('#j_orderSearch li').click(function(){
 		var period = $(this).text();
 		$(this).addClass("oSelected");
-		$('#period').attr('value', period);
-		$('#orderSearch_from').val('');
-		$('#orderSearch_to').val('');	
+		/* $('#period').attr('value', period); */
+		/* $('#orderSearch_from').val('');
+		$('#orderSearch_to').val('');	 */
 		$(this).siblings().removeClass("oSelected");
 	});
 	
@@ -81,34 +82,40 @@
 	
   });
   
-  function setSearchDate(period){
-	  console.log("주문 검색기간 선택");
+  function setSearchDate(no){
+	  console.log("주문 검색기간 선택->"+no);
 	  var now = new Date();
 	  var year = now.getFullYear();
 	  var month = now.getMonth()+1;
 	  var date = now.getDate();
 	  var today = formatDate(year+"-"+month+"-"+date);
-	  if(period==theday){
+	  if(no==1){
 		  $('#orderSearch_from').val(formatDate(new Date()));
-		  $('#orderSearch_to').val(formatDate())
-	  }else if(period==aWeek){
+		  $('#orderSearch_to').val(today);
+	  }else if(no==2){
 		  now = new Date();
 		  date = now.getDate();
-		  $('#orderSearch_from').val(formatDate(new Date(now.setDate(now.getDate()-7))));
+		  $('#orderSearch_from').val(formatDate(new Date(now.setDate(now.getDate()-6))));
 		  $('#orderSearch_to').val(today);
-	  }else if(period==month1){
+	  }else if(no==3){
 		  now = new Date();
 		  date = now.getDate();
 		  $('#orderSearch_from').val(formatDate(new Date(now.setDate(now.getDate()-30))));
 		  $('#orderSearch_to').val(today);
-	  }else if(period==month3){
+	  }else if(no==4){
 		  now = new Date();
 		  date = now.getDate();
 		  $('#orderSearch_from').val(formatDate(new Date(now.setDate(now.getDate()-90))));
 		  $('#orderSearch_to').val(today);
-	  }
-	  
+	  } 
   }
+  
+  function formatDate(date) {
+		var d = new Date(date), month = ''+(d.getMonth()+1), day = ''+d.getDate(), year = d.getFullYear();
+		if (month.length<2) month = '0'+month;
+		if (day.length<2) day = '0'+day;
+		return [year, month, day].join('-');
+	}
   
   
   
@@ -136,12 +143,12 @@
 					<div>
 						<span>주문일자</span>
 						<ul>
-							<li><a href="javascript:setSearchDate(theday)">당일</a></li>
-							<li><a href="javascript:setSearchDate(aWeek)">일주일</a></li>
-							<li><a href="javascript:setSearchDate(month1)">1개월</a></li>
-							<li><a href="javascript:setSearchDate(month3)">3개월</a></li>
+							<li><a href="javascript:setSearchDate(1)">당일</a></li>
+							<li><a href="javascript:setSearchDate(2)">일주일</a></li>
+							<li><a href="javascript:setSearchDate(3)">1개월</a></li>
+							<li><a href="javascript:setSearchDate(4)">3개월</a></li>
 						</ul>
-						<input type="hidden" name="period" id="period" value=""/>
+						<!-- <input type="hidden" name="period" id="period" value=""/> -->
 						<input type="text" name="orderSearch_from" id="orderSearch_from" placeholder="시작일"/>&nbsp;&nbsp;~&nbsp;&nbsp;
 						<input type="text" name="orderSearch_to" id="orderSearch_to" placeholder="종료일"/>				
 					</div>

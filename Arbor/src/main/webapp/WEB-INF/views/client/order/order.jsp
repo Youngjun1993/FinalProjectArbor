@@ -3,8 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 다음 주소록 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!-- jQuery -->
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
 <!-- iamport 결제 API -->
  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
@@ -168,8 +166,9 @@
 		var IMP = window.IMP;
 		IMP.init('imp60549605');	//가맹점 key
 		var msg="";
-		var applyNum="";	//결제 승인번호
-		var paidAt="";		//결제 승인시각
+		var applynum="";	//결제 승인번호
+		var imp_uid="";		//취소할 거래의 아임포트 고유번호
+		var merchant_uid="";//가맹점에서 전달한 거래 고유번호
 		
 	 	IMP.request_pay({
 		    pg : 'inicis',
@@ -191,17 +190,20 @@
 		        msg2 += ' / 결제 금액 : ' + rsp.paid_amount;
 		        msg2 += ' / 카드 승인번호 : ' + rsp.apply_num;
 		        msg2 += ' / 결제승인시각 : ' + rsp.paid_at;
-		        applyNum = rsp.apply_num;
-		        paidAt = rsp.paid_at;
+		        applynum = rsp.apply_num;
+		        imp_uid = rsp.imp_uid;
+		        merchant_uid = rsp.merchant_uid;
 		        console.log(msg2);
 		    }else{
 		    	var msg = '결제에 실패하였습니다.';
 		    	msg += "('" + rsp.error_msg + "')";
-		   		console('에러내용 : ' + rsp.error_msg);
+		   		console.log('에러내용 : ' + rsp.error_msg);
 		    }
 		    alert(msg);
-		    console.log("결제승인번호->"+applyNum+", 결제승인시각->"+paidAt);
-		    $('#j_applyNum').attr('value', applyNum)
+		    console.log("결제승인번호->"+applynum);
+		    $('#j_applynum').attr('value', applynum)
+		    $('#j_imp_uid').attr('value', imp_uid)
+		    $('#j_merchant_uid').attr('value', merchant_uid)
 		    $("#j_checkoutFrm").submit();
 		});
 	}
@@ -316,11 +318,11 @@
 								<input type="hidden" name="cartno" value="${pInfoVo.cartno }"/>
 							</div>
 						</li>
-						<li>${pInfoVo.pprice }</li>
-						<li>${pInfoVo.saleprice }</li>
+						<li><fmt:formatNumber value='${pInfoVo.pprice }'/></li>
+						<li><fmt:formatNumber value='${pInfoVo.saleprice }'/></li>
 						<li>${pInfoVo.quantity }</li>
-						<li>${pInfoVo.deliveryprice }</li>
-						<li>${pInfoVo.quantity*pInfoVo.subprice }</li>
+						<li><fmt:formatNumber value='${pInfoVo.deliveryprice }'/></li>
+						<li><fmt:formatNumber value='${pInfoVo.quantity*pInfoVo.subprice }'/></li>
 						<c:set var="sumDelivery" value='${sumDelivery + pInfoVo.deliveryprice }'/>
 						<c:set var="sumPayment" value='${sumPayment + pInfoVo.quantity*pInfoVo.subprice }'/>
 					</c:forEach>
@@ -557,7 +559,9 @@
 								<input type="hidden" name="pluspoint" id="j_plusPoint" value=""/>
 							</div>
 						</div>
-						<input type="hidden" name="applyNum" id="j_applyNum" value=""/>
+						<input type="hidden" name="applynum" id="j_applynum" value=""/>
+						<input type="hidden" name="imp_uid" id="j_imp_uid" value=""/>
+						<input type="hidden" name="merchant_uid" id="j_merchant_uid" value=""/>
 						<div id="j_orderRegulation">
 							<p><b>주문동의</b></p>
 							<p>주문할 상품의 상품명, 상품가격, 배송정보를 확인하였으며, 구매에 동의하시겠습니까?<br/>
