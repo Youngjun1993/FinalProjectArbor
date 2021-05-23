@@ -118,6 +118,21 @@ public class MyPageService implements MyPageServiceImp {
 		return mypageDAO.qnaAnsAscList(vo);
 	}
 
+	@Override
+	public List<OrdsubOrdJoinVO> reviewWrtPopList(int orderno) {
+		return mypageDAO.reviewWrtPopList(orderno);
+	}
+
+	@Override
+	public int reviewInsert(ReviewVO vo) {
+		return mypageDAO.reviewInsert(vo);
+	}
+
+	@Override
+	public List<ReviewVO> reviewJoinList(String userid, int orderno) {
+		return mypageDAO.reviewJoinList(userid, orderno);
+	}
+
 	/*
 	 * @Override public HashMap<String, List<QnaVO>> qnaAnsDesc(PageSearchVO vo) {
 	 * return mypageDAO.qnaAnsDesc(vo); }

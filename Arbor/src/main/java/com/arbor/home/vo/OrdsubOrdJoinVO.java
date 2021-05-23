@@ -25,7 +25,15 @@ public class OrdsubOrdJoinVO {
 	private int quantity;
 	private String subprice;
 	private String couponprice="0";
+	private String img1;
 	
+	
+	public String getImg1() {
+		return img1;
+	}
+	public void setImg1(String img1) {
+		this.img1 = img1;
+	}
 	public String getCouponprice() {
 		return couponprice;
 	}

@@ -1,5 +1,6 @@
 package com.arbor.home.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import com.arbor.home.service.MyPageServiceImp;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
+import com.arbor.home.vo.ReviewVO;
 
 @Controller
 public class MyPageController {
@@ -61,6 +63,46 @@ public class MyPageController {
 		List<OrdsubOrdJoinVO> list = mypageService.suborderList(orderno);
 		
 		return list;
+	}
+	//구매내역 배송안내 팝업
+	@RequestMapping("/myPagePopup")
+	public String myPagePopup() {
+		return "popup/myPagePopup";
+	}
+	//리뷰작성 팝업
+	@RequestMapping("/reviewWrite")
+	@ResponseBody
+	public List<OrdsubOrdJoinVO> reviewWrite(int orderno, HttpSession ses){
+		String userid = (String)ses.getAttribute("logId");
+		List<ReviewVO> revList = mypageService.reviewJoinList(userid, orderno);
+		List<OrdsubOrdJoinVO> list = mypageService.reviewWrtPopList(orderno);
+		List<OrdsubOrdJoinVO> endList = new ArrayList<OrdsubOrdJoinVO>();
+		for(int i=0; i<list.size(); i++) {
+			for(int j=0; j<revList.size(); j++) {
+				System.out.println(list.get(i).getPno());
+				System.out.println(revList.get(j).getPno());
+				if(list.get(i).getPno()!=revList.get(j).getPno()) {
+					endList.add(list.get(i));
+					System.out.println(list.get(i));
+				}
+			}
+		}
+		
+		return endList;
+	}
+	//리뷰 작성
+	@RequestMapping("/reviewWriteOk")
+	public ModelAndView reviewWriteOk(ReviewVO vo, HttpSession ses) {
+		ModelAndView mav = new ModelAndView();
+		String userid = (String)ses.getAttribute("logId");
+		if(userid == null || userid.equals("")) {
+			mav.setViewName("admin/member/login");
+		}else {
+			vo.setUserid(userid);
+			mypageService.reviewInsert(vo);
+			mav.setViewName("redirect:purchaseList");
+		}
+		return mav;
 	}
 	//qna 리스트 페이지
 	@RequestMapping("/qnaList")
@@ -335,5 +377,4 @@ public class MyPageController {
 		
 	return mav;
 	}
-	
 }

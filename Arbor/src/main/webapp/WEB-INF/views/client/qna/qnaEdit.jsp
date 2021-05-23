@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
+<script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <script>
 	$(function(){
 		$("#y_leftMenu>ul>li:nth-child(5) a").css({
