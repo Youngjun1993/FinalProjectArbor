@@ -325,7 +325,7 @@
 		<label for="userid">아이디 *</label>
 		</td>
 		<td>
-		<input type="text" name="userid" id="userid" size="58" class="h_ipt" required="required" value="">
+		<input type="text" name="userid" id="userid" size="48" class="h_ipt" required="required" value="">
 		&nbsp;&nbsp;&nbsp;<input type="button" value="중복확인" class="h_check_btn h_idchk">
 		<!-- 입력검사 확인용 -->				
 		<input type="hidden" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
@@ -337,7 +337,7 @@
 		<label for="pwd">비밀번호 *</label>
 		</td>
 		<td>
-		<input type="password" name="userpwd" id="userpwd" size="58" class="h_ipt" required="required" value=""><br/>(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
+		<input type="password" name="userpwd" id="userpwd" size="48" class="h_ipt" required="required" value=""><br/>(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
 		</td>
 		</tr>
 		
@@ -346,7 +346,7 @@
 		<label for="pwdCheck">비밀번호 확인 *</label>
 		</td>
 		<td>
-		<input type="password" name="pwdCheck" id="pwdCheck" size="58" class="h_pwdchk" required="required" disabled="disabled" value="">
+		<input type="password" name="pwdCheck" id="pwdCheck" size="48" class="h_pwdchk" required="required" disabled="disabled" value="">
 		<!-- <input type="button" id="pwdconfirm" value="확 인" class="h_pwdchk_btn"/> -->
 		<span class="h_pwd_ok"></span>
 		</td>
@@ -357,7 +357,7 @@
 		<label for="username">이름 *</label>
 		</td>
 		<td>
-		<input type="text" name="username" id="username" size="58" class="h_ipt" required="required" value="">
+		<input type="text" name="username" id="username" size="48" class="h_ipt" required="required" value="">
 		</td>
 		</tr>
 		
@@ -366,12 +366,12 @@
 		<label for="addr">주 소</label>
 		</td>
 		<td>
-		<input type="text" name="zipcode" id="zipcode" size="58" class="h_ipt zipcode" readonly="readonly">
+		<input type="text" name="zipcode" id="zipcode" size="48" class="h_ipt zipcode" readonly="readonly">
 		&nbsp;&nbsp;&nbsp;<input type="button" id="zipcode_btn" value="우편번호찾기" class="h_check_btn" onclick="kakao_address()"/>
 		
-	  	<input type="text" name="addr" id="addr" size="58" class="h_ipt addr" readonly="readonly">&nbsp;&nbsp;&nbsp;기본주소
+	  	<input type="text" name="addr" id="addr" size="48" class="h_ipt addr" readonly="readonly">&nbsp;&nbsp;&nbsp;기본주소
 		
-		<input type="text" name="detailaddr" id="detailaddr" size="58" class="h_ipt detailaddr" required="required">&nbsp;&nbsp;&nbsp;나머지 주소
+		<input type="text" name="detailaddr" id="detailaddr" size="48" class="h_ipt detailaddr" required="required">&nbsp;&nbsp;&nbsp;나머지 주소
 		</td>
 		</tr>
 		
@@ -441,7 +441,7 @@
 		<label for="emailvalid">인증번호</label>
 		</td>
 	 	<td>
-	 	<input type="text" name="emailvalid" id="emailvalid" size="58" class="h_emailvalid" required="required" disabled="disabled">
+	 	<input type="text" name="emailvalid" id="emailvalid" size="48" class="h_emailvalid" required="required" disabled="disabled">
 		&nbsp;&nbsp;&nbsp;<input type="button" id="emailcheck" value="인증 요청" class="h_check_btn emailchk">
 		<span class="h_email_warning"></span>
 		</td>
