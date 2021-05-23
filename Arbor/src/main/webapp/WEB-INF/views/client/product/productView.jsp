@@ -623,7 +623,7 @@
 						});
 					}
 				}, error : (e)=>{
-				
+					location.href="login";
 				}
 			});
 		});
@@ -669,7 +669,7 @@
 					}
 				}
 			}, error : function(e) {
-				if("${logName==null || logName==''}") {
+				if(${logName==null}) {
 					location.href="login";
 				} else {
 					alert("선택하신 상품이 없습니다");
@@ -718,7 +718,7 @@
 					}
 				}
 			}, error : function(e) {
-				if("${logName==null || logName==''}"==true) {
+				if(${logName==null}) {
 					location.href="login";
 				} else {
 					alert("선택하신 상품이 없습니다");
@@ -729,6 +729,10 @@
 	
 	<!-- 바로구매 클릭시 -->
 	function orderInsert(pno) {
+		if(${logName==null || logName==''}) {
+			location.href="login";
+		}
+		
 		var optname = [];
 		var price = [];
 		var quantity = [];
@@ -850,7 +854,7 @@
 					});
 				}
 			}, error : (e)=>{
-			
+				location.href="login";
 			}
 		});
 	}

@@ -98,4 +98,14 @@ public class CartService implements CartServiceImp{
 	public int cartNoSelect(CartVO vo) {
 		return cartdao.cartNoSelect(vo);
 	}
+
+	@Override
+	public int cartNoSelectNull(CartVO vo) {
+		return cartdao.cartNoSelectNull(vo);
+	}
+
+	@Override
+	public int cartMiniListNull(CartVO vo) {
+		return cartdao.cartMiniListNull(vo);
+	}
 }

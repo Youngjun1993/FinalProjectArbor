@@ -23,5 +23,6 @@ public interface DibsServiceImp {
 	public int dibsDelete(int pno, String userid);
 	// 찜목록 insert 전 중복체크
 	public int dibsMiniList(DibsVO vo);
-
+	// 찜목록 insert 전 중복체크 (옵션 null인경우)
+	public int dibsMiniListNull(DibsVO vo);
 }

@@ -62,25 +62,35 @@ public class DibsController {
 		for(int i=0; i<priceArr.length; i++) {
 			DibsVO vo = new DibsVO();
 			vo.setUserid((String)ses.getAttribute("logId"));
-			if(optnameArr.length==0) {
-				vo.setOptionvalue("");
-			} else {
-				vo.setOptionvalue(optnameArr[i]);
-			}
 			vo.setPno(Integer.parseInt(pnoStr));
 			vo.setPrice(Integer.parseInt(priceArr[i]));
 			vo.setQuantity(Integer.parseInt(quantityArr[i]));
-			int resul = dibsService.dibsMiniList(vo);
-System.out.println("찾아져?"+resul);
-			if(resul>0) {
-				result = 0;
-				break;
+			if(optnameArr.length==0) {
+				int resul = dibsService.dibsMiniListNull(vo);
+				if(resul>0) {
+					result = 0;
+					break;
+				} else {
+					vo.setOptionvalue("");
+					int res = dibsService.dibsInsert(vo);
+					if(res>0) {
+						result++;
+					}
+				}
 			} else {
-				int res = dibsService.dibsInsert(vo);
-				if(res>0) {
-					result++;
+				vo.setOptionvalue(optnameArr[i]);
+				int resul = dibsService.dibsMiniList(vo);
+				if(resul>0) {
+					result = 0;
+					break;
+				} else {
+					int res = dibsService.dibsInsert(vo);
+					if(res>0) {
+						result++;
+					}
 				}
 			}
+			
 		}
 		return result;
 	}

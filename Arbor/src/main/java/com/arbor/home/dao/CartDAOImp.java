@@ -37,6 +37,10 @@ public interface CartDAOImp {
 	public int cartDel(int pno);
 	// 장바구니 insert 전 중복체크
 	public int cartMiniList(CartVO vo);
+	// 장바구니 insert 전 중복체크 (옵션이 null일때)
+	public int cartMiniListNull(CartVO vo);
 	// 카트넘버 구해오기
 	public int cartNoSelect(CartVO vo);
+	// 카트넘버 구해오기 (옵션이 null일때)
+	public int cartNoSelectNull(CartVO vo);
 }
