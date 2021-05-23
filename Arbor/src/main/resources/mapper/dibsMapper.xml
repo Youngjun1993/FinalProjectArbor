@@ -32,4 +32,8 @@
 	<select id="dibsMiniList" parameterType="com.arbor.home.vo.DibsVO" resultType="int">
 		select count(pno) from dibs where userid=#{userid} and pno=${pno} and optionvalue like '%${optionvalue}%'
 	</select>
+	<!-- 옵션 null 인 경우 중복체크 위한 리스트 -->
+	<select id="dibsMiniListNull" parameterType="com.arbor.home.vo.DibsVO" resultType="int">
+		select count(pno) from dibs where userid=#{userid} and pno=${pno} and optionvalue is null
+	</select>
 </mapper>
