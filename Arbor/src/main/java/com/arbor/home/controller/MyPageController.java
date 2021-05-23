@@ -74,21 +74,17 @@ public class MyPageController {
 	@ResponseBody
 	public List<OrdsubOrdJoinVO> reviewWrite(int orderno, HttpSession ses){
 		String userid = (String)ses.getAttribute("logId");
-		List<ReviewVO> revList = mypageService.reviewJoinList(userid, orderno);
 		List<OrdsubOrdJoinVO> list = mypageService.reviewWrtPopList(orderno);
-		List<OrdsubOrdJoinVO> endList = new ArrayList<OrdsubOrdJoinVO>();
+		List<ReviewVO> revList = mypageService.reviewJoinList(userid);
 		for(int i=0; i<list.size(); i++) {
 			for(int j=0; j<revList.size(); j++) {
-				System.out.println(list.get(i).getPno());
-				System.out.println(revList.get(j).getPno());
-				if(list.get(i).getPno()!=revList.get(j).getPno()) {
-					endList.add(list.get(i));
-					System.out.println(list.get(i));
+				if(list.get(i).getPno() == revList.get(j).getPno()) {
+					list.get(i).setUsecoupon("작성완료");
 				}
 			}
 		}
 		
-		return endList;
+		return list;
 	}
 	//리뷰 작성
 	@RequestMapping("/reviewWriteOk")

@@ -129,8 +129,8 @@ public class MyPageService implements MyPageServiceImp {
 	}
 
 	@Override
-	public List<ReviewVO> reviewJoinList(String userid, int orderno) {
-		return mypageDAO.reviewJoinList(userid, orderno);
+	public List<ReviewVO> reviewJoinList(String userid) {
+		return mypageDAO.reviewJoinList(userid);
 	}
 
 	/*
