@@ -61,10 +61,10 @@
 #y_cart_wrap>div:nth-of-type(2) ul li{
     float: left;
     text-align: center;
-    width: 15%;
+    width: 12%;
 }
 #y_cart_wrap>div:nth-of-type(2) ul li:nth-child(7n+2){
-    width: 36%;
+    width: 48%;
 }
 #y_cart_wrap>div:nth-of-type(2) ul li:nth-child(7n+1){
     width: 4%;
@@ -103,8 +103,10 @@
     float: left;
     height: 200px;
     line-height: 200px;
-    margin-left: 20px;
+    margin-left: 50px;
     font-weight: bold;
+    width:360px;
+    display:block;
 }
 #y_cart_wrap>div:nth-of-type(2)>div ul li:last-child{
     line-height: 0;

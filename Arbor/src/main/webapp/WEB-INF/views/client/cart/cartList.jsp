@@ -495,7 +495,7 @@
 	                </li>
 	                <li class="clearfix">
 	                    <img src="<%=request.getContextPath()%>/upload/${cartData.img1}" alt="">
-	                    <span>${cartData.pname }</span>
+	                    <span class="wordcut">${cartData.pname }</span>
 	                </li>
 	                <li>-</li>
 	                <li>-</li>

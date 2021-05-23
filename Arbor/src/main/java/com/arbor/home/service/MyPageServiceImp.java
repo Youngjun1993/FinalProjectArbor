@@ -17,6 +17,12 @@ public interface MyPageServiceImp {
 	public List<OrderTblVO> purchaseList(PageSearchVO vo);
 	//구매내역 서브리스트
 	public List<OrdsubOrdJoinVO> suborderList(int orderno);
+	//리뷰작성 리스트
+	public List<OrdsubOrdJoinVO> reviewWrtPopList(int orderno);
+	//리뷰 아이디별 리스트
+	public List<ReviewVO> reviewJoinList(String userid, int orderno);	
+	//리뷰 작성 완료
+	public int reviewInsert(ReviewVO vo);
 	//총 레코드 수
 	public int totalRecord(PageSearchVO vo);
 	//적립금 합계
