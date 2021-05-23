@@ -210,6 +210,8 @@
 			}
 		});
 	}
+	
+	
 </script>
 <div id="y_myPageMain_wrap" class="clearfix w1400_container">
 	<%@include file="/WEB-INF/inc/mypageMenu.jspf"%>
@@ -227,7 +229,7 @@
 	                <li class="wordcut"><a class="y_pnameList" id="y_pnameList" href="javascript:subPopupList(${data.orderno })">${data.pname }</a></li>
 	                <li><fmt:formatNumber value="${data.totalprice }" /> 원</li>
 	                <li class="clearfix">
-	                	<c:if test="${data.status=='배송준비' }"><a href="javascript:myPagePopup()" class="status_ready">배송준비</a><a href="#" class="status_cashCancle">주문취소</a></c:if>
+	                	<c:if test="${data.status=='배송준비' }"><a href="javascript:myPagePopup()" class="status_ready">배송준비</a><a href="javascript:cancelPay(${data.merchant_uid })" class="status_cashCancle">주문취소</a></c:if>
 	                	<c:if test="${data.status=='배송완료' }"><a class="status_delivDone">배송완료</a><a href="javascript:reviewWrite(${data.orderno })" class="status_review">리뷰작성</a><a href="#" class="status_change">교환/환불</a></c:if>
 	                	<c:if test="${data.status=='배송중' }"><a style="padding:5px 85px;">배송중입니다.</a></c:if>
 	                	<c:if test="${data.status=='교환중' }"><a style="padding:5px 85px;">교환중입니다.</a></c:if>

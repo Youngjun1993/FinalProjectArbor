@@ -26,6 +26,7 @@
 <script src="<%=request.getContextPath() %>/javaScript/client/productList.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/client/ScrollTrigger.min.js"></script>
 <!-- LightWidget WIDGET --><script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- jQuery CDN --->
 <script>
 
 //헤더이벤트
