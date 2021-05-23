@@ -26,8 +26,15 @@ public class OrdsubOrdJoinVO {
 	private String subprice;
 	private String couponprice="0";
 	private String img1;
+	private String optinfo;
 	
 	
+	public String getOptinfo() {
+		return optinfo;
+	}
+	public void setOptinfo(String optinfo) {
+		this.optinfo = optinfo;
+	}
 	public String getImg1() {
 		return img1;
 	}

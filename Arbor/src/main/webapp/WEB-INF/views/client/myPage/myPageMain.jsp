@@ -28,13 +28,17 @@
 					$("#y_orderPopup_Wrap>div:nth-of-type(2) ul:nth-of-type(2) li:nth-child(4)").text(vo.request);		//배송메세지(request)
 					
 					//반복
-					tag += "<li class='wordcut'>" + vo.pname + "</li>"; 	//상품명(pname)
+					if(vo.optinfo==null){
+						tag += "<li class='wordcut'>" + vo.pname+"</li>"; 	//상품명(pname)	
+					}else{
+						tag += "<li class='wordcut'>" + vo.pname+"-"+vo.optinfo + "</li>"; 	//상품명(pname)
+					}
 					tag += "<li>" + vo.subprice+"원" +"</li>";	//가격(subprice)
 					tag += "<li>" + vo.quantity +"</li>";	//수량(quantity)
 					tag += "<li>" + vo.status +"</li>";		// 처리상태(status)
 					$("#y_orderPopup_Wrap>div:nth-of-type(3) ul").html(tag);
 					
-					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(5)").text(vo.usepoint+"원");		//사용한 적립금(usepoint)	  
+					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(5)").text(comma(vo.usepoint)+"원");		//사용한 적립금(usepoint)	  
 					//세부내역 (값을 끌어올게 없음)
 					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(8)").text(vo.couponprice+"원");		//사용한 쿠폰금액(필드추가)  
 					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(9)").text(vo.usecoupon);		//쿠폰명(usecoupon)
@@ -46,6 +50,19 @@
 				console.log("팝업 데이터 에러~!!");
 			}
 		});
+	}
+	//콤마찍기
+	function comma(str) {
+	    str = String(str);
+	    var minus = str.substring(0, 1);
+	 
+	    str = str.replace(/[^\d]+/g, '');
+	    str = str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+
+	     //음수일 경우
+	    if(minus == "-") str = "-"+str;
+	 
+	    return str;
 	}
 	function printPopup(){//프린트 팝업
 		console.log(printno);
@@ -178,9 +195,14 @@
 					
 					//반복
 					tag += "<li><p><img src='<%=request.getContextPath()%>/upload/" + vo.img1 + "'/></p>";
-					tag += "<p>"+vo.pname+"</p>";
-					tag += "<p><input type='radio' name='pno' value="+vo.pno+"></p></li>";
-										
+					tag += "<p class='wordcut'>"+vo.pname +"-"+vo.optinfo+"</p>";
+					if(vo.usecoupon == "작성완료"){
+						tag += "<p style='color:red'>리뷰가 작성된 상품입니다.</p>"
+					}else{
+						tag += "<p><input type='radio' name='pno' value="+vo.pno+"></p></li>";	
+					}
+					
+					
 					$("#y_reviewPnoList").html(tag);
 				});
 			}, error : function(){
@@ -332,7 +354,7 @@
           <p class="cleafix"><button id="y_reviewWrtClsBtn">✕</button></p>
           <form id="y_reviewWriteFrm" action="reviewWriteOk" method="post">
               <ul>
-                  <li><span class="colorRed">*</span> 구매목록<span class="y_reviewWriteSmallText">※ 구매하신 상품 중 후기가 등록되지 않은 상품목록이 나타납니다.</span></li>
+                  <li><span class="colorRed">*</span> 구매목록<span class="y_reviewWriteSmallText">※ 상품별 하나의 후기만 작성 가능합니다.</span></li>
                   <li>
                       <ul id="y_reviewPnoList" class="clearfix">
                       	
@@ -344,11 +366,11 @@
                   </li>
                   <li><span class="colorRed">*</span> 평점</li>
                   <li>
-                      <input type="radio" name="grade" value="1">★
-                      <input type="radio" name="grade" value="2">★★
-                      <input type="radio" name="grade" value="3">★★★
-                      <input type="radio" name="grade" value="4">★★★★
-                      <input type="radio" name="grade" value="5">★★★★★
+                      <input type="radio" name="grade" value="1"><span class="gradestar">★</span><span class="elsestar">★★★★</span>
+                      <input type="radio" name="grade" value="2"><span class="gradestar">★★</span><span class="elsestar">★★★</span>
+                      <input type="radio" name="grade" value="3"><span class="gradestar">★★★</span><span class="elsestar">★★</span>
+                      <input type="radio" name="grade" value="4"><span class="gradestar">★★★★</span><span class="elsestar">★</span>
+                      <input type="radio" name="grade" value="5"><span class="gradestar">★★★★★</span>
                   </li>
               </ul>
               <input type="submit" class="clientMainBtn" value="등록하기">

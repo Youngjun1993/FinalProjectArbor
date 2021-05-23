@@ -8,13 +8,13 @@
 		select * from (select * from (select o.orderno, to_char(o.orderdate, 'YY-MM-DD HH:MI')as orderdate, o.userid, o.arr, o.arrtel, o.arrzipcode, o.arraddr, o.arrdetailaddr, o.request, o.pluspoint, o.usecoupon, o.deliveryprice, o.totalprice, o.status, o.couponprice, s.pname from ordertbl o join (select orderno, listagg(pname,',') within group (order by pname) as pname from suborder group by orderno) s on o.orderno=s.orderno where o.userid = #{userid} order by orderdate desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by orderdate asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderdate desc
 	</select>
 	<select id="suborderList" resultType="com.arbor.home.vo.OrdsubOrdJoinVO">
-		select o.orderno, to_char(o.orderdate, 'YYYY-MM-DD')as orderdate, o.arr, o.arrtel, o.arraddr, o.arrdetailaddr, o.request, o.status, o.usepoint, o.couponprice, o.usecoupon, o.totalprice, s.suborderno, s.orderno, s.pno, s.optno, s.quantity, s.subprice, s.pname from suborder s join ordertbl o on s.orderno = o.orderno where s.orderno=#{param1}
+		select o.orderno, to_char(o.orderdate, 'YYYY-MM-DD')as orderdate, o.arr, o.arrtel, o.arraddr, o.arrdetailaddr, o.request, o.status, o.usepoint, o.couponprice, o.usecoupon, o.totalprice, s.suborderno, s.orderno, s.pno, s.quantity, s.subprice, s.pname, s.optinfo from suborder s join ordertbl o on s.orderno = o.orderno where s.orderno=#{param1}
 	</select>
 	<select id="reviewJoinList" resultType="com.arbor.home.vo.ReviewVO">
-		select r.pno from review r join (select pno from suborder where orderno=${param2}) s on r.pno=s.pno where userid=#{param1}
+		select distinct r.pno from review r join (select pno from suborder) s on r.pno=s.pno where userid=#{param1}
 	</select>
 	<select id="reviewWrtPopList" resultType="com.arbor.home.vo.OrdsubOrdJoinVO">
-		select o.orderno, s.suborderno, s.orderno, s.pno, s.pname, p.img1 from suborder s join ordertbl o on s.orderno = o.orderno join product p on s.pno=p.pno where s.orderno=${param1}
+		select o.orderno, s.suborderno, s.orderno, s.pno, s.pname, s.optinfo, p.img1 from suborder s join ordertbl o on s.orderno = o.orderno join product p on s.pno=p.pno where s.orderno=${param1} order by pno desc
 	</select>
 	<insert id="reviewInsert" parameterType="com.arbor.home.vo.ReviewVO">
 		insert into review(reviewno, pno, userid, grade, reviewcontent) values(reviewsq.nextval, ${pno}, #{userid}, ${grade}, #{reviewcontent})
