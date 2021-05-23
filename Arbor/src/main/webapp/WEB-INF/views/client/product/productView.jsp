@@ -644,7 +644,7 @@
 		$(".p_detailSelect_ul").each(function(idx, ul){
 			var txt = $(ul).children().eq(0).text();
 			var txtStart = txt.indexOf("(");
-			var txtEnd = txt.indexOf(")")-3;
+			var txtEnd = txt.lastIndexOf(")")-3;
 			var optname = txt.substr(txtStart+3, txtEnd-txtStart);
 			optnameArr.push(optname);
 			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
@@ -688,7 +688,7 @@
 		$(".p_detailSelect_ul").each(function(idx, ul){
 			var txt = $(ul).children().eq(0).text();
 			var txtStart = txt.indexOf("(");
-			var txtEnd = txt.indexOf(")")-3;
+			var txtEnd = txt.lastIndexOf(")")-3;
 			var optname = txt.substr(txtStart+3, txtEnd-txtStart);
 			optnameArr.push(optname);
 			quantityArr.push($(ul).children().eq(1).children('.p_selectNum').text());
