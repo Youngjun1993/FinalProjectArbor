@@ -46,7 +46,7 @@
 			<c:forEach var="pVo" items="${pList }">
 				<tr id="j_pList"> <!-- 상품 갯수 만큼 반복 -->
 					<td>${pVo.pname }</td>
-					<td id="abc">${pVo.quantity }</td>
+					<td>${pVo.quantity }</td>
 					<td>${pVo.pprice }</td>
 					<td>${pVo.saleprice }</td>
 					<td>${pVo.deliveryprice }</td>

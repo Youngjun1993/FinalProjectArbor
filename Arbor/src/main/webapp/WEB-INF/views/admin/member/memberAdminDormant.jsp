@@ -24,7 +24,7 @@
 		<!-- 회원검색 컨테이너-->
 		<div class="h_memberSearch_header">휴면회원 검색</div>
 		<div class="h_mainContainer">
-			<form method="get" action="memberAdminDormant">
+			<form method="get" action="memberAdminDormant" id="p_productSearchFrm">
 				<table class="h_formtable">
 					<!-- 검색어 -->
 					<tr>
@@ -33,10 +33,29 @@
 							<div class="search_area">
 								<!-- 검색옵션 태그 부분 -->
 								<select name="searchKey" id="h_type" class="h_searchSelect">
-									<option value="" selected hidden></option>
-									<option value="userid">아이디</option>
-									<option value="username">성명</option>
-									<option value="email">이메일</option>
+									<c:choose>
+										<c:when test="${pageVO.searchKey == 'userid' }">
+											<option value="userid" selected>아이디</option>
+											<option value="username">성명</option>
+											<option value="email">이메일</option>
+										</c:when>
+										<c:when test="${pageVO.searchKey == 'username' }">
+											<option value="userid">아이디</option>
+											<option value="username" selected>성명</option>
+											<option value="email">이메일</option>
+										</c:when>
+										<c:when test="${pageVO.searchKey == 'email' }">
+											<option value="userid">아이디</option>
+											<option value="username">성명</option>
+											<option value="email" selected>이메일</option>
+										</c:when>
+										<c:otherwise>
+											<option value="" selected hidden></option>
+											<option value="userid">아이디</option>
+											<option value="username">성명</option>
+											<option value="email">이메일</option>
+										</c:otherwise>
+									</c:choose>
 									<%--	<option value="" <c:out value="${pageMaker.cri.type == null?'selected':'' }"/>>   </option>
 			<option value="userid" <c:out value="${pageMaker.cri.type eq 'userid'?'selected':'' }"/>>아이디</option>
 			<option value="username" <c:out value="${pageMaker.cri.type eq 'username'?'selected':'' }"/>>성명</option>
@@ -53,10 +72,23 @@
 							<div class="search_area_email">
 								<%-- <input type="radio" name="emailok" class="h_radiochk" value="Y+N" <c:out value="${pageMaker.cri.emailok eq 'Y' && 'N' ?'checked':'' }"/>>전체 --%>
 								<%-- <input type="radio" name="emailok" class="h_radiochk" value="Y" <c:if test="${pageMaker.cri.emailok eq 'Y'}"> checked </c:if> />예 --%>
-								<input type="radio" name="emailok" class="h_radiochk" value=""
-									checked />전체 <input type="radio" name="emailok"
-									class="h_radiochk" value="Y" />예 <input type="radio"
-									name="emailok" class="h_radiochk" value="N" /> 아니오
+								<c:choose>
+									<c:when test="${pageVO.emailok=='Y' }">
+										<input type="radio" name="emailok" class="h_radiochk" value="" />전체
+										<input type="radio" name="emailok" class="h_radiochk" value="Y" checked/>예
+										<input type="radio" name="emailok" class="h_radiochk" value="N" /> 아니오
+									</c:when>
+									<c:when test="${pageVO.emailok=='N' }">
+										<input type="radio" name="emailok" class="h_radiochk" value=""/>전체
+										<input type="radio" name="emailok" class="h_radiochk" value="Y" />예
+										<input type="radio" name="emailok" class="h_radiochk" value="N" checked/> 아니오
+									</c:when>
+									<c:otherwise>
+										<input type="radio" name="emailok" class="h_radiochk" value="" checked/>전체
+										<input type="radio" name="emailok" class="h_radiochk" value="Y" />예
+										<input type="radio" name="emailok" class="h_radiochk" value="N" /> 아니오
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</td>
 					</tr>
@@ -64,11 +96,23 @@
 					<!-- 문자수신여부 -->
 					<tr>
 						<td><label for="userid">문자 수신동의 여부</label></td>
-						<td class="h_last_td"><select name="smsok" id="h_smsok"
-							class="h_searchSelect">
-								<option value=""></option>
-								<option value="Y">예</option>
-								<option value="N">아니오</option>
+						<td class="h_last_td">
+						<select name="smsok" id="h_smsok" class="h_searchSelect">
+							<c:choose>
+								<c:when test="${pageVO.smsok=='Y' }">
+									<option value="Y" selected>예</option>
+									<option value="N">아니오</option>
+								</c:when>
+								<c:when test="${pageVO.smsok=='N' }">
+									<option value="Y">예</option>
+									<option value="N" selected>아니오</option>
+								</c:when>
+								<c:otherwise>
+									<option value="" selected></option>
+									<option value="Y">예</option>
+									<option value="N">아니오</option>
+								</c:otherwise>
+							</c:choose>
 						</select></td>
 					</tr>
 
@@ -77,17 +121,29 @@
 						<td><label for="emailok">휴면메일 발송 여부</label></td>
 						<td>
 							<div class="search_area_dormail">
-								<input type="radio" name="dormailok" class="h_radiochk" value=""
-									checked />전체 <input type="radio" name="dormailok"
-									class="h_radiochk" value="Y" />예 <input type="radio"
-									name="dormailok" class="h_radiochk" value="N" /> 아니오
+								<c:choose>
+									<c:when test="${pageVO.dormailok=='Y' }">
+										<input type="radio" name="dormailok" class="h_radiochk" value=""/>전체
+										<input type="radio" name="dormailok" class="h_radiochk" value="Y" checked/>예
+										<input type="radio" name="dormailok" class="h_radiochk" value="N" /> 아니오
+									</c:when>
+									<c:when test="${pageVO.dormailok=='N' }">
+										<input type="radio" name="dormailok" class="h_radiochk" value=""/>전체
+										<input type="radio" name="dormailok" class="h_radiochk" value="Y" />예
+										<input type="radio" name="dormailok" class="h_radiochk" value="N" checked/> 아니오
+									</c:when>
+									<c:otherwise>
+										<input type="radio" name="dormailok" class="h_radiochk" value=""  checked />전체
+										<input type="radio" name="dormailok" class="h_radiochk" value="Y" />예
+										<input type="radio" name="dormailok" class="h_radiochk" value="N" /> 아니오
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</td>
 					</tr>
 				</table>
 				<div class="h_searchBtnBox">
-					<input type="submit" id="memSearchBtn" value="검색"
-						class="adminMainBtn">
+					<input type="submit" id="memSearchBtn" value="검색" class="adminMainBtn">
 				</div>
 			</form>
 
@@ -98,8 +154,7 @@
 				<input type="button" id="sendSms" value="SMS발송 "
 					class="adminSubBtn semiBtn"> <input type="button"
 					id="excelBtn" value="엑셀(전체)다운" class="adminSubBtn semiBtn">
-				<input type="button" id="delMulti" value="선택삭제"
-					class="adminSubBtn semiBtn">
+				<input type="button" id="delMulti" value="선택삭제" class="adminSubBtn semiBtn">
 			</div>
 			<br />
 			<!-- 회원목록 -->
@@ -159,27 +214,23 @@
 				</form>
 				<div id="pagingDiv">
 					<ul class="adPaging" class="clearfix">
-						<c:if test="${pageVO.pageNum>1 }">
-							<li style="border-bottom: none;"><a class="pagingAdLR_a"
-								href="memberAdminDormant?pageNum=${pageVO.pageNum-1}">＜</a></li>
-						</c:if>
-						<c:forEach var="p" begin="${pageVO.startPageNum }" step="1"
-							end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
-							<c:if test="${p<=pageVO.totalPage }">
-								<c:if test="${p==pageVO.pageNum }">
-									<li style="border-bottom: 3px solid rgb(191, 43, 53);"><a
-										href="memberAdminDormant?pageNum=${p}">${p }</a></li>
-								</c:if>
-								<c:if test="${p!=pageVO.pageNum }">
-									<li><a href="memberAdminDormant?pageNum=${p}">${p }</a></li>
-								</c:if>
-							</c:if>
-						</c:forEach>
-						<c:if test="${pageVO.pageNum<pageVO.totalPage }">
-							<li style="border-bottom: none;"><a class="pagingAdLR_a"
-								href="memberAdminDormant?pageNum=${pageVO.pageNum+1}">＞</a></li>
-						</c:if>
-					</ul>
+		            	<c:if test="${pageVO.pageNum>1 }">
+		                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="javascript:p_pageChange(${pageVO.pageNum-1})">＜</a></li>
+		                </c:if>
+		                <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+		                	<c:if test="${p<=pageVO.totalPage }">
+			                	<c:if test="${p==pageVO.pageNum }">
+			                		<li style="border-bottom:3px solid rgb(191,43,53);"><a href="javascript:p_pageChange(${p})">${p }</a></li>
+			                	</c:if>
+			                	<c:if test="${p!=pageVO.pageNum }">
+			                		<li><a href="javascript:p_pageChange(${p})">${p }</a></li>
+			                	</c:if>
+		                	</c:if>
+		                </c:forEach>
+		                <c:if test="${pageVO.pageNum<pageVO.totalPage }">
+		                	<li style="border-bottom:none;"><a class="pagingAdLR_a" href="javascript:p_pageChange(${pageVO.pageNum+1})">＞</a></li>
+		                </c:if>
+		            </ul>
 				</div>
 
 				<%-- <!-- 페이징영역 -->
@@ -294,24 +345,24 @@
 			});
 			
 			    if(checkArr == 0) {
-			    	alert("탈퇴처리할 회원을 선택해주세요");
+			    	alert("삭제할 회원을 선택해주세요");
 			    	return false;
 			    }else {
-			    	if(confirm("선택한 회원을 탈퇴처리 하시겠습니까?")) {
+			    	if(confirm("선택한 회원을 휴면테이블에서 삭제 하시겠습니까?")) {
 					  	 	console.log(checkArr);
 					   $.ajax({
 						    url : 'dormantMultiDel',
-						    type : 'get',
+						    type : 'post',
 						    dataType: 'json',
 						    data : { memberChk : checkArr },
 						    success : function(result){
-							   if(result == 1){
-							     location.href = 'memberAdminDormant';
-							   } else {
-							   	alert("회원탈퇴가 실패하였습니다");
+							   if(result>0) {
+								   alert("삭제가 완료되었습니다.")
+								   $("#p_productSearchFrm").submit();
 							   }
 							}, error:function() {
 								alert("회원탈퇴 실패");
+								return false;
 							}
 					    
 						});

@@ -54,22 +54,9 @@ public class OrderController {
 			}
 			subVo.setQuantity(Integer.parseInt(quantityArr[i]));
 			subVo.setSubprice(Integer.parseInt(priceArr[i]));
-
-			System.out.println("1." + subVo.getOptinfo());
-			System.out.println("2." + subVo.getQuantity());
-			System.out.println("3." + subVo.getSubprice());
-			System.out.println("4." + subVo.getPname());
-			System.out.println("5." + subVo.getImg1());
-			System.out.println("6." + subVo.getPprice());
-			System.out.println("7." + subVo.getSaleprice());
-			System.out.println("8." + subVo.getDeliveryprice());
-
-			System.out.println("subList->" + subOrderList);
-			System.out.println("size()->" + subOrderList.size());
-
+			
 			subOrderList.add(subVo);
 		}
-		System.out.println("상품상세 바로구매 userid->"+userid);
 		mav.addObject("pInfoList", subOrderList);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));
@@ -83,7 +70,6 @@ public class OrderController {
 	public ModelAndView orderAppendCartList(int pno, HttpSession ses) {
 		ModelAndView mav = new ModelAndView();
 		String userid = (String) ses.getAttribute("logId");
-		System.out.println("장바구니 바로구매 userid->"+userid);
 		mav.addObject("pInfoList", orderService.cartAppendList(pno, userid));
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));
@@ -99,7 +85,6 @@ public class OrderController {
 		ModelAndView mav = new ModelAndView();
 		List<SubOrderVO> list = new ArrayList<SubOrderVO>();
 		String userid = (String) ses.getAttribute("logId");
-		System.out.println("장바구니 선택구매 userid->"+userid);
 		for (int i = 0; i < cartpno.length; i++) {
 			int cartno = Integer.parseInt(cartpno[i]);
 			SubOrderVO vo = new SubOrderVO();
@@ -122,11 +107,8 @@ public class OrderController {
 		if (userid.equals("") || userid == null) {
 			mav.setViewName("admin/member/login");
 		} else {
-			System.out.println("전체선택구매");
-			System.out.println("포인트->"+orderService.getUserPoint(userid).getPoint());
 			mav.addObject("pInfoList", orderService.cartAllList(userid));
 			mav.addObject("memberVo", orderService.getMemberInfo(userid));
-			System.out.println("장바구니 전체구매 userid->"+userid);
 			mav.addObject("pointVo", orderService.getUserPoint(userid));
 			mav.addObject("couponList", orderService.getUserCoupon(userid));
 			mav.addObject("cpnCount", orderService.getCouponCount(userid));
@@ -136,7 +118,7 @@ public class OrderController {
 	}
 
 	@RequestMapping(value = "/orderOk", method = RequestMethod.POST)
-	public ModelAndView orderOk(OrderTblVO orderVo, int applyNum, HttpSession session,
+	public ModelAndView orderOk(OrderTblVO orderVo, HttpSession session,
 			@RequestParam(value = "pno", required = true) int[] pnoArr,
 			@RequestParam(value = "pname", required = true) String[] pnameArr,
 			@RequestParam(value = "optinfo", required = true) String[] optinfoArr,
@@ -156,7 +138,10 @@ public class OrderController {
 		int orderno = Integer.parseInt(today + orderSeq);
 		orderVo.setOrderno(orderno); // 당일날짜+시퀀스 형식으로 주문번호 생성 (ex.21051103)
 		
-		orderVo.setApplynum(applyNum);
+		//orderVo.setApplynum(applyNum);	//결제 승인번호
+		System.out.println("승인번호->"+orderVo.getApplynum());
+		System.out.println("아임포트 고유번호->"+orderVo.getImp_uid());
+		System.out.println("거래 고유번호->"+orderVo.getMerchant_uid());
 
 		if (orderService.orderComplete(orderVo) > 0) { // 주문완료 db 생성
 			System.out.println("** 주문 DB 생성 완료");
@@ -170,7 +155,6 @@ public class OrderController {
 				subVo.setOrderno(orderVo.getOrderno());
 				subVo.setPno(pnoArr[i]);
 				subVo.setPname(pnameArr[i]);
-				subVo.setOptinfo(optinfoArr[i]);
 				subVo.setQuantity(quantityArr[i]);
 				subVo.setSubprice(subpriceArr[i]);
 
@@ -182,9 +166,12 @@ public class OrderController {
 					orderService.deleteCartList(cartnoArr[i], userid);
 					System.out.println("cartnoArr["+i+"]->"+cartnoArr[i]+" 삭제 완료"); //장바구니 상품 주문시, 해당 상품 장바구니에서 삭제
 				}
-				
-				orderService.updateProductStock(pnoArr[i]);	//주문상품 재고량 수정
+				orderService.updateProductStock(pnoArr[i]);	//주문상품 재고량 수정(-)
 			}
+		}
+		System.out.println("사용적립금->"+orderVo.getUsepoint());
+		if(orderVo.getUsepoint()>0) {
+			orderService.setUsedPoint(orderVo);	//사용적립금 db 반영(-)
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
@@ -210,16 +197,20 @@ public class OrderController {
 		
 		pageVo.setTotalRecord(orderService.totalRecord(pageVo));
 		
+		System.out.println("getTotalRecord->" + pageVo.getTotalRecord());
 		System.out.println("pageNum->" + pageVo.getPageNum());
 		System.out.println("startPageNum->" + pageVo.getStartPageNum());
 		System.out.println("onePageNum->" + pageVo.getOnePageNum());
 		System.out.println("onePageRecord->" + pageVo.getOnePageRecord());
 		System.out.println("lastPageRecord->" + pageVo.getLastPageRecord());
+		System.out.println("totalPage->" + pageVo.getTotalPage());
 		
 		// 달력 선택하여 검색시, 날짜 유형 변경
-		if (pageVo.getPeriod() != null || pageVo.getOrderSearch_from() != null || pageVo.getSearchWord() != null) {
+		/*if (pageVo.getPeriod() != null || pageVo.getOrderSearch_from() != null || pageVo.getSearchWord() != null) {*/
+		if (pageVo.getOrderSearch_from() != null || pageVo.getSearchWord() != null) {
 			String sf = pageVo.getOrderSearch_from();
 			String st = pageVo.getOrderSearch_to();
+			System.out.println("검색 시작일:"+sf+" / 검색 종료일:"+st);
 			if ((sf != null || !sf.equals("")) && (st != null || !st.equals(""))) {
 				sf = sf.replace("-", "/");
 				st = st.replace("-", "/");
@@ -234,15 +225,17 @@ public class OrderController {
 
 				orderService.updateOrderStatus(ordernoArr[i], orderVo.getStatus());
 			}
+			if(orderVo.getStatus().equals("배송완료")) {
+				orderService.setPlusPoint(orderVo);
+				System.out.println("배송완료 OK -> 구매적립금 적립 완료");
+			}
 		}
-		
-		System.out.println(pageVo.toString());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("cnt", orderService.countOfOrderStatus(orderVo));
 		mav.addObject("list", orderService.selectOrderList(pageVo));
+		System.out.println("주문리스트->" + orderService.selectOrderList(pageVo).size());
 		mav.addObject("pageVO", pageVo);
-		System.out.println("orderList->" + orderService.selectOrderList(pageVo).size());
 		mav.setViewName("admin/order/orderAdmin");
 		return mav;
 	}

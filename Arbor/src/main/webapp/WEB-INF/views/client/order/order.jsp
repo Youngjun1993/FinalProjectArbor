@@ -3,12 +3,30 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 다음 주소록 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <!-- iamport 결제 API -->
-  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+ <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
 	$(function(){
+		//결제정보 setting
+		var sumPaymentStr = $('#sumPayment').val();
+		var payment = Number(sumPaymentStr);
+		var sumDeliveryStr = $('#sumDelivery').val();
+		var delivery = Number(sumDeliveryStr);
+		var total = payment+delivery;
+		var totalPayment = total.toLocaleString();
+		
+		var tag = "<span>"+totalPayment+"</span>원";
+		$('#j_totalPayment').html(tag);	//결제예정금액
+		$('#j_totalPrice').val(total);
+		console.log("상품금액, 배송비 합계 반영 ok");
+		
+		var plus = parseInt(payment*0.02);
+	 	var plusPoint = plus.toLocaleString();
+		console.log("plus->"+plus+" / plusPoint->"+plusPoint);
+		$('#pPoint').text(plusPoint);	//적립예정금액
+		$('#j_plusPoint').val(plus);
+		console.log("적립예정금액 반영 ok");
+		
 		
 		//수령인 정보 - '주문자와 같음' 체크박스
 		$('#j_desCheckBox').click(function(){
@@ -36,23 +54,41 @@
 		//적립금 모두 사용 체크박스
 		$('#j_allPoint').click(function(){
 			$('#j_usePoint').val('${pointVo.point}');
+			//결제정보란에 사용적립금 적용
+			var usepointStr = $('#j_usePoint').val();
+			var usepoint = Number(usepointStr).toLocaleString();
+			$('#j_usedPoint').text(usepoint+'원');
+			cal_totalpayment();
 		});
+		
+		$('#j_usePoint').focusin(function(){
+			$('#j_usePoint').val('');
+		});
+		//적립금 수동 입력시, 결제정보란에 사용적립금 적용
+		$('#j_usePoint').focusout(function(){
+			var pointStr = $('#j_usePoint').val();	//사용할 적립금
+			var point = Number(pointStr).toLocaleString();
+			var mypoint = '${pointVo.point}';	//보유 적립금
+			
+			if(mypoint<point){
+				alert("보유 적립금을 확인해 주시기 바랍니다.");
+				$('#j_usePoint').val('0');
+				return false;
+			}else{
+				$('#j_usedPoint').text(point+'원');
+				cal_totalpayment();
+			}
+		});
+		
+	/* 	$('#j_selectCpn').on('change', function(){
+			alert(this.value);
+		 	var cpnno = $('#j_selectCpn option:selected').val();
+			console.log("선택한 쿠폰"+cpnno);
+		});
+		 */
 		
 		//주문,결제페이지 유효성 검사
 		$('#checkoutBtn').on('click', function(){
-			
-			var totalPrice = $('#tPrice').text();
-			console.log("** totalPrice->"+totalPrice);
-			$('#j_totalPrice').attr('value', totalPrice);
-			var aaa = $('#j_totalPrice').val();
-			console.log('aaa->'+aaa);
-			
-			var plusPoint = $('#pPoint').text();
-			console.log("** plusPoint->"+plusPoint);
-			$('#j_plusPoint').attr('value', plusPoint);
-			var bbb = $('#j_plusPoint').val();
-			console.log('bbb->'+bbb)
-
 			if($('#j_username').val()=='' || $('#j_username').val()==null){
 				alert("주문자는 필수 입력 항목입니다.");
 				$('#j_username').focus();
@@ -121,28 +157,18 @@
 			}
 		});
 		
-/* 		//선택한 쿠폰의 사용 금액 데이터 입력
-		$('') */
-		
-		
-		//주문금액
-		/* console.log("주문상품금액???????");
-		var amount=0;
-		for(var i=0; i<${subVo.pprice}.length; i++){
-			amount = amount+${subVo.pprice * subVo.quantity};
-			console.log("주문상품금액 : "+amount);
-		} */
 		
 		
 	});
 	
- 	function checkout(){
+ 	function checkout(){ 		
 		// 결제 //////////////////////////////
 		var IMP = window.IMP;
 		IMP.init('imp60549605');	//가맹점 key
 		var msg="";
-		var applyNum="";	//결제 승인번호
-		var paidAt="";		//결제 승인시각
+		var applynum="";	//결제 승인번호
+		var imp_uid="";		//취소할 거래의 아임포트 고유번호
+		var merchant_uid="";//가맹점에서 전달한 거래 고유번호
 		
 	 	IMP.request_pay({
 		    pg : 'inicis',
@@ -164,17 +190,20 @@
 		        msg2 += ' / 결제 금액 : ' + rsp.paid_amount;
 		        msg2 += ' / 카드 승인번호 : ' + rsp.apply_num;
 		        msg2 += ' / 결제승인시각 : ' + rsp.paid_at;
-		        applyNum = rsp.apply_num;
-		        paidAt = rsp.paid_at;
+		        applynum = rsp.apply_num;
+		        imp_uid = rsp.imp_uid;
+		        merchant_uid = rsp.merchant_uid;
 		        console.log(msg2);
 		    }else{
 		    	var msg = '결제에 실패하였습니다.';
 		    	msg += "('" + rsp.error_msg + "')";
-		   		console('에러내용 : ' + rsp.error_msg);
+		   		console.log('에러내용 : ' + rsp.error_msg);
 		    }
 		    alert(msg);
-		    console.log("결제승인번호->"+applyNum+", 결제승인시각->"+paidAt);
-		    $('#j_applyNum').attr('value', applyNum)
+		    console.log("결제승인번호->"+applynum);
+		    $('#j_applynum').attr('value', applynum)
+		    $('#j_imp_uid').attr('value', imp_uid)
+		    $('#j_merchant_uid').attr('value', merchant_uid)
 		    $("#j_checkoutFrm").submit();
 		});
 	}
@@ -214,6 +243,32 @@
 			}			
 		}).open();
 	}
+	
+	function cal_totalpayment(){
+		//사용 적립금
+		var pointStr = $('#j_usePoint').val();
+		var point = Number(pointStr);
+		//주문상품금액
+		var sumPaymentStr = $('#sumPayment').val();
+		var payment = Number(sumPaymentStr);
+		//배송비
+		var sumDeliveryStr = $('#sumDelivery').val();
+		var delivery = Number(sumDeliveryStr);
+		//결졔예정금액
+		var total = payment+delivery-point;
+		var totalPayment = total.toLocaleString();
+		var tag = "<span>"+totalPayment+"</span>원";
+		$('#j_totalPayment').html(tag);
+		$('#j_totalPrice').val(total);
+		//적립예정금액
+		var plus = parseInt((payment-point)*0.02);
+	 	var plusPoint = plus.toLocaleString();
+	 	console.log("plus->"+plus+" / plusPoint->"+plusPoint);
+		$('#pPoint').text(plusPoint);
+		$('#j_plusPoint').val(plus);
+	}
+	
+	
 
 </script>
 </head>
@@ -248,12 +303,12 @@
 					<li>배송비</li>
 					<li>주문금액</li>
 					
-					<c:set var="totalpayment" value="0"/>
+					<c:set var="sumDelivery" value="0"/>
+					<c:set var="sumPayment" value="0"/>
 					<c:forEach var="pInfoVo" items="${pInfoList }"  varStatus="i">
 						<li>
 							<div>
-								<img src="<%=request.getContextPath() %>/img/${pInfoVo.img1 }"/> <!-- 상품이미지 -->
-								<!-- <div><span>상품명ㅇㅇㅇㅇㅇ</span><span>옵션 : 블루</span></div> -->
+								<img src="<%=request.getContextPath() %>/upload/${pInfoVo.img1 }"/> <!-- 상품이미지 -->
 								<div><span>${pInfoVo.pname }</span><span>${pInfoVo.optinfo }</span></div>
 								<input type="hidden" name="pno" value="${pInfoVo.pno} "/>
 								<input type="hidden" name="pname" value="${pInfoVo.pname }"/>
@@ -263,14 +318,17 @@
 								<input type="hidden" name="cartno" value="${pInfoVo.cartno }"/>
 							</div>
 						</li>
-						<li>${pInfoVo.pprice }</li>
-						<li>${pInfoVo.saleprice }</li>
+						<li><fmt:formatNumber value='${pInfoVo.pprice }'/></li>
+						<li><fmt:formatNumber value='${pInfoVo.saleprice }'/></li>
 						<li>${pInfoVo.quantity }</li>
-						<li>${pInfoVo.deliveryprice }</li>
-						<li>${pInfoVo.quantity*pInfoVo.subprice }</li>
-						<c:set var="totalpayment" value='${totalpayment + pInfoVo.quantity*pInfoVo.subprice }'/>
+						<li><fmt:formatNumber value='${pInfoVo.deliveryprice }'/></li>
+						<li><fmt:formatNumber value='${pInfoVo.quantity*pInfoVo.subprice }'/></li>
+						<c:set var="sumDelivery" value='${sumDelivery + pInfoVo.deliveryprice }'/>
+						<c:set var="sumPayment" value='${sumPayment + pInfoVo.quantity*pInfoVo.subprice }'/>
 					</c:forEach>
 				</ul>
+				<input type="hidden" id="sumDelivery" value="${sumDelivery }"/>
+				<input type="hidden" id="sumPayment" value="${sumPayment }"/>
 			</div>
 			<div class="clearfix" id="orderCenterDiv"> <!-- 센터div -->
 				<div id="orderFrm_left"> <!-- 센터 왼쪽div -->
@@ -420,21 +478,22 @@
 							<tr>
 								<td>적립금 사용</td>
 								<td>
-									<input type="text" name="usepoint" id="j_usePoint" value="0"/>
+									<input type="text" name="usepoint" id="j_usePoint" value="0" onkeyup=""/>
 									<input type="button" class="clientSubBtn" id="j_allPoint" value="모두 사용"/>
-									<span>보유 적립금 <c:if test="${pointVo.point!=null }">${pointVo.point}</c:if><c:if test="${pointVo.point==null }">0</c:if>p</span>
+									<span>보유 적립금 <c:if test="${pointVo.point!=null }"><fmt:formatNumber value='${pointVo.point }'/>원</c:if>
+										<c:if test="${pointVo.point==null }">0</c:if>p</span>
 								</td>
 							</tr>
 							<tr>
 								<td>쿠폰 사용</td>
 								<td>
-									<select name="usecoupon">
+									<select id="j_selectCpn" name="usecoupon">
 										<option value="-">사용가능 쿠폰 ${cpnCount }장</option>
 										<c:if test="${cpnCount>0}">
-											<c:forEach var="cpnVo" items="${couponList }">
-												<option>${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
-												<input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/>
+											<c:forEach var="cpnVo" items="${couponList }" varStatus="i">
+												<option value="${cpnVo.cpnno }">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
 											</c:forEach>
+											<%-- <input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/> --%>
 										</c:if>
 									</select>
 								</td>
@@ -459,8 +518,6 @@
 								<td>결제수단</td>
 								<td>
 									<input type="radio" name="payType" id="j_creditCard"/><label for="j_creditCard">신용카드</label>
-									<!-- <span><input type="radio" name="payType" id="j_naverPay"/>네이버페이</span>
-									<span><input type="radio" name="payType" id="j_kakaoPay"/>카카오페이</span> -->
 								</td>
 							</tr>
 						</table>
@@ -477,36 +534,34 @@
 								</colgroup>
 								<tr>
 									<td>주문상품금액</td>
-									<td><fmt:formatNumber value='${totalpayment }'/>원</td>
-								</tr>
-								<tr>
-									<td>할인금액</td>
-									<td>246,700원</td>
+									<td><span><fmt:formatNumber value='${sumPayment }'/></span>원</td>
 								</tr>
 								<tr>
 									<td>적립금 사용</td>
-									<td>5,000원</td>
+									<td id="j_usedPoint">0원</td>
 								</tr>
 								<tr>
 									<td>쿠폰 사용</td>
-									<td>10,000원</td>
+									<td id="j_usedcoupon">0원</td>
 								</tr>
 								<tr>
 									<td>배송비</td>
-									<td>30,000원</td>
+									<td><fmt:formatNumber value='${sumDelivery }'/>원</td>
 								</tr>
 							</table>
 							<div>
 								<p>총 결제예정금액</p>
-								<p><span id="tPrice">3202900</span>원</p>
-								<input type="hidden" id="j_totalPrice" name="totalprice" value=""/>
+								<p id="j_totalPayment"></p>
+								<input type="hidden" name="totalprice" id="j_totalPrice" value=""/>
 							</div>
 							<div>
-								<p>적립예정금액 <span id="pPoint">23500</span>원</p>
-								<input type="hidden" id="j_plusPoint" name="pluspoint" value=""/>
+								<p>적립예정금액 <span id="pPoint">0</span>원</p>
+								<input type="hidden" name="pluspoint" id="j_plusPoint" value=""/>
 							</div>
 						</div>
-						<input type="hidden" name="applyNum" id="j_applyNum" value=""/>
+						<input type="hidden" name="applynum" id="j_applynum" value=""/>
+						<input type="hidden" name="imp_uid" id="j_imp_uid" value=""/>
+						<input type="hidden" name="merchant_uid" id="j_merchant_uid" value=""/>
 						<div id="j_orderRegulation">
 							<p><b>주문동의</b></p>
 							<p>주문할 상품의 상품명, 상품가격, 배송정보를 확인하였으며, 구매에 동의하시겠습니까?<br/>

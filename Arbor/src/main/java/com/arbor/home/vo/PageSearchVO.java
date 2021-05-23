@@ -16,9 +16,10 @@ public class PageSearchVO {
 	private String startdate;
 	private String enddate;
 	private int subno;
+	private int mainno;
 	
 	/* Admin - OrderController */
-	private String period="";
+	/*private String period="";*/
 	private String orderSearch_from="";
 	private String orderSearch_to="";
 	
@@ -32,7 +33,12 @@ public class PageSearchVO {
 	private String sales_from="";
 	private String sales_to="";
 	
-	
+	public int getMainno() {
+		return mainno;
+	}
+	public void setMainno(int mainno) {
+		this.mainno = mainno;
+	}
 	public String getSmsok() {
 		return smsok;
 	}
@@ -50,6 +56,16 @@ public class PageSearchVO {
 	}
 	public void setDormailok(String dormailok) {
 		this.dormailok = dormailok;
+	}
+	
+	/*Admin review 정렬*/
+	private String sort;
+	
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 	public String getUserid() {
 		return userid;
@@ -135,12 +151,6 @@ public class PageSearchVO {
 	public void setSearchWord(String searchWord) {
 		this.searchWord = searchWord;
 	}
-	public String getPeriod() {
-		return period;
-	}
-	public void setPeriod(String period) {
-		this.period = period;
-	}
 	public String getOrderSearch_from() {
 		return orderSearch_from;
 	}
@@ -164,15 +174,6 @@ public class PageSearchVO {
 	}
 	public void setSales_to(String sales_to) {
 		this.sales_to = sales_to;
-	}
-	@Override
-	public String toString() {
-		return "PageSearchVO [pageNum=" + pageNum + ", onePageNum=" + onePageNum + ", startPageNum=" + startPageNum
-				+ ", totalPage=" + totalPage + ", totalRecord=" + totalRecord + ", onePageRecord=" + onePageRecord
-				+ ", lastPageRecord=" + lastPageRecord + ", searchKey=" + searchKey + ", searchWord=" + searchWord
-				+ ", userid=" + userid + ", startdate=" + startdate + ", enddate=" + enddate + ", subno=" + subno
-				+ ", period=" + period + ", orderSearch_from=" + orderSearch_from + ", orderSearch_to=" + orderSearch_to
-				+ "]";
 	}
 	
 	

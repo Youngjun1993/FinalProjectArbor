@@ -20,4 +20,17 @@
 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(faqno) as totalRecord from faq
 	</select>
+	<insert id="faqInsert" parameterType="com.arbor.home.vo.FaqVO">
+		insert into faq (faqno, faqcate, faqsubject, faqcontent, faqdate)
+		values(faqsq.nextval, #{faqcate}, #{faqsubject}, #{faqcontent}, sysdate)
+	</insert>
+	<select id="faqselect" resultType="com.arbor.home.vo.FaqVO">
+		select * from faq where faqno=#{param1}
+	</select>
+	<update id="faqEditOk" parameterType="com.arbor.home.vo.FaqVO">
+		update faq set faqsubject=#{faqsubject}, faqcate=#{faqcate}, faqcontent=#{faqcontent} where faqno=#{faqno}
+	</update>
+	<delete id="faqDel" parameterType="com.arbor.home.vo.FaqVO">
+		delete from faq where faqno=#{param1}
+	</delete>
 </mapper>

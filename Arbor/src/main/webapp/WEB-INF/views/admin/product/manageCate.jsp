@@ -24,24 +24,28 @@
 					<img src="<%=request.getContextPath() %>/img/uppage.png"/>
 				</p><br/>
 				<div id="insertCategoryDiv">
-				<span class="pContent">&nbsp</span>
-					<select name="mainno" id="maincate">
-						<option value="" selected disabled hidden>대분류</option>
-						<c:forEach var="mainCate" items="${mainCate }">
-							<c:if test="${mainCate.mainno!=null && mainCate.mainno!='' }">
-								<option value=${mainCate.mainno }>${mainCate.mainname }</option>
-							</c:if>
-						</c:forEach>
-					</select>
-					<select name="subno" id="subcate">
-						<option value="" selected disabled hidden>중분류</option>
-						<c:forEach var="subCate" items="${subCate }">
-							<option value=${subCate.subno }>${subCate.subname }</option>
-						</c:forEach>
-					</select>
-					<form method="post" action="insertCate">
+					<form method="post" action="insertCate" class="clearfix">
+						<div id="insertCateMainLeft">
+						<span class="pContent">카테고리</span>
+						<select name="mainno" id="maincate">
+							<option value="" selected disabled hidden>대분류</option>
+							<c:forEach var="mainCate" items="${mainCate }">
+								<c:if test="${mainCate.mainno!=null && mainCate.mainno!='' }">
+									<option value=${mainCate.mainno }>${mainCate.mainname }</option>
+								</c:if>
+							</c:forEach>
+						</select>
+						<select name="subno" id="subcate">
+							<option value="" selected disabled hidden>중분류</option>
+							<c:forEach var="subCate" items="${subCate }">
+								<option value=${subCate.subno }>${subCate.subname }</option>
+							</c:forEach>
+						</select><br/>
 						<span class="pContent">대분류등록</span>
-						<input type="text" name="mainEdit" id="searchWord" /><br/>
+						<input type="text" name="mainEdit" class="cateEditInput" /><br/>
+						<input type="submit" value="대분류등록" class="adminMainBtn"/>
+						</div>
+						<div id="insertCateSubRight">
 						<span class="pContent">중분류등록</span>
 						<select name="mainno" id="maincate">
 							<option value="" selected disabled hidden>==대분류선택==</option>
@@ -50,9 +54,11 @@
 									<option value=${mainCate.mainno }>${mainCate.mainname }</option>
 								</c:if>
 							</c:forEach>
-						</select>
-						<input type="text" name="subEdit" id="searchWord" autocomplete='off'/>
-						<input type="submit" value="등록" class="adminMainBtn"/>
+						</select><br/>
+						<span class="pContent">&nbsp</span>
+						<input type="text" name="subEdit" class="cateEditInput" autocomplete='off'/><br/>
+						<input type="submit" value="중분류등록" class="adminMainBtn"/>
+						</div>
 					</form>
 					<hr/>
 					<form method="post" id="deleteCate" action="">
@@ -82,7 +88,7 @@
 						<span class="pContent">중분류</span>
 						<input type="hidden" name="subno" value="" />
 						<input type="text" name="subname" value="" /><br/>
-						<input type="submit" class="adminMainBtn" id="UpdateCateFrmInput" value="수정" />	<button type="button" class="adminSubBtn" onclick="javascript:cancelCateFrm">닫기</button>
+						<input type="submit" class="adminMainBtn" id="UpdateCateFrmInput" value="수정" />	<button type="button" class="adminSubBtn" onclick="location.href='javascript:cancelCateFrm()'">닫기</button>
 					</form>
 				</div>
 			</div>

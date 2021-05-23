@@ -10,12 +10,13 @@
 }
 .j_category{
 	width: 100px;
-	font-weight: bold;
+	font-weight: bold;	
 	display: inline-block;
 }
 .j_search{
 	padding-top: 10px;
 	height:3 0px;
+	margin-bottom: 15px;
 }
 .j_search>form{
 	float: right;

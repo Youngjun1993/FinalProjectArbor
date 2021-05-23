@@ -275,6 +275,30 @@
 	    height: 40px;
 	    text-align: center;
 	    margin: 20px auto;
+<<<<<<< HEAD
+	}
+	
+	#pagingDiv {
+		text-align: center; margin-top:50px;
+	}
+	#pagingDiv>ul {
+		margin-bottom: 50px;
+		overflow:auto;
+		display:inline-block;	
+	}
+/*2021-05-21 영준 쿠폰관리, 리뷰관리 추가*/
+#h_menucontainer>ul>li:hover{
+	background-color: #eee;
+}
+.y_couponAdBtnLi a, .y_reviewAdBtnLi a{
+	border-top:2px solid #ddd;
+	width:110px; 
+	display:block; 
+	padding:20px; 
+	font-size:16px;
+	letter-spacing: 1px; 
+}
+/* ///////////////////////////탈퇴회원 페이지/////////////////////////// */
 	} */
 .h_paging_wrap {
 	text-align: center;

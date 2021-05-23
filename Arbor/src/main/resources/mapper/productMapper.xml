@@ -45,7 +45,7 @@
  	
  	<select id="subCateListAll" resultType="com.arbor.home.vo.SubCateVO" parameterType="com.arbor.home.vo.PageSearchVO">
  		select * from(select * from(
- 		select subno, s.mainno, mainname, subname from subcate s join maincate m
+ 		select subno, s.mainno, mainname, subname from subcate s full outer join maincate m
  		on s.mainno=m.mainno order by subno desc)
  		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by subno asc)
  		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
@@ -133,7 +133,7 @@
  	
  	<select id="productListClient" parameterType="com.arbor.home.vo.PageProductVO" resultType="com.arbor.home.vo.ProductVO">
  		select * from (select * from (select * from (
- 		select pno, subno, pname, pprice, saleprice, img1, img2, pdate from product where subno=${subno} 
+ 		select pno, subno, pname, pprice, saleprice, img1, img2, pdate, round(((pprice-saleprice)/pprice)*100, 0) as salepercent from product where subno=${subno} 
  		<if test="msg=='newArray'"> order by pdate desc </if><if test="msg=='lowpriceArray'"> order by saleprice asc </if><if test="msg=='highpriceArray'"> order by saleprice desc </if>
  		<if test="msg==null"> order by pno desc </if>)
  		<![CDATA[where rownum <= ]]>${pageNum} * ${onePageRecord}
@@ -146,7 +146,7 @@
  	
  	<select id="productListClientOrder" parameterType="com.arbor.home.vo.PageProductVO" resultType="com.arbor.home.vo.ProductVO">
  		select * from (select * from(
- 		select p.pno, nvl(s.cnt, 0) as cnt, subno, pname, pprice, saleprice, img1, img2, pdate from product p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
+ 		select p.pno, nvl(s.cnt, 0) as cnt, subno, pname, pprice, saleprice, img1, img2, pdate, round(((pprice-saleprice)/pprice)*100, 0) as salepercent from product p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
  		where subno=${subno} order by cnt desc)
  		<![CDATA[where rownum <= ]]>${pageNum} * ${onePageRecord} order by cnt asc)
  		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">${lastPageRecord}</if><if test="pageNum!=totalPage">${onePageRecord}</if>
@@ -189,7 +189,7 @@
  	
  	<select id="productCateTop12" resultType="com.arbor.home.vo.ProductVO">
  		select * from        
-		(select p.pno, p.mainno, nvl(s.cnt, 0) as cnt, p.subno, p.pname, p.pprice, p.saleprice, p.img1, p.img2, p.pdate
+		(select p.pno, p.mainno, nvl(s.cnt, 0) as cnt, p.subno, p.pname, p.pprice, p.saleprice, p.img1, p.img2, p.pdate, round(((p.pprice-p.saleprice)/p.pprice)*100, 0) as salepercent
 		from (select p.pno, s.subno, s.mainno, s.mainname, s.subname, p.pname, p.pprice, p.saleprice, p.pdate, img1, img2
 		from product p join (select s.subno, s.mainno, s.subname, m.mainname from subcate s
 		join maincate m on s.mainno=m.mainno) s on p.subno=s.subno) p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
@@ -199,12 +199,12 @@
  	
  	<select id="productTotalList" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
  		select * from        
-		(select p.pno, p.mainno, nvl(s.cnt, 0) as cnt, p.subno, p.pname, p.pprice, p.saleprice, p.img1, p.img2, p.pdate
+		(select p.pno, p.mainno, nvl(s.cnt, 0) as cnt, p.subno, p.pname, p.pprice, p.saleprice, p.img1, p.img2, p.pdate, round(((p.pprice-p.saleprice)/p.pprice)*100, 0) as salepercent
 		from (select p.pno, s.subno, s.mainno, s.mainname, s.subname, p.pname, p.pprice, p.saleprice, p.pdate, img1, img2
 		from product p join (select s.subno, s.mainno, s.subname, m.mainname from subcate s
 		join maincate m on s.mainno=m.mainno) s on p.subno=s.subno) p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
 		where mainno=${param1} order by cnt desc)
-		<![CDATA[where rownum <= ]]>5
+		<![CDATA[where rownum <= ]]>12
  	</select>
  	
  	<select id="productListRGB" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
@@ -228,12 +228,20 @@
  		values(pqnasq.nextval, ${pno}, #{userid}, #{pqnasubject}, #{pqnacontent}, #{pqnaopen})
  	</insert>
  	
+ 	<update id="pqnaUpdate" parameterType="com.arbor.home.vo.ProductQnaVO">
+ 		update productqna set pqnasubject=#{pqnasubject}, pqnacontent=#{pqnacontent}, pqnaopen=#{pqnaopen} where pqnano=${pqnano} and userid=#{userid}
+ 	</update>
+ 	
+ 	<delete id="pqnaDelete">
+ 		delete from productqna where pqnano=${param1} and userid=#{param2}
+ 	</delete>
+ 	
  	<select id="pqnaList" resultType="com.arbor.home.vo.ProductQnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
  		select * from(select * from(select * from(select * from(
  		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
- 		from productqna q join product p on q.pno=p.pno order by pqnano desc)
+ 		from productqna q join product p on q.pno=p.pno)
  		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
- 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if> order by pqnano desc)
  		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pqnano asc)
  		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
  		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pqnano desc
@@ -241,7 +249,8 @@
  	
  	<select id="pqna_totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
  		select count(pqnano) from (select * from(select * from
- 		(select * from productqna)
+ 		(select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
+ 		from productqna q join product p on q.pno=p.pno)
  		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
  		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
  	</select>
@@ -263,7 +272,8 @@
  	
  	<select id="pqnaNoAnswerCnt" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
  		select count(pqnano) from (select * from(select * from 
- 		(select * from productqna)
+ 		(select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
+ 		from productqna q join product p on q.pno=p.pno)
  		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
  		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
  		where panswercontent is null

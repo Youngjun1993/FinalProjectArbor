@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div id="y_myPageBanner">
 	<div></div>
-	<p>M Y P A G E</p>
+	<p id="myPageTitle"><span>M Y P A G E</span></p>
 </div>
 <div id="y_myPageTop">
         <ul class="clearfix">
@@ -11,7 +12,7 @@
                 <span><i class="fas fa-gem fa-3x"></i></span>
                 <span>적립금<br/>
 	                <a href="pointList" class="ftBold25_blue">
-						<c:if test="${pointVO.point!=null }">${pointVO.point}</c:if>
+						<c:if test="${pointVO.point!=null }"><fmt:formatNumber type="number" value="${pointVO.point}"/></c:if>
 						<c:if test="${pointVO.point==null }">0</c:if></a> 원
 				</span>
             </li>

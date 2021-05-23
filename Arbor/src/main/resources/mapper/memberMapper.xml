@@ -194,9 +194,9 @@
 	</update>
 	
 	<!-- 휴면회원다중삭제 -->
-	<update id = "dormantMultiDel">
-		update dormantmember set dortype = '탈퇴' where userid = #{userid}
-	</update>
+	<delete id = "dormantMultiDel">
+		delete from dormantmember where userid=#{userid}
+	</delete>
 	
 	<!--////////////////// 탈퇴회원 리스트와 페이징 /////////////////////-->
 	<select id="memQuitPaging" resultType="com.arbor.home.vo.MemberQuitVO">

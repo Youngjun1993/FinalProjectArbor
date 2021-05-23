@@ -25,4 +25,28 @@ public class FaqService implements FaqServiceImp {
 		return faqDAO.totalRecord(vo);
 	}
 
+	@Override
+	public int faqInsert(FaqVO vo) {
+		// TODO Auto-generated method stub
+		return faqDAO.faqInsert(vo);
+	}
+
+	@Override
+	public int faqEditOk(FaqVO vo) {
+		// TODO Auto-generated method stub
+		return faqDAO.faqEditOk(vo);
+	}
+
+	@Override
+	public FaqVO faqselect(int no) {
+		// TODO Auto-generated method stub
+		return faqDAO.faqselect(no);
+	}
+
+	@Override
+	public int faqDel(int no) {
+		// TODO Auto-generated method stub
+		return faqDAO.faqDel(no);
+	}
+
 }

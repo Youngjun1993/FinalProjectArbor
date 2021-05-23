@@ -120,19 +120,26 @@
 #p_list {
 	margin-top: 60px;
 }
-#p_list li {
+#p_list>ul>li {
 	width: 25%; height: 500px;
 	float:left; text-align:center;
+	position:relative;
 }
 #p_list>ul>li>a {
 	display:block;
 	width: 100%; text-align: center;
 	height: 250px;
 }
-
 #p_list>ul>li>a>img {
 	width: 300px; height: 250px;
 }
+#p_list>ul>li>span.p_salepercent {
+	display:inline-block; position:absolute; text-align:center;
+	top:210px; left:25px; width: 70px; height: 40px; line-height: 40px;
+	font-size:1em; font-weight:bold; background-color:rgb(191,43,53);
+	color:#fff; opacity: 0.8;
+}
+
 /* class css */
 .p_color {
 	width: 50%; height: 20px;
@@ -147,8 +154,9 @@
 }
 
 .p_listdetail1 {
-	font-size: 1.1em; font-weight: bold;
-	margin:5px 0;
+	width: 300px; font-size: 1.3em; font-weight: bold;
+	margin:5px 0 5px 25px; text-align:center;
+	white-space:normal; word-break:keep-all;
 }
 .p_listdetail2 {
 	color:red; text-decoration:line-through;
@@ -165,6 +173,13 @@
 	overflow:auto;
 	display:inline-block;	
 }
+
+/* percent */
+/* .p_salepercent {
+	display:inline-block;
+	width: 40px; border:1px solid rgb(191,43,53); font-size:0.8em;
+	padding: 2px 3px; margin:1px 0 1px 10px;
+} */
 
 /* tag css */
 

@@ -1,5 +1,21 @@
 @charset "UTF-8";
 
+/* class */
+.j_adSubTitle{
+	margin-bottom: 20px;
+}
+.j_adSubTitle>span{
+	font-size: 18px;
+	/*border: 1px solid #eee;*/
+	padding: 7px 17px;
+	background: rgb(191,43,53);
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 10px;
+	box-sizing: border-box;
+}
+
 #salesDateSearch{
 	width: 1200px;
 	height: 30px;

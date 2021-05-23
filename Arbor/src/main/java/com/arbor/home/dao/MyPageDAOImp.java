@@ -32,10 +32,10 @@ public interface MyPageDAOImp {
 	public List<QnaVO> allList(PageSearchVO vo);
 	//Q&A 총 레코드 수
 	public int qnaTotalRecord(PageSearchVO vo);
-	/*
-	 * //Q&A 처리상태 desc 정렬 public HashMap<String, List<QnaVO>>
-	 * qnaAnsDesc(PageSearchVO vo);
-	 */
+	//처리상태 desc 정렬
+	public List<QnaVO> qnaAnsDescList(PageSearchVO vo);
+	//처리상태 asc 정렬
+	public List<QnaVO> qnaAnsAscList(PageSearchVO vo);
 		
 	//Coupon 리스트
 	public List<CouponVO> cpnList(PageSearchVO vo);

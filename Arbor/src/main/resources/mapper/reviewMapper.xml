@@ -3,10 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.arbor.home.dao.ReviewDAOImp">
+	<select id="reviewAdList" resultType="com.arbor.home.vo.ReviewVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select r.reviewno, r.pno, r.userid, r.grade, r.reviewcontent, to_char(r.reviewdate,'YY-MM-DD HH:MI') as reviewdate, p.pname from review r join product p on r.pno=p.pno 
+		<if test="searchWord!=null">where <if test="subno != null and subno != ''">p.subno=${subno} and </if>${searchKey} like '%${searchWord}%' order by <choose><when test="sort!=null and sort=='grade'">grade desc</when><when test="sort!=null and sort=='pname'">pname desc</when><otherwise>reviewdate desc</otherwise></choose>) <![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by <choose><when test="sort!=null and sort=='grade'">grade asc</when><when test="sort!=null and sort=='pname'">pname asc</when><otherwise>reviewdate asc</otherwise></choose>) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by <choose><when test="sort!=null and sort=='grade'">grade desc</when><when test="sort!=null and sort=='pname'">pname desc</when><otherwise>reviewdate desc</otherwise></choose></if> 
+		<if test="searchWord==null">order by <choose><when test="sort!=null and sort=='grade'">grade desc</when><when test="sort!=null and sort=='pname'">pname desc</when><otherwise>reviewdate desc</otherwise></choose>) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by <choose><when test="sort!=null and sort=='grade'">grade asc</when><when test="sort!=null and sort=='pname'">pname asc</when><otherwise>reviewdate asc</otherwise></choose>) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by <choose><when test="sort!=null and sort=='grade'">grade desc</when><when test="sort!=null and sort=='pname'">pname desc</when><otherwise>reviewdate desc</otherwise></choose></if>
+	</select>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(reviewno) as totalRecord from review r join product p on r.pno=p.pno <if test="searchWord != null">where <if test="subno != null and subno != ''">p.subno=${subno} and </if> ${searchKey} like '%${searchWord}%'</if>
+	</select>
 	<delete id="reviewDelete">
 		delete from review where reviewno=#{param1} and userid=#{param2}
 	</delete>
 	<update id="reviewUpdate" parameterType="com.arbor.home.vo.ReviewVO">
 		update review set grade=${grade}, reviewcontent=#{reviewcontent}, reviewdate=sysdate where reviewno=${reviewno} and userid=#{userid}
 	</update>
+	<delete id="reviewAdDelete">
+		delete from review where reviewno=#{param1}
+	</delete>
+	<select id="reviewGetMainCate" resultType="com.arbor.home.vo.ReviewVO">
+		select mainno, mainname from maincate
+	</select>
+	<select id="reviewGetSubCate" resultType="com.arbor.home.vo.ReviewVO">
+		select subno, subname from subcate where mainno=#{param1}
+	</select>
 </mapper>

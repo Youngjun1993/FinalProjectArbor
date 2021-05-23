@@ -48,6 +48,10 @@ public interface ProductServiceImp {
 	public List<OptionVO> optValueSelect(int pno);
 	// 상품문의 등록하기
 	public int pqnaInsert(ProductQnaVO vo);
+	// 상품문의 수정하기
+	public int pqnaUpdate(ProductQnaVO vo);
+	// 상품문의 삭제하기
+	public int pqnaDelete(int pqnano, String userid);
 	// 상품문의 확인을 위한 List
 	public List<ProductQnaVO> pqnaViewList(int pno);
 	// 해당 상품에 대한 리뷰목록 불러오기

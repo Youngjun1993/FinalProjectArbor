@@ -7,7 +7,12 @@
 .boxshadow{
 	box-shadow: 5px 5px 10px gray;
 }
-
+.gradestar {
+	color:rgb(255,150,0);
+}
+.elsestar {
+	color:rgb(204,204,204);
+}
 /*myPagemain 스타일*/
 #y_myPageMain_wrap{
     position: relative;

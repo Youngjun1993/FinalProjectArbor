@@ -6,7 +6,7 @@
 		//페이징 li만큼 갯수
 		var liCnt = $(".paging>li").length;
 		$(".paging").css({
-			"width" : liCnt*35+"px",
+			"width" : liCnt*40+"px",
 			"margin" : "30px auto"
 		});	
 		$("#y_leftMenu>ul>li:nth-child(4) a").css({
@@ -75,7 +75,25 @@
 	                <li>${data.reviewno }</li>
 	                <li class="wordcut"><a href="#">${data.pname }</a></li>
 	                <li class="wordcut">${data.reviewcontent }</li>
-	                <li><span class="colorYellow">${data.grade }</span>(${data.gradeint })</li>
+	                <li>
+	                	<c:choose>
+								<c:when test="${data.gradeint==1 }">
+									<p><span class="gradestar">★</span><span class="elsestar">★★★★</span></p><br/>
+								</c:when>
+								<c:when test="${data.gradeint==2 }">
+									<p><span class="gradestar">★★</span><span class="elsestar">★★★</span></p><br/>
+								</c:when>
+								<c:when test="${data.gradeint==3 }">
+									<p><span class="gradestar">★★★</span><span class="elsestar">★★</span></p><br/>
+								</c:when>
+								<c:when test="${data.gradeint==4 }">
+									<p><span class="gradestar">★★★★</span><span class="elsestar">★</span></p><br/>
+								</c:when>
+								<c:otherwise>
+									<p><span class="gradestar">★★★★★</span></p><br/>
+								</c:otherwise>
+							</c:choose>
+	                </li>
 	                <li>${data.reviewdate }</li>
 	                <li>
 	                	<button id="y_reviewEdit" class="clientSubBtn" onclick="javascript:reviewEdit('${data.grade}',this)">수정</button>

@@ -8,15 +8,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/sales.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/orderAdmin.css" type="text/css"/>
-<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
+<!-- datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script>
 	$(function(){
@@ -53,7 +53,7 @@
 				alert("검색기간을 확인해주세요.");
 				return false;
 			}
-			$('#salesFrm').submit();
+			$('#j_salesFrm').submit();
 		});
 		
 		$('#j_salesPopupClose').click(function(){
@@ -83,7 +83,7 @@
 				$result.each(function(idx, vo){
 					$("#j_salesPopup_Wrap>div>p").text(orderdate+" 매출")
 					tag += "<li>"+ vo.orderno +"</li>";
-					tag += "<li>"+ vo.orderno +"</li>";
+					tag += "<li>"+ "'상품명'" +"</li>";
 					tag += "<li>"+ vo.userid +"</li>";
 					tag += "<li>"+ vo.username +"</li>";
 					tag += "<li>"+ vo.subprice +"원</li>";
@@ -95,6 +95,11 @@
 		});
 	}
 	
+	function j_salesPageChange(pageNum){
+		$('#j_salesPageNum').val(pageNum);
+		$('#j_salesFrm').submit();
+	}
+	
 	
 </script>
 </head>
@@ -104,8 +109,9 @@
 	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="j_centerFrm">
 		<p class="j_adminMemu"><span>매출관리</span></p>
+		<p class="j_adSubTitle"><span>매출통계</span></p>
 		<div>
-			<form id="salesFrm" action="salesManagement">
+			<form id="j_salesFrm" action="salesManagement">
 				<table id="salesDateSearch">
 					<colgroup>
 						<col width="200px"><col width="auto">
@@ -119,6 +125,7 @@
 						</td>
 					</tr>
 				</table>
+				<input type="hidden" name="pageNum" id="j_salesPageNum" value="${pageVO.pageNum }"/>
 			</form>
 			<div id="dailySales">
 				<ul class="clearfix">
@@ -155,20 +162,20 @@
 			<div class="j_paging">
 				<ul class="adPaging clearfix">
 					<c:if test="${pageVO.pageNum>1 }">
-						<li style="border-bottom:none;"><a class="pagingAdLR_a" href="dailySales?pageNum=${pageVO.pageNum-1 }">＜</a></li>
+						<li style="border-bottom:none;"><a class="pagingAdLR_a" href="javascript:j_salesPageChange(${pageVO.pageNum-1 }">＜</a></li>
 					</c:if>
 					<c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
 						<c:if test="${p<=pageVO.totalPage }">
 							<c:if test="${p==pageVO.pageNum }">
-								<li style="border-bottom:3px solid rgb(191,43,53);"><a href="dailySales?pageNum=${p }">${p }</a></li>
+								<li style="border-bottom:3px solid rgb(191,43,53);"><a href="javascript:j_salesPageChange(${p })">${p }</a></li>
 							</c:if>
 							<c:if test="${p!=pageVO.pageNum }">
-								<li><a href="dailySales?pageNum=${p }">${p }</a></li>
+								<li><a href="javascript:j_salesPageChange(${p })">${p }</a></li>
 							</c:if>
 						</c:if>
 					</c:forEach>
 					<c:if test="${pageVO.pageNum<pageVO.totalPage }">
-						<li style="border-bottom:none;"><a class="pagingAdLR_a" href="dailySales?pageNum=${pageVO.pageNum+1 }">＞</a></li>
+						<li style="border-bottom:none;"><a class="pagingAdLR_a" href="javascript:j_salesPageChange(${pageVO.pageNum+1 })">＞</a></li>
 					</c:if>
 				</ul>
 		 	</div>

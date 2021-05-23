@@ -217,14 +217,9 @@ $(function(){
 		<div class="slide_wraper">
 			<div class="slides">
 				<ul>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed1.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed4.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed5.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed6.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed7.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed8.PNG"></li>
+					<c:forEach var="top" items="${top }">
+						<li><a href="productView?pno=${top.pno }"><img src="<%=request.getContextPath()%>/upload/${top.img1}"></a></li>
+					</c:forEach>
 				</ul>
 			</div>
 			<!-- "slides" -->
@@ -253,7 +248,7 @@ $(function(){
 	<!-- 두번째리스트 -->
 	<!-- 인기상품 -->
 	<div class="slideBox2" trigger-up>
-		<p>Arbor's 추천상품</p>
+		<p>Arbor's 신상품</p>
 		<div class="controlls2">
 			<img class="prev2" src="<%=request.getContextPath()%>/img/prev2.png">
 			<img class="next2" src="<%=request.getContextPath()%>/img/next2.png">
@@ -261,14 +256,9 @@ $(function(){
 		<div class="slide_wraper2">
 			<div class="slides2">
 				<ul>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed11.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed12.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed13.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed14.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed15.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed16.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed1.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></li>
+					<c:forEach var="newlst" items="${newlst }">
+						<li><a href="productView?pno=${newlst.pno }"><img src="<%=request.getContextPath()%>/upload/${newlst.img1 }"></a></li>
+					</c:forEach>
 				</ul>
 			</div>
 			<!-- "slides" -->
@@ -280,7 +270,7 @@ $(function(){
 	
 	<!-- 동영상  -->
 	<div class="videoBox" trigger-up>
-		<div class="d_video">
+		<a href="#"><div class="d_video">
 			<video width="100%" height="800" autoplay loop muted preload="auto">
   				<source src="<%=request.getContextPath()%>/img/lookbook.mp4" type="video/mp4">
 			</video>
@@ -289,6 +279,7 @@ $(function(){
 			<p>Arbor's LOOKBOOK</p>
 			<button>GET INSFIRED</button>
 		</div>
+		</a>
 	</div>
 	<!-- videoBox -->
 	
@@ -296,7 +287,7 @@ $(function(){
 	<div class="d_linkBox">
 		<ul>
 			<li>
-				<a href="">
+				<a href="productList?mainno=1&subno=1">
 					<div class="screen" trigger-left>
 						<div class="s_top">소파를 봅시다</div>
 						<div class="s_bottom">소파리스트로 이동</div>
@@ -310,7 +301,7 @@ $(function(){
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="productList?mainno=2&subno=5">
 					<div class="screen" trigger-up>
 						<div class="s_top">침대를 봅시다</div>
 						<div class="s_bottom">침대리스트로 이동</div>
@@ -324,7 +315,7 @@ $(function(){
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="productTotalList">
 					<div class="screen" trigger-right >
 						<div class="s_top">가구를 봅시다.</div>
 						<div class="s_bottom">가구리스트로 이동</div>

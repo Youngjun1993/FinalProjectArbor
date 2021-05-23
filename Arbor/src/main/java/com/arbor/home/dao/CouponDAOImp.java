@@ -22,4 +22,6 @@ public interface CouponDAOImp {
 	public int cpnAdDelete(int cpnadno);
 	// couponad 전체삭제
 	public int cpnAllDelete();
+	// couponad 업뎃시 client도 없뎃
+	public int cpnClientUpdate(CouponVO vo);
 }
