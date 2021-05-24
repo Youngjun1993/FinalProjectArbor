@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.OrderServiceImp;
-import com.arbor.home.vo.CartVO;
 import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
@@ -40,7 +39,6 @@ public class OrderController {
 			OrderTblVO orderVo, HttpSession session) {
 
 		List<SubOrderVO> subOrderList = new ArrayList<SubOrderVO>();
-		List<CouponVO> cpnList = new ArrayList<CouponVO>();
 		ModelAndView mav = new ModelAndView();
 
 		String userid = (String)session.getAttribute("logId");
@@ -113,12 +111,16 @@ public class OrderController {
 			SubOrderVO vo = new SubOrderVO();
 			vo = orderService.cartAppendChckList(cartno, userid);
 			list.add(vo);
-			cpnCount += orderService.couponCount(userid, vo.getSubno());
+		}
+		List<SubOrderVO> subnoList = orderService.getSubnoSelect(userid);
+		for(int i=0; i<subnoList.size(); i++) {
+			cpnCount += orderService.couponCount(userid, subnoList.get(i).getSubno());
 		}
 		mav.addObject("pInfoList", list);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));
 		mav.addObject("couponList", orderService.getUserCoupon(userid));
+		mav.addObject("subnoList", subnoList);
 		mav.addObject("cpnCount", cpnCount);
 		mav.setViewName("client/order/order");
 		return mav;
@@ -132,15 +134,16 @@ public class OrderController {
 		if (userid.equals("") || userid == null) {
 			mav.setViewName("admin/member/login");
 		} else {
-			List<SubOrderVO> list = orderService.cartAllList(userid);
-			for(int i=0; i<list.size(); i++) {
-				SubOrderVO vo = list.get(i);
-				cpnCount += orderService.couponCount(userid, vo.getSubno());
+			List<SubOrderVO> subnoList = orderService.getSubnoSelect(userid);
+			for(int i=0; i<subnoList.size(); i++) {
+				cpnCount += orderService.couponCount(userid, subnoList.get(i).getSubno());
 			}
-			mav.addObject("pInfoList", list);
+			
+			mav.addObject("pInfoList", orderService.cartAllList(userid));
 			mav.addObject("memberVo", orderService.getMemberInfo(userid));
 			mav.addObject("pointVo", orderService.getUserPoint(userid));
 			mav.addObject("couponList", orderService.getUserCoupon(userid));
+			mav.addObject("subnoList", subnoList);
 			mav.addObject("cpnCount", cpnCount);
 			mav.setViewName("client/order/order");
 		}

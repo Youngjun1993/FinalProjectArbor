@@ -2,7 +2,6 @@ package com.arbor.home.dao;
 
 import java.util.List;
 
-import com.arbor.home.vo.CartVO;
 import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
@@ -31,6 +30,7 @@ public interface OrderDAOImp {
 	public int setUsedPoint(OrderTblVO orderVo);			//적립금 사용금액
 	public int setPlusPoint(OrderTblVO orderVo);				//적립예정금액 반영
 	public CouponVO cpnSelect(int cpnno);					// 쿠폰적용위한 정보 select
+	public List<SubOrderVO> getSubnoSelect(String userid);	// subno구하기
 	
 	
 	/* admin */

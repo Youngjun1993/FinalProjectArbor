@@ -31,6 +31,7 @@ public interface OrderServiceImp {
 	public int setUsedPoint(OrderTblVO orderVo);			//적립금 사용금액 업데이트
 	public int setPlusPoint(OrderTblVO orderVo);				//적립예정금액 반영
 	public CouponVO cpnSelect(int cpnno);					// 쿠폰적용위한 정보 select
+	public List<SubOrderVO> getSubnoSelect(String userid);	// subno구하기
 	
 	
 	/* admin */

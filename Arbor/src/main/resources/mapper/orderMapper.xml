@@ -16,6 +16,9 @@
 	<select id="getUserCoupon" resultType="com.arbor.home.vo.CouponVO">
 		select cpnno, userid, cpnname, apply, salerate, to_char(cpnstart, 'yyyy-mm-dd') cpnstart, to_char(cpnend, 'yyyy-mm-dd') cpnend, cpnadno from coupon where userid=#{param1} and cpnend>=sysdate-1
 	</select>
+	<select id="getSubnoSelect" resultType="com.arbor.home.vo.SubOrderVO">
+		select distinct(p.subno) from cart c join product p on c.pno=p.pno where userid=#{param1}
+	</select>
 	<!-- <select id="getCouponCount" resultType="int">
 		select count(cpnNo) from coupon where userid=#{param1} and cpnend>=sysdate-1
 	</select> -->

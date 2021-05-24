@@ -147,5 +147,10 @@ public class OrderService implements OrderServiceImp {
 		return orderDAO.cpnSelect(cpnno);
 	}
 
+	@Override
+	public List<SubOrderVO> getSubnoSelect(String userid) {
+		return orderDAO.getSubnoSelect(userid);
+	}
+
 	
 }

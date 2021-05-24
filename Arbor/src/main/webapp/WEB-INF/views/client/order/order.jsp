@@ -516,7 +516,7 @@
 											</c:when>
 											<c:otherwise>
 												<option value="-" selected hidden>사용가능 쿠폰 ${cpnCount }장</option>
-												<c:forEach var="list" items="${pInfoList }">
+												<c:forEach var="list" items="${subnoList }">
 													<c:forEach var="cpnVo" items="${couponList }">					
 														<c:if test="${cpnVo.apply == list.subno }">
 															<option value="${cpnVo.cpnno }">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
