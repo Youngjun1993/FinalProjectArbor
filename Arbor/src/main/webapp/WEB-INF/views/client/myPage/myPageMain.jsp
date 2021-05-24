@@ -211,6 +211,24 @@
 		});
 	}
 	
+	/* 주문취소 */
+	
+	function cancelPay(merchant_uid) {
+      $.ajax({
+        url: 'http://www.myservice.com/payments/cancel',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          merchant_uid: merchant_uid, // 주문번호
+          cancel_request_amount: 10, // 환불금액
+          reason: '테스트 결제 환불' // 환불사유
+        }, success: function(result) { // 환불 성공시 로직 
+            alert('환불 성공');
+        }, error : function(error) { // 환불 실패시 로직
+          alert('환불 실패');
+        }
+      });
+    }
 	
 </script>
 <div id="y_myPageMain_wrap" class="clearfix w1400_container">
