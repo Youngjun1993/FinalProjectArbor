@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.arbor.home.vo.CouponVO;
+import com.arbor.home.vo.ExchangeVO;
+import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
@@ -35,8 +37,14 @@ public interface MyPageServiceImp {
 	//리뷰 카운트
 	public ReviewVO reviewCount(String userid);
 	//문의 카운트
-	public QnaVO qnaCount(String userid);
-
+	public QnaVO qnaCount(String userid);	
+	//멤버 정보
+	public MemberVO getUserInfo(String userid);
+	//교환/환불 등록
+	public int exchangeInsert(ExchangeVO vo);
+	//주문상태 업데이트
+	public int orderStatusUpdate(int orderno);
+	
 	//Q&A 리스트
 	public List<QnaVO> allList(PageSearchVO vo);
 	//Q&A 총 레코드 수
