@@ -67,10 +67,11 @@
 		//적립금 수동 입력시, 결제정보란에 사용적립금 적용
 		$('#j_usePoint').focusout(function(){
 			var pointStr = $('#j_usePoint').val();	//사용할 적립금
-			var point = Number(pointStr).toLocaleString();
-			var mypoint = '${pointVo.point}';	//보유 적립금
-			
-			if(mypoint<point){
+			var pointNum = Number(pointStr);
+			var point = pointNum.toLocaleString();
+			var mypoint = Number('${pointVo.point}');//보유 적립금
+
+			if(mypoint<pointNum){
 				alert("보유 적립금을 확인해 주시기 바랍니다.");
 				$('#j_usePoint').val('0');
 				return false;
@@ -80,12 +81,19 @@
 			}
 		});
 		
+		///////////////////////////////////////////////////////////////////////////////////
+		//쿠폰 적용
+		var list = new Array();
+
+		<c:forEach var="pInfoVo" items="${pInfoList}" varStatus="pInfoVoIdx"  >
+			list.push("${pInfoVo.subno}");
+			alert(list);
+		</c:forEach>
+		alert("됐나?");
 	/* 	$('#j_selectCpn').on('change', function(){
 			alert(this.value);
-		 	var cpnno = $('#j_selectCpn option:selected').val();
-			console.log("선택한 쿠폰"+cpnno);
-		});
-		 */
+		}); */
+		///////////////////////////////////////////////////////////////////////////////////
 		
 		//주문,결제페이지 유효성 검사
 		$('#checkoutBtn').on('click', function(){
@@ -156,10 +164,10 @@
 				$(this).attr('name', 'request');
 			}
 		});
-		
-		
-		
+	
+
 	});
+	
 	
  	function checkout(){ 		
 		// 결제 //////////////////////////////
@@ -310,6 +318,7 @@
 							<div>
 								<img src="<%=request.getContextPath() %>/upload/${pInfoVo.img1 }"/> <!-- 상품이미지 -->
 								<div><span>${pInfoVo.pname }</span><span>${pInfoVo.optinfo }</span></div>
+								<input type="hidden" name="pp" value="1234"/>
 								<input type="hidden" name="pno" value="${pInfoVo.pno} "/>
 								<input type="hidden" name="pname" value="${pInfoVo.pname }"/>
 								<input type="hidden" name="optinfo" value="${pInfoVo.optinfo }"/>
@@ -478,7 +487,7 @@
 							<tr>
 								<td>적립금 사용</td>
 								<td>
-									<input type="text" name="usepoint" id="j_usePoint" value="0" onkeyup=""/>
+									<input type="text" name="usepoint" id="j_usePoint" value="0"/>
 									<input type="button" class="clientSubBtn" id="j_allPoint" value="모두 사용"/>
 									<span>보유 적립금 <c:if test="${pointVo.point!=null }"><fmt:formatNumber value='${pointVo.point }'/>원</c:if>
 										<c:if test="${pointVo.point==null }">0</c:if>p</span>
@@ -491,7 +500,7 @@
 										<option value="-">사용가능 쿠폰 ${cpnCount }장</option>
 										<c:if test="${cpnCount>0}">
 											<c:forEach var="cpnVo" items="${couponList }" varStatus="i">
-												<option value="${cpnVo.cpnno }">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
+												<option value="${cpnVo.apply}/${cpnVo.salerate}">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
 											</c:forEach>
 											<%-- <input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/> --%>
 										</c:if>

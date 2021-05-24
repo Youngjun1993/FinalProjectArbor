@@ -65,13 +65,11 @@
 		
 	});
 	
-	
+	/* 일별 매출 상세보기 */
 	function salesDetailPopup(orderdate){
 		$("#j_salesPopup_Wrap").css({
 			"display":"block"
-		});
-		console.log("orderDate-->"+orderdate);
-		
+		});		
 		var url = "dailySalesDetail";
 		var params = "orderdate="+orderdate;
 		$.ajax({
@@ -81,12 +79,14 @@
 				var $result = $(result);
 				var tag = "<li>주문번호</li><li>상품명</li><li>아이디</li><li>회원명</li><li>결제금액</li>";
 				$result.each(function(idx, vo){
+					console.log(typeof vo.subprice);
+					var subPrice = vo.subprice.toLocaleString();
 					$("#j_salesPopup_Wrap>div>p").text(orderdate+" 매출")
 					tag += "<li>"+ vo.orderno +"</li>";
 					tag += "<li>"+ "'상품명'" +"</li>";
 					tag += "<li>"+ vo.userid +"</li>";
 					tag += "<li>"+ vo.username +"</li>";
-					tag += "<li>"+ vo.subprice +"원</li>";
+					tag += "<li>"+ subPrice +"</li>";
 					$("#j_salesDetailList").html(tag);
 				});
 			}, error: function(error){
@@ -95,8 +95,10 @@
 		});
 	}
 	
+	
 	function j_salesPageChange(pageNum){
 		$('#j_salesPageNum').val(pageNum);
+		alert("pageNum:"+pageNum+" / 페이지이동");
 		$('#j_salesFrm').submit();
 	}
 	
@@ -112,9 +114,9 @@
 		<p class="j_adSubTitle"><span>매출통계</span></p>
 		<div>
 			<form id="j_salesFrm" action="salesManagement">
-				<table id="salesDateSearch">
+				<table class="salesDateSearch">
 					<colgroup>
-						<col width="200px"><col width="auto">
+						<col width="240px"><col width="auto">
 					</colgroup>
 					<tr>
 						<td>검색기간</td>

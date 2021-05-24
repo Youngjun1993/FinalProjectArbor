@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,10 +45,10 @@
 							<div><span>${pVo.pname }</span><span>${pVo.optinfo }</span></div>
 						</td>
 						<td>${pVo.quantity }</td>
-						<td>${pVo.pprice }</td>
-						<td>${pVo.saleprice }</td>
-						<td>${pVo.deliveryprice }</td>
-						<td>${pVo.subprice }</td>
+						<td><fmt:formatNumber value='${pVo.pprice }'/></td>
+						<td><fmt:formatNumber value='${pVo.saleprice }'/></td>
+						<td><fmt:formatNumber value='${pVo.deliveryprice }'/></td>
+						<td><fmt:formatNumber value='${pVo.subprice }'/></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -107,7 +108,7 @@
 				</colgroup>
 				<tr>
 					<td>적립금 사용</td>
-					<td>${orderVo.usepoint }원</td>
+					<td><fmt:formatNumber value='${orderVo.usepoint }'/>원</td>
 				</tr>
 				<tr>
 					<td>쿠폰 사용</td>
@@ -124,7 +125,7 @@
 				</colgroup>
 				<tr>
 					<td>최종결제금액</td>
-					<td>${orderVo.totalprice }원</td>
+					<td><fmt:formatNumber value='${orderVo.totalprice }'/>원</td>
 				</tr>
 				<tr>
 					<td>결제수단</td>

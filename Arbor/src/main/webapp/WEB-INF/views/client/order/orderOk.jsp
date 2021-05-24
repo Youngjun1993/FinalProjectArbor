@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 </head>
 <body>
 <div class="w1400_container font_ng" id="j_orderOk_wrap">
@@ -45,12 +46,12 @@
 			</tr>
 			<c:forEach var="pVo" items="${pList }">
 				<tr id="j_pList"> <!-- 상품 갯수 만큼 반복 -->
-					<td>${pVo.pname }</td>
-					<td>${pVo.quantity }</td>
-					<td>${pVo.pprice }</td>
-					<td>${pVo.saleprice }</td>
-					<td>${pVo.deliveryprice }</td>
-					<td>${pVo.subprice }</td>
+					<td>${pVo.pname }<br><span id="orderOpt">${pVo.optinfo }</span></td>
+					<td><fmt:formatNumber value='${pVo.quantity }'/></td>
+					<td><fmt:formatNumber value='${pVo.pprice }'/></td>
+					<td><fmt:formatNumber value='${pVo.saleprice }'/></td>
+					<td><fmt:formatNumber value='${pVo.deliveryprice }'/></td>
+					<td><fmt:formatNumber value='${pVo.subprice }'/></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -110,7 +111,7 @@
 			</colgroup>
 			<tr>
 				<td>적립금 사용</td>
-				<td>${orderVo.usepoint }원</td>
+				<td><fmt:formatNumber value='${orderVo.usepoint }'/>원</td>
 			</tr>
 			<tr>
 				<td>쿠폰 사용</td>
@@ -127,7 +128,7 @@
 			</colgroup>
 			<tr>
 				<td>최종결제금액</td>
-				<td>${orderVo.totalprice }원</td>
+				<td><fmt:formatNumber value='${orderVo.totalprice }'/>원</td>
 			</tr>
 			<tr>
 				<td>결제수단</td>

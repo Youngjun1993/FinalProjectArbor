@@ -19,10 +19,9 @@ public class PageSearchVO {
 	private int mainno;
 	
 	/* Admin - OrderController */
-	/*private String period="";*/
 	private String orderSearch_from="";
 	private String orderSearch_to="";
-	
+	private String status;
 
 	/* Admin - memberDormant */
 	private String smsok;
@@ -163,6 +162,12 @@ public class PageSearchVO {
 	public void setOrderSearch_to(String orderSearch_to) {
 		this.orderSearch_to = orderSearch_to;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getSales_from() {
 		return sales_from;
 	}
@@ -174,6 +179,16 @@ public class PageSearchVO {
 	}
 	public void setSales_to(String sales_to) {
 		this.sales_to = sales_to;
+	}
+	@Override
+	public String toString() {
+		return "PageSearchVO [pageNum=" + pageNum + ", onePageNum=" + onePageNum + ", startPageNum=" + startPageNum
+				+ ", totalPage=" + totalPage + ", totalRecord=" + totalRecord + ", onePageRecord=" + onePageRecord
+				+ ", lastPageRecord=" + lastPageRecord + ", searchKey=" + searchKey + ", searchWord=" + searchWord
+				+ ", userid=" + userid + ", startdate=" + startdate + ", enddate=" + enddate + ", subno=" + subno
+				+ ", mainno=" + mainno + ", orderSearch_from=" + orderSearch_from + ", orderSearch_to=" + orderSearch_to
+				+ ", status=" + status + ", smsok=" + smsok + ", emailok=" + emailok + ", dormailok=" + dormailok
+				+ ", sales_from=" + sales_from + ", sales_to=" + sales_to + ", sort=" + sort + "]";
 	}
 	
 	
