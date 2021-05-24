@@ -15,10 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.service.OrderServiceImp;
 import com.arbor.home.vo.CartVO;
+import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.PageSearchVO;
@@ -38,10 +40,12 @@ public class OrderController {
 			OrderTblVO orderVo, HttpSession session) {
 
 		List<SubOrderVO> subOrderList = new ArrayList<SubOrderVO>();
+		List<CouponVO> cpnList = new ArrayList<CouponVO>();
 		ModelAndView mav = new ModelAndView();
 
 		String userid = (String)session.getAttribute("logId");
 		orderVo.setUserid(userid);
+		int cpnCount = 0;
 
 		SubOrderVO subVo = new SubOrderVO();
 		for(int i = 0; i < priceArr.length; i++) {
@@ -56,27 +60,43 @@ public class OrderController {
 			subVo.setSubprice(Integer.parseInt(priceArr[i]));
 			
 			subOrderList.add(subVo);
+			cpnCount += orderService.couponCount(userid, subVo.getSubno());
+			
 			System.out.println("subVo.getSubno()->"+subVo.getSubno());
 			System.out.println("subVo.getPno()->"+subVo.getPno());
 		}
+		
 		mav.addObject("pInfoList", subOrderList);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));
 		mav.addObject("couponList", orderService.getUserCoupon(userid));
-		mav.addObject("cpnCount", orderService.getCouponCount(userid));
+		mav.addObject("cpnCount", cpnCount);
 		mav.setViewName("client/order/order");
 		return mav;
+	}
+	
+	@RequestMapping("/cpnSelect")
+	@ResponseBody
+	public CouponVO cpnSelect(String cpnno) {
+		return orderService.cpnSelect(Integer.parseInt(cpnno));
 	}
 
 	@RequestMapping(value = "/orderAppendCart", method = RequestMethod.POST) /* 장바구니 - 바로구매 */
 	public ModelAndView orderAppendCartList(int pno, HttpSession ses) {
 		ModelAndView mav = new ModelAndView();
 		String userid = (String) ses.getAttribute("logId");
-		mav.addObject("pInfoList", orderService.cartAppendList(pno, userid));
+		List<SubOrderVO> list = orderService.cartAppendList(pno, userid);
+		int cpnCount=0;
+		for(int i=0; i<list.size(); i++) {
+			SubOrderVO vo = list.get(i);
+			cpnCount += orderService.couponCount(userid, vo.getSubno());
+		}
+		
+		mav.addObject("pInfoList", list);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));
 		mav.addObject("couponList", orderService.getUserCoupon(userid));
-		mav.addObject("cpnCount", orderService.getCouponCount(userid));
+		mav.addObject("cpnCount", cpnCount);
 		mav.setViewName("client/order/order");
 		return mav;
 	}
@@ -87,17 +107,19 @@ public class OrderController {
 		ModelAndView mav = new ModelAndView();
 		List<SubOrderVO> list = new ArrayList<SubOrderVO>();
 		String userid = (String) ses.getAttribute("logId");
+		int cpnCount = 0;
 		for (int i = 0; i < cartpno.length; i++) {
 			int cartno = Integer.parseInt(cartpno[i]);
 			SubOrderVO vo = new SubOrderVO();
 			vo = orderService.cartAppendChckList(cartno, userid);
 			list.add(vo);
+			cpnCount += orderService.couponCount(userid, vo.getSubno());
 		}
 		mav.addObject("pInfoList", list);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));
 		mav.addObject("couponList", orderService.getUserCoupon(userid));
-		mav.addObject("cpnCount", orderService.getCouponCount(userid));
+		mav.addObject("cpnCount", cpnCount);
 		mav.setViewName("client/order/order");
 		return mav;
 	}
@@ -106,14 +128,20 @@ public class OrderController {
 	public ModelAndView orderAllCartList(HttpSession ses) {
 		ModelAndView mav = new ModelAndView();
 		String userid = (String) ses.getAttribute("logId");
+		int cpnCount=0;
 		if (userid.equals("") || userid == null) {
 			mav.setViewName("admin/member/login");
 		} else {
-			mav.addObject("pInfoList", orderService.cartAllList(userid));
+			List<SubOrderVO> list = orderService.cartAllList(userid);
+			for(int i=0; i<list.size(); i++) {
+				SubOrderVO vo = list.get(i);
+				cpnCount += orderService.couponCount(userid, vo.getSubno());
+			}
+			mav.addObject("pInfoList", list);
 			mav.addObject("memberVo", orderService.getMemberInfo(userid));
 			mav.addObject("pointVo", orderService.getUserPoint(userid));
 			mav.addObject("couponList", orderService.getUserCoupon(userid));
-			mav.addObject("cpnCount", orderService.getCouponCount(userid));
+			mav.addObject("cpnCount", cpnCount);
 			mav.setViewName("client/order/order");
 		}
 		return mav;
