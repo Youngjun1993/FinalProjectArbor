@@ -33,9 +33,18 @@
 					}else{
 						tag += "<li class='wordcut'>" + vo.pname+"-"+vo.optinfo + "</li>"; 	//상품명(pname)
 					}
-					tag += "<li>" + vo.subprice+"원" +"</li>";	//가격(subprice)
+					tag += "<li>" + comma(vo.subprice*vo.quantity)+"원" +"</li>";	//가격(subprice)
 					tag += "<li>" + vo.quantity +"</li>";	//수량(quantity)
-					tag += "<li>" + vo.status +"</li>";		// 처리상태(status)
+					if(vo.status=="교환중"){
+						if(vo.exchanselect == null){
+							tag += "<li>배송완료</li>";		// 처리상태(status)	
+						}else{
+							tag += "<li>교환중</li>";
+						}	
+					}else{
+						tag+="<li>" + vo.status + "</li>";
+					}
+					
 					$("#y_orderPopup_Wrap>div:nth-of-type(3) ul").html(tag);
 					
 					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(5)").text(comma(vo.usepoint)+"원");		//사용한 적립금(usepoint)	  
@@ -228,7 +237,7 @@
 	                <li><fmt:formatNumber value="${data.totalprice }" /> 원</li>
 	                <li class="clearfix">
 	                	<c:if test="${data.status=='배송준비' }"><a href="javascript:myPagePopup()" class="status_ready">배송준비</a><a href="#" class="status_cashCancle">주문취소</a></c:if>
-	                	<c:if test="${data.status=='배송완료' }"><a class="status_delivDone">배송완료</a><a href="javascript:reviewWrite(${data.orderno })" class="status_review">리뷰작성</a><a href="#" class="status_change">교환/환불</a></c:if>
+	                	<c:if test="${data.status=='배송완료' }"><a class="status_delivDone">배송완료</a><a href="javascript:reviewWrite(${data.orderno })" class="status_review">리뷰작성</a><a href="ChngRepundList?orderno=${data.orderno }" class="status_change">교환/환불</a></c:if>
 	                	<c:if test="${data.status=='배송중' }"><a style="padding:5px 85px;">배송중입니다.</a></c:if>
 	                	<c:if test="${data.status=='교환중' }"><a style="padding:5px 85px;">교환중입니다.</a></c:if>
 	                </li>

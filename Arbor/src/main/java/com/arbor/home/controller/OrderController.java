@@ -83,7 +83,6 @@ public class OrderController {
 	public ModelAndView orderAppendCartList(int pno, HttpSession ses) {
 		ModelAndView mav = new ModelAndView();
 		String userid = (String) ses.getAttribute("logId");
-		System.out.println("장바구니 바로구매 userid->"+userid);
 		mav.addObject("pInfoList", orderService.cartAppendList(pno, userid));
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));

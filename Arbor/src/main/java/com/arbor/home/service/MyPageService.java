@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.MyPageDAOImp;
 import com.arbor.home.vo.CouponVO;
+import com.arbor.home.vo.ExchangeVO;
+import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
@@ -131,6 +133,21 @@ public class MyPageService implements MyPageServiceImp {
 	@Override
 	public List<ReviewVO> reviewJoinList(String userid) {
 		return mypageDAO.reviewJoinList(userid);
+	}
+
+	@Override
+	public MemberVO getUserInfo(String userid) {
+		return mypageDAO.getUserInfo(userid);
+	}
+
+	@Override
+	public int exchangeInsert(ExchangeVO vo) {
+		return mypageDAO.exchangeInsert(vo);
+	}
+
+	@Override
+	public int orderStatusUpdate(int orderno) {
+		return mypageDAO.orderStatusUpdate(orderno);
 	}
 
 	/*

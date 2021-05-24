@@ -23,12 +23,26 @@ public class OrdsubOrdJoinVO {
 	private int pno;
 	private int optno;
 	private int quantity;
-	private String subprice;
+	private int subprice;
 	private String couponprice="0";
 	private String img1;
 	private String optinfo;
+	private int suborderno;
+	private String exchanselect;
 	
 	
+	public String getExchanselect() {
+		return exchanselect;
+	}
+	public void setExchanselect(String exchanselect) {
+		this.exchanselect = exchanselect;
+	}
+	public int getSuborderno() {
+		return suborderno;
+	}
+	public void setSuborderno(int suborderno) {
+		this.suborderno = suborderno;
+	}
 	public String getOptinfo() {
 		return optinfo;
 	}
@@ -170,12 +184,11 @@ public class OrdsubOrdJoinVO {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public String getSubprice() {
+	public int getSubprice() {
 		return subprice;
 	}
 	public void setSubprice(int subprice) {
-		DecimalFormat formatter = new DecimalFormat("###,###");
-		this.subprice = formatter.format(subprice);
+		this.subprice = subprice;
 	}
 	
 }

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import com.arbor.home.service.MemberServiceImp;
 import com.arbor.home.service.MyPageServiceImp;
+import com.arbor.home.vo.ExchangeVO;
 import com.arbor.home.vo.MemberVO;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
@@ -270,7 +271,6 @@ public class MyPageController {
 			mav.addObject("list", mypageService.pointList(pageVo));
 			mav.addObject("pageVO", pageVo);
 			mav.setViewName("client/myPage/pointList");
-			
 		}
 		return mav;
 	}
@@ -372,5 +372,57 @@ public class MyPageController {
 		mav.setViewName("client/myPage/memberQuit");
 		
 	return mav;
+	}
+	
+	//교환,환불 페이지
+	@RequestMapping("/ChngRepundList")
+	public ModelAndView ChngRepundList(int orderno, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		String nowId = (String)session.getAttribute("logId");
+		
+		if(nowId == null || nowId.equals("")) {
+			mav.setViewName("admin/member/login");
+		}else {
+			mav.addObject("username", (String)session.getAttribute("logName"));
+			mav.addObject("pointVO", mypageService.pointSum(nowId));
+			mav.addObject("couponVO", mypageService.couponCount(nowId));
+			mav.addObject("reviewVO", mypageService.reviewCount(nowId));
+			mav.addObject("qnaVO", mypageService.qnaCount(nowId));
+			mav.addObject("list", mypageService.suborderList(orderno));
+			mav.addObject("memberVO", mypageService.getUserInfo(nowId));
+			mav.setViewName("client/myPage/changeRepund");
+		}
+		
+		return mav;
+	}
+	//교환신청 클릭
+	@RequestMapping("/exchangeWrite")
+	public ModelAndView exchangeWrite(ExchangeVO vo, int[] orderno, int[] suborderno,  HttpSession ses ) {
+		ModelAndView mav = new ModelAndView();
+		String nowId = (String)ses.getAttribute("logId");
+		int result = 0;
+		for(int i=0; i<suborderno.length; i++) {
+			ExchangeVO insVO = new ExchangeVO();
+			insVO.setOrderno(orderno[i]);
+			insVO.setSuborderno(suborderno[i]);
+			insVO.setUserid(nowId);
+			insVO.setUsername(vo.getUsername());
+			insVO.setTel(vo.getTel());
+			insVO.setAddr(vo.getAddr());
+			insVO.setDetailaddr(vo.getDetailaddr());
+			insVO.setZipcode(vo.getZipcode());
+			insVO.setExchanselect(vo.getExchanselect());
+			insVO.setExchancontent(vo.getExchancontent());
+			result = mypageService.exchangeInsert(insVO);
+		}
+		if(result>0) {
+			int update = mypageService.orderStatusUpdate(orderno[0]);
+			if(update>0) {
+				System.out.println("상태까지 업뎃완료");
+			}
+		}
+		mav.setViewName("redirect:purchaseList");
+		return mav;
 	}
 }
