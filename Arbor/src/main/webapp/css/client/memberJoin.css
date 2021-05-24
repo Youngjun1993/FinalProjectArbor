@@ -395,6 +395,33 @@
 	}
 	
 	
+	/* 아이디 체크 */
+	#h_idcheck_banner {
+		width: 100%;
+	    height: 100px;
+	    background: url(../../img/idcheck_top.png) center no-repeat;
+	    background-size: cover;
+	    position: relative;
+		
+	}
+	#h_idcheck_banner img {
+		margin: 34px auto;
+	}
+	#idCheckTitle {
+		line-height:40px;
+		text-align: center;
+		font-size:1.1em;
+		color:rgb(248,244,236);
+	}
+	#h_confirm_div{
+		margin:15px auto;
+		text-align:center;
+	}
+	#h_confirm_div2{
+		text-align:center;
+	}
+	
+	
 	/*
 	.h_pwdChangeipt {
 		display:inline-block;
