@@ -23,7 +23,7 @@
 	display: inline;
 	margin-left: 130px;
 }
-.oCount>span{
+.oCount>span>a{
 	color: rgb(191,43,53);
 }
 

@@ -15,6 +15,7 @@ public class SubOrderVO {
 	private int deliveryprice;
 	private String optinfo;
 	private int cartno;
+	private int subno;
 	
 	public int getSuborderno() {
 		return suborderno;
@@ -91,16 +92,15 @@ public class SubOrderVO {
 	}
 	public int getCartno() {
 		return cartno;
-	}	public void setCartno(int cartno) {
+	}
+	public void setCartno(int cartno) {
 		this.cartno = cartno;
 	}
-	@Override
-	public String toString() {
-		return "SubOrderVO [suborderno=" + suborderno + ", orderno=" + orderno + ", pno=" + pno + ", optno=" + optno
-				+ ", quantity=" + quantity + ", subprice=" + subprice + ", pname=" + pname + ", img1=" + img1
-				+ ", pprice=" + pprice + ", saleprice=" + saleprice + ", deliveryprice=" + deliveryprice + ", optinfo="
-				+ optinfo + ", cartno=" + cartno + "]";
+	public int getSubno() {
+		return subno;
 	}
-	
+	public void setSubno(int subno) {
+		this.subno = subno;
+	}	
 	
 }

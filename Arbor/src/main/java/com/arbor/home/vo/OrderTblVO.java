@@ -25,6 +25,7 @@ public class OrderTblVO {
 	
 	private int deliveryprice;
 	private int totalprice;
+	
 	private int applynum;
 	private String imp_uid;	//취소할 거래의 아임포트 고유번호
 	private String merchant_uid;	//가맹점에서 전달한 거래 고유번호
@@ -42,7 +43,6 @@ public class OrderTblVO {
 	private int complete;	//배송완료
 	
 	/* 주문 리스트 검색 변수 */
-	/*private String period="";*/
 	private String orderSearch_from="";
 	private String orderSearch_to="";
 	private String searchKey;
@@ -223,12 +223,6 @@ public class OrderTblVO {
 	public void setComplete(int complete) {
 		this.complete = complete;
 	}
-	/*	public String getPeriod() {
-			return period;
-		}
-		public void setPeriod(String period) {
-			this.period = period;
-		}*/
 	public String getOrderSearch_from() {
 		return orderSearch_from;
 	}

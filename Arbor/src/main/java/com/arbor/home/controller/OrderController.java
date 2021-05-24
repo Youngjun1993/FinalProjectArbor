@@ -43,10 +43,10 @@ public class OrderController {
 		String userid = (String)session.getAttribute("logId");
 		orderVo.setUserid(userid);
 
+		SubOrderVO subVo = new SubOrderVO();
 		for(int i = 0; i < priceArr.length; i++) {
-			SubOrderVO subVo = new SubOrderVO();
 			subVo = orderService.getProductInfo(Integer.parseInt(pnoStr));
-
+			
 			if(optInfoArr.length == 0) {
 				subVo.setOptinfo("");
 			}else {
@@ -56,6 +56,8 @@ public class OrderController {
 			subVo.setSubprice(Integer.parseInt(priceArr[i]));
 			
 			subOrderList.add(subVo);
+			System.out.println("subVo.getSubno()->"+subVo.getSubno());
+			System.out.println("subVo.getPno()->"+subVo.getPno());
 		}
 		mav.addObject("pInfoList", subOrderList);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
@@ -186,30 +188,23 @@ public class OrderController {
 
 	/* admin */
 	@RequestMapping("/orderAdmin")
-	public ModelAndView orderManagement(@Nullable @RequestParam(value = "orderno", required = false) int[] ordernoArr,
+	public ModelAndView orderManagement(
+			@Nullable @RequestParam(value = "orderno", required = false) int[] ordernoArr,
 			PageSearchVO pageVo, OrderTblVO orderVo, HttpServletRequest req) {
-
+		
 		String pageNumStr = req.getParameter("pageNum");
-		//PageSearchVO pageVo = new PageSearchVO();
 		if (pageNumStr != null) {
 			pageVo.setPageNum(Integer.parseInt(pageNumStr));
 		}
-		
 		pageVo.setTotalRecord(orderService.totalRecord(pageVo));
-		
-		System.out.println("getTotalRecord->" + pageVo.getTotalRecord());
-		System.out.println("pageNum->" + pageVo.getPageNum());
-		System.out.println("startPageNum->" + pageVo.getStartPageNum());
-		System.out.println("onePageNum->" + pageVo.getOnePageNum());
-		System.out.println("onePageRecord->" + pageVo.getOnePageRecord());
-		System.out.println("lastPageRecord->" + pageVo.getLastPageRecord());
-		System.out.println("totalPage->" + pageVo.getTotalPage());
-		
+				
+		ModelAndView mav = new ModelAndView();
 		// 달력 선택하여 검색시, 날짜 유형 변경
-		/*if (pageVo.getPeriod() != null || pageVo.getOrderSearch_from() != null || pageVo.getSearchWord() != null) {*/
-		if (pageVo.getOrderSearch_from() != null || pageVo.getSearchWord() != null) {
+		if (pageVo.getOrderSearch_from()!=null || pageVo.getSearchWord()!=null) {
 			String sf = pageVo.getOrderSearch_from();
 			String st = pageVo.getOrderSearch_to();
+			mav.addObject("orderSearch_from", sf);
+			mav.addObject("orderSearch_to", st);
 			System.out.println("검색 시작일:"+sf+" / 검색 종료일:"+st);
 			if ((sf != null || !sf.equals("")) && (st != null || !st.equals(""))) {
 				sf = sf.replace("-", "/");
@@ -218,8 +213,12 @@ public class OrderController {
 				pageVo.setOrderSearch_to(st);
 			}
 		}
+		if(orderVo.getSearchWord()!=null) {
+			mav.addObject("searchKey", orderVo.getSearchKey());
+			mav.addObject("searchWord", orderVo.getSearchWord());
+		}
 		// 주문상태 변경
-		if (orderVo.getStatus() != null && ordernoArr != null) {
+		if (orderVo.getStatus()!=null && ordernoArr!=null) {
 			for (int i = 0; i < ordernoArr.length; i++) {
 				System.out.println("ordernoArr[" + i + "]->" + ordernoArr[i] + " / " + orderVo.getStatus());
 
@@ -231,7 +230,6 @@ public class OrderController {
 			}
 		}
 		
-		ModelAndView mav = new ModelAndView();
 		mav.addObject("cnt", orderService.countOfOrderStatus(orderVo));
 		mav.addObject("list", orderService.selectOrderList(pageVo));
 		System.out.println("주문리스트->" + orderService.selectOrderList(pageVo).size());

@@ -21,20 +21,17 @@ public class SalesController {
 	SalesServiceImp salesService;
 	
 	@RequestMapping("/salesManagement")
-	public ModelAndView SalesManagement(SalesVO salesVo, HttpServletRequest req) {
+	public ModelAndView SalesManagement(SalesVO salesVo, PageSearchVO pageVo, HttpServletRequest req) {
 		System.out.println("salesManagement 컨트롤러 이동");
 		
-		PageSearchVO pageVo = new PageSearchVO();
 		String pageNumStr = req.getParameter("pageNum");
 		if(pageNumStr!=null) {
 			pageVo.setPageNum(Integer.parseInt(pageNumStr));
 		}	
 		pageVo.setTotalRecord(salesService.totalRecord(salesVo).size());
 		
-		
-		System.out.println("??????????????????");
-		System.out.println("Sales_from->"+salesVo.getSales_from());
-		System.out.println("Sales_to->"+salesVo.getSales_to());
+		pageVo.setSales_from(salesVo.getSales_from());
+		pageVo.setSales_to(salesVo.getSales_to());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("salesList", salesService.getDailySales(pageVo));

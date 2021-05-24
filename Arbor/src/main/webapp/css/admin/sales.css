@@ -15,29 +15,31 @@
 	border-radius: 10px;
 	box-sizing: border-box;
 }
-
-#salesDateSearch{
+.salesDateSearch{
 	width: 1200px;
 	height: 30px;
 	borderspacing: 0px;
 	border-collapse: collapse;
 	margin-bottom: 30px;
 }
-#salesDateSearch td{
+.salesDateSearch td{
 	border: 1px solid #ccc;
 	padding: 10px;
 }
-#salesDateSearch td:first-child{
+.salesDateSearch td:first-child{
 	text-align: center;
 	background: #eee;
 }
-#salesDateSearch td>input[type=text]{
+.salesDateSearch td>input[type=text]{
 	width: 250px;
 }
-#salesDateSearch td>input[type=button]{
+.salesDateSearch td>input[type=button]{
 	margin-left: 10px;
 	width: 60px;
 }
+/*-------------
+	매출 통계
+--------------*/
 #dailySales li{
 	float: left;
 	width: 19.9%;
@@ -126,9 +128,18 @@
 	line-height: 25px;
 }
 
-
-
-
+/*--------------
+	매출 그래프
+---------------*/
+#byMonthly{
+	height: 500px;
+	margin-bottom: 30px;
+	background: lightblue;
+}
+#pieChart{
+	height: 500px;
+	background: pink;	
+}
 
 
 

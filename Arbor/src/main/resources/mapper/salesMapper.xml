@@ -5,9 +5,6 @@
   <mapper namespace="com.arbor.home.dao.SalesDAOImp">
   	<select id="totalRecord" resultType="com.arbor.home.vo.SalesVO">
   		select to_char(orderdate, 'yyyy-mm-dd') as orderdate ,count(distinct(orderno)) as ordercnt
-<!--   		to_char(sum(subprice), '999,999,999,999') as totalsales,
-  		to_char(sum(deliveryprice), '999,999,999,999') as totaldelivery	
-	  	from ordertbl o join suborder s on o.orderno=s.orderno -->
 	  	from ordertbl
 	  	<if test="sales_from!='' and sales_to!=''">
 		  	where '${sales_from}'<![CDATA[ <= ]]>to_char(orderDate, 'yyyy-mm-dd')
@@ -15,17 +12,6 @@
 	  	</if>
 	  	group by to_char(orderdate, 'yyyy-mm-dd')	  	
 	  	order by orderdate desc
-
-<!--   		select to_char(orderdate, 'yyyy-mm-dd') as orderdate, to_char(count(distinct(o.orderno)), '999,999,999') as ordercnt,
-  		to_char(sum(subprice), '999,999,999,999') as totalsales,
-  		to_char(sum(deliveryprice), '999,999,999,999') as totaldelivery	
-	  	from ordertbl o join suborder s on o.orderno=s.orderno
-	  	<if test="sales_from!='' and sales_to!=''">
-		  	where '${sales_from}'<![CDATA[ <= ]]>to_char(orderDate, 'yyyy-mm-dd')
-		  	and to_char(orderDate, 'yyyy-mm-dd')<![CDATA[ <= ]]>'${sales_to}'
-	  	</if>
-	  	group by to_char(orderdate, 'yyyy-mm-dd')	  	
-	  	order by orderdate desc -->
   	</select>
   	<select id="salesDetailInfo" resultType="com.arbor.home.vo.SalesVO">
   		select o.orderno, s.suborderno, m.userid, m.username, s.subprice
@@ -41,7 +27,7 @@
 		  	where '${sales_from}'<![CDATA[ <= ]]>to_char(orderDate, 'yyyy-mm-dd')
 		  	and to_char(orderDate, 'yyyy-mm-dd')<![CDATA[ <= ]]>'${sales_to}'
 	  	</if>
-	  	group by to_char(orderdate, 'yyyy-mm-dd')	  	
+	  	group by to_char(orderdate, 'yyyy-mm-dd')
 	  	order by orderdate desc)
 	  	<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by orderdate asc)
 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
