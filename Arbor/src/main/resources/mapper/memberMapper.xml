@@ -274,9 +274,9 @@
 	<select id="memberExcelDownload" resultType="com.arbor.home.vo.MemberVO">
 		select userid, username, email, tel, to_char(regdate, 'YYYY-MM-DD') regdate from member
 	</select>
-	<!-- 휴면회원 엑셀 다운로드용 전체 -->
+	<!-- 휴면회원 엑셀 다운로드용 전체 /////////-->
 	<select id="dormantExcelDownload" resultType="com.arbor.home.vo.MemberVO">
-		select userid, username, email, tel, to_char(regdate, 'YYYY-MM-DD') regdate, to_char(dordate, 'YYYY-MM-DD') dordate from dormantmember
+		select a.userid, a.username, a.email, a.tel, to_char(a.regdate, 'YYYY-MM-DD') regdate, to_char(b.dordate, 'YYYY-MM-DD') dordate from member a join dormantmember b on a.userid = b.userid
 	</select>
 	
 	<!-- 아이디 찾기(이메일) -->

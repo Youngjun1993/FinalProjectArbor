@@ -141,7 +141,7 @@
 			<span class="h_wrongChk" style="display:none;">비밀번호를 다시 확인해 주세요</span>
 			<div class="h_homeBtn" style="display:none;">
 			<form action="login">
-				<input type="submit" value="로그인" class="clientMainBtn"/>
+				<input type="submit" id="h_btnbox" value="로그인" class="clientMainBtn"/>
 			</form>
 			</div>
 		</div>
