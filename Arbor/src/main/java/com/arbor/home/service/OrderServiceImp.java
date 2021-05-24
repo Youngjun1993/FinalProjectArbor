@@ -17,18 +17,20 @@ public interface OrderServiceImp {
 	public PointVO getUserPoint(String userid);				//로그인 회원의 보유 포인트
 	public List<CouponVO> getUserCoupon(String userid);		//로그인 회원의 보유 쿠폰 리스트
 	public int getCouponCount(String userid);				//로그인 회원의 보유 쿠폰 갯수
+	public int couponCount(String userid, int subno);		// subno에 맞는 쿠폰 갯수
 	public int getOrderSeq();								//주문번호 시퀀스
 	public int orderComplete(OrderTblVO orderVo);			//주문정보 insert
 	public int createSubOrderList(SubOrderVO subVo);		//주문한 상품정보 DB insert(subOrder)
 	public List<SubOrderVO> getSubOrderList(int orderNo);	//주문한 상품정보 리스트(subOrder) - 주문완료 뷰페이지
 	public OrderTblVO getOrderInfo(int orderNo);			//주문정보 select
-	public List<CartVO> cartAppendList(int pno, String userid); 	//장바구니 -> 구매버튼
+	public List<SubOrderVO> cartAppendList(int pno, String userid); 	//장바구니 -> 구매버튼
 	public SubOrderVO cartAppendChckList(int cartno, String userid);//장바구니 -> 선택구매버튼
-	public List<CartVO> cartAllList(String userid);					//장바구니 -> 전체구매버튼
+	public List<SubOrderVO> cartAllList(String userid);		//장바구니 -> 전체구매버튼
 	public int deleteCartList(int cartno, String userid);	//주문상품 장바구니에서 삭제
 	public int updateProductStock(int pno);					//주문상품 재고 수정
 	public int setUsedPoint(OrderTblVO orderVo);			//적립금 사용금액 업데이트
 	public int setPlusPoint(OrderTblVO orderVo);				//적립예정금액 반영
+	public CouponVO cpnSelect(int cpnno);					// 쿠폰적용위한 정보 select
 	
 	
 	/* admin */
