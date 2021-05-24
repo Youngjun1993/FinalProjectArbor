@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/aboutUs.css" type="text/css" />
 <div class="clearfix w1400_container">
 <div class="h_imgCenter">
-<img src="<%=request.getContextPath() %>/img/aboutUs_sample.jpg"/>
+<img src="<%=request.getContextPath() %>/img/aboutUs.png"/>
 </div>
 <div class="h_branchIntro">
 <h1>회사 위치 안내</h1>
