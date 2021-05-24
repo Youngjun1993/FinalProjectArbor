@@ -83,16 +83,31 @@
 		
 		///////////////////////////////////////////////////////////////////////////////////
 		//쿠폰 적용
-		var list = new Array();
-
-		<c:forEach var="pInfoVo" items="${pInfoList}" varStatus="pInfoVoIdx"  >
-			list.push("${pInfoVo.subno}");
-			alert(list);
-		</c:forEach>
-		alert("됐나?");
-	/* 	$('#j_selectCpn').on('change', function(){
-			alert(this.value);
-		}); */
+		
+	 	$('#j_selectCpn').on('change', function(){
+	 		var salerate = 0; // 할인율
+			var apply = 0; // 쿠폰적용가능 subno
+			var afterSalePrice = 0; // 쿠폰적용 후 saleprice
+			$.ajax({
+				url : "cpnSelect",
+				data : "cpnno="+$(this).val(),
+				type : "POST",
+				success : function(result) {
+					salerate = result.salerate/100;
+					apply = result.apply;
+					<c:forEach items="${pInfoList}" var="list">
+						if ('${list.subno}'==apply) {
+							afterSalePrice += Math.round('${list.quantity*list.subprice}'*salerate);
+						}
+					</c:forEach>
+					$("#usedcouponPrice").val(afterSalePrice);
+					$("#j_usedcoupon").html(afterSalePrice.toLocaleString()+'원<input type="hidden" name="usedcouponPrice" id="usedcouponPrice" value='+afterSalePrice+' />');
+					cal_totalpayment();
+				}, error : function(e) {
+					
+				}
+			});
+		}); 
 		///////////////////////////////////////////////////////////////////////////////////
 		
 		//주문,결제페이지 유효성 검사
@@ -164,8 +179,6 @@
 				$(this).attr('name', 'request');
 			}
 		});
-	
-
 	});
 	
 	
@@ -253,6 +266,8 @@
 	}
 	
 	function cal_totalpayment(){
+		var afterSalePrice = $("#usedcouponPrice").val();
+		console.log("쿠폰적용?"+afterSalePrice);
 		//사용 적립금
 		var pointStr = $('#j_usePoint').val();
 		var point = Number(pointStr);
@@ -263,20 +278,18 @@
 		var sumDeliveryStr = $('#sumDelivery').val();
 		var delivery = Number(sumDeliveryStr);
 		//결졔예정금액
-		var total = payment+delivery-point;
+		var total = payment+delivery-point-afterSalePrice;
 		var totalPayment = total.toLocaleString();
 		var tag = "<span>"+totalPayment+"</span>원";
 		$('#j_totalPayment').html(tag);
 		$('#j_totalPrice').val(total);
 		//적립예정금액
-		var plus = parseInt((payment-point)*0.02);
+		var plus = parseInt((payment-point-afterSalePrice)*0.02);
 	 	var plusPoint = plus.toLocaleString();
 	 	console.log("plus->"+plus+" / plusPoint->"+plusPoint);
 		$('#pPoint').text(plusPoint);
 		$('#j_plusPoint').val(plus);
 	}
-	
-	
 
 </script>
 </head>
@@ -497,13 +510,22 @@
 								<td>쿠폰 사용</td>
 								<td>
 									<select id="j_selectCpn" name="usecoupon">
-										<option value="-">사용가능 쿠폰 ${cpnCount }장</option>
-										<c:if test="${cpnCount>0}">
-											<c:forEach var="cpnVo" items="${couponList }" varStatus="i">
-												<option value="${cpnVo.apply}/${cpnVo.salerate}">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
-											</c:forEach>
+										<c:choose>
+											<c:when test="${cpnCount<=0 }">
+												<option value="-" selected hidden>사용가능 쿠폰이 없습니다.</option>
+											</c:when>
+											<c:otherwise>
+												<option value="-" selected hidden>사용가능 쿠폰 ${cpnCount }장</option>
+												<c:forEach var="list" items="${subnoList }">
+													<c:forEach var="cpnVo" items="${couponList }">					
+														<c:if test="${cpnVo.apply == list.subno }">
+															<option value="${cpnVo.cpnno }">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
+														</c:if>
+													</c:forEach>
+												</c:forEach>
 											<%-- <input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/> --%>
-										</c:if>
+											</c:otherwise>
+										</c:choose>
 									</select>
 								</td>
 							</tr>
@@ -551,7 +573,7 @@
 								</tr>
 								<tr>
 									<td>쿠폰 사용</td>
-									<td id="j_usedcoupon">0원</td>
+									<td id="j_usedcoupon">0원<input type="hidden" name="usedcouponPrice" id="usedcouponPrice" value=0 /></td>
 								</tr>
 								<tr>
 									<td>배송비</td>

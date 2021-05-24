@@ -44,6 +44,9 @@ public class OrderService implements OrderServiceImp {
 	public int getCouponCount(String userid) {
 		return orderDAO.getCouponCount(userid);
 	}
+	public int couponCount(String userid, int subno) {
+		return orderDAO.couponCount(userid, subno);
+	}
 
 	@Override
 	public int orderComplete(OrderTblVO orderVo) {
@@ -95,7 +98,7 @@ public class OrderService implements OrderServiceImp {
 		return orderDAO.getUserInfo(orderno);
 	}
 	
-	public List<CartVO> cartAppendList(int pno, String userid) {
+	public List<SubOrderVO> cartAppendList(int pno, String userid) {
 		return orderDAO.cartAppendList(pno, userid);
 	}
 
@@ -105,7 +108,7 @@ public class OrderService implements OrderServiceImp {
 	}
 
 	@Override
-	public List<CartVO> cartAllList(String userid) {
+	public List<SubOrderVO> cartAllList(String userid) {
 		return orderDAO.cartAllList(userid);
 	}
 	
@@ -137,6 +140,16 @@ public class OrderService implements OrderServiceImp {
 	@Override
 	public int setPlusPoint(OrderTblVO orderVo) {
 		return orderDAO.setPlusPoint(orderVo);
+	}
+
+	@Override
+	public CouponVO cpnSelect(int cpnno) {
+		return orderDAO.cpnSelect(cpnno);
+	}
+
+	@Override
+	public List<SubOrderVO> getSubnoSelect(String userid) {
+		return orderDAO.getSubnoSelect(userid);
 	}
 
 	

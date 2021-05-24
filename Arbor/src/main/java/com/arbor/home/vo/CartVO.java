@@ -23,7 +23,16 @@ public class CartVO {
 	private int stock;
 	private String img1;
 	private int saleprice;
+	private int subno;
 	
+	public int getSubno() {
+		return subno;
+	}
+
+	public void setSubno(int subno) {
+		this.subno = subno;
+	}
+
 	public int getSaleprice() {
 		return saleprice;
 	}

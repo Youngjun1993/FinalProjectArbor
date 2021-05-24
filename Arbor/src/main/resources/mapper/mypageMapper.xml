@@ -8,7 +8,7 @@
 		select * from (select * from (select o.orderno, to_char(o.orderdate, 'YY-MM-DD HH:MI')as orderdate, o.userid, o.arr, o.arrtel, o.arrzipcode, o.arraddr, o.arrdetailaddr, o.request, o.pluspoint, o.usecoupon, o.deliveryprice, o.totalprice, o.status, o.couponprice, s.pname, o.merchant_uid from ordertbl o join (select orderno, listagg(pname,',') within group (order by pname) as pname from suborder group by orderno) s on o.orderno=s.orderno where o.userid = #{userid} order by orderdate desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by orderdate asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderdate desc
 	</select>
 	<select id="suborderList" resultType="com.arbor.home.vo.OrdsubOrdJoinVO">
-		select o.orderno, to_char(o.orderdate, 'YYYY-MM-DD')as orderdate, o.arr, o.arrtel, o.arraddr, o.arrdetailaddr, o.request, o.status, o.usepoint, o.couponprice, o.usecoupon, o.totalprice, s.suborderno, s.orderno, s.pno, s.quantity, s.subprice, s.pname, s.optinfo from suborder s join ordertbl o on s.orderno = o.orderno where s.orderno=#{param1}
+		select o.orderno, to_char(o.orderdate, 'YYYY-MM-DD')as orderdate, o.arr, o.arrtel, o.arraddr, o.arrdetailaddr, o.request, o.status, o.usepoint, o.couponprice, o.usecoupon, o.totalprice, s.suborderno, s.orderno, s.pno, s.quantity, s.subprice, s.pname, s.optinfo, p.img1, e.exchanselect from suborder s join ordertbl o on s.orderno = o.orderno  join product p on s.pno=p.pno left OUTER join exchange e on s.suborderno=e.suborderno where s.orderno=#{param1}
 	</select>
 	<select id="reviewJoinList" resultType="com.arbor.home.vo.ReviewVO">
 		select distinct r.pno from review r join (select pno from suborder) s on r.pno=s.pno where userid=#{param1}
@@ -41,6 +41,17 @@
 		delete from ordertbl where orderno=${param1}
 	</delete>
 	
+	<!-- 교환/환불 -->
+	<select id="getUserInfo" resultType="com.arbor.home.vo.MemberVO">
+		select username, zipcode, addr, detailaddr, tel from member where userid=#{param1}
+	</select>
+	<insert id="exchangeInsert" parameterType="com.arbor.home.vo.ExchangeVO">
+		insert into exchange(exchanno, orderno, suborderno, exchanselect, exchancontent, username, tel, addr, detailaddr, zipcode, userid) values(exchangesq.nextval, ${orderno}, ${suborderno}, #{exchanselect}, #{exchancontent}, #{username}, #{tel}, #{addr}, #{detailaddr}, #{zipcode}, #{userid})
+	</insert>
+	<update id="orderStatusUpdate">
+		update ordertbl set status='교환중' where orderno=${param1}
+	</update>
+	
 	<!-- qna List 페이지  -->
 	<select id="allList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
 		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
@@ -69,7 +80,7 @@
 	
 	<!-- point List 페이지 -->
 	<select id="pointList" resultType="com.arbor.home.vo.PointVO" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from (select * from (select pointno, to_char(pointdate, 'YY/MM/DD') as pointdate, pointcontent, point, lead(point) over (order by pointno) as beforePoint, (point-lead(point) over (order by pointno desc)) as mfpoint, userid from point where userid=#{userid} order by pointno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageNum} order by pointno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by pointno desc
+		select * from (select * from (select pointno, to_char(pointdate, 'YY/MM/DD') as pointdate, pointcontent, point, lead(point) over (order by pointno) as beforePoint, (point-lead(point) over (order by pointno desc)) as mfpoint, userid from point where userid=#{userid} order by pointno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by pointno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by pointno desc
 	</select>
 	<select id="pointTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(rownum) as totalRecord from point where userid = #{userid}

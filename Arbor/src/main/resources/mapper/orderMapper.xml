@@ -16,8 +16,17 @@
 	<select id="getUserCoupon" resultType="com.arbor.home.vo.CouponVO">
 		select cpnno, userid, cpnname, apply, salerate, to_char(cpnstart, 'yyyy-mm-dd') cpnstart, to_char(cpnend, 'yyyy-mm-dd') cpnend, cpnadno from coupon where userid=#{param1} and cpnend>=sysdate-1
 	</select>
-	<select id="getCouponCount" resultType="int">
+	<select id="getSubnoSelect" resultType="com.arbor.home.vo.SubOrderVO">
+		select distinct(p.subno) from cart c join product p on c.pno=p.pno where userid=#{param1}
+	</select>
+	<!-- <select id="getCouponCount" resultType="int">
 		select count(cpnNo) from coupon where userid=#{param1} and cpnend>=sysdate-1
+	</select> -->
+	<select id="couponCount" resultType="int">
+		select count(cpnNo) from coupon where userid=#{param1} and cpnend>=sysdate-1 and apply=${param2}
+	</select>
+	<select id="cpnSelect" parameterType="int" resultType="com.arbor.home.vo.CouponVO">
+		select cpnno, userid, cpnname, apply, salerate from coupon where cpnno=${param1}
 	</select>
 	<select id="getOrderSeq" resultType="int">
 		select lpad(ordersq.nextval, 3, '0') orderSq from dual
@@ -76,17 +85,17 @@
 	<!-- 장바구니에서 전체구매버튼 클릭 시  -->
 	<select id="cartAllList" resultType="com.arbor.home.vo.SubOrderVO">
 		<!-- select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1, p.pprice from cart c join product p on c.pno=p.pno where userid=#{param1} -->
-		select c.cartno, c.pno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice from cart c join product p on c.pno=p.pno where userid=#{param1}
+		select c.cartno, c.pno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.subno, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice from cart c join product p on c.pno=p.pno where userid=#{param1}
 	</select>
 	<!-- 장바구니에서 구매버튼 클릭 시  -->
 	<select id="cartAppendList" resultType="com.arbor.home.vo.SubOrderVO">
 		<!-- select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1, p.pprice from (select * from cart where pno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2} -->
-		select c.cartno, c.pno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice from (select * from cart where pno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2}
+		select c.cartno, c.pno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice, p.subno from (select * from cart where pno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2}
 	</select>
 	<!-- 장바구니에서 선택구매버튼 클릭 시  -->
 	<select id="cartAppendChckList" resultType="com.arbor.home.vo.SubOrderVO">
 		<!-- select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1, p.pprice from (select * from cart where cartno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2} -->
-		select c.cartno, c.pno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice from (select * from cart where cartno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2}
+		select c.cartno, c.pno, p.subno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice from (select * from cart where cartno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2}
   </select>
     
 	<select id="getUserInfo" resultType="com.arbor.home.vo.MemberVO">
