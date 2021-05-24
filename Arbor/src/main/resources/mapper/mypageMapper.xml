@@ -34,6 +34,13 @@
 		<select id="qnaCount" resultType="com.arbor.home.vo.QnaVO">
 		select count(qnano) as qnano from qna where userid = #{param1}
 	</select>
+	<delete id="cancelSuborderPay" parameterType="int">
+		delete from suborder where orderno=${param1}
+	</delete>
+	<delete id="cancelOrderPay" parameterType="int">
+		delete from ordertbl where orderno=${param1}
+	</delete>
+	
 	<!-- qna List 페이지  -->
 	<select id="allList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
 		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc

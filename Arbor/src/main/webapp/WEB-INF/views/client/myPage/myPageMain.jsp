@@ -213,21 +213,23 @@
 	
 	/* 주문취소 */
 	
-	function cancelPay(merchant_uid) {
-      $.ajax({
-        url: 'http://www.myservice.com/payments/cancel',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-          merchant_uid: merchant_uid, // 주문번호
-          cancel_request_amount: 10, // 환불금액
-          reason: '테스트 결제 환불' // 환불사유
-        }, success: function(result) { // 환불 성공시 로직 
-            alert('환불 성공');
-        }, error : function(error) { // 환불 실패시 로직
-          alert('환불 실패');
-        }
-      });
+	function cancelPay(orderno) {
+		if(confirm("해당 주문을 취소하시겠습니까?")) {
+			$.ajax({
+				url : "cancelPay",
+				data : "orderno="+orderno,
+				type : "POST",
+				success : function(result) {
+					if(result>1) {
+						alert("주문취소 신청이 완료되었습니다. 승인 후 환불처리됩니다.");
+					} else {
+						alert("주문취소 신청이 실패했습니다. 다시 시도해주시거나 고객센터로 문의바랍니다.");
+					}
+				}, error : function(e) {
+					
+				}
+			});
+		}
     }
 	
 </script>
@@ -247,7 +249,7 @@
 	                <li class="wordcut"><a class="y_pnameList" id="y_pnameList" href="javascript:subPopupList(${data.orderno })">${data.pname }</a></li>
 	                <li><fmt:formatNumber value="${data.totalprice }" /> 원</li>
 	                <li class="clearfix">
-	                	<c:if test="${data.status=='배송준비' }"><a href="javascript:myPagePopup()" class="status_ready">배송준비</a><a href="javascript:cancelPay(${data.merchant_uid })" class="status_cashCancle">주문취소</a></c:if>
+	                	<c:if test="${data.status=='배송준비' }"><a href="javascript:myPagePopup()" class="status_ready">배송준비</a><a href="javascript:cancelPay(${data.orderno })" class="status_cashCancle">주문취소</a></c:if>
 	                	<c:if test="${data.status=='배송완료' }"><a class="status_delivDone">배송완료</a><a href="javascript:reviewWrite(${data.orderno })" class="status_review">리뷰작성</a><a href="#" class="status_change">교환/환불</a></c:if>
 	                	<c:if test="${data.status=='배송중' }"><a style="padding:5px 85px;">배송중입니다.</a></c:if>
 	                	<c:if test="${data.status=='교환중' }"><a style="padding:5px 85px;">교환중입니다.</a></c:if>

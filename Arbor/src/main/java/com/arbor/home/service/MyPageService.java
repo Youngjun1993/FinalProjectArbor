@@ -133,6 +133,14 @@ public class MyPageService implements MyPageServiceImp {
 		return mypageDAO.reviewJoinList(userid);
 	}
 
+	@Override
+	public int cancelOrderPay(int orderno) {
+		return mypageDAO.cancelOrderPay(orderno);
+	}
+	public int cancelSuborderPay(int orderno) {
+		return mypageDAO.cancelSuborderPay(orderno);
+	}
+
 	/*
 	 * @Override public HashMap<String, List<QnaVO>> qnaAnsDesc(PageSearchVO vo) {
 	 * return mypageDAO.qnaAnsDesc(vo); }

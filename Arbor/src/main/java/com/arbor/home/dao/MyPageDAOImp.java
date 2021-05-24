@@ -17,6 +17,9 @@ public interface MyPageDAOImp {
 	public List<OrderTblVO> purchaseList(PageSearchVO vo);
 	//구매내역 서브리스트
 	public List<OrdsubOrdJoinVO> suborderList(int orderno);
+	// 구매내역 - 주문취소
+	public int cancelOrderPay(int orderno);
+	public int cancelSuborderPay(int orderno);
 	//리뷰 아이디별 리스트
 	public List<ReviewVO> reviewJoinList(String userid);
 	//리뷰작성 리스트

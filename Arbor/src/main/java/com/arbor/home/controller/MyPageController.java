@@ -56,6 +56,21 @@ public class MyPageController {
 		}
 		return mav;
 	}
+	
+	// 주문취소
+	@RequestMapping("/cancelPay")
+	@ResponseBody
+	public int cancelPay(int orderno) {
+		int result = 0;
+		if(mypageService.cancelOrderPay(orderno)>0) {
+			result++;
+			if(mypageService.cancelSuborderPay(orderno)>0) {
+				result++;
+			}
+		}
+		return result;
+	}
+	
 	//구매내역 상품상페 팝업
 	@RequestMapping("/orderPopup")
 	@ResponseBody
