@@ -44,8 +44,8 @@
 		</div>
 		<hr/>
 		
-		<h3>아이디를 입력 후 중복 검사버튼 누르세요</h3><br>
-		<div id ="h_confirm_div2">
+		<div id ="h_confirm_div2" >
+		<h3>사용할 아이디를 입력 후 중복 검사를 해주세요</h3><br>
 			<form method="post" id="frm" action="<%=request.getContextPath() %>/idcheck" >
 				아이디&nbsp;<input type="text" name="userid" id="userid" class="h_ipt"/>
 				<input type="submit" value="중복검사 다시하기" class="clientSubBtn"/>

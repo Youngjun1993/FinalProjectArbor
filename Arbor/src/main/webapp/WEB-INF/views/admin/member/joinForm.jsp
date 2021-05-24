@@ -99,6 +99,7 @@
 		        type:"POST",
 		        url:"mailcheck?email=" + email,
 		        success:function(data){
+		        	alert("인증요청이 처리되었습니다. 메일을 확인하세요");
 		        	 //console.log("data : " + data);/* 반환데이터 확인 : data는 컨트롤러 이메일 인증 메소드에서 생성해 리턴한 난수(String타입) */
 		        	chkBox.attr("disabled", false);
 		        	chkBox.attr("id", "emailvalid_ok");
