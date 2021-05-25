@@ -62,12 +62,13 @@
 				if(/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,16}$/.test(inputpwd)) {
 					$('#pwdCheck').attr("disabled", false);
 					$('.h_pwdchk').css("background-color","white");
+					return true;
 				}else{
-					alert("비밀번호가 너무 짧습니다(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)");
+					alert("비밀번호를 다시 입력해주세요(최소 1개의 숫자 혹은 특수문자를 입력, 8자~16자)");
 					return false;
 				}
 			}else {
-				alert("비밀번호가 너무 짧습니다(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)");
+				alert("비밀번호를 다시 입력해주세요(최소 1개의 숫자 혹은 특수문자를 입력, 8자~16자)");
 				return false;
 			}
 		});
@@ -84,7 +85,7 @@
 				        checkResult.removeClass("incorrect");
 				        pwckcorCheck = true;
 				    } else {// 일치하지 않을 경우
-				        checkResult.html("비밀번호를 다시 확인해주세요");
+				        checkResult.html("비밀번호를 확인해주세요");
 				        checkResult.addClass("incorrect");
 				        checkResult.removeClass("correct");  
 				        pwckcorCheck = false;
@@ -334,7 +335,7 @@
 		</td>
 		<td>
 		<input type="text" name="userid" id="userid" size="50" class="h_ipt" required="required" value="">
-		&nbsp;&nbsp;&nbsp;<input type="button" value="중복확인" class="h_check_btn h_idchk">
+		&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="중복확인" class="h_check_btn h_idchk">
 		<!-- 입력검사 확인용 -->				
 		<input type="hidden" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
 		</td>
@@ -345,7 +346,7 @@
 		<label for="pwd">비밀번호 *</label>
 		</td>
 		<td>
-		<input type="password" name="userpwd" id="userpwd" size="50" class="h_ipt" required="required" value=""><br/>(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)
+		<input type="password" name="userpwd" id="userpwd" size="50" class="h_ipt" required="required" value=""><br/>(최소 1개의 숫자 혹은 특수문자 조합, 길이 8자~16자 사이)
 		</td>
 		</tr>
 		
@@ -375,11 +376,11 @@
 		</td>
 		<td>
 		<input type="text" name="zipcode" id="zipcode" size="50" class="h_ipt zipcode" readonly="readonly">
-		&nbsp;&nbsp;&nbsp;<input type="button" id="zipcode_btn" value="우편번호찾기" class="h_check_btn" onclick="kakao_address()"/>
+		&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" id="zipcode_btn" value="우편번호찾기" class="h_check_btn" onclick="kakao_address()"/>
 		
-	  	<input type="text" name="addr" id="addr" size="50" class="h_ipt addr" readonly="readonly">&nbsp;&nbsp;&nbsp;기본주소
+	  	<input type="text" name="addr" id="addr" size="50" class="h_ipt addr" readonly="readonly">&nbsp;&nbsp;&nbsp;&nbsp;기본주소
 		
-		<input type="text" name="detailaddr" id="detailaddr" size="50" class="h_ipt detailaddr" required="required">&nbsp;&nbsp;&nbsp;나머지 주소
+		<input type="text" name="detailaddr" id="detailaddr" size="50" class="h_ipt detailaddr" required="required">&nbsp;&nbsp;&nbsp;&nbsp;나머지 주소
 		</td>
 		</tr>
 		
@@ -388,7 +389,7 @@
 		연락처
 		</td>
 		<td>
-		<select id="tel" name="tel1" class="h_select" style="width:110px">
+		<select id="tel" name="tel1" class="h_select" style="width:115px">
 			<option value="010">010</option>
 		  	<option value="011">011</option>
 			<option value="070">070</option>
@@ -410,8 +411,8 @@
 			<option value="063">063</option>
 			<option value="064">064</option>
 		</select>
-		&nbsp;-&nbsp;<input type="text" name="tel2" id="tel2" size="11" class="h_ipt" required="required" value="">
-		&nbsp;-&nbsp;<input type="text" name="tel3" id="tel3" size="11" class="h_ipt" required="required" value="">
+		&nbsp;-&nbsp;<input type="text" name="tel2" id="tel2" size="8" class="h_ipt" required="required" value="">
+		&nbsp;-&nbsp;<input type="text" name="tel3" id="tel3" size="8" class="h_ipt" required="required" value="">
 		</td>
 		</tr>
 		
@@ -431,7 +432,7 @@
 		<label for="email">이메일</label>
 		</td>
 		<td>
-		<input type="text" name="emailid" id="emailid" size="22" class="h_ipt emailid" required="required" value=""> @ 
+		<input type="text" name="emailid" id="emailid" size="17" class="h_ipt emailid" required="required" value=""> @ 
 		<select name="emaildomain" id="emaildomain" class="h_select emaildomain" required="required" style="width:210px">
 			<option value=""></option>
 			<option value="gmail.com">gmail.com</option>
@@ -450,7 +451,7 @@
 		</td>
 	 	<td>
 	 	<input type="text" name="emailvalid" id="emailvalid" size="50" class="h_emailvalid" required="required" disabled="disabled">
-		&nbsp;&nbsp;&nbsp;<input type="button" id="emailcheck" value="인증 요청" class="h_check_btn emailchk">
+		&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" id="emailcheck" value="인증 요청" class="h_check_btn emailchk">
 		<span class="h_email_warning"></span>
 		</td>
 		</tr>
