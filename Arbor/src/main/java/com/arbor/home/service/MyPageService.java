@@ -11,6 +11,7 @@ import com.arbor.home.dao.MyPageDAOImp;
 import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.ExchangeVO;
 import com.arbor.home.vo.MemberVO;
+import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
@@ -148,6 +149,41 @@ public class MyPageService implements MyPageServiceImp {
 	@Override
 	public int orderStatusUpdate(int orderno) {
 		return mypageDAO.orderStatusUpdate(orderno);
+	}
+
+	@Override
+	public OrdsubOrdJoinVO exchagneProdList(int suborderno) {
+		return mypageDAO.exchagneProdList(suborderno);
+	}
+
+	@Override
+	public List<OptionVO> exchangeOptList(int suborderno) {
+		return mypageDAO.exchangeOptList(suborderno);
+	}
+
+	@Override
+	public int exchangeDelete(int orderno) {
+		return mypageDAO.exchangeDelete(orderno);
+	}
+
+	@Override
+	public int exchangeSubordUpdate(OrdsubOrdJoinVO vo) {
+		return mypageDAO.exchangeSubordUpdate(vo);
+	}
+
+	@Override
+	public int exchangeSubordInsert(OrdsubOrdJoinVO vo) {
+		return mypageDAO.exchangeSubordInsert(vo);
+	}
+
+	@Override
+	public int exchangeOrdtblUpdate(OrderTblVO vo) {
+		return mypageDAO.exchangeOrdtblUpdate(vo);
+	}
+
+	@Override
+	public List<OrdsubOrdJoinVO> exchangeGetPrice(int orderno) {
+		return mypageDAO.exchangeGetPrice(orderno);
 	}
 
 	/*

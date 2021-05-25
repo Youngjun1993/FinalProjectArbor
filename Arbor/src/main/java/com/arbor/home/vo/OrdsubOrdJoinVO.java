@@ -29,8 +29,28 @@ public class OrdsubOrdJoinVO {
 	private String optinfo;
 	private int suborderno;
 	private String exchanselect;
+	private int saleprice;
+	private int changeSubprice;
+	private int changeQuantity;
 	
-	
+	public int getChangeQuantity() {
+		return changeQuantity;
+	}
+	public void setChangeQuantity(int changeQuantity) {
+		this.changeQuantity = changeQuantity;
+	}
+	public int getChangeSubprice() {
+		return changeSubprice;
+	}
+	public void setChangeSubprice(int changeSubprice) {
+		this.changeSubprice = changeSubprice;
+	}
+	public int getSaleprice() {
+		return saleprice;
+	}
+	public void setSaleprice(int saleprice) {
+		this.saleprice = saleprice;
+	}
 	public String getExchanselect() {
 		return exchanselect;
 	}
