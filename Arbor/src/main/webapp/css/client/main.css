@@ -6,7 +6,6 @@
 	width:100%;
 	margin:0 auto;
 }
-
 /*header*/
 header{
 	margin:0;
@@ -136,6 +135,8 @@ nav>ul ul{position:absolute;}
 
 
 /*main*/
+
+/*메인 문*/
 .d_mainhome{
 	width:50%;
 	height:100%;
@@ -156,6 +157,7 @@ nav>ul ul{position:absolute;}
 	top:0;
 	opacity:1;
 }
+
 
 /*탑 슬라이드  */
 #topSlide{
@@ -411,9 +413,10 @@ nav>ul ul{position:absolute;}
 /*동영상*/
 .videoBox {
 	width:100%;
+	height:100%;
 	position:relative;
 	margin-bottom:200px;
-	
+	cursor:pointer;
 }
 .d_video {
 	z-index:-1;
@@ -424,7 +427,6 @@ nav>ul ul{position:absolute;}
 #lookbook{
 	width:1230px;
 	height:400px;
-
 	position:absolute;
 	left:50%;
 	top:50%;
@@ -448,7 +450,79 @@ nav>ul ul{position:absolute;}
 	font-size:30px;
 	color:#fff;
 	background-color:black;
+	cursor:pointer;
 }
+
+/*LOOKBOOK*/
+.d_lookbook{
+	position:absolute;
+	z-index:1111;
+	top:0;
+	left:0;
+	display:none;
+}
+.d_bookimg>img{
+	width:1400px;
+	height:700px;
+}
+.d_bookimg{
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin-left:-700px;
+	margin-top:-350px;
+}
+
+#flipbook img{
+	width:100%;
+	height:100%;
+}
+
+.window{
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin-left:-665px;
+	margin-top:-337px;
+}
+
+
+.d_lbclose{
+	position:absolute;
+	top:1%;
+	left:92%;
+	z-index:10001;
+	cursor:pointer;
+}
+.d_lbclose>img{
+	width:120px;
+	height:90px;
+}
+
+.d_lbleftBtn{
+	position:absolute;
+	top:50%;
+	left:8%;
+	margin-top:-50px;
+	cursor:pointer;
+}
+.d_lbleftBtn>img{
+	width:70px;
+	height:100px;
+}
+
+.d_lbrightBtn{
+	position:absolute;
+	top:50%;
+	left:88%;
+	margin-top:-50px;
+	cursor:pointer;
+}
+.d_lbrightBtn>img{
+	width:70px;
+	height:100px;
+}
+
 
 /*====================================================*/
 /*링크*/

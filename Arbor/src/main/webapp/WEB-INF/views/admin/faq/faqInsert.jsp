@@ -14,6 +14,7 @@
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/noticeEdit.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/faqAdmin.css" type="text/css" />
 <%-- <script src="<%=request.getContextPath() %>/javaScript/admin/eventInsertEdit.js"></script> --%>
 <!-- datepicker -->
 <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  -->
@@ -95,9 +96,9 @@ $(function(){
 		<h2 class="d_h1">FAQ 등록</h2>
 		<form method="post" id="faqFrm" action="faqInsertOk" enctype="multipart/form-data">
 			<div>
-				<span class="d_editFont">질문: </span><input type="text" name="faqsubject" id="d_faqSubject"/><br/><br/>
+				<span class="d_editFont">질문: </span><input type="text" name="faqsubject" id="d_faqSubject" class="d_subBox"/><br/><br/>
 				<div>
-					<span>카테고리: </span>
+					<span class="d_editFont">카테고리: </span>
 					<select name="faqcate" id="d_faqCate">
 						<option value="결제관련">결제관련</option>
 						<option value="교환반품">교환반품</option>

@@ -26,6 +26,23 @@ window.onload=msg;
 
 $(document).ready(function(){
 	  // $("ul > li:first-child a").next().show();
+	  $(".d_faqAdc").click(function(){
+		var dh = $(this).parent().parent().height();
+		if(dh < 45){
+		 	var divheight=$(this).parent().next().height();
+		 	var dhdh = dh + divheight;
+		   	$(this).parent().parent().css('height',dhdh + 'px');
+		   	
+		   	$(this).parent().parent().siblings().css('height', 41+'px');
+		}else if(dh > 45){
+			$(this).parent().parent().css('height',41 + 'px');
+		}
+	    return false;
+	  });
+});
+
+/* $(document).ready(function(){
+	  // $("ul > li:first-child a").next().show();
 	  $(".d_faqAdname").click(function(){
 		var dh = $(this).parent().height();
 		if(dh < 45){
@@ -39,8 +56,7 @@ $(document).ready(function(){
 		}
 	    return false;
 	  });
-});
-
+}); */
 	  
 $(function(){
 	
@@ -95,7 +111,7 @@ $(function(){
 					</div>
 				</div>
 				<div class="d_faqAdcontent">
-					<div>A</div><div>${faqList.faqcontent }</div>
+					<div class="d_faqA">A</div><div>${faqList.faqcontent }</div>
 				</div>
 			</div>
 		</c:forEach>

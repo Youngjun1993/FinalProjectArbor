@@ -1,0 +1,14 @@
+@charset "UTF-8";
+body{
+	overflow:auto;
+}
+.footer_top{
+	height:70px;
+	line-height:70px;
+	text-align:center;
+	border-bottom:2px solid rgb(90,120,114);
+	margin-bottom:20px;
+}
+.d_footer{
+	overflow:auto;
+}

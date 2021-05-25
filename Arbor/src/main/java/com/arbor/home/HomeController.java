@@ -39,4 +39,19 @@ public class HomeController {
 		return mav;
 	}
 	
+	@RequestMapping("/arbor_TAC")
+	public String arbor_TAC() {
+			return "client/footer/arbor_TAC";
+	}
+	
+	@RequestMapping("/arbor_PP")
+	public String arbor_PP() {
+			return "client/footer/arbor_PP";
+	}
+	
+	@RequestMapping("/arbor_Use")
+	public String arbor_Use() {
+			return "client/footer/arbor_Use";
+	}
+	
 }

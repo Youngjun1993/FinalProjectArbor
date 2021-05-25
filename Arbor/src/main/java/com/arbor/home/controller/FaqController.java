@@ -72,9 +72,9 @@ public class FaqController {
 
 		ModelAndView mav = new ModelAndView();
 		if(faqService.faqInsert(vo)>0) {//글등록
-			 mav.setViewName("redirect:noticeAdminList");
+			 mav.setViewName("redirect:faqAdList");
 		 }else {
-			 mav.setViewName("redirect:noticeInsert");
+			 mav.setViewName("redirect:faqAdList");
 		 }
 		 return mav;
 	}

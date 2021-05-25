@@ -39,20 +39,80 @@ $(function(){
 				width: '0'
 			},1000);
 		});
-		$("#topFont").one("click",function(){
-			$(this).delay(1500).animate({
+		
+		
+		
+		$("#topFont").delay(1500).one("click",function(){
+			$(this).animate({
 				opacity: '1',
 				top: '50%'
-				
 			},'slow');
-			
+			$('body').css('overflow','auto');
 		});
+
+		
 	$("#d_homeleft").trigger("click");
-	$("#d_homeright").trigger("click");	
+	$("#d_homeright").trigger("click");
 	$("#topFont").trigger("click");
 	});
 });
 
+//LOOKBOOK 이벤트
+function wrapWindowByMask(){
+	//화면의 높이와 너비를 구한다.
+	var maskHeight = $(window).height();
+	//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+	$('.d_lookbook').css({'width':'calc(100vw - (100vw - 100%))','height':maskHeight});
+	//애니메이션 효과 - 
+	$('.d_lookbook').fadeIn(2000);
+	//
+	$(".d_lookbook").css({"background":"url(./img/lookbook_back3.jpg)"});    
+	//윈도우 같은 거 띄운다.
+	
+	
+	//창위치
+ 	$('.d_lookbook').css({
+		"top":(($(window).height()-$('.d_lookbook').outerHeight())/2+$(window).scrollTop())+"px",
+	
+		}); 
+	}	
+$(document).ready(function(){
+	//검은 막 띄우기
+	$('.videoBox').click(function(e){
+		e.preventDefault();
+		wrapWindowByMask();
+		$('.window').fadeIn(4000);
+		$('body').css('overflow','hidden');
+	
+	});
+	//닫기 버튼을 눌렀을 때
+	
+	//검은 막을 눌렀을 때
+	$('.d_lbclose').click(function () {
+	$('.d_lookbook').hide();
+	$('body').css('overflow','auto');
+	});
+});
+
+$(function(){
+	$("#flipbook").turn({
+	    width: 1330,
+	    height: 670,
+	    
+	});
+	
+	$(".d_lbleftBtn").click(function(){
+		$("#flipbook").turn("previous");
+	});
+	
+	$(".d_lbrightBtn").click(function(){
+		$("#flipbook").turn("next");
+	});
+	
+});
+
+
+//=============================================
 //첫번째 상품 슬라이드
 $(function(){
 	var slides = document.querySelector('.slides'),
@@ -173,11 +233,35 @@ $(function(){
 });
 
 </script>
+<!-- 홈 문이벤트 -->
 <div id="d_homeleft" class="d_mainhome">
 	<img src="<%=request.getContextPath()%>/img/main2left.jpg">
 </div>
 <div id="d_homeright" class="d_mainhome">
 	<img src="<%=request.getContextPath()%>/img/main2right.jpg">
+</div>
+<!-- LOOKBOOK -->
+<div class="d_lookbook">
+	<div class="d_bookimg"><img src="<%=request.getContextPath()%>/img/arbor_book2.png"></div>
+	<div class="d_lbleftBtn">
+		<img src="<%=request.getContextPath()%>/img/book_prevBtn.png">
+	</div>
+	<div class="d_lbrightBtn">
+		<img src="<%=request.getContextPath()%>/img/book_nextBtn.png">
+	</div>
+	<div class="window">
+		<div id="flipbook">
+		    <div><img src="<%=request.getContextPath()%>/img/lookbook_main.jpg"></div>
+		    <div><img src="<%=request.getContextPath()%>/img/lookbook_main.jpg"></div>
+		    <div> <img src="<%=request.getContextPath()%>/img/mainimg1.PNG"> </div>
+		    <div> <img src="<%=request.getContextPath()%>/img/mainimg2.jpg"> </div>
+		    <div> <img src="<%=request.getContextPath()%>/img/mainimg3.jpg"> </div>
+		    <div> <img src="<%=request.getContextPath()%>/img/mainimg4.jpg"> </div>
+		    <div></div>
+		    <div></div>
+		</div>
+	</div>
+	<div class="d_lbclose"><img src="<%=request.getContextPath()%>/img/d_close5.png"></div>
 </div>
 <div class="d_main">
 	<div id="topSlide">
@@ -242,7 +326,7 @@ $(function(){
 			<img src="<%=request.getContextPath()%>/img/boxtest4.jpg">
 		</div>
 		<div class="d_box_div5" trigger-right>
-			<img src="<%=request.getContextPath()%>/img/boxtest1.jpg">
+			<img src="<%=request.getContextPath()%>/img/boxtest5.jpg">
 		</div>
 	</div>
 	<!-- 두번째리스트 -->
@@ -268,18 +352,17 @@ $(function(){
 	<!--slideBox -->
 	
 	
-	<!-- 동영상  -->
+	<!-- 동영상 LOOKBOOK -->
 	<div class="videoBox" trigger-up>
-		<a href="#"><div class="d_video">
-			<video width="100%" height="800" autoplay loop muted preload="auto">
+		<div class="d_video">
+			<video width="100%" height="800px" autoplay loop muted preload="auto">
   				<source src="<%=request.getContextPath()%>/img/lookbook.mp4" type="video/mp4">
 			</video>
 		</div>
 		<div id="lookbook">
 			<p>Arbor's LOOKBOOK</p>
-			<button>GET INSFIRED</button>
+			<button>GET INSPIRED</button>
 		</div>
-		</a>
 	</div>
 	<!-- videoBox -->
 	

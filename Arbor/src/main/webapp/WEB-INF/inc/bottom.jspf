@@ -4,10 +4,9 @@
 	<div id="d_footerTop">
 		<ul>
 			<li><a href="aboutUs">회사소개</a></li>
-			<li><a href="">이용약관</a></li>
-			<li><a href="">개인정보처리방침</a></li>
-			<li><a href="">이용안내</a></li>
-			<li><a href="">광고/제휴 문의</a></li>
+			<li><a href="arbor_TAC">이용약관</a></li>
+			<li><a href="arbor_PP">개인정보처리방침</a></li>
+			<li><a href="arbor_Use">이용안내</a></li>
 		</ul>
 	</div>
 	<div id="d_footerCenter">
