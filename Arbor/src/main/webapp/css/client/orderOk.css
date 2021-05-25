@@ -112,9 +112,21 @@
 #j_pList td:nth-child(n+3):nth-child(-n+6){
 	text-align: right;
 }
-#orderOpt{
+#j_pList td:nth-child(6n+1)>div{
+	display: flex;
+	flex-direction: column;
+	text-align: top;
+	height: 50px;
+}
+#j_pList td:nth-child(6n+1)>div span:first-child{
+	margin: 10px 0 0 10px;
+	font-weight: bold;
+}
+#j_pList td:nth-child(6n+1)>div span:last-child{
+	margin: 5px 0 0 10px;
 	color: gray;
 	font-size: 12px;
+	backgroung: pink;
 }
 .j_orderOkDiv:first-child td{
 	text-align: left;

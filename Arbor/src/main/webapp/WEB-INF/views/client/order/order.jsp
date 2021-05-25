@@ -343,9 +343,9 @@
 						<li><fmt:formatNumber value='${pInfoVo.pprice }'/></li>
 						<li><fmt:formatNumber value='${pInfoVo.saleprice }'/></li>
 						<li>${pInfoVo.quantity }</li>
-						<li><fmt:formatNumber value='${pInfoVo.deliveryprice }'/></li>
+						<li><fmt:formatNumber value='${pInfoVo.quantity*pInfoVo.deliveryprice }'/></li>
 						<li><fmt:formatNumber value='${pInfoVo.quantity*pInfoVo.subprice }'/></li>
-						<c:set var="sumDelivery" value='${sumDelivery + pInfoVo.deliveryprice }'/>
+						<c:set var="sumDelivery" value='${sumDelivery + pInfoVo.quantity*pInfoVo.deliveryprice }'/>
 						<c:set var="sumPayment" value='${sumPayment + pInfoVo.quantity*pInfoVo.subprice }'/>
 					</c:forEach>
 				</ul>
@@ -580,6 +580,7 @@
 									<td><fmt:formatNumber value='${sumDelivery }'/>원</td>
 								</tr>
 							</table>
+									<input type="hidden" name="deliveryprice" value="${sumDelivery }"/>
 							<div>
 								<p>총 결제예정금액</p>
 								<p id="j_totalPayment"></p>

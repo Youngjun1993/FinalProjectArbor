@@ -1,5 +1,6 @@
 package com.arbor.home.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -54,6 +55,36 @@ public class SalesController {
 	@RequestMapping("/salesChart")
 	public String SalesChart() {
 		return ("admin/sales/salesChart");
+	}
+	
+	@RequestMapping("/getGraphData")
+	@ResponseBody
+	public List<SalesVO> getSalesGraph(SalesVO salesVo){
+		List<SalesVO> list = new ArrayList<SalesVO>();
+		System.out.println("terms()->"+salesVo.getTerms());
+		if(salesVo.getTerms().equals("monthly")) {
+			System.out.println("월별그래프실행");
+			list = salesService.getMonthlyChartData(salesVo);			
+		}else if(salesVo.getTerms().equals("daily")) {
+			System.out.println("일별그래프실행");
+			list = salesService.getDailyChartData(salesVo);						
+		}
+		return list;
+	}
+
+	@RequestMapping("/getPieChartData")
+	@ResponseBody
+	public List<SalesVO> getSalesPieChart(SalesVO salesVo){
+		List<SalesVO> list = new ArrayList<SalesVO>();
+		System.out.println("terms()->"+salesVo.getTerms());
+		if(salesVo.getTerms().equals("monthly")) {
+			System.out.println("월별그래프실행");
+			list = salesService.getMonthlyChartData(salesVo);			
+		}else if(salesVo.getTerms().equals("daily")) {
+			System.out.println("일별그래프실행");
+			list = salesService.getDailyChartData(salesVo);						
+		}
+		return list;
 	}
 	
 }

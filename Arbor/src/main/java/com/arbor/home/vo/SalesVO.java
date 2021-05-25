@@ -7,6 +7,10 @@ public class SalesVO {
 	private String totaldelivery;
 	private String sales_from="";
 	private String sales_to="";
+	private String terms;
+	private int ttlordercnt;
+	private int cateOrderCnt;
+	private String cateName;
 	
 	private int orderno;
 	private String userid;
@@ -50,6 +54,12 @@ public class SalesVO {
 	public void setSales_to(String sales_to) {
 		this.sales_to = sales_to;
 	}
+	public String getTerms() {
+		return terms;
+	}
+	public void setTerms(String terms) {
+		this.terms = terms;
+	}
 	public int getOrderno() {
 		return orderno;
 	}
@@ -74,9 +84,24 @@ public class SalesVO {
 	public void setSubprice(int subprice) {
 		this.subprice = subprice;
 	}
-	
-	
-	
-	
+	public int getTtlordercnt() {
+		return ttlordercnt;
+	}
+	public void setTtlordercnt(int ttlordercnt) {
+		this.ttlordercnt = ttlordercnt;
+	}
+	public int getCateOrderCnt() {
+		return cateOrderCnt;
+	}
+	public void setCateOrderCnt(int cateOrderCnt) {
+		this.cateOrderCnt = cateOrderCnt;
+	}
+	public String getCateName() {
+		return cateName;
+	}
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
+	}
+		
 	
 }

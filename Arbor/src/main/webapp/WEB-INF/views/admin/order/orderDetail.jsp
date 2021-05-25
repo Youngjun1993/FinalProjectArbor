@@ -48,7 +48,7 @@
 						<td><fmt:formatNumber value='${pVo.pprice }'/></td>
 						<td><fmt:formatNumber value='${pVo.saleprice }'/></td>
 						<td><fmt:formatNumber value='${pVo.deliveryprice }'/></td>
-						<td><fmt:formatNumber value='${pVo.subprice }'/></td>
+						<td><fmt:formatNumber value='${pVo.quantity * pVo.subprice }'/></td>
 					</tr>
 				</c:forEach>
 			</table>
