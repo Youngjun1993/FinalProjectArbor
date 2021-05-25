@@ -7,6 +7,7 @@
 <title>Arbor</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/main.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/footer.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/productList.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/productView.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/client/order.css" type="text/css"/>
@@ -25,6 +26,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/client/productList.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/client/ScrollTrigger.min.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/client/turn.min.js"></script>
 <!-- LightWidget WIDGET --><script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
 <script>
 
@@ -134,7 +136,7 @@ $(function(){
 	
 </script>
 </head>
-<body onselectstart="return false" ondragstart="return false">
+<body class="d_scroll" onselectstart="return false" ondragstart="return false">
 <header>
 	<div id="d_topline">Funiture is not bulit in a day</div>
 	<div id="d_logo"><a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/img/logogo.png"/></a></div>

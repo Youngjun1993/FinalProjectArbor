@@ -25,30 +25,33 @@
 }
 
 /*faqAd 질문*/
+#d_faqSubject{
+	width:50%;
+	height:25px;
+}
+#d_faqCate{
+	height:25px;
+}
+
 .d_faqAdname div{
 	float:left;
+	height:40px;
+	line-height:40px;
+	font-weight:bold;
 }
 
 .d_faqAdname>div:nth-of-type(1){
 	width:4%;
-	height:40px;
-	line-height:40px;
 	text-align:center;
 	font-size:18px;
-	font-weight:bold;
 	color:rgb(90,120,114);
 }
 .d_faqAdname>div:nth-of-type(2){
 	width:86%;
-	height:40px;
-	line-height:40px;
 	font-size:14px;
-	font-weight:bold;
 }
 .d_faqAdname>div:nth-of-type(3){
 	width:10%;
-	height:40px;
-	line-height:40px;
 	font-size:14px;
 	font-weight:bold;
 }
@@ -62,6 +65,7 @@
 }
 
 /*답변*/
+
 
 .d_faqAdcontent{
 	width:100%;
@@ -77,9 +81,10 @@
 	text-align:center;
 	font-size:18px;
 	font-weight:bold;
-	color:rgb(90,120,114);
+	color:rgb(191,43,53);
 }
 .d_faqAdcontent>div:last-of-type{
 	width:96%;
 	font-size:13px;
 }
+

@@ -14,6 +14,7 @@
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/noticeEdit.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/faqAdmin.css" type="text/css" />
 <%-- <script src="<%=request.getContextPath() %>/javaScript/admin/eventInsertEdit.js"></script> --%>
 <!-- datepicker -->
 <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  -->
@@ -98,7 +99,7 @@ $(function(){
 			<div>
 				<span class="d_editFont">질문: </span><input type="text" name="faqsubject" id="d_faqSubject" value="${faqEdit.faqsubject }"/><br/><br/>
 				<div>
-					<span>카테고리: </span>
+					<span class="d_editFont">카테고리: </span>
 					<select name="faqcate" id="d_faqCate" value="${faqEdit.faqcate}">
 						<c:if test="${faqEdit.faqcate == '결제관련'}">
 							<option value="결제관련" selected>결제관련</option>
