@@ -184,11 +184,6 @@
 	margin: 0 10px;
 }
 
-.adminMainBtn.search {
-	width: 100px !important;
-	height: 30px !important;
-}
-
 /* 회원검색 ul li */
 .h_memList li {
 	float: left;
@@ -203,9 +198,9 @@
 
 #memSearchBtn {
 	width: 200px;
-	height: 35px;
-	margin-top: 10px;
-	margin-bottom: 20px;
+    height: 35px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .h_dormantList {
@@ -299,7 +294,7 @@
 	letter-spacing: 1px; 
 }
 /* ///////////////////////////탈퇴회원 페이지/////////////////////////// */
-	} */
+
 .h_paging_wrap {
 	text-align: center;
 	margin-top: 50px;

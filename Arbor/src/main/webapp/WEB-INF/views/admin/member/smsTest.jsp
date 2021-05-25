@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>      
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/memberJoin.css" type="text/css" />
 <script type="text/javascript">
 	
 	function receiver() {
@@ -73,71 +75,49 @@
 </script>
 </head>
 <body onload="loadJSON()">
-<form method="post" name="smsForm" action="smsOk">
-    <input type="hidden" name="action" value="go"> 발송타입
-    <span>
-      <input type="radio" name="smsType" value="S">단문(SMS)</span>
-    <span>
-      <input type="radio" name="smsType" value="L">장문(LMS)</span>
-    <br /> 제목 :
-    <input type="text" name="subject" value=""> 장문(LMS)인 경우 (한글30자이내)
-    <br /> 전송메세지 <br/>
-    <textarea name="msg" cols="30" rows="10" style="width:455px;">
-   	Ａ Ｒ B 0 Ｒ
-	▼ ▼ ▼
-	휴 복 삼
-	면 귀 만
-	메 회 쿠
-	일 원 폰
-	▲ ▲ ▲
-    </textarea>
-    <br />
-    <!-- <p>단문(SMS) : 최대 90byte까지 전송할 수 있으며, 잔여건수 1건이 차감됩니다.
-        <br /> 장문(LMS) : 한번에 최대 2,000byte까지 전송할 수 있으며 1회 발송당 잔여건수 3건이 차감됩니다.
-    </p> -->
-    <!--////////////////////////////받는번호 체크체크  -->
-    <br />받는 번호
-    <select id="smsSelect" onchange="receiver()">
-    	<option value=""></option>
-	    <c:forEach var="vo" items="${list}"  varStatus="status">
-	    	<option value="${status.current}">${status.current}</option>
-		</c:forEach>
-    </select>
-    <input type="text" name="rphone" id="rphone" value="">
-    <!-- <br />이름삽입번호
-    <input type="text" name="destination" value="" size=80> 예) 010-000-0000|홍길동 -->
-    
-    <input type="hidden" name="sphone1" value ="010">
-    <input type="hidden" name="sphone2" value ="6251">
-    <input type="hidden" name="sphone3" value ="6042">
-    <span id="sendPhoneList"></span>
-    <!-- <br />예약 날짜
-    <input type="hidden" name="rdate" maxlength="8"> 예)20090909
-    <br />예약 시간
-    <input type="hidden" name="rtime" maxlength="6"> 예)173000 ,오후 5시 30분,예약시간은 최소 10분 이상으로 설정. -->
-   	<!--  리턴 url -->
-    <input type="hidden" name="returnurl" maxlength="64" value="">
-    <br /> test flag
-    <input type="text" name="testflag" maxlength="1"> 예) 테스트시: Y
-   <!--  <br />nointeractive
-    <input type="hidden" name="nointeractive" maxlength="1"> 예) 사용할 경우 : 1, 성공시 대화상자(alert)를 생략. -->
-   <!--  <br />반복설정
-    <input type="checkbox" name="repeatFlag" value="Y">
-    <br /> 반복횟수
-    <select name="repeatNum">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-    </select> 예) 1~10회 가능.
-    <br />전송간격
-    <select name="repeatTime"> 예)15분 이상부터 가능.
-        <option value="15">15</option>
-        <option value="20">20</option>
-        <option value="25">25</option>
-    </select>분마다 -->
-    <input type="submit" value="전송">
-    <br/>이통사 정책에 따라 발신번호와 수신번호가 같은 경우 발송되지 않습니다.
-</form>
+	<div id="h_idcheck_banner">
+		<p id="idCheckTitle"><img src="<%=request.getContextPath() %>/img/logo_transparent.png"/></p>
+	</div>
+	<form method="post" name="smsForm" action="smsOk">
+	    <input type="hidden" name="action" value="go">
+	    <div id="h_sms_line">
+	    <span><input type="radio" name="smsType" value="S">단문(SMS)</span>
+	    <span><input type="radio" name="smsType" value="L">장문(LMS)</span><span style="font-size:0.5em;"> &nbsp;※ 단문 1회차감 / 장문 3회차감</span>
+	    </div>
+	    <div id="h_sms_line">
+	    제목 :&nbsp;
+	    <input type="text" name="subject" style ="width:300px" class= "h_ipt" value=""><span style="font-size:0.5em;">&nbsp;※ 장문(LMS)인 경우 입력하세요</span>
+	    </div>
+	    
+	    <textarea name="msg" cols="30" rows="10" style="width:455px;">
+	   	Ａ Ｒ B 0 Ｒ
+		▼ ▼ ▼
+		휴 복 삼
+		면 귀 만
+		메 회 쿠
+		일 원 폰
+		▲ ▲ ▲
+	    </textarea>
+	    <div id="h_sms_line">
+	    받는 번호
+	    <select id="smsSelect" class="h_select" style ="width:150px" onchange="receiver()">
+	    	<option value=""></option>
+		    <c:forEach var="vo" items="${list}"  varStatus="status">
+		    	<option value="${status.current}">${status.current}</option>
+			</c:forEach>
+	    </select>
+	    <input type="text" name="rphone" class= "h_ipt" id="rphone" value="">
+	    
+	    <input type="hidden" name="sphone1" value ="010">
+	    <input type="hidden" name="sphone2" value ="6251">
+	    <input type="hidden" name="sphone3" value ="6042">
+	    <span id="sendPhoneList"></span>
+	  
+	    <input type="hidden" name="returnurl" maxlength="64" value=""><input type="submit" value="전송" style="height:31px" class="clientSubBtn">
+	    </div>
+	    <!-- test flag <input type="text" name="testflag" maxlength="1"> 테스트시 Y -->
+	    <span style="float:right; font-size:0.5em;">(주의) 이통사 정책에 따라 발신번호와 수신번호가 같은 경우 발송되지 않습니다.</span>
+	</form>
 </body>
 <APM_DO_NOT_TOUCH>
 

@@ -52,14 +52,23 @@
 			}
 		});
 		
+		//비밀번호 유효성 검사
+		
+		
 		//비밀번호확인 잠금 해제
 		$('#userpwd').blur(function() {
+			var inputpwd = $('#userpwd').val();
 			if($('#userpwd').val()!=""){
-				$('#pwdCheck').attr("disabled", false);
-				$('.h_pwdchk').css("background-color","white");
+				if(/^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,16}$/.test(inputpwd)) {
+					$('#pwdCheck').attr("disabled", false);
+					$('.h_pwdchk').css("background-color","white");
+				}else{
+					alert("비밀번호가 너무 짧습니다(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)");
+					return false;
+				}
 			}else {
 				alert("비밀번호가 너무 짧습니다(영문/숫자/특수문자 중 2가지 이상 조합, 8자~16자)");
-				$('#userid').focus();
+				return false;
 			}
 		});
 		
@@ -78,7 +87,6 @@
 				        checkResult.html("비밀번호를 다시 확인해주세요");
 				        checkResult.addClass("incorrect");
 				        checkResult.removeClass("correct");  
-				        $('#pwdCheck').focus();
 				        pwckcorCheck = false;
 				    }
 			   
@@ -232,7 +240,6 @@
 					                            		alert("로봇 체크를 확인해주세요");
 					                            	}else {
 					                            		captchaChk = true;
-					                            		 alert("서브밋발생")
 					                     	    		$('.inputForm').attr('action', 'memberJoin');
 					                     		    	$('.inputForm').submit;
 					                            	}

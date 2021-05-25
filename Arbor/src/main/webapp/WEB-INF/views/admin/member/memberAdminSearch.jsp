@@ -73,8 +73,7 @@
 					</tr>
 				</table>
 				<div class="h_searchBtnBox">
-					<input type="button" id="memSearchBtn" value="검색"
-						class="adminMainBtn search">
+					<input type="button" id="memSearchBtn" value="검색" class="adminMainBtn">
 				</div>
 			</form>
 
@@ -82,7 +81,7 @@
 			<!-- 폼 가운데 버튼 -->
 			<div class="h_searchMultiBtn">
 				<form name="sms" id="h_sms_form" action="sendSms"></form>
-				<input type="button" id="sendSms" value="문자발송 "
+				<input type="button" id="sendSms" value="SMS발송 "
 					class="adminSubBtn semiBtn">
 				<form action="excelDownload" id="excelDown" method="get">
 					<input type="button" id="excelBtn" value="엑셀(전체)다운"
@@ -117,8 +116,8 @@
 								<li>${vo.tel}</li>
 								<li>${vo.regdate}/${vo.emailok}/ ${vo.smsok}</li>
 								<li>${vo.lastdate}</li>
-								<li><input type="button" name="memberDelBtn" value="탈퇴"
-									class="h_memberDel" onclick="memDel(clickid${status.index})" />
+								<li><input type="button" name="memberDelBtn" value="강제 탈퇴"
+									class="adminSubBtn" onclick="memDel(clickid${status.index})" />
 									<input type="hidden" id="h_userid"
 									name="clickid${status.index}" value="${vo.userid}" /></li>
 							</c:if>
@@ -189,7 +188,7 @@
 			$('#h_sms_form').append("<input type = 'hidden' name = 'smstel' value='" + checkArr[i] + "'>");
 		};
 		
-		window.open('','smsSender','width=500,height=350');
+		window.open('','smsSender','width=600,height=500');
 	    var frm =document.sms;
 	    frm.action = 'sendSms';
 	    frm.target ="smsSender";

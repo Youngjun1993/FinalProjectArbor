@@ -814,7 +814,7 @@ public class MemberController {
 			cell.setCellValue("전화번호");
 			cell = row.createCell(4);
 			cell.setCellValue("가입일");
-
+			
 			// Body
 			for (int i = 0; i < list.size(); i++) {
 				row = sheet.createRow(rowNum++);

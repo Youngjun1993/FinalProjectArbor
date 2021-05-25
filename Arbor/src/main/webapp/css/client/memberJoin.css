@@ -90,12 +90,12 @@
       
 	.h_ipt{
 		padding: 7px 40px 7px 12px;
-		
 		border: 1px solid #E8EAED;
 		border-radius: 1px;
 	    background: white;
 	    box-shadow: 0 1px 3px -2px #9098A9;
 		margin:10px 0;
+		font-size: 16px;
 	}
 	
 	.h_trans{
@@ -270,13 +270,24 @@
 	/* 비밀번호 변경 페이지 탭 */
 	
 	.h_pwdsearchhead {
-	font-size: 1.2em;
-	display: block;
-	margin-top: 30px;
-	text-align: center;
-	text-decoration: none;
-	font-weight:bold;
-	letter-spacing: 2px;
+		font-size: 1.2em;
+		display: block;
+		margin-top: 30px;
+		margin-bottom: 30px;
+		text-align: center;
+		text-decoration: none;
+		font-weight:bold;
+		letter-spacing: 2px;
+	}
+	
+	.h_pwd_div{
+		margin-top: 15px;
+		margin-bottom: 10px;
+	}
+	#h_btnbox {
+		width: 100px;
+	    height: 20px;
+	    margin: 20px auto;
 	}
 	
 	.h_pwdtapbox{
@@ -289,6 +300,7 @@
 		width:450px;
 		margin: 20px auto;
 	}
+	
 	
 	.h_pwdformtable tr{
 		border-bottom:1px solid gray;
@@ -421,32 +433,11 @@
 		text-align:center;
 	}
 	
+	/* sms전송 폼 */
 	
-	/*
-	.h_pwdChangeipt {
-		display:inline-block;
-		border:5px solid gray;
-		background: transparent;
-		vertical-align:center;
-		height:100%;
+	#h_sms_line {
+		margin-top:10px;
+		margin-bottom:10px;
 	}
 	
-		ul, li용
-		
-	
-	.h_pwdsearch li {
-		float:left;
-		line-height:30px;
-		width:100%;
-		vertical-align:center;
-		border-bottom:1px solid #ccc;
-	}
-	
-	.h_pwdlistdiv {
-		float:left;
-		text-align:left;
-		width:100px;
-		vertical-align:center;
-	}
-	*/
 	

@@ -13,7 +13,7 @@
 <div class="w1400_container">
 	<div class="h_formcontainer idsrch">
 	<div class="h_jointop idsrch"><img src="<%=request.getContextPath() %>/img/logo.png"/></div>
-	<div class="h_pwdsearchhead">비밀번호찾기</div>
+	<div class="h_pwdsearchhead">임시 비밀번호 발급</div>
 	<div id="before_submit">
 	<div class="h_pwdtapbox">
 		<span class="h_tab emailsearch active"><a href="#">이메일로 찾기</a></span>
@@ -167,7 +167,7 @@
 						var tmppwd = result;
 						//유저아이디도 추가해야함
 								
-						$('#msg').text("[신혼전문 가구쇼핑몰] Arbor 임시비밀번호는 " + tmppwd + " 입니다. 접속 후 변경해주세요");
+						$('#msg').text("[신혼전문 가구쇼핑몰] Arbor 임시비밀번호는 " + tmppwd + " 입니다. 접속 후 꼭 변경해주세요");
 						//sms로 인증번호를 발송 
 						
 						console.log("임시비밀번호 값 = " + tmppwd );

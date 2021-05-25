@@ -75,7 +75,7 @@
 		</tr>
 	
 	</table>
-	<div class="h_searchBtnBox"><input type="button" id="" value="검색" class="adminMainBtn search"></div>	
+	<div class="h_searchBtnBox"><input type="button" id="memSearchBtn" value="검색" class="adminMainBtn"></div>	
 	</form>
 	
 	<!--////////////// 탈퇴검색 영역 끝 //////////////-->
