@@ -56,7 +56,7 @@
 		delete from exchange where orderno=${param1}
 	</delete>
 	<update id="exchangeSubordUpdate" parameterType="com.arbor.home.vo.OrdsubOrdJoinVO">
-		update suborder set quantity=${quantity-changeQuantity} where suborderno=${suborderno} 
+		update suborder set quantity=${quantity-changeQuantity}, optinfo=#{optinfo}, subprice=${changeSubprice} where suborderno=${suborderno} 
 	</update>
 	<insert id="exchangeSubordInsert" parameterType="com.arbor.home.vo.OrdsubOrdJoinVO">
 		insert into suborder(suborderno, orderno, pno, quantity, subprice, pname, optinfo) values(subordersq.nextval, ${orderno}, ${pno}, ${changeQuantity}, ${changeSubprice}, #{pname}, #{optinfo})
@@ -66,6 +66,12 @@
 	</select>
 	<update id="exchangeOrdtblUpdate" parameterType="com.arbor.home.vo.OrderTblVO">
 		update ordertbl set totalprice=${totalprice}, deliveryprice=${deliveryprice} where orderno=${orderno} and userid=#{userid}
+	</update>
+	<delete id="exchangeRepund">
+		delete from suborder where suborderno=${param1}
+	</delete>
+	<update id="repundOrdtblUpdate">
+		update ordertbl set totalprice=(select totalprice from ordertbl where orderno=${param1})-${param2} where orderno=${param1}
 	</update>
 	
 	<!-- qna List 페이지  -->

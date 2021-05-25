@@ -6,7 +6,7 @@
 		//페이징 li만큼 갯수
 		var liCnt = $(".paging>li").length;
 		$(".paging").css({
-			"width" : liCnt*35+"px",
+			"width" : liCnt*40+"px",
 			"margin" : "30px auto"
 		});
 		$("#y_leftMenu>ul>li:nth-child(6) a").css({

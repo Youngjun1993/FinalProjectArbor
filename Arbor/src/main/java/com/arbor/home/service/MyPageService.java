@@ -186,10 +186,15 @@ public class MyPageService implements MyPageServiceImp {
 		return mypageDAO.exchangeGetPrice(orderno);
 	}
 
-	/*
-	 * @Override public HashMap<String, List<QnaVO>> qnaAnsDesc(PageSearchVO vo) {
-	 * return mypageDAO.qnaAnsDesc(vo); }
-	 */
+	@Override
+	public int exchangeRepund(int suborderno) {
+		return mypageDAO.exchangeRepund(suborderno);
+	}
+
+	@Override
+	public int repundOrdtblUpdate(int orderno, int subprice) {
+		return mypageDAO.repundOrdtblUpdate(orderno, subprice);
+	}
 
 
 }

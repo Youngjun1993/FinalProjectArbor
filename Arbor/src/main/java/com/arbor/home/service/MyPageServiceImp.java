@@ -56,6 +56,10 @@ public interface MyPageServiceImp {
 	public int exchangeOrdtblUpdate(OrderTblVO vo);
 	//바뀐 금액, 갯수 가져오기
 	public List<OrdsubOrdJoinVO> exchangeGetPrice(int orderno);
+	//환불
+	public int exchangeRepund(int suborderno);
+	//총금액 업뎃
+	public int repundOrdtblUpdate(int orderno, int subprice);
 	
 	//Q&A 리스트
 	public List<QnaVO> allList(PageSearchVO vo);

@@ -100,7 +100,7 @@
 		//페이징 li만큼 갯수
 		var liCnt = $(".paging>li").length;
 		$(".paging").css({
-			"width" : liCnt*35+"px",
+			"width" : liCnt*40+"px",
 			"margin" : "30px auto"
 		});
 		
@@ -246,7 +246,7 @@
         </div>
         <ul class="paging" class="clearfix">
           	<c:if test="${pageVO.pageNum>1 }">
-              	<li><a class="pagingLR_a"  href="purchaseList?pageNum=${pageVO.pageNum-1}">＜</a></li>
+              	<li style="border-bottom:none;"><a class="pagingLR_a"  href="purchaseList?pageNum=${pageVO.pageNum-1}">＜</a></li>
               </c:if>
               <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
               	<c:if test="${p<=pageVO.totalPage }">
@@ -259,7 +259,7 @@
               	</c:if>
               </c:forEach>
               <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-              	<li><a class="pagingLR_a"  href="purchaseList?pageNum=${pageVO.pageNum+1}">＞</a></li>
+              	<li style="border-bottom:none;"><a class="pagingLR_a"  href="purchaseList?pageNum=${pageVO.pageNum+1}">＞</a></li>
               </c:if>
           </ul>
     </div>
