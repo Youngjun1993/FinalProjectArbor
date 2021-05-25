@@ -179,25 +179,29 @@ public class MemberController {
 
 		System.out.println("인증번호 = " + checkNum);
 
-		/*
-		 * //이메일 보내기 String sender = "emailarbor@gmail.com";//메일을 보낼 관리자계정 String toMail
-		 * = email;//뷰에서 가져온 인증번호 받을 이메일 값 String title = "Arbor 휴면계정 알림 메일입니다"; String
-		 * content = "귀하의 계정이 휴면상태가 되었습니다." + "<br/>" +
-		 * "다시 <span style =\"color:green;\"> <i>Arbor</i> </span> 의 회원으로 돌아오시길 원하시면" +
-		 * "<br/>" +
-		 * "<a href=\"http://localhost:9090/home/\">이쪽</a> 의 링크로 접속해주시면 됩니다. 다시뵙길 기대하겠습니다. 감사합니다."
-		 * ;
-		 * 
-		 * try {
-		 * 
-		 * MimeMessage message = mailSender.createMimeMessage(); MimeMessageHelper
-		 * helper = new MimeMessageHelper(message, true, "utf-8");
-		 * helper.setFrom(sender); helper.setTo(toMail); helper.setSubject(title);
-		 * helper.setText(content,true); mailSender.send(message);
-		 * 
-		 * 
-		 * }catch(Exception e) { e.printStackTrace(); }
-		 */
+
+		// 이메일 보내기
+		String sender = "emailarbor@gmail.com";// 메일을 보낼 관리자계정
+		String toMail = email;// 뷰에서 가져온 인증번호 받을 이메일 값
+		String title = "Arbor 인증번호 메일";
+		String content = "인증번호가 발급되었습니다." + "<br/>" + "인증번호는 <span style =\"color:green;\"> <i>" + checkNum
+				+ "</i> </span> 입니다." + "<br/>"
+				+ "인증번호를 타인에게 노출시키지 마세요.";
+
+		try {
+
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(sender);
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content, true);
+			mailSender.send(message);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 
 
 		// 휴면계정? 탈퇴계정 구분?
 
