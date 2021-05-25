@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/sales.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/orderAdmin.css" type="text/css"/>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <!-- datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -111,7 +112,12 @@
 	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="j_centerFrm">
 		<p class="j_adminMemu"><span>매출관리</span></p>
-		<p class="j_adSubTitle"><span>매출통계</span></p>
+		<div class="salesTitle">
+			<a href="salesManagement"><i class="fas fa-search-dollar" title="매출통계" style="color: rgb(191,43,53);"></i></a>&nbsp;
+			<a href="salesChart"><i class="fas fa-chart-bar" title="매출그래프"></i></a>
+			<!-- <i class="fas fa-chart-pie"></i> -->
+		</div>
+		<!-- <p class="j_adSubTitle"><span>매출통계</span></p> -->
 		<div>
 			<form id="j_salesFrm" action="salesManagement">
 				<table class="salesDateSearch">
@@ -121,8 +127,8 @@
 					<tr>
 						<td>검색기간</td>
 						<td>
-							<input type="text" name="sales_from" id="sales_from"/>
-							 ~ <input type="text" name="sales_to" id="sales_to"/>
+							<input type="text" name="sales_from" id="sales_from" value="${pageVO.sales_from }"/>
+							 ~ <input type="text" name="sales_to" id="sales_to" value="${pageVO.sales_to }"/>
 							<input type="button" class="adminSubBtn" id="salesSearchBtn" value="검색"/>
 						</td>
 					</tr>

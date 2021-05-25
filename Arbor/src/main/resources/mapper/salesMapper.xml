@@ -20,7 +20,7 @@
   		where to_char(orderDate, 'yyyy-mm-dd')=#{param1}
   	</select>
   	<select id="getDailySales" resultType="com.arbor.home.vo.SalesVO" parameterType="com.arbor.home.vo.PageSearchVO">
-  		select * from (select * from (select to_char(orderdate, 'yyyy-mm-dd') as orderdate, to_char(count(distinct(o.orderno)), '999,999,999') as ordercnt,
+<!--   	select * from (select * from (select to_char(orderdate, 'yyyy-mm-dd') as orderdate, to_char(count(distinct(o.orderno)), '999,999,999') as ordercnt,
   		sum(subprice) as totalsales, sum(deliveryprice) as totaldelivery	
 	  	from ordertbl o join suborder s on o.orderno=s.orderno
 	  	<if test="sales_from!='' and sales_to!=''">
@@ -32,5 +32,43 @@
 	  	<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by orderdate asc)
 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderdate desc
+		 -->
+		select * from (select * from (select to_char(orderdate, 'yyyy-mm-dd') as orderdate,
+		count(orderno) as ordercnt, sum(totalprice) as totalsales, sum(deliveryprice) as totaldelivery from ordertbl
+		<if test="sales_from!='' and sales_to!=''">
+			where orderdate	between to_date('${sales_from}', 'yyyy-mm-dd')
+			and to_date('${sales_to}', 'yyyy-mm-dd')+0.9999
+	  	</if>
+		group by to_char(orderdate, 'yyyy-mm-dd')
+		order by orderdate desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by orderdate asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderdate desc
+  	</select>
+  	<select id="getMonthlyChartData" resultType="com.arbor.home.vo.SalesVO">
+	  	select to_char(orderdate, 'yyyy-mm') orderdate, count(orderno) as ordercnt,
+		sum(totalprice-deliveryprice) as totalsales from ordertbl
+  		<if test="sales_from!='' and sales_to!=''">
+		where orderdate between to_date('${sales_from}', 'yyyy-mm-dd') and to_date('${sales_to}', 'yyyy-mm-dd')+0.9999
+		</if>
+		group by to_char(orderdate, 'yyyy-mm') order by orderdate
+  	</select>
+  	<select id="getDailyChartData" resultType="com.arbor.home.vo.SalesVO">
+  		select to_char(orderdate, 'yyyy-mm-dd') orderdate, count(orderno) as ordercnt,
+  		sum(totalprice-deliveryprice) as totalsales from ordertbl
+  		<if test="sales_from!='' and sales_to!=''">
+  		where orderdate between to_date('${sales_from}', 'yyyy-mm-dd') and to_date('${sales_to}', 'yyyy-mm-dd')+0.9999
+  		</if>
+  		group by to_char(orderdate, 'yyyy-mm-dd') order by orderdate	
+  	</select>
+  	<select id="getPieChartData" resultType="com.arbor.home.vo.SalesVO">
+  		select distinct subno, subname as cateName, sum(cnt) over(partition by subno) as cateOrderCnt, sum(cnt) over() as totalOrderCnt from
+  		(select distinct s.pno, count(s.pno) over(partition by s.pno) cnt, o.subno, o.subname
+  		from suborder s, (select p.pno, sc.subno, sc.subname from product p, subcate sc where p.subno=sc.subno) o
+  		where s.pno=o.pno order by subno)
+  		<if test="sales_from!='' and sales_to!=''">
+  		where orderdate between to_date('${sales_from}', 'yyyy-mm-dd') and to_date('${sales_to}', 'yyyy-mm-dd')+0.9999
+  		</if>
+  		order by subno
   	</select>
   </mapper>

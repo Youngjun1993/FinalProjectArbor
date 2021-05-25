@@ -37,6 +37,17 @@
 	margin-left: 10px;
 	width: 60px;
 }
+.salesTitle{
+	font-size: 2.5em;
+	height: 50px;
+}
+.salesTitle>a{
+	color: #ccc;
+}
+.salesTitle>a:active{
+	color: rgb(191,43,53);
+}
+
 /*-------------
 	매출 통계
 --------------*/
@@ -132,9 +143,10 @@
 	매출 그래프
 ---------------*/
 #byMonthly{
+	display:flex;
+	align-items: center;
 	height: 500px;
 	margin-bottom: 30px;
-	background: lightblue;
 }
 #pieChart{
 	height: 500px;

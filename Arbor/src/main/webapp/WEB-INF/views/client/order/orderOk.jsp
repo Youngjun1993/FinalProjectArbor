@@ -46,12 +46,14 @@
 			</tr>
 			<c:forEach var="pVo" items="${pList }">
 				<tr id="j_pList"> <!-- 상품 갯수 만큼 반복 -->
-					<td>${pVo.pname }<br><span id="orderOpt">${pVo.optinfo }</span></td>
+					<td>
+						<div><span>${pVo.pname }</span><span>${pVo.optinfo }</span></div>
+					</td>
 					<td><fmt:formatNumber value='${pVo.quantity }'/></td>
 					<td><fmt:formatNumber value='${pVo.pprice }'/></td>
 					<td><fmt:formatNumber value='${pVo.saleprice }'/></td>
 					<td><fmt:formatNumber value='${pVo.deliveryprice }'/></td>
-					<td><fmt:formatNumber value='${pVo.subprice }'/></td>
+					<td><fmt:formatNumber value='${pVo.quantity * pVo.subprice }'/></td>
 				</tr>
 			</c:forEach>
 		</table>

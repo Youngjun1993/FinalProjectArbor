@@ -26,13 +26,23 @@ public class SalesService implements SalesServiceImp {
 	}
 
 	@Override
-	public int totalRecord(PageSearchVO pageVo) {
-		return salesDAO.totalRecord(pageVo);
+	public List<SalesVO> getDailySales(PageSearchVO pageVo) {
+		return salesDAO.getDailySales(pageVo);
 	}
 
 	@Override
-	public List<SalesVO> getDailySales(PageSearchVO pageVo) {
-		return salesDAO.getDailySales(pageVo);
+	public List<SalesVO> getMonthlyChartData(SalesVO salesVo) {
+		return salesDAO.getMonthlyChartData(salesVo);
+	}
+
+	@Override
+	public List<SalesVO> getDailyChartData(SalesVO salesVo) {
+		return salesDAO.getDailyChartData(salesVo);
+	}
+
+	@Override
+	public List<SalesVO> getPieChartData(SalesVO salesVo) {
+		return salesDAO.getPieChartData(salesVo);
 	}
 
 	
