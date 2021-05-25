@@ -12,39 +12,188 @@
 				$("input[type=checkbox]").prop("checked",false);
 			}
 		});
-		$("#y_exchanFrm").submit(function(){
-			if(confirm("선택하신 상품이 교환처리 됩니다.\n내용을 재확인 하시려면 취소를 눌러주세요.")){
+		$("#y_exchangeMainBtn").click(function(){
 				if($("input[name=y_chanChck]:checked").length == 0){
 					alert("선택된 상품이 없습니다.")
-					return false;
 				}else if($("#exchanselect").val()=="" || $("#exchanselect").val()==null){
 					alert("선택된 사유가 없습니다.")
-					return false;
 				}else if($("#username").val()==""){
 					alert("이름을 입력해주세요.")
-					return false;
 				}else if($("#tel1").val()=="" || $("#tel2").val()=="" || $("#tel3").val()==""){
 					alert("연락처를 입력해주세요.")
-					return false;
 				}else if($("#zipcode").val()==""){
 					alert("우편번호를 입력해주세요.")
-					return false;
 				}else if($("#addr").val()==""){
 					alert("주소를 입력해주세요.")
-					return false;
 				}else if($("#detailaddr").val()==""){
 					alert("상세주소를 입력해주세요.")
-					return false;
 				}else{
+					// suborderno 배열
+					var suborderno = [];
+					for(var i=0; i<$("input[name=y_chanChck]:checked").length; i++){
+						suborderno.push($("input[name=y_chanChck]:checked").eq(i).parent().next().children('input[name=suborderno]').val());
+					}
+					//팝업 상품정보 변경
+					$.ajax({
+						url : "exchangePopList",
+						dataType : 'json',
+						type : "POST",
+						data : {
+							suborderno : suborderno
+						},success : function(result){
+							var $result = $(result);
+							var tag="";
+							$result.each(function(i, data) {
+								tag += "<li class='wordcut'><input type='hidden' name='pname' value='"+data.pname+"'><input type='hidden' name='orderno' value='"+data.orderno+"'><input type='hidden' name='pno' value='"+data.pno+"'/><input type='hidden' name='saleprice' value='"+data.saleprice+"'>" + data.pname + "</li>";
+								if(data.optinfo==null){
+									tag += "<li class='y_optChangeList'><input type='hidden' name='suborderno' value='"+data.suborderno+"'/><select name='optinfo' class='wordcut y_chanOptionSelect' style='width:199px;'><option val='' selected>기본 옵션</option></select></li>";	
+								}else{
+									tag += "<li class='y_optChangeList'><input type='hidden' name='suborderno' value='"+data.suborderno+"'/><select name='optinfo' class='wordcut y_chanOptionSelect' style='width:199px;'><option val='"+data.optinfo+"' selected>"+data.optinfo+"(기존옵션)</option></select></li>";
+								}
+								tag += "<li><input type='hidden' name='quantity' value='"+data.quantity+"'/><input type='hidden' name='changeQuantity' value='0'/><button type='button' class='y_chanMinusBtn'>-</button><span>" + data.quantity + "</span><button type='button' class='y_chanPlusBtn'>+</button></li>";
+								tag += "<li><input type='hidden' name='subprice' value='"+data.subprice+"'/><input type='hidden' name='changeSubprice' value='"+data.subprice+"'/>" + comma(data.subprice) + "원</li>";
+								tag += "<li>-</li>";
+								tag += "<li>-</li>";
+							});
+							$("#y_exchangePopUl").html(tag);
+							//팝업 옵션정보 변경
+							$.ajax({
+								url : "exchangeOptSelect",
+								dataType : 'json',
+								type : "POST",
+								data : {
+									suborderno : suborderno
+								},success : function(result){
+									var $result = $(result);
+									var tag="";
+									for(var i=0; i<$(".y_optChangeList").length; i++){
+										$result.each(function(idx, data) {
+											if(data.suborderno==$(".y_optChangeList").eq(i).children('input[name=suborderno]').val()){
+												$(".y_optChangeList").eq(i).children('select').append("<input type='hidden' name='optprice' value='"+data.optprice+"'/><option value='"+data.optname+" : "+data.optvalue+"'>"+data.optname+" : "+data.optvalue+"(옵션금액:"+comma(data.optprice)+"원)"+"</option>");
+											}
+										});	
+									}
+									
+								}, error : function(request,status,error){
+									console.log('교환 팝업 옵션선택 에러')
+									console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+								}
+							});
+						}, error : function(request,status,error){
+							console.log('교환 팝업 에러')
+							console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						}
+					});
+					
+					$(".y_modal").css("display","block");
+					var offset = $('#y_ChangeRefund').offset(); //선택한 태그의 위치를 반환
+					//animate()메서드를 이용해서 선택한 태그의 스크롤 위치를 지정해서 0.4초 동안 부드럽게 해당 위치로 이동함 
+					$('html').animate({scrollTop : offset.top}, 400);
+					
 					for(var i=0; i<$("input[name=y_chanChck]").not(":checked").length; i++){
 						$("input[name=y_chanChck]").not(":checked").eq(i).prop("disabled", true);
 						$("input[name=y_chanChck]").not(":checked").eq(i).parent().next().children('input[type=hidden]').prop("disabled", true);
 					}
+					
 				}
+		});
+		//팝업 닫기
+		$("#y_exchangePopClsBtn").click(function(){
+			$(".y_modal").css("display","none");
+		});
+		
+		//옵션 선택시
+		$(document).on("change", '.y_chanOptionSelect', function() {
+			var optprice = $(this).find('option:selected').prev('input[type=hidden]').val(); //옵션가격
+			var saleprice = $(this).parent().prev().children('input[name=saleprice]').val(); //상품 옵션제외 가격
+			var pno = $(this).parent().prev().children('input[name=pno]').val() //상품번호
+			var subprice = $(this).parent().next().next().children('input[name=subprice]').val(); //결제금액
+			var quantity = $(this).parent().next().children('span').text();
+			var selectPrice = 0; //옵션선택 상품가격 
+			if(optprice==null || optprice==""){
+				optprice=0;
+			}
+			if(optprice<0){
+				selectPrice = parseInt(saleprice) - Math.abs(optprice); 
+			}else{
+				selectPrice = parseInt(saleprice) + parseInt(optprice);
+			}
+			$(this).parent().next().next().children('input[name=changeSubprice]').val(selectPrice);
+			$(this).parent().next().next().next().text(comma(selectPrice)+"원");
+			$(this).parent().next().next().next().next().text(comma((subprice-selectPrice)*quantity)+"원");
+		});
+		
+		//팝업 + 버튼
+		$(document).on("click", ".y_chanPlusBtn", function(){
+			var quantity = $(this).parent().children('span').text();
+			var plusTotalPrice = $(this).parent().next().next().next().text();
+			var subprice = $(this).parent().next().children('input[name=subprice]').val(); //결제금액
+			if(quantity>=$(this).parent().children('input[name=quantity]').val()){
+				alert("주문하신 수량을 초과할 수 없습니다.")
+			}else{
+				quantity = parseInt(quantity) + 1;	
+			}
+
+			if(plusTotalPrice != "-" && plusTotalPrice != "0원"){
+				plusTotalPrice = plusTotalPrice.replace("원", "");
+				plusTotalPrice = parseInt(plusTotalPrice.replace(/,/g, ""));
+				if(plusTotalPrice<0){
+					plusTotalPrice = Math.abs(plusTotalPrice);
+					$(this).parent().next().next().next().text("-"+comma((plusTotalPrice+parseInt(subprice)))+"원");
+				}else{
+					$(this).parent().next().next().next().text(comma(plusTotalPrice+parseInt(subprice))+"원");	
+				}
+			}
+			
+			$(this).parent().children('span').text(quantity);
+			$(this).parent().children('input[name=changeQuantity]').val(quantity);
+		});
+		//팝업 - 버튼
+		$(document).on("click", ".y_chanMinusBtn", function(){
+			var quantity = $(this).parent().children('span').text(); 
+			var plusTotalPrice = $(this).parent().next().next().next().text();
+			var subprice = $(this).parent().next().children('input[name=subprice]').val(); //결제금액
+			if(quantity==1){
+				alert("교환은 최소 1개의 수량이 있어야합니다.")
+			}else{
+				quantity = parseInt(quantity) - 1;	
+			}
+			
+			if(plusTotalPrice != "-" && plusTotalPrice != "0원"){
+				plusTotalPrice = plusTotalPrice.replace("원", "");
+				plusTotalPrice = parseInt(plusTotalPrice.replace(/,/g, ""));
+				if(plusTotalPrice<0){
+					plusTotalPrice = Math.abs(plusTotalPrice);
+					$(this).parent().next().next().next().text("-"+comma((plusTotalPrice-subprice))+"원");
+				}else{
+					$(this).parent().next().next().next().text(comma(plusTotalPrice-subprice)+"원");	
+				}
+			}
+			$(this).parent().children('span').text(quantity);
+			$(this).parent().children('input[name=changeQuantity]').val(quantity);
+		});
+		//교환완료 버튼
+		$("#y_exchangeFrm").submit(function() {
+			if(confirm("선택한 옵션으로 교환하시겠습니까?")){
+				$("#y_exchanFrm").submit();
 				return true;
 			}
+			return false;
 		});
 	});
+	//콤마찍기
+	function comma(str) {
+	    str = String(str);
+	    var minus = str.substring(0, 1);
+	 
+	    str = str.replace(/[^\d]+/g, '');
+	    str = str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+
+	     //음수일 경우
+	    if(minus == "-") str = "-"+str;
+	 
+	    return str;
+	}
 	/* 카카오주소api 연동 */
 	function kakao_address(){
 	 
@@ -109,7 +258,7 @@
 	                <li><input id="y_chanRepAllChck" type="checkbox"></li>
 	                <li>상품주문번호</li>
 	                <li>상품명</li>
-	                <li>차감될 적립금</li>
+	                <li>환불시 차감 적립금</li>
 	                <li>결제금액(수량)</li>
 	                <li>배송비</li>
 	            </ul>
@@ -166,8 +315,31 @@
 	        </div>
 	        <div>
 	            <button type="button" class="clientSubBtn">환불신청</button>
-	            <button type="submit" class="clientMainBtn">교환신청</button>
+	            <button type="button" id="y_exchangeMainBtn" class="clientMainBtn">교환신청</button>
 	        </div>
         </form>
     </div>
+</div>
+<div class="y_modal">
+	<form action="exchangeOk" method="post" id="y_exchangeFrm">
+		<div id="y_exchangePopup">
+	         <p><span class="colorRed">*</span> 교환옵션 선택</p>
+	         <ul class="clearfix">
+	             <li>상품명</li>
+	             <li>옵션선택</li>
+	             <li>교환할 수량</li>
+	             <li>구매상품 가격</li>
+	             <li>교환상품 가격</li>
+	             <li>총수량 차액</li>
+	         </ul>
+	         <ul id="y_exchangePopUl" class="clearfix">
+	             
+	         </ul>
+	         <p class="colorRed">* 배송비는 별도 계산됩니다.</p>
+	         <div>
+	             <button id="y_exchangePopClsBtn" type="button" class="clientSubBtn">닫기</button>
+	             <button type="submit" class="clientMainBtn">교환요청</button>
+	         </div>
+	     </div>
+     </form>
 </div>

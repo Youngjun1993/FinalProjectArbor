@@ -6,6 +6,7 @@ import java.util.List;
 import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.ExchangeVO;
 import com.arbor.home.vo.MemberVO;
+import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
@@ -44,6 +45,20 @@ public interface MyPageServiceImp {
 	public int exchangeInsert(ExchangeVO vo);
 	//주문상태 업데이트
 	public int orderStatusUpdate(int orderno);
+	//교환/환불 팝업리스트
+	public OrdsubOrdJoinVO exchagneProdList(int suborderno);
+	//교환/환불 옵션리스트
+	public List<OptionVO> exchangeOptList(int suborderno);
+	//교환 닫기시 삭제
+	public int exchangeDelete(int orderno);
+	//교환 suborder quantity update
+	public int exchangeSubordUpdate(OrdsubOrdJoinVO vo);
+	//교환 suborder insert
+	public int exchangeSubordInsert(OrdsubOrdJoinVO vo);
+	//교환 ordertbl update
+	public int exchangeOrdtblUpdate(OrderTblVO vo);
+	//바뀐 금액, 갯수 가져오기
+	public List<OrdsubOrdJoinVO> exchangeGetPrice(int orderno);
 	
 	//Q&A 리스트
 	public List<QnaVO> allList(PageSearchVO vo);

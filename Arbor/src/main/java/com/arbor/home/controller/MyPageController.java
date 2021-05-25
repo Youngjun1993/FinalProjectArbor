@@ -1,5 +1,6 @@
 package com.arbor.home.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,6 +18,8 @@ import com.arbor.home.service.MemberServiceImp;
 import com.arbor.home.service.MyPageServiceImp;
 import com.arbor.home.vo.ExchangeVO;
 import com.arbor.home.vo.MemberVO;
+import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ReviewVO;
@@ -438,4 +443,96 @@ public class MyPageController {
 		mav.setViewName("redirect:purchaseList");
 		return mav;
 	}
+	//교환신청 팝업 목록 리스트
+	@RequestMapping("/exchangePopList")
+	@ResponseBody
+	public List<OrdsubOrdJoinVO> exchangePopList(
+			@RequestParam(value="suborderno[]", required = true) String suborderno[]){
+		List<OrdsubOrdJoinVO> list = new ArrayList<OrdsubOrdJoinVO>();
+		for(int i=0; i<suborderno.length; i++) {
+			list.add(mypageService.exchagneProdList(Integer.parseInt(suborderno[i])));
+		}
+		return list;
+	}
+
+	//교환신청 팝업 옵셥리스트
+	@RequestMapping("/exchangeOptSelect")
+	@ResponseBody
+	public List<OptionVO> exchangeOptSelect(
+			@RequestParam(value="suborderno[]", required = true) String suborderno[]){
+		List<OptionVO> list = new ArrayList<OptionVO>();
+		
+		for(int i=0; i<suborderno.length; i++) {
+			List<OptionVO> dbList = mypageService.exchangeOptList(Integer.parseInt(suborderno[i]));
+			for(int j=0; j<dbList.size(); j++) {
+				OptionVO vo = new OptionVO();
+				vo.setSuborderno(dbList.get(j).getSuborderno());
+				vo.setPno(dbList.get(j).getPno());
+				vo.setQuantity(dbList.get(j).getQuantity());
+				vo.setOptname(dbList.get(j).getOptname());
+				vo.setOptvalue(dbList.get(j).getOptvalue());
+				vo.setOptprice(dbList.get(j).getOptprice());
+				list.add(vo);
+			}
+		}
+		return list;
+	}
+	//교환완료
+	@RequestMapping(value="/exchangeOk", method=RequestMethod.POST)
+	public ModelAndView exchangeOk(
+			HttpSession ses,
+			@RequestParam(value="pname", required = true) String pname[], 
+			@RequestParam(value="orderno", required = true) String orderno[], 
+			@RequestParam(value="pno", required = true) String pno[], 
+			@RequestParam(value="saleprice", required = true) String saleprice[],
+			@RequestParam(value="suborderno", required = true) String suborderno[],
+			@RequestParam(value="optinfo", required = true) String optinfo[],
+			@RequestParam(value="quantity", required = true) String quantity[],
+			@RequestParam(value="changeQuantity", required = true) String changeQuantity[],
+			@RequestParam(value="subprice", required = true) String subprice[],
+			@RequestParam(value="changeSubprice", required = true) String changeSubprice[]
+			) {
+		ModelAndView mav = new ModelAndView();
+		for(int i=0; i<suborderno.length; i++) {
+			OrdsubOrdJoinVO vo = new OrdsubOrdJoinVO();
+			String nowId = (String)ses.getAttribute("logId");
+			int totalprice = 0;
+			int price=0;
+			vo.setPname(pname[i]);
+			vo.setOrderno(Integer.parseInt(orderno[i]));
+			vo.setPno(Integer.parseInt(pno[i]));
+			vo.setSaleprice(Integer.parseInt(saleprice[i]));
+			vo.setSuborderno(Integer.parseInt(suborderno[i]));
+			vo.setOptinfo(optinfo[i]);
+			vo.setQuantity(Integer.parseInt(quantity[i]));
+			vo.setChangeQuantity(Integer.parseInt(changeQuantity[i]));
+			vo.setChangeSubprice(Integer.parseInt(changeSubprice[i]));
+			vo.setSubprice(Integer.parseInt(subprice[i]));
+			vo.setUserid(nowId);
+			price = Integer.parseInt(subprice[i])*Integer.parseInt(quantity[i]);
+			
+			mypageService.exchangeSubordUpdate(vo);
+			if(Integer.parseInt(changeQuantity[i])!=0) {
+				mypageService.exchangeSubordInsert(vo);
+			}
+			
+		}
+		List<OrdsubOrdJoinVO> list = mypageService.exchangeGetPrice(Integer.parseInt(orderno[0]));
+		OrderTblVO vo2 = new OrderTblVO();
+		int quantitySum = 0;
+		int sumPrice = 0;
+		for(int i=0; i<list.size(); i++) {
+			quantitySum += list.get(i).getQuantity();
+			sumPrice += list.get(i).getSubprice() * list.get(i).getQuantity();
+		}
+		String userId = (String)ses.getAttribute("logId");
+		vo2.setTotalprice(sumPrice);
+		vo2.setDeliveryprice(quantitySum*30000);
+		vo2.setOrderno(Integer.parseInt(orderno[0]));
+		vo2.setUserid(userId);
+		mypageService.exchangeOrdtblUpdate(vo2);
+		mav.setViewName("redirect:purchaseList");
+		return mav;
+	}
+
 }

@@ -51,6 +51,28 @@
 	<update id="orderStatusUpdate">
 		update ordertbl set status='교환중' where orderno=${param1}
 	</update>
+	<!-- 교환/환불 팝업 -->
+	<select id="exchagneProdList" resultType="com.arbor.home.vo.OrdsubOrdJoinVO">
+		select s.orderno, s.suborderno, s.subprice, s.pno, s.quantity,s.optinfo, p.saleprice, p.pname from suborder s join product p on s.pno=p.pno where suborderno=${param1}
+	</select>
+	<select id="exchangeOptList" resultType="com.arbor.home.vo.OptionVO">
+		select s.suborderno, s.pno, s.quantity, o.optname, o.optvalue, o.optprice from suborder s join optiontbl o on s.pno=o.pno where suborderno=${param1}
+	</select>
+	<delete id="exchangeDelete">
+		delete from exchange where orderno=${param1}
+	</delete>
+	<update id="exchangeSubordUpdate" parameterType="com.arbor.home.vo.OrdsubOrdJoinVO">
+		update suborder set quantity=${quantity-changeQuantity} where suborderno=${suborderno} 
+	</update>
+	<insert id="exchangeSubordInsert" parameterType="com.arbor.home.vo.OrdsubOrdJoinVO">
+		insert into suborder(suborderno, orderno, pno, quantity, subprice, pname, optinfo) values(subordersq.nextval, ${orderno}, ${pno}, ${changeQuantity}, ${changeSubprice}, #{pname}, #{optinfo})
+	</insert>
+	<select id="exchangeGetPrice" resultType="com.arbor.home.vo.OrdsubOrdJoinVO">
+		select quantity, subprice from suborder where orderno=${param1}
+	</select>
+	<update id="exchangeOrdtblUpdate" parameterType="com.arbor.home.vo.OrderTblVO">
+		update ordertbl set totalprice=${totalprice}, deliveryprice=${deliveryprice} where orderno=${orderno} and userid=#{userid}
+	</update>
 	
 	<!-- qna List 페이지  -->
 	<select id="allList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
