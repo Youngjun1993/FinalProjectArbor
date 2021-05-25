@@ -13,6 +13,45 @@
 			location.href="event";
 		});
 	});
+	
+	function clickEvent(eventType, typeNo){
+		console.log(typeof typeNo);
+		console.log(typeof cpnadno);
+		if(eventType=='coupon'){
+			$.ajax({
+				url: "getCoupon",
+				type: "POST",
+				data : {
+					"key": typeNo
+				},
+				datatype: 'json',
+				success: function(data){
+					if(data=="ok"){
+						alert("쿠폰 발급이 완료되었습니다.")
+					}else if(data=="fail"){
+						alert("이미 발급된 쿠폰입니다.")
+					}
+				}
+			});
+		}else if(eventType=='subcate'){
+			$.ajax({
+				url: "getCateInfo",
+				type: "POST",
+				data: {
+					"key": typeNo
+				},
+				datatype: 'json',
+				success: function(data){
+					var mainno = data;
+					var subno = typeNo;
+					location.href="productList?mainno="+mainno+"&subno="+subno;
+				}
+			});
+		}else if(eventType=='maincate'){
+			var mainno = typeNo;
+			location.href="productCategoryList?mainno="+mainno;
+		}
+	}
 </script>
 </head>
 <body>
@@ -28,8 +67,8 @@
 	<div id="j_eventTitle">
 		${vo.eventSubject }
 	</div>
-	<div id="j_eventContent">
-		${vo.eventContent }
+	<div id="j_eventContent" onclick="javescript:clickEvent('${vo.eventType}', '${vo.typeNo }')">
+			${vo.eventContent }
 	</div>
 	<!-- 이전글, 다음글 : 진행중인 이벤트 상세페이지에서만 보이도록 설정 -->
 	<c:if test="${vo.eventEnd > today }">

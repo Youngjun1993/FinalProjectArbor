@@ -11,6 +11,9 @@ public class EventVO {
 	private String eventImg2;
 	private String eventDate;
 	
+	private String eventType;
+	private int typeNo;
+	
 	
 	/*----------- 검색 -----------*/
 	private String searchKey;
@@ -77,6 +80,18 @@ public class EventVO {
 	}
 	public void setEventDate(String eventDate) {
 		this.eventDate = eventDate;
+	}
+	public String getEventType() {
+		return eventType;
+	}
+	public void setEventType(String eventType) {
+		this.eventType = eventType;
+	}
+	public int getTypeNo() {
+		return typeNo;
+	}
+	public void setTypeNo(int typeNo) {
+		this.typeNo = typeNo;
 	}
 	
 }

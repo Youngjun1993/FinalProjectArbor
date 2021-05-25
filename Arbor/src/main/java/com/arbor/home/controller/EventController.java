@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.arbor.home.dao.EventDAOImp;
 import com.arbor.home.service.EventServiceImp;
+import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.EventVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.google.gson.JsonObject;
@@ -56,6 +58,46 @@ public class EventController {
 		
 		mav.setViewName("client/event/eventContent");
 		return mav;
+	}
+	
+	@RequestMapping(value="/getCoupon", method=RequestMethod.POST)
+	@ResponseBody
+	public String getCoupon(String key, HttpSession session) {
+		System.out.println("쿠폰다운로드 컨트롤러");
+		System.out.println("typeNo->"+key);
+		int cpnadno = Integer.parseInt(key);
+		String userid = (String)session.getAttribute("logId");
+		
+		CouponVO cpnVo = new CouponVO();
+		String msg="";
+		System.out.println("====== 여기 ======");
+		if(eventService.checkUserCoupon(userid, cpnadno).size()==0) {
+			System.out.println("사용자 쿠폰내역 조회 완료(다운로드내역없음))");
+			cpnVo = eventService.couponInfo(cpnadno);
+			System.out.println("쿠폰정보 가져오기 완료");
+			cpnVo.setUserid(userid);
+			if(eventService.getCoupon(cpnVo)>0) {
+				System.out.println("쿠폰 insert 완료");
+				msg = "ok";
+			}
+		}else {
+			System.out.println("쿠폰 insert 실패");
+			msg = "fail";
+		}
+		return msg;
+	}
+	
+	@RequestMapping(value="/getCateInfo", method=RequestMethod.POST)
+	@ResponseBody
+	public int getCateInfo(String key) {
+		System.out.println("상품페이지 이동 컨트롤러");
+		System.out.println("typeNo->"+key);
+		int subno = Integer.parseInt(key);
+		
+		int mainno = eventService.getCateInfo(subno);
+		System.out.println("mainno->"+mainno);
+		
+		return mainno;
 	}
 	
 	//////////////////////////////////////////////////////////
