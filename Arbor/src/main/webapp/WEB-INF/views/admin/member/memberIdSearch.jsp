@@ -136,7 +136,7 @@
 			등록하신 주소 혹은 번호로 인증번호가 전송되었습니다. 확인 후 아래에 입력해주세요<br/>
 			<div class="h_pwd_div">인증번호 : <!-- 마진값 주면 안됨 -->
 			<input type="text" id="validateChk" size="20" class="h_ipt" value=""/>
-			<input type="button" id="validateChkBtn" value="인증번호확인">
+			<input type="button" id="validateChkBtn" value="인증번호확인" class="clientMainBtn">
 			</div>
 			<span class="h_wrongChk" style="display:none;">비밀번호를 다시 확인해 주세요</span>
 			<div class="h_homeBtn" style="display:none;">
