@@ -25,15 +25,17 @@
 	
 	<!-- 비밀번호 체크 #{userid}는 view페이지에서 전달되는 name속성이 userid인 요소의 값 -->
 	<select id="pwdCheck" resultType="com.arbor.home.vo.MemberVO">
-		select userid, userpwd from member where userid=#{param1} and memstat in(0,1)
+	<!-- 멤버 0,1 이 문제 -->
+		select userid, userpwd from member where userid=#{param1}
+		<!--  and memstat in(0,1) -->
 	</select>
 	
 	<!-- /////////////////////////////////////////회원검색 페이지//////////////////////////////////////////// -->
 	
 	<!-- 회원삭제(관리자에의해) -->
-	<update id = "memDel">
+	<!-- <update id = "memDel">
 		update member set memstat = 2 where userid=#{param1}
-	</update>
+	</update> membstat 이전-->
 	
 	<!-- 다중삭제 -->
 	<update id = "memMultiDel">
@@ -50,9 +52,9 @@
 	</insert>
 	
 	<!-- 탈퇴시 memstat 변경(스스로) -->
-	<update id="memberQuit">
+	<!-- <update id="memberQuit">
 		update member set memstat = 2 where userid=#{param1}
-	</update>
+	</update> -->
 	<!-- 탈퇴시 byemember로 insert문 수행 -->
 	<insert id="insertByeMember">
 		INSERT INTO byemember (userid, regdate, byetype, byereason, byedate)
