@@ -513,10 +513,10 @@ public class MemberController {
 	public ModelAndView memDel(String userid) {
 		ModelAndView mav = new ModelAndView();
 
-		int cnt = memberService.memDel(userid);
-		memberService.insertByeMemberMulti(userid, "관리자삭제");
+		int cnt = memberService.insertByeMemberMulti(userid, "관리자삭제");
+		int cnt1 = memberService.permanantDel3(userid);
 
-		if (cnt > 0) {// 삭제
+		if (cnt > 0 && cnt1 >0) {// 삭제
 			mav.setViewName("redirect:memberSearch");
 		} else {// 삭제 실패
 			System.out.println("삭제실패");
@@ -535,16 +535,17 @@ public class MemberController {
 		System.out.println(chArr.size());
 		/////// 수정중
 		for (int i = 0; i < chArr.size(); i++) {
-			memberService.memMultiDel(chArr.get(i));
 			int cnt = memberService.insertByeMemberMulti(chArr.get(i), "관리자삭제");
-			if (cnt > 0) {
+			int cnt1 = memberService.permanantDel3(chArr.get(i));
+			if (cnt > 0 && cnt1 >0) {
 				System.out.println("다중삭제 완료");
+				result = 1;
 			} else {
 				System.out.println("다중삭제 실패");
 				System.out.println(cnt);
+				result = 0;
 			}
 		}
-		result = 1;
 
 		return result;
 	}
@@ -556,23 +557,25 @@ public class MemberController {
 	@RequestMapping("/memberGoodbye")
 	public int memberGoodbye(@RequestParam("reason") String reason, HttpSession session) {
 		// requestParam()의 속성명은 뷰 ajax에서 data로 넘겨준 속성명
+		System.out.println("컨트롤러 온다");
 		int result = 0;
 		String nowId = (String) session.getAttribute("logId");
-
+		System.out.println("세션 아이디" + nowId);
 		// 컨트롤러에서 dao호출해서 member테이블 업데이트하고 byemember테이블에 insert문을 추가해준다.
-		int cnt1 = memberService.memberQuit(nowId);
 		int cnt2 = memberService.insertByeMember(nowId, reason);
-
+		int cnt1 = memberService.permanantDel3(nowId);
+		System.out.println("탈퇴테이블 삽입" + cnt2);
+		System.out.println("멤버테이블 삭제" + cnt1);
+		
 		if (cnt1 > 0 && cnt2 > 0) {
 			session.removeAttribute("logId");
 			session.removeAttribute("logName");
 			result = 1;
-			return result;
 		} else {
 			result = 0;
-			return result;
 		}
 		// 새로운 페이지 반환
+		return result;
 	}
 
 	// 회원정보 수정

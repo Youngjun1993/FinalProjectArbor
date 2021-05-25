@@ -106,8 +106,7 @@
 						<li class="h_listHeader">관리</li>
 						<c:forEach var="vo" items="${list}" varStatus="status">
 							<c:if test="${vo.memstat != 2}">
-								<li><input type="checkbox" name="memberChk"
-									class="memberChk" value1="${vo.userid}" value2="${vo.tel}" /></li>
+								<li><input type="checkbox" name="memberChk" class="memberChk" value1="${vo.userid}" value2="${vo.tel}" /></li>
 								<li><c:if test="${vo.memstat == 1}">
 										<input type="button" class="h_memdormant" value="휴면" />
 									</c:if> ${vo.userid}</li>

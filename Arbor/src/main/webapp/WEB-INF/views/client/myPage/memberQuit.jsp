@@ -94,8 +94,6 @@ $('#h_quitBtn').click(function (){
 	
 });
 
-//select의 option 밸류값을ㅏㅏㅏ앙ㅇ
-
 //memberOutOk로 1.겟방식 2.ajax? 로 컨트롤러로 넘겨준다.
 
 //마지막은 /home으로 뷰페이지 반환
