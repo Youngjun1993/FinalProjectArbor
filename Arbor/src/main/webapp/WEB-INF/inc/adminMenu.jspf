@@ -50,20 +50,8 @@
                 <li id="nav1" class="y_reviewAdBtnLi"> 
                     <a class="head" href="reviewAdList">리뷰관리</a>
                 </li>
-                <ul class="h_menu_submenu accordion-content">
-                    <li><a class="head" href="#">쿠폰등록관리</a></li>
-                    <li><a class="head" href="#">######</a></li>
-                </ul>
                 
                 <!-- 관리자 6번 메뉴 -->
-                <li id="nav1" class="toggle accordion-toggle"> 
-                    <a class="h_menu_link" href="#">리뷰관리</a>
-                </li>
-                <ul class="h_menu_submenu accordion-content">
-                    <li><a class="head" href="#">리뷰등록관리</a></li>
-                    <li><a class="head" href="#">######</a></li>
-                </ul>
-                <!-- 관리자7 번 메뉴 -->
                 <li id="nav1" class="toggle accordion-toggle"> 
                     <a class="h_menu_link" href="#">이벤트관리</a>
                 </li>
