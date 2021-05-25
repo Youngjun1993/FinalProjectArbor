@@ -86,7 +86,7 @@
 	    </div>
 	    <div id="h_sms_line">
 	    제목 :&nbsp;
-	    <input type="text" name="subject" style ="width:300px" class= "h_ipt" value=""><span style="font-size:0.5em;">&nbsp;※ 장문(LMS)인 경우 입력하세요</span>
+	    <input type="text" name="subject" style ="width:300px" class= "h_ipt sms sms" value=""><span style="font-size:0.5em;">&nbsp;※ 장문(LMS)인 경우 입력하세요</span>
 	    </div>
 	    
 	    <textarea name="msg" cols="30" rows="10" style="width:455px;">
@@ -106,7 +106,7 @@
 		    	<option value="${status.current}">${status.current}</option>
 			</c:forEach>
 	    </select>
-	    <input type="text" name="rphone" class= "h_ipt" id="rphone" value="">
+	    <input type="text" name="rphone" class= "h_ipt sms" id="rphone" value="">
 	    
 	    <input type="hidden" name="sphone1" value ="010">
 	    <input type="hidden" name="sphone2" value ="6251">

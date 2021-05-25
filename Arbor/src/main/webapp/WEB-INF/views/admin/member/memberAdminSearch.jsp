@@ -188,7 +188,7 @@
 			$('#h_sms_form').append("<input type = 'hidden' name = 'smstel' value='" + checkArr[i] + "'>");
 		};
 		
-		window.open('','smsSender','width=600,height=500');
+		window.open('','smsSender','width=560,height=500');
 	    var frm =document.sms;
 	    frm.action = 'sendSms';
 	    frm.target ="smsSender";
