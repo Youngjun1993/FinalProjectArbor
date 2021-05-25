@@ -39,11 +39,22 @@ public class SalesService implements SalesServiceImp {
 	public List<SalesVO> getDailyChartData(SalesVO salesVo) {
 		return salesDAO.getDailyChartData(salesVo);
 	}
+	
+	@Override
+	public List<SalesVO> getMonthlyPieChartData(SalesVO salesVo) {
+		return salesDAO.getMonthlyPieChartData(salesVo);
+	}
 
 	@Override
-	public List<SalesVO> getPieChartData(SalesVO salesVo) {
-		return salesDAO.getPieChartData(salesVo);
+	public List<SalesVO> getDailyPieChartData(SalesVO salesVo) {
+		return salesDAO.getDailyPieChartData(salesVo);
 	}
+
+	@Override
+	public List<SalesVO> getDailyMainCatePieChart(SalesVO salesVo) {
+		return salesDAO.getDailyMainCatePieChart(salesVo);
+	}
+
 
 	
 }

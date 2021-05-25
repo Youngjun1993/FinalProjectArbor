@@ -61,14 +61,39 @@
   		</if>
   		group by to_char(orderdate, 'yyyy-mm-dd') order by orderdate	
   	</select>
-  	<select id="getPieChartData" resultType="com.arbor.home.vo.SalesVO">
-  		select distinct subno, subname as cateName, sum(cnt) over(partition by subno) as cateOrderCnt, sum(cnt) over() as totalOrderCnt from
-  		(select distinct s.pno, count(s.pno) over(partition by s.pno) cnt, o.subno, o.subname
-  		from suborder s, (select p.pno, sc.subno, sc.subname from product p, subcate sc where p.subno=sc.subno) o
-  		where s.pno=o.pno order by subno)
+  	<select id="getMonthlyPieChartData" resultType="com.arbor.home.vo.SalesVO">
+  		select distinct subname, sum(quantity) as quantity from
+		(select orderdate, subno, sum(quantity) as quantity from
+		(select to_char(orderdate, 'yyyy-MM') as orderdate, pno, sum(quantity) as quantity
+		from suborder s join ordertbl o on s.orderno=o.orderno group by to_char(orderdate, 'yyyy-MM'), pno)
+		o join product p on o.pno=p.pno group by orderdate, subno)
+		o join subcate s on o.subno=s.subno
+  		<if test="sales_from!='' and sales_to!=''">
+		where orderdate between to_date('${sales_from}', 'yyyy-mm-dd') and to_date('${sales_to}', 'yyyy-mm-dd')+0.9999
+		</if>
+  		group by subname
+  	</select>
+  	<select id="getDailyPieChartData" resultType="com.arbor.home.vo.SalesVO">
+  		select distinct subname, sum(quantity) as quantity from
+		(select orderdate, subno, sum(quantity) as quantity from
+		(select to_char(orderdate, 'yyyy-mm-dd') as orderdate, pno, sum(quantity) as quantity
+		from suborder s join ordertbl o on s.orderno=o.orderno group by to_char(orderdate, 'yyyy-mm-dd'), pno)
+		o join product p on o.pno=p.pno group by orderdate, subno)
+		o join subcate s on o.subno=s.subno
   		<if test="sales_from!='' and sales_to!=''">
   		where orderdate between to_date('${sales_from}', 'yyyy-mm-dd') and to_date('${sales_to}', 'yyyy-mm-dd')+0.9999
   		</if>
-  		order by subno
+  		group by subname
+  	</select>
+  	<select id="getDailyMainCatePieChart" resultType="com.arbor.home.vo.SalesVO">
+  		select distinct mainname, sum(quantity) from
+		(select orderdate, o.subno, s.mainno, subname, quantity from
+		(select orderdate, subno, sum(quantity) as quantity from
+		(select to_char(orderdate, 'yyyy-mm-dd') as orderdate, pno, sum(quantity) as quantity
+		from suborder s join ordertbl o on s.orderno=o.orderno group by to_char(orderdate, 'yyyy-mm-dd'), pno)
+		o join product p on o.pno=p.pno group by orderdate, subno)
+		o join subcate s on o.subno=s.subno order by orderdate desc)
+		o join maincate m on o.mainno=m.mainno
+		group by mainname
   	</select>
   </mapper>

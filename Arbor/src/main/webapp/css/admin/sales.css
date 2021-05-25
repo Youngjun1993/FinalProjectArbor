@@ -147,10 +147,19 @@
 	align-items: center;
 	height: 500px;
 	margin-bottom: 30px;
+	border-bottom: 1px dotted #ddd;
 }
-#pieChart{
+#subPieChart{
+	margin-top: 50px;
 	height: 500px;
-	background: pink;	
+	width: 50%;
+	border-right: 1px dotted #ddd;	
+	display:flex;
+	align-items:center
+}
+#mainPieChart{
+	height: 500px;
+	background: yellow;	
 }
 
 

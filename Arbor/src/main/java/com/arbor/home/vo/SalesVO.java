@@ -8,9 +8,9 @@ public class SalesVO {
 	private String sales_from="";
 	private String sales_to="";
 	private String terms;
-	private int ttlordercnt;
-	private int cateOrderCnt;
-	private String cateName;
+	private String mainname;
+	private String subname;
+	private int quantity;
 	
 	private int orderno;
 	private String userid;
@@ -84,24 +84,24 @@ public class SalesVO {
 	public void setSubprice(int subprice) {
 		this.subprice = subprice;
 	}
-	public int getTtlordercnt() {
-		return ttlordercnt;
+	public String getMainname() {
+		return mainname;
 	}
-	public void setTtlordercnt(int ttlordercnt) {
-		this.ttlordercnt = ttlordercnt;
+	public void setMainname(String mainname) {
+		this.mainname = mainname;
 	}
-	public int getCateOrderCnt() {
-		return cateOrderCnt;
+	public String getSubname() {
+		return subname;
 	}
-	public void setCateOrderCnt(int cateOrderCnt) {
-		this.cateOrderCnt = cateOrderCnt;
+	public void setSubname(String subname) {
+		this.subname = subname;
 	}
-	public String getCateName() {
-		return cateName;
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setCateName(String cateName) {
-		this.cateName = cateName;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
-		
+	
 	
 }

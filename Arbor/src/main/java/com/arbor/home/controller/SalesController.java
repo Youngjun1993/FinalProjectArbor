@@ -75,14 +75,35 @@ public class SalesController {
 	@RequestMapping("/getPieChartData")
 	@ResponseBody
 	public List<SalesVO> getSalesPieChart(SalesVO salesVo){
+		System.out.println(salesVo.getSales_from());
+		System.out.println(salesVo.getSales_to());
+		
 		List<SalesVO> list = new ArrayList<SalesVO>();
 		System.out.println("terms()->"+salesVo.getTerms());
 		if(salesVo.getTerms().equals("monthly")) {
-			System.out.println("월별그래프실행");
-			list = salesService.getMonthlyChartData(salesVo);			
+			System.out.println("월별파이차트실행");
+			list = salesService.getMonthlyPieChartData(salesVo);			
 		}else if(salesVo.getTerms().equals("daily")) {
-			System.out.println("일별그래프실행");
-			list = salesService.getDailyChartData(salesVo);						
+			System.out.println("일별파이차트그래프실행");
+			list = salesService.getDailyPieChartData(salesVo);						
+		}
+		return list;
+	}
+		
+	@RequestMapping("/getDailyMainCatePieChart")
+	@ResponseBody
+	public List<SalesVO> getDailyMainCatePieChart(SalesVO salesVo){
+		System.out.println(salesVo.getSales_from());
+		System.out.println(salesVo.getSales_to());
+		
+		List<SalesVO> list = new ArrayList<SalesVO>();
+		System.out.println("terms()->"+salesVo.getTerms());
+		if(salesVo.getTerms().equals("monthly")) {
+			System.out.println("월별파이차트실행");
+		//	list = salesService.getMonthlyPieChartData(salesVo);			
+		}else if(salesVo.getTerms().equals("daily")) {
+			System.out.println("일별파이차트그래프실행");
+			list = salesService.getDailyMainCatePieChart(salesVo);						
 		}
 		return list;
 	}

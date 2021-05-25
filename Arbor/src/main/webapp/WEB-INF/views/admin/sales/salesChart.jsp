@@ -45,7 +45,7 @@
 		    	$("#sales_from").datepicker("option", "maxDate", selectedDate);
 		    }
 		});
-		var chart, piechart;
+		var chart, subpiechart, mainpiechart;
 		//매출 검색기간 유효성 검사
 		$('#salesChartSearchBtn').click(function(){
 			if($('#sales_from').val()=='' || $('#sales_from').val==null){
@@ -60,9 +60,10 @@
 			var orderDate = [];
 			var salesPrice = [];
 			var orderCnt = [];
-			var ttlOrderCnt = [];
-			var cateOrderCnt = [];
-			var cateName = [];
+			var subName = [];
+			var mainName = [];
+			var quantity = [];
+			var quantity2 = [];
 			var data = $('#j_salesChartFrm').serialize();
 			//매출 그래프(월별, 일별 금액 및 주문건수)
 			$.ajax({
@@ -78,6 +79,11 @@
 						salesPrice.push(data[key].totalsales);
 						orderCnt.push(data[key].ordercnt);						
 					};
+					console.log(orderDate);
+					console.log(salesPrice);
+					console.log(orderCnt);
+					
+					
 					var options = {
 					  series: [{
 					  name: '주문금액',
@@ -109,12 +115,27 @@
 					yaxis: [{
 					  title: {
 					    text: '주문금액',
+					    style:{
+					    	fontSize: '15px'
+					    }
 					  },
-					
+					  labels: {
+						  style:{
+							  fontSize: '15px'
+						  }
+					  }
 					}, {
 					  opposite: true,
 					  title: {
-					    text: '주문건수'
+					    text: '주문건수',
+					    style:{
+					    	fontSize: '15px'
+					    }
+					  },
+					  labels: {
+						  style:{
+							  fontSize: '15px'
+						  }
 					  }
 					}]
 					};
@@ -124,29 +145,77 @@
 					alert("그래프 그리기 에러->"+error);
 				}			
 			});
-			//상품별 판매량 파이차트
-			/* $.ajax({
+			//중분류별 판매량 파이차트
+			$.ajax({
 				url: "getPieChartData",
 				type: 'POST',
 				data: data,
 				success: function(data){
-					if (chart != null){
-						chart.destroy();
+					if (subpiechart != null){
+						subpiechart.destroy();
 					}
 					for (key in data){
-						orderDate.push(data[key].orderdate)
-						salesPrice.push(data[key].totalsales);
-						orderCnt.push(data[key].ordercnt);						
+						subName.push(data[key].subname)
+						quantity.push(data[key].quantity);
 					};
-					var options = {
-			          series: [44, 55, 13, 33],
+					var suboptions = {
+			          series: quantity,
+			          chart: {
+			            width: 550,
+			          	type: 'donut',
+			        },
+			        labels: subName,
+			        responsive: [{
+			          breakpoint: 480,
+			          options: {	
+			            chart: {
+			              width: 550
+			            },
+			            legend: {
+			              show: false
+			            }
+			          }
+			        }],
+			        legend: {
+			          position: 'right',
+			          offsetY: 0,
+			          height: 500,
+			          fontSize: '15px',
+			        }
+			        };
+
+			        subpiechart = new ApexCharts(document.querySelector("#subPieChart"), suboptions);
+			        subpiechart.render();
+				}, error: function(error){
+					alert("파이차트 그리기 에러->"+error);					
+				}
+			});
+			
+			//대분류별 판매량 파이차트
+			$.ajax({
+				url: "getDailyMainCatePieChart",
+				type: 'POST',
+				data: data,
+				success: function(data){
+					if (mainpiechart != null){
+						mainpiechart.destroy();
+					}
+					for (key in data){
+						mainName.push(data[key].mainname)
+						quantity2.push(data[key].quantity);
+					};
+					
+					console.log(quantity)
+					console.log(quantity2)
+					console.log(mainName)
+					
+					var mainoptions = {
+			          series: quantity2,
 			          chart: {
 			            width: 380,
 			          	type: 'donut',
 			        },
-			        dataLabels: {
-			          enabled: false
-			        },
+			        labels: mainName,
 			        responsive: [{
 			          breakpoint: 480,
 			          options: {	
@@ -165,45 +234,17 @@
 			        }
 			        };
 
-			        var piechart = new ApexCharts(document.querySelector("#pieChart"), options);
-			        piechart.render();
+			        mainpiechart = new ApexCharts(document.querySelector("#mainPieChart"), mainoptions);
+			        mainpiechart.render();
+				}, error: function(error){
+					alert("파이차트 그리기 에러->"+error);					
 				}
-			}); */
+			});
+			
+			
+			
 		});	
 	});	
-		
-		
-		/* ======================================================================================= */
-		/* var options = {
-          series: [44, 55, 13, 33],
-          chart: {
-          width: 380,
-          type: 'donut',
-        },
-        dataLabels: {
-          enabled: false
-        },
-        responsive: [{
-          breakpoint: 480,
-          options: {	
-            chart: {
-              width: 200
-            },
-            legend: {
-              show: false
-            }
-          }
-        }],
-        legend: {
-          position: 'right',
-          offsetY: 0,
-          height: 230,
-        }
-        };
-
-        var chart = new ApexCharts(document.querySelector("#pieChart"), options);
-        chart.render(); */
-      
 		
 		
 </script>
@@ -240,10 +281,10 @@
 			<div id="byMonthly">
 				
 			</div>
-			<div id="pieChart">
-					
+			<div id="subPieChart">
 				
-				
+			</div>
+			<div id="mainPieChart">
 				
 			</div>
 		</div>

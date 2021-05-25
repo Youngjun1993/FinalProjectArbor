@@ -106,8 +106,13 @@
   padding-top: 4px;
 }
  */
+#j_tab1_content{
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 1200px;	
+}
 #j_tab1_content>div{
-	margin: 0 auto;
+	margin: 400px auto 0 auto;
 }
 #timer{
 	margin: 50px 0;
@@ -192,10 +197,11 @@
 }
 #j_eventTitle{
 	margin-top:50px;
-	height:40px;
+	height:50px;
 	background-color:rgb(246,246,246);
-	line-height:40px;
+	line-height:50px;
 	text-align:center;
+	font-size: 1.5em;
 }
 #j_eventContent{
 	padding:50px; text-align:center;
