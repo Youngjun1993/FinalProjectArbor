@@ -11,7 +11,7 @@
   		to_date(eventEnd, 'YY-MM-DD')>sysdate order by eventNo desc
   	</select>
   	<select id="eventSelect" resultType="com.arbor.home.vo.EventVO">
-  		select eventNo, eventSubject, eventContent, eventImg1, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yyyy-mm-dd hh24:mi') eventDate from event where eventNo=#{param1}
+  		select eventNo, eventSubject, eventContent, eventImg1, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yyyy-mm-dd hh24:mi') eventDate, eventType, typeNo from event where eventNo=#{param1}
   	</select>
   	<select id="closeEvent" resultType="com.arbor.home.vo.EventVO">
   		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd
@@ -25,6 +25,15 @@
   		lead(eventSubject, 1, '다음글이 없습니다.') over (order by eventNo desc) nextSubject
   		from event where to_date(eventEnd, 'YY-MM-DD')>sysdate) where eventNo=#{param1}
   	</select>
+  	<select id="checkUserCoupon" resultType="com.arbor.home.vo.CouponVO">
+  		select * from coupon where userid=#{param1} and cpnadno=#{param2}
+  	</select>
+  	<select id="couponInfo" resultType="com.arbor.home.vo.CouponVO">
+  		select cpnadno, cpnname, apply, salerate, cpnstart, cpnend from couponad where cpnadno=#{param1}
+  	</select>
+  	<insert id="getCoupon" parameterType="com.arbor.home.vo.CouponVO">
+  		insert into coupon(cpnno, userid, cpnname, apply, salerate, cpnstart, cpnend, cpnadno) values(couponsq.nextval, #{userid}, #{cpnname}, #{applyInt}, #{salerateInt}, to_date(#{cpnstart}, 'yyyy-mm-dd hh24:mi:ss'), to_date(#{cpnend}, 'yyyy-mm-dd hh24:mi:ss'), #{cpnadno})
+	</insert>
 
   	<!-- admin -->
 	<select id="eventListSelect" resultType="com.arbor.home.vo.EventVO" parameterType="com.arbor.home.vo.PageSearchVO">
@@ -54,5 +63,8 @@
 	</delete>
 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(eventNo) as totalRecord from event
+	</select>
+	<select id="getCateInfo" resultType="int">
+		select mainno from subcate where subno=#{param1}
 	</select>
   </mapper>

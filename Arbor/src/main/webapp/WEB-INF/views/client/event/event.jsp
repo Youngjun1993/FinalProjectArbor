@@ -21,7 +21,7 @@
 				console.log("list:"+list);
 				var tag = "";
 				$.each(list, function(idx, vo){
-					tag += '<li><a href="productView?pno=vo.pNo">';
+					tag += "<li><a href='productView?pno="+vo.pNo+"'>";
 					tag += vo.saleContent;
 					tag += '</a></li>';
 					sEndDate[idx] = vo.saleEnd;
@@ -148,8 +148,8 @@
 			}
 			return true;
 		});
-		
 	});
+	
 </script>
 </head>
 <body>
@@ -185,11 +185,7 @@
 			         </ul>				
 				</div>
 				<div id="timeSaleContent">
-					<ul id="timeSaleSlider">
-<!-- 						<a href="#"><p><img src="/home/summernote/timesale.JPG" style="width: 984px;"><br></p></a>
-						<a href="#"><p><img src="/home/summernote/timesale2.jpg" style="width: 984px;"><br></p></a>
- -->					
-					</ul>
+					<ul id="timeSaleSlider"></ul>
 				</div>
 				<div class="outside">
 					<p>

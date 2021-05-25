@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.EventDAOImp;
+import com.arbor.home.vo.CouponVO;
 import com.arbor.home.vo.EventVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.PrevNextVO;
@@ -66,5 +67,26 @@ public class EventService implements EventServiceImp {
 	public int totalRecord(PageSearchVO vo) {
 		return eventdao.totalRecord(vo);
 	}
+	
+	@Override
+	public List<CouponVO> checkUserCoupon(String userid, int cpnadno) {
+		return eventdao.checkUserCoupon(userid, cpnadno);
+	}
+
+	@Override
+	public CouponVO couponInfo(int cpnadno) {
+		return eventdao.couponInfo(cpnadno);
+	}
+
+	@Override
+	public int getCoupon(CouponVO cpnVo) {
+		return eventdao.getCoupon(cpnVo);
+	}
+
+	@Override
+	public int getCateInfo(int subno) {
+		return eventdao.getCateInfo(subno);
+	}
+
 	
 }

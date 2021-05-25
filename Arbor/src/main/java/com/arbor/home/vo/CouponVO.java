@@ -7,6 +7,7 @@ public class CouponVO {
 	private String userid;
 	private String cpnname;
 	private String apply;
+	private int applyInt;
 	private String salerate;
 	private int salerateInt;
 	private String cpnstart;
@@ -80,6 +81,12 @@ public class CouponVO {
 	}
 	public void setApply(String apply) {
 		this.apply = apply;
+	}
+	public int getApplyInt() {
+		return applyInt;
+	}
+	public void setApplyInt(int applyInt) {
+		this.applyInt = Integer.parseInt(apply);
 	}
 	public String getSalerate() {
 		return salerate;
