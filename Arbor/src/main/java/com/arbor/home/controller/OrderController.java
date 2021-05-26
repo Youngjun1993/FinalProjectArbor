@@ -39,6 +39,7 @@ public class OrderController {
 			OrderTblVO orderVo, HttpSession session) {
 
 		List<SubOrderVO> subOrderList = new ArrayList<SubOrderVO>();
+		List<SubOrderVO> subnoList = new ArrayList<SubOrderVO>();
 		ModelAndView mav = new ModelAndView();
 
 		String userid = (String)session.getAttribute("logId");
@@ -58,9 +59,19 @@ public class OrderController {
 			subVo.setSubprice(Integer.parseInt(priceArr[i]));
 			
 			subOrderList.add(subVo);
-			cpnCount += orderService.couponCount(userid, subVo.getSubno());
+			SubOrderVO vo2 = new SubOrderVO();
+			vo2.setSubno(subVo.getSubno());
+			if(subnoList.contains(vo2)) {
+				
+			} else {
+				subnoList.add(vo2);
+			}
+			
 		}
-		List<SubOrderVO> subnoList = orderService.getSubnoSelect(userid);
+		for(int i=0; i<subnoList.size(); i++) {
+			cpnCount += orderService.couponCount(userid, subnoList.get(i).getSubno());
+		}
+		
 		
 		mav.addObject("pInfoList", subOrderList);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
@@ -83,13 +94,23 @@ public class OrderController {
 		ModelAndView mav = new ModelAndView();
 		String userid = (String) ses.getAttribute("logId");
 		List<SubOrderVO> list = orderService.cartAppendList(pno, userid);
-		List<SubOrderVO> subnoList = orderService.getSubnoSelect(userid);
+		List<SubOrderVO> subnoList = new ArrayList<SubOrderVO>();
 		int cpnCount=0;
 		for(int i=0; i<list.size(); i++) {
 			SubOrderVO vo = list.get(i);
-			cpnCount += orderService.couponCount(userid, vo.getSubno());
+			SubOrderVO vo2 = new SubOrderVO();
+			vo2.setSubno(vo.getSubno());
+System.out.println("subno몇번?"+vo2.getSubno());
+			if(subnoList.contains(vo2)) {
+System.out.println("중복으로 추가안됨!!!");
+			} else {
+				subnoList.add(vo2);
+			}
 		}
-		
+System.out.println("subList몇개지?"+subnoList.size());
+		for(int i=0; i<subnoList.size(); i++) {
+			cpnCount += orderService.couponCount(userid, subnoList.get(i).getSubno());
+		}
 		
 		mav.addObject("pInfoList", list);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
@@ -106,6 +127,7 @@ public class OrderController {
 			HttpSession ses) {
 		ModelAndView mav = new ModelAndView();
 		List<SubOrderVO> list = new ArrayList<SubOrderVO>();
+		List<SubOrderVO> subnoList = new ArrayList<SubOrderVO>();
 		String userid = (String) ses.getAttribute("logId");
 		int cpnCount = 0;
 		for (int i = 0; i < cartpno.length; i++) {
@@ -113,11 +135,19 @@ public class OrderController {
 			SubOrderVO vo = new SubOrderVO();
 			vo = orderService.cartAppendChckList(cartno, userid);
 			list.add(vo);
+			SubOrderVO vo2 = new SubOrderVO();
+			vo2.setSubno(vo.getSubno());
+			if(subnoList.contains(vo2)) {
+
+			} else {
+				subnoList.add(vo2);
+			}
 		}
-		List<SubOrderVO> subnoList = orderService.getSubnoSelect(userid);
+
 		for(int i=0; i<subnoList.size(); i++) {
 			cpnCount += orderService.couponCount(userid, subnoList.get(i).getSubno());
 		}
+		
 		mav.addObject("pInfoList", list);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));
