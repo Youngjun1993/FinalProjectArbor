@@ -101,7 +101,6 @@
 		$("#y_exchangePopClsBtn").click(function(){
 			$(".y_modal").css("display","none");
 		});
-		
 		//옵션 선택시
 		$(document).on("change", '.y_chanOptionSelect', function() {
 			var optprice = $(this).find('option:selected').prev('input[type=hidden]').val(); //옵션가격
@@ -128,21 +127,26 @@
 			var quantity = $(this).parent().children('span').text();
 			var plusTotalPrice = $(this).parent().next().next().next().text();
 			var subprice = $(this).parent().next().children('input[name=subprice]').val(); //결제금액
+			var optprice = $(this).parent().prev().children().find('option:selected').prev('input[type=hidden]').val(); //옵션가격
+			var saleprice = $(this).parent().prev().prev().children('input[name=saleprice]').val(); //상품 옵션제외 가격
 			if(quantity>=$(this).parent().children('input[name=quantity]').val()){
 				alert("주문하신 수량을 초과할 수 없습니다.")
 			}else{
 				quantity = parseInt(quantity) + 1;	
 			}
-
+			
+			var selectPrice = 0; //옵션선택 상품가격 
+			if(optprice==null || optprice==""){
+				optprice=0;
+			}
+			if(optprice<0){
+				selectPrice = parseInt(saleprice) - Math.abs(optprice); 
+			}else{
+				selectPrice = parseInt(saleprice) + parseInt(optprice);
+			}
+			
 			if(plusTotalPrice != "-" && plusTotalPrice != "0원"){
-				plusTotalPrice = plusTotalPrice.replace("원", "");
-				plusTotalPrice = parseInt(plusTotalPrice.replace(/,/g, ""));
-				if(plusTotalPrice<0){
-					plusTotalPrice = Math.abs(plusTotalPrice);
-					$(this).parent().next().next().next().text("-"+comma((plusTotalPrice+parseInt(subprice)))+"원");
-				}else{
-					$(this).parent().next().next().next().text(comma(plusTotalPrice+parseInt(subprice))+"원");	
-				}
+				$(this).parent().next().next().next().text(comma((subprice-selectPrice)*quantity)+"원");
 			}
 			
 			$(this).parent().children('span').text(quantity);
@@ -153,21 +157,26 @@
 			var quantity = $(this).parent().children('span').text(); 
 			var plusTotalPrice = $(this).parent().next().next().next().text();
 			var subprice = $(this).parent().next().children('input[name=subprice]').val(); //결제금액
+			var optprice = $(this).parent().prev().children().find('option:selected').prev('input[type=hidden]').val(); //옵션가격
+			var saleprice = $(this).parent().prev().prev().children('input[name=saleprice]').val(); //상품 옵션제외 가격
 			if(quantity==1){
 				alert("교환은 최소 1개의 수량이 있어야합니다.")
 			}else{
 				quantity = parseInt(quantity) - 1;	
 			}
 			
+			var selectPrice = 0; //옵션선택 상품가격 
+			if(optprice==null || optprice==""){
+				optprice=0;
+			}
+			if(optprice<0){
+				selectPrice = parseInt(saleprice) - Math.abs(optprice); 
+			}else{
+				selectPrice = parseInt(saleprice) + parseInt(optprice);
+			}
+			
 			if(plusTotalPrice != "-" && plusTotalPrice != "0원"){
-				plusTotalPrice = plusTotalPrice.replace("원", "");
-				plusTotalPrice = parseInt(plusTotalPrice.replace(/,/g, ""));
-				if(plusTotalPrice<0){
-					plusTotalPrice = Math.abs(plusTotalPrice);
-					$(this).parent().next().next().next().text("-"+comma((plusTotalPrice-subprice))+"원");
-				}else{
-					$(this).parent().next().next().next().text(comma(plusTotalPrice-subprice)+"원");	
-				}
+				$(this).parent().next().next().next().text(comma((subprice-selectPrice)*quantity)+"원");
 			}
 			$(this).parent().children('span').text(quantity);
 			$(this).parent().children('input[name=changeQuantity]').val(quantity);
@@ -175,10 +184,81 @@
 		//교환완료 버튼
 		$("#y_exchangeFrm").submit(function() {
 			if(confirm("선택한 옵션으로 교환하시겠습니까?")){
+				var changeprice = 0;
+				var minusOriginPrice=0;
+				var plusOriginPrice=0;
+				var originExchangePrice=0;
+				$("#y_exchangePopUl>li:nth-child(6n+6)").each(function(i, e) {
+					if($(this).text()=="-"){
+						originExchangePrice = 0;
+					}else{
+						$(this).text().replace("원", "");
+						originExchangePrice = parseInt($(this).text().replace(/,/g, ""));
+					}
+					if(originExchangePrice<=0){
+						minusOriginPrice += Math.abs(originExchangePrice);
+					}else{
+						plusOriginPrice += originExchangePrice;
+					}
+				})
+				changeprice = plusOriginPrice - minusOriginPrice;
+				
+				if(changeprice<0){
+					alert("추가결제금 "+ comma(Math.abs(changeprice))+"원을 계좌로 입금바랍니다.")
+				}else if(changeprice==0){
+					alert("추가결제금은 없으며 별도 배송비를 동봉해주시면 교환이 진행됩니다.")
+				}else{
+					alert("초과결제된 금액 "+ comma(changeprice)+"원을 고객님 계좌로 환불해드립니다.\n영업일 기준 2~3일 소요됩니다.")
+				}
+				$.ajax({
+					url : 'exchangeWrite',
+					type : "POST",
+					data : $("#y_exchanFrm").serialize(),
+					success : function(result){
+						
+					},error : function(request,status,error){
+						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
+				})
 				$("#y_exchanFrm").submit();
 				return true;
 			}
 			return false;
+		});
+		// 환불버튼
+		$("#y_exchangeDelBtn").click(function(){
+			if(confirm("선택된 목록을 환불처리 하시겠습니까?")){
+				// suborderno 배열
+				var delSuborderno = [];
+				var delSubprice = [];
+				var sumDelPrice = 0;
+				var delQuantity = 0;
+
+				for(var i=0; i<$("input[name=y_chanChck]:checked").length; i++){
+					delSuborderno.push($("input[name=y_chanChck]:checked").eq(i).parent().next().children('input[name=suborderno]').val());
+					sumDelPrice = $("input[name=y_chanChck]:checked").eq(i).parent().next().next().next().children('input[name=subprice]').val();
+					delQuantity = $("input[name=y_chanChck]:checked").eq(i).parent().next().next().next().children('input[name=quantity]').val();
+					 
+					delSubprice.push(sumDelPrice * delQuantity);
+				}
+				var delOrderno = $("#y_chanRepList>li:nth-child(2)").children('input[name=orderno]').val();
+				
+				$.ajax({
+					url : 'exchangeDelete',
+					type : "POST",
+					data : {
+						suborderno : delSuborderno,
+						orderno : delOrderno,
+						subprice : delSubprice 
+					},
+					success : function(result){
+						alert('환불처리 되었습니다. \n환불금액은 영업일 기준 2~3일 뒤 처리됩니다.')
+						location.href="purchaseList";
+					},error : function(request,status,error){
+						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
+				})
+			}
 		});
 	});
 	//콤마찍기
@@ -250,7 +330,7 @@
 	<%@include file="/WEB-INF/inc/mypageMenu.jspf"%>
     <div id="y_ChangeRefund">
         <h1>교환/환불신청</h1>
-        <form action="exchangeWrite" method="post" id="y_exchanFrm">
+        <form method="post" id="y_exchanFrm">
 	        <div>
 	            <p><span class="colorRed">*</span> 교환/환불 상품정보</p>
 	            <p class="colorRed">* 리스트에서 체크된 상품만 교환/환불요청이 진행됩니다.</p>
@@ -267,7 +347,7 @@
 		                <li><input name="y_chanChck" class="y_chanChck" type="checkbox"></li>
 		                <li>${data.orderno }<input type="hidden" name="orderno" value="${data.orderno }"><input type="hidden" name="suborderno" value="${data.suborderno }"></li>
 		                <li class="clearfix"><img src="<%=request.getContextPath()%>/upload/${data.img1}" alt=""><p class="wordcut">${data.pname }<c:if test="${data.optinfo!=null }">(${data.optinfo })</c:if></p></li>
-		                <li><fmt:formatNumber value="${(data.subprice*data.quantity)*0.02 }"/>원</li>
+		                <li><input type="hidden" name="subprice" value="${data.subprice }"><input type="hidden" name='quantity' value="${data.quantity }"><fmt:formatNumber value="${(data.subprice*data.quantity)*0.02 }"/>원</li>
 		                <li><fmt:formatNumber value="${data.subprice*data.quantity}"/>원<br/>(${data.quantity }개)</li>
 		                <li><fmt:formatNumber value="${data.quantity*30000 }"/>원</li>
 	                </c:forEach>
@@ -314,7 +394,7 @@
 	            </div>
 	        </div>
 	        <div>
-	            <button type="button" class="clientSubBtn">환불신청</button>
+	            <button type="button" id="y_exchangeDelBtn" class="clientSubBtn">환불신청</button>
 	            <button type="button" id="y_exchangeMainBtn" class="clientMainBtn">교환신청</button>
 	        </div>
         </form>

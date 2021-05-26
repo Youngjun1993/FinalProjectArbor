@@ -415,9 +415,9 @@ public class MyPageController {
 		return mav;
 	}
 	//교환신청 클릭
-	@RequestMapping("/exchangeWrite")
-	public ModelAndView exchangeWrite(ExchangeVO vo, int[] orderno, int[] suborderno,  HttpSession ses ) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping(value = "/exchangeWrite", method=RequestMethod.POST)
+	@ResponseBody
+	public int exchangeWrite(ExchangeVO vo, int[] orderno, int[] suborderno,  HttpSession ses ) {
 		String nowId = (String)ses.getAttribute("logId");
 		int result = 0;
 		for(int i=0; i<suborderno.length; i++) {
@@ -435,13 +435,9 @@ public class MyPageController {
 			result = mypageService.exchangeInsert(insVO);
 		}
 		if(result>0) {
-			int update = mypageService.orderStatusUpdate(orderno[0]);
-			if(update>0) {
-				System.out.println("상태까지 업뎃완료");
-			}
+			mypageService.orderStatusUpdate(orderno[0]);
 		}
-		mav.setViewName("redirect:purchaseList");
-		return mav;
+		return result;
 	}
 	//교환신청 팝업 목록 리스트
 	@RequestMapping("/exchangePopList")
@@ -503,7 +499,11 @@ public class MyPageController {
 			vo.setPno(Integer.parseInt(pno[i]));
 			vo.setSaleprice(Integer.parseInt(saleprice[i]));
 			vo.setSuborderno(Integer.parseInt(suborderno[i]));
-			vo.setOptinfo(optinfo[i]);
+			if(optinfo[i]=="" || optinfo[i]==null) {
+				vo.setOptinfo(null);
+			}else {
+				vo.setOptinfo(optinfo[i]);
+			}
 			vo.setQuantity(Integer.parseInt(quantity[i]));
 			vo.setChangeQuantity(Integer.parseInt(changeQuantity[i]));
 			vo.setChangeSubprice(Integer.parseInt(changeSubprice[i]));
@@ -535,4 +535,20 @@ public class MyPageController {
 		return mav;
 	}
 
+	//환불
+	@RequestMapping(value="/exchangeDelete", method=RequestMethod.POST)
+	@ResponseBody
+	public int exchangeDelete(
+			@RequestParam(value="suborderno[]", required = true) String suborderno[],
+			@RequestParam(value="orderno", required = true) String orderno,
+			@RequestParam(value="subprice[]", required = true) String subprice[]
+					) {
+		int result=0;
+		for(int i=0; i<suborderno.length; i++) {
+			System.out.println(subprice[i]);
+			result = mypageService.exchangeRepund(Integer.parseInt(suborderno[i]));
+			mypageService.repundOrdtblUpdate(Integer.parseInt(orderno), Integer.parseInt(subprice[i]));
+		}
+		return result;
+	}
 }
