@@ -147,7 +147,7 @@
 	
 	//개별 삭제
 	function delforever(clickid) {
-			console.log(clickid.value)
+			//console.log(clickid.value)
 			if(confirm("영구 삭제 하시겠습니까?(복구불가능)")) {
 				location.href="quitDel?userid="+clickid.value;
 			}
@@ -166,7 +166,7 @@
 		    	return false;
 		    }else {
 		    	if(confirm("선택한 회원을 삭제처리 하시겠습니까?(복구되지않습니다)")) {
-				  	 	console.log(checkArr);
+				  	 	//console.log(checkArr);
 				   $.ajax({
 					    url : 'permanantDel',
 					    type : 'get',
@@ -174,6 +174,7 @@
 					    data : { memberChk : checkArr },
 					    success : function(result){
 						   if(result == 1){
+							 alert("선택한 회원을 삭제하였습니다");
 						     location.href = 'memberAdminQuit';
 						   } else {
 						   	alert("영구삭제가 실패하였습니다");
@@ -198,7 +199,7 @@
 	});
 
 	//페이징 값 넘기기
-	$('.adminMainBtn.search').on('click', function(e){
+	$('#memSearchBtn').on('click', function(e){
 		
 		e.preventDefault();
 		var pageBtn = $('#pageBtn_form');

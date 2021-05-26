@@ -175,8 +175,8 @@
 		idArr.push(name);//배열에 이름값
 		idArr.push(email);//배열에 이메일값
 		
-		console.log(idArr[0]);
-		console.log(idArr[1]);
+		//console.log(idArr[0]);
+		//console.log(idArr[1]);
 		
 		/* 서브밋방식으로 아이디 값을 입력했으면*/
 		/*
@@ -219,7 +219,7 @@
 								}
 							});
 						
-						console.log(result.get(1));//인증번호 
+						//console.log(result.get(1));//인증번호 
 					}else{//비밀번호 일치하지않을경우 java에서 1이외의 값
 						alert('아이디와 이메일이 일치하지않습니다. 다시 입력해주세요');
 					}
@@ -267,8 +267,8 @@
 		idArr.push(name);//배열에 이름값
 		idArr.push(tel);//배열에 이메일값
 		
-		console.log(name);
-		console.log(tel);
+		//console.log(name);
+		//console.log(tel);
 		
 		if(name != "" && tel != "") {
 			
@@ -292,8 +292,8 @@
 						$('#msg').text("[신혼전문 가구쇼핑몰] Arbor 인증번호는 " + validation + " 입니다.");
 						//sms로 인증번호를 발송 
 						
-						console.log("인증번호 값 = " + validation );
-						console.log("전송번호 값 = " + sendtel );
+						//console.log("인증번호 값 = " + validation );
+						//console.log("전송번호 값 = " + sendtel );
 							
 						//새창을 만들어서 보내고 클로즈시킴
 						window.open('','smsSender','width=0,height=1');
@@ -322,7 +322,7 @@
 								}
 							});
 						
-						console.log(result.get(1));//인증번호 
+						//console.log(result.get(1));//인증번호 
 					}else{//비밀번호 일치하지않을경우 java에서 1이외의 값
 						alert('아이디와 이메일이 일치하지않습니다. 다시 입력해주세요');
 					}
