@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+
+.h_branchIntro {
+    margin: 0 auto;
+    /* 상단 이미지 크기에 맞춰 조정*/
+	width:1100px;
+}
+
+.h_map{
+    padding: 10px 20px;
+    width: 500px;
+    height: 400px;
+    float: left;
+}
+
+.h_branchInfo{
+	padding: 10px 20px;
+    width: 400px;
+    height: 400px;
+    margin-left: 600px;
+    /* border:1px solid black; */
+    box-shadow: rgb(0 0 0 / 10%) 0px 10px 30px;
+    
+}
+
+.h_imgCenter {
+	width:1400px;
+	margin:0 auto;
+	text-align:center;
+}
+
+.h_branchInfo li:nth-child(2n+1){
+	margin:8px 0;
+	cursor:help;
+}
+
+.h_branchEvent0 {
+	margin:30px auto;
+	text-align:center;
+	cursor:pointer;
+}
+
+.h_memTableLi{
+	margin:40px 0;
+		
+}
+.clientMainBtn.largeview{
+	width:150px;
+	height:30px
+}

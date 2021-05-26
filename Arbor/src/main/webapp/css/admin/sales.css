@@ -1,0 +1,172 @@
+@charset "UTF-8";
+
+/* class */
+.j_adSubTitle{
+	margin-bottom: 20px;
+}
+.j_adSubTitle>span{
+	font-size: 18px;
+	/*border: 1px solid #eee;*/
+	padding: 7px 17px;
+	background: rgb(191,43,53);
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 10px;
+	box-sizing: border-box;
+}
+.salesDateSearch{
+	width: 1200px;
+	height: 30px;
+	borderspacing: 0px;
+	border-collapse: collapse;
+	margin-bottom: 30px;
+}
+.salesDateSearch td{
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+.salesDateSearch td:first-child{
+	text-align: center;
+	background: #eee;
+}
+.salesDateSearch td>input[type=text]{
+	width: 250px;
+}
+.salesDateSearch td>input[type=button]{
+	margin-left: 10px;
+	width: 60px;
+}
+.salesTitle{
+	font-size: 2.5em;
+	height: 50px;
+}
+.salesTitle>a{
+	color: #ccc;
+}
+.salesTitle>a:active{
+	color: rgb(191,43,53);
+}
+
+/*-------------
+	매출 통계
+--------------*/
+#dailySales li{
+	float: left;
+	width: 19.9%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+#dailySales li:nth-child(-n+5){
+	background: #eee;
+	border-top: 1px solid #ccc;
+	font-weight: bold;
+}
+#dailySales li:nth-child(5n+2):not(#dailySales li:nth-child(2)),
+#dailySales li:nth-child(5n+3):not(#dailySales li:nth-child(3)),
+#dailySales li:nth-child(5n+4):not(#dailySales li:nth-child(4)){
+	text-align: right;
+}
+#dailySales li>span{
+	padding-right: 10px;
+}
+#dailySales li:nth-child(5n+5){
+	border-right: none;
+}
+#dailySales li:nth-last-child(-n+5){
+	background: #eee;
+	font-weight: bold;
+}
+#dailySales li>input[type=button]{
+	height: 30px;
+	line-height: 25px;
+	border: none;
+	border-radius: 10px;
+	box-sizing: border-box;
+	background: rgb(191,43,53);
+	color: #fff;
+}
+
+/* 주문상세보기 팝업 */
+#j_salesPopup_Wrap{
+	width: 650px;
+	border: 1px solid #333;
+	position: absolute;
+	top: 20%;
+	left: 35%;
+	display: none;
+	background: #fff;
+}
+#j_salesPopup_Wrap>div{
+	width: 600px;
+	margin: 30px auto;
+}
+#j_salesPopup_Wrap p{
+	margin-bottom: 10px;
+	font-size: 15px;
+	font-weight: bold;
+}
+#j_salesPopup_Wrap>div li{
+	float: left;
+	width: 17.5%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	font-size: 13px;
+}
+#j_salesPopup_Wrap>div li:nth-child(-n+5){
+	background: #eee;
+	border-top: 1px solid #ccc;
+	font-weight: bold;
+	font-size: 1em;
+}
+#j_salesPopup_Wrap>div li:nth-child(5n+2){
+	width: 29%;
+}
+#j_salesPopup_Wrap>div li:nth-child(5n+5){
+	border-right: none;
+}
+#j_salesPopup_Wrap input[type=button]{
+	float: right;
+	margin: 0 25px 15px 0;
+	width: 50px;
+    height: 30px;
+	line-height: 25px;
+}
+
+/*--------------
+	매출 그래프
+---------------*/
+#byMonthly{
+	display:flex;
+	align-items: center;
+	height: 500px;
+	margin-bottom: 30px;
+/* 	border-bottom: 1px dotted #ddd; */
+}
+#j_piechart{
+	display: flex;
+}
+#mainPieChart{
+	margin-top: 50px;
+	height: 500px;
+	width: 50%;
+/* 	border-right: 1px dotted #ddd;	 */
+	display:flex;
+	align-items:center;
+}
+#subPieChart{
+	margin-top: 50px;
+	height: 500px;
+	width: 50%;
+	display:flex;
+	align-items:center;
+}
+
+
+

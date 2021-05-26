@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.arbor.home.dao.CouponDAOImp">
+	<select id="cpnAdList" resultType="com.arbor.home.vo.CouponVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select c.cpnadno, c.cpnname, c.apply, c.salerate, to_char(c.cpnstart, 'YYYY-MM-DD') as cpnstart, to_char(c.cpnend, 'YYYY-MM-DD') as cpnend, s.subname, s.subno, s.mainname from couponad c join (select * from subcate s join maincate m on s.mainno=m.mainno) s on c.apply=s.subno 
+		order by cpnend desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by cpnend asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by cpnend desc 
+	</select>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(cpnadno) as totalRecord from couponad
+	</select>
+	<select id="cpnGetMainCate" resultType="com.arbor.home.vo.CouponVO">
+		select mainno, mainname from maincate
+	</select>
+	<select id="cpnGetSubCate" resultType="com.arbor.home.vo.CouponVO">
+		select subno, subname from subcate where mainno=#{param1}
+	</select>
+	<insert id="cpnAdInsert" parameterType="com.arbor.home.vo.CouponVO">
+		insert into couponAd(cpnadno, cpnname, apply, salerate, cpnstart, cpnend) values (couponadsq.nextval, #{cpnname}, #{apply}, ${salerateInt}, #{cpnstart}, #{cpnend})
+	</insert>
+	<update id="cpnAdUpdate" parameterType="com.arbor.home.vo.CouponVO">
+		update couponad set salerate=${salerate}, cpnstart=#{cpnstart}, cpnend=#{cpnend}, apply=${apply}, cpnname=#{cpnname} where cpnadno=${cpnadno}
+	</update>
+	<update id="cpnClientUpdate" parameterType="com.arbor.home.vo.CouponVO">
+		update coupon set salerate=${salerate}, cpnstart=#{cpnstart}, cpnend=#{cpnend}, apply=${apply}, cpnname=#{cpnname} where cpnadno=${cpnadno}
+	</update>
+	<delete id="cpnAdDelete">
+		delete from couponad where cpnadno=${param1}
+	</delete>
+	<delete id="cpnAllDelete">
+		delete from couponad
+	</delete>
+</mapper>

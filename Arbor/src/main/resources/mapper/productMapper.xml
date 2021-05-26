@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.arbor.home.dao.ProductDAOImp">
+ 	<select id="mainCateList" resultType="com.arbor.home.vo.MainCateVO">
+ 		select mainno, mainname from maincate
+ 	</select>
+ 	
+ 	<insert id="insertMainCate">
+ 		insert into maincate(mainno, mainname) values(maincatesq.nextval, #{param1})
+ 	</insert>
+ 	
+ 	<delete id="deleteMainCate" parameterType="int">
+ 		delete from maincate where mainno=${param1}
+ 	</delete>
+ 	
+ 	<select id="selectMainno" resultType="int">
+ 		select mainno from maincate where mainname=#{param1}
+ 	</select>
+ 	
+ 	<update id="updateMainCate" parameterType="com.arbor.home.vo.MainCateVO">
+ 		update maincate set mainname=#{mainname} where mainno=${mainno}
+ 	</update>
+ 	
+ 	<select id="selectSubno" resultType="int" parameterType="int">
+ 		select mainno from subcate where subno=${param1}
+ 	</select>
+ 	
+ 	<select id="subCateList" parameterType="int" resultType="com.arbor.home.vo.SubCateVO">
+ 		select mainno, subno, subname from subcate where mainno=${param1}
+ 	</select>
+ 	
+ 	<insert id="insertSubCate">
+ 		insert into subcate(subno, mainno, subname) values(subcatesq.nextval, ${param1}, #{param2})
+ 	</insert>
+ 	
+ 	<delete id="deleteSubCate" parameterType="int">
+ 		delete from subcate where subno=${param1}
+ 	</delete>
+ 	
+ 	<update id="updateSubCate" parameterType="com.arbor.home.vo.SubCateVO">
+ 		update subcate set subname=#{subname} where subno=${subno}
+ 	</update>
+ 	
+ 	<select id="subCateListAll" resultType="com.arbor.home.vo.SubCateVO" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(
+ 		select subno, s.mainno, mainname, subname from subcate s full outer join maincate m
+ 		on s.mainno=m.mainno order by subno desc)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by subno asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by subno desc
+ 	</select>
+ 	
+ 	<select id="subCateTotalList" resultType="com.arbor.home.vo.SubCateVO">
+ 		select subno, s.mainno, mainname, subname from subcate s join maincate m
+ 		on s.mainno=m.mainno
+ 	</select>
+ 	
+ 	<select id="subcate_totalRecord" resultType="int">
+		select count(subno) as totalRecord from subcate
+	</select>
+ 	
+ 	<insert id="productInsert" parameterType="com.arbor.home.vo.ProductVO">
+ 		insert into product(pno, subno, pname, stock, allstock, pprice, saleprice, img1,
+ 		<if test='#{img2}!=null and #{img2}!=""'>img2, </if>description)
+ 		values(productsq.nextval, ${subno}, #{pname}, ${stock}, ${allstock}, ${pprice}, ${saleprice},
+ 		#{img1}, <if test='#{img2}!=null and #{img2}!=""'> #{img2}, </if>#{description})
+ 	</insert>
+ 	
+ 	<insert id="optionInsert" parameterType="com.arbor.home.vo.OptionVO">
+ 		insert into optiontbl(optno, pno, optname, optvalue, optprice, rgbvalue)
+ 		values(optionsq.nextval, ${pno}, #{optname}, #{optvalue}, ${optprice}, #{rgbvalue})
+ 	</insert>
+ 	
+ 	<select id="pnoSelect" resultType="int">
+ 		select pno from product where subno=${param1} and pname=#{param2}
+ 	</select>
+ 	
+ 	<select id="productList" resultType="com.arbor.home.vo.ProductVO" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(select * from(select * from (select * from
+ 		(select p.pno, s.subno, s.mainname, s.subname, p.pname, p.saleprice, p.stock, 
+ 		to_char(p.pdate, 'yyyy-mm-dd') as pdate from product p join (select s.subno, s.subname, m.mainname 
+ 		from subcate s join maincate m on s.mainno=m.mainno) s on p.subno=s.subno order by pno desc)
+ 		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="subno!=null and subno!=''">where subno=${subno}</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pdate between #{startdate} and #{enddate}</if>)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pno asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pno desc
+ 	</select>
+ 	
+ 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(pno) from(select * from (select * from (select * from 
+		(select * from product)
+		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="subno!=null and subno!=''">where subno=${subno}</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pdate between #{startdate} and #{enddate}</if>)
+	</select>
+ 	
+ 	<select id="productSelect" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
+ 		select pno, mainno, s.subno, pname, stock, pprice, saleprice, img1, img2, description
+		from product p
+		join (select s.subno, s.subname, m.mainno from subcate s join maincate m on s.mainno=m.mainno) s
+		on p.subno=s.subno where pno=${param1}
+ 	</select>
+ 	
+ 	<select id="optionSelect" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
+ 		select optno, optname, optvalue, optprice, rgbvalue from optiontbl where pno=${param1}
+ 	</select>
+ 	
+ 	<update id="productUpdate" parameterType="com.arbor.home.vo.ProductVO">
+ 		update product set subno=${subno}, pname=#{pname}, pprice=${pprice}, saleprice=${saleprice},
+ 		stock=${stock}, img1=#{img1}, <if test='#{img2}!=null || #{img2}!=""'>img2=#{img2}, </if>description=#{description} where pno=${pno}
+ 	</update>
+ 	
+ 	<delete id="optionDelete" parameterType="int">
+ 		delete from optiontbl where optno=${param1}
+ 	</delete>
+ 	
+ 	<update id="optionUpdate" parameterType="com.arbor.home.vo.OptionVO">
+ 		update optiontbl set pno=${pno}, optname=#{optname}, optvalue=#{optvalue}, rgbvalue=#{rgbvalue},
+ 		optprice=${optprice} where optno=${optno}
+ 	</update>
+ 	
+ 	<delete id="productDelete" parameterType="int">
+ 		delete from product where pno=${param1}
+ 	</delete>
+ 	
+ 	<delete id="optionAllDelete" parameterType="int">
+ 		delete from optiontbl where pno=${param1}
+ 	</delete>
+ 	
+ 	<select id="productListClient" parameterType="com.arbor.home.vo.PageProductVO" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from (select * from (select * from (
+ 		select pno, subno, pname, pprice, saleprice, img1, img2, pdate, round(((pprice-saleprice)/pprice)*100, 0) as salepercent from product where subno=${subno} 
+ 		<if test="msg=='newArray'"> order by pdate desc </if><if test="msg=='lowpriceArray'"> order by saleprice asc </if><if test="msg=='highpriceArray'"> order by saleprice desc </if>
+ 		<if test="msg==null"> order by pno desc </if>)
+ 		<![CDATA[where rownum <= ]]>${pageNum} * ${onePageRecord}
+ 		<if test="msg=='newArray'"> order by pdate asc </if><if test="msg=='lowpriceArray'"> order by saleprice desc </if><if test="msg=='highpriceArray'"> order by saleprice asc </if>
+ 		<if test="msg==null"> order by pno asc </if>)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">${lastPageRecord}</if><if test="pageNum!=totalPage">${onePageRecord}</if>)
+ 		<if test="msg=='newArray'"> order by pdate desc </if><if test="msg=='lowpriceArray'"> order by saleprice asc </if><if test="msg=='highpriceArray'"> order by saleprice desc </if>
+ 		<if test="msg==null"> order by pno desc </if>
+ 	</select>
+ 	
+ 	<select id="productListClientOrder" parameterType="com.arbor.home.vo.PageProductVO" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from (select * from(
+ 		select p.pno, nvl(s.cnt, 0) as cnt, subno, pname, pprice, saleprice, img1, img2, pdate, round(((pprice-saleprice)/pprice)*100, 0) as salepercent from product p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
+ 		where subno=${subno} order by cnt desc)
+ 		<![CDATA[where rownum <= ]]>${pageNum} * ${onePageRecord} order by cnt asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">${lastPageRecord}</if><if test="pageNum!=totalPage">${onePageRecord}</if>
+ 		order by cnt desc
+ 	</select>
+ 	
+ 	<select id="productClientTotalRecord" parameterType="com.arbor.home.vo.PageProductVO" resultType="int">
+ 		select count(pno) from product where subno=${subno}
+ 	</select>
+ 	
+ 	<select id="productTopList" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from        
+		(select p.pno, p.mainno, nvl(s.cnt, 0) as cnt, p.subno, p.pname, p.pprice, p.saleprice, p.img1, p.img2, p.pdate
+		from (select p.pno, s.subno, s.mainno, s.mainname, s.subname, p.pname, p.pprice, p.saleprice, p.pdate, img1, img2
+		from product p join (select s.subno, s.mainno, s.subname, m.mainname from subcate s
+		join maincate m on s.mainno=m.mainno) s on p.subno=s.subno) p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
+		where subno=${param1} order by cnt desc)
+		<![CDATA[where rownum <= ]]>3
+ 	</select>
+
+ 	<select id="productCateImgSelect" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from        
+		(select p.pno, p.mainno, nvl(s.cnt, 0) as cnt, p.subno, p.pname, p.pprice, p.saleprice, p.img1, p.img2, p.pdate
+		from (select p.pno, s.subno, s.mainno, s.mainname, s.subname, p.pname, p.pprice, p.saleprice, p.pdate, img1, img2
+		from product p join (select s.subno, s.mainno, s.subname, m.mainname from subcate s
+		join maincate m on s.mainno=m.mainno) s on p.subno=s.subno) p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
+		where mainno=${param1} order by cnt desc)
+		<![CDATA[where rownum <= ]]>1
+ 	</select>
+ 	
+ 	<select id="productSubCateImgSelect" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from        
+		(select p.pno, p.mainno, nvl(s.cnt, 0) as cnt, p.subno, p.pname, p.pprice, p.saleprice, p.img1, p.img2, p.pdate
+		from (select p.pno, s.subno, s.mainno, s.mainname, s.subname, p.pname, p.pprice, p.saleprice, p.pdate, img1, img2
+		from product p join (select s.subno, s.mainno, s.subname, m.mainname from subcate s
+		join maincate m on s.mainno=m.mainno) s on p.subno=s.subno) p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
+		where subno=${param1} order by cnt desc)
+		<![CDATA[where rownum <= ]]>1
+ 	</select>
+ 	
+ 	<select id="productCateTop12" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from        
+		(select p.pno, p.mainno, nvl(s.cnt, 0) as cnt, p.subno, p.pname, p.pprice, p.saleprice, p.img1, p.img2, p.pdate, round(((p.pprice-p.saleprice)/p.pprice)*100, 0) as salepercent
+		from (select p.pno, s.subno, s.mainno, s.mainname, s.subname, p.pname, p.pprice, p.saleprice, p.pdate, img1, img2
+		from product p join (select s.subno, s.mainno, s.subname, m.mainname from subcate s
+		join maincate m on s.mainno=m.mainno) s on p.subno=s.subno) p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
+		order by cnt desc)
+		<![CDATA[where rownum <= ]]>12
+ 	</select>
+ 	
+ 	<select id="productTotalList" parameterType="int" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from        
+		(select p.pno, p.mainno, nvl(s.cnt, 0) as cnt, p.subno, p.pname, p.pprice, p.saleprice, p.img1, p.img2, p.pdate, round(((p.pprice-p.saleprice)/p.pprice)*100, 0) as salepercent
+		from (select p.pno, s.subno, s.mainno, s.mainname, s.subname, p.pname, p.pprice, p.saleprice, p.pdate, img1, img2
+		from product p join (select s.subno, s.mainno, s.subname, m.mainname from subcate s
+		join maincate m on s.mainno=m.mainno) s on p.subno=s.subno) p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
+		where mainno=${param1} order by cnt desc)
+		<![CDATA[where rownum <= ]]>12
+ 	</select>
+ 	
+ 	<select id="productListRGB" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
+ 		select o.pno, optvalue, rgbvalue from optiontbl o join product p on o.pno=p.pno where p.subno=${param1}
+ 	</select>
+ 	
+ 	<select id="mainnameSelect" parameterType="int" resultType="string">
+ 		select mainname from maincate where mainno=${param1}
+ 	</select>
+ 	
+ 	<select id="optNameSelect" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
+ 		select DISTINCT(optname) as optname from optiontbl where pno=${param1}
+ 	</select>
+ 	
+ 	<select id="optValueSelect" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
+ 		select optno, optname, optvalue, optprice from optiontbl where pno=${param1} order by optname
+ 	</select>
+ 	
+ 	<insert id="pqnaInsert" parameterType="com.arbor.home.vo.ProductQnaVO">
+ 		insert into productqna(pqnano, pno, userid, pqnasubject, pqnacontent, pqnaopen)
+ 		values(pqnasq.nextval, ${pno}, #{userid}, #{pqnasubject}, #{pqnacontent}, #{pqnaopen})
+ 	</insert>
+ 	
+ 	<update id="pqnaUpdate" parameterType="com.arbor.home.vo.ProductQnaVO">
+ 		update productqna set pqnasubject=#{pqnasubject}, pqnacontent=#{pqnacontent}, pqnaopen=#{pqnaopen} where pqnano=${pqnano} and userid=#{userid}
+ 	</update>
+ 	
+ 	<delete id="pqnaDelete">
+ 		delete from productqna where pqnano=${param1} and userid=#{param2}
+ 	</delete>
+ 	
+ 	<select id="pqnaList" resultType="com.arbor.home.vo.ProductQnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(select * from(select * from(
+ 		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
+ 		from productqna q join product p on q.pno=p.pno)
+ 		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if> order by pqnano desc)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pqnano asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pqnano desc
+ 	</select>
+ 	
+ 	<select id="pqna_totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select count(pqnano) from (select * from(select * from
+ 		(select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
+ 		from productqna q join product p on q.pno=p.pno)
+ 		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
+ 	</select>
+ 	
+ 	<select id="pqnaNoAnswerList" resultType="com.arbor.home.vo.ProductQnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select * from(select * from(select * from(select * from(
+ 		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
+ 		from productqna q join product p on q.pno=p.pno where panswercontent is null order by pqnano desc)
+ 		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pqnano asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pqnano desc
+ 	</select>
+ 	
+ 	<select id="pqnaAnswer" resultType="com.arbor.home.vo.ProductQnaVO">
+ 		select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate from productqna q join product p on q.pno=p.pno where pqnano=${param1}
+ 	</select>
+ 	
+ 	<select id="pqnaNoAnswerCnt" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+ 		select count(pqnano) from (select * from(select * from 
+ 		(select pqnano, p.pno, pname, userid, pqnasubject, pqnacontent, panswercontent, pqnadate
+ 		from productqna q join product p on q.pno=p.pno)
+ 		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
+ 		<if test="startdate!=null and startdate!='' and enddate!=null and enddate!=''">where pqnadate between #{startdate} and #{enddate}</if>)
+ 		where panswercontent is null
+ 	</select>
+ 	
+ 	<update id="pqnaAnswerInsert" parameterType="com.arbor.home.vo.ProductQnaVO">
+ 		update productqna set panswercontent=#{panswercontent} where pqnano=${pqnano}
+ 	</update>
+ 	
+ 	<update id="pqnaAnswerDelete" parameterType="int">
+ 		update productqna set pqnasubject='해당 문의글은 블라인드 처리 되었습니다.',
+ 		pqnacontent='해당 문의글은 블라인드 처리 되었습니다.', panswercontent='해당 문의글은 블라인드 처리 되었습니다.' where pqnano=${param1}
+ 	</update>
+ 	
+ 	<select id="pqnaViewList" parameterType="com.arbor.home.vo.PageProductQnaVO" resultType="com.arbor.home.vo.ProductQnaVO">
+ 		select * from( select * from(
+ 		select pqnano, pno, <!-- substr(userid,1,3) || lpad('*',length(userid)-2,'*') as  -->userid, pqnasubject, pqnacontent,  nvl(panswercontent, '답변 대기중 입니다.') as panswercontent,
+ 		to_char(pqnadate, 'yyyy-mm-dd') as pqnadate, pqnaopen from productqna where pno=${pno} order by pqnano desc)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by pqnano asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by pqnano desc
+ 	</select>
+ 	
+ 	<select id="pqnaViewListCnt" parameterType="int" resultType="int">
+ 		select count(pqnano) from productqna where pno=${param1}
+ 	</select>
+ 	
+ 	<select id="qnaViewList" parameterType="com.arbor.home.vo.PageProductQnaVO" resultType="com.arbor.home.vo.ReviewVO">
+ 		select * from( select * from(
+ 		select reviewno, pno, substr(r.userid,1,3) || lpad('*',length(r.userid)-2,'*') as userid,
+ 		substr(username,1,1) || lpad('*',length(username)-1,'*') as username, grade, reviewcontent, to_char(reviewdate, 'yyyy-mm-dd') as reviewdate
+ 		from review r join member m on r.userid=m.userid where pno=${pno} order by reviewdate desc)
+ 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by reviewdate asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by reviewdate desc
+ 	</select>
+ 	
+ 	<select id="qnaViewListCnt" parameterType="int" resultType="int">
+ 		select count(reviewno) from review where pno=${param1}
+ 	</select>
+ 	
+ 	<select id="productOptionView" parameterType="int" resultType="com.arbor.home.vo.OptionVO">
+ 		select optno, pno, optname, optvalue, optprice from optiontbl where optno=${param1}
+ 	</select>
+ 	
+ 	<select id="subnameSelect" parameterType="int" resultType="string">
+ 		select subname from subcate where subno=${param1}
+ 	</select>
+ </mapper>

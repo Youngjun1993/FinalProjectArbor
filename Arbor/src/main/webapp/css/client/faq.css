@@ -1,0 +1,71 @@
+@charset "UTF-8";
+#d_faqtitle{
+	height:40px;
+}
+
+#d_faqtitle>ul li{
+	float:left;
+	height:40px;
+	line-height:40px;
+	font-size:17px;
+	font-weight:bold;
+	border-top:2px solid rgb(90,120,114);
+	border-bottom:1px solid #ddd;
+	background-color:rgb(251,251,251);
+	text-align:center;
+	width:100%;
+}
+
+
+.d_faqsubject{
+	width:100%;
+	overflow:hidden;
+	height:51px;
+	line-height:51px;
+	border-bottom:1px solid #ddd;
+	transition: all 0.5s;
+}
+/*faq질문*/
+.d_faqname div{
+	float:left;
+	
+}
+.d_faqname>div:first-of-type{
+	width:4%;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	font-size:20px;
+	font-weight:bold;
+	color:rgb(90,120,114);
+}
+.d_faqname>div:last-of-type{
+	width:96%;
+	height:50px;
+	font-size:16px;
+	font-weight:bold;
+	line-height:50px;
+}
+
+/*faq답변*/
+
+.d_faqcontent{
+	width:100%;
+	float:left;
+	background-color:rgb(251,251,251);
+	
+}
+.d_faqcontent div{
+	float:left;
+}
+.d_faqcontent>div:first-of-type{
+	width:4%;
+	text-align:center;
+	font-size:20px;
+	font-weight:bold;
+	color:rgb(90,120,114);
+}
+.d_faqcontent>div:last-of-type{
+	width:96%;
+	font-size:15px;
+}

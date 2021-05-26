@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.arbor.home.dao.MemberDAOImp">
+	<!-- memstat 0 활성 1 휴면 2 탈퇴 -->
+	<!-- 회원가입 -->
+	<insert id="memberInsert" parameterType="com.arbor.home.vo.MemberVO">
+		insert into member(userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, regdate, lastdate, memstat)
+		values(#{userid}, #{userpwd}, #{username}, #{zipcode}, #{addr}, #{detailaddr}, #{tel}, #{smsok}, #{email}, #{emailok}, sysdate, sysdate, 0)
+	</insert>
+	<select id="loginCheck" resultType="com.arbor.home.vo.MemberVO">
+		select userid, username from member where userid=#{userid} and userpwd=#{userpwd}
+	</select>
+	<select id="idCheck" resultType="int">
+  		select count(*) from member where userid = #{userid} and memstat!=2
+  	</select>
+  	
+	<!-- 로그아웃 시간기록 -->
+	<update id="lastDateUpdate">
+		update member set lastdate = sysdate where userid = #{param1}
+	</update>
+	
+	
+	<!-- 비밀번호 체크 #{userid}는 view페이지에서 전달되는 name속성이 userid인 요소의 값 -->
+	<select id="pwdCheck" resultType="com.arbor.home.vo.MemberVO">
+	<!-- 멤버 0,1 이 문제 -->
+		select userid, userpwd from member where userid=#{param1}
+		<!--  and memstat in(0,1) -->
+	</select>
+	
+	<!-- /////////////////////////////////////////회원검색 페이지//////////////////////////////////////////// -->
+	
+	<!-- 회원삭제(관리자에의해) -->
+	<!-- <update id = "memDel">
+		update member set memstat = 2 where userid=#{param1}
+	</update> membstat 이전-->
+	
+	<!-- 다중삭제 -->
+	<update id = "memMultiDel">
+		<!-- update member set memstat = 2 where userid in
+		<foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach> -->
+		update member set memstat = 2 where userid = #{userid}
+	</update>
+	<!-- 다중삭제시 byemember로 insert문 수행 -->
+	<insert id="insertByeMemberMulti">
+		INSERT INTO byemember (userid, regdate, byetype, byereason, byedate)
+		values((SELECT userid FROM member where userid=#{param1}),(SELECT regdate FROM member where userid=#{param1}),'관리자',#{param2},sysdate)
+	</insert>
+	
+	<!-- 탈퇴시 memstat 변경(스스로) -->
+	<!-- <update id="memberQuit">
+		update member set memstat = 2 where userid=#{param1}
+	</update> -->
+	<!-- 탈퇴시 byemember로 insert문 수행 -->
+	<insert id="insertByeMember">
+		INSERT INTO byemember (userid, regdate, byetype, byereason, byedate)
+		values((SELECT userid FROM member where userid=#{param1}),(SELECT regdate FROM member where userid=#{param1}),'사용자',#{param2},sysdate)
+	</insert>
+	
+	<!-- 수정 회원 선택 -->
+	<select id="memUpdateSelect"  resultType="com.arbor.home.vo.MemberVO">
+		select userid, username, zipcode, addr, detailaddr, tel, email from member where userid=#{param1}
+	</select>
+	<!-- 회원 업데이트 -->
+	<update id="memberUpdateOk" parameterType="com.arbor.home.vo.MemberVO">
+		update member set userpwd = #{userpwd}, zipcode = #{zipcode}, addr=#{addr}, detailaddr=#{detailaddr}, tel=#{tel}, email=#{email} where userid = #{userid}
+	</update>
+	
+	<!-- 회원검색 리스트 페이징 -->
+	<select id="memSearchPaging" resultType="com.arbor.home.vo.MemberVO">
+		<![CDATA[
+			select * from
+			(select /*+ INDEX_asc(member pk_member) */ userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, to_char(regdate, 'YY-MM-DD HH24:MI') regdate, to_char(lastdate, 'YY-MM-DD HH24:MI') lastdate, memstat, rownum as rn
+			from member where rownum <= #{pageNum} * #{amount} and memstat in (0,1)
+		]]>
+			<if test="searchWord!=null and type == 'userid'">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'username'">
+            	and username like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'email'">
+            	and email like '%'||#{searchWord}||'%'
+            </if>
+            <!-- <if test='emailok=="Y" || "N"' >
+            	and emailok in ('Y','N')
+            </if> -->
+            <if test='emailok=="Y"'>
+                and emailok = 'Y'
+            </if>
+            <if test='emailok=="N"'>
+                and emailok = 'N'
+            </if>
+            <if test='smsok=="Y"'>
+                and smsok = 'Y'
+            </if>
+            <if test='smsok=="N"'>
+                and smsok = 'N'
+            </if>
+            <if test='dormailok=="Y"'>
+                and dormailok = 'Y'
+            </if>
+            <if test='dormailok=="N"'>
+                and dormailok = 'N'
+            </if>
+		<![CDATA[	
+			)
+			where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 총레코드수(활성,휴면) -->
+	<select id="memCount" resultType="int">
+		select count(*) from member where memstat in(0,1)
+			<if test="searchWord!=null and type == 'userid'">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'username'">
+            	and username like '%'||#{searchWord}||'%'
+            </if>
+            <if test="searchWord!=null and type == 'email'">
+            	and email like '%'||#{searchWord}||'%'
+            </if>
+            <if test='emailok=="Y"'>
+                and emailok = 'Y'
+            </if>
+            <if test='emailok=="N"'>
+                and emailok = 'N'
+            </if>
+            <if test='smsok=="Y"'>
+                and smsok = 'Y'
+            </if>
+            <if test='smsok=="N"'>
+                and smsok = 'N'
+            </if>
+	</select>
+	
+	<!-- 휴면계정전환처리 -->
+	<update id="memDormant">
+		update member set memstat=1 where userid=#{param1}
+	</update>
+	<!-- 휴면테이블에 휴면계정데이터 넣기(관리자가 처리)-->
+	<insert id="insertDormantMember">
+		INSERT INTO dormantmember (userid, dormailok, dordate) values(#{param1}, 'N', sysdate)
+	</insert>
+	
+	<!-- 로그인시 휴면회원 여부 확인 -->
+	<select id="loginDorCheck" parameterType="String" resultType="int">
+		select count(userid) from dormantmember where userid=#{param1}
+	</select>
+	
+	<delete id="loginDorDelete" parameterType="String">
+		delete from dormantmember where userid=#{param1}
+	</delete>
+	
+	<update id="loginDorUpdate" parameterType="String">
+		update member set memstat=0 where userid=#{param1}
+	</update>
+	
+	<!-- ////////////////////////////////// 휴면회원검색 페이지 //////////////////////////////////////  -->
+	<select id="memDormantPaging" parameterType="com.arbor.home.vo.PageSearchVO" resultType="com.arbor.home.vo.MemberDormantVO">
+		select * from(select * from(select * from(select * from(select * from(select * from(
+		select d.userid, to_char(dordate, 'yyyy-mm-dd') as dordate, dormailok, username, email, tel, to_char(regdate, 'yyyy-mm-dd') as regdate, emailok, smsok
+		from dormantmember d join member m on d.userid=m.userid)
+		<if test="searchWord!=null and searchWord!=''">where ${searchKey} like '%${searchWord}%'</if>)
+		<if test="smsok!=null and smsok!=''">where smsok=#{smsok}</if>)
+		<if test="emailok!=null and emailok!=''">where emailok=#{emailok}</if>)
+		<if test="dormailok!=null and dormailok!=''">where dormailok=#{dormailok}</if>order by dordate desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by dordate asc)
+ 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+ 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by dordate desc
+	</select>
+	<!-- 휴면회원 총 레코드수 -->
+	<select id="memDormantCount" resultType="int">
+		select count(username) from(select * from(select * from(select * from(select * from(
+		select d.userid, to_char(dordate, 'yyyy-mm-dd') as dordate, dormailok, username, email, tel, to_char(regdate, 'yyyy-mm-dd') as regdate, emailok, smsok
+		from dormantmember d join member m on d.userid=m.userid)
+		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>)
+		<if test="smsok!=null">where smsok=#{smsok}</if>)
+		<if test="emailok!=null">where emailok=#{emailok}</if>)
+		<if test="dormailok!=null">where dormailok=#{dormailok}</if>)
+	</select>
+	
+	<!-- 휴면회원 전체 목록 -->
+	<select id="dormantList" resultType="com.arbor.home.vo.MemberVO">
+		select userid from member where <![CDATA[lastdate<=sysdate-90 ]]> and memstat!=1
+	</select>
+	
+	<!-- 휴면메일발송 Y로 변경 -->
+	<update id="dormantmailsend">
+		update dormantmember set dormailok='Y' where userid = #{param1}
+	</update>
+	
+	<!-- 휴면회원다중삭제 -->
+	<delete id = "dormantMultiDel">
+		delete from dormantmember where userid=#{userid}
+	</delete>
+	
+	<!--////////////////// 탈퇴회원 리스트와 페이징 /////////////////////-->
+	<select id="memQuitPaging" resultType="com.arbor.home.vo.MemberQuitVO">
+		<![CDATA[
+			select * from
+			(select * from 
+			(select userid, byetype, byereason, to_char(regdate, 'YY-MM-DD') regdate, to_char(byedate, 'YY-MM-DD') byedate, ceil(sysdate-byedate) quitperiod, rownum as rn from byemember)
+			where rn <= #{pageNum}*#{amount}
+		]]>
+			<if test="searchWord!=null">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test='byetype=="사용자"'>
+                and byetype = '사용자'
+            </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='byedate1 > 0 and byedate2 > 0'>
+                 <![CDATA[
+                and byedate between to_date(#{byedate1},'YY-MM-DD') and to_date(#{byedate2},'YY-MM-DD')
+            	]]>
+            </if>
+            <if test='quitperiod >= 0'>
+            <![CDATA[
+                and to_number(quitperiod) >= #{quitperiod}
+            ]]>
+            </if>
+		<![CDATA[
+			order by quitperiod asc)
+			where rn > (#{pageNum}-1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 탈퇴회원 총 레코드수 -->
+	<select id="memQuitCount" resultType="int">
+		<![CDATA[
+		select count(*) from (select userid, byetype, byereason, regdate, byedate, ceil(sysdate-byedate) quitperiod from byemember) where rownum > 0
+		]]>
+			<if test="searchWord!=null">
+            	and userid like '%'||#{searchWord}||'%'
+            </if>
+            <if test='byetype=="사용자"'>
+                and byetype = '사용자'
+            </if>
+            <if test='byetype=="관리자"'>
+                and byetype = '관리자'
+            </if>
+            <if test='quitperiod >= 0'>
+            <![CDATA[
+                and to_number(quitperiod) >= #{quitperiod}
+            ]]>
+            </if>
+	</select>
+	
+	<!-- 탈퇴회원 영구 삭제(삭제테이블) -->
+	<delete id = "permanantDel">
+		delete from byemember where userid = #{userid}
+	</delete>
+	<!-- 탈퇴회원 영구 삭제 -->
+	<delete id = "permanantDel2">
+		delete from dormantmember where userid = #{userid}
+	</delete>
+	<!-- 탈퇴회원 영구 삭제 -->
+	<delete id = "permanantDel3">
+		delete from member where userid = #{userid}
+	</delete>
+	<!-- 회원검색 엑셀 다운로드용 전체 -->
+	<select id="memberExcelDownload" resultType="com.arbor.home.vo.MemberVO">
+		select userid, username, email, tel, to_char(regdate, 'YYYY-MM-DD') regdate from member
+	</select>
+	<!-- 휴면회원 엑셀 다운로드용 전체 /////////-->
+	<select id="dormantExcelDownload" resultType="com.arbor.home.vo.MemberVO">
+		select a.userid, a.username, a.email, a.tel, to_char(a.regdate, 'YYYY-MM-DD') regdate, to_char(b.dordate, 'YYYY-MM-DD') dordate from member a join dormantmember b on a.userid = b.userid
+	</select>
+	
+	<!-- 아이디 찾기(이메일) -->
+	<select id="memberIdSearchOk" resultType="com.arbor.home.vo.MemberVO">
+		select userid, userpwd from member where username = #{param1} and email = #{param2}
+	</select>
+	<!-- 비밀번호 찾기 + 임시 비밀번호 변경(이메일) -->
+	<update id="memberPwdSearchOk">
+		update member set userpwd = #{param1}  where userid = #{param2} and email = #{param3}
+	</update>
+	<!-- 아이디 찾기(sms) -->
+	<select id="memberIdSearchOk2" resultType="com.arbor.home.vo.MemberVO">
+		select userid, userpwd from member where username = #{param1} and tel = #{param2}
+	</select>
+	<!-- 비밀번호 찾기 + 임시 비밀번호 변경(sms) -->
+	<update id="memberPwdSearchOk2">
+		update member set userpwd = #{param1}  where userid = #{param2} and tel = #{param3}
+	</update>
+</mapper>
+
+			

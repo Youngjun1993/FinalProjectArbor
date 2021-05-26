@@ -10,7 +10,7 @@ body{
 	font-family: 'Malgun Gothic', '맑은 고딕', dotum, '돋움';
 	background: #fff;
 	font-size:14px;
-	width:100%;
+	
 }
 
 /*class*/
@@ -31,3 +31,227 @@ body{
 	display: block;
 	clear:both;
 }
+.colorYellow{
+	color:rgb(255, 210, 3);
+}
+/* 클라이언트, 관리자 페이징 스타일 */
+.paging>li{
+    width: 30px;
+    float: left;
+    margin-right:10px;
+	border-bottom: 3px solid #eee;
+}
+.adPaging>li{
+    width: 30px;
+    float: left;
+    margin-right:10px;
+	border-bottom: 3px solid #eee;
+}
+.paging>li:nth-child(1){
+	border-bottom: 3px solid rgb(93, 121, 115);
+}
+.adPaging>li:nth-child(1){
+	border-bottom: 3px solid rgb(93, 121, 115);
+}
+.paging>li:hover{
+	border-bottom: 3px solid rgb(93, 121, 115);
+}
+.adPaging>li:hover{
+	border-bottom: 3px solid rgb(191,43,53);
+}
+.paging>li a{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	display: block;
+}
+.adPaging>li a{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	display: block;
+}
+.pagingLR_a{
+	color:#333;
+	background: #eee;
+	border-radius: 30px;
+}
+.pagingLR_a:hover{
+	color:#fff;
+	background: rgb(93, 121, 115);
+}
+.pagingAdLR_a{
+	color:#333;
+	background: #eee;
+	border-radius: 30px;
+}
+.pagingAdLR_a:hover{
+	color:#fff;
+	background: rgb(191,43,53);
+}
+
+/*마이페이지 공통 메뉴바 스타일*/
+.cartDibsBtn{
+	font-size: 16px;
+	width:80px;
+	height: 25px;
+	line-height: 25px;
+	display: block;
+	text-align: center;
+	float: left;
+	margin-right:10px;
+	margin-top:10px;
+}
+#y_leftMenu{
+    width: 120px;
+    float: left;
+    margin-right: 30px;
+    height:600px;
+}
+#y_leftMenu>ul>li{
+    height: 50px;
+    line-height: 50px;
+}
+#y_leftMenu>ul>li:first-child{
+	margin-bottom: 10px;
+	padding-left: 10px;
+}
+#y_leftMenu>ul>li a{
+	padding:5px 10px;
+	width:auto;
+}
+#y_leftMenu>ul>li>a:hover{
+    font-weight: bold;
+}
+/* 마이페이지 공통 탑 스타일 */
+.ftBold25_blue{
+    font-weight: bold;
+    font-size: 25px;
+    color: rgb(191,43,53);
+}
+#y_myPageBanner{
+	width:100%;
+	height: 150px;
+	background: url(../img/tree.jpg) center no-repeat;
+	background-size: cover;
+	position: relative;
+}
+#y_myPageBanner>div{
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.5;
+}
+#y_myPageBanner>p{
+	position: absolute;
+	left: 42%;
+	top:20%;
+}
+#myPageTitle {
+	text-align: center;
+	color:rgb(248,244,236);
+}
+#myPageTitle>span {
+	display:inline-block; 
+	font-size: 40px;
+}
+#myPageTitle>span:after {
+	content: "";
+    display: block;
+    width: 120px;
+    border-bottom:3px solid rgb(248,244,236);
+    margin: 20px auto;
+}
+#y_myPageTop ul{
+    color:#333;
+    border-top:1px solid #aaa;
+    border-bottom:1px solid #aaa;
+    margin: 0 0 30px 0;
+    padding: 30px 40px 30px 40px;
+}
+#y_myPageTop>ul>li:first-child{
+    width: 350px;
+    text-align: left;
+    border: none;
+    font-size: 25px;
+    padding: 40px 0 30px 30px;
+}
+#y_myPageTop>ul>li{
+    float: left;
+    height: 80px;
+    padding: 40px 40px 30px 40px;
+    text-align: center;
+    font-size: 18px;
+    border-right: 1px solid #eee; /*#b98d72;*/
+}
+#y_myPageTop>ul>li span:nth-of-type(2){
+	margin-left:15px;
+	display : block;
+}
+#y_myPageTop>ul>li:last-child{
+    border: none;
+}
+#y_myPageTop ul li span{
+    float: left;
+    display: block;
+}
+
+/*클라이언트 메인버튼*/
+.clientMainBtn {
+	border: none;
+	background-color: rgb(93, 121, 115); color:#fff;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bold; cursor:pointer;
+}
+.clientMainBtn:hover {
+	background-color: rgb(73, 101, 95);
+	position:relative;
+	top:2px;
+}
+/*클라이언트 서브버튼*/
+.clientSubBtn {
+	border: 1px solid rgb(93, 121, 115);
+	outline:none;
+	color: rgb(93, 121, 115); background-color:#fff;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bold; cursor:pointer;
+    box-sizing: border-box;
+}
+.clientSubBtn:hover {
+	border: 2px solid rgb(73, 101, 95);
+	color: rgb(73, 101, 95);
+	position:relative;
+	top:2px;
+    box-sizing: border-box;
+}
+/*관리자 메인버튼*/
+.adminMainBtn {
+	border: none;
+	background-color: rgb(191,43,53); color:#fff;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bold; cursor:pointer;
+}
+.adminMainBtn:hover {
+	background-color:rgb(171,23,33);
+	position:relative;
+	top:2px;
+}
+/*관리자 서브버튼*/
+.adminSubBtn {
+	border: 1px solid rgb(191,43,53);
+	outline:none;
+	color: rgb(191,43,53); background-color:#fff;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bold; cursor:pointer;
+    box-sizing: border-box;
+}
+.adminSubBtn:hover {
+	border: 2px solid rgb(171,23,33);
+	color:rgb(171,23,33);
+	position:relative;
+	top:2px;
+    box-sizing: border-box;
+}
+
