@@ -20,19 +20,6 @@
   		where to_char(orderDate, 'yyyy-mm-dd')=#{param1}
   	</select>
   	<select id="getDailySales" resultType="com.arbor.home.vo.SalesVO" parameterType="com.arbor.home.vo.PageSearchVO">
-<!--   	select * from (select * from (select to_char(orderdate, 'yyyy-mm-dd') as orderdate, to_char(count(distinct(o.orderno)), '999,999,999') as ordercnt,
-  		sum(subprice) as totalsales, sum(deliveryprice) as totaldelivery	
-	  	from ordertbl o join suborder s on o.orderno=s.orderno
-	  	<if test="sales_from!='' and sales_to!=''">
-		  	where '${sales_from}'<![CDATA[ <= ]]>to_char(orderDate, 'yyyy-mm-dd')
-		  	and to_char(orderDate, 'yyyy-mm-dd')<![CDATA[ <= ]]>'${sales_to}'
-	  	</if>
-	  	group by to_char(orderdate, 'yyyy-mm-dd')
-	  	order by orderdate desc)
-	  	<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by orderdate asc)
-		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
-		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderdate desc
-		 -->
 		select * from (select * from (select to_char(orderdate, 'yyyy-mm-dd') as orderdate,
 		count(orderno) as ordercnt, sum(totalprice) as totalsales, sum(deliveryprice) as totaldelivery from ordertbl
 		<if test="sales_from!='' and sales_to!=''">
