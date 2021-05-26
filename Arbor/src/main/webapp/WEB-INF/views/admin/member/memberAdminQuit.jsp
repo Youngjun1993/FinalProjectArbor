@@ -127,19 +127,18 @@
 				<!-- 이메일 sms 추가 -->
 			</form>
 				<ul class="h_paging" id="adPaging">
-				<c:if test = "${pageMaker.prev }">
-					<li><a class="pagingAdLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
-				</c:if>
-				<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-					<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}"><a href="${num }">${num }</a></li>
-				</c:forEach>
-				<c:if test = "${pageMaker.next }">
-					<li><a class="pagingAdLR_a " href="${pageMaker.endPage + 1 }">＞</a></li>
-				</c:if>
-				</ul>
+						<c:if test="${pageMaker.prev }">
+							<li><a class="pagingAdLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
+						</c:if>
+						<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+							<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
+						</c:forEach>
+						<c:if test="${pageMaker.next }">
+							<li><a class="pagingAdLR_a" href="${pageMaker.endPage + 1 }">＞</a></li>
+						</c:if>
+					</ul>
 			</div>
 		</div>
-	
 	</div>
 </div>
 

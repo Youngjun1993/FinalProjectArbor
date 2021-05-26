@@ -203,22 +203,14 @@
 	<!--////////////////// 탈퇴회원 리스트와 페이징 /////////////////////-->
 	<select id="memQuitPaging" resultType="com.arbor.home.vo.MemberQuitVO">
 		<![CDATA[
-			select * from
-			(select * from 
-			(select userid, byetype, byereason, to_char(regdate, 'YY-MM-DD') regdate, to_char(byedate, 'YY-MM-DD') byedate, ceil(sysdate-byedate) quitperiod, rownum as rn from byemember)
-			where rn <= #{pageNum}*#{amount}
+			select * from 
+			(select /*+ INDEX_asc(byemember pk_byemember) */ userid, byetype, byereason, to_char(regdate, 'YY-MM-DD') regdate, to_char(byedate, 'YY-MM-DD') byedate, ceil(sysdate-byedate) quitperiod, rownum as rn from byemember where rownum <= #{pageNum}*#{amount}
 		]]>
 			<if test="searchWord!=null">
             	and userid like '%'||#{searchWord}||'%'
             </if>
             <if test='byetype=="사용자"'>
                 and byetype = '사용자'
-            </if>
-            <if test='byetype=="관리자"'>
-                and byetype = '관리자'
-            </if>
-            <if test='byetype=="관리자"'>
-                and byetype = '관리자'
             </if>
             <if test='byetype=="관리자"'>
                 and byetype = '관리자'
@@ -230,13 +222,12 @@
             </if>
             <if test='quitperiod >= 0'>
             <![CDATA[
-                and to_number(quitperiod) >= #{quitperiod}
+                and to_number(ceil(sysdate-byedate)) >= #{quitperiod}
             ]]>
             </if>
-		<![CDATA[
-			order by quitperiod asc)
-			where rn > (#{pageNum}-1) * #{amount}
-		]]>
+            <![CDATA[	
+          ) where rn > (#{pageNum}-1) * #{amount}
+            ]]>
 	</select>
 	
 	<!-- 탈퇴회원 총 레코드수 -->
@@ -252,6 +243,9 @@
             </if>
             <if test='byetype=="관리자"'>
                 and byetype = '관리자'
+            </if>
+            <if test='byedate1 > 0 and byedate2 > 0'>
+                and byedate between to_date(#{byedate1},'YY-MM-DD') and to_date(#{byedate2},'YY-MM-DD')
             </if>
             <if test='quitperiod >= 0'>
             <![CDATA[

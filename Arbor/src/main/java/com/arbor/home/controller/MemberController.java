@@ -671,9 +671,7 @@ public class MemberController {
 			//System.out.println("휴면메일 발송 처리 실패");
 			mav.setViewName("redirect:memberAdminDormant");
 		}
-
 		return mav;
-
 	}
 
 	// 휴면 다중삭제
@@ -694,7 +692,8 @@ public class MemberController {
 	}
 
 	//////////////////// 탈퇴회원 영역 /////////////////////
-
+	
+	
 	// 탈퇴회원 검색창 이동
 	@RequestMapping("/memberAdminQuit")
 	public ModelAndView memberAdminQuit(MemPagingCri cri) {
@@ -702,7 +701,6 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 
 		//System.out.println("테스트페이지 값 = " + cri.getPageNum());
-
 		int cnt = memberService.memQuitCount(cri);
 		// 페이징용 VO 객체생성
 		MemPagingDTO pageMaker = new MemPagingDTO(cri, cnt);
@@ -737,7 +735,6 @@ public class MemberController {
 				result = 0;
 			}
 		}
-		
 
 		return result;
 	}
