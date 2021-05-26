@@ -203,16 +203,11 @@
 					for (key in data){
 						mainName.push(data[key].mainname)
 						quantity2.push(data[key].quantity);
-					};
-					
-					console.log(quantity)
-					console.log(quantity2)
-					console.log(mainName)
-					
+					};					
 					var mainoptions = {
 			          series: quantity2,
 			          chart: {
-			            width: 380,
+			            width: 550,
 			          	type: 'donut',
 			        },
 			        labels: mainName,
@@ -220,7 +215,7 @@
 			          breakpoint: 480,
 			          options: {	
 			            chart: {
-			              width: 200
+			              width: 550
 			            },
 			            legend: {
 			              show: false
@@ -230,7 +225,8 @@
 			        legend: {
 			          position: 'right',
 			          offsetY: 0,
-			          height: 230,
+			          height: 500,
+			          fontSize: '15px',
 			        }
 			        };
 
@@ -278,14 +274,10 @@
 					</tr>
 				</table>
 			</form>
-			<div id="byMonthly">
-				
-			</div>
-			<div id="subPieChart">
-				
-			</div>
-			<div id="mainPieChart">
-				
+			<div id="byMonthly"></div>
+			<div class="clearfix" id="j_piechart">
+				<div id="mainPieChart"></div>
+				<div id="subPieChart"></div>
 			</div>
 		</div>
 	</div>

@@ -86,7 +86,7 @@
   		group by subname
   	</select>
   	<select id="getDailyMainCatePieChart" resultType="com.arbor.home.vo.SalesVO">
-  		select distinct mainname, sum(quantity) from
+  		select distinct mainname, sum(quantity) as quantity from
 		(select orderdate, o.subno, s.mainno, subname, quantity from
 		(select orderdate, subno, sum(quantity) as quantity from
 		(select to_char(orderdate, 'yyyy-mm-dd') as orderdate, pno, sum(quantity) as quantity
@@ -94,6 +94,9 @@
 		o join product p on o.pno=p.pno group by orderdate, subno)
 		o join subcate s on o.subno=s.subno order by orderdate desc)
 		o join maincate m on o.mainno=m.mainno
+		<if test="sales_from!='' and sales_to!=''">
+  		where orderdate between to_date('${sales_from}', 'yyyy-mm-dd') and to_date('${sales_to}', 'yyyy-mm-dd')+0.9999
+  		</if>
 		group by mainname
   	</select>
   </mapper>

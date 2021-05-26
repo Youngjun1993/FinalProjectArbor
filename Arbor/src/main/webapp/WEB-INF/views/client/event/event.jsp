@@ -123,11 +123,6 @@
 				var hours = Math.floor((interval % _day) / _hour);
 				var minutes = Math.floor((interval % _hour) / _minute);
 				var seconds = Math.floor((interval % _minute) / _second);
-				/* var setTimer = "<span class='d-day'>D-"+days+" </span>";
-				setTimer += hours+"시간 ";
-				setTimer += minutes+"분 ";
-				setTimer += seconds+"초";
-				$("#timer").html(setTimer); */
 				$("#timer>ul:first-child li:nth-child(1)").text(days);
 				$("#timer>ul:first-child li:nth-child(2)").text(hours);
 				$("#timer>ul:first-child li:nth-child(3)").text(minutes);

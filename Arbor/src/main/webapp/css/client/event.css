@@ -66,16 +66,8 @@
     font-weight: normal;
     font-style: normal;
 }
-/* #timer{
-	height:100px;
-	line-height:100px;
-	text-align:center;
-	font-size:4em;
+#timer li{
 	font-family:LAB디지털;
-	color:#444;
-} */
-.d-day{
-	font-family:BMHANNAAir;
 }
 #timeSaleContent{
 	display: block;
@@ -88,7 +80,8 @@
 	box-shadow: none;
 	border: 0;
 }
-#timeSaleContent .bx-wrapper .bx-next{
+#timeSaleContent .bx-wrapper .bx-next,
+#timeSaleContent .bx-wrapper .bx-prev{
 	background: url(img/right_arrow.png) no-repeat 0 -32px;
 }
 /* 
