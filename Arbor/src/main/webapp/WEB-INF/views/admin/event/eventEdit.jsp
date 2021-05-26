@@ -4,21 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>arbor > EventEdit</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/eventInsertEdit.js"></script>
 <!-- datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <!-- summernote -->
 <script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <script>
-	$(function(){		
+ 	$(function(){		
 		//datepicker 옵션 설정
 		$.datepicker.setDefaults({
 			dateFormat: "yy-mm-dd",
@@ -33,11 +36,11 @@
 	        buttonImage: "<%=request.getContextPath()%>/img/calendar2.png",
 	        buttonImageOnly: true
 		});
-		$("#eventStart").datepicker();
-		$("#eventEnd").datepicker();
+		$("#j_eventStart").datepicker();
+		$("#j_eventEnd").datepicker();
 		
 		//summernote
-		$("#eventContent").summernote({
+		$("#j_eventContent").summernote({
 			height: 300,
 			minHeight: 300,
 			maxHeight: 300,
@@ -76,7 +79,7 @@
 			$.ajax({
 				data: data,
 				type: 'POST',
-				url: 'uploadSummernoteImageFile1',
+				url: 'uploadSummernoteImageFile',
 				contentType: false,
 				processData: false,
 				success: function(data){
@@ -86,38 +89,37 @@
 		}
 		
 		//첨부파일 삭제
-		$("#j_insertFrm b").click(function(){
+		$("#j_editFrm b").click(function(){
 			$(this).parent().css("display", "none");
 			$(this).parent().next().attr("name", "delFile");
+			$(this).parent().next().removeAttr("id");
 			$(this).parent().next().next().attr("type", "file");
-		});
-		
+			$(this).parent().next().next().attr("id", "eventImg1");
+		});		
 	});
 </script>
 </head>
 <body>
 <div class="w1400_container font_ng">
-	<div class="j_sideMenu">사이드메뉴</div>
-	<div class="j_centerFrm" id="j_insertFrm">
-		<h1>이벤트 수정</h1>
-		<form method="post" action="eventEditOk" enctype="multipart/form-data">
+	<!-- 관리자메뉴 -->
+	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
+	<div class="j_centerFrm" id="j_editFrm">
+		<p class="j_adminMemu"><span>이벤트 수정</span></p>
+		<form method="post" id="j_eventEditFrm" action="eventEditOk" enctype="multipart/form-data">
 		<input type="hidden" name="eventNo" value="${vo.eventNo }"/>
 			<div>
-				<span class="j_category">제목</span>
-					<input type="text" name="eventSubject" id="eventSubject" value="${vo.eventSubject }"/>
-				<br/>
+				<span class="j_category">제목</span> <input type="text" name="eventSubject" id="j_eventSubject" value="${vo.eventSubject }"/><br/>
 				<span class="j_category">이벤트 기간</span>
-					<input type="text" name="eventStart" id="eventStart" value="${vo.eventStart }"/> ~ 
-					<input type="text" name="eventEnd" id="eventEnd" value="${vo.eventEnd }"/>
-				<br/>
+					<input type="text" name="eventStart" id="j_eventStart" value="${vo.eventStart }"/> ~ 
+					<input type="text" name="eventEnd" id="j_eventEnd" value="${vo.eventEnd }"/><br/>
 				<span class="j_category" id="j_eventFile">타이틀 이미지</span>
-					<span>${vo.eventImg1 } <b>X</b></span>
-					<input type="hidden" name="" value="${vo.eventImg1 }"/>
-					<input type="hidden" name="img1" value="${vo.eventImg1 }"/>
+				<span>${vo.eventImg1 } <b>X</b></span>
+					<input type="hidden" id="j_eventImg1" value="${vo.eventImg1 }"/>
+					<input type="hidden" name="img1" value=""/>
 				<br/><br/>
-				<textarea name="eventContent" id="eventContent">${vo.eventContent }</textarea>
+				<textarea name="eventContent" id="j_eventContent">${vo.eventContent }</textarea>
 				<br/>
-				<p class="j_eventSetBtn"><input type="submit" value="수정"> <input type="button" id="j_editCnlBtn" value="취소"></p>
+				<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_editOkBtn" value="수정"> <input type="button" class="adminSubBtn" onclick="location.href='eventView?eventNo=${vo.eventNo}'" value="취소"></p>
 			</div>
 		</form>
 	</div>

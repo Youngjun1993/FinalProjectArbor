@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+.h_memberQuit_header {
+	height:100px;
+	text-align:center;
+	line-height:100px;
+	font-size:25px;
+}
+
+.h_memberQuit_Container{
+	float:right;
+	width:1250px;
+	/* overflow:auto; */
+}
+ 
+.h_password_checkbox{
+	width:400px;
+	height:160px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.h_password_checkbox>img{
+	width:150px;
+	height:150px;
+	margin:5px 5px;
+	
+}
+
+.h_pwdconfirm_div {
+	width:400px;
+	height:100px;
+	margin: 0 auto;
+	font-size:1.2em;
+}
+
+.h_pwd_div{
+	margin:15px 0;
+	text-align:center;
+}
+
+.h_wrongPwd {
+	text-align:center;
+	display:none;
+	color:red;
+}
+
+.h_pwd_div.correct{
+	color:green;
+}
+
+.h_pwd_div.incorrect{
+	color:red;
+}
+
+.h_ipt{
+	padding: 8px 0;
+		border: 1px solid #E8EAED;
+		border-radius: 1px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+		margin:0;
+		font-size: 14px;
+	
+}
+
+/* 탈퇴사유 박스 */
+.h_quitReason_div {
+	display:none;
+	width:400px;
+	height:100px;
+	margin: 20px auto;
+	font-size:1.2em;
+}
+
+.h_quitReason {
+    padding: 7px 40px 7px 12px;
+    border: 1px solid #E8EAED;
+    border-radius: 1px;
+    background: white;
+    box-shadow: 0 1px 3px -2px #9098a9;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.h_quitBtn_div{
+	margin:15px 0;
+	text-align:center;
+	
+}
+
+/* 타이틀 영역 */
+.h_memberQuit_header.pageTitle {
+	margin: 50px auto 60px; text-align: center;
+}
+.h_memberQuit_header.pageTitle>span {
+	display:inline-block; font-size: 30px; font-weight: bold; 
+}
+.h_memberQuit_header.pageTitle>span:after {
+	content: "";
+    display: block;
+    width: 1250px;
+    border-bottom: 1px solid rgb(93,121,115);
+    margin: 0 auto;
+}

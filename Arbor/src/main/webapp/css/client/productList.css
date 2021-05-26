@@ -2,12 +2,78 @@
 
 /* id css*/
 
+/* totalList */
+#p_totalList {
+	overflow: auto; text-align: center;
+}
+#p_cateList {
+	width: 100%; margin-top:100px;
+	margin-bottom:100px;
+	overflow: auto;
+}
+#p_cateList>a {
+	display: inline-block; width: 20%;
+	margin:10px; overflow: auto;
+}
+#p_cateList>a>img {
+	width: 250px; height: 200px;
+	border-radius: 50px;
+}
+#p_cateList>a>span {
+	display: inline-block; width: 100%; text-align: center;
+	margin-top:20px;
+	font-size:1.5em; font-weight:bold;
+}
+
+#p_totalList>p.pageTitle {
+	margin: 150px auto 40px; text-align: center;
+}
+#p_totalList>p.pageTitle>span {
+	display:inline-block; font-size: 30px; font-weight: bold; 
+}
+#p_totalList>p.pageTitle>span:after {
+	content: "";
+    display: block;
+    width: 100px;
+    border-bottom: 1px solid rgb(93,121,115);
+    margin: 20px auto;
+}
+
+#p_Totallist {
+	margin-top: 60px;
+}
+#p_Totallist>ul>li {
+	width: 25%; height: 400px;
+	float:left; text-align:center;
+	position:relative;
+}
+#p_Totallist>ul>li>a {
+	display:block;
+	width: 100%; text-align: center;
+	height: 250px;
+}
+#p_Totallist>ul>li>a>img {
+	width: 300px; height: 250px;
+}
+#p_Totallist>ul>li>.p_topLank {
+	display:inline-block; position:absolute; text-align:center;
+	top:0; left:25px; width: 100px; height: 50px; line-height: 50px;
+	font-size:2em; font-weight:bold; background-color:black;
+	color:#fff; opacity: 0.5;
+}
+#p_Totallist>ul>li>.p_Lank {
+	display:inline-block; position:absolute; text-align:center;
+	top:0; left:25px; width: 50px; height: 50px; line-height: 50px;
+	font-size:2em; font-weight:bold; background-color:black;
+	color:#fff; opacity: 0.5;
+} 
+
 /* center */
 #p_center {
 	text-align: center;
 	margin-top: 40px;
 }
-#p_center>img {
+#p_center>a>img {
 	width: 350px; height: 250px;
 	margin:10px 20px;
 }
@@ -51,21 +117,27 @@
 }
 
 /* list */
-#p_ist {
+#p_list {
 	margin-top: 60px;
 }
-#p_list li {
+#p_list>ul>li {
 	width: 25%; height: 500px;
 	float:left; text-align:center;
+	position:relative;
 }
 #p_list>ul>li>a {
 	display:block;
 	width: 100%; text-align: center;
 	height: 250px;
 }
-
 #p_list>ul>li>a>img {
 	width: 300px; height: 250px;
+}
+#p_list>ul>li>span.p_salepercent {
+	display:inline-block; position:absolute; text-align:center;
+	top:210px; left:25px; width: 70px; height: 40px; line-height: 40px;
+	font-size:1em; font-weight:bold; background-color:rgb(191,43,53);
+	color:#fff; opacity: 0.8;
 }
 
 /* class css */
@@ -74,19 +146,17 @@
 	margin-left: 30px; 
 }
 .p_color>div {
-	float:left; width:10px; height:10px; background-color: red;
+	float:left; width:10px; height:10px;
 	margin: 5px;
 }
-.p_color>div:nth-of-type(2) {
-	background-color: maroon;
-}
-.p_color>div:nth-of-type(3) {
-	background-color: navy;
+.p_colorDiv>div {
+	float:left; height: 40px; line-height: 40px;
 }
 
 .p_listdetail1 {
-	font-size: 1.1em; font-weight: bold;
-	margin:5px 0;
+	width: 300px; font-size: 1.3em; font-weight: bold;
+	margin:5px 0 5px 25px; text-align:center;
+	white-space:normal; word-break:keep-all;
 }
 .p_listdetail2 {
 	color:red; text-decoration:line-through;
@@ -94,6 +164,22 @@
 .p_listdetail3 {
 	font-size: 1.2em;
 }
+
+#pagingDiv {
+	text-align: center;
+}
+#pagingDiv>ul.paging {
+	margin-bottom: 50px;
+	overflow:auto;
+	display:inline-block;	
+}
+
+/* percent */
+/* .p_salepercent {
+	display:inline-block;
+	width: 40px; border:1px solid rgb(191,43,53); font-size:0.8em;
+	padding: 2px 3px; margin:1px 0 1px 10px;
+} */
 
 /* tag css */
 

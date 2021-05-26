@@ -1,0 +1,447 @@
+@charset "UTF-8";
+
+
+/* 틀 공통 */
+
+	/* 라벨 폰트 */
+
+	.h_jointop{
+	width:800px;
+	text-align:center;
+	height:60px;
+	line-height:60px;
+	vertical-align:center;
+	margin:0;
+	padding:20px 0 0;
+}
+
+	.h_formcontainer {
+	width:800px;
+	padding: 0;
+	margin: 30px auto;
+	text-align:center;
+	background-color:pink;
+	position: relative;
+	overflow: hidden;
+	background-color: #ffffff;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
+}
+	.h_jointop.idsrch{
+	width:600px;
+	text-align:center;
+	height:60px;
+	line-height:60px;
+	vertical-align:center;
+	margin:0;
+	padding:20px 0 0;
+}
+	.h_formcontainer.idsrch{
+	width:600px;
+	padding: 0;
+	margin: 30px auto;
+	text-align:center;
+	background-color:pink;
+	position: relative;
+	overflow: hidden;
+	background-color: #ffffff;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
+}
+	
+	.h_formbox {
+	margin:50px auto;
+	width:800px;
+	text-align:center;
+	}
+	
+	
+/* 회원가입부분 */
+
+	.h_formtable{
+		width:800px;
+	}
+	
+	.h_formtable tr{
+		border:2px solid gray;
+	}
+	
+	.h_formtable td:nth-child(2n+1){
+		text-align:left;
+		padding:0 0 0 25px;
+		width:150px;
+		height: 15px;
+		font-size:1.1em;
+	}
+	
+	.h_formtable td:nth-child(2n){
+		text-align:left;
+		height: 15px;
+	}
+	
+	 .h_select {
+	    padding: 7px 40px 7px 12px;
+	    border: 1px solid #E8EAED;
+	    border-radius: 1px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+	    cursor: pointer;
+	    font-size: 16px;
+   
+     }
+      
+	.h_ipt{
+		padding: 7px 40px 7px 12px;
+		border: 1px solid #E8EAED;
+		border-radius: 1px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+		margin:10px 0;
+		
+	}
+	
+	.h_ipt.sms{
+		font-size: 16px;	
+	}
+	
+	.h_trans{
+		padding: 7px 40px 7px 12px;
+		margin:10px 0;
+		background:transparent;
+		opacity:0.01;
+	}
+	
+	/* 비번 이메일 인증 체크박스 */
+	.h_pwdchk{
+	background-color:#ebebe4;
+	padding: 7px 40px 7px 12px;
+	border: 1px solid #E8EAED;
+	border-radius: 1px;
+	box-shadow: 0 1px 3px -2px #9098A9;
+	margin:10px 0;
+	}
+	
+	.h_pwd_ok.correct{
+		color : green;
+	}
+	
+	.h_pwd_ok.incorrect{
+		color : red;
+	}
+	
+	.h_emailvalid{
+	
+	background-color:#ebebe4;
+	padding: 7px 40px 7px 12px;
+	border: 1px solid #E8EAED;
+	border-radius: 1px;
+	box-shadow: 0 1px 3px -2px #9098A9;
+	margin:10px 0;
+	
+	}
+	/* 이메일 인증후  */
+	#emailvalid_ok{
+	background-color:white;
+	}
+	
+	/* 이메일 인증확인 */
+	.h_email_warning.correct{
+		color : green;
+	}
+	.h_email_warning.incorrect{
+		color : red;
+	}
+	
+	/* 확인버튼 */
+	
+	
+	.h_check_btn {
+	font-size: 1.1em;
+	line-height: 32px;
+	width: 110px;
+	height: 32px;
+	cursor: pointer;
+	vertical-align: middle;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: rgb(90,120,114);
+	border: 1px solid rgb(90,120,114);
+	background: transparent;
+	border-radius: 1px;
+	text-align:center;
+		
+	}
+	
+	.h_check_btn:hover {
+	/* background-color:  rgb(191, 43, 53) 빨강; */
+	background-color:rgb(90,120,114);
+	color: #ffffff;
+	transition: all 0.5s;
+	}
+	
+	.h_check_btn.join {
+	margin-top:30px;
+	width: 400px;
+	height: 42px;
+	line-height: 42px;
+		
+	}
+	
+	.h_check_btn.search {
+		margin-top:20px;
+	    margin-bottom: 20px
+	}
+	
+	.h_2box {
+		display: table;
+		font-size: 12;
+		width:800px;
+		height:300px;
+	}
+	
+	.h_terms{
+		display: inline-block;
+		overflow:auto;
+		width:330px;
+		height:300px;
+		margin: 10px 20px 0 20px;
+		border: 1px solid #E8EAED;
+		border-radius: 1px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+	}
+	.h_privacy{
+		display: inline-block;
+		overflow:auto;
+		width:330px;
+		height:300px;
+		
+		margin: 10px 20px 0 20px;
+		
+		border: 1px solid #E8EAED;
+		border-radius: 1px;
+	    background: white;
+	    box-shadow: 0 1px 3px -2px #9098A9;
+	}
+	
+	.h_term_chk{
+		display: inline-block;
+		overflow:auto;
+		width:330px;
+		height:50px;
+		margin: 0 20px;
+	}
+	
+	.h_title{
+		width:330px;
+		height:36px;
+	    line-height: 36px;
+	}
+	
+	.h_termcontent{
+		overflow:auto;
+	    text-align: justify;
+	   	margin: 10px;
+	}
+	
+	/* 로그인 확인 부분*/
+	
+	/* 중복아이디 존재하지 않는경우 */
+	.h_id_chk_1{
+		color : green;
+		display : none;
+	}
+	/* 중복아이디 존재하는 경우 */
+	.h_id_chk_2{
+		color : red;
+		display : none;
+	}
+	
+	
+	.h_check_headline {
+		margin:8px 0;
+	}
+	
+	.h_check_btn_box {
+		height:70px
+	}
+	.h_check_btn.joinok {
+	
+	width: 120px;
+	height: 42px;
+	line-height: 42px;
+		
+	}
+	
+	/* 비밀번호 변경 페이지 탭 */
+	
+	.h_pwdsearchhead {
+		font-size: 1.2em;
+		display: block;
+		margin-top: 30px;
+		margin-bottom: 30px;
+		text-align: center;
+		text-decoration: none;
+		font-weight:bold;
+		letter-spacing: 2px;
+	}
+	
+	.h_pwd_div{
+		margin-top: 15px;
+		margin-bottom: 10px;
+	}
+	#h_btnbox {
+		width: 100px;
+	    height: 20px;
+	    margin: 20px auto;
+	}
+	
+	.h_pwdtapbox{
+		width:800px;
+		margin:20px auto;
+	}
+	
+	/* pwd테이블영역 */
+	.h_pwdformtable{
+		width:450px;
+		margin: 20px auto;
+	}
+	
+	
+	.h_pwdformtable tr{
+		border-bottom:1px solid gray;
+	}
+	
+	.h_pwdformtable td:nth-child(2n+1){
+		text-align:left;
+		width:30%;
+		height: 40px;
+		font-size:15px;
+	}
+	
+	.h_pwdformtable td:nth-child(2n){
+		text-align:left;
+		width:70%;
+		height: 40px;
+	}
+	
+	/* pwd 2테이블 */
+	.h_pwd2formtable{
+		width:450px;
+		margin: 20px auto;
+	}
+	
+	.h_pwd2formtable tr{
+		border-bottom:1px solid gray;
+	}
+	
+	.h_pwd2formtable td:nth-child(2n+1){
+		text-align:left;
+		width:30%;
+		height: 40px;
+		font-size:15px;
+	}
+	
+	.h_pwd2formtable td:nth-child(2n){
+		text-align:left;
+		width:70%;
+		height: 40px;
+	}
+	
+	
+	.h_pwd2formtable.now{
+		display:none;
+	}
+	
+	.h_pwdchangeipt {
+		display:inline-block;
+		background: transparent;
+		border:none;
+		vertical-align:center;
+		height:40px;
+		border-bottom: 1px solid #aaa;
+	    margin-bottom: 20px;
+		
+	}
+	
+	/* 비밀번호 탭부분 */
+	.h_pwdtapbox {
+		width: 450px;
+		margin-bottom: 29px;
+		border-bottom: 1px solid #d9d9d9;
+	}
+	
+	.h_tab {
+		display: inline-block;
+		margin-bottom: -1px;
+		padding: 20px 15px 10px;
+		cursor: pointer;
+		letter-spacing: 0;
+		border-bottom: 1px solid #d9d9d9;
+		user-select: none;
+		transition: all 0.1s ease-in-out;
+		}
+	
+	.h_tab a {
+		font-size: 1.2em;
+		text-decoration: none;
+		text-transform: uppercase;
+		color: #d9d9d9;
+		transition: all 0.1s ease-in-out;
+	}
+	
+	.h_tab a:hover {
+		color: #263238;
+	}
+	
+	.h_tab.active {
+		border-bottom: 1px solid #263238;
+	}
+	
+	.h_tab.active a{
+		color:black;
+	}
+	
+	.h_google_recaptha {
+		width:800px;
+		margin:0 auto;
+	}
+	
+	.g-recaptcha{
+	    margin: 30px auto;
+    	width: 300px;
+	}
+	
+	
+	/* 아이디 체크 */
+	#h_idcheck_banner {
+		width: 100%;
+	    height: 100px;
+	    background: url(../../img/idcheck_top.png) center no-repeat;
+	    background-size: cover;
+	    position: relative;
+		
+	}
+	#h_idcheck_banner img {
+		margin: 34px auto;
+	}
+	#idCheckTitle {
+		line-height:40px;
+		text-align: center;
+		font-size:1.1em;
+		color:rgb(248,244,236);
+	}
+	#h_confirm_div{
+		margin:15px auto;
+		text-align:center;
+	}
+	#h_confirm_div2{
+		text-align:center;
+	}
+	
+	/* sms전송 폼 */
+	
+	#h_sms_line {
+		margin-top:10px;
+		margin-bottom:10px;
+	}
+	
+	

@@ -36,7 +36,13 @@
 .j_search select, .j_search input{height:25px;line-height:25px;vertical-align:middle;} /* 높이 통일화 필요 */
 .j_search input[type=text]{padding:0;box-sizing:border-box;}
 
-#j_eventFrm{padding-top:30px;}
+.j_eventBtn{
+	height:25px;width:40px;
+}
+
+#j_eventFrm{
+	padding-top:30px;
+}
 
 /* tab content */
 #j_tab1:checked~#j_tab1_content,
@@ -44,9 +50,111 @@
 #j_tab3:checked~#j_tab3_content{
 	display:block;
 }
+
 /*----------------
 	타임세일 tab
 -----------------*/
+@font-face {
+    font-family: 'LAB디지털';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/LAB디지털.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'BMHANNAAir';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+#timer li{
+	font-family:LAB디지털;
+}
+#timeSaleContent{
+	display: block;
+	margin: 0 300px;
+	padding: 0 auto;
+}
+#timeSaleContent .bx-wrapper{
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	border: 0;
+}
+#timeSaleContent .bx-wrapper .bx-next,
+#timeSaleContent .bx-wrapper .bx-prev{
+	background: url(img/right_arrow.png) no-repeat 0 -32px;
+}
+/* 
+.bx-prev,
+.bx-next {
+  display: none;
+}
+.bx-prev-arrow,
+.bx-next-arrow {
+  border-radius: 50%;
+  background: rgb(0, 112, 255, .5);
+  width: 32px;
+  height: 28px;
+  display: inline-block;
+  padding-top: 4px;
+}
+ */
+#j_tab1_content{
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 1200px;	
+}
+#j_tab1_content>div{
+	margin: 400px auto 0 auto;
+}
+#timer{
+	margin: 50px 0;
+ 	width: 100%;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+#timer>ul:first-child li{
+	width: 35px;
+	float: left;
+    border-radius: 100px;
+    margin: 0 5px;
+    padding: 35px;
+    background: #555;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+#timer>ul:last-child{
+	margin-top: 5px;
+}
+#timer>ul:last-child li{
+	float: left;
+    text-align: center;
+    width: 105px;
+    margin: 0 5px;
+    color: #aaa;
+    font-size: 15px;
+    font-weight: bold;
+}
+#timer ul{
+	display: inline-block;
+	margin: 0 auto;
+}
+
+
+#timeSaleContent{
+/* 	background: lightblue;
+	border: 1px solid blue; */
+	margin-bottom: 50px;
+}
+#j_tab1_content{
+	/* background: yellow; */
+/*  background-img: url("../../img/background_img2.jpg");
+	background-repeat: no-repeat;
+	background-size: cover; */
+}
 
 
 
@@ -57,17 +165,24 @@
 #j_eventList{padding-top:15px;}
 #j_eventList>li{
 	float:left;
-	margin:10px 15px;
+	margin:10px 15px 20px 15px;
 	padding:0 10px;
 	text-align:center;
 }
 #j_eventList img{width:300px;height:250px;}
 #j_eventList a:hover{cursor:pointer;}
-#j_eventList strong, .j_eventList p{font-size:12px;}
-#j_eventList a{border-bottom:1px solid #bbb;}
-#j_eventList a:hover {border-bottom:1px solid #333;}
 #j_eventList strong{margin:10px 0;line-height:20px;}
-#j_eventList p{color:#aaa;}
+#j_eventList p{color:gray;}
+#j_eventList span:after{
+	content:"";
+	display:block;
+	width:300px;
+	border-bottom:1px solid #bbb;
+	margin:5px 0 5px 0;
+}
+#j_eventList span:hover:after{
+	border-bottom:1px solid #333;
+}
 /* 진행중인 이벤트 view */
 #j_eventTitle, #j_contentList{
 	border-top:1px solid rgb(229,229,229);
@@ -75,10 +190,11 @@
 }
 #j_eventTitle{
 	margin-top:50px;
-	height:40px;
+	height:50px;
 	background-color:rgb(246,246,246);
-	line-height:40px;
+	line-height:50px;
 	text-align:center;
+	font-size: 1.5em;
 }
 #j_eventContent{
 	padding:50px; text-align:center;
@@ -87,9 +203,10 @@
 #j_contentList{
 	padding:10px; line-height:25px;
 }
-#j_eventListBtn{	/*적용안됨!!!!!!!!!!!!!!!!!!*/
-	margin:15px 0; float:right;
+#j_eventListBtn{
+	margin:10px 0; float:right;
 }
+
 /*------------------
 	지난 이벤트 tab
 ------------------*/
@@ -100,7 +217,6 @@
 	line-height:40px;
 	text-align:left;
 	border-bottom:1px solid #ddd;
-	font-size:12px;
 }
 #j_tab3_content li:nth-child(4n+3){width:58%;}
 #j_tab3_content li:nth-child(4n+4){width:22%;}

@@ -1,90 +1,348 @@
 @charset "UTF-8";
 
-/* 서브로고 */
+/* 관리자 공통메뉴 */
 .h_sidemenuContainer {
-	float:left;
+	float: left;
 	width: 150px;
-	text-align:center;
+	text-align: center;
 }
-/* 사이드 메뉴바 */
-.h_select {
-	position: relative;
+
+.h_menu_list .h_menu_submenu {
+	padding: 0;
+}
+
+.h_menu_list .h_menu_submenu li a {
 	display: block;
-	width: 150px;
+	padding: 10px 0 10px 20px;
+}
+
+.h_menu_list .h_menu_submenu li a:hover {
+	background: #eee;
+}
+
+/* 메뉴 전체 스타일 */
+.h_menu_list {
+	padding-left: 0;
+	display: block;
+	position: absolute;
 	width: 100%;
-	color: #cccccc;
-	vertical-align: middle;
+	max-width: 150px;
+	background: white;
+	box-shadow: rgba(100, 100, 100, 0.2) 1px 1px 2px;
+	z-index: 99;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.h_menu_list li {
 	text-align: left;
 }
-.h_select .h_placeholder {
-  position: relative;
-  display: block;
-  background-color: #393d41;
-  z-index: 1;
-  padding: 1em;
-  border-radius: 2px;
-  cursor: pointer;
+
+/* 관리탭 대분류 */
+.h_menu_list li.accordion-toggle {
+	font-size: 16px;
+	padding: 20px;
+	text-transform: uppercase;
+	border-top: 1px solid #dbdcd2;
 }
-.h_select .h_placeholder:hover {
-  background: #34383c;
+
+.h_menu_list li:first-of-type {
+	border-top: 0;
 }
-.h_select .h_placeholder:after {
-  position: absolute;
-  right: 1em;
-  top: 50%;
-  content: '▼';
-  z-index: 10;
-}
-.h_select.selected .h_placeholder:after {
-  content: '▲';
-}
-.h_select.selected ul {
-  display: block;
-}
-.h_select.h_select_white .h_placeholder {
-  background: #fff;
-  color: #999;
-  border:1px solid #34383c;
-}
-.h_select.h_select_white .h_placeholder:hover {
-  background: #fafafa;
-}
-.h_select ul {
-  display: none;
-  position: absolute;
-  overflow: hidden;
-  width: 100%;
-  background: #fff;
-  border-radius: 2px;
-  top: 100%;
-  left: 0;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  z-index: 100;
-}
-.h_select ul li {
-	display: block;
-	text-align: left;
-	padding: 0.8em 1em 0.8em 1em;
-	color: #999;
+
+.accordion-toggle, .accordion-content {
 	cursor: pointer;
-}
-.h_select ul li:hover {
-	text-decoration:none;
-	background: #fafafa;
-	color: #999;
-}
-.h_alink{
-	text-decoration:none;
-	color: #999;
+	font-size: 16px;
+	position: relative;
+	letter-spacing: 1px;
 }
 
-/* 관리자 내용 */
-
-.h_mainContainer{
-	float:right;
-	width:100%;
-	width:1200px;
-	background-color:lightgray;
+.accordion-content {
+	display: none;
 }
+
+.accordion-toggle a:before, .accordion-toggle a:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: 30px;
+	width: 15px;
+	height: 2px;
+	margin-top: -1px;
+	background-color: #5a5858;
+	transform-origin: 50% 50%;
+	transition: all 0.3s ease-out;
+}
+
+.accordion-toggle a:before {
+	transform: rotate(-90deg);
+	opacity: 1;
+	z-index: 2;
+}
+/* 아코디언 toggle 이벤트 발생시 */
+.accordion-toggle.active-tab {
+	background: rgb(191, 43, 53);
+	transition: all 0.3s ease;
+}
+
+.accordion-toggle.active-tab a {
+	color: white !important;
+}
+
+.accordion-toggle a.active:before {
+	transform: rotate(0deg);
+	background: #fff;
+}
+
+.accordion-toggle a.active:after {
+	transform: rotate(180deg);
+	background: #fff;
+	opacity: 0;
+}
+/* 관리자 공통메뉴 끝 */
+.h_mainContainer {
+	float: right;
+	width: 100%;
+	width: 1200px;
+}
+
+.h_memberSearch_header {
+	height: 150px;
+	text-align: center;
+	line-height: 150px;
+	font-size: 25px;
+}
+
+/* 메인카테고리 */
+.h_ipt {
+	padding: 8px 0;
+	border: 1px solid #E8EAED;
+	border-radius: 1px;
+	background: white;
+	box-shadow: 0 1px 3px -2px #9098A9;
+	margin: 0;
+	font-size: 16px;
+}
+
+.h_searchSelect {
+	padding: 8px 10px;
+	border: 1px solid #E8EAED;
+	border-radius: 1px;
+	background: white;
+	box-shadow: 0 1px 3px -2px #9098A9;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+/* 테이블 정렬용 */
+.h_formtable {
+	border: 1px solid;
+}
+
+.h_formtable td:nth-child(2n+1) {
+	text-align: left;
+	padding: 0 0 0 25px;
+	width: 300px;
+	height: 40px;
+	font-size: 1.1em;
+	background-color: lightgray;
+}
+
+.h_formtable td:nth-child(2n) {
+	text-align: left;
+	height: 40px;
+	width: 900px;
+	border-bottom: 1px solid #E8EAED;;
+}
+
+.h_last_td {
+	border-bottom: none !important;
+}
+
+.h_radiochk {
+	font-size: 16px;
+}
+
+.h_searchBtnBox {
+	margin: 10px 0;
+	width: 1200px;
+	text-align: center;
+}
+
+.h_searchMultiBtn {
+	width: 1200px;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+/*////// 버튼 스타일 //////  */
+.adminSubBtn.semiBtn {
+	float: left;
+	width: 100px !important;
+	height: 30px !important;
+	margin: 0 10px;
+}
+
+/* 회원검색 ul li */
+.h_memList li {
+	float: left;
+	width: 12.5%;
+	height: 40px;
+	line-height: 40px;
+	text-align: left;
+	border-bottom: 1px solid #eee;
+	font-size: 12px;
+	text-align: center;
+}
+
+#memSearchBtn {
+	width: 200px;
+    height: 35px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.h_dormantList {
+	margin-top: 40px;
+}
+
+.h_dormantList>li {
+	float: left;
+	width: 11%;
+	height: 40px;
+	line-height: 40px;
+	text-align: left;
+	border-bottom: 1px solid #eee;
+	font-size: 12px;
+	text-align: center;
+}
+
+.h_dormantList>li:nth-of-type(10n+1), .h_dormantList>li:nth-of-type(10n+8),
+	.h_dormantList>li:nth-of-type(10n+9) {
+	width: 5%;
+}
+
+.h_dormantList>li:nth-of-type(10n+4) {
+	width: 15%;
+}
+
+.h_dormantList>li:nth-of-type(10n+10) {
+	width: 15%;
+}
+
+.h_dormantList>li>input[type=button] {
+	width: 100px;
+	height: 30px;
+}
+
+.h_listHeader {
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #aaa !important;
+}
+
+.h_memdormant {
+	border: none;
+	background-color: rgb(191, 43, 53);
+	color: #fff;
+	font-family: 'Nanum Gothic', Fsans-serif;
+	font-weight: bold;
+	cursor: pointer;
+	pointer-events: none;
+}
+
+.h_memTableLi.search {
+	margin: 25px 0;
+}
+
+.h_memTableLi.dormant {
+	margin: 50px 0;
+}
+
+.h_memTableLi.quit {
+	margin: 70px 0;
+}
+
+/* 페이징 버튼 스타일 */
+
+/* .h_paging_wrap {
+	    width: 240px;
+	    height: 40px;
+	    text-align: center;
+	    margin: 20px auto;
+<<<<<<< HEAD
+	}
+	
+	#pagingDiv {
+		text-align: center; margin-top:50px;
+	}
+	#pagingDiv>ul {
+		margin-bottom: 50px;
+		overflow:auto;
+		display:inline-block;	
+	}
+/*2021-05-21 영준 쿠폰관리, 리뷰관리 추가*/
+#h_menucontainer>ul>li:hover{
+	background-color: #eee;
+}
+.y_couponAdBtnLi a, .y_reviewAdBtnLi a{
+	border-top:2px solid #ddd;
+	width:110px; 
+	display:block; 
+	padding:20px; 
+	font-size:16px;
+	letter-spacing: 1px; 
+}
+/* ///////////////////////////탈퇴회원 페이지/////////////////////////// */
+
+.h_paging_wrap {
+	text-align: center;
+	margin-top: 50px;
+}
+
+.h_paging_wrap>ul {
+	margin-bottom: 50px;
+	overflow: auto;
+	display: inline-block;
+}
+
+#pagingDiv {
+	text-align: center;
+	margin-top: 50px;
+}
+
+#pagingDiv>ul {
+	margin-bottom: 50px;
+	overflow: auto;
+	display: inline-block;
+}
+
+/* 페이징 호버 버튼 */
+#adPaging>li {
+	width: 30px;
+	float: left;
+	margin-right: 10px;
+	border-bottom: 3px solid #eee;
+}
+
+.adPaging>li:nth-child(1) {
+	border-bottom: 3px solid rgb(93, 121, 115);
+}
+
+#adPaging>li:hover {
+	border-bottom: 3px solid rgb(191, 43, 53);
+}
+
+#adPaging>li a {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	display: block;
+}
+
+.pageBtn.active {
+	border-bottom: 3px solid rgb(191, 43, 53) !important
+}
+
+/* ///////////////////////////탈퇴회원 페이지/////////////////////////// */
