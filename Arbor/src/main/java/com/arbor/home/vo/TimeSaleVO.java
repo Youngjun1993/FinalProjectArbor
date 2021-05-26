@@ -9,6 +9,8 @@ public class TimeSaleVO {
 	private String saleEnd;
 	private String salePrice;
 	private String pName;
+	private String searchKey;
+	private String searchWord;
 	
 	
 	public int getSaleNo() {
@@ -59,5 +61,22 @@ public class TimeSaleVO {
 	public void setpName(String pName) {
 		this.pName = pName;
 	}
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		if(searchKey.equals("pNo")) {
+			this.searchKey = "p."+searchKey;			
+		}else {
+			this.searchKey = searchKey;			
+		}
+	}
+	public String getSearchWord() {
+		return searchWord;
+	}
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
+	
 	
 }

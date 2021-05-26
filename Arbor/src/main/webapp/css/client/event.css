@@ -113,7 +113,7 @@
     text-align: center;
     width: 105px;
     margin: 0 5px;
-    color: rgb(191,43,53);
+    color: rgb(251,205,47);
     font-size: 18px;
     font-weight: bold;
 }
@@ -121,21 +121,9 @@
 	display: inline-block;
 	margin: 0 auto;
 }
-
-
 #timeSaleContent{
-/* 	background: lightblue;
-	border: 1px solid blue; */
 	margin-bottom: 50px;
 }
-#j_tab1_content{
-	/* background: yellow; */
-/*  background-img: url("../../img/background_img2.jpg");
-	background-repeat: no-repeat;
-	background-size: cover; */
-}
-
-
 
 /*---------------------
 	진행중인 이벤트 tab

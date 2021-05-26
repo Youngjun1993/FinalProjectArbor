@@ -222,8 +222,9 @@ public class OrderController {
 	public ModelAndView orderManagement(
 			@Nullable @RequestParam(value = "orderno", required = false) int[] ordernoArr,
 			PageSearchVO pageVo, OrderTblVO orderVo, HttpServletRequest req) {
-		
+		System.out.println("getPageNum()->"+pageVo.getPageNum());
 		String pageNumStr = req.getParameter("pageNum");
+		System.out.println("pageNumStr->"+pageNumStr);
 		if (pageNumStr != null) {
 			pageVo.setPageNum(Integer.parseInt(pageNumStr));
 		}
@@ -257,13 +258,18 @@ public class OrderController {
 			}
 			if(orderVo.getChangestatus().equals("배송완료")) {
 				orderService.setPlusPoint(orderVo);
-				System.out.println("배송완료 OK -> 구매적립금 적립 완료");
 			}
 		}
-		
 		mav.addObject("cnt", orderService.countOfOrderStatus(orderVo));
 		mav.addObject("list", orderService.selectOrderList(pageVo));
+		if(pageVo.getTotalRecord()<=10) {
+			pageVo.setPageNum(1);
+		}
 		System.out.println("주문리스트->" + orderService.selectOrderList(pageVo).size());
+		System.out.println("getPageNum()->"+pageVo.getPageNum());
+		System.out.println("getTotalPage()->"+pageVo.getTotalPage());
+		System.out.println("getLastPageRecord()->"+pageVo.getLastPageRecord());
+		System.out.println("getTotalRecord()->"+pageVo.getTotalRecord());
 		mav.addObject("pageVO", pageVo);
 		mav.setViewName("admin/order/orderAdmin");
 		return mav;

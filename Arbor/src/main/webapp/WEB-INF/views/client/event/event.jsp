@@ -139,10 +139,19 @@
 		});	
 		
 		//EVENT 게시물 검색
-		$(".searchFrm").submit(function(){
-			if(!$(".j_searchWord").val()){
+		$("#searchNowEventFrm").submit(function(){
+			if(!$("#j_searchWord_nowEvent").val()){
 				alert("검색어를 입력하세요.");
-				$(".j_searchWord").focus();
+				$("#j_searchWord_nowEvent").focus();
+				return false;
+			}
+			return true;
+		});
+		//EVENT 게시물 검색
+		$("#searchEndEventFrm").submit(function(){
+			if(!$("#j_searchWord_endEvent").val()){
+				alert("검색어를 입력하세요.");
+				$("#j_searchWord_endEvent").focus();
 				return false;
 			}
 			return true;
@@ -199,13 +208,13 @@
 		<!-- 진행중인 이벤트 -->
 		<div class="j_tab-content" id="j_tab2_content">
 			<div class="clearfix j_search">
-				<form method="post" class="searchFrm" action="event?title=nowEvent">
+				<form method="post" id="searchNowEventFrm" action="event?title=nowEvent">
 					<select id="j_searchKey" name="searchKey">
 						<option value="eventSubject">제목</option>
 						<option value="eventContent">내용</option>
 					</select>
-					<input type="text" name="searchWord" class="j_searchWord" placeholder="검색어 입력"/>
-					<input type="submit" class="clientMainBtn j_eventBtn" value="검색"/>
+					<input type="text" name="searchWord" id="j_searchWord_nowEvent" placeholder="검색어 입력"/>
+					<input type="submit" class="clientMainBtn" id="j_eventSearchBtn" value="검색"/>
 				</form>
 			</div>
 			<div>
@@ -241,13 +250,13 @@
 				</c:forEach>
 			</ul>
 			<div class="clearfix j_search">
-				<form method="post" class="searchFrm" action="event?title=endEvent">
+				<form method="post" id="searchEndEventFrm" action="event?title=endEvent">
 					<select id="j_searchKey" name="searchKey">
 						<option value="eventSubject">제목</option>
 						<option value="eventContent">내용</option>
 					</select>
-					<input type="text" name="searchWord" class="j_searchWord" placeholder="검색어 입력"/>
-					<input type="submit" class="clientMainBtn j_eventBtn" value="검색"/>
+					<input type="text" name="searchWord" id="j_searchWord_endEvent" placeholder="검색어 입력"/>
+					<input type="submit" class="clientMainBtn" id="j_endEventSearchBtn" value="검색"/>
 				</form>
 			</div>
 		</div>

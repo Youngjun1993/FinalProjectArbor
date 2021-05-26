@@ -65,14 +65,14 @@
 		select count(case when to_char(orderdate, 'yyyy/mm/dd')=to_char(sysdate, 'yyyy/mm/dd') then 1 end) as neworder,
 		count(case when status='배송준비' then 1 end) as ready,
 		count(case when status='배송중' then 1 end) as delivery,
-		count(case when status='배송완료' then 1 end) as complete from orderTbl
+		count(case when status='배송완료' then 1 end) as complete from orderTbl o join member m on o.userid=m.userid
 		where 1=1
 		<if test="orderSearch_from!='' and orderSearch_from!=null and orderSearch_to!='' and orderSearch_to!=null">and to_char(orderdate, 'yyyy-mm-dd') between #{orderSearch_from} and #{orderSearch_to}</if>
 		<if test="searchWord!='' and searchWord!=null">and ${searchKey} like '%${searchWord}%'</if>
 		<if test="status!='' and status!=null">and status like #{status}</if>
 	</select>
 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
-		select count(orderno) as totalRecord from orderTbl
+		select count(orderno) as totalRecord from orderTbl o join member m on o.userid=m.userid
 		where 1=1
 		<if test="orderSearch_from!='' and orderSearch_from!=null and orderSearch_to!='' and orderSearch_to!=null">and to_char(orderdate, 'yyyy-mm-dd') between #{orderSearch_from} and #{orderSearch_to}</if>
 		<if test="searchWord!='' and searchWord!=null">and ${searchKey} like '%${searchWord}%'</if>
