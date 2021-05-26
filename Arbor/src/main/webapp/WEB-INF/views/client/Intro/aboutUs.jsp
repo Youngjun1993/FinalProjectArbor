@@ -4,23 +4,27 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/aboutUs.css" type="text/css" />
 <div class="clearfix w1400_container">
 <div class="h_imgCenter">
-<img src="<%=request.getContextPath() %>/img/aboutUs_sample.jpg"/>
+<img src="<%=request.getContextPath() %>/img/aboutUs.png"/>
 </div>
 <div class="h_branchIntro">
 <h1>회사 위치 안내</h1>
 <div id="map" class="h_map"></div>
 <div class="h_branchInfo">
 <ul>
-<li class = "h_branchEvent1">본사소재지</li>
-<li>&nbsp;&nbsp;&nbsp;서울시 마포구 백범로</li>
-<li class = "h_branchEvent2">광화문지점</li>
-<li>&nbsp;&nbsp;&nbsp;서울시 종로구 세종대로</li>
-<li class = "h_branchEvent3">강남지점</li>
-<li>&nbsp;&nbsp;&nbsp;서울시 강남구 역삼동</li>
-<li class = "h_branchEvent4">영등포지점</li>
-<li>&nbsp;&nbsp;&nbsp;서울시 영등포구 여의동</li>
+<li class = "h_branchEvent1"><input type="button" value="본사소재지" class="clientSubBtn"/></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>서울시 마포구 백범로</b></li>
+<li class = "h_branchEvent2"><input type="button" value="광화문점" class="clientSubBtn"/></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>서울시 종로구 세종대로</b></li>
+<li class = "h_branchEvent3"><input type="button" value="강남점" class="clientSubBtn"/></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>서울시 강남구 역삼동</b></li>
+<li class = "h_branchEvent4"><input type="button" value="영등포점" class="clientSubBtn"/></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>서울시 영등포구 여의동</b></li>
+<li class = "h_branchEvent5"><input type="button" value="부천점" class="clientSubBtn"/></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>경기도 부천시 괴안동</b></li>
+<li class = "h_branchEvent6"><input type="button" value="일산점" class="clientSubBtn"/></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>경기도 고양시 탄현동</b></li>
 </ul>
-<div class="h_branchEvent0"> 전지점 넓게보기 </div>
+<div class="h_branchEvent0"><input type="button" value="넓게 보기" class="clientMainBtn largeview"/></div>
 </div>
 </div>
 
@@ -28,8 +32,8 @@
 <script>
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
-		center: new kakao.maps.LatLng(37.534855, 126.972200), //지도의 중심좌표.
-		level: 8 //지도의 레벨(확대, 축소 정도)
+		center: new kakao.maps.LatLng(37.605573, 126.850318), //지도의 중심좌표.
+		level: 10 //지도의 레벨(확대, 축소 정도)
 	};
 	
 	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
@@ -51,6 +55,14 @@
 	    {
 	        title: '영등포지점',
 	        latlng: new kakao.maps.LatLng(37.517650, 126.905468)
+	    },
+	    {
+	        title: '부천지점',
+	        latlng: new kakao.maps.LatLng(37.479016, 126.803801)
+	    },
+	    {
+	        title: '일산지점',
+	        latlng: new kakao.maps.LatLng(37.702357, 126.767492)
 	    }
 	];
 	
@@ -75,16 +87,15 @@
 	
 	
 	$('.h_branchEvent0').on('click', function () {
-		 var moveLatLon = new kakao.maps.LatLng(37.534855, 126.972200);
+		 var moveLatLon = new kakao.maps.LatLng(37.605573, 126.850318);
 			
-		map.setLevel(8);
+		map.setLevel(10);
 		
 		setTimeout(function () {
 			map.panTo(moveLatLon);
 		},1000);
 		
 	});
-	
 	
 	$('.h_branchEvent1').on('click', function () {
 		 var moveLatLon = new kakao.maps.LatLng(37.5523825, 126.937743);
@@ -187,6 +198,53 @@
 			map.setLevel(4);
 		},1000);
 	    
+	   
+	});
+	
+	$('.h_branchEvent5').on('click', function () {
+	    var moveLatLon = new kakao.maps.LatLng(37.479016, 126.803801);
+	    
+	    if(map.getLevel()==4) {
+			map.setLevel(8);
+			
+			setTimeout(function () {
+				map.panTo(moveLatLon);
+				
+				setTimeout(function () {
+					map.setLevel(4);
+				},1000);
+			},1000);
+		}
+	    
+	    map.panTo(moveLatLon);
+		
+		setTimeout(function () {
+			map.setLevel(4);
+		},1000);
+	    
+	   
+	});
+	
+	$('.h_branchEvent6').on('click', function () {
+	    var moveLatLon = new kakao.maps.LatLng(37.702357, 126.767492);
+	    
+	    if(map.getLevel()==4) {
+			map.setLevel(8);
+			
+			setTimeout(function () {
+				map.panTo(moveLatLon);
+				
+				setTimeout(function () {
+					map.setLevel(4);
+				},1000);
+			},1000);
+		}
+	    
+	    map.panTo(moveLatLon);
+		
+		setTimeout(function () {
+			map.setLevel(4);
+		},1000);
 	   
 	});
 	// 마커가 지도 위에 표시되도록 설정합니다

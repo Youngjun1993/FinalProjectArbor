@@ -73,8 +73,7 @@
 					</tr>
 				</table>
 				<div class="h_searchBtnBox">
-					<input type="button" id="memSearchBtn" value="검색"
-						class="adminMainBtn search">
+					<input type="button" id="memSearchBtn" value="검색" class="adminMainBtn">
 				</div>
 			</form>
 
@@ -82,7 +81,7 @@
 			<!-- 폼 가운데 버튼 -->
 			<div class="h_searchMultiBtn">
 				<form name="sms" id="h_sms_form" action="sendSms"></form>
-				<input type="button" id="sendSms" value="문자발송 "
+				<input type="button" id="sendSms" value="SMS발송 "
 					class="adminSubBtn semiBtn">
 				<form action="excelDownload" id="excelDown" method="get">
 					<input type="button" id="excelBtn" value="엑셀(전체)다운"
@@ -107,8 +106,7 @@
 						<li class="h_listHeader">관리</li>
 						<c:forEach var="vo" items="${list}" varStatus="status">
 							<c:if test="${vo.memstat != 2}">
-								<li><input type="checkbox" name="memberChk"
-									class="memberChk" value1="${vo.userid}" value2="${vo.tel}" /></li>
+								<li><input type="checkbox" name="memberChk" class="memberChk" value1="${vo.userid}" value2="${vo.tel}" /></li>
 								<li><c:if test="${vo.memstat == 1}">
 										<input type="button" class="h_memdormant" value="휴면" />
 									</c:if> ${vo.userid}</li>
@@ -117,8 +115,8 @@
 								<li>${vo.tel}</li>
 								<li>${vo.regdate}/${vo.emailok}/ ${vo.smsok}</li>
 								<li>${vo.lastdate}</li>
-								<li><input type="button" name="memberDelBtn" value="탈퇴"
-									class="h_memberDel" onclick="memDel(clickid${status.index})" />
+								<li><input type="button" name="memberDelBtn" value="강제 탈퇴"
+									class="adminSubBtn" onclick="memDel(clickid${status.index})" />
 									<input type="hidden" id="h_userid"
 									name="clickid${status.index}" value="${vo.userid}" /></li>
 							</c:if>
@@ -139,17 +137,15 @@
 						<input type="hidden" name="smsok" value="${pageMaker.cri.smsok}" />
 						<!-- 이메일 sms 추가 -->
 					</form>
-					<ul class="paging">
+					<ul class="h_paging" id="adPaging">
 						<c:if test="${pageMaker.prev }">
-							<li><a class="pagingLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
+							<li><a class="pagingAdLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
 						</c:if>
-						<c:forEach var="num" begin="${pageMaker.startPage }"
-							end="${pageMaker.endPage }">
-							<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a
-								href="${num }">${num }</a></li>
+						<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+							<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
 						</c:forEach>
 						<c:if test="${pageMaker.next }">
-							<li><a class="pagingLR_a " href="${pageMaker.endPage + 1 }">＞</a></li>
+							<li><a class="pagingAdLR_a" href="${pageMaker.endPage + 1 }">＞</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -191,7 +187,7 @@
 			$('#h_sms_form').append("<input type = 'hidden' name = 'smstel' value='" + checkArr[i] + "'>");
 		};
 		
-		window.open('','smsSender','width=500,height=350');
+		window.open('','smsSender','width=560,height=500');
 	    var frm =document.sms;
 	    frm.action = 'sendSms';
 	    frm.target ="smsSender";
@@ -285,7 +281,7 @@
 		
 		/* 페이지 버튼*/
 		
-		$('.paging a').on("click", function(e){
+		$('.h_paging a').on("click", function(e){
 			e. preventDefault();
 			var pageBtn = $('#pageBtn_form');
 			pageBtn.find('input[name="pageNum"]').val($(this).attr('href'));

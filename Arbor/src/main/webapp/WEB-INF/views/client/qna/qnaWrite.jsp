@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
+<script src="<%=request.getContextPath() %>/javaScript/summernote/summernote-lite.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/summernote/lang/summernote-ko-KR.js"></script>
 <script>
 	$(function(){
 		$("#y_frm").submit(function(){
@@ -90,7 +93,7 @@
                 	<p>제목 <span class="colorRed">*</span>
                     <p>
                         <select name="qnacate" id="qnacate">
-                            <option value="">카테고리</option>
+                            <option value="" selected="selected" disabled="disabled" hidden>카테고리</option>
                             <option value="결제관련">결제관련</option>
                             <option value="배송문의">배송문의</option>
                             <option value="교환/반품">교환/반품</option>

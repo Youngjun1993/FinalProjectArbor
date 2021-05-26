@@ -3,9 +3,10 @@
 .d_h1{
 	margin-left:calc(50% - 80px);
 	margin-bottom:3%;
+	font-weight:bold;
 }
 .d_noticeEdit{
-	margin-top:10%;
+	margin-top:3%;
 	width:1200px;
 	float:right;
 }
@@ -91,7 +92,7 @@
 	margin-top:30px;
 	font-size:17px;
 	height:500px;
-	overflow:scroll;
+	overflow:auto;
 }
 
 .d_noticeSetBtn input[type=button]{
@@ -103,12 +104,12 @@
 
 /*=====================공지사항 등록=================*/
 .d_editFont{
-	font-size: 20px;
+	font-size: 16px;
 	font-weight:bold;
 }
 #d_noticeSubject{
 	width:50%;
-	height:30px;
+	height:25px;
 }
 .d_noticeInsertBtn input{
 	float:right;

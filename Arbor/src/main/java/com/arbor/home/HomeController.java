@@ -33,9 +33,25 @@ public class HomeController {
 		System.out.println(vo);
 		//서브메뉴
 		mav.addObject("subList", homeService.subList());
-		
+		mav.addObject("top", homeService.productCateTop8());
+		mav.addObject("newlst", homeService.productNewTop8());
 		mav.setViewName("home");//
 		return mav;
+	}
+	
+	@RequestMapping("/arbor_TAC")
+	public String arbor_TAC() {
+			return "client/footer/arbor_TAC";
+	}
+	
+	@RequestMapping("/arbor_PP")
+	public String arbor_PP() {
+			return "client/footer/arbor_PP";
+	}
+	
+	@RequestMapping("/arbor_Use")
+	public String arbor_Use() {
+			return "client/footer/arbor_Use";
 	}
 	
 }

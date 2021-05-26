@@ -14,20 +14,19 @@
 			<div class="h_pwdconfirm_div">
 			<b>비밀번호 재확인</b><br/>
 			회원정보의 보호를 위해 비밀번호를 다시 확인합니다<br/>
-			<div class="h_pwd_div">비밀번호 : <input type="text" id="pwdCheck" size="20" class="h_ipt" value=""/></div>
+			<div class="h_pwd_div">비밀번호 : <input type="text" id="pwdCheck" size="30" class="h_ipt" value=""/></div>
 			</div>
 		</div>
-		
 		<div class="h_UpdateWriteForm font_ng">
 		<form method="post" class="h_memUpdate_form" action="memberUpdateOk">
 			<ul class = "h_memUpdate_ul">	
 			<li>아이디</li>
 			<li>${vo.userid }</li>
 			<li>비밀번호</li>
-			<li><input type="text" name="userpwd" id="userpwd" class="h_ipt" size="58" value="" /></li>
+			<li><input type="text" name="userpwd" id="userpwd" class="h_ipt userpwd" size="58" value="" /></li>
 			<li>비밀번호 확인</li>
 			<li>
-			<input type="text" name="pwdCheck" id="update_pwdCheck" class="h_ipt" size="58" value="" />
+			<input type="text" name="pwdCheck" id="update_pwdCheck" class="h_ipt pwdCheck"  size="58" value="" />
 			<span class="h_pwd_ok"></span>
 			</li>
 			<li>이름</li>
@@ -38,11 +37,11 @@
 			</li>
 			<li></li>
 			<li>
-			<input type="text" name="addr" class="h_ipt addr" size="58" value="${vo.addr }" />
+			<input type="text" name="addr" id="addr" class="h_ipt addr" size="58" value="${vo.addr }" />
 			</li>
 			<li></li>
 			<li>
-			<input type="text" name="detailaddr" class="h_ipt detailaddr" size="58" value="${vo.detailaddr }" />
+			<input type="text" name="detailaddr" id="detailaddr" class="h_ipt detailaddr" size="58" value="${vo.detailaddr }" />
 			</li>
 			<li>연락처</li>
 			<li>
@@ -164,46 +163,71 @@
 					$('.h_UpdateWriteForm').attr("style","display:block");
 					
 				}else{//비밀번호 일치하지않을경우 java에서 1이외의 값
-					alert('비밀번호가 잘못되었습니다 다시 입력해주세요');
+					alert('비밀번호를 다시 입력해주세요');
 				}
 			}, error:function() {
 				console.log("AJAX 에러");
 			}
 		});
 		
-	}else{
-		alert("비밀번호를 입력해주세요");
-	}
-});
+		}else{
+			alert("비밀번호를 입력해주세요");
+		}
+	});
 	
 	/* 수정 비밀번호 확인 */
 	
 	//비밀번호 확인
 	
-		var inputpwd;
-		var checkpwd;
-		$('#update_pwdCheck').blur(function(){
-			inputpwd = $("#userpwd").val();//비밀번호
-			checkpwd = $("#update_pwdCheck").val();
-				//비밀번호 확인
-				var checkResult = $(".h_pwd_ok");//span
-				 if(inputpwd == checkpwd){// 일치할 경우
-				        checkResult.html("비밀번호가 일치합니다");
-				        checkResult.addClass("correct");        
-				        checkResult.removeClass("incorrect");
-				    } else {// 일치하지 않을 경우
-				        checkResult.html("비밀번호를 다시 확인해주세요");
-				        checkResult.addClass("incorrect");
-				        checkResult.removeClass("correct");  
-				    }
-		});
+	var inputpwd;//비밀번호;
+	var checkpwd;
+	var addr;
+	var detailaddr;
+	var tel2;
+	var tel3;
+	var emailid;
 	
-	$('.clientSubBtn').click(function() {
-		if(inputpwd == checkpwd && inputpwd != null && checkpwd != null) {
+	$('#update_pwdCheck').blur(function(){
+			//비밀번호 확인
+			inputpwd = $("#userpwd").val();
+			checkpwd = $("#update_pwdCheck").val();
+			var checkResult = $(".h_pwd_ok");//span
+			 if(inputpwd != "" && checkpwd != "" && inputpwd == checkpwd){// 일치할 경우
+			        checkResult.html("비밀번호가 일치합니다");
+			        checkResult.addClass("correct");        
+			        checkResult.removeClass("incorrect");
+			    } else {// 일치하지 않을 경우
+			        checkResult.html("비밀번호를 다시 확인해주세요");
+			        checkResult.addClass("incorrect");
+			        checkResult.removeClass("correct");  
+			    }
+	});
+	
+	$('.clientMainBtn').click(function() {
+		inputpwd = $("#userpwd").val();
+		checkpwd = $("#update_pwdCheck").val();
+		addr = $("#addr").val();
+		detailaddr = $("#detailaddr").val();
+		tel2 = $("#tel2").val();
+		tel3 = $("#tel3").val();
+		emailid = $("#emailid ").val();
+		emaildomain = $("#emaildomain option:selected").val();
+		
+		console.log(inputpwd);
+		console.log(checkpwd);
+		console.log(addr);
+		console.log(tel2);
+		console.log(tel3);
+		console.log(emailid);
+		console.log(emaildomain);
+		
+		// addr값이 없음 z클래스이름을 h_ipt.addr 이런식으로해야함
+		if(inputpwd != "" && checkpwd != "" && addr != "" && tel2 != "" && tel3 != "" && emailid != "" && emaildomain != "") {
 			alert('수정이 완료되었습니다.');
 			$('.h_memUpdate_form').submit();
 		}else {
-			alert('비밀번호를 확인해주세요');
+			alert('수정할 정보를 모두 입력해주세요');
 		}
 	});
+	
 </script>

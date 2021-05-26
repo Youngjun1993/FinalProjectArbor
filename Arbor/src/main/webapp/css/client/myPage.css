@@ -1,18 +1,40 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
 /*공통 class*/
-
-.statusBtn{
-    display: none;
+.status_ready{
+	background: #B3D5F2;
+	color:#fff;
+}
+.status_delivDone{
+	background: #aaa;
+	color:#fff;
+}
+.status_cashCancle{
+	background: #C3D9B8;
+	color:#fff;
+}
+.status_review{
+	background: #F2BF80;
+	color:#fff;
+}
+.status_change{
+	background: #F26849;
+	color:#fff;
 }
 .boxshadow{
 	box-shadow: 5px 5px 10px gray;
 }
-
+.gradestar {
+	color:rgb(255,150,0);
+}
+.elsestar {
+	color:rgb(204,204,204);
+}
 /*myPagemain 스타일*/
 #y_myPageMain_wrap{
     position: relative;
 }
-#y_myPage_rightCon, #y_pointList_rightCon{
+#y_myPage_rightCon, #y_pointList_rightCon, #y_ChangeRefund{
     float: left;   
 }
 #y_myPage_rightCon>div, #y_pointList_rightCon>div{
@@ -38,7 +60,12 @@
 #y_myPage_rightCon>div:nth-of-type(1)>ul>li:nth-child(4n+4){
     width: 350px;
 }
-
+#y_myPage_rightCon>div:nth-of-type(1)>ul>li:nth-child(4n+4) a{
+	padding:5px 10px;
+	margin-left:10px;
+	border-radius: 5px;
+	font-weight: bold;
+}
 #y_myPage_rightCon div:nth-of-type(1) h3{
 	height:50px;
 	line-height: 50px;
@@ -285,6 +312,82 @@
     box-sizing: border-box;
 }
 
+/* 리뷰작성 팝업 스타일 */
+.y_reviewWriteSmallText{
+    font-size: 12px;
+    color: #aaa;
+    font-weight: normal;
+    display: block;
+}
+.colorRed{
+    color:red;
+}
+#y_reviewWrite{
+	display:none;
+	background:#fff;
+	position: absolute;
+    left: 22%;
+    top: 10%;
+    width:800px;
+    border: 1px solid #333;
+    box-shadow: 5px 5px 10px gray;
+}
+#y_reviewWrite>p{
+    height: 20px;
+    padding: 3px;
+}
+#y_reviewWrite>p button{
+    float: right;
+    border: none;
+    background: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+#y_reviewWrite>form{
+    padding: 0 20px 20px 20px;
+}
+#y_reviewWrite>form>ul>li:nth-child(odd){
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+#y_reviewWrite>form>ul>li:nth-child(even){
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+#y_reviewWrite>form>ul li:nth-child(4) textarea{
+    width: 100%;
+    resize: none;
+    font-size: 14px;
+}
+#y_reviewPnoList li{
+    float: left;
+    width: 31%;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+#y_reviewPnoList li p img{
+    width: 100%;
+    height:200px;
+}
+#y_reviewPnoList li:nth-child(3n+1){
+    margin-left: 0;
+}
+#y_reviewPnoList li p:nth-child(2){
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    text-align:center;
+}
+#y_reviewPnoList li p:nth-child(3){
+    text-align: center;
+}
+#y_reviewWrite>form input[type=submit]{
+    width: 150px;
+    height: 30px;
+    margin: 0 auto;
+    display: block;
+}
 /* coupon 페이지 스타일 */
 .couponSearchBtn{
     border: 1px solid #eee;
@@ -473,4 +576,227 @@
 	width:1150px;
 	margin:0 auto;
 	font-size:16px;
+}
+
+/*교환및환불 페이지*/
+.y_modal{
+	display: none;
+	position:fixed;
+	z-index:999;
+	left:0;
+	top:0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background: rgb(0,0,0,0.4);
+}
+.colorWhite{
+    color:#fff;
+}
+#y_ChangeRefund{
+	width:1250px;
+}
+#y_ChangeRefund>h1{
+	margin:0;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>p:nth-of-type(1){
+    margin-top: 30px;
+    font-size: 20px;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>p:nth-of-type(2){
+    font-size: 12px;
+    margin-bottom: 10px;
+    height: 30px;
+    line-height: 30px;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>ul:nth-of-type(1){
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #aaa;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>ul li input[type=checkbox]{
+	width:15px;
+	height: 15px;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>ul:nth-of-type(1) li{
+    height: 30px;
+    line-height: 30px;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>ul li{
+    font-size: 16px;
+    text-align: center;
+    width: 150px;
+    float: left;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>ul:nth-of-type(2) li{
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    height: 155px;
+    line-height: 155px;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>ul:nth-of-type(2) li:nth-child(6n+3){
+    text-align: left;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>ul:nth-of-type(2) li:nth-child(6n+3) img{
+    width: 250px;
+    height: 150px;
+    margin-left: 10px;
+    display: block;
+    float: left;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>ul:nth-of-type(2) li:nth-child(6n+3) p {
+    float: left;
+    width: 300px;
+    margin-left: 20px;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>ul:nth-of-type(2) li:nth-child(6n+5){
+	height:95px;
+	line-height:20px;
+	padding-top:70px;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>ul li:nth-child(6n+1){
+    width: 50px;
+}
+#y_ChangeRefund>form>div:nth-of-type(1)>ul li:nth-child(6n+3){
+    width: 600px;
+}
+#y_ChangeRefund>form>div:nth-of-type(2){
+	margin-top:10px;
+}
+#y_ChangeRefund>form>div:nth-of-type(2)>ul{
+    float: left;
+}
+#y_ChangeRefund>form>p{
+	font-size:12px;
+}
+#y_ChangeRefund>form>div:nth-of-type(2)>ul li{
+    font-size: 16px;
+}
+#y_ChangeRefund>form>div:nth-of-type(2)>ul li select{
+    font-size: 16px;
+}
+#y_ChangeRefund>form>div:nth-of-type(2)>ul li textarea{
+    resize: none;
+    font-size: 16px;
+    width: 600px;
+}
+#y_ChangeRefund>form>div:nth-of-type(2)>ul:first-child li{
+    margin-bottom: 10px;
+    width:150px;
+}
+#y_ChangeRefund>form>div:nth-of-type(2)>ul:last-child li{
+    margin-bottom: 10px;
+}
+#y_ChangeRefund>form>div:nth-of-type(3){
+    margin-top: 30px;
+    border-top:2px dotted #aaa;
+    padding-top:30px;
+}
+#y_ChangeRefund>form>div:nth-of-type(3)>p{
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+#y_ChangeRefund>form>div:nth-of-type(3) div ul{
+    float: left;
+}
+#y_ChangeRefund>form>div:nth-of-type(3) div ul li{
+    margin-bottom: 10px;
+    height: 30px;
+    font-size: 16px;
+}
+#y_ChangeRefund>form>div:nth-of-type(3) div ul li input{
+    width: 350px;
+    height: 20px;
+    font-size: 16px;
+}
+#y_ChangeRefund>form>div:nth-of-type(3) div ul li:nth-child(2) input{
+    width: 100px;
+    text-align: center;
+}
+#y_ChangeRefund>form>div:nth-of-type(3) div ul li:nth-child(3) input{
+    width: 120px;
+}
+#y_ChangeRefund>form>div:nth-of-type(3) div ul li:nth-child(4) input,
+#y_ChangeRefund>form>div:nth-of-type(3) div ul li:nth-child(5) input{
+    width: 600px;
+}
+#y_ChangeRefund>form>div:nth-of-type(3) div ul:nth-child(1){
+    width: 150px;
+}
+#y_ChangeRefund>form>div:nth-of-type(4){
+    width: 310px;
+    margin: 30px auto 50px auto;
+}
+#y_ChangeRefund>form>div:nth-of-type(4) button{
+    width: 150px;
+    height: 40px;
+}
+
+/* 교환선택 팝업 */
+.y_chanPlusBtn{
+	background: #fff;
+	margin-left: 5px;
+	cursor: pointer;
+	border:1px solid #ddd;
+}
+.y_chanMinusBtn{
+	background: #fff;
+	margin-right:5px;
+	cursor: pointer;
+	border:1px solid #ddd;
+}
+#y_exchangePopup{
+    width:800px;
+    padding: 20px;
+    border: 1px solid #333;
+    box-shadow: 5px 5px 5px gray;
+    background:#fff;
+    position: absolute;
+    left:30%;
+    top:10%;
+    z-index:999;
+}
+#y_exchangePopup>p{
+    font-size: 16px;
+    font-weight: bold;
+    height: 30px;
+}
+#y_exchangePopup>ul>li{
+    float: left;
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+}
+#y_exchangePopup>ul>li:nth-child(6n+1){
+    width:200px;
+}
+#y_exchangePopup>ul:nth-of-type(1){
+    border-bottom: 1px solid #aaa;
+    border-top: 1px solid #333;
+}
+#y_exchangePopup>ul:nth-of-type(2)>li{
+    border-bottom: 1px solid #ddd;
+}
+#y_exchangePopup>ul:nth-of-type(2)>li:nth-child(6n+1){
+    text-align: left;
+    width: 190px;
+    padding-left: 10px;
+}
+#y_exchangePopup>ul>li:nth-child(6n+2){
+    width: 200px;
+}
+#y_exchangePopup>div{
+    width: 250px;
+    margin: 0 auto;
+    padding: 30px 0 0 0;
+}
+#y_exchangePopup>p:nth-of-type(2){
+	font-weight: normal;
+	font-size: 13px;
+	margin-top:5px;
+}
+#y_exchangePopup>div button{
+    width: 120px;
+    height: 30px;
 }

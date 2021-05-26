@@ -7,7 +7,23 @@ public class OptionVO {
 	private String optvalue;
 	private String rgbvalue;
 	private int optprice;
+	// suborder 조인
+	private int suborderno;
+	private int quantity;
 	
+	
+	public int getSuborderno() {
+		return suborderno;
+	}
+	public void setSuborderno(int suborderno) {
+		this.suborderno = suborderno;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 	public int getOptno() {
 		return optno;
 	}

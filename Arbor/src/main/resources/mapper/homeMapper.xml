@@ -10,4 +10,22 @@
 	<select id="subList" resultType="com.arbor.home.vo.SubCateVO">
 		select * from subcate
 	</select>
+	<select id="productCateTop8" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from        
+		(select p.pno, p.mainno, nvl(s.cnt, 0) as cnt, p.subno, p.pname, p.pprice, p.saleprice, p.img1, p.img2, p.pdate
+		from (select p.pno, s.subno, s.mainno, s.mainname, s.subname, p.pname, p.pprice, p.saleprice, p.pdate, img1, img2
+		from product p join (select s.subno, s.mainno, s.subname, m.mainname from subcate s
+		join maincate m on s.mainno=m.mainno) s on p.subno=s.subno) p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
+		order by cnt desc)
+		<![CDATA[where rownum <= ]]>8
+ 	</select>
+ 	<select id="productNewTop8" resultType="com.arbor.home.vo.ProductVO">
+ 		select * from        
+		(select p.pno, p.mainno, nvl(s.cnt, 0) as cnt, p.subno, p.pname, p.pprice, p.saleprice, p.img1, p.img2, p.pdate
+		from (select p.pno, s.subno, s.mainno, s.mainname, s.subname, p.pname, p.pprice, p.saleprice, p.pdate, img1, img2
+		from product p join (select s.subno, s.mainno, s.subname, m.mainname from subcate s
+		join maincate m on s.mainno=m.mainno) s on p.subno=s.subno) p join (select pno, count(pno) as cnt from suborder group by pno) s on p.pno=s.pno(+)
+		order by pdate desc)
+		<![CDATA[where rownum <= ]]>8
+ 	</select>
 </mapper>

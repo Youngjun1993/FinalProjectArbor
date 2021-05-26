@@ -6,16 +6,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/orderAdmin.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <!-- datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script>
 	$(function(){
 		 
@@ -132,7 +132,6 @@
 </head>
 <body>
 <div class="w1400_container font_ng">
-	<!-- 관리자메뉴 -->
 	<%@include file="/WEB-INF/inc/adminMenu.jspf"%>
 	<div class="j_centerFrm" id="orderManagement">
 		<p class="j_adminMemu"><span>주문관리</span></p>
@@ -230,5 +229,74 @@
 	 	</div>
 	</div> <!-- centerFrm -->	
 </div>
+
+<script>
+  $(function(){
+	 
+	//datepicker 옵션 설정
+	$.datepicker.setDefaults({
+		dateFormat: "yy-mm-dd",
+		dayNamesMin: ['일','월','화','수','목','금','토'],
+		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+		yearSuffix: "년",
+		showOtherMonths: true,		//빈 공간에 앞뒤월의 날짜 표시
+		showMonthAfterYear:true,	//년+월
+		changeYear: true,			//콤보박스 연도 선택 가능
+		changeMonth: true,			//콤보박스 월 선택 가능
+		showOn: "focus"				//both:버튼을 누르거나 input을 클릭하면 달력 표시
+       	//buttonImage: "../../../img/calendar2.png",
+       	//buttonImageOnly: true
+	});
+	$("#orderSearch_from").datepicker({
+		onClose : function(selectedDate){
+	    	$("#orderSearch_to").datepicker("option", "minDate", selectedDate);
+	    }
+	});
+	$("#orderSearch_to").datepicker({
+		onClose : function(selectedDate){
+	    	$("#orderSearch_from").datepicker("option", "maxDate", selectedDate);
+	    }
+	});
+	$('#orderSearch_from').click(function(){
+		if($('#orderSearch_from').text()!=null){
+			$('#j_orderSearch li').removeClass("oSelected");
+			$('#period').attr('value', '');
+		}
+	});
+	$('#orderSearch_to').click(function(){
+		if($('#orderSearch_from').text()!=null){
+			$('#j_orderSearch li').removeClass("oSelected");
+			$('#period').attr('value', '');
+		}
+	});
+	
+	
+	$('#j_orderSearch li').click(function(){
+		var period = $(this).text();
+		$(this).addClass("oSelected");
+		$('#period').attr('value', period);
+		$('#orderSearch_from').val('');
+		$('#orderSearch_to').val('');	
+		$(this).siblings().removeClass("oSelected");
+	});
+	
+	$('#j_selectAll').click(function(){
+		if($('#j_selectAll').prop('checked')){
+			console.log("전체선택 체크!")
+			$('#j_orderList input[type=checkbox]').prop('checked', true);
+		}else{
+			$('#j_orderList input[type=checkbox]').prop('checked', false);
+		}
+	})
+	$('#j_orderList input[type=checkbox]:not(#j_selectAll)').click(function(){
+		if($('#j_selectAll').prop('checked')){
+			$('#j_selectAll').prop('checked', false)
+		}		
+	});
+	
+	
+	  
+  });
+</script>
 </body>
 </html>

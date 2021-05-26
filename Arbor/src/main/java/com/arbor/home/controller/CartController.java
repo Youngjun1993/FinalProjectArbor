@@ -46,22 +46,32 @@ public class CartController {
 		for(int i=0; i<priceArr.length; i++) {
 			CartVO vo = new CartVO();
 			vo.setUserid((String)ses.getAttribute("logId"));
-			if(optnameArr.length==0) {
-				vo.setOptionvalue("");
-			} else {
-				vo.setOptionvalue(optnameArr[i]);
-			}
 			vo.setPno(Integer.parseInt(pnoStr));
 			vo.setPrice(Integer.parseInt(priceArr[i]));
 			vo.setQuantity(Integer.parseInt(quantityArr[i]));
-			if(cartService.cartMiniList(vo)>0) {
-				int cartno = cartService.cartNoSelect(vo);
-				cartService.cartQuantityPlus(cartno);
-				result++;
-			} else {
-				int res = cartService.cartInsert(vo);
-				if(res>0) {
+			if(optnameArr.length==0) {
+				if(cartService.cartMiniListNull(vo)>0) {
+					int cartno = cartService.cartNoSelectNull(vo);
+					cartService.cartQuantityPlus(cartno);
 					result++;
+				} else {
+					vo.setOptionvalue("");
+					int res = cartService.cartInsert(vo);
+					if(res>0) {
+						result++;
+					}
+				}
+			} else {
+				vo.setOptionvalue(optnameArr[i]);
+				if(cartService.cartMiniList(vo)>0) {
+					int cartno = cartService.cartNoSelect(vo);
+					cartService.cartQuantityPlus(cartno);
+					result++;
+				} else {
+					int res = cartService.cartInsert(vo);
+					if(res>0) {
+						result++;
+					}
 				}
 			}
 		}

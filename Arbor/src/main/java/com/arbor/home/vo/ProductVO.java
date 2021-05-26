@@ -19,6 +19,14 @@ public class ProductVO {
 	private int mainno;
 	private String mainname;
 	
+	private int salepercent;
+	
+	public int getSalepercent() {
+		return salepercent;
+	}
+	public void setSalepercent(int salepercent) {
+		this.salepercent = salepercent;
+	}
 	public int getMainno() {
 		return mainno;
 	}

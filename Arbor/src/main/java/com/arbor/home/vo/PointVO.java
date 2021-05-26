@@ -8,8 +8,8 @@ public class PointVO {
 	private String pointcontent;
 	private int point;
 	private String userid;
-	private String beforePoint;
-	private String mfpoint;
+	private int beforePoint;
+	private int mfpoint;
 	
 	
 	public int getPointno() {
@@ -18,12 +18,11 @@ public class PointVO {
 	public void setPointno(int pointno) {
 		this.pointno = pointno;
 	}
-	public String getBeforePoint() {
+	public int getBeforePoint() {
 		return beforePoint;
 	}
 	public void setBeforePoint(int beforePoint) {
-		DecimalFormat formatter = new DecimalFormat("###,###");
-		this.beforePoint = formatter.format(beforePoint);
+		this.beforePoint = beforePoint;
 	}
 	public String getPointdate() {
 		return pointdate;
@@ -49,14 +48,10 @@ public class PointVO {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	public String getMfpoint() {
+	public int getMfpoint() {
 		return mfpoint;
 	}
 	public void setMfpoint(int mfpoint) {
-		DecimalFormat formatter = new DecimalFormat("###,###");
-		this.mfpoint = formatter.format(mfpoint);
-	}
-	
-	
-	
+		this.mfpoint = mfpoint;
+	}	
 }

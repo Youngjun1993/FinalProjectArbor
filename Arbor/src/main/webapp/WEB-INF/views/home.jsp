@@ -39,20 +39,80 @@ $(function(){
 				width: '0'
 			},1000);
 		});
-		$("#topFont").one("click",function(){
-			$(this).delay(1500).animate({
+		
+		
+		
+		$("#topFont").delay(1500).one("click",function(){
+			$(this).animate({
 				opacity: '1',
 				top: '50%'
-				
 			},'slow');
-			
+			$('body').css('overflow','auto');
 		});
+
+		
 	$("#d_homeleft").trigger("click");
-	$("#d_homeright").trigger("click");	
+	$("#d_homeright").trigger("click");
 	$("#topFont").trigger("click");
 	});
 });
 
+//LOOKBOOK 이벤트
+function wrapWindowByMask(){
+	//화면의 높이와 너비를 구한다.
+	var maskHeight = $(window).height();
+	//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+	$('.d_lookbook').css({'width':'calc(100vw - (100vw - 100%))','height':maskHeight});
+	//애니메이션 효과 - 
+	$('.d_lookbook').fadeIn(2000);
+	//
+	$(".d_lookbook").css({"background":"url(./img/lookbook_back3.jpg)"});    
+	//윈도우 같은 거 띄운다.
+	
+	
+	//창위치
+ 	$('.d_lookbook').css({
+		"top":(($(window).height()-$('.d_lookbook').outerHeight())/2+$(window).scrollTop())+"px",
+	
+		}); 
+	}	
+$(document).ready(function(){
+	//검은 막 띄우기
+	$('.videoBox').click(function(e){
+		e.preventDefault();
+		wrapWindowByMask();
+		$('.window').fadeIn(4000);
+		$('body').css('overflow','hidden');
+	
+	});
+	//닫기 버튼을 눌렀을 때
+	
+	//검은 막을 눌렀을 때
+	$('.d_lbclose').click(function () {
+	$('.d_lookbook').hide();
+	$('body').css('overflow','auto');
+	});
+});
+
+$(function(){
+	$("#flipbook").turn({
+	    width: 1330,
+	    height: 670,
+	    
+	});
+	
+	$(".d_lbleftBtn").click(function(){
+		$("#flipbook").turn("previous");
+	});
+	
+	$(".d_lbrightBtn").click(function(){
+		$("#flipbook").turn("next");
+	});
+	
+});
+
+
+//=============================================
 //첫번째 상품 슬라이드
 $(function(){
 	var slides = document.querySelector('.slides'),
@@ -173,11 +233,198 @@ $(function(){
 });
 
 </script>
+<!-- 홈 문이벤트 -->
 <div id="d_homeleft" class="d_mainhome">
 	<img src="<%=request.getContextPath()%>/img/main2left.jpg">
 </div>
 <div id="d_homeright" class="d_mainhome">
 	<img src="<%=request.getContextPath()%>/img/main2right.jpg">
+</div>
+<!-- LOOKBOOK -->
+<div class="d_lookbook">
+	<div class="d_bookimg">
+		<img src="<%=request.getContextPath()%>/img/arbor_book2.png"></div>
+	<div>
+	
+	</div>
+	<div class="d_lbleftBtn">
+			&#10094&#10094
+	</div>
+	<div class="d_lbrightBtn">
+			&#10095&#10095
+	</div>
+	<div class="window">
+		<div id="flipbook">
+		    <div class="d_bookpage d_bookmainImg">
+		    	<img src="<%=request.getContextPath()%>/img/lookbook_main.jpg">
+		    </div>
+		    <div class="d_bookpage">
+		    	<div class="d_bookcontent">
+		    		<video id="vid1" width="100%" height="400px" autoplay loop muted preload="auto">
+  						<source src="<%=request.getContextPath()%>/img/bookimg1.mp4" type="video/mp4">
+					</video>
+					<script> document.getElementById('vid1').play(); </script>
+		    	</div>
+		    	<div class="d_booktext">
+		    	<h1>아르보르는 정직하게 그리고 다르게 만듭니다.</h1>
+		    	<h1>WE MAKE QUALITY</h1>
+		    	<h3>
+		    		최고의 소재만을 사용하여<br>
+		    		고객에게 항상 신뢰받는 브랜드로 남을 수 있도록<br>
+		    		최선을 다하겠습니다.
+		    	</h3>
+		    	</div>
+		    </div>
+		    
+		    
+		    
+		    <div class="d_bookpage d_bookmargin"> 
+		    	<div class="d_booksmall d_book1 d_videofit">
+		    		<%-- <video id="vid2" width="95%" height="100%" autoplay loop muted preload="auto">
+ 						<source src="<%=request.getContextPath()%>/img/bookimg2.mp4" type="video/mp4">
+					</video>
+					<script> document.getElementById('vid2').play(); </script> --%>
+		    		<img src="<%=request.getContextPath()%>/img/lookbooktree.jpg">
+		    	</div>
+		    	<div class="d_booksmall2 d_book2">
+		    		<h3>
+		    			아르보르가 사용하는<br>
+		    			모든 소재는 시험인증기관의<br>
+		    			테스트를 완료하였습니다.
+		    		</h3>
+		    	</div>
+		    	<div class="d_booksmall2 d_book3">
+		    		<h3>
+		    			브랜드 R&D센터를 운영하며,<br>
+		    			상품을 직접 기획하고 있습니다.<br>
+		    			장인으로 이루어진 소파 제작팀이<br>
+		    			고객의 주문 후 하나하나 제작합니다.
+		    		</h3>
+		    	</div>
+		    	<div class="d_booksmall d_book4 d_videofit">
+		    		<video id="vid3" width="100%" height="100%" autoplay loop muted preload="auto">
+  						<source src="<%=request.getContextPath()%>/img/bookimg3.mp4" type="video/mp4">
+					</video>
+					<script> document.getElementById('vid3').play(); </script>
+		    	</div> 
+		    </div>
+		  	<!--룩북 상품시작 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookstart1">
+		    		<p>Arbor's Product</p>
+		    	</div>
+		    	<div class="d_bookstart2 d_videofit">
+		    		<video id="vid4" width="100%" height="100%" autoplay loop muted preload="auto">
+  						<source src="<%=request.getContextPath()%>/img/booksell1.mp4" type="video/mp4">
+					</video>
+					<script> document.getElementById('vid4').play(); </script>
+		    	</div>
+		    </div>
+		    <!-- 상품1 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain2">
+		   			<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub2">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품2 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품3 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain2">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub2">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품4 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품5 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain2">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub2">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품6 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품7 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain2">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub2">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!--룩북 이벤트 시작 -->
+		    <div class="d_bookpage">
+		    	<div class="d_eventstart1">
+		    		<p>Arbor's EVENT</p>
+		    	</div>
+		    	<div class="d_eventstart2 d_videofit">
+		    		<video id="vid5" width="100%" height="100%" autoplay loop muted preload="auto">
+  						<source src="<%=request.getContextPath()%>/img/bookevent1.mp4" type="video/mp4">
+					</video>
+					<script> document.getElementById('vid5').play(); </script>
+		    	</div>
+		    </div>
+		    <!-- 이벤트1 -->
+		    <div class="d_bookpage">
+		    	<div class="d_eventmain2">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    	</div>
+		    	<div class="d_eventsub2">
+		    		<p>이벤트명</p>
+		    	</div>
+		    </div>
+		    <!-- 이벤트2 -->
+		    <div class="d_bookpage">
+		    	<div class="d_eventmain">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    	</div>
+		    	<div class="d_eventsub">
+		    		<p>이벤트명</p>
+		    	</div>
+		    </div>
+		    <!-- 이벤트3 -->
+		    <div class="d_bookpage">
+		    	<div class="d_eventmain2">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    	</div>
+		    	<div class="d_eventsub2">
+		    		<p>이벤트명</p>
+		    	</div>
+		    </div>
+		</div>
+	</div>
+	<div class="d_lbclose"><img src="<%=request.getContextPath()%>/img/d_close5.png"></div>
 </div>
 <div class="d_main">
 	<div id="topSlide">
@@ -211,20 +458,15 @@ $(function(){
 	<div class="slideBox" trigger-up>
 		<p>Arbor's 인기상품</p>
 		<div class="controlls">
-			<img class="prev" src="<%=request.getContextPath()%>/img/prev2.png">
+			<img class="prev" src="<%=request.getContextPath()%>/imqg/prev2.png">
 			<img class="next" src="<%=request.getContextPath()%>/img/next2.png">
 		</div>
 		<div class="slide_wraper">
 			<div class="slides">
 				<ul>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed1.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed4.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed5.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed6.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed7.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed8.PNG"></li>
+					<c:forEach var="top" items="${top }">
+						<li><a href="productView?pno=${top.pno }"><img src="<%=request.getContextPath()%>/upload/${top.img1}"></a></li>
+					</c:forEach>
 				</ul>
 			</div>
 			<!-- "slides" -->
@@ -247,13 +489,13 @@ $(function(){
 			<img src="<%=request.getContextPath()%>/img/boxtest4.jpg">
 		</div>
 		<div class="d_box_div5" trigger-right>
-			<img src="<%=request.getContextPath()%>/img/boxtest1.jpg">
+			<img src="<%=request.getContextPath()%>/img/boxtest5.jpg">
 		</div>
 	</div>
 	<!-- 두번째리스트 -->
 	<!-- 인기상품 -->
 	<div class="slideBox2" trigger-up>
-		<p>Arbor's 추천상품</p>
+		<p>Arbor's 신상품</p>
 		<div class="controlls2">
 			<img class="prev2" src="<%=request.getContextPath()%>/img/prev2.png">
 			<img class="next2" src="<%=request.getContextPath()%>/img/next2.png">
@@ -261,14 +503,9 @@ $(function(){
 		<div class="slide_wraper2">
 			<div class="slides2">
 				<ul>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed11.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed12.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed13.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed14.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed15.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed16.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed1.PNG"></li>
-					<li><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></li>
+					<c:forEach var="newlst" items="${newlst }">
+						<li><a href="productView?pno=${newlst.pno }"><img src="<%=request.getContextPath()%>/upload/${newlst.img1 }"></a></li>
+					</c:forEach>
 				</ul>
 			</div>
 			<!-- "slides" -->
@@ -278,16 +515,16 @@ $(function(){
 	<!--slideBox -->
 	
 	
-	<!-- 동영상  -->
+	<!-- 동영상 LOOKBOOK -->
 	<div class="videoBox" trigger-up>
 		<div class="d_video">
-			<video width="100%" height="800" autoplay loop muted preload="auto">
+			<video width="100%" height="800px" autoplay loop muted preload="auto">
   				<source src="<%=request.getContextPath()%>/img/lookbook.mp4" type="video/mp4">
 			</video>
 		</div>
 		<div id="lookbook">
 			<p>Arbor's LOOKBOOK</p>
-			<button>GET INSFIRED</button>
+			<button>GET INSPIRED</button>
 		</div>
 	</div>
 	<!-- videoBox -->
@@ -296,7 +533,7 @@ $(function(){
 	<div class="d_linkBox">
 		<ul>
 			<li>
-				<a href="">
+				<a href="productList?mainno=1&subno=1">
 					<div class="screen" trigger-left>
 						<div class="s_top">소파를 봅시다</div>
 						<div class="s_bottom">소파리스트로 이동</div>
@@ -310,7 +547,7 @@ $(function(){
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="productList?mainno=2&subno=5">
 					<div class="screen" trigger-up>
 						<div class="s_top">침대를 봅시다</div>
 						<div class="s_bottom">침대리스트로 이동</div>
@@ -324,7 +561,7 @@ $(function(){
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="productTotalList">
 					<div class="screen" trigger-right >
 						<div class="s_top">가구를 봅시다.</div>
 						<div class="s_bottom">가구리스트로 이동</div>

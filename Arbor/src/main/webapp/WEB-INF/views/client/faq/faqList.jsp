@@ -10,16 +10,23 @@ function msg(){
 window.onload=msg;
 
 $(document).ready(function(){
-	  $("p").hide();
 	  // $("ul > li:first-child a").next().show();
-	  $("ul li a").click(function(){
-	    $(this).next().slideToggle(300);
-	    // $(this).next().slideDown(300);
-	    $("ul li a").not(this).next().slideUp(300);
+	  $(".d_faqname").click(function(){
+		var dh = $(this).parent().height();
+		if(dh < 60){
+		 	var divheight=$(this).next().height();
+		 	var dhdh = dh + divheight;
+		   	$(this).parent().css('height',dhdh + 'px');
+		   	
+		   	$(this).parent().siblings().css('height', 51+'px');
+		}else if(dh > 60){
+			$(this).parent().css('height',51 + 'px');
+		}
 	    return false;
-	  });
-	  $("ul li a").eq(0).trigger("click");
-	});
+
+	 });
+});
+
 
 </script>
 <div class="w1400_container clearfix">
@@ -41,18 +48,22 @@ $(document).ready(function(){
 			<input type="submit" class="adminMainBtn" value="검색"/>
 		</form>
 	</div>
-	<ul id="d_faqtitle">
-		<li>자주하는 질문</li>
+	<div id="d_faqtitle">
+	<ul>
+		<li></li>
 	</ul>
-	<div id="d_faqsubject">
-		<ul>
+	</div>
+	<div>
 		<c:forEach var="faqList" items="${faqlist}">
-				<li>
-					<a href="#">Q ${faqList.faqcate} ${faqList.faqsubject }</a>
-					<p>${faqList.faqcontent }</p>
-				</li>
+		<div class="d_faqsubject">
+			<div class="d_faqname">
+				<div>Q</div><div><a href="#"> [${faqList.faqcate}] ${faqList.faqsubject }</a></div>
+			</div>
+			<div class="d_faqcontent">
+				<div>A</div><div>${faqList.faqcontent }</div>
+			</div>
+		</div>
 		</c:forEach>
-		</ul>
 	</div>
 	<!-- 페이징 -->
 	<ul id="d_paging" class="adPaging clearfix">

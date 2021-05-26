@@ -4,8 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 <meta name = "viewport" content = "width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/memberJoin.css" type="text/css" />
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <script>
@@ -27,23 +29,29 @@
 </script>
 
 <body>
-	<c:if test="${checkResult eq 'Y'}">
-		<span style="color:red" id="checkId">${userid}</span>은 사용가능한 아이디 입니다.
-		<input type="button" value="아이디 사용하기" id="setId"/>
-	</c:if>
-	<c:if test="${checkResult eq 'N'}">
-	<span>${userid}</span>은 사용 불가능한 아이디 입니다.
-	</c:if>
-	
-	<hr/>
-	
-	<h3>아이디를 입력 후 중복 검사버튼 누르세요</h3>
-	<form method="post" id="frm" action="<%=request.getContextPath() %>/idcheck" >
-		아이디 : <input type="text" name="userid" id="userid"/>
+	<div style="margin:5px 5px;">
+		<div id="h_idcheck_banner">
+			<p id="idCheckTitle"><img src="<%=request.getContextPath() %>/img/logo_transparent.png"/></p>
+		</div>
+		<div id ="h_confirm_div">
+		<c:if test="${checkResult eq 'Y'}">
+			<span style="color:rgb(93, 121, 115)" id="checkId">${userid}</span>은 사용가능한 아이디 입니다.
+			<input type="button" value="아이디 사용하기" id="setId" class="clientSubBtn"/>
+		</c:if>
+		<c:if test="${checkResult eq 'N'}">
+		<span style="color:rgb(191,43,53); font-weight:bold">${userid}</span>&nbsp;은(는) 이미 존재하는 아이디 입니다.
+		</c:if>
+		</div>
+		<hr/>
 		
-		<input type="submit" value="아이디 중복 검사하기"/>
-	</form>
-	
+		<div id ="h_confirm_div2" >
+		<h3>사용할 아이디를 입력 후 중복 검사를 해주세요</h3><br>
+			<form method="post" id="frm" action="<%=request.getContextPath() %>/idcheck" >
+				아이디&nbsp;<input type="text" name="userid" id="userid" class="h_ipt"/>
+				<input type="submit" value="중복검사 다시하기" class="clientSubBtn"/>
+			</form>
+		</div>
+	</div>
 	
 </body>
 </html>

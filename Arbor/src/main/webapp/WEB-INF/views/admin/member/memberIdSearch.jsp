@@ -71,8 +71,8 @@
 
 <body onload="loadJSON()">
 <div class="w1400_container">
-	<div class="h_formcontainer">
-	<div class="h_jointop"><img src="<%=request.getContextPath() %>/img/logo.png"/></div>
+	<div class="h_formcontainer idsrch">
+	<div class="h_jointop idsrch"><img src="<%=request.getContextPath() %>/img/logo.png"/></div>
 	<!-- <div class="h_pwdformbox">
 		<h1>비밀번호 찾기</h1>
 		<ul class="h_pwdsearch">
@@ -136,12 +136,12 @@
 			등록하신 주소 혹은 번호로 인증번호가 전송되었습니다. 확인 후 아래에 입력해주세요<br/>
 			<div class="h_pwd_div">인증번호 : <!-- 마진값 주면 안됨 -->
 			<input type="text" id="validateChk" size="20" class="h_ipt" value=""/>
-			<input type="button" id="validateChkBtn" value="인증번호확인">
+			<input type="button" id="validateChkBtn" value="인증번호확인" class="clientMainBtn">
 			</div>
 			<span class="h_wrongChk" style="display:none;">비밀번호를 다시 확인해 주세요</span>
 			<div class="h_homeBtn" style="display:none;">
 			<form action="login">
-				<input type="submit" value="로그인" class="clientMainBtn"/>
+				<input type="submit" id="h_btnbox" value="로그인" class="clientMainBtn"/>
 			</form>
 			</div>
 		</div>

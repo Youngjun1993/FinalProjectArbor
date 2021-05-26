@@ -15,10 +15,18 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/pqnaInsert"/> <!-- 상품문의등록 -->
+			<mvc:mapping path="/pqnaUpdate"/>
+			<mvc:mapping path="/pqnaDelete"/>
 			<mvc:mapping path="/dibsList"/> <!-- 찜목록 -->
 			<mvc:mapping path="/cartList"/> <!-- 장바구니 -->
 			<mvc:mapping path="/cartInsert"/>
 			<mvc:mapping path="/order"/>
+			<mvc:mapping path="/mailcheck"/><!-- 가입인증 메일 체크 -->
+			<mvc:mapping path="/memberUpdate"/><!-- 회원수정 -->
+			<mvc:mapping path="/memberUpdateOk"/><!-- 회원수정Ok -->
+			<mvc:mapping path="/memberQuit"/><!-- 회원 탈퇴 -->
+			<mvc:mapping path="/memberGoodbye"/><!-- 회원 탈퇴 확인 -->
+			
 			<bean class="com.arbor.home.interceptor.Logininterceptor_Client"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
@@ -35,12 +43,15 @@
 			<mvc:mapping path="/productDeleteMany"/> <!-- 여러개삭제 -->
 			<mvc:mapping path="/manageCate"/> <!-- 카테고리관리 -->
 			<mvc:mapping path="/productSearch"/> <!-- 검색 -->
-			<mvc:mapping path="/memberSearch"/> <!-- member목록 -->
+			<mvc:mapping path="/memberSearch"/> <!-- member 검색 목록 -->
+			<mvc:mapping path="/memberAdminDormant"/> <!-- 휴면 회원 검색목록 -->
+			<mvc:mapping path="/memberAdminQuit"/> <!-- 탈퇴회원 검색 목록 -->
 			<mvc:mapping path="/insertCate"/> <!-- 카테고리등록 -->
 			<mvc:mapping path="/deleteCate"/> <!-- 삭제 -->
 			<mvc:mapping path="/deleteCateMany"/> <!-- 여러개삭제 -->
 			<mvc:mapping path="/cateEdit"/> <!-- 수정 -->
 			<mvc:mapping path="/pqnaNoAnswerList"/> <!-- 미답변글목록 -->
+
 			<bean class="com.arbor.home.interceptor.Logininterceptor_Admin"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

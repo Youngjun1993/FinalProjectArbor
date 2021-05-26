@@ -23,9 +23,58 @@ public class OrdsubOrdJoinVO {
 	private int pno;
 	private int optno;
 	private int quantity;
-	private String subprice;
+	private int subprice;
 	private String couponprice="0";
+	private String img1;
+	private String optinfo;
+	private int suborderno;
+	private String exchanselect;
+	private int saleprice;
+	private int changeSubprice;
+	private int changeQuantity;
 	
+	public int getChangeQuantity() {
+		return changeQuantity;
+	}
+	public void setChangeQuantity(int changeQuantity) {
+		this.changeQuantity = changeQuantity;
+	}
+	public int getChangeSubprice() {
+		return changeSubprice;
+	}
+	public void setChangeSubprice(int changeSubprice) {
+		this.changeSubprice = changeSubprice;
+	}
+	public int getSaleprice() {
+		return saleprice;
+	}
+	public void setSaleprice(int saleprice) {
+		this.saleprice = saleprice;
+	}
+	public String getExchanselect() {
+		return exchanselect;
+	}
+	public void setExchanselect(String exchanselect) {
+		this.exchanselect = exchanselect;
+	}
+	public int getSuborderno() {
+		return suborderno;
+	}
+	public void setSuborderno(int suborderno) {
+		this.suborderno = suborderno;
+	}
+	public String getOptinfo() {
+		return optinfo;
+	}
+	public void setOptinfo(String optinfo) {
+		this.optinfo = optinfo;
+	}
+	public String getImg1() {
+		return img1;
+	}
+	public void setImg1(String img1) {
+		this.img1 = img1;
+	}
 	public String getCouponprice() {
 		return couponprice;
 	}
@@ -155,12 +204,11 @@ public class OrdsubOrdJoinVO {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public String getSubprice() {
+	public int getSubprice() {
 		return subprice;
 	}
 	public void setSubprice(int subprice) {
-		DecimalFormat formatter = new DecimalFormat("###,###");
-		this.subprice = formatter.format(subprice);
+		this.subprice = subprice;
 	}
 	
 }

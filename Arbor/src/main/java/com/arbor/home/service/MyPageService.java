@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.arbor.home.dao.MyPageDAOImp;
 import com.arbor.home.vo.CouponVO;
+import com.arbor.home.vo.ExchangeVO;
+import com.arbor.home.vo.MemberVO;
+import com.arbor.home.vo.OptionVO;
 import com.arbor.home.vo.OrderTblVO;
 import com.arbor.home.vo.OrdsubOrdJoinVO;
 import com.arbor.home.vo.PageSearchVO;
@@ -108,10 +111,97 @@ public class MyPageService implements MyPageServiceImp {
 		return mypageDAO.reviewGradeList(vo);
 	}
 
-	/*
-	 * @Override public HashMap<String, List<QnaVO>> qnaAnsDesc(PageSearchVO vo) {
-	 * return mypageDAO.qnaAnsDesc(vo); }
-	 */
+	@Override
+	public List<QnaVO> qnaAnsDescList(PageSearchVO vo) {
+		return mypageDAO.qnaAnsDescList(vo);
+	}
+
+	@Override
+	public List<QnaVO> qnaAnsAscList(PageSearchVO vo) {
+		return mypageDAO.qnaAnsAscList(vo);
+	}
+
+	@Override
+	public List<OrdsubOrdJoinVO> reviewWrtPopList(int orderno) {
+		return mypageDAO.reviewWrtPopList(orderno);
+	}
+
+	@Override
+	public int reviewInsert(ReviewVO vo) {
+		return mypageDAO.reviewInsert(vo);
+	}
+
+	@Override
+	public List<ReviewVO> reviewJoinList(String userid) {
+		return mypageDAO.reviewJoinList(userid);
+	}
+
+	@Override
+
+	public int cancelOrderPay(int orderno) {
+		return mypageDAO.cancelOrderPay(orderno);
+	}
+	public int cancelSuborderPay(int orderno) {
+		return mypageDAO.cancelSuborderPay(orderno);
+	}
+	public MemberVO getUserInfo(String userid) {
+		return mypageDAO.getUserInfo(userid);
+	}
+
+	@Override
+	public int exchangeInsert(ExchangeVO vo) {
+		return mypageDAO.exchangeInsert(vo);
+	}
+
+	@Override
+	public int orderStatusUpdate(int orderno) {
+		return mypageDAO.orderStatusUpdate(orderno);
+	}
+
+	@Override
+	public OrdsubOrdJoinVO exchagneProdList(int suborderno) {
+		return mypageDAO.exchagneProdList(suborderno);
+	}
+
+	@Override
+	public List<OptionVO> exchangeOptList(int suborderno) {
+		return mypageDAO.exchangeOptList(suborderno);
+	}
+
+	@Override
+	public int exchangeDelete(int orderno) {
+		return mypageDAO.exchangeDelete(orderno);
+	}
+
+	@Override
+	public int exchangeSubordUpdate(OrdsubOrdJoinVO vo) {
+		return mypageDAO.exchangeSubordUpdate(vo);
+	}
+
+	@Override
+	public int exchangeSubordInsert(OrdsubOrdJoinVO vo) {
+		return mypageDAO.exchangeSubordInsert(vo);
+	}
+
+	@Override
+	public int exchangeOrdtblUpdate(OrderTblVO vo) {
+		return mypageDAO.exchangeOrdtblUpdate(vo);
+	}
+
+	@Override
+	public List<OrdsubOrdJoinVO> exchangeGetPrice(int orderno) {
+		return mypageDAO.exchangeGetPrice(orderno);
+	}
+
+	@Override
+	public int exchangeRepund(int suborderno) {
+		return mypageDAO.exchangeRepund(suborderno);
+	}
+
+	@Override
+	public int repundOrdtblUpdate(int orderno, int subprice) {
+		return mypageDAO.repundOrdtblUpdate(orderno, subprice);
+	}
 
 
 }

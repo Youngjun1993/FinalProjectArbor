@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.arbor.home.dao.ProductDAOImp;
 import com.arbor.home.vo.MainCateVO;
 import com.arbor.home.vo.OptionVO;
+import com.arbor.home.vo.PageProductQnaVO;
+import com.arbor.home.vo.PageProductReviewVO;
 import com.arbor.home.vo.PageProductVO;
 import com.arbor.home.vo.PageSearchVO;
 import com.arbor.home.vo.ProductQnaVO;
@@ -148,13 +150,13 @@ public class ProductService implements ProductServiceImp {
 	}
 
 	@Override
-	public List<ProductQnaVO> pqnaViewList(int pno) {
-		return productDAO.pqnaViewList(pno);
+	public List<ProductQnaVO> pqnaViewList(PageProductQnaVO pageVO) {
+		return productDAO.pqnaViewList(pageVO);
 	}
 
 	@Override
-	public List<QnaVO> qnaViewList(int pno) {
-		return productDAO.qnaViewList(pno);
+	public List<QnaVO> qnaViewList(PageProductReviewVO pageVO) {
+		return productDAO.qnaViewList(pageVO);
 	}
 
 	@Override
@@ -275,6 +277,16 @@ public class ProductService implements ProductServiceImp {
 	@Override
 	public int pqnaDelete(int pqnano, String userid) {
 		return productDAO.pqnaDelete(pqnano, userid);
+	}
+
+	@Override
+	public int qnaViewListCnt(int pno) {
+		return productDAO.qnaViewListCnt(pno);
+	}
+
+	@Override
+	public int pqnaViewListCnt(int pno) {
+		return productDAO.pqnaViewListCnt(pno);
 	}
 	
 

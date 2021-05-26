@@ -26,7 +26,27 @@
 	background-color: #ffffff;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
 }
-
+	.h_jointop.idsrch{
+	width:600px;
+	text-align:center;
+	height:60px;
+	line-height:60px;
+	vertical-align:center;
+	margin:0;
+	padding:20px 0 0;
+}
+	.h_formcontainer.idsrch{
+	width:600px;
+	padding: 0;
+	margin: 30px auto;
+	text-align:center;
+	background-color:pink;
+	position: relative;
+	overflow: hidden;
+	background-color: #ffffff;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
+}
+	
 	.h_formbox {
 	margin:50px auto;
 	width:800px;
@@ -70,12 +90,23 @@
       
 	.h_ipt{
 		padding: 7px 40px 7px 12px;
-		
 		border: 1px solid #E8EAED;
 		border-radius: 1px;
 	    background: white;
 	    box-shadow: 0 1px 3px -2px #9098A9;
 		margin:10px 0;
+		
+	}
+	
+	.h_ipt.sms{
+		font-size: 16px;	
+	}
+	
+	.h_trans{
+		padding: 7px 40px 7px 12px;
+		margin:10px 0;
+		background:transparent;
+		opacity:0.01;
 	}
 	
 	/* 비번 이메일 인증 체크박스 */
@@ -125,7 +156,7 @@
 	.h_check_btn {
 	font-size: 1.1em;
 	line-height: 32px;
-	width: 150px;
+	width: 110px;
 	height: 32px;
 	cursor: pointer;
 	vertical-align: middle;
@@ -207,6 +238,8 @@
 	
 	.h_termcontent{
 		overflow:auto;
+	    text-align: justify;
+	   	margin: 10px;
 	}
 	
 	/* 로그인 확인 부분*/
@@ -241,13 +274,24 @@
 	/* 비밀번호 변경 페이지 탭 */
 	
 	.h_pwdsearchhead {
-	font-size: 1.2em;
-	display: block;
-	margin-top: 30px;
-	text-align: center;
-	text-decoration: none;
-	font-weight:bold;
-	letter-spacing: 2px;
+		font-size: 1.2em;
+		display: block;
+		margin-top: 30px;
+		margin-bottom: 30px;
+		text-align: center;
+		text-decoration: none;
+		font-weight:bold;
+		letter-spacing: 2px;
+	}
+	
+	.h_pwd_div{
+		margin-top: 15px;
+		margin-bottom: 10px;
+	}
+	#h_btnbox {
+		width: 100px;
+	    height: 20px;
+	    margin: 20px auto;
 	}
 	
 	.h_pwdtapbox{
@@ -260,6 +304,7 @@
 		width:450px;
 		margin: 20px auto;
 	}
+	
 	
 	.h_pwdformtable tr{
 		border-bottom:1px solid gray;
@@ -366,31 +411,37 @@
 	}
 	
 	
-	/*
-	.h_pwdChangeipt {
-		display:inline-block;
-		border:5px solid gray;
-		background: transparent;
-		vertical-align:center;
-		height:100%;
-	}
-	
-		ul, li용
+	/* 아이디 체크 */
+	#h_idcheck_banner {
+		width: 100%;
+	    height: 100px;
+	    background: url(../../img/idcheck_top.png) center no-repeat;
+	    background-size: cover;
+	    position: relative;
 		
-	
-	.h_pwdsearch li {
-		float:left;
-		line-height:30px;
-		width:100%;
-		vertical-align:center;
-		border-bottom:1px solid #ccc;
+	}
+	#h_idcheck_banner img {
+		margin: 34px auto;
+	}
+	#idCheckTitle {
+		line-height:40px;
+		text-align: center;
+		font-size:1.1em;
+		color:rgb(248,244,236);
+	}
+	#h_confirm_div{
+		margin:15px auto;
+		text-align:center;
+	}
+	#h_confirm_div2{
+		text-align:center;
 	}
 	
-	.h_pwdlistdiv {
-		float:left;
-		text-align:left;
-		width:100px;
-		vertical-align:center;
+	/* sms전송 폼 */
+	
+	#h_sms_line {
+		margin-top:10px;
+		margin-bottom:10px;
 	}
-	*/
+	
 	

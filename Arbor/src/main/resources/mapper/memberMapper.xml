@@ -5,7 +5,6 @@
   
 <mapper namespace="com.arbor.home.dao.MemberDAOImp">
 	<!-- memstat 0 활성 1 휴면 2 탈퇴 -->
-	  
 	<!-- 회원가입 -->
 	<insert id="memberInsert" parameterType="com.arbor.home.vo.MemberVO">
 		insert into member(userid, userpwd, username, zipcode, addr, detailaddr, tel, smsok, email, emailok, regdate, lastdate, memstat)
@@ -26,15 +25,17 @@
 	
 	<!-- 비밀번호 체크 #{userid}는 view페이지에서 전달되는 name속성이 userid인 요소의 값 -->
 	<select id="pwdCheck" resultType="com.arbor.home.vo.MemberVO">
-		select userid, userpwd from member where userid=#{param1} and memstat in(0,1)
+	<!-- 멤버 0,1 이 문제 -->
+		select userid, userpwd from member where userid=#{param1}
+		<!--  and memstat in(0,1) -->
 	</select>
 	
 	<!-- /////////////////////////////////////////회원검색 페이지//////////////////////////////////////////// -->
 	
 	<!-- 회원삭제(관리자에의해) -->
-	<update id = "memDel">
+	<!-- <update id = "memDel">
 		update member set memstat = 2 where userid=#{param1}
-	</update>
+	</update> membstat 이전-->
 	
 	<!-- 다중삭제 -->
 	<update id = "memMultiDel">
@@ -51,9 +52,9 @@
 	</insert>
 	
 	<!-- 탈퇴시 memstat 변경(스스로) -->
-	<update id="memberQuit">
+	<!-- <update id="memberQuit">
 		update member set memstat = 2 where userid=#{param1}
-	</update>
+	</update> -->
 	<!-- 탈퇴시 byemember로 insert문 수행 -->
 	<insert id="insertByeMember">
 		INSERT INTO byemember (userid, regdate, byetype, byereason, byedate)
@@ -195,9 +196,9 @@
 	</update>
 	
 	<!-- 휴면회원다중삭제 -->
-	<update id = "dormantMultiDel">
-		update dormantmember set dortype = '탈퇴' where userid = #{userid}
-	</update>
+	<delete id = "dormantMultiDel">
+		delete from dormantmember where userid=#{userid}
+	</delete>
 	
 	<!--////////////////// 탈퇴회원 리스트와 페이징 /////////////////////-->
 	<select id="memQuitPaging" resultType="com.arbor.home.vo.MemberQuitVO">
@@ -275,9 +276,9 @@
 	<select id="memberExcelDownload" resultType="com.arbor.home.vo.MemberVO">
 		select userid, username, email, tel, to_char(regdate, 'YYYY-MM-DD') regdate from member
 	</select>
-	<!-- 휴면회원 엑셀 다운로드용 전체 -->
+	<!-- 휴면회원 엑셀 다운로드용 전체 /////////-->
 	<select id="dormantExcelDownload" resultType="com.arbor.home.vo.MemberVO">
-		select userid, username, email, tel, to_char(regdate, 'YYYY-MM-DD') regdate, to_char(dordate, 'YYYY-MM-DD') dordate from dormantmember
+		select a.userid, a.username, a.email, a.tel, to_char(a.regdate, 'YYYY-MM-DD') regdate, to_char(b.dordate, 'YYYY-MM-DD') dordate from member a join dormantmember b on a.userid = b.userid
 	</select>
 	
 	<!-- 아이디 찾기(이메일) -->

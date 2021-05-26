@@ -28,13 +28,26 @@
 					$("#y_orderPopup_Wrap>div:nth-of-type(2) ul:nth-of-type(2) li:nth-child(4)").text(vo.request);		//배송메세지(request)
 					
 					//반복
-					tag += "<li>" + vo.pname + "</li>"; 	//상품명(pname)
-					tag += "<li>" + vo.subprice+"원" +"</li>";	//가격(subprice)
+					if(vo.optinfo==null){
+						tag += "<li class='wordcut'>" + vo.pname+"</li>"; 	//상품명(pname)	
+					}else{
+						tag += "<li class='wordcut'>" + vo.pname+"-"+vo.optinfo + "</li>"; 	//상품명(pname)
+					}
+					tag += "<li>" + comma(vo.subprice*vo.quantity)+"원" +"</li>";	//가격(subprice)
 					tag += "<li>" + vo.quantity +"</li>";	//수량(quantity)
-					tag += "<li>" + vo.status +"</li>";		// 처리상태(status)
+					if(vo.status=="교환중"){
+						if(vo.exchanselect == null){
+							tag += "<li>배송완료</li>";		// 처리상태(status)	
+						}else{
+							tag += "<li>교환중</li>";
+						}	
+					}else{
+						tag+="<li>" + vo.status + "</li>";
+					}
+					
 					$("#y_orderPopup_Wrap>div:nth-of-type(3) ul").html(tag);
 					
-					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(5)").text(vo.usepoint+"원");		//사용한 적립금(usepoint)	  
+					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(5)").text(comma(vo.usepoint)+"원");		//사용한 적립금(usepoint)	  
 					//세부내역 (값을 끌어올게 없음)
 					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(8)").text(vo.couponprice+"원");		//사용한 쿠폰금액(필드추가)  
 					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(9)").text(vo.usecoupon);		//쿠폰명(usecoupon)
@@ -46,6 +59,19 @@
 				console.log("팝업 데이터 에러~!!");
 			}
 		});
+	}
+	//콤마찍기
+	function comma(str) {
+	    str = String(str);
+	    var minus = str.substring(0, 1);
+	 
+	    str = str.replace(/[^\d]+/g, '');
+	    str = str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+
+	     //음수일 경우
+	    if(minus == "-") str = "-"+str;
+	 
+	    return str;
 	}
 	function printPopup(){//프린트 팝업
 		console.log(printno);
@@ -74,7 +100,7 @@
 		//페이징 li만큼 갯수
 		var liCnt = $(".paging>li").length;
 		$(".paging").css({
-			"width" : liCnt*35+"px",
+			"width" : liCnt*40+"px",
 			"margin" : "30px auto"
 		});
 		
@@ -112,6 +138,23 @@
 			"background" :"rgb(94, 94, 94)",
 			"color":"#fff"
 		});
+		$("#y_reviewWrtClsBtn").click(function(){
+			$("#y_reviewWrite").css("display","none");
+		})
+		// reviewWrite 등록
+		$("#y_reviewWriteFrm").submit(function(){
+			if(!$(this).find('input[name=pno]').is(":checked")){
+				alert('상품을 선택해주세요.')
+				return false;
+			}else if(!$(this).find('input[name=grade]').is(":checked")){
+				alert('평점을 선택해주세요.')
+				return false;
+			}else if($(this).find('textarea').val().replace(/\s| /gi, "").length == 0){
+				alert("후기를 작성해주세요.")
+				return false;
+			}
+			return true;
+		});
 	});
 	function printWindow() {//프린트 호출
 		var subpopup = document.getElementById("y_orderPopup_Wrap");
@@ -134,6 +177,70 @@
 		window.print();
 		return false;
 	}
+	function myPagePopup(){
+		var popupWidth = 900;
+		var popupHeight = 500;
+
+		var popupX = (window.screen.width / 2) - (popupWidth / 2);
+		// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height / 2) - (popupHeight / 2);
+		// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+		window.open("myPagePopup", '배송준비','width=900px,height=500px,scollbars=no,'+"left="+popupX + ",top="+popupY);
+	}
+	function reviewWrite(orderno){
+		$("#y_reviewWrite").css("display","block");
+		var url = "reviewWrite";
+		var params = "orderno="+orderno;
+		$.ajax({
+			url : url,
+			data : params,
+			success : function(result){
+				var $result = $(result);
+				console.log($result);
+				
+				var tag = "";
+				$result.each(function(idx, vo){
+					
+					//반복
+					tag += "<li><p><img src='<%=request.getContextPath()%>/upload/" + vo.img1 + "'/></p>";
+					tag += "<p class='wordcut'>"+vo.pname +"-"+vo.optinfo+"</p>";
+					if(vo.usecoupon == "작성완료"){
+						tag += "<p style='color:red'>리뷰가 작성된 상품입니다.</p>"
+					}else{
+						tag += "<p><input type='radio' name='pno' value="+vo.pno+"></p></li>";	
+					}
+					
+					
+					$("#y_reviewPnoList").html(tag);
+				});
+			}, error : function(){
+				console.log("팝업 데이터 에러~!!");
+			}
+		});
+	}
+	
+	/* 주문취소 */
+	
+	function cancelPay(orderno) {
+		if(confirm("해당 주문을 취소하시겠습니까?")) {
+			$.ajax({
+				url : "cancelPay",
+				data : "orderno="+orderno,
+				type : "POST",
+				success : function(result) {
+					if(result>1) {
+						alert("주문취소 신청이 완료되었습니다. 승인 후 환불처리됩니다.");
+					} else {
+						alert("주문취소 신청이 실패했습니다. 다시 시도해주시거나 고객센터로 문의바랍니다.");
+					}
+				}, error : function(e) {
+					
+				}
+			});
+		}
+    }
+	
 </script>
 <div id="y_myPageMain_wrap" class="clearfix w1400_container">
 	<%@include file="/WEB-INF/inc/mypageMenu.jspf"%>
@@ -150,20 +257,18 @@
 	                <li>${data.orderdate }</li>
 	                <li class="wordcut"><a class="y_pnameList" id="y_pnameList" href="javascript:subPopupList(${data.orderno })">${data.pname }</a></li>
 	                <li><fmt:formatNumber value="${data.totalprice }" /> 원</li>
-	                <li>
-	                    <a href="#" class="statusBtn">배송준비</a> 
-	                    <a href="#" class="statusBtn">배송완료</a> 
-	                    <a href="#" class="statusBtn">주문취소</a> 
-	                    <a href="#" class="statusBtn">리뷰작성</a> 
-	                    <a href="#" class="statusBtn">교환/환불</a> 
-	                    <a href="#">배송중입니다.</a> 
+	                <li class="clearfix">
+	                	<c:if test="${data.status=='배송준비' }"><a href="javascript:myPagePopup()" class="status_ready">배송준비</a><a href="javascript:cancelPay(${data.orderno })" class="status_cashCancle">주문취소</a></c:if>
+	                	<c:if test="${data.status=='배송완료' }"><a class="status_delivDone">배송완료</a><a href="javascript:reviewWrite(${data.orderno })" class="status_review">리뷰작성</a><a href="ChngRepundList?orderno=${data.orderno }" class="status_change">교환/환불</a></c:if>
+	                	<c:if test="${data.status=='배송중' }"><a style="padding:5px 85px;">배송중입니다.</a></c:if>
+	                	<c:if test="${data.status=='교환중' }"><a style="padding:5px 85px;">교환중입니다.</a></c:if>
 	                </li>
                 </c:forEach>
             </ul>
         </div>
         <ul class="paging" class="clearfix">
           	<c:if test="${pageVO.pageNum>1 }">
-              	<li><a class="pagingLR_a"  href="purchaseList?pageNum=${pageVO.pageNum-1}">＜</a></li>
+              	<li style="border-bottom:none;"><a class="pagingLR_a"  href="purchaseList?pageNum=${pageVO.pageNum-1}">＜</a></li>
               </c:if>
               <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
               	<c:if test="${p<=pageVO.totalPage }">
@@ -176,7 +281,7 @@
               	</c:if>
               </c:forEach>
               <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-              	<li><a class="pagingLR_a"  href="purchaseList?pageNum=${pageVO.pageNum+1}">＞</a></li>
+              	<li style="border-bottom:none;"><a class="pagingLR_a"  href="purchaseList?pageNum=${pageVO.pageNum+1}">＞</a></li>
               </c:if>
           </ul>
     </div>
@@ -275,5 +380,31 @@
 	               <button class="clientSubBtn">확인</button>
 	           </div>
 	       </div>
+      </div>
+      <div id="y_reviewWrite">
+          <p class="cleafix"><button id="y_reviewWrtClsBtn">✕</button></p>
+          <form id="y_reviewWriteFrm" action="reviewWriteOk" method="post">
+              <ul>
+                  <li><span class="colorRed">*</span> 구매목록<span class="y_reviewWriteSmallText">※ 상품별 하나의 후기만 작성 가능합니다.</span></li>
+                  <li>
+                      <ul id="y_reviewPnoList" class="clearfix">
+                      	
+                      </ul>
+                  </li>
+                  <li><span class="colorRed">*</span> 후기작성</li>
+                  <li>
+                      <textarea name="reviewcontent" cols="50" rows="10"></textarea>
+                  </li>
+                  <li><span class="colorRed">*</span> 평점</li>
+                  <li>
+                      <input type="radio" name="grade" value="1"><span class="gradestar">★</span><span class="elsestar">★★★★</span>
+                      <input type="radio" name="grade" value="2"><span class="gradestar">★★</span><span class="elsestar">★★★</span>
+                      <input type="radio" name="grade" value="3"><span class="gradestar">★★★</span><span class="elsestar">★★</span>
+                      <input type="radio" name="grade" value="4"><span class="gradestar">★★★★</span><span class="elsestar">★</span>
+                      <input type="radio" name="grade" value="5"><span class="gradestar">★★★★★</span>
+                  </li>
+              </ul>
+              <input type="submit" class="clientMainBtn" value="등록하기">
+          </form>
       </div>
 </div>

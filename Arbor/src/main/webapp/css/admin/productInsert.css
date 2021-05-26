@@ -208,7 +208,7 @@
 /* manage category */
 #categoryList {
 	overflow: auto; text-align: center;
-	width: 1000px; margin: 30px auto;
+	width: 100%; margin: 30px auto;
 }
 #categoryList>li {
 	float:left; width: 10%; height: 40px; line-height: 40px;
@@ -229,14 +229,35 @@
 	margin: 0 auto;
 }
 #insertCategoryDiv {
-	margin-top: 15px;
+	margin-top: 15px; overflow:auto;
 }
 #insertCategoryDiv>form>.pContent:first-child {
 	margin-top:10px;
 }
 
 #insertCategoryDiv>hr {
-	margin: 30px 0 80px;
+	margin: 50px 0 80px;
+}
+#insertCategoryDiv>form {
+	margin-bottom: 20px;
+}
+.cateEditInput {
+	margin-bottom:20px;
+}
+
+#categoryList>li:not(.tableHeader)>input[type=submit] {
+	margin: 0; padding: 0;
+}
+
+#insertCateMainLeft {
+	width: 47%; float:left;
+}
+#insertCateMainLeft>input[type=submit], #insertCateSubRight>input[type=submit] {
+	width: 150px; height: 30px; float:right; margin-right: 110px;
+}
+#insertCateSubRight {
+	width: 47%; float:right;
+	border-left: 1px dotted #ccc; padding-left: 5%;
 }
 
 #UpdateCateFrm {

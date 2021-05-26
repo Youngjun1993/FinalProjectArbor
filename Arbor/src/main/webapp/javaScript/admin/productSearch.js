@@ -89,7 +89,6 @@ $(function(){
 <!-- 카테고리 수정창 띄우기 -->
 function cateEditBtn(mainno, mainname, subno, subname){
 	$("#UpdateCateFrm").show();
-	console.log(mainno+","+mainname+","+subno+","+subname);
 	$("#UpdateCateFrm").children("input[name=mainno]").val(mainno);
 	$("#UpdateCateFrm").children("input[name=mainname]").val(mainname);
 	$("#UpdateCateFrm").children("input[name=subno]").val(subno);
