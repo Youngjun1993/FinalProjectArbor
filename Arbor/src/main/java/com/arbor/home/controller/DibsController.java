@@ -102,7 +102,6 @@ public class DibsController {
 			HttpSession ses
 			){
 		List<DibsVO> list = new ArrayList<DibsVO>();
-		System.out.println(dibsPnoGet.length);
 		for(int i=0; i<dibsPnoGet.length; i++) {
 			int pno = Integer.parseInt(dibsPnoGet[i]);
 			String userid = (String)ses.getAttribute("logId");	
