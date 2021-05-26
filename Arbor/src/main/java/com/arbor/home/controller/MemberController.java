@@ -596,7 +596,7 @@ public class MemberController {
 		int cnt = memberService.memberUpdateOk(vo);
 		if (cnt > 0) {
 			//System.out.println("수정완료");
-			mav.setViewName("redirect:/");
+			mav.setViewName("redirect:memberUpdate");
 		} else {
 			//System.out.println("폼입력 에러");
 			mav.setViewName("redirect:memberUpdate");

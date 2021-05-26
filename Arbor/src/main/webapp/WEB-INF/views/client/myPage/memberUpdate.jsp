@@ -23,10 +23,10 @@
 			<li>아이디</li>
 			<li>${vo.userid }</li>
 			<li>비밀번호</li>
-			<li><input type="text" name="userpwd" id="userpwd" class="h_ipt userpwd" size="58" value="" /></li>
+			<li><input type="password" name="userpwd" id="userpwd" class="h_ipt userpwd" size="58" value="" /></li>
 			<li>비밀번호 확인</li>
 			<li>
-			<input type="text" name="pwdCheck" id="update_pwdCheck" class="h_ipt pwdCheck"  size="58" value="" />
+			<input type="password" name="pwdCheck" id="update_pwdCheck" class="h_ipt pwdCheck"  size="58" value="" />
 			<span class="h_pwd_ok"></span>
 			</li>
 			<li>이름</li>

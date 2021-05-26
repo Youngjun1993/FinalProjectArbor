@@ -11,7 +11,7 @@
 			<div class="h_pwdconfirm_div">
 			<b>비밀번호 재확인</b><br/>
 			회원정보의 보호를 위해 비밀번호를 다시 확인합니다<br/>
-			<div class="h_pwd_div">비밀번호 : <input type="text" id="pwdCheck" size="30" class="h_ipt" value=""/></div>
+			<div class="h_pwd_div">비밀번호 : <input type="password" id="pwdCheck" size="30" class="h_ipt" value=""/></div>
 			<span class="h_wrongPwd">비밀번호를 다시 확인해 주세요</span>
 			</div>
 			<div class="h_quitReason_div">
@@ -36,11 +36,8 @@ $('#pwdCheck').blur(function(){
 	if($('#pwdCheck').val()!=""){
 		var pwdArr = new Array();
 		//controller로 넘겨서 세션아이디와 비밀번호 일치 확인
-		
 		pwdArr.push($('#pwdCheck').val());//배열에 비밀번호입력값 넣기
-		
 		//console.log(pwdArr);
-		
 		$.ajax({
 			url:'pwdCheck',
 			type:'POST',
