@@ -18,6 +18,14 @@
 			location.href="timeSaleInsert";
 		});
 		
+		$("#searchTimeSaleFrm").submit(function(){
+			if(!$("#j_searchWord_timeSale").val()){
+				alert("검색어를 입력하세요.");
+				$("#j_searchWord_timeSale").focus();
+				return false;
+			}
+			return true;
+		});
 	});
 </script>
 </head>
@@ -28,12 +36,12 @@
 	<div class="j_centerFrm">
 		<p class="j_adminMemu"><span>타임세일 목록</span></p>
 		<div class="clearfix j_search">
-			<form method="post" class="j_searchFrm" action="timeSaleList">
+			<form method="post" id="searchTimeSaleFrm" action="timeSaleList">
 				<select id="j_searchKey" name="searchKey">
 					<option value="pNo">상품번호</option>
 					<option value="pName">상품명</option>
 				</select>
-				<input type="text" name="searchWord" id="j_searchWordNow" placeholder="검색어 입력"/>
+				<input type="text" name="searchWord" id="j_searchWord_timeSale" placeholder="검색어 입력"/>
 				<input type="submit" class="adminMainBtn" value="검색"/>
 			</form>
 		</div>
