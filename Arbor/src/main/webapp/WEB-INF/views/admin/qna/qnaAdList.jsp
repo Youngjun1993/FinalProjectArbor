@@ -24,7 +24,7 @@
 		//문의유형 선택시 이벤트
 		$("#y_qnaSearchFrm select").change(function(){
 			if($("#y_qnaSearchFrm select option:selected").text() == "문의유형"){
-				$("#y_qnaSearchFrm input[type='text']").val("ex) 교환/반품, 결제관련, 기타");
+				$("#y_qnaSearchFrm input[type='text']").val("ex) 교환/환불, 결제관련, 기타");
 			}else{
 				$("#y_qnaSearchFrm input[type='text']").val("");
 			}

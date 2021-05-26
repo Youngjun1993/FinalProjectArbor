@@ -83,7 +83,7 @@
                        <select name="qnacate" id="qnacate">
                            <option value="결제관련"<c:if test="${vo.qnacate=='결제관련' }">selected</c:if>>결제관련</option>
                            <option value="배송문의"<c:if test="${vo.qnacate=='배송문의' }">selected</c:if>>배송문의</option>
-                           <option value="교환/반품"<c:if test="${vo.qnacate=='교환/반품' }">selected</c:if>>교환/반품</option>
+                           <option value="교환/반품"<c:if test="${vo.qnacate=='교환/환불' }">selected</c:if>>교환/환불</option>
                            <option value="기타"<c:if test="${vo.qnacate=='기타' }">selected</c:if>>기타</option>
                        </select>
                        <input type="text" name="qnasubject" id="qnasubject" value="${vo.qnasubject}" />

@@ -32,6 +32,11 @@
 </div>
 
 <script>
+$("#y_leftMenu>ul>li:nth-child(8) a").css({
+	"font-weight":"bold",
+	"background" :"rgb(94, 94, 94)",
+	"color":"#fff"
+});
 $('#pwdCheck').blur(function(){
 	if($('#pwdCheck').val()!=""){
 		var pwdArr = new Array();

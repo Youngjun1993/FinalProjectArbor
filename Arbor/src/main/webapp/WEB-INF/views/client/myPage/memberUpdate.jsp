@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/memberUpdate.css" type="text/css" />
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>'
 <div id="h_memquit_container" class="clearfix w1400_container">
 	<%@include file="/WEB-INF/inc/mypageMenu.jspf"%>
 
@@ -92,6 +92,11 @@
 </div>
 
 <script>
+	$("#y_leftMenu>ul>li:nth-child(3) a").css({
+		"font-weight":"bold",
+		"background" :"rgb(94, 94, 94)",
+		"color":"#fff"
+	});
 /* 카카오주소api 연동 */
 	function kakao_address(){
 	 
