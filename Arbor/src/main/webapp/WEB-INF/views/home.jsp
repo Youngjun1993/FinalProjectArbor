@@ -242,23 +242,186 @@ $(function(){
 </div>
 <!-- LOOKBOOK -->
 <div class="d_lookbook">
-	<div class="d_bookimg"><img src="<%=request.getContextPath()%>/img/arbor_book2.png"></div>
+	<div class="d_bookimg">
+		<img src="<%=request.getContextPath()%>/img/arbor_book2.png"></div>
+	<div>
+	
+	</div>
 	<div class="d_lbleftBtn">
-		<img src="<%=request.getContextPath()%>/img/book_prevBtn.png">
+			&#10094&#10094
 	</div>
 	<div class="d_lbrightBtn">
-		<img src="<%=request.getContextPath()%>/img/book_nextBtn.png">
+			&#10095&#10095
 	</div>
 	<div class="window">
 		<div id="flipbook">
-		    <div><img src="<%=request.getContextPath()%>/img/lookbook_main.jpg"></div>
-		    <div><img src="<%=request.getContextPath()%>/img/lookbook_main.jpg"></div>
-		    <div> <img src="<%=request.getContextPath()%>/img/mainimg1.PNG"> </div>
-		    <div> <img src="<%=request.getContextPath()%>/img/mainimg2.jpg"> </div>
-		    <div> <img src="<%=request.getContextPath()%>/img/mainimg3.jpg"> </div>
-		    <div> <img src="<%=request.getContextPath()%>/img/mainimg4.jpg"> </div>
-		    <div></div>
-		    <div></div>
+		    <div class="d_bookpage d_bookmainImg">
+		    	<img src="<%=request.getContextPath()%>/img/lookbook_main.jpg">
+		    </div>
+		    <div class="d_bookpage">
+		    	<div class="d_bookcontent">
+		    		<video id="vid1" width="100%" height="400px" autoplay loop muted preload="auto">
+  						<source src="<%=request.getContextPath()%>/img/bookimg1.mp4" type="video/mp4">
+					</video>
+					<script> document.getElementById('vid1').play(); </script>
+		    	</div>
+		    	<div class="d_booktext">
+		    	<h1>아르보르는 정직하게 그리고 다르게 만듭니다.</h1>
+		    	<h1>WE MAKE QUALITY</h1>
+		    	<h3>
+		    		최고의 소재만을 사용하여<br>
+		    		고객에게 항상 신뢰받는 브랜드로 남을 수 있도록<br>
+		    		최선을 다하겠습니다.
+		    	</h3>
+		    	</div>
+		    </div>
+		    
+		    
+		    
+		    <div class="d_bookpage d_bookmargin"> 
+		    	<div class="d_booksmall d_book1 d_videofit">
+		    		<%-- <video id="vid2" width="95%" height="100%" autoplay loop muted preload="auto">
+ 						<source src="<%=request.getContextPath()%>/img/bookimg2.mp4" type="video/mp4">
+					</video>
+					<script> document.getElementById('vid2').play(); </script> --%>
+		    		<img src="<%=request.getContextPath()%>/img/lookbooktree.jpg">
+		    	</div>
+		    	<div class="d_booksmall2 d_book2">
+		    		<h3>
+		    			아르보르가 사용하는<br>
+		    			모든 소재는 시험인증기관의<br>
+		    			테스트를 완료하였습니다.
+		    		</h3>
+		    	</div>
+		    	<div class="d_booksmall2 d_book3">
+		    		<h3>
+		    			브랜드 R&D센터를 운영하며,<br>
+		    			상품을 직접 기획하고 있습니다.<br>
+		    			장인으로 이루어진 소파 제작팀이<br>
+		    			고객의 주문 후 하나하나 제작합니다.
+		    		</h3>
+		    	</div>
+		    	<div class="d_booksmall d_book4 d_videofit">
+		    		<video id="vid3" width="100%" height="100%" autoplay loop muted preload="auto">
+  						<source src="<%=request.getContextPath()%>/img/bookimg3.mp4" type="video/mp4">
+					</video>
+					<script> document.getElementById('vid3').play(); </script>
+		    	</div> 
+		    </div>
+		  	<!--룩북 상품시작 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookstart1">
+		    		<p>Arbor's Product</p>
+		    	</div>
+		    	<div class="d_bookstart2 d_videofit">
+		    		<video id="vid4" width="100%" height="100%" autoplay loop muted preload="auto">
+  						<source src="<%=request.getContextPath()%>/img/booksell1.mp4" type="video/mp4">
+					</video>
+					<script> document.getElementById('vid4').play(); </script>
+		    	</div>
+		    </div>
+		    <!-- 상품1 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain2">
+		   			<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub2">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품2 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품3 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain2">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub2">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품4 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품5 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain2">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub2">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품6 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!-- 상품7 -->
+		    <div class="d_bookpage">
+		    	<div class="d_bookmain2">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    	</div>
+		    	<div class="d_booksub2">
+		    		<p>상품명: 좋은침대</p>
+		    	</div>
+		    </div>
+		    <!--룩북 이벤트 시작 -->
+		    <div class="d_bookpage">
+		    	<div class="d_eventstart1">
+		    		<p>Arbor's EVENT</p>
+		    	</div>
+		    	<div class="d_eventstart2 d_videofit">
+		    		<video id="vid5" width="100%" height="100%" autoplay loop muted preload="auto">
+  						<source src="<%=request.getContextPath()%>/img/bookevent1.mp4" type="video/mp4">
+					</video>
+					<script> document.getElementById('vid5').play(); </script>
+		    	</div>
+		    </div>
+		    <!-- 이벤트1 -->
+		    <div class="d_bookpage">
+		    	<div class="d_eventmain2">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    	</div>
+		    	<div class="d_eventsub2">
+		    		<p>이벤트명</p>
+		    	</div>
+		    </div>
+		    <!-- 이벤트2 -->
+		    <div class="d_bookpage">
+		    	<div class="d_eventmain">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    	</div>
+		    	<div class="d_eventsub">
+		    		<p>이벤트명</p>
+		    	</div>
+		    </div>
+		    <!-- 이벤트3 -->
+		    <div class="d_bookpage">
+		    	<div class="d_eventmain2">
+		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    	</div>
+		    	<div class="d_eventsub2">
+		    		<p>이벤트명</p>
+		    	</div>
+		    </div>
 		</div>
 	</div>
 	<div class="d_lbclose"><img src="<%=request.getContextPath()%>/img/d_close5.png"></div>
@@ -295,7 +458,7 @@ $(function(){
 	<div class="slideBox" trigger-up>
 		<p>Arbor's 인기상품</p>
 		<div class="controlls">
-			<img class="prev" src="<%=request.getContextPath()%>/img/prev2.png">
+			<img class="prev" src="<%=request.getContextPath()%>/imqg/prev2.png">
 			<img class="next" src="<%=request.getContextPath()%>/img/next2.png">
 		</div>
 		<div class="slide_wraper">
