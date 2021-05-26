@@ -398,28 +398,28 @@ $(function(){
 		    <!-- 이벤트1 -->
 		    <div class="d_bookpage">
 		    	<div class="d_eventmain2">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    		<a href="eventContent?eventNo=51"><img src="<%=request.getContextPath()%>/upload/pinkevent1.jpg"></a>
 		    	</div>
 		    	<div class="d_eventsub2">
-		    		<p>이벤트명</p>
+		    		<p>설렘을 담은 신혼가구 기획전</p>
 		    	</div>
 		    </div>
 		    <!-- 이벤트2 -->
 		    <div class="d_bookpage">
 		    	<div class="d_eventmain">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    		<a href="eventContent?eventNo=41"><img src="<%=request.getContextPath()%>/upload/event_bubu.png"></a>
 		    	</div>
 		    	<div class="d_eventsub">
-		    		<p>이벤트명</p>
+		    		<p></p>
 		    	</div>
 		    </div>
 		    <!-- 이벤트3 -->
 		    <div class="d_bookpage">
 		    	<div class="d_eventmain2">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    		<a href="eventContent?eventNo=35"><img src="<%=request.getContextPath()%>/upload/event_bubu (2).png"></a>
 		    	</div>
 		    	<div class="d_eventsub2">
-		    		<p>이벤트명</p>
+		    		<p>신혼가구 컬렉션</p>
 		    	</div>
 		    </div>
 		</div>

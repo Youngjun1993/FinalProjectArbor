@@ -21,10 +21,10 @@
 			$.ajax({
 				url: "getCoupon",
 				type: "POST",
-				data : {
-					"key": typeNo
-				},
 				datatype: 'json',
+				data : {
+					key: typeNo
+				},
 				success: function(data){
 					if(data=="ok"){
 						alert("쿠폰 발급이 완료되었습니다.")
@@ -38,7 +38,7 @@
 				url: "getCateInfo",
 				type: "POST",
 				data: {
-					"key": typeNo
+					key: typeNo
 				},
 				datatype: 'json',
 				success: function(data){
