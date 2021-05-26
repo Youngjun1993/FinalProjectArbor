@@ -11,7 +11,7 @@
 			<div class="h_pwdconfirm_div">
 			<b>비밀번호 재확인</b><br/>
 			회원정보의 보호를 위해 비밀번호를 다시 확인합니다<br/>
-			<div class="h_pwd_div">비밀번호 : <input type="password" id="pwdCheck" size="30" class="h_ipt" value=""/></div>
+			<div class="h_pwd_div">비밀번호 : <input type="password" id="pwdCheck" size="30" class="h_ipt" value="" autocomplete="off"/></div>
 			<span class="h_wrongPwd">비밀번호를 다시 확인해 주세요</span>
 			</div>
 			<div class="h_quitReason_div">

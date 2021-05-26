@@ -334,7 +334,7 @@
 		</td>
 		<td>
 		<input type="text" name="userid" id="userid" size="50" class="h_ipt" required="required" value="">
-		&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="중복확인" class="h_check_btn h_idchk">
+		&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="중복 확인" class="h_check_btn h_idchk">
 		<!-- 입력검사 확인용 -->				
 		<input type="hidden" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
 		</td>
@@ -345,7 +345,7 @@
 		<label for="pwd">비밀번호 <span style="color:red">*</span></label>
 		</td>
 		<td>
-		<input type="password" name="userpwd" id="userpwd" size="50" class="h_ipt" required="required" value=""><br/>(최소 1개의 숫자 혹은 특수문자 조합, 길이 8자~16자 사이)
+		<input type="password" name="userpwd" id="userpwd" size="50" class="h_ipt" required="required" value="" autocomplete="off"><br/>(최소 1개의 숫자 혹은 특수문자 조합, 길이 8자~16자 사이)
 		</td>
 		</tr>
 		
@@ -354,7 +354,7 @@
 		<label for="pwdCheck">비밀번호 확인 <span style="color:red">*</span></label>
 		</td>
 		<td>
-		<input type="password" name="pwdCheck" id="pwdCheck" size="50" class="h_pwdchk" required="required" disabled="disabled" value="">
+		<input type="password" name="pwdCheck" id="pwdCheck" size="50" class="h_pwdchk" required="required" disabled="disabled" value="" autocomplete="off">
 		<!-- <input type="button" id="pwdconfirm" value="확 인" class="h_pwdchk_btn"/> -->
 		<span class="h_pwd_ok"></span>
 		</td>
