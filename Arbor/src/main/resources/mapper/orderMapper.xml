@@ -19,9 +19,6 @@
 	<select id="getSubnoSelect" resultType="com.arbor.home.vo.SubOrderVO">
 		select distinct(p.subno) from cart c join product p on c.pno=p.pno where userid=#{param1}
 	</select>
-	<!-- <select id="getCouponCount" resultType="int">
-		select count(cpnNo) from coupon where userid=#{param1} and cpnend>=sysdate-1
-	</select> -->
 	<select id="couponCount" resultType="int">
 		select count(cpnNo) from coupon where userid=#{param1} and cpnend>=sysdate-1 and apply=${param2}
 	</select>
@@ -113,7 +110,7 @@
 	</update>
 	<update id="setPlusPoint">
 		insert into point(pointno, pointdate, pointcontent, point, userid) values(pointsq.nextval, sysdate, '구매 적립금',
-		((select pluspoint from ordertbl where orderno=#{orderno})+(select point from point where pointno=(select max(pointno)
+		((select pluspoint from ordertbl where orderno=#{orderno})+(select nvl(max(point),0) as point from point where pointno=(select max(pointno)
 		from point where userid=(select userid from ordertbl where orderno=#{orderno})))),
 		(select userid from ordertbl where orderno=#{orderno}))
 	</update>

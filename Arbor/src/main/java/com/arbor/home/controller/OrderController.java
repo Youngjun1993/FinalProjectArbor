@@ -249,13 +249,13 @@ public class OrderController {
 			mav.addObject("searchWord", orderVo.getSearchWord());
 		}
 		// 주문상태 변경
-		if (orderVo.getStatus()!=null && ordernoArr!=null) {
+		if (orderVo.getChangestatus()!=null && ordernoArr!=null) {
 			for (int i = 0; i < ordernoArr.length; i++) {
-				System.out.println("ordernoArr[" + i + "]->" + ordernoArr[i] + " / " + orderVo.getStatus());
+				System.out.println("ordernoArr[" + i + "]->" + ordernoArr[i] + " / " + orderVo.getChangestatus());
 
-				orderService.updateOrderStatus(ordernoArr[i], orderVo.getStatus());
+				orderService.updateOrderStatus(ordernoArr[i], orderVo.getChangestatus());
 			}
-			if(orderVo.getStatus().equals("배송완료")) {
+			if(orderVo.getChangestatus().equals("배송완료")) {
 				orderService.setPlusPoint(orderVo);
 				System.out.println("배송완료 OK -> 구매적립금 적립 완료");
 			}

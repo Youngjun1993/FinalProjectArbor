@@ -175,7 +175,7 @@
 		</div>
 		<div id="j_orderList" class="clearfix">	<!-- 주문 리스트 -->
 			<form method="post" id="j_orderListFrm" action="orderAdmin">
-				<select name="status">
+				<select name="changestatus">
 					<option value="">주문상태</option>
 					<option value="배송준비">배송준비</option>
 					<option value="배송중">배송중</option>

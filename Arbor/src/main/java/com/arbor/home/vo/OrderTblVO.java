@@ -31,6 +31,7 @@ public class OrderTblVO {
 	private String merchant_uid;	//가맹점에서 전달한 거래 고유번호
 	
 	private String status="";
+	private String changestatus="";	
 	private String pname;
 	
 	private String username;
@@ -186,6 +187,12 @@ public class OrderTblVO {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getChangestatus() {
+		return changestatus;
+	}
+	public void setChangestatus(String changestatus) {
+		this.changestatus = changestatus;
 	}
 	public String getUsername() {
 		return username;
