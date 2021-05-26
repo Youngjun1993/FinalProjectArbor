@@ -96,7 +96,7 @@
                             <option value="" selected="selected" disabled="disabled" hidden>카테고리</option>
                             <option value="결제관련">결제관련</option>
                             <option value="배송문의">배송문의</option>
-                            <option value="교환/반품">교환/반품</option>
+                            <option value="교환/환불">교환/환불</option>
                             <option value="기타">기타</option>
                         </select>
                         <input type="text" name="qnasubject" id="qnasubject" onfocus="this.value=''; return true" value="제목을 입력하세요" />

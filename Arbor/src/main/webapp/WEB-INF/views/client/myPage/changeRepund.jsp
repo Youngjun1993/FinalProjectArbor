@@ -5,6 +5,11 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$(function(){
+		$("#y_leftMenu>ul>li:nth-child(2) a").css({
+			"font-weight":"bold",
+			"background" :"rgb(94, 94, 94)",
+			"color":"#fff"
+		});
 		$("#y_chanRepAllChck").change(function(){
 			if($(this).is(":checked")){
 				$("input[type=checkbox]").prop("checked",true);

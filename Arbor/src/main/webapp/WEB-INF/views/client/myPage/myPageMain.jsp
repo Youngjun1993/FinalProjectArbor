@@ -204,7 +204,12 @@
 					
 					//반복
 					tag += "<li><p><img src='<%=request.getContextPath()%>/upload/" + vo.img1 + "'/></p>";
-					tag += "<p class='wordcut'>"+vo.pname +"-"+vo.optinfo+"</p>";
+					if(vo.optinfo == null){
+						tag += "<p class='wordcut'>"+vo.pname +"</p>";
+					}else{
+						tag += "<p class='wordcut'>"+vo.pname +"-"+vo.optinfo+"</p>";	
+					}
+					
 					if(vo.usecoupon == "작성완료"){
 						tag += "<p style='color:red'>리뷰가 작성된 상품입니다.</p>"
 					}else{
