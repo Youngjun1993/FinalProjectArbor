@@ -259,8 +259,8 @@ $(function(){
 		    	<img src="<%=request.getContextPath()%>/img/lookbook_main.jpg">
 		    </div>
 		    <div class="d_bookpage">
-		    	<div class="d_bookcontent">
-		    		<video id="vid1" width="100%" height="400px" autoplay loop muted preload="auto">
+		    	<div class="d_bookcontent d_videofit">
+		    		<video id="vid1" width="100%" height="100%" autoplay loop muted preload="auto">
   						<source src="<%=request.getContextPath()%>/img/bookimg1.mp4" type="video/mp4">
 					</video>
 					<script> document.getElementById('vid1').play(); </script>
@@ -280,11 +280,11 @@ $(function(){
 		    
 		    <div class="d_bookpage d_bookmargin"> 
 		    	<div class="d_booksmall d_book1 d_videofit">
-		    		<%-- <video id="vid2" width="95%" height="100%" autoplay loop muted preload="auto">
+		    		<video id="vid2" width="100%" height="100%" autoplay loop muted preload="auto">
  						<source src="<%=request.getContextPath()%>/img/bookimg2.mp4" type="video/mp4">
 					</video>
-					<script> document.getElementById('vid2').play(); </script> --%>
-		    		<img src="<%=request.getContextPath()%>/img/lookbooktree.jpg">
+					<script> document.getElementById('vid2').play(); </script>
+		    		<%-- <img src="<%=request.getContextPath()%>/img/lookbooktree.jpg"> --%>
 		    	</div>
 		    	<div class="d_booksmall2 d_book2">
 		    		<h3>
@@ -588,10 +588,9 @@ $(function(){
 	</div>
 	<div id="d_instar" trigger-up>
 		<p>Arbor's INSTARGRAM</p>
-		<iframe src="//lightwidget.com/widgets/2078de7f99a35149a4d8536a633f791a.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>
+		<iframe src="//lightwidget.com/widgets/d486832fe27d530e953547bd5663ede1.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>
 	</div>
 </div>
 <!-- d_main -->
-
 
 

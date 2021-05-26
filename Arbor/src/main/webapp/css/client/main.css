@@ -481,25 +481,29 @@ nav>ul ul{position:absolute;}
 .d_bookcontent{
 	position:absolute;
 	left:50%;
-	top:0;
+	top:5%;
 	margin-left:-300px;
-	width:600px;
-	height:400px;
+	width:580px;
+	height:350px;
+	border:10px inset rgb(90,120,114);
 
 }
+
 .d_booktext{
 	position:absolute;
 	left:50%;
-	top:55%;
+	top:60%;
 	margin-left:-300px;
 	width:600px;
 	height:270px;
+	color:gray;
 }
 
 .d_booksmall{
 	position:absolute;
-	width:310px;
-	height:450px;
+	width:280px;
+	height:430px;
+	border:10px inset rgb(90,120,114);
 }
 .d_booksmall>img{
 	width:100%;
@@ -513,11 +517,12 @@ nav>ul ul{position:absolute;}
 	text-align:center;
 }
 .d_booksmall2 h3{
-	margin-top:10%;
+	margin-top:15%;
+	color:gray;
 }
 .d_book1{
 	left:5%;
-	top:2%;
+	top:5%;
 }
 .d_book2{
 	top:2%;
@@ -528,11 +533,12 @@ nav>ul ul{position:absolute;}
 	left:5%;
 }
 .d_book4{
-	top:30%;;
+	top:27%;;
 	left:52%;
 }
 .d_videofit>video{
 	object-fit:fill;
+	
 }
 
 /*컨텐츠 시작, 컨텐츠내용*/
