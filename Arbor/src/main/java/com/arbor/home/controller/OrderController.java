@@ -59,16 +59,15 @@ public class OrderController {
 			
 			subOrderList.add(subVo);
 			cpnCount += orderService.couponCount(userid, subVo.getSubno());
-			
-			System.out.println("subVo.getSubno()->"+subVo.getSubno());
-			System.out.println("subVo.getPno()->"+subVo.getPno());
 		}
+		List<SubOrderVO> subnoList = orderService.getSubnoSelect(userid);
 		
 		mav.addObject("pInfoList", subOrderList);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));
 		mav.addObject("couponList", orderService.getUserCoupon(userid));
 		mav.addObject("cpnCount", cpnCount);
+		mav.addObject("subnoList", subnoList);
 		mav.setViewName("client/order/order");
 		return mav;
 	}
@@ -84,17 +83,20 @@ public class OrderController {
 		ModelAndView mav = new ModelAndView();
 		String userid = (String) ses.getAttribute("logId");
 		List<SubOrderVO> list = orderService.cartAppendList(pno, userid);
+		List<SubOrderVO> subnoList = orderService.getSubnoSelect(userid);
 		int cpnCount=0;
 		for(int i=0; i<list.size(); i++) {
 			SubOrderVO vo = list.get(i);
 			cpnCount += orderService.couponCount(userid, vo.getSubno());
 		}
 		
+		
 		mav.addObject("pInfoList", list);
 		mav.addObject("memberVo", orderService.getMemberInfo(userid));
 		mav.addObject("pointVo", orderService.getUserPoint(userid));
 		mav.addObject("couponList", orderService.getUserCoupon(userid));
 		mav.addObject("cpnCount", cpnCount);
+		mav.addObject("subnoList", subnoList);
 		mav.setViewName("client/order/order");
 		return mav;
 	}
