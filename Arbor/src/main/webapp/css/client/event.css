@@ -60,12 +60,6 @@
     font-weight: normal;
     font-style: normal;
 }
-@font-face {
-    font-family: 'BMHANNAAir';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 #timer li{
 	font-family:LAB디지털;
 }
@@ -82,30 +76,15 @@
 }
 #timeSaleContent .bx-wrapper .bx-next,
 #timeSaleContent .bx-wrapper .bx-prev{
-	background: url(img/right_arrow.png) no-repeat 0 -32px;
+	display: none;
 }
-/* 
-.bx-prev,
-.bx-next {
-  display: none;
-}
-.bx-prev-arrow,
-.bx-next-arrow {
-  border-radius: 50%;
-  background: rgb(0, 112, 255, .5);
-  width: 32px;
-  height: 28px;
-  display: inline-block;
-  padding-top: 4px;
-}
- */
 #j_tab1_content{
 	background-repeat: no-repeat;
 	background-size: contain;
 	height: 1200px;	
 }
 #j_tab1_content>div{
-	margin: 400px auto 0 auto;
+	margin: 350px auto 0 auto;
 }
 #timer{
 	margin: 50px 0;
@@ -123,7 +102,7 @@
     background: #555;
     color: #fff;
     text-align: center;
-    font-size: 30px;
+    font-size: 35px;
     font-weight: bold;
 }
 #timer>ul:last-child{
@@ -134,8 +113,8 @@
     text-align: center;
     width: 105px;
     margin: 0 5px;
-    color: #aaa;
-    font-size: 15px;
+    color: rgb(191,43,53);
+    font-size: 18px;
     font-weight: bold;
 }
 #timer ul{

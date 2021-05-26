@@ -35,11 +35,11 @@
 		runTimer(sEndDate[0]);
 		//타임세일 슬라이드
 		var mys = $("#timeSaleSlider").bxSlider({
-			//mode: 'horizontal',
-			//slideWidth: 800,
-			//slideHeight: 500,
-			//auto: true,
-			//infiniteLoop: true,
+			mode: 'horizontal',
+			slideWidth: 800,
+			slideHeight: 500,
+			auto: true,
+			infiniteLoop: true,
 			//controls: false,
 			//autoControls: false,
 			//autoHover: true,
