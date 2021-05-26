@@ -26,6 +26,7 @@
 					tag += '</a></li>';
 					sEndDate[idx] = vo.saleEnd;
 				});
+				console.log("tag:"+tag);
 				$("#timeSaleSlider").html(tag);
 			},
 			error: function(){alert('error');}
@@ -34,25 +35,28 @@
 		runTimer(sEndDate[0]);
 		//타임세일 슬라이드
 		var mys = $("#timeSaleSlider").bxSlider({
-			mode: 'horizontal',
-			slideWidth: 800,
-			slideHeight: 500,
-			auto: true,
-			infiniteLoop: true,
-			controls: false,
-			autoControls: false,
-			autoHover: true,
+			//mode: 'horizontal',
+			//slideWidth: 800,
+			//slideHeight: 500,
+			//auto: true,
+			//infiniteLoop: true,
+			//controls: false,
+			//autoControls: false,
+			//autoHover: true,
+			touchEnabled : false,
+			//preventDefaultSwipeY: false,
+			//touchEnabled : (navigator.maxTouchPoints > 0),
 			//responsive:true,
 			
-			nextSelector: '.bx-next-arrow',
-		  	prevSelector: '.bx-prev-arrow',
-			nextText: 'Onward →',
-			prevText: '← Go back',
+			//nextSelector: '.bx-next-arrow',
+		  	//prevSelector: '.bx-prev-arrow',
+			//nextText: 'Onward →',
+			//prevText: '← Go back',
 			
-			onSlideNext:function(){
-				index = mys.getCurrentSlide();
-			 	runTimer(sEndDate[index]);
-			}
+			//onSlideNext:function(){
+				//index = mys.getCurrentSlide();
+			 	//runTimer(sEndDate[index]);
+			//}
 		});
 		
 		//header-EVENT 서브메뉴 클릭시 이벤트 탭 이동
@@ -153,6 +157,7 @@
 </script>
 </head>
 <body>
+
 <div class="w1400_container font_ng" id="j_eventFrm">
 	<div class="j_eventMenu">
 		<span>TIME SALE</span>
@@ -168,7 +173,7 @@
 		<label for="j_tab3" class="j_tabLbl">지난 이벤트</label>
 		
 		<!-- 타임세일 -->
-		<div class="j_tab-content" id="j_tab1_content">
+		<div class="j_tab-content" id="j_tab1_content" style="background-image: url(./img/timesale.jpg);">
 			<div>
 				<div id="timer" class="clearfix">
 					<ul class="clearfix">

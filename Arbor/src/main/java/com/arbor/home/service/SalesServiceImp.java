@@ -13,6 +13,9 @@ public interface SalesServiceImp {
 	
 	public List<SalesVO> getMonthlyChartData(SalesVO salesVo);	//월별 매출그래프 데이터
 	public List<SalesVO> getDailyChartData(SalesVO salesVo);	//일별 매출그래프 데이터
-	public List<SalesVO> getPieChartData(SalesVO salesVo);		//판매량 파이차트 데이터
+	public List<SalesVO> getMonthlyPieChartData(SalesVO salesVo);//월별 판매량 파이차트 데이터
+	public List<SalesVO> getDailyPieChartData(SalesVO salesVo);	//일별 판매량 파이차트 데이터
+	public List<SalesVO> getDailyMainCatePieChart(SalesVO salesVo);	//일별 판매량 파이차트 데이터
+	
 	
 }
