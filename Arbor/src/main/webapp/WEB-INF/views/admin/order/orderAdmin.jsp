@@ -129,7 +129,6 @@
   
   
 </script>
->>>>>>> refs/remotes/origin/kje2
 </head>
 <body>
 <div class="w1400_container font_ng">
