@@ -404,7 +404,7 @@
 		<!-- 상품문의 제목 클릭시 답변 보이게 세팅 -->
 		$(document).on('click', '.p_qna_answer', function(){
 			var click = $(this).parent().next();
-			console.log("display?"+click.css('display'))
+			
 			if(click.css('display')=='block') {
 				click.css('display', 'none');
 				click.css('height', '0px');
@@ -430,7 +430,7 @@
 		$(document).on('click', '.cancelimg', function(){
 			var selectPrice = $(this).parent().prev().children().val();
 			var selectQuantity = $(this).parent().prev().prev().children('.p_selectNum').text();
-			console.log("수량?"+selectQuantity);
+			
 			totalPrice = totalPrice - (selectPrice * selectQuantity);
 			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
 			$(this).parent().parent().remove();
@@ -662,7 +662,7 @@
 				quantityArr : quantityArr,
 				pno : pno
 			}, success : function(result) {
-				console.log(result);
+				
 				if(result>0) {
 					if(confirm("장바구니에 등록되었습니다. 장바구니로 이동하시겠습니까?")) {
 						location.href="cartList";
