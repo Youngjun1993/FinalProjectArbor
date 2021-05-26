@@ -175,7 +175,7 @@
 			return false;
 		}
 		
-		console.log(checkArr.length);
+		//console.log(checkArr.length);
 		
 		var smsform = document.getElementById('h_sms_form');
 		
@@ -242,7 +242,7 @@
 			    	return false;
 			    }else {
 			    	if(confirm("선택한 회원을 탈퇴처리 하시겠습니까?")) {
-					  	 	console.log(checkArr);
+					  	 	//console.log(checkArr);
 					   $.ajax({
 						    url : 'memMultiDel',
 						    type : 'get',
@@ -273,7 +273,7 @@
 		};
 		
 		function memDel(clickid) {
-			console.log(clickid.value)
+			//console.log(clickid.value)
 			if(confirm("탈퇴 처리 하시겠습니까?")) {
 				location.href="memDel?userid="+clickid.value;
 			}
@@ -296,10 +296,9 @@
 		});
 		
 		/* 검색버튼 */
-		$('.adminMainBtn.search').on('click', function(e){
+		$('#memSearchBtn').on('click', function(e){
 			
 			e.preventDefault();
-			
 			var pageBtn = $('#pageBtn_form');
 			
 			let emailok = $('.search_area_email input[name="emailok"]:checked').val();

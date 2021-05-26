@@ -58,7 +58,7 @@ public class MemberController {
 		MemberVO logVO = memberService.loginCheck(vo);
 
 		if (logVO == null || logVO.getMemstat() == 2) {// 로그인실패
-			System.out.println("로그인 실패");
+			//System.out.println("로그인 실패");
 			rttr.addFlashAttribute("msg", "failed");
 			mav.setViewName("redirect:login");
 		} else if (logVO.getUserid().equals("admin")) {// 관리자 로그인성공
@@ -68,7 +68,7 @@ public class MemberController {
 
 			/* 휴면회원 테이블로 90일경과 회원 넘기기 */
 			List<MemberVO> list90 = memberService.dormantList(); // 90일경과 목록(member)
-			System.out.println("등록될 사람 몇명?" + list90.size());
+			//System.out.println("등록될 사람 몇명?" + list90.size());
 			for (int i = 0; i < list90.size(); i++) {
 				MemberVO mvo = list90.get(i);
 				String userid = mvo.getUserid();
@@ -87,8 +87,8 @@ public class MemberController {
 			}
 
 			mav.setViewName("redirect:/");
-			System.out.println("로그아이디 = " + logVO.getUserid());
-			System.out.println("사용자이름 = " + logVO.getUsername());
+			//System.out.println("로그아이디 = " + logVO.getUserid());
+			//System.out.println("사용자이름 = " + logVO.getUsername());
 		}
 
 		return mav;
@@ -111,14 +111,14 @@ public class MemberController {
 
 		try {
 			if (cnt > 0) {
-				System.out.println("가입완료");
+				//System.out.println("가입완료");
 				mav.setViewName("redirect:joinok");
 			} else {
-				System.out.println("폼입력 에러");
+				//System.out.println("폼입력 에러");
 				mav.setViewName("redirect:joinForm");
 			}
 		} catch (Exception e) {
-			System.out.println("에러");
+			//System.out.println("에러");
 			e.printStackTrace();
 		}
 
@@ -207,14 +207,14 @@ public class MemberController {
 
 		// 리턴은?? 리턴할 아이디 값과 이메일 인증값을 List에 넣기
 		String needId = vo.getUserid();
-		System.out.println(needId);
+		//System.out.println(needId);
 		String validateNum = checkNum + "";
 
 		List<String> rtnList = new ArrayList<String>();
 		rtnList.add(0, needId);
 		rtnList.add(1, validateNum);
 
-		System.out.println(rtnList.get(0) + " ///////////확인번호 =" + rtnList.get(1));
+		//System.out.println(rtnList.get(0) + " ///////////확인번호 =" + rtnList.get(1));
 
 		// ajax에서 리턴값을 활용해야할때는 json으로...?
 		return rtnList;
@@ -263,13 +263,13 @@ public class MemberController {
 
 		// 리턴은?? 리턴할 아이디 값과 이메일 인증값을 List에 넣기
 		String needId = vo.getUserid();
-		System.out.println(needId);
+		//System.out.println(needId);
 
 		List<String> rtnList = new ArrayList<String>();
 		rtnList.add(0, needId);
 		rtnList.add(1, validateNum);
 
-		System.out.println(rtnList.get(0) + " ///////////확인번호 =" + rtnList.get(1));
+		//System.out.println(rtnList.get(0) + " ///////////확인번호 =" + rtnList.get(1));
 
 		// ajax에서 리턴값을 활용해야할때는 json으로...?
 		return rtnList;
@@ -309,10 +309,10 @@ public class MemberController {
 			result = 0;
 		}
 
-		System.out.println("넘어온 아이디 = " + userid);
-		System.out.println("넘어온 이메일 = " + email);
+		//System.out.println("넘어온 아이디 = " + userid);
+		//System.out.println("넘어온 이메일 = " + email);
 
-		System.out.println("인증번호 = " + changepwd);
+		//System.out.println("인증번호 = " + changepwd);
 
 		// 이메일 보내기
 		String sender = "emailarbor@gmail.com";// 메일을 보낼 관리자계정
@@ -363,12 +363,12 @@ public class MemberController {
 		int cnt = memberService.memberPwdSearchOk2(changepwd, userid, tel);
 
 		// 바뀐비번
-		System.out.println(cnt);
-		System.out.println("바뀐비번 = " + changepwd);
+		//System.out.println(cnt);
+		//System.out.println("바뀐비번 = " + changepwd);
 
 		if (cnt > 0) {
 			result = changepwd;
-			System.out.println("업데이트문 실행");
+			//System.out.println("업데이트문 실행");
 		}
 
 		return result;
@@ -393,7 +393,7 @@ public class MemberController {
 			req.setAttribute("checkResult", "Y");
 		}
 
-		System.out.println(result);
+		//System.out.println(result);
 		// request 객체에 필요한 데이터를 저장 후 뷰페이지로 이동
 
 		return "admin/member/idCheck";
@@ -403,22 +403,23 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("/mailcheck")
 	public int mailCheckGET(String email) {// 나중에 반환타입 String
-
+		int result = 0;
+		
 		/* 뷰로부터 넘어온 데이터 확인 */
-		System.out.println("이메일 데이터 전송 확인");
-		System.out.println("뷰에서 넘어온 이메일 값 : " + email);
+		//System.out.println("이메일 데이터 전송 확인");
+		//System.out.println("뷰에서 넘어온 이메일 값 : " + email);
 
 		// 인증번호 생성
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
 
-		System.out.println("인증번호 = " + checkNum);
+		//System.out.println("인증번호 = " + checkNum);
 
 		// 이메일 보내기
 		String sender = "emailarbor@gmail.com";// 메일을 보낼 관리자계정
 		String toMail = email;// 뷰에서 가져온 인증번호 받을 이메일 값
 		String title = "Arbor 회원가입 인증 이메일 입니다.";
-		String content = "Arbor를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 <b>" + checkNum
+		String content = "Arbor를 방문해주셔서 감사합니다." + "<hr/><br><br>" + "인증 번호는 <b>" + checkNum
 				+ "</b> 입니다.(인증번호를 타인에게 노출하지 마세요)" + "<br>" + "해당 인증번호를 인증번호 확인란에 기입하여 주세요. 감사합니다";
 
 		try {
@@ -430,12 +431,13 @@ public class MemberController {
 			helper.setSubject(title);
 			helper.setText(content, true);
 			mailSender.send(message);
-
+			result = checkNum;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return checkNum;
+		return result;
 
 	}
 
@@ -445,10 +447,10 @@ public class MemberController {
 	public int VerifyRecaptcha(HttpServletRequest request) {
 		VerifyRecaptcha.setSecretKey("6LeRXsgaAAAAAJJvfONVdEQrHl9Q6Ex90bzU6zv6");
 		String gRecaptchaResponse = request.getParameter("recaptcha");
-		System.out.println("캡챠 응답 값" + gRecaptchaResponse);
+		//System.out.println("캡챠 응답 값" + gRecaptchaResponse);
 		try {
 			if (VerifyRecaptcha.verify(gRecaptchaResponse)) {
-				System.out.println("캡차 통과 0 반환");
+				//System.out.println("캡차 통과 0 반환");
 				return 0;
 			} // 성공
 			else
@@ -477,10 +479,10 @@ public class MemberController {
 		 */
 		// 배열로 전달한 값과 vo의 pwd를 비교한다
 		if (userpwd.equals(inputpwd)) {
-			System.out.println("비밀번호 일치");
+			//System.out.println("비밀번호 일치");
 			result = 1;
 		} else {
-			System.out.println("비밀번호 불일치");
+			//System.out.println("비밀번호 불일치");
 			result = 0;
 		}
 		return result;
@@ -494,7 +496,7 @@ public class MemberController {
 
 		ModelAndView mav = new ModelAndView();
 
-		System.out.println("테스트페이지 값 = " + cri.getPageNum());
+		//System.out.println("테스트페이지 값 = " + cri.getPageNum());
 
 		int cnt = memberService.memCount(cri);
 		// 페이징용 VO 객체생성
@@ -502,8 +504,8 @@ public class MemberController {
 		// modelandview에 list변수로 페이징 데이터 넣어주기
 		mav.addObject("list", memberService.memSearchPaging(cri));
 
-		System.out.println("카테고리 =" + cri.getType());
-		System.out.println("검색어 =" + cri.getSearchWord());
+		//System.out.println("카테고리 =" + cri.getType());
+		//System.out.println("검색어 =" + cri.getSearchWord());
 
 		mav.addObject("pageMaker", pageMaker);// 전체데이터가 담긴 memberVO 객체
 
@@ -523,7 +525,7 @@ public class MemberController {
 		if (cnt > 0 && cnt1 >0) {// 삭제
 			mav.setViewName("redirect:memberSearch");
 		} else {// 삭제 실패
-			System.out.println("삭제실패");
+			//System.out.println("삭제실패");
 			mav.setViewName("redirect:memberSearch");
 		}
 
@@ -536,17 +538,17 @@ public class MemberController {
 	public int memMultiDel(@RequestParam(value = "memberChk[]") List<String> chArr) {
 		int result = 0;
 
-		System.out.println(chArr.size());
+		//System.out.println(chArr.size());
 		/////// 수정중
 		for (int i = 0; i < chArr.size(); i++) {
 			int cnt = memberService.insertByeMemberMulti(chArr.get(i), "관리자삭제");
 			int cnt1 = memberService.permanantDel3(chArr.get(i));
 			if (cnt > 0 && cnt1 >0) {
-				System.out.println("다중삭제 완료");
+			//	System.out.println("다중삭제 완료");
 				result = 1;
 			} else {
-				System.out.println("다중삭제 실패");
-				System.out.println(cnt);
+				//System.out.println("다중삭제 실패");
+				//System.out.println(cnt);
 				result = 0;
 			}
 		}
@@ -561,15 +563,14 @@ public class MemberController {
 	@RequestMapping("/memberGoodbye")
 	public int memberGoodbye(@RequestParam("reason") String reason, HttpSession session) {
 		// requestParam()의 속성명은 뷰 ajax에서 data로 넘겨준 속성명
-		System.out.println("컨트롤러 온다");
 		int result = 0;
 		String nowId = (String) session.getAttribute("logId");
-		System.out.println("세션 아이디" + nowId);
+		//System.out.println("세션 아이디" + nowId);
 		// 컨트롤러에서 dao호출해서 member테이블 업데이트하고 byemember테이블에 insert문을 추가해준다.
 		int cnt2 = memberService.insertByeMember(nowId, reason);
 		int cnt1 = memberService.permanantDel3(nowId);
-		System.out.println("탈퇴테이블 삽입" + cnt2);
-		System.out.println("멤버테이블 삭제" + cnt1);
+		//System.out.println("탈퇴테이블 삽입" + cnt2);
+		//System.out.println("멤버테이블 삭제" + cnt1);
 		
 		if (cnt1 > 0 && cnt2 > 0) {
 			session.removeAttribute("logId");
@@ -588,16 +589,16 @@ public class MemberController {
 
 		ModelAndView mav = new ModelAndView();
 		String nowId = (String) session.getAttribute("logId");
-		System.out.println("세션입력전 vo 유저아이디" + vo.getUserid());
+		//System.out.println("세션입력전 vo 유저아이디" + vo.getUserid());
 		vo.setUserid(nowId);
-		System.out.println("수정시 vo 유저아이디" + vo.getUserid());
+		//System.out.println("수정시 vo 유저아이디" + vo.getUserid());
 
 		int cnt = memberService.memberUpdateOk(vo);
 		if (cnt > 0) {
-			System.out.println("수정완료");
+			//System.out.println("수정완료");
 			mav.setViewName("redirect:/");
 		} else {
-			System.out.println("폼입력 에러");
+			//System.out.println("폼입력 에러");
 			mav.setViewName("redirect:memberUpdate");
 		}
 
@@ -627,8 +628,8 @@ public class MemberController {
 	public ModelAndView sendDormantMail(String email, String userid) {// 나중에 반환타입 String
 
 		/* 뷰로부터 넘어온 데이터 확인 */
-		System.out.println("이메일 데이터 전송 확인");
-		System.out.println("뷰에서 넘어온 이메일 값 : " + email);
+		//System.out.println("이메일 데이터 전송 확인");
+		//System.out.println("뷰에서 넘어온 이메일 값 : " + email);
 
 		ModelAndView mav = new ModelAndView();
 
@@ -664,10 +665,10 @@ public class MemberController {
 		int cnt = memberService.dormantmailsend(userid);
 
 		if (cnt > 0) {
-			System.out.println("휴면메일 발송 처리 완료");
+			//System.out.println("휴면메일 발송 처리 완료");
 			mav.setViewName("redirect:memberAdminDormant");
 		} else {
-			System.out.println("휴면메일 발송 처리 실패");
+			//System.out.println("휴면메일 발송 처리 실패");
 			mav.setViewName("redirect:memberAdminDormant");
 		}
 
@@ -680,7 +681,7 @@ public class MemberController {
 	@RequestMapping("/dormantMultiDel")
 	public int dormantMultiDel(@RequestParam(value = "memberChk[]") List<String> chArr) {
 		int result = 0;
-		System.out.println("체크박스 체크 개수" + chArr.size());
+		//System.out.println("체크박스 체크 개수" + chArr.size());
 
 		for (int i = 0; i < chArr.size(); i++) {
 			if (memberService.dormantMultiDel(chArr.get(i)) > 0) {
@@ -700,7 +701,7 @@ public class MemberController {
 
 		ModelAndView mav = new ModelAndView();
 
-		System.out.println("테스트페이지 값 = " + cri.getPageNum());
+		//System.out.println("테스트페이지 값 = " + cri.getPageNum());
 
 		int cnt = memberService.memQuitCount(cri);
 		// 페이징용 VO 객체생성
@@ -708,8 +709,8 @@ public class MemberController {
 		// modelandview에 list변수로 페이징 데이터 넣어주기
 		mav.addObject("list", memberService.memQuitPaging(cri));
 
-		System.out.println("카테고리 =" + cri.getType());
-		System.out.println("검색어 =" + cri.getSearchWord());
+		//System.out.println("카테고리 =" + cri.getType());
+		//System.out.println("검색어 =" + cri.getSearchWord());
 
 		mav.addObject("pageMaker", pageMaker);//
 		mav.setViewName("admin/member/memberAdminQuit");
@@ -723,18 +724,20 @@ public class MemberController {
 	@RequestMapping("/permanantDel")
 	public int permanantDel(@RequestParam(value = "memberChk[]") List<String> chArr) {
 		int result = 0;
-		System.out.println(chArr.size());
+		//System.out.println(chArr.size());
 
 		for (int i = 0; i < chArr.size(); i++) {
 			int cnt = memberService.permanantDel(chArr.get(i));
 			if (cnt > 0) {
-				System.out.println("다중삭제 완료");
+				//System.out.println("다중삭제 완료");
+				result = 1;
 			} else {
-				System.out.println("다중삭제 실패");
-				System.out.println(cnt);
+				//System.out.println("다중삭제 실패");
+				//System.out.println(cnt);
+				result = 0;
 			}
 		}
-		result = 1;
+		
 
 		return result;
 	}
@@ -751,7 +754,7 @@ public class MemberController {
 		if (cnt > 0) {// 삭제
 			mav.setViewName("redirect:memberAdminQuit");
 		} else {// 삭제 실패
-			System.out.println("삭제실패");
+			//System.out.println("삭제실패");
 			mav.setViewName("redirect:memberAdminQuit");
 		}
 
