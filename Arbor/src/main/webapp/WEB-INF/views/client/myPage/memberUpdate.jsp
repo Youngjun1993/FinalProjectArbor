@@ -14,7 +14,7 @@
 			<div class="h_pwdconfirm_div">
 			<b>비밀번호 재확인</b><br/>
 			회원정보의 보호를 위해 비밀번호를 다시 확인합니다<br/>
-			<div class="h_pwd_div">비밀번호 : <input type="text" id="pwdCheck" size="30" class="h_ipt" value=""/></div>
+			<div class="h_pwd_div">비밀번호 : <input type="password" id="pwdCheck" size="30" class="h_ipt" value=""/></div>
 			</div>
 		</div>
 		<div class="h_UpdateWriteForm font_ng">
@@ -23,10 +23,10 @@
 			<li>아이디</li>
 			<li>${vo.userid }</li>
 			<li>비밀번호</li>
-			<li><input type="text" name="userpwd" id="userpwd" class="h_ipt userpwd" size="58" value="" /></li>
+			<li><input type="password" name="userpwd" id="userpwd" class="h_ipt userpwd" size="58" value="" autocomplete="off"/></li>
 			<li>비밀번호 확인</li>
 			<li>
-			<input type="text" name="pwdCheck" id="update_pwdCheck" class="h_ipt pwdCheck"  size="58" value="" />
+			<input type="password" name="pwdCheck" id="update_pwdCheck" class="h_ipt pwdCheck"  size="58" value="" autocomplete="off"/>
 			<span class="h_pwd_ok"></span>
 			</li>
 			<li>이름</li>
@@ -171,7 +171,7 @@
 					alert('비밀번호를 다시 입력해주세요');
 				}
 			}, error:function() {
-				console.log("AJAX 에러");
+				console.log("다시 입력해 주세요");
 			}
 		});
 		

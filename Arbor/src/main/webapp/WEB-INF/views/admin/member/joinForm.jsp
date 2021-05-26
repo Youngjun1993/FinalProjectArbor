@@ -330,11 +330,11 @@
 		<!-- 아이디 -->
 		<tr>
 		<td>
-		<label for="userid">아이디 *</label>
+		<label for="userid">아이디 <span style="color:red">*</span></label>
 		</td>
 		<td>
 		<input type="text" name="userid" id="userid" size="50" class="h_ipt" required="required" value="">
-		&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="중복확인" class="h_check_btn h_idchk">
+		&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="중복 확인" class="h_check_btn h_idchk">
 		<!-- 입력검사 확인용 -->				
 		<input type="hidden" name="hiddenCheck" id="hiddenCheck" size="4px" value="N"/>
 		</td>
@@ -342,19 +342,19 @@
 		<!-- 비밀번호 -->
 		<tr>
 		<td>
-		<label for="pwd">비밀번호 *</label>
+		<label for="pwd">비밀번호 <span style="color:red">*</span></label>
 		</td>
 		<td>
-		<input type="password" name="userpwd" id="userpwd" size="50" class="h_ipt" required="required" value=""><br/>(최소 1개의 숫자 혹은 특수문자 조합, 길이 8자~16자 사이)
+		<input type="password" name="userpwd" id="userpwd" size="50" class="h_ipt" required="required" value="" autocomplete="off"><br/>(최소 1개의 숫자 혹은 특수문자 조합, 길이 8자~16자 사이)
 		</td>
 		</tr>
 		
 		<tr>
 		<td>
-		<label for="pwdCheck">비밀번호 확인 *</label>
+		<label for="pwdCheck">비밀번호 확인 <span style="color:red">*</span></label>
 		</td>
 		<td>
-		<input type="password" name="pwdCheck" id="pwdCheck" size="50" class="h_pwdchk" required="required" disabled="disabled" value="">
+		<input type="password" name="pwdCheck" id="pwdCheck" size="50" class="h_pwdchk" required="required" disabled="disabled" value="" autocomplete="off">
 		<!-- <input type="button" id="pwdconfirm" value="확 인" class="h_pwdchk_btn"/> -->
 		<span class="h_pwd_ok"></span>
 		</td>
@@ -362,7 +362,7 @@
 		
 		<tr>
 		<td>
-		<label for="username">이름 *</label>
+		<label for="username">이름 <span style="color:red">*</span></label>
 		</td>
 		<td>
 		<input type="text" name="username" id="username" size="50" class="h_ipt" required="required" value="">
@@ -371,7 +371,7 @@
 		
 		<tr>
 		<td>
-		<label for="addr">주 소</label>
+		<label for="addr">주 소 <span style="color:red">*</span></label>
 		</td>
 		<td>
 		<input type="text" name="zipcode" id="zipcode" size="50" class="h_ipt zipcode" readonly="readonly">
@@ -385,7 +385,7 @@
 		
 		<tr>
 		<td>
-		연락처
+		연락처 <span style="color:red">*</span>
 		</td>
 		<td>
 		<select id="tel" name="tel1" class="h_select" style="width:115px">
@@ -417,7 +417,7 @@
 		
 		<tr>
 		<td>
-		<label for="smsok">광고SMS 수신동의</label>
+		<label for="smsok">광고SMS 수신동의 </label>
 		</td>
 	 	<td>
 		<input type="radio" name="smsok" value="Y" checked>예
@@ -428,7 +428,7 @@
 		
 		<tr>
 		<td>
-		<label for="email">이메일</label>
+		<label for="email">이메일 <span style="color:red">*</span></label>
 		</td>
 		<td>
 		<input type="text" name="emailid" id="emailid" size="17" class="h_ipt emailid" required="required" value=""> @ 
@@ -446,7 +446,7 @@
 		
 		<tr>
 		<td>
-		<label for="emailvalid">인증번호</label>
+		<label for="emailvalid">인증번호 <span style="color:red">*</span></label>
 		</td>
 	 	<td>
 	 	<input type="text" name="emailvalid" id="emailvalid" size="50" class="h_emailvalid" required="required" disabled="disabled">
@@ -457,7 +457,7 @@
 		
 		<tr>
 		<td>
-		<label for="emailok">광고성메일 수신동의</label>
+		<label for="emailok">광고성메일 수신동의 </label>
 		</td>
 	 	<td>
 		<input type="radio" name="emailok" value="Y" checked>예

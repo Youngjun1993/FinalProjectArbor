@@ -113,7 +113,7 @@
 								<li>${vo.username}</li>
 								<li class="wordcut">${vo.email}</li>
 								<li>${vo.tel}</li>
-								<li>${vo.regdate}/${vo.emailok}/ ${vo.smsok}</li>
+								<li>${vo.regdate}</li>
 								<li>${vo.lastdate}</li>
 								<li><input type="button" name="memberDelBtn" value="강제 탈퇴"
 									class="adminSubBtn" onclick="memDel(clickid${status.index})" />
@@ -324,7 +324,6 @@
 			pageBtn.find('input[name="smsok"]').val(smsok);
 			pageBtn.find('input[name="pageNum"]').val(1);
 			pageBtn.submit();
-			
 			
 		});
 		
