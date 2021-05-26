@@ -231,6 +231,7 @@
 				success : function(result) {
 					if(result>1) {
 						alert("주문취소 신청이 완료되었습니다. 승인 후 환불처리됩니다.");
+						location.href="purchaseList";
 					} else {
 						alert("주문취소 신청이 실패했습니다. 다시 시도해주시거나 고객센터로 문의바랍니다.");
 					}

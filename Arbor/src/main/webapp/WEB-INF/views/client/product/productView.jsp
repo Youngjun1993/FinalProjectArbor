@@ -429,7 +429,9 @@
 		<!-- 지정된 상품 x 누르면 한 줄 지우면서 총금액 재계산 -->
 		$(document).on('click', '.cancelimg', function(){
 			var selectPrice = $(this).parent().prev().children().val();
-			totalPrice -= selectPrice;
+			var selectQuantity = $(this).parent().prev().prev().children('.p_selectNum').text();
+			console.log("수량?"+selectQuantity);
+			totalPrice = totalPrice - (selectPrice * selectQuantity);
 			$("#p_totalprice").text(totalPrice.toLocaleString()+" 원");
 			$(this).parent().parent().remove();
 		});
