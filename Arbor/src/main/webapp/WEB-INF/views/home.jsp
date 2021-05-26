@@ -323,64 +323,64 @@ $(function(){
 		    <!-- 상품1 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain2">
-		   			<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		   			<a href="productView?pno=53"><img src="<%=request.getContextPath()%>/upload/a23.jpg"></a>
 		    	</div>
 		    	<div class="d_booksub2">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: 브리엔침대</p>
 		    	</div>
 		    </div>
 		    <!-- 상품2 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=79"><img src="<%=request.getContextPath()%>/upload/a73.PNG"></a>
 		    	</div>
 		    	<div class="d_booksub">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: 토핑체어</p>
 		    	</div>
 		    </div>
 		    <!-- 상품3 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain2">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=97"><img src="<%=request.getContextPath()%>/upload/a07.jpg"></a>
 		    	</div>
 		    	<div class="d_booksub2">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: 헤르짐머 뷘트 3인 소파</p>
 		    	</div>
 		    </div>
 		    <!-- 상품4 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=30"><img src="<%=request.getContextPath()%>/upload/jerry_TVStand_1.jpg"></a>
 		    	</div>
 		    	<div class="d_booksub">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: Jerry TV Stand</p>
 		    	</div>
 		    </div>
 		    <!-- 상품5 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain2">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=75"><img src="<%=request.getContextPath()%>/upload/a67.PNG"></a>
 		    	</div>
 		    	<div class="d_booksub2">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: 도노 세라믹 6인 식탁</p>
 		    	</div>
 		    </div>
 		    <!-- 상품6 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=24"><img src="<%=request.getContextPath()%>/upload/wardrobe3-2.jpg"></a>
 		    	</div>
 		    	<div class="d_booksub">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: Cane Wardrobe</p>
 		    	</div>
 		    </div>
 		    <!-- 상품7 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain2">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=37"><img src="<%=request.getContextPath()%>/upload/black1-1.png"></a>
 		    	</div>
 		    	<div class="d_booksub2">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: ARBOR 블랙 러버 협탁</p>
 		    	</div>
 		    </div>
 		    <!--룩북 이벤트 시작 -->
