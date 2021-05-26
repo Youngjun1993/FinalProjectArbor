@@ -256,11 +256,15 @@ public class ProductController {
 	@ResponseBody
 	public int deleteCate(SubCateVO vo) {
 		int cnt = 0;
-		int result = productService.deleteSubCate(vo.getSubno());
-		cnt += result;
-		List<SubCateVO> list = productService.subCateList(vo.getMainno());
-		if(list.size()==0) {
-			productService.deleteMainCate(vo.getMainno());
+		if(productService.productSubCateImgSelect(vo.getSubno())==null) {
+			int result = productService.deleteSubCate(vo.getSubno());
+			cnt += result;
+			List<SubCateVO> list = productService.subCateList(vo.getMainno());
+			if(list.size()==0) {
+				productService.deleteMainCate(vo.getMainno());
+			}
+		} else {
+			
 		}
 		return cnt;
 	}
@@ -273,13 +277,19 @@ public class ProductController {
 		int cnt = 0;
 		for(int i=0; i<subnoArr.length; i++) {
 			int subno = Integer.parseInt(subnoArr[i]);
-			int mainno = productService.selectSubno(subno);
-			int result = productService.deleteSubCate(subno);
-			cnt += result;
-			List<SubCateVO> list = productService.subCateList(mainno);
-			if(list.size()==0) {
-				productService.deleteMainCate(mainno);
+			if(productService.productSubCateImgSelect(subno)==null) {
+				int mainno = productService.selectSubno(subno);
+				int result = productService.deleteSubCate(subno);
+				cnt += result;
+				List<SubCateVO> list = productService.subCateList(mainno);
+				if(list.size()==0) {
+					productService.deleteMainCate(mainno);
+				}
+			} else {
+				cnt = 0;
+				break;
 			}
+			
 		}
 		return cnt;
 	}
@@ -719,7 +729,7 @@ public class ProductController {
 	@RequestMapping("/productDeleteMany")
 	@ResponseBody
 	public int productDeleteMany(HttpServletRequest req,
-			@RequestParam(value="checked", required=true) String pnoArr[]) {
+			@RequestParam(value="checked[]", required=true) String pnoArr[]) {
 		int cnt=0;
 		for(int i=0; i<pnoArr.length; i++) {
 			// 원래 DB 파일명 가져오기

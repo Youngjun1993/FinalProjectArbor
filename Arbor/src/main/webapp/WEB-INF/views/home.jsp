@@ -368,10 +368,10 @@ $(function(){
 		    <!-- 상품6 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain">
-		    		<a href="productView?pno=24"><img src="<%=request.getContextPath()%>/upload/wardrobe3-2.jpg"></a>
+		    		<a href="productView?pno=43"><img src="<%=request.getContextPath()%>/upload/a7.jpg"></a>
 		    	</div>
 		    	<div class="d_booksub">
-		    		<p>상품명: Cane Wardrobe</p>
+		    		<p>상품명: 링키플러스 슬라이딩 옷장</p>
 		    	</div>
 		    </div>
 		    <!-- 상품7 -->
