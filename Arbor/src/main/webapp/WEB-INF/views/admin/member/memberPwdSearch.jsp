@@ -102,8 +102,8 @@
 		idArr.push(userid);//배열에 이름값
 		idArr.push(email);//배열에 이메일값
 		
-		console.log(idArr[0]);
-		console.log(idArr[1]);
+		//console.log(idArr[0]);
+		//console.log(idArr[1]);
 		  
 		
 		if(userid != "" && email != "") {
@@ -147,8 +147,8 @@
 		idArr.push(id);//배열에 이름값
 		idArr.push(tel);//배열에 이메일값
 		
-		console.log(id);
-		console.log(tel);
+		//console.log(id);
+		//console.log(tel);
 		
 		if(id != "" && tel != "") {
 			
@@ -170,8 +170,8 @@
 						$('#msg').text("[신혼전문 가구쇼핑몰] Arbor 임시비밀번호는 " + tmppwd + " 입니다. 접속 후 꼭 변경해주세요");
 						//sms로 인증번호를 발송 
 						
-						console.log("임시비밀번호 값 = " + tmppwd );
-						console.log("전송번호 값 = " + sendtel );
+						//console.log("임시비밀번호 값 = " + tmppwd );
+						//console.log("전송번호 값 = " + sendtel );
 							
 						//새창을 만들어서 보내고 클로즈시킴
 						window.open('','smsSender','width=0,height=1');

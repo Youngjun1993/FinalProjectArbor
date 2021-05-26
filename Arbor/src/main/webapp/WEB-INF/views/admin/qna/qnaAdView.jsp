@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/qna.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/arbor.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
 <script>
 	function qnaAdDel(qnano){
 		if(confirm("삭제하시겠습니까?")){
@@ -28,9 +30,7 @@
 </head>
 <body>
 	<div id="y_qnaView_wrap" class="w1400_container clearfix">
-        <div id="y_leftMenu">
-        	공통메뉴
-        </div>
+        <%@include file="/WEB-INF/inc/adminMenu.jspf"%>
         <div id="y_qanView_rightcon" class="y_Adrightcon">
             <p class="y_title_fs25">1:1문의(Q&#38;A) 삭제/답변등록</p>
             <div>

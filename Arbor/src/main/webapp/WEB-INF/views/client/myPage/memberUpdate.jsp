@@ -85,7 +85,7 @@
 			</ul>
 		</form>
 			<div class="h_memUpdate_submitbox">
-				<input type="button" class="clientMainBtn" value="정보수정" />
+				<input type="button" class="clientMainBtn Update" value="정보수정" />
 			</div>
 		</div>
 	</div>
@@ -203,7 +203,7 @@
 			    }
 	});
 	
-	$('.clientMainBtn').click(function() {
+	$('.clientMainBtn.Update').click(function() {
 		inputpwd = $("#userpwd").val();
 		checkpwd = $("#update_pwdCheck").val();
 		addr = $("#addr").val();
@@ -221,7 +221,6 @@
 		console.log(emailid);
 		console.log(emaildomain);
 		
-		// addr값이 없음 z클래스이름을 h_ipt.addr 이런식으로해야함
 		if(inputpwd != "" && checkpwd != "" && addr != "" && tel2 != "" && tel3 != "" && emailid != "" && emaildomain != "") {
 			alert('수정이 완료되었습니다.');
 			$('.h_memUpdate_form').submit();

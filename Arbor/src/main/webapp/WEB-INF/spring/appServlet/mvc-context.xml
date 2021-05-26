@@ -21,7 +21,6 @@
 			<mvc:mapping path="/cartList"/> <!-- 장바구니 -->
 			<mvc:mapping path="/cartInsert"/>
 			<mvc:mapping path="/order"/>
-			<mvc:mapping path="/mailcheck"/><!-- 가입인증 메일 체크 -->
 			<mvc:mapping path="/memberUpdate"/><!-- 회원수정 -->
 			<mvc:mapping path="/memberUpdateOk"/><!-- 회원수정Ok -->
 			<mvc:mapping path="/memberQuit"/><!-- 회원 탈퇴 -->

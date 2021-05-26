@@ -39,7 +39,7 @@ $('#pwdCheck').blur(function(){
 		
 		pwdArr.push($('#pwdCheck').val());//배열에 비밀번호입력값 넣기
 		
-		console.log(pwdArr);
+		//console.log(pwdArr);
 		
 		$.ajax({
 			url:'pwdCheck',
@@ -57,7 +57,7 @@ $('#pwdCheck').blur(function(){
 					$('.h_pwd_div').focus();
 				}
 			}, error:function() {
-				console.log("AJAX 에러");
+				//console.log("AJAX 에러");
 			}
 		});
 		
@@ -84,7 +84,7 @@ $('#h_quitBtn').click(function (){
 					alert('탈퇴가 실패하였습니다.');
 				}
 			},error:function() {
-				console.log('ajax에러');
+				//console.log('ajax에러');
 			}
 			
 		});

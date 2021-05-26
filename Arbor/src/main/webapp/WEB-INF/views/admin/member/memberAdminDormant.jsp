@@ -277,7 +277,7 @@
 				return false;
 			}
 			
-			console.log(checkArr.length);
+			//console.log(checkArr.length);
 			
 			$('#h_sms_form *').remove();
 				
@@ -349,7 +349,7 @@
 			    	return false;
 			    }else {
 			    	if(confirm("선택한 회원을 휴면테이블에서 삭제 하시겠습니까?")) {
-					  	 	console.log(checkArr);
+					  	 	//console.log(checkArr);
 					   $.ajax({
 						    url : 'dormantMultiDel',
 						    type : 'post',

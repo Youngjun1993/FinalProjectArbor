@@ -13,7 +13,7 @@
 	<div id="p_header" class="clearfix">
 		<ul id="p_leftTitle" class="clearfix">
 			<c:forEach var="subCate" items="${subCate }">
-				<li><a href="productList?mainno=${subCate.mainno }&subno=${subCate.subno }">${subCate.subname }</a></li>
+				<li><a href="productList?&subno=${subCate.subno }">${subCate.subname }</a></li>
 				<li>&nbsp</li>
 			</c:forEach>
 		</ul>
