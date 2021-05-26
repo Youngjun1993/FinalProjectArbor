@@ -368,10 +368,10 @@
 	                   <p><img src="<%=request.getContextPath()%>/img/sublogo.jpg" alt="sublogoImg"></p>
 	                   <ul>
 	                       <li>Arbor</li>
-	                       <li>Company : ㈜arbor</li>
-	                       <li>Ceo : ㅇㅇㅇ</li>
+	                       <li>Company : ㈜아르보르</li>
+	                       <li>Ceo : 이영준</li>
 	                       <li>Cpo : 아르보르(info@arbor.co.kr)</li>
-	                       <li>Address : ㅇㅇ구 ㅇㅇ동</li>
+	                       <li>Address : 서울시 마포구 백범로 23</li>
 	                   </ul>
 	               </div>
 	           </div>
