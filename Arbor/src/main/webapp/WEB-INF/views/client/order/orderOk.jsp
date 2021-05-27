@@ -117,7 +117,7 @@
 			</tr>
 			<tr>
 				<td>쿠폰 사용</td>
-				<td>${orderVo.usecoupon }</td>
+				<td><fmt:formatNumber value='${orderVo.couponprice }'/>원</td>
 			</tr>
 		</table>
 	</div>
