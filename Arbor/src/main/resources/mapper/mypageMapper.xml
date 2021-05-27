@@ -82,7 +82,7 @@
 
 	<!-- qna List 페이지  -->
 	<select id="allList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
+		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH24:MI') as qnadate, to_char(ansdate, 'YY-MM-DD HH24:MI') as ansdate from qna where userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
 	</select>
 	<select id="qnaTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(qnano) as totalRecord from qna where userid = #{userid}
