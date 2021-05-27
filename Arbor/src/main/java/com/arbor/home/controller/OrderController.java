@@ -191,7 +191,8 @@ System.out.println("subList몇개지?"+subnoList.size());
 			@RequestParam(value = "subprice", required = true) int[] subpriceArr,
 			@RequestParam(value = "cartno", required = true) int[] cartnoArr) {
 		
-		System.out.println("cartnoArr->"+cartnoArr.length);
+		System.out.println("사용쿠폰 -> "+orderVo.getUsecoupon());
+		System.out.println("사용쿠폰금액 -> "+orderVo.getCouponprice());
 		
 		String userid = (String) session.getAttribute("logId");
 		orderVo.setUserid(userid);
@@ -202,14 +203,8 @@ System.out.println("subList몇개지?"+subnoList.size());
 		String orderSeq = String.valueOf(orderService.getOrderSeq());
 		int orderno = Integer.parseInt(today + orderSeq);
 		orderVo.setOrderno(orderno); // 당일날짜+시퀀스 형식으로 주문번호 생성 (ex.21051103)
-		
-		//orderVo.setApplynum(applyNum);	//결제 승인번호
-		System.out.println("승인번호->"+orderVo.getApplynum());
-		System.out.println("아임포트 고유번호->"+orderVo.getImp_uid());
-		System.out.println("거래 고유번호->"+orderVo.getMerchant_uid());
 
 		if (orderService.orderComplete(orderVo) > 0) { // 주문완료 db 생성
-			System.out.println("** 주문 DB 생성 완료");
 			for (int i = 0; i < pnoArr.length; i++) {
 				SubOrderVO subVo = new SubOrderVO();
 				if(optinfoArr.length==0) {
@@ -229,12 +224,10 @@ System.out.println("subList몇개지?"+subnoList.size());
 					break;
 				}else {
 					orderService.deleteCartList(cartnoArr[i], userid);
-					System.out.println("cartnoArr["+i+"]->"+cartnoArr[i]+" 삭제 완료"); //장바구니 상품 주문시, 해당 상품 장바구니에서 삭제
 				}
 				orderService.updateProductStock(pnoArr[i]);	//주문상품 재고량 수정(-)
 			}
 		}
-		System.out.println("사용적립금->"+orderVo.getUsepoint());
 		if(orderVo.getUsepoint()>0) {
 			orderService.setUsedPoint(orderVo);	//사용적립금 db 반영(-)
 		}
@@ -254,9 +247,7 @@ System.out.println("subList몇개지?"+subnoList.size());
 	public ModelAndView orderManagement(
 			@Nullable @RequestParam(value = "orderno", required = false) int[] ordernoArr,
 			PageSearchVO pageVo, OrderTblVO orderVo, HttpServletRequest req) {
-		System.out.println("getPageNum()->"+pageVo.getPageNum());
 		String pageNumStr = req.getParameter("pageNum");
-		System.out.println("pageNumStr->"+pageNumStr);
 		if (pageNumStr != null) {
 			pageVo.setPageNum(Integer.parseInt(pageNumStr));
 		}
@@ -269,7 +260,6 @@ System.out.println("subList몇개지?"+subnoList.size());
 			String st = pageVo.getOrderSearch_to();
 			mav.addObject("orderSearch_from", sf);
 			mav.addObject("orderSearch_to", st);
-			System.out.println("검색 시작일:"+sf+" / 검색 종료일:"+st);
 			if ((sf != null || !sf.equals("")) && (st != null || !st.equals(""))) {
 				sf = sf.replace("-", "/");
 				st = st.replace("-", "/");
@@ -284,8 +274,6 @@ System.out.println("subList몇개지?"+subnoList.size());
 		// 주문상태 변경
 		if (orderVo.getChangestatus()!=null && ordernoArr!=null) {
 			for (int i = 0; i < ordernoArr.length; i++) {
-				System.out.println("ordernoArr[" + i + "]->" + ordernoArr[i] + " / " + orderVo.getChangestatus());
-
 				orderService.updateOrderStatus(ordernoArr[i], orderVo.getChangestatus());
 			}
 			if(orderVo.getChangestatus().equals("배송완료")) {
@@ -297,11 +285,6 @@ System.out.println("subList몇개지?"+subnoList.size());
 		if(pageVo.getTotalRecord()<=10) {
 			pageVo.setPageNum(1);
 		}
-		System.out.println("주문리스트->" + orderService.selectOrderList(pageVo).size());
-		System.out.println("getPageNum()->"+pageVo.getPageNum());
-		System.out.println("getTotalPage()->"+pageVo.getTotalPage());
-		System.out.println("getLastPageRecord()->"+pageVo.getLastPageRecord());
-		System.out.println("getTotalRecord()->"+pageVo.getTotalRecord());
 		mav.addObject("pageVO", pageVo);
 		mav.setViewName("admin/order/orderAdmin");
 		return mav;

@@ -112,16 +112,6 @@ public class OrderService implements OrderServiceImp {
 		return orderDAO.cartAllList(userid);
 	}
 	
-	/*	@Override
-		public List<SubOrderVO> getSubOrderList(String orderNo) {
-			return orderDAO.getSubOrderList(orderNo);
-		}
-	
-		@Override
-		public OrderTblVO getOrderInfo(String orderNo) {
-			return getOrderInfo(orderNo);
-		}*/
-
 	@Override
 	public int deleteCartList(int cartno, String userid) {
 		return orderDAO.deleteCartList(cartno, userid);
@@ -151,6 +141,6 @@ public class OrderService implements OrderServiceImp {
 	public List<SubOrderVO> getSubnoSelect(String userid) {
 		return orderDAO.getSubnoSelect(userid);
 	}
-
+	
 	
 }
