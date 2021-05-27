@@ -115,7 +115,7 @@
 								<li>${vo.tel}</li>
 								<li>${vo.regdate}</li>
 								<li>${vo.lastdate}</li>
-								<li><input type="button" name="memberDelBtn" value="강제 탈퇴"
+								<li><input type="button" name="memberDelBtn" id="memberDelBtn" value="강제 탈퇴"
 									class="adminSubBtn" onclick="memDel(clickid${status.index})" />
 									<input type="hidden" id="h_userid"
 									name="clickid${status.index}" value="${vo.userid}" /></li>
@@ -137,7 +137,7 @@
 						<input type="hidden" name="smsok" value="${pageMaker.cri.smsok}" />
 						<!-- 이메일 sms 추가 -->
 					</form>
-					<ul class="h_paging" id="adPaging">
+					<%-- <ul class="h_paging" id="adPaging">
 						<c:if test="${pageMaker.prev }">
 							<li><a class="pagingAdLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
 						</c:if>
@@ -146,6 +146,17 @@
 						</c:forEach>
 						<c:if test="${pageMaker.next }">
 							<li><a class="pagingAdLR_a" href="${pageMaker.endPage + 1 }">＞</a></li>
+						</c:if>
+					</ul> --%>
+					<ul class="h_paging" id="adPaging">
+						<c:if test="${pageMaker.cri.pageNum>1 }">
+							<li><a class="pagingAdLR_a" href="${pageMaker.cri.pageNum - 1 }">＜</a></li>
+						</c:if>
+						<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+							<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
+						</c:forEach>
+						<c:if test="${pageMaker.cri.pageNum < Math.ceil(pageMaker.total/10) }">
+							<li><a class="pagingAdLR_a" href="${pageMaker.cri.pageNum + 1 }">＞</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -157,9 +168,9 @@
 <script>
 	var result = '${msg}';
 	
-	if(result == 'admin'){
+	/* if(result == 'admin'){
 		alert('관리자 로그인 환영합니다');
-	}
+	} */
 	
 	/////////////// 선택 SMS전송기능
 	$('#sendSms').on("click", function(){

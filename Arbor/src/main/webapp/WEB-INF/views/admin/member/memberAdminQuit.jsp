@@ -107,7 +107,7 @@
 						<li>${vo.quitperiod}&nbsp;일 째</li>
 						<li>${vo.regdate}</li>
 						<li>
-							<input type="button" name="memberDelBtn" value="삭제" class="adminSubBtn" onclick="delforever(clickid${status.index})"/>
+							<input type="button" name="memberDelBtn" id="memberDelBtn" value="삭제" class="adminSubBtn" onclick="delforever(clickid${status.index})"/>
 							<input type="hidden" id="h_userid" name="clickid${status.index}" value="${vo.userid}"/>
 						</li>
 				</c:forEach>
@@ -126,17 +126,28 @@
 				<input type="hidden" name="quitperiod" value = "${pageMaker.cri.quitperiod}"/>
 				<!-- 이메일 sms 추가 -->
 			</form>
+				<%-- <ul class="h_paging" id="adPaging">
+					<c:if test="${pageMaker.prev }">
+						<li><a class="pagingAdLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
+					</c:if>
+					<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+						<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
+					</c:forEach>
+					<c:if test="${pageMaker.next }">
+						<li><a class="pagingAdLR_a" href="${pageMaker.endPage + 1 }">＞</a></li>
+					</c:if>
+				</ul> --%>
 				<ul class="h_paging" id="adPaging">
-						<c:if test="${pageMaker.prev }">
-							<li><a class="pagingAdLR_a" href="${pageMaker.startPage - 1 }">＜</a></li>
-						</c:if>
-						<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-							<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
-						</c:forEach>
-						<c:if test="${pageMaker.next }">
-							<li><a class="pagingAdLR_a" href="${pageMaker.endPage + 1 }">＞</a></li>
-						</c:if>
-					</ul>
+					<c:if test="${pageMaker.cri.pageNum>1 }">
+						<li><a class="pagingAdLR_a" href="${pageMaker.cri.pageNum - 1 }">＜</a></li>
+					</c:if>
+					<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+						<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
+					</c:forEach>
+					<c:if test="${pageMaker.cri.pageNum < Math.ceil(pageMaker.total/10) }">
+						<li><a class="pagingAdLR_a" href="${pageMaker.cri.pageNum + 1 }">＞</a></li>
+					</c:if>
+				</ul>
 			</div>
 		</div>
 	</div>
