@@ -50,7 +50,7 @@
 					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(5)").text(comma(vo.usepoint)+"원");		//사용한 적립금(usepoint)	  
 					//세부내역 (값을 끌어올게 없음)
 					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(8)").text(vo.couponprice+"원");		//사용한 쿠폰금액(필드추가)  
-					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(9)").text(vo.usecoupon);		//쿠폰명(usecoupon)
+					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(9)").text(vo.cpnname);		//쿠폰명(usecoupon)
 					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(11)").text(vo.totalprice+"원");		//결제금액(totalprice) 	  
 					//카드사명 (값을 끌어올게 없음)
 					
@@ -341,7 +341,7 @@
                    <li class="wordcut">-</li>
                    <li>카드</li>
                    <li>-</li>
-                   <li>-</li>
+                   <li>신한카드</li>
                </ul>
            </div>
            <button id="y_popupCloseBtn" class="clientMainBtn">닫기</button>

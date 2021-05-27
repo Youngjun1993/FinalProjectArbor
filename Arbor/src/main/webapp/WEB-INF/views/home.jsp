@@ -451,7 +451,6 @@ $(function(){
 		<div id="topFont">
 			<p>FEELS LIKE INSPIRE</p>
 			<P>Furniture only for you prepared for you</p>
-			<button>Collection</button>
 		</div>
 	</div>
 	<!-- 인기상품 -->
