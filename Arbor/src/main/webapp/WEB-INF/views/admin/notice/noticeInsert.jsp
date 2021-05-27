@@ -25,6 +25,13 @@
 <script>
 $(function(){
 	$('#d_noticeInsertBtn').click(function(){
+		if($("#d_noticeSubject").val()=="" ){
+			alert("공지사항 제목을 입력하세요.");
+			return false;
+		}else if($("#d_noticeInsert").val()==""){
+			alert("공지사항 내용을 입력하세요.");
+			return false;
+		}
 		$('#noticeFrm').submit();
 	});
 	
@@ -104,7 +111,10 @@ $(function(){
 				<span class="d_editFont">제목: </span><input type="text" name="noticesubject" id="d_noticeSubject"/><br/>
 				<br/><br/>
 				<textarea name="noticecontent" id="d_noticeInsert"></textarea><br/>
-				<p class="d_noticeInsertBtn"><input type="button" class="adminMainBtn" id="d_noticeInsertBtn" value="등록"> <input type="button" class="adminSubBtn" id="d_insertCnlBtn" value="취소"></p>
+				<p class="d_noticeInsertBtn">
+					<input type="button" class="adminMainBtn" id="d_noticeInsertBtn" value="등록">
+					<input type="button" class="adminSubBtn" id="d_insertCnlBtn" value="취소">
+				</p>
 			</div>
 		</form>
 	</div>

@@ -26,6 +26,13 @@
 <script>
 $(function(){
 	$('#d_faqEditBtn').click(function(){
+		if($("#d_faqSubject").val()==""){
+			alert("FAQ 질문을 입력하세요.");
+			return false;
+		}else if($("#d_faqInsert").val()==""){
+			alert("FAQ 답변을 입력하세요.");
+			return false;
+		}
 		$('#faqEditFrm').submit();
 	});
 	

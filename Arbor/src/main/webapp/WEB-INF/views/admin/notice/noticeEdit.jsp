@@ -25,6 +25,13 @@
 <script>
 $(function(){
 	$('#d_noticeEditBtn').click(function(){
+		if($("#d_noticeSubject").val()=="" ){
+			alert("공지사항 제목을 입력하세요.");
+			return false;
+		}else if($("#d_noticeInsert").val()==""){
+			alert("공지사항 내용을 입력하세요.");
+			return false;
+		}
 		$('#noticeEditFrm').submit();
 	});
 	

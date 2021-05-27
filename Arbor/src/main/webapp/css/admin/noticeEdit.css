@@ -116,3 +116,9 @@
 	width:60px;
 	height:30px;
 }
+.d_noticeInsertBtn input{
+	float:right;
+	margin-left:10px;
+	width:60px;
+	height:40px;
+}

@@ -26,6 +26,13 @@
 <script>
 $(function(){
 	$('#d_faqInsertBtn').click(function(){
+		if($("#d_faqSubject").val()==""){
+			alert("FAQ 질문을 입력하세요.");
+			return false;
+		}else if($("#d_faqInsert").val()==""){
+			alert("FAQ 답변을 입력하세요.");
+			return false;
+		}
 		$('#faqFrm').submit();
 	});
 	
@@ -111,7 +118,7 @@ $(function(){
 				</div>
 				<br/>
 				<textarea name="faqcontent" id="d_faqInsert"></textarea><br/>
-				<p class="d_noticeInsertBtn"><input type="button" class="adminMainBtn" id="d_faqInsertBtn" value="등록"> <input type="button" class="adminSubBtn" id="d_faqCnlBtn" value="취소"></p>
+				<p class="d_faqBtns"><input type="button" class="adminMainBtn" id="d_faqInsertBtn" value="등록"> <input type="button" class="adminSubBtn" id="d_faqCnlBtn" value="취소"></p>
 			</div>
 		</form>
 	</div>
