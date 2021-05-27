@@ -16,6 +16,8 @@ public class SalesVO {
 	private String userid;
 	private String username;
 	private int subprice;
+	private String pname;
+	private int productcnt;
 	
 	
 	public String getOrderdate() {
@@ -101,6 +103,18 @@ public class SalesVO {
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public int getProductcnt() {
+		return productcnt;
+	}
+	public void setProductcnt(int productcnt) {
+		this.productcnt = productcnt;
 	}
 	
 	

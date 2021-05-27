@@ -186,6 +186,8 @@
 		// 결제 //////////////////////////////
 		var IMP = window.IMP;
 		IMP.init('imp60549605');	//가맹점 key
+		var amount = $('#j_totalPrice').val();
+		console.log("amount->"+amount)
 		var msg="";
 		var applynum="";	//결제 승인번호
 		var imp_uid="";		//취소할 거래의 아임포트 고유번호
@@ -196,7 +198,7 @@
 		    pay_method : 'card',
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '주문명:결제테스트',
-		    amount : 10,
+		    amount : amount,
 		    buyer_email : '${memberVo.email}',
 		    buyer_name : '${memberVo.username}',
 		    buyer_tel : '${memberVo.tel}',

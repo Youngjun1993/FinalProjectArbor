@@ -59,9 +59,6 @@ public class OrderController {
 			
 			subOrderList.add(subVo);
 			cpnCount += orderService.couponCount(userid, subVo.getSubno());
-			
-			System.out.println("subVo.getSubno()->"+subVo.getSubno());
-			System.out.println("subVo.getPno()->"+subVo.getPno());
 		}
 		
 		mav.addObject("pInfoList", subOrderList);
@@ -100,7 +97,8 @@ public class OrderController {
 	}
 
 	@RequestMapping(value = "/orderAppendCartList", method = RequestMethod.POST) /* 장바구니 - 선택구매 */
-	public ModelAndView orderAppendCart(@RequestParam(value = "cartpno", required = true) String[] cartpno,
+	public ModelAndView orderAppendCart(
+			@RequestParam(value = "cartpno", required = true) String[] cartpno,
 			HttpSession ses) {
 		ModelAndView mav = new ModelAndView();
 		List<SubOrderVO> list = new ArrayList<SubOrderVO>();
