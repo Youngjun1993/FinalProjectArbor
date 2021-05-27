@@ -5,7 +5,7 @@
 
   
 <mapper namespace="com.arbor.home.dao.FaqDAOImp">
-	<select id="faqList" resultType="com.arbor.home.vo.FaqVO" parameterType="com.arbor.home.vo.PageSearchVO">
+	<!-- <select id="faqList" resultType="com.arbor.home.vo.FaqVO" parameterType="com.arbor.home.vo.PageSearchVO">
 		select * from (select * from (select faqno, faqcate, faqsubject, faqcontent, faqdate from faq
 		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%' order by faqno desc)
 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by faqno asc)
@@ -16,10 +16,21 @@
 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by faqno asc)
 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by faqno desc</if>
-	</select>
+	</select> -->
+	<select id="faqList" resultType="com.arbor.home.vo.FaqVO" parameterType="com.arbor.home.vo.PageSearchVO">
+      select * from (select * from (select faqno, faqcate, faqsubject, faqcontent, faqdate from faq
+      <if test="searchWord!=null">where ${searchKey} like '%${searchWord}%' order by faqno desc)
+      <![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by faqno asc)
+      <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+      <if test="pageNum!=totalPage">#{onePageRecord}</if> order by faqno desc</if>
+      <if test="searchWord==null">order by faqno desc)
+      <![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by faqno asc)
+      <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+      <if test="pageNum!=totalPage">#{onePageRecord}</if> order by faqno desc</if>
+   </select>
 	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
-		select count(faqno) as totalRecord from faq
-	</select>
+      select count(faqno) as totalRecord from faq <if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>      
+   </select>
 	<insert id="faqInsert" parameterType="com.arbor.home.vo.FaqVO">
 		insert into faq (faqno, faqcate, faqsubject, faqcontent, faqdate)
 		values(faqsq.nextval, #{faqcate}, #{faqsubject}, #{faqcontent}, sysdate)
