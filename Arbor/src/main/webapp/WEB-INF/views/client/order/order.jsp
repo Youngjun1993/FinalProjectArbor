@@ -70,7 +70,6 @@
 			var pointNum = Number(pointStr);
 			var point = pointNum.toLocaleString();
 			var mypoint = Number('${pointVo.point}');//보유 적립금
-
 			if(mypoint<pointNum){
 				alert("보유 적립금을 확인해 주시기 바랍니다.");
 				$('#j_usePoint').val('0');
@@ -101,7 +100,7 @@
 						}
 					</c:forEach>
 					$("#usedcouponPrice").val(afterSalePrice);
-					$("#j_usedcoupon").html(afterSalePrice.toLocaleString()+'원<input type="hidden" name="usedcouponPrice" id="usedcouponPrice" value='+afterSalePrice+' />');
+					$("#j_usedcoupon").html(afterSalePrice.toLocaleString()+'원<input type="hidden" name="couponprice" id="usedcouponPrice" value='+afterSalePrice+' />');
 					cal_totalpayment();
 				}, error : function(e) {
 					
@@ -290,7 +289,6 @@
 		$('#pPoint').text(plusPoint);
 		$('#j_plusPoint').val(plus);
 	}
-
 </script>
 </head>
 <body>
@@ -343,9 +341,9 @@
 						<li><fmt:formatNumber value='${pInfoVo.pprice }'/></li>
 						<li><fmt:formatNumber value='${pInfoVo.saleprice }'/></li>
 						<li>${pInfoVo.quantity }</li>
-						<li><fmt:formatNumber value='${pInfoVo.quantity*pInfoVo.deliveryprice }'/></li>
+						<li><fmt:formatNumber value='${pInfoVo.deliveryprice }'/></li>
 						<li><fmt:formatNumber value='${pInfoVo.quantity*pInfoVo.subprice }'/></li>
-						<c:set var="sumDelivery" value='${sumDelivery + pInfoVo.quantity*pInfoVo.deliveryprice }'/>
+						<c:set var="sumDelivery" value='${sumDelivery + pInfoVo.deliveryprice }'/>
 						<c:set var="sumPayment" value='${sumPayment + pInfoVo.quantity*pInfoVo.subprice }'/>
 					</c:forEach>
 				</ul>
@@ -518,11 +516,12 @@
 												<option value="-" selected hidden>사용가능 쿠폰 ${cpnCount }장</option>
 												<c:forEach var="list" items="${subnoList }">
 													<c:forEach var="cpnVo" items="${couponList }">					
-														<c:if test="${cpnVo.apply == list.subno }">$(${cpnVo.apply}, ${list.subno })
-															<option value="${cpnVo.cpnname }">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
+														<c:if test="${cpnVo.apply == list.subno }">
+															<option value="${cpnVo.cpnno }">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
 														</c:if>
 													</c:forEach>
 												</c:forEach>
+											<%-- <input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/> --%>
 											</c:otherwise>
 										</c:choose>
 									</select>
@@ -579,7 +578,6 @@
 									<td><fmt:formatNumber value='${sumDelivery }'/>원</td>
 								</tr>
 							</table>
-									<input type="hidden" name="deliveryprice" value="${sumDelivery }"/>
 							<div>
 								<p>총 결제예정금액</p>
 								<p id="j_totalPayment"></p>
