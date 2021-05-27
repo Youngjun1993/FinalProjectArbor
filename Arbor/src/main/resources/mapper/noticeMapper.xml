@@ -4,20 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.arbor.home.dao.NoticeDAOImp">
-<!-- 	<select id="noticeList" resultType="com.arbor.home.vo.NoticeVO" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from (select * from (select noticeno, noticesubject, noticecontent, noticedate from notice
-		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%' order by noticeno desc)
-		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by noticeno asc)
-		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
-		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by noticeno desc</if>
-		
-		<if test="searchWord==null">order by noticeno desc)
-		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by noticeno asc)
-		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
-		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by noticeno desc</if>
-	</select> -->
 	<select id="noticeList" resultType="com.arbor.home.vo.NoticeVO" parameterType="com.arbor.home.vo.PageSearchVO">
-      select * from (select * from (select noticeno, noticesubject, noticecontent, noticedate from notice
+      select * from (select * from (select noticeno, noticesubject, noticecontent, to_char(noticedate, 'yyyy-mm-dd') noticedate from notice
       <if test="searchWord!=null">where ${searchKey} like '%${searchWord}%' order by noticeno desc)
       <![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by noticeno asc)
       <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
