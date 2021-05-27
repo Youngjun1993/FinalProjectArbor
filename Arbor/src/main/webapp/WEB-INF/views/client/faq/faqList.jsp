@@ -45,7 +45,7 @@ $(document).ready(function(){
 				<option value="faqcontent">내용</option>
 			</select>
 			<input type="text" name="searchWord" placeholder="검색어 입력"/>
-			<input type="submit" class="adminMainBtn" value="검색"/>
+			<input type="submit" class="clientMainBtn" value="검색"/>
 		</form>
 	</div>
 	<div id="d_faqtitle">
@@ -65,14 +65,14 @@ $(document).ready(function(){
 		</div>
 		</c:forEach>
 	</div>
-	<ul id="d_paging" class="adPaging clearfix">
+	<ul id="d_paging" class="paging clearfix">
          <c:if test="${pageVO.pageNum>1 }">
-            <li style="border-bottom:none;"><a class="pagingAdLR_a" href="faqList?pageNum=${pageVO.pageNum-1 }">＜</a></li>
+            <li style="border-bottom:none;"><a class="pagingLR_a" href="faqList?pageNum=${pageVO.pageNum-1 }">＜</a></li>
          </c:if>
          <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
             <c:if test="${p<=pageVO.totalPage }">
                <c:if test="${p==pageVO.pageNum }">
-                  <li style="border-bottom:3px solid rgb(191,43,53);"><a href="faqList?pageNum=${p }<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
+                  <li style="border-bottom:3px solid rgb(90,120,114);"><a href="faqList?pageNum=${p }<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
                </c:if>
                <c:if test="${p!=pageVO.pageNum }">
                   <li><a href="faqList?pageNum=${p }<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
@@ -80,7 +80,7 @@ $(document).ready(function(){
             </c:if>
          </c:forEach>
          <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-            <li style="border-bottom:none;"><a class="pagingAdLR_a" href="faqList?pageNum=${pageVO.pageNum+1 }">＞</a></li>
+            <li style="border-bottom:none;"><a class="pagingLR_a" href="faqList?pageNum=${pageVO.pageNum+1 }">＞</a></li>
          </c:if>
      </ul>
 </div>

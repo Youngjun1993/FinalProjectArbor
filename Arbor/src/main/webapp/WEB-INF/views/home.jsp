@@ -535,7 +535,7 @@ $(function(){
 			<li>
 				<a href="productList?mainno=1&subno=1">
 					<div class="screen" trigger-left>
-						<div class="s_top">소파를 봅시다</div>
+						<div class="s_top">Arbor's Sofa</div>
 						<div class="s_bottom">소파리스트로 이동</div>
 						<div class="s_video">
 							<video width="533.33" height="700" autoplay loop muted preload="auto">
@@ -549,7 +549,7 @@ $(function(){
 			<li>
 				<a href="productList?mainno=2&subno=5">
 					<div class="screen" trigger-up>
-						<div class="s_top">침대를 봅시다</div>
+						<div class="s_top">Arbor's Bed</div>
 						<div class="s_bottom">침대리스트로 이동</div>
 						<div class="s_video">
 							<video width="533.33" height="700" autoplay loop muted preload="auto">
@@ -563,7 +563,7 @@ $(function(){
 			<li>
 				<a href="productTotalList">
 					<div class="screen" trigger-right >
-						<div class="s_top">가구를 봅시다.</div>
+						<div class="s_top">Arbor's Product</div>
 						<div class="s_bottom">가구리스트로 이동</div>
 						<div class="s_video">
 							<video width="533.33" height="700" autoplay loop muted preload="auto">

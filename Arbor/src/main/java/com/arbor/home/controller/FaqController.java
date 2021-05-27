@@ -106,7 +106,6 @@ public class FaqController {
 	@RequestMapping("/faqDel")
 	public ModelAndView faqDel(int no) {
 		ModelAndView mav = new ModelAndView();
-		
 		if(faqService.faqDel(no)>0) {
 			mav.setViewName("redirect:faqAdList");
 		}else {

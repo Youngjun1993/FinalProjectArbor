@@ -26,19 +26,23 @@ window.onload=msg;
 				<option value="noticecontent">내용</option>
 			</select>
 			<input type="text" name="searchWord" placeholder="검색어 입력"/>
-			<input type="submit" class="adminMainBtn" value="검색"/>
+			<input type="submit" class="clientMainBtn" value="검색"/>
 		</form>
 	</div>
 	<ul id="d_list" class="d_noticeList">
 		<li><p>번호</p></li>
+		<li></li>
 		<li>제목</li>
+		<li></li>
 		<li>등록일</li>
 	</ul>
 	<div id="d_listContent" class="d_noticeList">
 	<ul class="d_noticeList">
 		<c:forEach var="noticeList" items="${noticeList}">
 		<li><p>${noticeList.noticeno }</p></li>
+		<li></li>
 		<li class="wordcut"><a href="noticeView?no=${noticeList.noticeno }">${noticeList.noticesubject }</a></li>
+		<li>
 		<li>${noticeList.noticedate }</li>
 		</c:forEach>
 	</ul>
@@ -65,14 +69,14 @@ window.onload=msg;
 			<li style="border-bottom:none;"><a class="pagingAdLR_a" href="noticeList?pageNum=${pageVO.pageNum+1 }">＞</a></li>
 		</c:if>
 	</ul> --%>
-	<ul id="d_paging" class="adPaging clearfix">
+	<ul id="d_paging" class="paging clearfix">
          <c:if test="${pageVO.pageNum>1 }">
-            <li style="border-bottom:none;"><a class="pagingAdLR_a" href="noticeList?pageNum=${pageVO.pageNum-1 }">＜</a></li>
+            <li style="border-bottom:none;"><a class="pagingLR_a" href="noticeList?pageNum=${pageVO.pageNum-1 }">＜</a></li>
          </c:if>
          <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
             <c:if test="${p<=pageVO.totalPage }">
                <c:if test="${p==pageVO.pageNum }">
-                  <li style="border-bottom:3px solid rgb(191,43,53);"><a href="noticeList?pageNum=${p }<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
+                  <li style="border-bottom:3px solid rgb(90,120,114);"><a href="noticeList?pageNum=${p }<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
                </c:if>
                <c:if test="${p!=pageVO.pageNum }">
                   <li><a href="noticeList?pageNum=${p }<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
@@ -80,7 +84,7 @@ window.onload=msg;
             </c:if>
          </c:forEach>
          <c:if test="${pageVO.pageNum<pageVO.totalPage }">
-            <li style="border-bottom:none;"><a class="pagingAdLR_a" href="noticeList?pageNum=${pageVO.pageNum+1 }">＞</a></li>
+            <li style="border-bottom:none;"><a class="pagingLR_a" href="noticeList?pageNum=${pageVO.pageNum+1 }">＞</a></li>
          </c:if>
      </ul>
 </div>
