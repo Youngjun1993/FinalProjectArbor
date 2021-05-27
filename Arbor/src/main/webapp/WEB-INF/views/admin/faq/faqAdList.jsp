@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>arbor > EventList</title>
+<title>faqAdList</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/faqAdmin.css" type="text/css" />
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
 <script>
 var pageNum = '<c:out value="${pageVO.pageNum}"/>';
 function msg(){
@@ -112,7 +111,7 @@ function faqDel(faqno){
 			</div>
 		</c:forEach>
 	</div>
-	<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_insertBtn" value="등록하기"></p>
+	<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="d_faqBtn" value="등록하기"></p>
 	<!-- 페이징 -->
 	<ul id="d_paging" class="adPaging clearfix">
          <c:if test="${pageVO.pageNum>1 }">

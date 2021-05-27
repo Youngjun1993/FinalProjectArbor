@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>arbor > EventInsert</title>
+<title>noticeEdit</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
+
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/noticeEdit.css" type="text/css" />
 <%-- <script src="<%=request.getContextPath() %>/javaScript/admin/eventInsertEdit.js"></script> --%>
 <!-- datepicker -->
@@ -27,6 +27,11 @@ $(function(){
 	$('#d_noticeEditBtn').click(function(){
 		$('#noticeEditFrm').submit();
 	});
+	
+	$("#d_insertCnlBtn").click(function(){
+		location.href="noticeAdminList";
+	});
+	
 	//summernote
 	$("#d_noticeInsert").summernote({
 		height: 400,

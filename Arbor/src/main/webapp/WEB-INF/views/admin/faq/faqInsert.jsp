@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
+
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/noticeEdit.css" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/faqAdmin.css" type="text/css" />
 <%-- <script src="<%=request.getContextPath() %>/javaScript/admin/eventInsertEdit.js"></script> --%>
@@ -27,6 +27,10 @@
 $(function(){
 	$('#d_faqInsertBtn').click(function(){
 		$('#faqFrm').submit();
+	});
+	
+	$('#d_faqCnlBtn').click(function(){
+		location.href="faqAdList";
 	});
 	//summernote
 	$("#d_faqInsert").summernote({

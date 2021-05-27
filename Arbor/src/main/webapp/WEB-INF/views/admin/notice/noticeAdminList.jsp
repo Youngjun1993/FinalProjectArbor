@@ -10,8 +10,8 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/memberAdminMenu.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/noticeEdit.css" type="text/css" />
 <script src="<%=request.getContextPath() %>/javaScript/admin/adminMenu.js"></script>
-<script src="<%=request.getContextPath() %>/javaScript/admin/event.js"></script>
 
 <script>
 	$(function(){
@@ -53,7 +53,7 @@
 				<li>${noticeList.noticedate }</li>
 			</c:forEach>
 		</ul>
-		<p class="j_eventSetBtn"><input type="button" class="adminMainBtn" id="j_insertBtn" value="공지등록"></p>
+		<p><input type="button" class="adminMainBtn" id="d_insertBtn" value="공지등록"></p>
 		<!-- 페이징 -->
 		<ul id="d_paging" class="adPaging clearfix">
          <c:if test="${pageVO.pageNum>1 }">

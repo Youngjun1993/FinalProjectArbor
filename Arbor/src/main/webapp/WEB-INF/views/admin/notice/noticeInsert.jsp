@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>arbor > EventInsert</title>
+<title>noticeInsert</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/arbor.css" type="text/css"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin/event.css" type="text/css"/>
@@ -27,6 +27,12 @@ $(function(){
 	$('#d_noticeInsertBtn').click(function(){
 		$('#noticeFrm').submit();
 	});
+	
+	$('#d_insertCnlBtn').click(function(){
+		location.href="noticeAdminList";
+	});
+
+	
 	//summernote
 	$("#d_noticeInsert").summernote({
 		height: 400,

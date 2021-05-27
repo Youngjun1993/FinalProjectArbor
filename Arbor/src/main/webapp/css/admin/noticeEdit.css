@@ -55,7 +55,7 @@
 }
 #d_paging {
 	width:200px;
-	margin:0 auto;
+	margin:30px auto;
 
 }
 
@@ -111,7 +111,7 @@
 	width:50%;
 	height:25px;
 }
-.d_noticeInsertBtn input{
+#d_insertBtn{
 	float:right;
 	width:60px;
 	height:30px;
