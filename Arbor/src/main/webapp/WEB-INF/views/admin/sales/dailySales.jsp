@@ -82,9 +82,15 @@
 				$result.each(function(idx, vo){
 					console.log(typeof vo.subprice);
 					var subPrice = vo.subprice.toLocaleString();
+					var cnt;
 					$("#j_salesPopup_Wrap>div>p").text(orderdate+" 매출")
 					tag += "<li>"+ vo.orderno +"</li>";
-					tag += "<li>"+ "'상품명'" +"</li>";
+					if(vo.productcnt>1){
+						cnt = vo.productcnt-1;
+						tag += "<li style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis'>"+ vo.pname +" 외 "+cnt+"건</li>";
+					}else{
+						tag += "<li style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis'>"+ vo.pname +"</li>";						
+					}
 					tag += "<li>"+ vo.userid +"</li>";
 					tag += "<li>"+ vo.username +"</li>";
 					tag += "<li>"+ subPrice +"</li>";

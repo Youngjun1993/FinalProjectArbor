@@ -14,10 +14,14 @@
 	  	order by orderdate desc
   	</select>
   	<select id="salesDetailInfo" resultType="com.arbor.home.vo.SalesVO">
-  		select o.orderno, s.suborderno, m.userid, m.username, s.subprice
-  		from ordertbl o join suborder s on o.orderno=s.orderno
-  		join member m on o.userid=m.userid
-  		where to_char(orderDate, 'yyyy-mm-dd')=#{param1}
+  		select distinct s.orderno, max(t.pname) as pname, count(distinct s.suborderno) as productcnt,
+		sum(s.subprice) as subprice, max(o.userid) as userid, max(m.username) as username
+		from (select orderno, s.pno, p.pname from suborder s join product p on s.pno=p.pno) t
+		join suborder s on t.orderno=s.orderno
+		join ordertbl o on o.orderno=s.orderno
+		join member m on m.userid=o.userid
+		where to_char(orderDate, 'yyyy-mm-dd')=#{param1}
+		group by s.orderno order by orderno desc
   	</select>
   	<select id="getDailySales" resultType="com.arbor.home.vo.SalesVO" parameterType="com.arbor.home.vo.PageSearchVO">
 		select * from (select * from (select to_char(orderdate, 'yyyy-mm-dd') as orderdate,

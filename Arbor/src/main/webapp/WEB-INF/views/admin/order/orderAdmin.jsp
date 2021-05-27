@@ -125,9 +125,6 @@
 		$('#orderSearchFrm').submit();
 	}
   
-  
-  
-  
 </script>
 </head>
 <body>
@@ -186,10 +183,9 @@
 					<li><input type="checkbox" id="j_selectAll"/></li>
 					<li>주문번호</li>
 					<li>주문상태</li>
+					<li>상품명</li>
 					<li>주문자명</li>
 					<li>주문자연락처</li>
-					<li>수령자명</li>
-					<li>수령자연락처</li>
 					<li>요청사항</li>
 					<li>주문일시</li>
 					
@@ -197,10 +193,15 @@
 						<li><input type="checkbox" name="orderno" value="${orderVo.orderno }"/></li>
 						<li><a href="orderDetail?orderno=${orderVo.orderno }">${orderVo.orderno }</a></li>
 						<li>${orderVo.status }</li>
+						<li>
+							<c:choose>
+							<c:when test="${orderVo.productcnt==1 }">${orderVo.pname }</c:when>
+							<c:otherwise>${orderVo.pname } 외 ${orderVo.productcnt-1 }건</c:otherwise>
+							</c:choose>
+							
+						</li>
 						<li>${orderVo.username }</li>
 						<li>${orderVo.tel }</li>
-						<li>${orderVo.arr }</li>
-						<li>${orderVo.arrtel }</li>
 						<li>${orderVo.request }</li>
 						<li>${orderVo.orderdate }</li>
 					</c:forEach>
@@ -209,23 +210,6 @@
 		</div>
  		<div class="j_paging">
 			<ul class="adPaging clearfix">
-				<%-- <c:if test="${pageVO.pageNum>1 }">
-					<li style="border-bottom:none;"><a class="pagingAdLR_a" href="javascript:j_orderPageChange(${pageVO.pageNum-1 })">＜</a></li>
-				</c:if>
-				<c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
-					<c:if test="${p<=pageVO.totalPage }">
-						<c:if test="${p==pageVO.pageNum }">
-							<li style="border-bottom:3px solid rgb(191,43,53);"><a href="javascript:j_orderPageChange(${p })">${p }</a></li>
-						</c:if>
-						<c:if test="${p!=pageVO.pageNum }">
-							<li><a href="javascript:j_orderPageChange(${p })">${p }</a></li>
-						</c:if>
-					</c:if>
-				</c:forEach>
-				<c:if test="${pageVO.pageNum<pageVO.totalPage }">
-					<li style="border-bottom:none;"><a class="pagingAdLR_a" href="javascript:j_orderPageChange(${pageVO.pageNum+1 })">＞</a></li>
-				</c:if>
-				 --%>
 				<c:if test="${pageVO.pageNum>1 }">
 					<li style="border-bottom:none;"><a class="pagingAdLR_a" href="orderAdmin?pageNum=${pageVO.pageNum-1 }">＜</a></li>
 				</c:if>
@@ -248,32 +232,9 @@
 </div>
 
 <script>
-  $(function(){
+/*   $(function(){
 	 
-	//datepicker 옵션 설정
-	$.datepicker.setDefaults({
-		dateFormat: "yy-mm-dd",
-		dayNamesMin: ['일','월','화','수','목','금','토'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-		yearSuffix: "년",
-		showOtherMonths: true,		//빈 공간에 앞뒤월의 날짜 표시
-		showMonthAfterYear:true,	//년+월
-		changeYear: true,			//콤보박스 연도 선택 가능
-		changeMonth: true,			//콤보박스 월 선택 가능
-		showOn: "focus"				//both:버튼을 누르거나 input을 클릭하면 달력 표시
-       	//buttonImage: "../../../img/calendar2.png",
-       	//buttonImageOnly: true
-	});
-	$("#orderSearch_from").datepicker({
-		onClose : function(selectedDate){
-	    	$("#orderSearch_to").datepicker("option", "minDate", selectedDate);
-	    }
-	});
-	$("#orderSearch_to").datepicker({
-		onClose : function(selectedDate){
-	    	$("#orderSearch_from").datepicker("option", "maxDate", selectedDate);
-	    }
-	});
+	
 	$('#orderSearch_from').click(function(){
 		if($('#orderSearch_from').text()!=null){
 			$('#j_orderSearch li').removeClass("oSelected");
@@ -313,7 +274,7 @@
 	
 	
 	  
-  });
+  }); */
 </script>
 </body>
 </html>

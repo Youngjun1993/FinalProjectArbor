@@ -119,18 +119,17 @@
 	text-align: center;
 	border-bottom: 1px solid #eee;
 }
-#j_orderList li:nth-child(9n+1){
+#j_orderList li:nth-child(8n+1){
 	width: 5%;
 }
-#j_orderList li:nth-child(9n+8){width: 19%;}
-#j_orderList li:nth-child(9n+9){width: 15%;}
-#j_orderList li:nth-child(-n+9){
+#j_orderList li:nth-child(8n+4){width: 23%;}
+#j_orderList li:nth-child(8n+7){width: 17%;}
+#j_orderList li:nth-child(8n+8){width: 15%;}
+#j_orderList li:nth-child(-n+8){
 	border-top: 1px solid #333;
 	border-bottom: 1px solid #aaa;
 	font-weight: bold;
 }
-
-
 
 /*---------------
 	주문상세페이지

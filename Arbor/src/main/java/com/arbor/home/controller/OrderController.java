@@ -66,7 +66,6 @@ public class OrderController {
 			} else {
 				subnoList.add(vo2);
 			}
-			
 		}
 		for(int i=0; i<subnoList.size(); i++) {
 			cpnCount += orderService.couponCount(userid, subnoList.get(i).getSubno());
@@ -123,7 +122,8 @@ System.out.println("subList몇개지?"+subnoList.size());
 	}
 
 	@RequestMapping(value = "/orderAppendCartList", method = RequestMethod.POST) /* 장바구니 - 선택구매 */
-	public ModelAndView orderAppendCart(@RequestParam(value = "cartpno", required = true) String[] cartpno,
+	public ModelAndView orderAppendCart(
+			@RequestParam(value = "cartpno", required = true) String[] cartpno,
 			HttpSession ses) {
 		ModelAndView mav = new ModelAndView();
 		List<SubOrderVO> list = new ArrayList<SubOrderVO>();

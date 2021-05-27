@@ -11,7 +11,6 @@
 	</select>
 	<select id="getUserPoint" resultType="com.arbor.home.vo.PointVO">
 		select * from point where pointno=(select max(pointno) from point where userid=#{param1})
-	<!-- 	select * from point where userid=#{param1} and pointNo=(select max(pointNo) from point where userid=#{param1}) -->
 	</select>
 	<select id="getUserCoupon" resultType="com.arbor.home.vo.CouponVO">
 		select cpnno, userid, cpnname, apply, salerate, to_char(cpnstart, 'yyyy-mm-dd') cpnstart, to_char(cpnend, 'yyyy-mm-dd') cpnend, cpnadno from coupon where userid=#{param1} and cpnend>=sysdate-1
@@ -48,15 +47,24 @@
 	<update id="updateOrderStatus">
 		update orderTbl set status=#{param2} where orderno=#{param1}
 	</update>
-	<select id="selectOrderList" resultType="com.arbor.home.vo.OrderTblVO" parameterType="com.arbor.home.vo.PageSearchVO">		
-		select * from (select * from (select to_char(orderdate, 'yyyy/mm/dd hh24:mi') orderdate, 
-		o.orderno, status, m.username, m.tel, arr, arrtel, request from orderTbl o join member m on o.userid=m.userid
+	<select id="selectOrderList" resultType="com.arbor.home.vo.OrderTblVO" parameterType="com.arbor.home.vo.PageSearchVO">				
+		select * from (select * from (select distinct s.orderno, max(to_char(t.orderdate, 'yyyy/mm/dd hh24:mi')) as orderdate, max(t.status) as status, max(t.pname) as pname, count(distinct s.suborderno) as productcnt,
+		sum(s.subprice) as subprice, max(o.userid) as userid, max(m.username) as username, max(m.tel) as tel, max(t.request) as request
+		from (select orderdate, o.orderno, s.pno, p.pname, o.status, o.request from suborder s join product p on s.pno=p.pno join ordertbl o on o.orderno=s.orderno) t
+		join suborder s on t.orderno=s.orderno
+		join ordertbl o on o.orderno=s.orderno
+		join member m on m.userid=o.userid
 		where 1=1
 		<if test="(orderSearch_from!='' and orderSearch_from!=null) and (orderSearch_to!='' and orderSearch_to!=null)">
-		and to_char(orderdate, 'yyyy/mm/dd') between #{orderSearch_from} and #{orderSearch_to}</if>
-		<if test="searchWord!='' and searchWord!=null">and ${searchKey} like '%${searchWord}%'</if>
-		<if test="status!='' and status!=null">and status like #{status}</if>
-		order by orderno desc)
+		and to_char(t.orderdate, 'yyyy/mm/dd') between #{orderSearch_from} and #{orderSearch_to}</if>
+		<if test="searchWord!='' and searchWord!=null">and	
+			<choose>
+				<when test="searchKey.equals('orderno')">o.${searchKey}</when>
+				<when test="searchKey.equals('username')">${searchKey}</when>
+			</choose>
+		like '%${searchWord}%'</if>
+		<if test="status!='' and status!=null">and t.status like #{status}</if>
+		group by s.orderno order by s.orderno desc)
 		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by orderno asc)
 		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
 		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderno desc
@@ -81,17 +89,14 @@
 	
 	<!-- 장바구니에서 전체구매버튼 클릭 시  -->
 	<select id="cartAllList" resultType="com.arbor.home.vo.SubOrderVO">
-		<!-- select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1, p.pprice from cart c join product p on c.pno=p.pno where userid=#{param1} -->
 		select c.cartno, c.pno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.subno, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice from cart c join product p on c.pno=p.pno where userid=#{param1}
 	</select>
 	<!-- 장바구니에서 구매버튼 클릭 시  -->
 	<select id="cartAppendList" resultType="com.arbor.home.vo.SubOrderVO">
-		<!-- select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1, p.pprice from (select * from cart where pno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2} -->
 		select c.cartno, c.pno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice, p.subno from (select * from cart where pno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2}
 	</select>
 	<!-- 장바구니에서 선택구매버튼 클릭 시  -->
 	<select id="cartAppendChckList" resultType="com.arbor.home.vo.SubOrderVO">
-		<!-- select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1, p.pprice from (select * from cart where cartno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2} -->
 		select c.cartno, c.pno, p.subno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice from (select * from cart where cartno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2}
   </select>
     
