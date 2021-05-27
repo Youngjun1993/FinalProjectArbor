@@ -150,13 +150,13 @@
 					</ul> --%>
 					<ul class="h_paging" id="adPaging">
 						<c:if test="${pageMaker.cri.pageNum>1 }">
-							<li><a class="pagingAdLR_a" href="${pageMaker.cri.pageNum - 1 }">＜</a></li>
+							<li style="border-bottom:0;"><a class="pagingAdLR_a" href="${pageMaker.cri.pageNum - 1 }">＜</a></li>
 						</c:if>
 						<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
 							<li class="pageBtn ${pageMaker.cri.pageNum == num ? "active" : ""}" ><a href="${num }">${num }</a></li>
 						</c:forEach>
 						<c:if test="${pageMaker.cri.pageNum < Math.ceil(pageMaker.total/10) }">
-							<li><a class="pagingAdLR_a" href="${pageMaker.cri.pageNum + 1 }">＞</a></li>
+							<li style="border-bottom:0;"><a class="pagingAdLR_a" href="${pageMaker.cri.pageNum + 1 }">＞</a></li>
 						</c:if>
 					</ul>
 				</div>

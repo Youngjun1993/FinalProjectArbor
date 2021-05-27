@@ -32,7 +32,15 @@ public class OrdsubOrdJoinVO {
 	private int saleprice;
 	private int changeSubprice;
 	private int changeQuantity;
+	private String cpnname;
 	
+	
+	public String getCpnname() {
+		return cpnname;
+	}
+	public void setCpnname(String cpnname) {
+		this.cpnname = cpnname;
+	}
 	public int getChangeQuantity() {
 		return changeQuantity;
 	}

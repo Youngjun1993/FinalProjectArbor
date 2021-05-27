@@ -450,7 +450,7 @@
 		</td>
 	 	<td>
 	 	<input type="text" name="emailvalid" id="emailvalid" size="50" class="h_emailvalid" required="required" disabled="disabled">
-		&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" id="emailcheck" value="인증 요청" class="h_check_btn emailchk">
+		&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" id="emailcheck" value="인증 요청" class="h_check_btn emailchk"><br/>
 		<span class="h_email_warning"></span>
 		</td>
 		</tr>
