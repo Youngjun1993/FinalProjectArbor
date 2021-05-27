@@ -65,26 +65,22 @@ $(document).ready(function(){
 		</div>
 		</c:forEach>
 	</div>
-	<!-- 페이징 -->
 	<ul id="d_paging" class="adPaging clearfix">
-		<c:if test="${pageVO.pageNum>1 }">
-			<li style="border-bottom:none;"><a class="pagingAdLR_a" href="faqList?pageNum=${pageVO.pageNum-1 }">＜</a></li>
-		</c:if>
-		<c:if test="${pageVO.pageNum==1 }">
-			<li style="border-bottom:none;">&nbsp</li>
-		</c:if>
-		<c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
-			<c:if test="${p<=pageVO.totalPage }">
-				<c:if test="${p==pageVO.pageNum }">
-					<li style="border-bottom:3px solid rgb(191,43,53);"><a href="faqList?pageNum=${p }">${p }</a></li>
-				</c:if>
-				<c:if test="${p!=pageVO.pageNum }">
-					<li><a href="faqList?pageNum=${p }">${p }</a></li>
-				</c:if>
-			</c:if>
-		</c:forEach>
-		<c:if test="${pageVO.pageNum<pageVO.totalPage }">
-			<li style="border-bottom:none;"><a class="pagingAdLR_a" href="faqList?pageNum=${pageVO.pageNum+1 }">＞</a></li>
-		</c:if>
-	</ul>
+         <c:if test="${pageVO.pageNum>1 }">
+            <li style="border-bottom:none;"><a class="pagingAdLR_a" href="faqList?pageNum=${pageVO.pageNum-1 }">＜</a></li>
+         </c:if>
+         <c:forEach var="p" begin="${pageVO.startPageNum }" step="1" end="${pageVO.startPageNum + pageVO.onePageNum-1 }">
+            <c:if test="${p<=pageVO.totalPage }">
+               <c:if test="${p==pageVO.pageNum }">
+                  <li style="border-bottom:3px solid rgb(191,43,53);"><a href="faqList?pageNum=${p }<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
+               </c:if>
+               <c:if test="${p!=pageVO.pageNum }">
+                  <li><a href="faqList?pageNum=${p }<c:if test="${pageVO.searchWord != null && pageVO.searchWord != ''}">&searchKey=${pageVO.searchKey }&searchWord=${pageVO.searchWord }</c:if>">${p }</a></li>
+               </c:if>
+            </c:if>
+         </c:forEach>
+         <c:if test="${pageVO.pageNum<pageVO.totalPage }">
+            <li style="border-bottom:none;"><a class="pagingAdLR_a" href="faqList?pageNum=${pageVO.pageNum+1 }">＞</a></li>
+         </c:if>
+     </ul>
 </div>
