@@ -87,7 +87,8 @@
 					tag += "<li>"+ vo.orderno +"</li>";
 					if(vo.productcnt>1){
 						cnt = vo.productcnt-1;
-						tag += "<li style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis'>"+ vo.pname +" 외 "+cnt+"건</li>";
+						tag += "<li style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis'>";
+						tag += vo.pname +" 외 "+"<span style='color:rgb(191,43,53); font-weight:bold;'>"+cnt+"</span>건</li>";
 					}else{
 						tag += "<li style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis'>"+ vo.pname +"</li>";						
 					}
