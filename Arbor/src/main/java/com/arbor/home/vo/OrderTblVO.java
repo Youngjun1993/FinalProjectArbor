@@ -22,6 +22,7 @@ public class OrderTblVO {
 	private int pluspoint;
 	private int usepoint;
 	private String usecoupon;
+	private int couponprice;
 	
 	private int deliveryprice;
 	private int totalprice;
@@ -151,6 +152,12 @@ public class OrderTblVO {
 	}
 	public void setUsecoupon(String usecoupon) {
 		this.usecoupon = usecoupon;
+	}
+	public int getCouponprice() {
+		return couponprice;
+	}
+	public void setCouponprice(int couponprice) {
+		this.couponprice = couponprice;
 	}
 	public int getDeliveryprice() {
 		return deliveryprice;

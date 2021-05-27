@@ -54,7 +54,6 @@ public class EventController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
 		String nowDate = format.format(now);
 		mav.addObject("now", now);
-		System.out.println("nowDate->"+nowDate);
 		
 		mav.setViewName("client/event/eventContent");
 		return mav;
@@ -63,25 +62,22 @@ public class EventController {
 	@RequestMapping(value="/getCoupon", method=RequestMethod.POST)
 	@ResponseBody
 	public String getCoupon(String key, HttpSession session) {
-		System.out.println("쿠폰다운로드 컨트롤러");
-		System.out.println("typeNo->"+key);
 		int cpnadno = Integer.parseInt(key);
 		String userid = (String)session.getAttribute("logId");
 		
 		CouponVO cpnVo = new CouponVO();
 		String msg="";
-		System.out.println("====== 여기 ======");
 		if(eventService.checkUserCoupon(userid, cpnadno).size()==0) {
-			System.out.println("사용자 쿠폰내역 조회 완료(다운로드내역없음))");
 			cpnVo = eventService.couponInfo(cpnadno);
-			System.out.println("쿠폰정보 가져오기 완료");
 			cpnVo.setUserid(userid);
+			
+			System.out.println("cpnVo.getApply()->"+cpnVo.getApply());
+			System.out.println("cpnVo.getSalerate()->"+cpnVo.getSalerate());
+			System.out.println("cpnVo.getSalerateInt()->"+cpnVo.getSalerateInt());
 			if(eventService.getCoupon(cpnVo)>0) {
-				System.out.println("쿠폰 insert 완료");
 				msg = "ok";
 			}
 		}else {
-			System.out.println("쿠폰 insert 실패");
 			msg = "fail";
 		}
 		return msg;
@@ -90,12 +86,8 @@ public class EventController {
 	@RequestMapping(value="/getCateInfo", method=RequestMethod.POST)
 	@ResponseBody
 	public int getCateInfo(String key) {
-		System.out.println("상품페이지 이동 컨트롤러");
-		System.out.println("typeNo->"+key);
 		int subno = Integer.parseInt(key);
-		
 		int mainno = eventService.getCateInfo(subno);
-		System.out.println("mainno->"+mainno);
 		
 		return mainno;
 	}
@@ -119,6 +111,7 @@ public class EventController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", eventService.eventListSelect(pageVo));
+		
 		mav.addObject("pageVO", pageVo);
 		mav.setViewName("admin/event/eventList");
 		return mav;
@@ -135,19 +128,8 @@ public class EventController {
 		//파일 저장위치
 		String path = session.getServletContext().getRealPath("/upload");
 		String orgName = eventimg1.getOriginalFilename();
-		
-		//////////////////////////////////
-		System.out.println("*** 이벤트 등록 정보 ***");
-		System.out.println(vo.getEventSubject());
-		System.out.println(vo.getEventContent());
-		System.out.println(vo.getEventStart());
-		System.out.println(vo.getEventEnd());
-		System.out.println(orgName);
-		System.out.println("파일 저장 위치 : "+path);
-		//////////////////////////////////
-		
-		//파일 업로드
 
+		//파일 업로드
 		if(orgName!=null && !orgName.equals("")) {
 			File f = new File(path, orgName);
 			int idx=0;

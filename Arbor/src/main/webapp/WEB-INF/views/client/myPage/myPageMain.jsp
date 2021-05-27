@@ -50,7 +50,7 @@
 					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(5)").text(comma(vo.usepoint)+"원");		//사용한 적립금(usepoint)	  
 					//세부내역 (값을 끌어올게 없음)
 					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(8)").text(vo.couponprice+"원");		//사용한 쿠폰금액(필드추가)  
-					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(9)").text(vo.usecoupon);		//쿠폰명(usecoupon)
+					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(9)").text(vo.cpnname);		//쿠폰명(usecoupon)
 					$("#y_orderPopup_Wrap>div:nth-of-type(4) ul li:nth-child(11)").text(vo.totalprice+"원");		//결제금액(totalprice) 	  
 					//카드사명 (값을 끌어올게 없음)
 					
@@ -204,7 +204,12 @@
 					
 					//반복
 					tag += "<li><p><img src='<%=request.getContextPath()%>/upload/" + vo.img1 + "'/></p>";
-					tag += "<p class='wordcut'>"+vo.pname +"-"+vo.optinfo+"</p>";
+					if(vo.optinfo == null){
+						tag += "<p class='wordcut'>"+vo.pname +"</p>";
+					}else{
+						tag += "<p class='wordcut'>"+vo.pname +"-"+vo.optinfo+"</p>";	
+					}
+					
 					if(vo.usecoupon == "작성완료"){
 						tag += "<p style='color:red'>리뷰가 작성된 상품입니다.</p>"
 					}else{
@@ -231,6 +236,7 @@
 				success : function(result) {
 					if(result>1) {
 						alert("주문취소 신청이 완료되었습니다. 승인 후 환불처리됩니다.");
+						location.href="purchaseList";
 					} else {
 						alert("주문취소 신청이 실패했습니다. 다시 시도해주시거나 고객센터로 문의바랍니다.");
 					}
@@ -335,7 +341,7 @@
                    <li class="wordcut">-</li>
                    <li>카드</li>
                    <li>-</li>
-                   <li>-</li>
+                   <li>신한카드</li>
                </ul>
            </div>
            <button id="y_popupCloseBtn" class="clientMainBtn">닫기</button>

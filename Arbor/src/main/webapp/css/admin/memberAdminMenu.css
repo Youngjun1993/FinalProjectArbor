@@ -345,4 +345,9 @@
 	border-bottom: 3px solid rgb(191, 43, 53) !important
 }
 
+#memberDelBtn{
+	width: 100px;
+    height: 30px;
+}
+
 /* ///////////////////////////탈퇴회원 페이지/////////////////////////// */

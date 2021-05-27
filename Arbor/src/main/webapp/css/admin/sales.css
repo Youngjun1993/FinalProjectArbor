@@ -147,7 +147,7 @@
 	align-items: center;
 	height: 500px;
 	margin-bottom: 30px;
-	border-bottom: 1px dotted #ddd;
+/* 	border-bottom: 1px dotted #ddd; */
 }
 #j_piechart{
 	display: flex;
@@ -156,7 +156,7 @@
 	margin-top: 50px;
 	height: 500px;
 	width: 50%;
-	border-right: 1px dotted #ddd;	
+/* 	border-right: 1px dotted #ddd;	 */
 	display:flex;
 	align-items:center;
 }

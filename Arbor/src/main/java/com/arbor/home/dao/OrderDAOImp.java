@@ -28,9 +28,9 @@ public interface OrderDAOImp {
 	public int deleteCartList(int cartno, String userid);	//주문상품 장바구니에서 삭제
 	public int updateProductStock(int pno);					//주문상품 재고 수정
 	public int setUsedPoint(OrderTblVO orderVo);			//적립금 사용금액
-	public int setPlusPoint(OrderTblVO orderVo);				//적립예정금액 반영
-	public CouponVO cpnSelect(int cpnno);					// 쿠폰적용위한 정보 select
-	public List<SubOrderVO> getSubnoSelect(String userid);	// subno구하기
+	public int setPlusPoint(OrderTblVO orderVo);			//적립예정금액 반영
+	public CouponVO cpnSelect(int cpnno);					//쿠폰적용위한 정보 select
+	public List<SubOrderVO> getSubnoSelect(String userid);	//subno구하기
 	
 	
 	/* admin */

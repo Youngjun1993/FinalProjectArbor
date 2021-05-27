@@ -112,6 +112,9 @@ function cateDeleteBtn(){
 				if(result>0){
 					alert("삭제가 완료되었습니다.")
 					location.href="manageCate"
+				} else {
+					alert("카테고리 내 존재하는 상품이 있어 삭제가 불가능합니다.");
+					return false;
 				}
 			}, error : function(){
 			
@@ -137,8 +140,11 @@ function deleteCate(){
 			},
 			success : function(result){
 				if(result>0){
-					alert("삭제가 완료되었습니다.")
-					location.href="manageCate"
+					alert("삭제가 완료되었습니다.");
+					location.href="manageCate";
+				} else {
+					alert("카테고리 내에 상품 존재하는 카테고리가 있어 삭제요청이 취소됩니다.");
+					return false;
 				}
 			}, error : function(){
 			
@@ -152,11 +158,12 @@ function productDeleteCheck(){
 	if(confirm("진짜 삭제 하시겠습니까?")){
 		var checked = [];
 		 $('input[type="checkbox"]:checked').each(function (index, check) {
+console.log("value?"+$(check).val());
 		 	checked.push($(check).val());
 		 });
 		 
 		 $.ajax({
-			url : "produectDeleteMany",
+			url : "productDeleteMany",
 			dataType : 'json',
 			type: 'POST',
 			data : { 
@@ -164,8 +171,8 @@ function productDeleteCheck(){
 			},
 			success : function(result){
 				if(result>0){
-					alert("삭제가 완료되었습니다.")
-					location.href="productSearch"
+					alert("삭제가 완료되었습니다.");
+					location.href="productSearch";
 				}
 			}, error : function(){
 			

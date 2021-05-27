@@ -40,13 +40,13 @@
             <ul class="clearfix">
                 <li>문의유형</li>
                 <li>제목</li>
-                <li>주문번호</li>
+                <li>답변일자</li>
                 <li>처리상태 <button type="button" id="qnaAnsDescBtn">▲</button></li>
                 <li>등록일</li>
            			<c:forEach var="data" items="${list }">
 		                <li>${data.qnacate }</li>
 		                <li><a href="qnaView?qnano=${data.qnano }" class="wordcut">${data.qnasubject }</a></li>
-		                <li>${data.orderno }</li>
+		                <li><c:if test="${data.ansdate == null }">-</c:if><c:if test="${data.ansdate != null }">${data.ansdate }</c:if></li>
 		                <li>
 		                	<c:if test="${data.answercontent == null }">
 		                		<span class="y_anserDark">답변대기</span>

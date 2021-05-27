@@ -5,10 +5,10 @@
   <!--  --> 
 <mapper namespace="com.arbor.home.dao.MyPageDAOImp">
 	<select id="purchaseList" resultType="com.arbor.home.vo.OrderTblVO" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from (select * from (select o.orderno, to_char(o.orderdate, 'YY-MM-DD HH:MI')as orderdate, o.userid, o.arr, o.arrtel, o.arrzipcode, o.arraddr, o.arrdetailaddr, o.request, o.pluspoint, o.usecoupon, o.deliveryprice, o.totalprice, o.status, o.couponprice, s.pname, o.merchant_uid from ordertbl o join (select orderno, listagg(pname,',') within group (order by pname) as pname from suborder group by orderno) s on o.orderno=s.orderno where o.userid = #{userid} order by orderdate desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by orderdate asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderdate desc
+		select * from (select * from (select o.orderno, to_char(o.orderdate, 'YY-MM-DD HH24:MI')as orderdate, o.userid, o.arr, o.arrtel, o.arrzipcode, o.arraddr, o.arrdetailaddr, o.request, o.pluspoint, o.usecoupon, o.deliveryprice, o.totalprice, o.status, o.couponprice, s.pname, o.merchant_uid from ordertbl o join (select orderno, listagg(pname,',') within group (order by pname) as pname from suborder group by orderno) s on o.orderno=s.orderno where o.userid = #{userid} order by orderdate desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by orderdate asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderdate desc
 	</select>
 	<select id="suborderList" resultType="com.arbor.home.vo.OrdsubOrdJoinVO">
-		select o.orderno, to_char(o.orderdate, 'YYYY-MM-DD')as orderdate, o.arr, o.arrtel, o.arraddr, o.arrdetailaddr, o.request, o.status, o.usepoint, o.couponprice, o.usecoupon, o.totalprice, s.suborderno, s.orderno, s.pno, s.quantity, s.subprice, s.pname, s.optinfo, p.img1, e.exchanselect from suborder s join ordertbl o on s.orderno = o.orderno  join product p on s.pno=p.pno left OUTER join exchange e on s.suborderno=e.suborderno where s.orderno=#{param1}
+		select o.orderno, to_char(o.orderdate, 'YYYY-MM-DD')as orderdate, o.arr, o.arrtel, o.arraddr, o.arrdetailaddr, o.request, o.status, o.usepoint, o.couponprice, o.usecoupon, o.totalprice, s.suborderno, s.orderno, s.pno, s.quantity, s.subprice, s.pname, s.optinfo, p.img1, e.exchanselect, c.cpnname from suborder s join ordertbl o on s.orderno = o.orderno  join product p on s.pno=p.pno left OUTER join exchange e on s.suborderno=e.suborderno join coupon c on o.usecoupon=c.cpnno where s.orderno=#{param1}
 	</select>
 	<select id="reviewJoinList" resultType="com.arbor.home.vo.ReviewVO">
 		select distinct r.pno from review r join (select pno from suborder) s on r.pno=s.pno where userid=#{param1}
@@ -82,7 +82,7 @@
 
 	<!-- qna List 페이지  -->
 	<select id="allList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
-		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
+		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH24:MI') as qnadate, to_char(ansdate, 'YY-MM-DD HH24:MI') as ansdate from qna where userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
 	</select>
 	<select id="qnaTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
 		select count(qnano) as totalRecord from qna where userid = #{userid}

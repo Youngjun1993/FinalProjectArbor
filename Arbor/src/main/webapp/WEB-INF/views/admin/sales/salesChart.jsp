@@ -142,7 +142,7 @@
 					chart = new ApexCharts(document.querySelector("#byMonthly"), options);
 					chart.render();
 				}, error: function(error){
-					alert("그래프 그리기 에러->"+error);
+					console.log("그래프 그리기 에러->"+error);
 				}			
 			});
 			//중분류별 판매량 파이차트
@@ -161,7 +161,7 @@
 					var suboptions = {
 			          series: quantity,
 			          chart: {
-			            width: 550,
+			            width: 500,
 			          	type: 'donut',
 			        },
 			        labels: subName,
@@ -169,7 +169,7 @@
 			          breakpoint: 480,
 			          options: {	
 			            chart: {
-			              width: 550
+			              width: 500
 			            },
 			            legend: {
 			              show: false
@@ -183,11 +183,10 @@
 			          fontSize: '15px',
 			        }
 			        };
-
 			        subpiechart = new ApexCharts(document.querySelector("#subPieChart"), suboptions);
 			        subpiechart.render();
 				}, error: function(error){
-					alert("파이차트 그리기 에러->"+error);					
+					console.log("중분류 파이차트 그리기 에러->"+error);					
 				}
 			});
 			
@@ -207,7 +206,7 @@
 					var mainoptions = {
 			          series: quantity2,
 			          chart: {
-			            width: 550,
+			            width: 500,
 			          	type: 'donut',
 			        },
 			        labels: mainName,
@@ -215,7 +214,7 @@
 			          breakpoint: 480,
 			          options: {	
 			            chart: {
-			              width: 550
+			              width: 500
 			            },
 			            legend: {
 			              show: false
@@ -229,16 +228,14 @@
 			          fontSize: '15px',
 			        }
 			        };
-
 			        mainpiechart = new ApexCharts(document.querySelector("#mainPieChart"), mainoptions);
 			        mainpiechart.render();
 				}, error: function(error){
-					alert("파이차트 그리기 에러->"+error);					
+					console.log("대분류 파이차트 그리기 에러->"+error);					
 				}
 			});
-			
-			
-			
+			$('#byMonthly').parent().css('border-bottom', '1px dotted #ddd');
+			$('#mainPieChart').parent().css('border-right', '1px dotted #ddd');
 		});	
 	});	
 		
@@ -276,8 +273,8 @@
 			</form>
 			<div id="byMonthly"></div>
 			<div class="clearfix" id="j_piechart">
-				<div id="mainPieChart"></div>
-				<div id="subPieChart"></div>
+				<div><div id="mainPieChart"></div></div>
+				<div><div id="subPieChart"></div></div>
 			</div>
 		</div>
 	</div>

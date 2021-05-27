@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/client/memberUpdate.css" type="text/css" />
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>'
 <div id="h_memquit_container" class="clearfix w1400_container">
 	<%@include file="/WEB-INF/inc/mypageMenu.jspf"%>
 
@@ -14,7 +14,7 @@
 			<div class="h_pwdconfirm_div">
 			<b>비밀번호 재확인</b><br/>
 			회원정보의 보호를 위해 비밀번호를 다시 확인합니다<br/>
-			<div class="h_pwd_div">비밀번호 : <input type="text" id="pwdCheck" size="30" class="h_ipt" value=""/></div>
+			<div class="h_pwd_div">비밀번호 : <input type="password" id="pwdCheck" size="30" class="h_ipt" value=""/></div>
 			</div>
 		</div>
 		<div class="h_UpdateWriteForm font_ng">
@@ -23,10 +23,10 @@
 			<li>아이디</li>
 			<li>${vo.userid }</li>
 			<li>비밀번호</li>
-			<li><input type="text" name="userpwd" id="userpwd" class="h_ipt userpwd" size="58" value="" /></li>
+			<li><input type="password" name="userpwd" id="userpwd" class="h_ipt userpwd" size="58" value="" autocomplete="off"/></li>
 			<li>비밀번호 확인</li>
 			<li>
-			<input type="text" name="pwdCheck" id="update_pwdCheck" class="h_ipt pwdCheck"  size="58" value="" />
+			<input type="password" name="pwdCheck" id="update_pwdCheck" class="h_ipt pwdCheck"  size="58" value="" autocomplete="off"/>
 			<span class="h_pwd_ok"></span>
 			</li>
 			<li>이름</li>
@@ -92,6 +92,11 @@
 </div>
 
 <script>
+	$("#y_leftMenu>ul>li:nth-child(3) a").css({
+		"font-weight":"bold",
+		"background" :"rgb(94, 94, 94)",
+		"color":"#fff"
+	});
 /* 카카오주소api 연동 */
 	function kakao_address(){
 	 
@@ -166,7 +171,7 @@
 					alert('비밀번호를 다시 입력해주세요');
 				}
 			}, error:function() {
-				console.log("AJAX 에러");
+				console.log("다시 입력해 주세요");
 			}
 		});
 		

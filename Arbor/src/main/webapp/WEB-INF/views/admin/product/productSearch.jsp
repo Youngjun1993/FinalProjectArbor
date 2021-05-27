@@ -125,7 +125,7 @@
 						<li class="tableHeader">등록일</li>
 						<li class="tableHeader"><input type="submit" value="선택삭제" formaction="javascript:productDeleteCheck()" class="adminMainBtn"/></li>
 						<c:forEach var="vo" items="${productList }">
-							<li><input type="checkbox" value=${vo.pno }/></li>
+							<li><input type="checkbox" value=${vo.pno } /></li>
 							<li>${vo.pno }</li>
 							<li class="wordcut">${vo.mainname } > ${vo.subname }</li>
 							<li class="wordcut">${vo.pname }</li>

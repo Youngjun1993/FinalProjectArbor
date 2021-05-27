@@ -323,64 +323,64 @@ $(function(){
 		    <!-- 상품1 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain2">
-		   			<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		   			<a href="productView?pno=53"><img src="<%=request.getContextPath()%>/upload/a23.jpg"></a>
 		    	</div>
 		    	<div class="d_booksub2">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: 브리엔침대</p>
 		    	</div>
 		    </div>
 		    <!-- 상품2 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=79"><img src="<%=request.getContextPath()%>/upload/a73.PNG"></a>
 		    	</div>
 		    	<div class="d_booksub">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: 토핑체어</p>
 		    	</div>
 		    </div>
 		    <!-- 상품3 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain2">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=97"><img src="<%=request.getContextPath()%>/upload/a07.jpg"></a>
 		    	</div>
 		    	<div class="d_booksub2">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: 헤르짐머 뷘트 3인 소파</p>
 		    	</div>
 		    </div>
 		    <!-- 상품4 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=30"><img src="<%=request.getContextPath()%>/upload/jerry_TVStand_1.jpg"></a>
 		    	</div>
 		    	<div class="d_booksub">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: Jerry TV Stand</p>
 		    	</div>
 		    </div>
 		    <!-- 상품5 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain2">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=75"><img src="<%=request.getContextPath()%>/upload/a67.PNG"></a>
 		    	</div>
 		    	<div class="d_booksub2">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: 도노 세라믹 6인 식탁</p>
 		    	</div>
 		    </div>
 		    <!-- 상품6 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=43"><img src="<%=request.getContextPath()%>/upload/a7.jpg"></a>
 		    	</div>
 		    	<div class="d_booksub">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: 링키플러스 슬라이딩 옷장</p>
 		    	</div>
 		    </div>
 		    <!-- 상품7 -->
 		    <div class="d_bookpage">
 		    	<div class="d_bookmain2">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed3.PNG"></a>
+		    		<a href="productView?pno=37"><img src="<%=request.getContextPath()%>/upload/black1-1.png"></a>
 		    	</div>
 		    	<div class="d_booksub2">
-		    		<p>상품명: 좋은침대</p>
+		    		<p>상품명: ARBOR 블랙 러버 협탁</p>
 		    	</div>
 		    </div>
 		    <!--룩북 이벤트 시작 -->
@@ -398,28 +398,28 @@ $(function(){
 		    <!-- 이벤트1 -->
 		    <div class="d_bookpage">
 		    	<div class="d_eventmain2">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    		<a href="eventContent?eventNo=51"><img src="<%=request.getContextPath()%>/upload/pinkevent1.jpg"></a>
 		    	</div>
 		    	<div class="d_eventsub2">
-		    		<p>이벤트명</p>
+		    		<p>설렘을 담은 신혼가구 기획전</p>
 		    	</div>
 		    </div>
 		    <!-- 이벤트2 -->
 		    <div class="d_bookpage">
 		    	<div class="d_eventmain">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    		<a href="eventContent?eventNo=41"><img src="<%=request.getContextPath()%>/upload/event_bubu.png"></a>
 		    	</div>
 		    	<div class="d_eventsub">
-		    		<p>이벤트명</p>
+		    		<p></p>
 		    	</div>
 		    </div>
 		    <!-- 이벤트3 -->
 		    <div class="d_bookpage">
 		    	<div class="d_eventmain2">
-		    		<a href=""><img src="<%=request.getContextPath()%>/img/slide_bed2.PNG"></a>
+		    		<a href="eventContent?eventNo=35"><img src="<%=request.getContextPath()%>/upload/event_bubu (2).png"></a>
 		    	</div>
 		    	<div class="d_eventsub2">
-		    		<p>이벤트명</p>
+		    		<p>신혼가구 컬렉션</p>
 		    	</div>
 		    </div>
 		</div>
@@ -451,7 +451,6 @@ $(function(){
 		<div id="topFont">
 			<p>FEELS LIKE INSPIRE</p>
 			<P>Furniture only for you prepared for you</p>
-			<button>Collection</button>
 		</div>
 	</div>
 	<!-- 인기상품 -->

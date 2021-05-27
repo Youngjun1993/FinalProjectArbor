@@ -5,7 +5,7 @@
   <!--  --> 
 <mapper namespace="com.arbor.home.dao.QnaDAOImp">
 	<insert id="qnaInsert" parameterType="com.arbor.home.vo.QnaVO">
-		insert into qna(qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno) values(qnasq.nextval, #{userid}, #{qnacate}, #{qnasubject}, #{qnacontent}, 12341234, qnasq.currval)
+		insert into qna(qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno) values(qnasq.nextval, #{userid}, #{qnacate}, #{qnasubject}, #{qnacontent}, 0, qnasq.currval)
 	</insert>
 	<select id="qnaSelect" resultType="com.arbor.home.vo.QnaVO">
 		select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate, to_char(ansdate, 'YYYY-MM-DD HH:MI') as ansdate from qna where qnano=#{param1}
