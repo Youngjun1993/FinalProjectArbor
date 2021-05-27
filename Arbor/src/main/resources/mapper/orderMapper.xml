@@ -29,8 +29,8 @@
 		select lpad(ordersq.nextval, 3, '0') orderSq from dual
 	</select>
 	<insert id="orderComplete" parameterType="com.arbor.home.vo.OrderTblVO">
-		insert into orderTbl(orderno, orderdate, userid, arr, arrtel, arrzipcode, arraddr, arrdetailaddr, request, pluspoint, usepoint, usecoupon, totalprice, applyNum, imp_uid, merchant_uid)
-		values(#{orderno}, sysdate, #{userid}, #{arr}, #{arrtel}, #{arrzipcode}, #{arraddr}, #{arrdetailaddr}, #{request}, #{pluspoint}, #{usepoint}, #{usecoupon}, #{totalprice}, #{applynum}, #{imp_uid}, #{merchant_uid})
+		insert into orderTbl(orderno, orderdate, userid, arr, arrtel, arrzipcode, arraddr, arrdetailaddr, request, pluspoint, usepoint, usecoupon, couponprice, totalprice, applyNum, imp_uid, merchant_uid)
+		values(#{orderno}, sysdate, #{userid}, #{arr}, #{arrtel}, #{arrzipcode}, #{arraddr}, #{arrdetailaddr}, #{request}, #{pluspoint}, #{usepoint}, #{usecoupon}, #{couponprice}, #{totalprice}, #{applynum}, #{imp_uid}, #{merchant_uid})
 	</insert>
 	<insert id="createSubOrderList" parameterType="com.arbor.home.vo.SubOrderVO">
 		insert into suborder(suborderno, orderno, pno, pname, optinfo, quantity, subprice)

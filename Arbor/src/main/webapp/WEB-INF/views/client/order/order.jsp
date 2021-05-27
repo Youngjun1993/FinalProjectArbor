@@ -518,12 +518,11 @@
 												<option value="-" selected hidden>사용가능 쿠폰 ${cpnCount }장</option>
 												<c:forEach var="list" items="${subnoList }">
 													<c:forEach var="cpnVo" items="${couponList }">					
-														<c:if test="${cpnVo.apply == list.subno }">
-															<option value="${cpnVo.cpnno }">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
+														<c:if test="${cpnVo.apply == list.subno }">$(${cpnVo.apply}, ${list.subno })
+															<option value="${cpnVo.cpnname }">${cpnVo.cpnname } (사용기간 : ${cpnVo.cpnstart }~${cpnVo.cpnend })</option>
 														</c:if>
 													</c:forEach>
 												</c:forEach>
-											<%-- <input type="hidden" name="couponprice" id="j_couponprice" value="${cpnVo.salerate }"/> --%>
 											</c:otherwise>
 										</c:choose>
 									</select>
@@ -573,7 +572,7 @@
 								</tr>
 								<tr>
 									<td>쿠폰 사용</td>
-									<td id="j_usedcoupon">0원<input type="hidden" name="usedcouponPrice" id="usedcouponPrice" value=0 /></td>
+									<td id="j_usedcoupon">0원<input type="hidden" name="couponprice" id="usedcouponPrice" value=0 /></td>
 								</tr>
 								<tr>
 									<td>배송비</td>
