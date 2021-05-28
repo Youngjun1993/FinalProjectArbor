@@ -78,8 +78,10 @@ $(function(){
 		$(this).parent().css("display", "none");
 		$(this).parent().next().attr("name", "delFile");
 		$(this).parent().next().removeAttr("id");
+		$(this).parent().next().removeAttr("name");
 		$(this).parent().next().next().attr("type", "file");
-		$(this).parent().next().next().attr("id", "eventImg1");
+		$(this).parent().next().next().attr("name", "img1");
+		$(this).parent().next().next().attr("id", "j_eventImg1");
 	});
 	
 	//EVENT Edit 유효성 검사
@@ -101,6 +103,8 @@ $(function(){
 			alert("본문 내용은 필수 입력 항목입니다.");
 			return false;
 		}
+		
+		$("#j_eventImg1").attr("type", "file");
 		$("#j_eventEditFrm").submit();
 	});
 

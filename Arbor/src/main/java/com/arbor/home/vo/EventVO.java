@@ -93,5 +93,12 @@ public class EventVO {
 	public void setTypeNo(int typeNo) {
 		this.typeNo = typeNo;
 	}
+	@Override
+	public String toString() {
+		return "EventVO [eventNo=" + eventNo + ", eventSubject=" + eventSubject + ", eventContent=" + eventContent
+				+ ", eventStart=" + eventStart + ", eventEnd=" + eventEnd + ", eventImg1=" + eventImg1 + ", eventImg2="
+				+ eventImg2 + ", eventDate=" + eventDate + ", eventType=" + eventType + ", typeNo=" + typeNo
+				+ ", searchKey=" + searchKey + ", searchWord=" + searchWord + "]";
+	}
 	
 }

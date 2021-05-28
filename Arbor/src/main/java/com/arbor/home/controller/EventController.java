@@ -191,7 +191,8 @@ public class EventController {
 		//DB에서 파일명 가져오기
 		EventVO fileVO = eventService.getFilename(vo.getEventNo());
 		List<String> selFile = new ArrayList<String>();
-		selFile.add(fileVO.getEventImg1());
+		String oriname = fileVO.getEventImg1();
+		selFile.add(oriname);
 		
 		//삭제한 파일
 		String delFile = req.getParameter("delFile");
@@ -200,9 +201,17 @@ public class EventController {
 		String newFile = "";
 		MultipartFile mf = eventImg1;
 		
+		String filename = vo.getEventImg1();
+		if(oriname.equals(filename)) {
+			System.out.println("123");
+			newFile = filename;
+		}
+		
 		System.out.println("====================");
 		System.out.println("eventImg1->"+eventImg1.toString());
 		System.out.println("mf->"+mf);
+		System.out.println("img->"+fileVO.getEventImg1());
+		System.out.println("img->"+vo.toString());
 		
 		if(mf!=null) {
 			String orgName = mf.getOriginalFilename();

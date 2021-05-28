@@ -89,13 +89,15 @@
 		}
 		
 		//첨부파일 삭제
-		$("#j_editFrm b").click(function(){
+		/* $("#j_editFrm b").click(function(){
 			$(this).parent().css("display", "none");
 			$(this).parent().next().attr("name", "delFile");
 			$(this).parent().next().removeAttr("id");
+			$(this).parent().next().removeAttr("name");
 			$(this).parent().next().next().attr("type", "file");
-			$(this).parent().next().next().attr("id", "eventImg1");
-		});		
+			$(this).parent().next().next().attr("name", "img1");
+			$(this).parent().next().next().attr("id", "j_eventImg1");
+		}); */		
 	});
 </script>
 </head>
@@ -114,8 +116,9 @@
 					<input type="text" name="eventEnd" id="j_eventEnd" value="${vo.eventEnd }"/><br/>
 				<span class="j_category" id="j_eventFile">타이틀 이미지</span>
 				<span>${vo.eventImg1 } <b>X</b></span>
-					<input type="hidden" id="j_eventImg1" value="${vo.eventImg1 }"/>
-					<input type="hidden" name="img1" value=""/>
+					<input type="hidden" id="j_eventImg1" name="img1" value="${vo.eventImg1 }"/>
+					<input type="hidden"/>
+					<input type="hidden" name="eventImg1" value="${vo.eventImg1 }"/>
 				<br/><br/>
 				<textarea name="eventContent" id="j_eventContent">${vo.eventContent }</textarea>
 				<br/>
