@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.arbor.home.dao.OrderDAOImp">
+	<select id="getProductInfo" resultType="com.arbor.home.vo.SubOrderVO">
+		select pno, pname, img1, pprice, saleprice, deliveryprice, subno from product where pno=#{param1}
+	</select>
+	<select id="getMemberInfo" resultType="com.arbor.home.vo.MemberVO">
+		select username, zipcode, addr, detailaddr, tel, email from member where userid=#{param1}
+	</select>
+	<select id="getUserPoint" resultType="com.arbor.home.vo.PointVO">
+		select * from point where pointno=(select max(pointno) from point where userid=#{param1})
+	<!-- 	select * from point where userid=#{param1} and pointNo=(select max(pointNo) from point where userid=#{param1}) -->
+	</select>
+	<select id="getUserCoupon" resultType="com.arbor.home.vo.CouponVO">
+		select cpnno, userid, cpnname, apply, salerate, to_char(cpnstart, 'yyyy-mm-dd') cpnstart, to_char(cpnend, 'yyyy-mm-dd') cpnend, cpnadno from coupon where userid=#{param1} and cpnend>=sysdate-1
+	</select>
+	<select id="getSubnoSelect" resultType="com.arbor.home.vo.SubOrderVO">
+		select distinct(p.subno) from cart c join product p on c.pno=p.pno where userid=#{param1}
+	</select>
+	<select id="couponCount" resultType="int">
+		select count(cpnNo) from coupon where userid=#{param1} and cpnend>=sysdate-1 and apply=${param2}
+	</select>
+	<select id="cpnSelect" parameterType="int" resultType="com.arbor.home.vo.CouponVO">
+		select cpnno, userid, cpnname, apply, salerate from coupon where cpnno=${param1}
+	</select>
+	<select id="getOrderSeq" resultType="int">
+		select lpad(ordersq.nextval, 3, '0') orderSq from dual
+	</select>
+	<insert id="orderComplete" parameterType="com.arbor.home.vo.OrderTblVO">
+		insert into orderTbl(orderno, orderdate, userid, arr, arrtel, arrzipcode, arraddr, arrdetailaddr, request, pluspoint, usepoint, usecoupon, totalprice, applyNum, imp_uid, merchant_uid)
+		values(#{orderno}, sysdate, #{userid}, #{arr}, #{arrtel}, #{arrzipcode}, #{arraddr}, #{arrdetailaddr}, #{request}, #{pluspoint}, #{usepoint}, #{usecoupon}, #{totalprice}, #{applynum}, #{imp_uid}, #{merchant_uid})
+	</insert>
+	<insert id="createSubOrderList" parameterType="com.arbor.home.vo.SubOrderVO">
+		insert into suborder(suborderno, orderno, pno, pname, optinfo, quantity, subprice)
+		values(subordersq.nextval, #{orderno}, #{pno}, #{pname}, #{optinfo}, #{quantity}, #{subprice})
+	</insert>
+	<select id="getSubOrderList" resultType="com.arbor.home.vo.SubOrderVO">
+		select p.pname, p.img1, s.optinfo, s.quantity, p.pprice, p.saleprice, p.deliveryprice, s.subprice from product p join suborder s on p.pno=s.pno where orderno=#{param1}
+	</select>
+	<select id="getOrderInfo" resultType="com.arbor.home.vo.OrderTblVO">
+		select * from orderTbl where orderno=#{param1}
+	</select>
+	<select id="allOrderList" resultType="com.arbor.home.vo.OrderTblVO">
+		select to_char(orderdate, 'yyyy-mm-dd hh24:mi') orderdate, o.orderno, status, m.username, m.tel, arr, arrtel, request from orderTbl o join member m on o.userid=m.userid order by orderdate desc
+	</select>
+	<update id="updateOrderStatus">
+		update orderTbl set status=#{param2} where orderno=#{param1}
+	</update>
+	<select id="selectOrderList" resultType="com.arbor.home.vo.OrderTblVO" parameterType="com.arbor.home.vo.PageSearchVO">		
+		select * from (select * from (select to_char(orderdate, 'yyyy/mm/dd hh24:mi') orderdate, 
+		o.orderno, status, m.username, m.tel, arr, arrtel, request from orderTbl o join member m on o.userid=m.userid
+		where 1=1
+		<if test="(orderSearch_from!='' and orderSearch_from!=null) and (orderSearch_to!='' and orderSearch_to!=null)">
+		and to_char(orderdate, 'yyyy/mm/dd') between #{orderSearch_from} and #{orderSearch_to}</if>
+		<if test="searchWord!='' and searchWord!=null">and ${searchKey} like '%${searchWord}%'</if>
+		<if test="status!='' and status!=null">and status like #{status}</if>
+		order by orderno desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by orderno asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderno desc
+	</select>
+	<select id="countOfOrderStatus" resultType="com.arbor.home.vo.OrderTblVO">
+		select count(case when to_char(orderdate, 'yyyy/mm/dd')=to_char(sysdate, 'yyyy/mm/dd') then 1 end) as neworder,
+		count(case when status='배송준비' then 1 end) as ready,
+		count(case when status='배송중' then 1 end) as delivery,
+		count(case when status='배송완료' then 1 end) as complete from orderTbl o join member m on o.userid=m.userid
+		where 1=1
+		<if test="orderSearch_from!='' and orderSearch_from!=null and orderSearch_to!='' and orderSearch_to!=null">and to_char(orderdate, 'yyyy-mm-dd') between #{orderSearch_from} and #{orderSearch_to}</if>
+		<if test="searchWord!='' and searchWord!=null">and ${searchKey} like '%${searchWord}%'</if>
+		<if test="status!='' and status!=null">and status like #{status}</if>
+	</select>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(orderno) as totalRecord from orderTbl o join member m on o.userid=m.userid
+		where 1=1
+		<if test="orderSearch_from!='' and orderSearch_from!=null and orderSearch_to!='' and orderSearch_to!=null">and to_char(orderdate, 'yyyy-mm-dd') between #{orderSearch_from} and #{orderSearch_to}</if>
+		<if test="searchWord!='' and searchWord!=null">and ${searchKey} like '%${searchWord}%'</if>
+		<if test="status!='' and status!=null">and status like #{status}</if>
+	</select>
+	
+	<!-- 장바구니에서 전체구매버튼 클릭 시  -->
+	<select id="cartAllList" resultType="com.arbor.home.vo.SubOrderVO">
+		<!-- select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1, p.pprice from cart c join product p on c.pno=p.pno where userid=#{param1} -->
+		select c.cartno, c.pno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.subno, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice from cart c join product p on c.pno=p.pno where userid=#{param1}
+	</select>
+	<!-- 장바구니에서 구매버튼 클릭 시  -->
+	<select id="cartAppendList" resultType="com.arbor.home.vo.SubOrderVO">
+		<!-- select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1, p.pprice from (select * from cart where pno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2} -->
+		select c.cartno, c.pno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice, p.subno from (select * from cart where pno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2}
+	</select>
+	<!-- 장바구니에서 선택구매버튼 클릭 시  -->
+	<select id="cartAppendChckList" resultType="com.arbor.home.vo.SubOrderVO">
+		<!-- select c.cartno, c.pno, c.userid, c.quantity, c.optionvalue, c.price, p.saleprice, c.cartdate, p.pname, p.img1, p.pprice from (select * from cart where cartno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2} -->
+		select c.cartno, c.pno, p.subno, c.quantity, c.optionvalue as optinfo, c.price as subprice, p.saleprice, p.pname, p.img1, p.pprice, p.deliveryprice from (select * from cart where cartno=#{param1}) c join product p on c.pno=p.pno where userid=#{param2}
+  </select>
+    
+	<select id="getUserInfo" resultType="com.arbor.home.vo.MemberVO">
+		select o.userid, m.username, m.email, m.tel from orderTbl o join member m on o.userid=m.userid where orderno=#{param1}
+	</select>
+	<delete id="deleteCartList">
+		delete from cart where cartno=#{param1} and userid=#{param2}
+	</delete>
+	<update id="updateProductStock">
+		update product set stock=stock-1 where pno=#{param1}
+	</update>
+	<update id="setUsedPoint">
+		insert into point(pointno, pointdate, pointcontent, point, userid) values(pointsq.nextval, sysdate, '상품 구매',
+		((select point from point where pointno=(select max(pointno) from point where userid=#{userid}))-#{usepoint}), #{userid})
+	</update>
+	<update id="setPlusPoint">
+		insert into point(pointno, pointdate, pointcontent, point, userid) values(pointsq.nextval, sysdate, '구매 적립금',
+		((select pluspoint from ordertbl where orderno=#{orderno})+(select nvl(max(point),0) as point from point where pointno=(select max(pointno)
+		from point where userid=(select userid from ordertbl where orderno=#{orderno})))),
+		(select userid from ordertbl where orderno=#{orderno}))
+	</update>
+  </mapper>

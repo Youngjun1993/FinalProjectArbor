@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!--  --> 
+<mapper namespace="com.arbor.home.dao.MyPageDAOImp">
+	<select id="purchaseList" resultType="com.arbor.home.vo.OrderTblVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select o.orderno, to_char(o.orderdate, 'YY-MM-DD HH24:MI')as orderdate, o.userid, o.arr, o.arrtel, o.arrzipcode, o.arraddr, o.arrdetailaddr, o.request, o.pluspoint, o.usecoupon, o.deliveryprice, o.totalprice, o.status, o.couponprice, s.pname, o.merchant_uid from ordertbl o join (select orderno, listagg(pname,',') within group (order by pname) as pname from suborder group by orderno) s on o.orderno=s.orderno where o.userid = #{userid} order by orderdate desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by orderdate asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by orderdate desc
+	</select>
+	<select id="suborderList" resultType="com.arbor.home.vo.OrdsubOrdJoinVO">
+		select o.orderno, to_char(o.orderdate, 'YYYY-MM-DD')as orderdate, o.arr, o.arrtel, o.arraddr, o.arrdetailaddr, o.request, o.status, o.usepoint, o.couponprice, o.usecoupon, o.totalprice, s.suborderno, s.orderno, s.pno, s.quantity, s.subprice, s.pname, s.optinfo, p.img1, e.exchanselect, c.cpnname from suborder s join ordertbl o on s.orderno = o.orderno  join product p on s.pno=p.pno left OUTER join exchange e on s.suborderno=e.suborderno join coupon c on o.usecoupon=c.cpnno where s.orderno=#{param1}
+	</select>
+	<select id="reviewJoinList" resultType="com.arbor.home.vo.ReviewVO">
+		select distinct r.pno from review r join (select pno from suborder) s on r.pno=s.pno where userid=#{param1}
+	</select>
+	<select id="reviewWrtPopList" resultType="com.arbor.home.vo.OrdsubOrdJoinVO">
+		select o.orderno, s.suborderno, s.orderno, s.pno, s.pname, s.optinfo, p.img1 from suborder s join ordertbl o on s.orderno = o.orderno join product p on s.pno=p.pno where s.orderno=${param1} order by pno desc
+	</select>
+	<insert id="reviewInsert" parameterType="com.arbor.home.vo.ReviewVO">
+		insert into review(reviewno, pno, userid, grade, reviewcontent) values(reviewsq.nextval, ${pno}, #{userid}, ${grade}, #{reviewcontent})
+	</insert>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(rownum) as totalRecord from ordertbl where userid = #{userid}
+	</select>
+	<select id="pointSum" resultType="com.arbor.home.vo.PointVO">
+		select point from (select point, userid from point order by pointno desc) where userid = #{param1} and rownum = 1
+	</select>
+		<select id="couponCount" resultType="com.arbor.home.vo.CouponVO">
+		select count(cpnno) as cpnno from coupon where userid = #{param1}
+	</select>
+		<select id="reviewCount" resultType="com.arbor.home.vo.ReviewVO">
+		select count(reviewno) as reviewno from review where userid = #{param1}
+	</select>
+		<select id="qnaCount" resultType="com.arbor.home.vo.QnaVO">
+		select count(qnano) as qnano from qna where userid = #{param1}
+	</select>
+	<delete id="cancelSuborderPay" parameterType="int">
+		delete from suborder where orderno=${param1}
+	</delete>
+	<delete id="cancelOrderPay" parameterType="int">
+		delete from ordertbl where orderno=${param1}
+	</delete>
+	
+	<!-- 교환/환불 -->
+	<select id="getUserInfo" resultType="com.arbor.home.vo.MemberVO">
+		select username, zipcode, addr, detailaddr, tel from member where userid=#{param1}
+	</select>
+	<insert id="exchangeInsert" parameterType="com.arbor.home.vo.ExchangeVO">
+		insert into exchange(exchanno, orderno, suborderno, exchanselect, exchancontent, username, tel, addr, detailaddr, zipcode, userid) values(exchangesq.nextval, ${orderno}, ${suborderno}, #{exchanselect}, #{exchancontent}, #{username}, #{tel}, #{addr}, #{detailaddr}, #{zipcode}, #{userid})
+	</insert>
+	<update id="orderStatusUpdate">
+		update ordertbl set status='교환중' where orderno=${param1}
+	</update>
+	<!-- 교환/환불 팝업 -->
+	<select id="exchagneProdList" resultType="com.arbor.home.vo.OrdsubOrdJoinVO">
+		select s.orderno, s.suborderno, s.subprice, s.pno, s.quantity,s.optinfo, p.saleprice, p.pname from suborder s join product p on s.pno=p.pno where suborderno=${param1}
+	</select>
+	<select id="exchangeOptList" resultType="com.arbor.home.vo.OptionVO">
+		select s.suborderno, s.pno, s.quantity, o.optname, o.optvalue, o.optprice from suborder s join optiontbl o on s.pno=o.pno where suborderno=${param1}
+	</select>
+	<delete id="exchangeDelete">
+		delete from exchange where orderno=${param1}
+	</delete>
+	<update id="exchangeSubordUpdate" parameterType="com.arbor.home.vo.OrdsubOrdJoinVO">
+		update suborder set quantity=${quantity-changeQuantity}, optinfo=#{optinfo}, subprice=${changeSubprice} where suborderno=${suborderno} 
+	</update>
+	<insert id="exchangeSubordInsert" parameterType="com.arbor.home.vo.OrdsubOrdJoinVO">
+		insert into suborder(suborderno, orderno, pno, quantity, subprice, pname, optinfo) values(subordersq.nextval, ${orderno}, ${pno}, ${changeQuantity}, ${changeSubprice}, #{pname}, #{optinfo})
+	</insert>
+	<select id="exchangeGetPrice" resultType="com.arbor.home.vo.OrdsubOrdJoinVO">
+		select quantity, subprice from suborder where orderno=${param1}
+	</select>
+	<update id="exchangeOrdtblUpdate" parameterType="com.arbor.home.vo.OrderTblVO">
+		update ordertbl set totalprice=${totalprice}, deliveryprice=${deliveryprice} where orderno=${orderno} and userid=#{userid}
+	</update>
+	<delete id="exchangeRepund">
+		delete from suborder where suborderno=${param1}
+	</delete>
+	<update id="repundOrdtblUpdate">
+		update ordertbl set totalprice=(select totalprice from ordertbl where orderno=${param1})-${param2} where orderno=${param1}
+	</update>
+
+	<!-- qna List 페이지  -->
+	<select id="allList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH24:MI') as qnadate, to_char(ansdate, 'YY-MM-DD HH24:MI') as ansdate from qna where userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
+	</select>
+	<select id="qnaTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(qnano) as totalRecord from qna where userid = #{userid}
+	</select>
+	<select id="qnaAnsDescList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where answercontent is null and userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
+	</select>
+	<select id="qnaAnsAscList" resultType="com.arbor.home.vo.QnaVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select qnano, userid, qnacate, qnasubject, qnacontent, orderno, qnaorgno, qnastep, qnaprint, answercontent, to_char(qnadate, 'YY-MM-DD HH:MI') as qnadate from qna where answercontent is not null and userid=#{userid} order by qnano desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by qnano asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by qnano desc
+	</select>
+	
+	<!-- coupon List 페이지 -->
+	<select id="cpnList" resultType="com.arbor.home.vo.CouponVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select c.cpnno, c.userid, c.cpnname, c.apply, s.mainno, s.subno, s.subname, c.salerate, to_char(cpnstart, 'YY/MM/DD') as cpnstart, to_char(cpnend, 'YY/MM/DD') as cpnend from coupon c join subcate s on c.apply=s.subno where userid=#{userid} order by cpnno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by cpnno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by cpnno desc
+	</select>
+	<select id="cpnTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(cpnno) as totalRecord from coupon where userid = #{userid}
+	</select>
+	<!-- coupon 할인율 정렬  -->
+	<select id="cpnSaleDesc" resultType="com.arbor.home.vo.CouponVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select c.cpnno, c.userid, c.cpnname, c.apply, s.mainno, s.subno, s.subname, c.salerate, to_char(cpnstart, 'YY/MM/DD') as cpnstart, to_char(cpnend, 'YY/MM/DD') as cpnend from coupon c join subcate s on c.apply=s.subno where userid=#{userid} order by cpnno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by cpnno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by salerate desc
+	</select>
+	
+	<!-- point List 페이지 -->
+	<select id="pointList" resultType="com.arbor.home.vo.PointVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select pointno, to_char(pointdate, 'YY/MM/DD') as pointdate, pointcontent, point, lead(point) over (order by pointno) as beforePoint, (point-lead(point) over (order by pointno desc)) as mfpoint, userid from point where userid=#{userid} order by pointno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by pointno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by pointno desc
+	</select>
+	<select id="pointTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(rownum) as totalRecord from point where userid = #{userid}
+	</select>
+	
+	<!-- review List 페이지 -->
+	<select id="reviewList" resultType="com.arbor.home.vo.ReviewProductJoinVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select r.reviewno, r.pno, r.userid, r.grade, r.grade as gradeint, r.reviewcontent, to_char(r.reviewdate, 'YY/MM/DD HH:MI') as reviewdate, p.subno, p.pname, p.stock, p.allstock, p.pprice, p.saleprice, p.img1, p.img2, p.description, p.deliveryprice, p.pdate from review r join product p on r.pno=p.pno where userid=#{userid} order by reviewno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by reviewno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by reviewno desc
+	</select>
+	<select id="reviewTotalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(reviewno) as totalRecord from review where userid = #{userid}
+	</select>
+	<!-- review 평점 정렬  -->
+	<select id="reviewGradeList" resultType="com.arbor.home.vo.ReviewProductJoinVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select r.reviewno, r.pno, r.userid, r.grade, r.grade as gradeint, r.reviewcontent, to_char(r.reviewdate, 'YY/MM/DD HH:MI') as reviewdate, p.subno, p.pname, p.stock, p.allstock, p.pprice, p.saleprice, p.img1, p.img2, p.description, p.deliveryprice, p.pdate from review r join product p on r.pno=p.pno where userid=#{userid} order by reviewno desc) <![CDATA[where rownum<=]]>#{pageNum} * #{onePageRecord} order by reviewno asc) <![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if><if test="pageNum!=totalPage">#{onePageRecord}</if> order by grade desc
+	</select>
+</mapper>

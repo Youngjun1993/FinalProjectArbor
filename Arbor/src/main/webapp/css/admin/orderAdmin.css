@@ -1,0 +1,216 @@
+@charset "UTF-8";
+
+/* class */
+
+/* 주문현황 */
+#j_orderCnt li{
+	float: left;
+	width: 24.8%;
+	height: 60px;
+	line-height: 60px;
+	border: 1px solid #ccc;
+	margin-right: -1px;
+	background: #eee;
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+}
+.oStatus{
+	display: inline;
+	margin-left: 30px;
+}
+.oCount{
+	display: inline;
+	margin-left: 130px;
+}
+.oCount>span>a{
+	color: rgb(191,43,53);
+}
+
+/* 주문검색 */
+#j_orderSearch{
+	width: 100%;
+	margin-top: 30px;
+	border: 1px solid #ccc;
+}
+#j_orderSearch form{
+	margin-block-end: 0;
+}
+#j_orderSearch div{
+	display: flex;
+	margin-bottom: 15px;
+	width: 1200px;
+}
+#j_orderSearch>div{
+	margin: 30px 0;
+}
+#j_orderSearch span{
+	width: 100px;
+	margin-left: 30px;
+	text-align: left;
+	line-height: 32px;
+	font-weight: bold;
+	font-size: 15px;
+}
+#j_orderSearch ul{
+	margin-right: 20px;
+}
+#j_orderSearch li{
+	float: left;
+	width: 70px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+/* 	border: 1px solid rgb(191,43,53); */
+	border: 1px solid #ddd;
+	margin-right: -1px;
+	background: #eee;
+}
+#j_orderSearch li:not(.oSelected) a{
+	/* color: rgb(191,43,53); */
+	color: #333;
+	/* background: #eee; */
+}
+#j_orderSearch .oSelected{
+	background: rgb(191,43,53);
+}
+#j_orderSearch .oSelected>a{
+	color: #fff;
+	background: rgb(191,43,53);
+}
+.j_centerFrm input, .j_centerFrm select{
+	height: 32px;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+#j_orderSearch select{
+	margin-right: 10px;
+}
+#j_orderSearch input[name=searchWord]:last-child{
+	width: 350px;
+}
+#j_orderSearch>div div:last-of-type{
+	margin: 0;
+	justify-content: center;
+}
+#j_orderSearch input[type=submit]{
+	margin-top: 25px;
+	text-align: center;
+	height: 40px;
+	width: 120px;
+	font-size: 15px;
+}
+
+/* 주문리스트 */
+#orderManagement{
+	margin-bottom: 50px;
+}
+#j_orderList{
+	margin-top: 30px;
+}
+#j_orderList ul{
+	margin-top: 10px;
+}
+#j_orderList li{
+	float: left;
+	width: 10%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-bottom: 1px solid #eee;
+}
+#j_orderList li:nth-child(9n+1){
+	width: 5%;
+}
+#j_orderList li:nth-child(9n+8){width: 19%;}
+#j_orderList li:nth-child(9n+9){width: 15%;}
+#j_orderList li:nth-child(-n+9){
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #aaa;
+	font-weight: bold;
+}
+
+
+
+/*---------------
+	주문상세페이지
+----------------*/
+.j_orderOkDiv{
+	margin-top: 10px;
+}
+#j_orderDetail_wrap>div:nth-of-type(1){
+	border-bottom: 1px dotted #ccc;
+	height: 35px;
+	line-height: 35px;
+	text-align: right;
+	font-weight: bold;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+.j_orderOkTitle{
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	float: left;
+}
+
+.j_tableFormAd{
+	width: 1200px;
+	height: 30px;
+	border-spacing: 0px 0px;
+	border-collapse: collapse;
+	font-size: 13px;
+}
+.j_tableFormAd td{
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+.j_tableFormAd:not(#j_pInfoAd) td:nth-child(2n+1){
+	text-align: center;
+	background: #eee;
+}
+#j_pInfoAd tr:first-of-type td{
+	text-align: center;
+	background: #eee;
+}
+#j_pListAd>td:not(#j_pListAd>td:nth-child(6n+1)){
+	text-align: center;
+}
+#j_pListAd td:nth-child(6n+1)>div{
+	display: flex;
+	flex-direction: column;
+	text-align: top;
+	height: 50px;
+}
+#j_pListAd td:nth-child(6n+1)>div span:first-child{
+	margin: 10px 0 0 10px;
+	font-weight: bold;
+}
+#j_pListAd td:nth-child(6n+1)>div span:last-child{
+	margin: 5px 0 0 10px;
+	color: gray;
+	font-size: 12px;
+}
+.j_orderOkDiv:last-child>input[type='button']{
+	width: 100px;
+	height: 40px;
+	float: right;
+}
+.j_paging{
+	text-align: center;
+	margin-top: 20px;
+}
+.j_paging ul{
+	display: inline-block;
+}
+
+
+
+
+
+
+
+
+

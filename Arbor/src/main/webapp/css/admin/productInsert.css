@@ -9,13 +9,12 @@
 	float:left;
 }
 
-#centerfrm {
-	border-left: 2px solid rgb(93, 121, 115);
+#centerfrm, #centerfrmEdit {
 	width: 1250px;
 	float: right;
 }
 
-#insertInfo, #insertImg, #insertOption, #productSearch {
+#insertInfo, #insertImg, #insertOption, #productSearch, #ProductListPrint  {
 	background-color: #fff;
 	width: 1100px;
 	margin:0 auto;
@@ -23,40 +22,73 @@
 	display : block;
 }
 
+#pageTitle {
+	margin: 40px auto; text-align: center;
+}
+#pageTitle>span {
+	display:inline-block; font-size: 30px; font-weight: bold; 
+}
+#pageTitle>span:after {
+	content: "";
+    display: block;
+    width: 80px;
+    border-bottom: 1px solid rgb(191,43,53);
+    margin: 20px auto;
+}
+
+#centerfrm>form>div>p, #centerfrmEdit>form>div>p, #centerfrm>div>p:first-child {
+	margin-bottom: 20px; height: 50px; line-height: 50px;
+	border-bottom : 2px solid;
+}
+#centerfrm>form>div, #centerfrmEdit>form>div, #centerfrm>div {
+	margin-bottom: 40px;
+}
+
 #insertImg{
 	position:relative;
 }
 
-#insertInfo>p:first-child, #insertImg>p:first-child, #insertOption>p:first-child,
-#productSearch>p:first-child {
-	height: 50px; line-height: 50px;
-	border-bottom : 2px solid;
+#insertImg>div>input[type=file] {
+	margin-bottom: 50px;
 }
-
-#insertInfo>li:first-child {
-	border-bottom: 2px solid;
+#insertImg>div>input[type=file]:nth-of-type(2) {
+	margin-bottom: 130px;
 }
 
 #imgPrint {
 	position:absolute;
 	width: 250px; height: 250px;
 	border:1px solid;
-	top: 70px; left:400px;
+	top: 100px; left:500px;
+}
+#imgprintTitle {
+	position:absolute;
+	top: 80px; left:500px;
 }
 #imgPrint>img {
 	width: 248px; height: 248px;
 }
+#imgPrint2 {
+	position:absolute;
+	width: 250px; height: 250px;
+	border:1px solid;
+	top: 100px; left:800px;
+}
+#imgprintTitle2 {
+	position:absolute;
+	top: 80px; left:800px;
+}
+#imgPrint2>img {
+	width: 248px; height: 248px;
+}
+
 
 #lastP {
-	width:450px; margin: 0 auto;
+	width:450px; margin: 0 auto 50px;
 }
 
 #lastP>input {
 	width:200px; height: 50px;
-	border-color: #fff; border-radius:15px;
-	border:blue;
-	background-color: rgb(248, 244, 236);
-	font-family: 'Nanum Gothic', sans-serif;
 }
 
 /* optionTbl */
@@ -67,25 +99,273 @@
 	width: 750px; margin:30px auto;
 	text-align: center;
 }
-#optionTbl>input:nth-of-type(4n+3) {
-	width:50px;
+
+#optionTbl img:not(br+img) {
+	margin-left: 4px; margin-bottom:1px;
 	vertical-align: middle;
+	width: 32px; height: 32px;
+	cursor: pointer;
 }
-#optionTbl>button {
-	width: 33px; height: 33px;
+
+#optionTbl>div>input:nth-of-type(3) {
+	width:50px; height:28px;
+	vertical-align: top;
 }
 
 
 /* productSearch */
-#searchSubmit {
-	width: 80px; height: 37px;
-	background-color: rgb(93, 121, 115);	
-	border-color: #fff; border-radius: 12px;
+#insertInfo>div {
+	overflow: auto;
 }
-
+#insertInfo>div>form>input[type=submit]:not(#UpdateCateFrmInput) {
+	float:right; width: 150px; height: 35px;
+	margin-right: 50px;
+}
+#searchContent {
+	display:inline-block;
+	width: 80px; margin-left: 40px;
+}
 #searchWord {
 	height: 25px;
+	vertical-align: top;
 }
+
+#pDateCate {
+	overflow: auto; text-align: center;
+	margin-bottom: 5px;
+}
+#pDateCate>li {
+	float:left; width: 83px; height: 30px; line-height: 30px;
+	border-right: 1px solid #ddd;
+}
+#pDateCate>li:first-child {
+	background-color: #fff; text-align: left;
+	border: none; width:93px;
+}
+#pDateCate>li:last-child {
+	border: none;
+}
+#pDateCate>li>a {
+	display:block; background-color: #eee;
+}
+#pDateCate>li>a:hover{
+	background-color: rgb(191,43,53);
+	color:#fff;
+}
+
+#productListPrint, #productListPrint>form {
+	overflow:auto;
+}
+
+#productList {
+	overflow: auto; text-align: center;
+	margin-top: 30px;
+}
+#productList>li {
+	float:left; width: 10%; height: 40px; line-height: 40px;
+	border-bottom: 1px solid #eee;
+}
+#productList>li.tableHeader, #categoryList>li.tableHeader {
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #aaa;
+}
+#productList>li:nth-of-type(8n+1) {
+	width: 4%;
+}
+#productList>li:nth-of-type(8n+3) {
+	width: 15%;
+}
+#productList>li:nth-of-type(8n+4):not(#productList>li:nth-of-type(4)) {
+	text-align: left; padding-left:2%; width: 23%;
+}
+#productList>li:nth-of-type(8n+4) {
+	width: 25%;
+}
+#productList>li:nth-of-type(8n+8) {
+	width: 15%; text-align:center;
+}
+#productList>li>input[type=checkbox] {
+	width: 15px; height: 15px; margin: 0 auto;
+}
+#productList>li.tableHeader>input[type=submit]{
+	width: 120px; height: 30px;
+	margin:0 auto;
+}
+#productList>li:not(.tableHeader)>input[type=submit] {
+	width: 50px; height: 25px; margin:0 auto;
+}
+#productList>li:not(.tableHeader)>input[value=수정] {
+	margin-right:3px;
+}
+
+/* product Edit */
+#editImg>div>div>img {
+	width: 15px; height: 15px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+/* manage category */
+#categoryList {
+	overflow: auto; text-align: center;
+	width: 100%; margin: 30px auto;
+}
+#categoryList>li {
+	float:left; width: 10%; height: 40px; line-height: 40px;
+	border-bottom: 1px solid #eee;
+}
+#categoryList>li:nth-of-type(6n+4), #categoryList>li:nth-of-type(6n+5), #categoryList>li:nth-of-type(6n+6) {
+	width: 23%;
+}
+#categoryList>li>input[type=checkbox] {
+	width: 15px; height: 15px;
+}
+#categoryList>li.tableHeader>input[type=submit] {
+	width: 140px; height: 30px;
+	margin: 0 auto;
+}
+#categoryList>li:not(.tableHeader)>input[type=submit] {
+	width: 50px; height: 25px;
+	margin: 0 auto;
+}
+#insertCategoryDiv {
+	margin-top: 15px; overflow:auto;
+}
+#insertCategoryDiv>form>.pContent:first-child {
+	margin-top:10px;
+}
+
+#insertCategoryDiv>hr {
+	margin: 50px 0 80px;
+}
+#insertCategoryDiv>form {
+	margin-bottom: 20px;
+}
+.cateEditInput {
+	margin-bottom:20px;
+}
+
+#categoryList>li:not(.tableHeader)>input[type=submit] {
+	margin: 0; padding: 0;
+}
+
+#insertCateMainLeft {
+	width: 47%; float:left;
+}
+#insertCateMainLeft>input[type=submit], #insertCateSubRight>input[type=submit] {
+	width: 150px; height: 30px; float:right; margin-right: 110px;
+}
+#insertCateSubRight {
+	width: 47%; float:right;
+	border-left: 1px dotted #ccc; padding-left: 5%;
+}
+
+#UpdateCateFrm {
+	width: 430px; height: 130px;
+	border:1px solid; background-color:#fff;
+	position:absolute; overflow:auto;
+	top:600px; left:1000px; padding:10px;
+}
+#UpdateCateFrmInput {
+	float:right;
+	width: 80px; height: 30px; margin:5px 22px 5px 5px;
+}
+#UpdateCateFrm>button {
+	margin-right: 0px; float:right;
+	width: 80px; height: 30px; margin:5px;
+}
+
+/* product qna */
+#productQnaList {
+	background-color: #fff;
+	width: 1100px; margin:0 auto;
+	padding : 0 12px; overflow: auto;
+	display : block;
+}
+#productQnaList>button[type=button] {
+	width: 150px; height: 30px; float:right;
+	margin: 10px 30px;
+}
+#productQnaList_ul {
+	width: 100%; overflow: auto; text-align: center;
+}
+#productQnaList_ul>li {
+	float:left;
+	height: 40px; line-height: 40px; width: 15%;
+}
+#productQnaList_ul>li:not(li.tableHeader) {
+	border-bottom: 1px solid #eee;
+}
+#productQnaList_ul>li:nth-of-type(6n+1) {
+	width: 5%;
+}
+#productQnaList_ul>li:nth-of-type(6n+2) {
+	width: 20%;
+}
+#productQnaList_ul>li:nth-of-type(6n+3) {
+	width: 28%; padding-left: 2%; text-align: left;
+}
+#productQnaList_ul>li:nth-of-type(3) {
+	width: 30%; padding-left: 0%; text-align: center;
+}
+#productQnaList_ul>li>input[type=checkbox] {
+	margin: 0; padding: 0;
+	width: 15px; height: 15px;
+}
+#pqnaAnswerOk>form>span{
+	display:inline-block; width: 50px; height: 40px; line-height: 40px;
+	text-align: center; margin-right: 40px; margin-left: 2%;
+}
+#pqnaAnswerOk>form>span:nth-of-type(4){
+	vertical-align: top; margin-top: 40px;
+}
+#pqnaAnswerOk>form>input[type=text] {
+	padding-left:2%; width: 80%; height: 40px;
+	margin-bottom: 10px; 
+}
+#pqnaAnswerOk>form>textarea {
+	margin: 0 0 20px 111px; padding-left:22px; padding-top:2%;
+	width: 882px; height: 100px; resize:none;
+
+}
+#pqnaAnswerOk>form>textarea[name=pqnacontent] {
+	margin: 0 auto 50px; width: 882px; 
+}
+#pqnaAnswerOk>form>p {
+	margin-bottom: 20px; height: 50px; line-height: 50px;
+	border-bottom : 2px solid;
+}
+
+/* faq */
+#faqWrite {
+	width: 100%; margin-top: 30px;
+}
+#faqWrite>form>span{
+	display:inline-block; width: 60px; height: 40px; line-height: 40px;
+	text-align: center; margin-right: 40px; margin-left: 2%;
+}
+#faqWrite>form>select {
+	margin: 0; padding: 0;
+}
+#faqWrite>form>input[type=text] {
+	padding-left:2%; width: 80%; height: 40px;
+	margin-bottom: 10px; margin-left:3px;
+}
+#faqWrite>form>textarea {
+	margin: 0 0 20px 3px; padding-left:22px; padding-top:2%;
+	width: 882px; height: 100px; resize:none;
+}
+#faqWrite>form>span:nth-of-type(3){
+	vertical-align: top; margin-top: 40px;
+}
+#faqWrite>form>p {
+	margin-bottom: 20px; height: 50px; line-height: 50px;
+	border-bottom : 2px solid;
+}
+#faqWrite>form>input[type=submit], #faqWrite>form>input[type=reset] {
+	float:right; width: 150px; height: 35px;
+}
+
 
 /*tag css*/
 
@@ -97,17 +377,15 @@ h1{
 }
 select {
 	width: 150px; height: 30px;
-	font-size:1.2em;
+	font-size:1.1em;
 	margin:5px 10px 5px 0;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 input {
-	width: 300px; height: 28px;
-	margin:5px 15px 5px 0;
-}
-
-input[type=submit], input[type=reset], button {
-	cursor:pointer;
+	width: 306px; height: 26px;
+	margin:5px 20px 5px 0;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 p>img {
@@ -116,6 +394,7 @@ p>img {
 	margin-top: 8px;
 	cursor:pointer; 
 }
+
 /*class css*/
 .pTitle {
 	font-weight: bold; 	font-size:1.3em;
@@ -123,5 +402,52 @@ p>img {
 }
 .pContent {
 	display:inline-block;
-	width: 80px;
+	width: 80px; margin-left: 10px;
+}
+.tableHeader {
+	border-bottom: 1px solid #aaa;
+	border-top: 1px solid #333;
+}
+
+/* product insert */
+.optionList>input {
+	width: 285px; margin: 5px 3px 0;
+}
+.optionList>input:first-child {
+	margin-left: 20px;
+}
+.optionList>input:nth-of-type(4) {
+	margin-right: 5px;
+}
+.pqnaAns {
+	display: inline-block;
+	width: 250px; height: 50px; line-height: 50px;
+	font-size:1.2em; text-align: center;	
+}
+
+/* product Search */
+
+.centertxt {
+	margin-right: 10px;
+}
+#pagingDiv {
+	text-align: center;
+}
+#pagingDiv>ul {
+	margin-bottom: 50px;
+	overflow:auto;
+	display:inline-block;	
+}
+
+/* product Qna */
+.answerNo {
+	display:inline-block; width:100px; height:30px; line-height: 30px;
+	margin-top:4px; 
+	border:1px solid rgb(191,43,53); background-color:rgb(191,43,53);
+	color:#fff;
+}
+.answerOk {
+	display:inline-block;
+	width:100px; height:30px; line-height: 30px; margin-top:5px;
+	border:1px solid #ddd;
 }

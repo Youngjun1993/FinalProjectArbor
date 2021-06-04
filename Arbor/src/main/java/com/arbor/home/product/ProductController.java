@@ -23,9 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.arbor.home.dao.ProductDAOImp;
 import com.arbor.home.mainCate.MainCateVO;
 import com.arbor.home.optionTbl.OptionVO;
 import com.arbor.home.subCate.SubCateVO;
+import com.arbor.home.vo.ProductVO;
 import com.google.gson.JsonObject;
 
 @Controller
@@ -36,19 +38,19 @@ public class ProductController {
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
 	
-	// View - 상품목록
+	// View - �긽�뭹紐⑸줉
 	@RequestMapping("/productList")
 	public String productList() {
 		return "client/product/productList";
 	}
 	
-	// View - 상품상세페이지
+	// View - �긽�뭹�긽�꽭�럹�씠吏�
 	@RequestMapping("/productView")
 	public String productView() {
 		return "client/product/productView";
 	}
 	
-	// Admin - 상품등록페이지로 넘어감
+	// Admin - �긽�뭹�벑濡앺럹�씠吏�濡� �꽆�뼱媛�
 	@RequestMapping("/productInsert")
 	public ModelAndView productInsert() {
 		ModelAndView mav = new ModelAndView();
@@ -60,7 +62,7 @@ public class ProductController {
 		return mav;
 	}
 
-	// Admin - 상품등록
+	// Admin - �긽�뭹�벑濡�
 	@RequestMapping(value="/productInsertOk", method=RequestMethod.POST)
 	@Transactional(rollbackFor= {Exception.class, RuntimeException.class})
 	public ModelAndView productInsertOk(
@@ -73,28 +75,28 @@ public class ProductController {
 			@RequestParam("imgName2") MultipartFile image2,
 			HttpServletRequest req
 			) {
-		// 트랜잭션 설정함
+		// �듃�옖�옲�뀡 �꽕�젙�븿
 		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
 		def.setPropagationBehavior(DefaultTransactionDefinition.PROPAGATION_REQUIRED);
 		TransactionStatus status = transactionManager.getTransaction(def);
-		// 처음 등록시 등록된 재고량 = 총재고량이 되므로 세팅함
+		// 泥섏쓬 �벑濡앹떆 �벑濡앸맂 �옱怨좊웾 = 珥앹옱怨좊웾�씠 �릺誘�濡� �꽭�똿�븿
 		pvo.setAllstock(pvo.getStock());
 		 
 		ModelAndView mav = new ModelAndView();
 		ProductDAOImp dao = sqlSession.getMapper(ProductDAOImp.class);
 		
-		// 저장할 경로 위치 설정 (upload 폴더에 넣을거임)
+		// ���옣�븷 寃쎈줈 �쐞移� �꽕�젙 (upload �뤃�뜑�뿉 �꽔�쓣嫄곗엫)
 		String path = req.getSession().getServletContext().getRealPath("/upload");
 		System.out.println(path);
-		// 파일 업로드
+		// �뙆�씪 �뾽濡쒕뱶
 		String imgName1 = image1.getOriginalFilename();
 		String imgName2 = image2.getOriginalFilename();
-		// 실제 파일 업로드시키기 (img1)
+		// �떎�젣 �뙆�씪 �뾽濡쒕뱶�떆�궎湲� (img1)
 		int p=1;
 		if(imgName1!=null && !imgName1.equals("")) {
 			File f = new File(path, imgName1);
 			while(f.exists()) {
-				/* 있으면 true, 없으면 false 반환되므로 true일때 filename rename */
+				/* �엳�쑝硫� true, �뾾�쑝硫� false 諛섑솚�릺誘�濡� true�씪�븣 filename rename */
 				int point = imgName1.lastIndexOf(".");
 				String name = imgName1.substring(0, point);
 				String extName = imgName1.substring(point+1);
@@ -106,18 +108,18 @@ public class ProductController {
 					image1.transferTo(f);
 				}
 			} catch(Exception e) {
-				System.out.println("productInsert > imageFile 등록 에러 !!!!");
+				System.out.println("productInsert > imageFile �벑濡� �뿉�윭 !!!!");
 			}
 			
-			// insert파일명 vo에 setting
+			// insert�뙆�씪紐� vo�뿉 setting
 			pvo.setImg1(f.getName());
 		}
-		// img2에 업로드
+		// img2�뿉 �뾽濡쒕뱶
 		int j=1;
 		if(imgName2!=null && !imgName2.equals("")) {
 			File f2 = new File(path, imgName2);
 			while(f2.exists()) {
-				/* 있으면 true, 없으면 false 반환되므로 true일때 filename rename */
+				/* �엳�쑝硫� true, �뾾�쑝硫� false 諛섑솚�릺誘�濡� true�씪�븣 filename rename */
 				int point = imgName2.lastIndexOf(".");
 				String name = imgName2.substring(0, point);
 				String extName = imgName2.substring(point+1);
@@ -129,21 +131,21 @@ public class ProductController {
 					image2.transferTo(f2);
 				}
 			} catch(Exception e) {
-				System.out.println("productInsert > imageFile2 등록 에러 !!!!");
+				System.out.println("productInsert > imageFile2 �벑濡� �뿉�윭 !!!!");
 			}
 			
-			// insert파일명 vo에 setting
+			// insert�뙆�씪紐� vo�뿉 setting
 			pvo.setImg2(f2.getName());
 		}
-		// insert시작
+		// insert�떆�옉
 		try {
 			// insert
 			int pInsert = dao.productInsert(pvo);
 			if (pInsert>0) {
-				// 등록 성공
+				// �벑濡� �꽦怨�
 			} else {
-				// 등록 실패
-				System.out.println("productInsert 에러발생!!!");
+				// �벑濡� �떎�뙣
+				System.out.println("productInsert �뿉�윭諛쒖깮!!!");
 				File f = new File(path, imgName1);
 				f.delete();
 				File del2 = new File(path, pvo.getImg2());
@@ -155,13 +157,13 @@ public class ProductController {
 				vo.setPno(dao.pnoSelect(pvo.getSubno(), pvo.getPname()));
 				vo.setOptname(optNameArr[i]);
 				vo.setOptvalue(optValueArr[i]);
-				// rgb코드는 색상 구분일 때만 받아옴
-				if(optNameArr[i].equals("색상")) {
+				// rgb肄붾뱶�뒗 �깋�긽 援щ텇�씪 �븣留� 諛쏆븘�샂
+				if(optNameArr[i].equals("�깋�긽")) {
 					vo.setRgbvalue(rgbValueArr[i]);
 				} else {
 					vo.setRgbvalue("");
 				}
-				// 가격추가 없을시 0원으로 표기
+				// 媛�寃⑹텛媛� �뾾�쓣�떆 0�썝�쑝濡� �몴湲�
 				if(optPriceArr[i].equals("") || optPriceArr[i]==null) {
 						vo.setOptprice(0);
 					} else {
@@ -172,16 +174,16 @@ public class ProductController {
 			transactionManager.commit(status);
 			mav.setViewName("redirect:productList");
 		} catch(Exception e) {
-			System.out.println("ProductController > productInsertOk에서 에러 발생!");
+			System.out.println("ProductController > productInsertOk�뿉�꽌 �뿉�윭 諛쒖깮!");
 			e.printStackTrace();
-			// 실행 중 에러발생하면 데이터 rollback 파일 삭제
+			// �떎�뻾 以� �뿉�윭諛쒖깮�븯硫� �뜲�씠�꽣 rollback �뙆�씪 �궘�젣
 			transactionManager.rollback(status);
 			mav.setViewName("redirect:productInsert");
 		}
 		return mav;
 	}
 	
-	// 대분류에 따른 서브카테고리 가져오기
+	// ��遺꾨쪟�뿉 �뵲瑜� �꽌釉뚯뭅�뀒怨좊━ 媛��졇�삤湲�
 	@RequestMapping("/subCateList")
 	@ResponseBody
 	public List<SubCateVO> subCateList(int mainno) {
@@ -189,7 +191,7 @@ public class ProductController {
 		return dao.subCateList(mainno);
 	}
 	
-	// Admin - 상품관리 첫페이지 (목록, 검색, 수정)
+	// Admin - �긽�뭹愿�由� 泥ロ럹�씠吏� (紐⑸줉, 寃��깋, �닔�젙)
 	@RequestMapping("/productSearch")
 	public ModelAndView productSearch() {
 		ProductDAOImp dao = sqlSession.getMapper(ProductDAOImp.class);
@@ -211,21 +213,21 @@ public class ProductController {
 		
 		JsonObject jsonObject = new JsonObject();
 		
-		// 저장할 경로 위치 설정 (웹루트로 업로드하면 빌드하고 재배포시 이미지가 사라짐 외부 경로에 잡아준다.)
+		// ���옣�븷 寃쎈줈 �쐞移� �꽕�젙 (�쎒猷⑦듃濡� �뾽濡쒕뱶�븯硫� 鍮뚮뱶�븯怨� �옱諛고룷�떆 �씠誘몄�媛� �궗�씪吏� �쇅遺� 寃쎈줈�뿉 �옟�븘以��떎.)
 		String path = req.getSession().getServletContext().getRealPath("/summernote");
-		// 파일명 구하기
+		// �뙆�씪紐� 援ы븯湲�
 		String orgName = multipartFile.getOriginalFilename();
 		
-		// transferTo : 실제 업로드 발생
+		// transferTo : �떎�젣 �뾽濡쒕뱶 諛쒖깮
 		try {
 			if(orgName!=null && !orgName.equals("")) {
 				multipartFile.transferTo(new File(path, orgName));
-				// 업로드 시키기 (path경로에 orgName을 업로드 시킨다)
+				// �뾽濡쒕뱶 �떆�궎湲� (path寃쎈줈�뿉 orgName�쓣 �뾽濡쒕뱶 �떆�궓�떎)
 				jsonObject.addProperty("url", "/home/summernote/"+orgName);
 				jsonObject.addProperty("responseCode", "success");
 			}
 		} catch(Exception e) {
-			System.out.println("ProductController > summernote upload 에서 에러 발생!!!");
+			System.out.println("ProductController > summernote upload �뿉�꽌 �뿉�윭 諛쒖깮!!!");
 			jsonObject.addProperty("responseCode", "error");
 			e.printStackTrace();
 		}

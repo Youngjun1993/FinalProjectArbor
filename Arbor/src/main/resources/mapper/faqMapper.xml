@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+<mapper namespace="com.arbor.home.dao.FaqDAOImp">
+	<select id="faqList" resultType="com.arbor.home.vo.FaqVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select faqno, faqcate, faqsubject, faqcontent, faqdate from faq
+		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%' order by faqno desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by faqno asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by faqno desc</if>
+		
+		<if test="searchWord==null">order by faqno desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by faqno asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by faqno desc</if>
+	</select>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(faqno) as totalRecord from faq
+	</select>
+	<insert id="faqInsert" parameterType="com.arbor.home.vo.FaqVO">
+		insert into faq (faqno, faqcate, faqsubject, faqcontent, faqdate)
+		values(faqsq.nextval, #{faqcate}, #{faqsubject}, #{faqcontent}, sysdate)
+	</insert>
+	<select id="faqselect" resultType="com.arbor.home.vo.FaqVO">
+		select * from faq where faqno=#{param1}
+	</select>
+	<update id="faqEditOk" parameterType="com.arbor.home.vo.FaqVO">
+		update faq set faqsubject=#{faqsubject}, faqcate=#{faqcate}, faqcontent=#{faqcontent} where faqno=#{faqno}
+	</update>
+	<delete id="faqDel" parameterType="com.arbor.home.vo.FaqVO">
+		delete from faq where faqno=#{param1}
+	</delete>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.arbor.home.dao.TimeSaleDAOImp">
+  	<select id="timeSaleAllSelect" resultType="com.arbor.home.vo.TimeSaleVO">
+  		select saleNo, p.pNo, pName, pPrice, t.salePrice, to_char(saleStart, 'yyyy-mm-dd hh24:mi') saleStart, to_char(saleEnd, 'yyyy-mm-dd hh24:mi') saleEnd
+  		from timeSale t join product p on t.pNo=p.pNo
+  		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>
+  		order by saleNo desc
+  	</select>
+  	<select id="pInfoSearch" resultType="com.arbor.home.vo.ProductVO">
+  		select pName, pPrice from product where pNo=#{param1}
+  	</select>
+  	<insert id="timeSaleInsert" parameterType="com.arbor.home.vo.TimeSaleVO">
+  		insert into timesale(saleNo, pNo, saleContent, saleStart, saleEnd, salePrice) values(timesalesq.nextval, #{pNo}, #{saleContent}, to_date(#{saleStart}, 'yyyy-mm-dd hh24:mi'), to_date(#{saleEnd}, 'yyyy-mm-dd hh24:mi'), #{salePrice})
+  	</insert>
+  	<select id="timeSaleSelect" resultType="com.arbor.home.vo.TimeSaleVO">
+  		select saleNo, p.pNo, pName, pPrice, t.salePrice, to_char(saleStart, 'yyyy-mm-dd hh24:mi') saleStart, to_char(saleEnd, 'yyyy-mm-dd hh24:mi') saleEnd, saleContent from timesale t join product p on t.pNo=p.pNo and saleNo=#{param1}
+  	</select>
+  	<update id="timeSaleEdit">
+  		update timesale set pNo=#{pNo}, salePrice=#{salePrice}, saleStart=to_date(#{saleStart}, 'yyyy-mm-dd hh24:mi'), saleEnd=to_date(#{saleEnd}, 'yyyy-mm-dd hh24:mi'), saleContent=#{saleContent} where saleNo=#{saleNo}
+  	</update>
+  	<delete id="timeSaleDelete">
+  		delete from timesale where saleNo=#{param1}
+  	</delete>
+  	<select id="getTimeSale" resultType="com.arbor.home.vo.TimeSaleVO">
+  		select saleNo, p.pNo, pName, pPrice, t.salePrice, to_char(saleStart, 'yyyy-mm-dd hh24:mi') saleStart, to_char(saleEnd, 'yyyy-mm-dd hh24:mi') saleEnd, saleContent from timesale t join product p on t.pNo=p.pNo where saleend>=sysdate order by saleno
+  	</select>
+  </mapper>

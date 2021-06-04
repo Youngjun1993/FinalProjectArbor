@@ -1,0 +1,58 @@
+@charset "UTF-8";
+/* class */
+
+
+/*----------------
+	타임세일 리스트
+-----------------*/
+#timeSaleList>li{
+	float: left;
+	width: 10%;
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #eee;
+	text-align: center;
+}
+
+#timeSaleList>li:nth-child(-n+7){
+	font-weight: bold;
+	font-size: 1em;
+	color: #333;
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #aaa;
+}
+
+#timeSaleList>li:nth-child(7n+1),
+#timeSaleList>li:nth-child(7n+3){
+	width: 5%;
+}
+#timeSaleList>li:nth-child(7n+4),
+#timeSaleList>li:nth-child(7n+7){
+	width: 30%;
+}
+#timeSaleList>li:nth-child(7n+4):not(#timeSaleList>li:nth-child(4)){
+	text-align: left;
+}
+
+/*--------------
+	타임세일 등록
+---------------*/
+#saleSubject{
+	width: 493px;
+}
+#j_pNo, #j_pName{
+	width: 250px;
+}
+
+/*--------------
+	타임세일 뷰
+---------------*/
+#j_saleContent{text-align: center;}
+#j_emptyTimeSale{
+	height: 500px;
+	line-height: 500px;
+	text-align: center;
+	font-size: 1.5em;
+	color: #bbb;
+	font-weight: bold;
+}

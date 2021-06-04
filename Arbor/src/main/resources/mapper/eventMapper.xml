@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.arbor.home.dao.EventDAOImp">
+  
+  	<!-- client -->
+  	<select id="eventList" resultType="com.arbor.home.vo.EventVO">
+  		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, eventImg1
+  		from event where <if test="searchWord!=null">${searchKey} like '%${searchWord}%' and</if>
+  		to_date(eventEnd, 'YY-MM-DD')>sysdate order by eventNo desc
+  	</select>
+  	<select id="eventSelect" resultType="com.arbor.home.vo.EventVO">
+  		select eventNo, eventSubject, eventContent, eventImg1, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yyyy-mm-dd hh24:mi') eventDate, eventType, typeNo from event where eventNo=#{param1}
+  	</select>
+  	<select id="closeEvent" resultType="com.arbor.home.vo.EventVO">
+  		select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart, to_char(eventEnd, 'yyyy-mm-dd') eventEnd
+  		from event where <if test="searchWord!=null">${searchKey} like '%${searchWord}%' and</if>
+  		sysdate>to_date(eventEnd, 'YY-MM-DD') order by eventNo desc
+  	</select>
+  	<select id="lagLeadSelect" resultType="com.arbor.home.vo.PrevNextVO">
+  		select * from (select eventNo, lag(eventNo, 1, 0) over (order by eventNo desc) prevNo,
+  		lag(eventSubject, 1, '이전글이 없습니다.') over (order by eventNo desc) prevSubject,
+  		lead(eventNo, 1, 0) over (order by eventNo desc) nextNo,
+  		lead(eventSubject, 1, '다음글이 없습니다.') over (order by eventNo desc) nextSubject
+  		from event where to_date(eventEnd, 'YY-MM-DD')>sysdate) where eventNo=#{param1}
+  	</select>
+  	<select id="checkUserCoupon" resultType="com.arbor.home.vo.CouponVO">
+  		select * from coupon where userid=#{param1} and cpnadno=#{param2}
+  	</select>
+  	<select id="couponInfo" resultType="com.arbor.home.vo.CouponVO">
+  		select cpnadno, cpnname, apply, salerate, cpnstart, cpnend from couponad where cpnadno=#{param1}
+  	</select>
+  	<insert id="getCoupon" parameterType="com.arbor.home.vo.CouponVO">
+  		insert into coupon(cpnno, userid, cpnname, apply, salerate, cpnstart, cpnend, cpnadno) values(couponsq.nextval, #{userid}, #{cpnname}, #{apply}, #{salerate}, to_date(#{cpnstart}, 'yyyy-mm-dd hh24:mi:ss'), to_date(#{cpnend}, 'yyyy-mm-dd hh24:mi:ss'), #{cpnadno})
+	</insert>
+
+  	<!-- admin -->
+	<select id="eventListSelect" resultType="com.arbor.home.vo.EventVO" parameterType="com.arbor.home.vo.PageSearchVO">
+		select * from (select * from (select eventNo, eventSubject, to_char(eventStart, 'yyyy-mm-dd') eventStart,
+		to_char(eventEnd, 'yyyy-mm-dd') eventEnd, to_char(eventDate, 'yy/mm/dd hh24:mi') eventDate from event
+		<if test="searchWord!=null">where ${searchKey} like '%${searchWord}%' order by eventNo desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by eventNo asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by eventNo desc</if>
+		<if test="searchWord==null">order by eventNo desc)
+		<![CDATA[where rownum <= ]]>#{pageNum} * #{onePageRecord} order by eventNo asc)
+		<![CDATA[where rownum <= ]]><if test="pageNum==totalPage">#{lastPageRecord}</if>
+		<if test="pageNum!=totalPage">#{onePageRecord}</if> order by eventNo desc</if>
+	</select>
+  	<insert id="eventInsert" parameterType="com.arbor.home.vo.EventVO">
+  		insert into event(eventNo, eventSubject, eventContent, eventStart, eventEnd, eventImg1) values(eventsq.nextval, #{eventSubject}, #{eventContent}, #{eventStart}, #{eventEnd}, #{eventImg1})
+  	</insert>
+  	<select id="getFilename" resultType="com.arbor.home.vo.EventVO">
+  		select eventImg1 from event where eventNo=#{param1}
+  	</select>
+	<update id="eventUpdate">
+		update event set eventSubject=#{eventSubject}, eventContent=#{eventContent}, eventStart=#{eventStart}, eventEnd=#{eventEnd}, eventImg1=#{eventImg1} where eventNo=#{eventNo}
+	</update>
+	<delete id="eventDelete">
+		delete from event where eventNo=#{param1}
+	</delete>
+	<select id="totalRecord" resultType="int" parameterType="com.arbor.home.vo.PageSearchVO">
+		select count(eventNo) as totalRecord from event <if test="searchWord!=null">where ${searchKey} like '%${searchWord}%'</if>		
+	</select>
+	<select id="getCateInfo" resultType="int">
+		select mainno from subcate where subno=#{param1}
+	</select>
+  </mapper>
