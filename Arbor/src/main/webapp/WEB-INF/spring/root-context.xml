@@ -15,9 +15,9 @@
 	<!-- 오라클 서버위치, 아이디, 비번, 드라이브등 설정 -->
 	<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-		<property name="url" value="jdbc:oracle:thin:@bitcamp4.iptime.org:1521:xe"></property>
-		<property name="username" value="c##kangsan2"></property>
-		<property name="password" value="c##kangsan2"></property>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="username" value="c##arbor"></property>
+		<property name="password" value="qwer1234"></property>
 	</bean>
 	
 	<!-- SqlSessionFactory를 생성 -->
