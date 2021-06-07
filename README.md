@@ -1,5 +1,5 @@
 # 비트캠프 최종 프로젝트
-### Arbor(라틴어 : 나무)라는 가구 쇼핑몰 구축
+### Arbor(라틴어 : 나무)라는 가구 쇼핑몰 구축하였습니다.
 
 * ### Client
 <table>
@@ -260,3 +260,4 @@
 </table>
 
 ## 개발환경
+![ajax](../../src/main/webapp/img/ajax.jpg)
