@@ -264,14 +264,14 @@
 
 ## 개발환경
 ### FRONT-END
-<img src="https://user-images.githubusercontent.com/76992948/121053555-72647300-c7f6-11eb-93c7-8a0695eb2528.PNG" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053565-7395a000-c7f6-11eb-98a5-e4f3a610c58b.PNG" width="100"> <img src="https://user-images.githubusercontent.com/76992948/121053548-71334600-c7f6-11eb-8d2f-2b56752b4606.PNG" width="126">
+<img src="https://user-images.githubusercontent.com/76992948/121053555-72647300-c7f6-11eb-93c7-8a0695eb2528.PNG" alt="html_js_css" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053565-7395a000-c7f6-11eb-98a5-e4f3a610c58b.PNG" alt="jquery" width="100"> <img src="https://user-images.githubusercontent.com/76992948/121053548-71334600-c7f6-11eb-8d2f-2b56752b4606.PNG" alt="ajax" width="126">
 
 ### BACK-END
-<img src="https://user-images.githubusercontent.com/76992948/121053561-72fd0980-c7f6-11eb-80ee-90693395cde2.PNG" width="100"> <img src="https://user-images.githubusercontent.com/76992948/121053566-7395a000-c7f6-11eb-8e44-a8593a399d54.PNG" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053570-742e3680-c7f6-11eb-84b9-b06da68854e3.PNG" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053573-74c6cd00-c7f6-11eb-82e6-bf70c9dbb04a.PNG" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053581-755f6380-c7f6-11eb-82d3-2253b8679982.PNG" width="120">
+<img src="https://user-images.githubusercontent.com/76992948/121053561-72fd0980-c7f6-11eb-80ee-90693395cde2.PNG" alt="java" width="100"> <img src="https://user-images.githubusercontent.com/76992948/121053566-7395a000-c7f6-11eb-8e44-a8593a399d54.PNG" alt="jsp" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053570-742e3680-c7f6-11eb-84b9-b06da68854e3.PNG" alt="mybatis" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053573-74c6cd00-c7f6-11eb-82e6-bf70c9dbb04a.PNG" alt="spring" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053581-755f6380-c7f6-11eb-82d3-2253b8679982.PNG" alt="tomcat" width="120">
 
 ### DATABASE
-<img src="https://user-images.githubusercontent.com/76992948/121053552-71cbdc80-c7f6-11eb-9bb7-6dc14a76c103.jpg" width="150" height="50"> <img src="https://user-images.githubusercontent.com/76992948/121053571-742e3680-c7f6-11eb-95b1-917769daa35d.PNG" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053576-74c6cd00-c7f6-11eb-9ed6-a424f25110a7.PNG" width="100">
+<img src="https://user-images.githubusercontent.com/76992948/121053552-71cbdc80-c7f6-11eb-9bb7-6dc14a76c103.jpg" alt="exerd" width="150" height="50"> <img src="https://user-images.githubusercontent.com/76992948/121053571-742e3680-c7f6-11eb-95b1-917769daa35d.PNG" alt="oracle" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053576-74c6cd00-c7f6-11eb-9ed6-a424f25110a7.PNG" alt="sqldeveloper" width="100">
 
 ### IDE/Co-op
-<img src="https://user-images.githubusercontent.com/76992948/121053557-72fd0980-c7f6-11eb-9328-b6e6726f8c65.PNG" width="120">
+<img src="https://user-images.githubusercontent.com/76992948/121056523-3ed71800-c7f9-11eb-8e7a-6dfe972250a0.png" alt="eclipse" width="150"> <img src="https://user-images.githubusercontent.com/76992948/121056539-41397200-c7f9-11eb-8f35-21df41c8b474.png" alt="sts" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053557-72fd0980-c7f6-11eb-9328-b6e6726f8c65.PNG" alt="git" width="120">
 
