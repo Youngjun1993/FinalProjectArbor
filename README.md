@@ -280,3 +280,14 @@
 ### IDE/Co-op
 <img src="https://user-images.githubusercontent.com/76992948/121056523-3ed71800-c7f9-11eb-8e7a-6dfe972250a0.png" alt="eclipse" width="150"> <img src="https://user-images.githubusercontent.com/76992948/121056539-41397200-c7f9-11eb-8f35-21df41c8b474.png" alt="sts" width="120"> <img src="https://user-images.githubusercontent.com/76992948/121053557-72fd0980-c7f6-11eb-9328-b6e6726f8c65.PNG" alt="git" width="120">
 
+## 사용 API
+### Google Maps
+* About us 페이지 오프라인 매장 구현
+### Summernote
+* 게시판 글등록 구현
+### Apexcharts
+* 수익 통계 그래프 구현
+### INIAPI
+* 결제 구현
+### 카페24 sms api
+* 휴면회원 등 문자발송 구현
