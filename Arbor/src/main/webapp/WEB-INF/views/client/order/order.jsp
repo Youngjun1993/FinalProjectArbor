@@ -185,7 +185,7 @@
 		// 결제 //////////////////////////////
 		var IMP = window.IMP;
 		IMP.init('imp60549605');	//가맹점 key
-		var amount = $('#j_totalPrice').val();
+		var amount = 110;
 		console.log("amount->"+amount)
 		var msg="";
 		var applynum="";	//결제 승인번호
